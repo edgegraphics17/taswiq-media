@@ -5,7 +5,7 @@ import { getLead } from "@/lib/admin/data";
 import { addNote, updateLead } from "@/app/admin/actions";
 import { BUDGET_LABEL, SOURCE_LABEL, STATUS_LABEL } from "@/lib/admin/labels";
 import { LEAD_STATUSES, type Json } from "@/types/database";
-import { interests as INTERESTS, projectStatuses } from "@/config/funnel";
+import { getTranslations } from "next-intl/server";
 import { formatDateTime, formatNumber } from "@/lib/format";
 import { ScoreBar, StatusPill, TierPill } from "@/components/admin/Pills";
 
@@ -22,6 +22,9 @@ export default async function LeadDetail({
   const data = await getLead(id);
   if (!data) notFound();
   const { lead, events } = data;
+  // Dashboard ist deutsch – Funnel-Labels aus derselben Quelle wie die Website
+  const tf = await getTranslations({ locale: "de", namespace: "funnel" });
+  const leadLocale = (lead.source_meta as { locale?: string } | null)?.locale;
   const calc = (lead.source_meta as { calculatorSummary?: { label: string; wert: string }[] } | null)?.calculatorSummary;
   const wa = lead.phone ? `https://wa.me/${lead.phone.replace(/[^\d]/g, "")}` : null;
 
@@ -73,13 +76,14 @@ export default async function LeadDetail({
               <div><dt className="text-muted">Telefon</dt><dd className="font-medium text-ink">{lead.phone ?? "–"}</dd></div>
               <div><dt className="text-muted">Branche</dt><dd className="font-medium text-ink">{lead.industry}</dd></div>
               <div><dt className="text-muted">Budget</dt><dd className="num font-medium text-ink">{lead.estimate_min ? `${formatNumber(lead.estimate_min)}–${formatNumber(lead.estimate_max ?? 0)} € (Rechner)` : BUDGET_LABEL[lead.budget]}</dd></div>
-              <div><dt className="text-muted">Status laut Lead</dt><dd className="font-medium text-ink">{projectStatuses.find((p) => p.id === lead.project_status)?.label ?? "–"}</dd></div>
+              <div><dt className="text-muted">Status laut Lead</dt><dd className="font-medium text-ink">{lead.project_status ? tf(`statuses.${lead.project_status}`) : "–"}</dd></div>
+              <div><dt className="text-muted">Sprache der Anfrage</dt><dd className="font-medium text-ink">{leadLocale === "en" ? "Englisch" : "Deutsch"}</dd></div>
               <div><dt className="text-muted">Monatlich (Rechner)</dt><dd className="num font-medium text-ink">{lead.monthly_estimate ? `${formatNumber(lead.monthly_estimate)} €` : "–"}</dd></div>
               <div className="sm:col-span-2">
                 <dt className="text-muted">Vorhaben</dt>
                 <dd className="mt-1 flex flex-wrap gap-1.5">
                   {lead.interests.map((i) => (
-                    <span key={i} className="rounded-full bg-canvas px-2.5 py-0.5 text-xs font-semibold text-ink">{INTERESTS.find((x) => x.id === i)?.label ?? i}</span>
+                    <span key={i} className="rounded-full bg-canvas px-2.5 py-0.5 text-xs font-semibold text-ink">{tf.has(`interests.${i}`) ? tf(`interests.${i}`) : i}</span>
                   ))}
                 </dd>
               </div>

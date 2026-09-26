@@ -1,52 +1,73 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { site, sameAs, hasAddress } from "@/config/site";
-import { pipelinePricing } from "@/config/pipeline";
+import { pipelinePackages } from "@/config/pipeline";
+import { getPathname } from "@/i18n/navigation";
+import { routing, LOCALE_META, type Locale } from "@/i18n/routing";
 
 /**
- * Metadata & JSON-LD (Phase 5 · Geo-SEO).
+ * Metadata & JSON-LD (Phase 5 · Geo-SEO) – zweisprachig.
  * Schema-Strategie nach asap: ein @graph mit Organisation (ProfessionalService +
  * LocalBusiness), WebSite und OfferCatalog – Unterseiten ergänzen Service,
  * FAQPage, BreadcrumbList und WebApplication (Rechner).
+ *
+ * hreflang: Jede Seite verweist auf ALLE Sprachfassungen inkl. sich selbst
+ * (de-DE, en, x-default → Deutsch). Canonical zeigt immer auf die eigene Sprache.
  */
+
+/** Link-Ziel ohne Hash – so, wie getPathname() es für kanonische URLs braucht */
+export type PathHref = Parameters<typeof getPathname>[0]["href"];
 
 export const ORG_ID = `${site.url}/#organisation`;
 export const WEBSITE_ID = `${site.url}/#website`;
 
-export const baseKeywords = [
-  "Medienagentur Gastronomie",
-  "Festival Videograf",
-  "KI Marketing Agentur",
-  "Aftermovie erstellen lassen",
-  "Food Fotograf",
-  "Restaurant Social Media Agentur",
-  "Eventvideograf",
-  "KI Content Produktion",
-  "KI Voiceover",
-  "Content Agentur Gastronomie",
-];
+/** Absolute URL einer internen Route in einer Sprache, z. B. ("/preisrechner", "en") → https://…/en/pricing-calculator */
+export function absoluteUrl(href: PathHref, locale: Locale) {
+  const path = getPathname({ href, locale });
+  return path === "/" ? site.url : `${site.url}${path}`;
+}
 
-export function pageMetadata({
+/**
+ * `hrefFor` liefert je Sprache das Link-Ziel – nötig, weil SEO-Slugs pro Sprache verschieden sind.
+ * Für normale Seiten reicht eine feste Route.
+ */
+export function languageAlternates(hrefFor: (l: Locale) => PathHref, locale: Locale): NonNullable<Metadata["alternates"]> {
+  const languages: Record<string, string> = {};
+  for (const l of routing.locales) languages[LOCALE_META[l].hreflang] = absoluteUrl(hrefFor(l), l);
+  languages["x-default"] = absoluteUrl(hrefFor(routing.defaultLocale), routing.defaultLocale);
+  return { canonical: absoluteUrl(hrefFor(locale), locale), languages };
+}
+
+export async function pageMetadata({
+  locale,
+  href,
   title,
   description,
-  path,
   keywords = [],
   image,
+  noindex,
 }: {
+  locale: Locale;
+  href: PathHref | ((l: Locale) => PathHref);
   title: string;
-  description: string;
-  path: string;
+  description?: string;
   keywords?: string[];
   image?: string;
-}): Metadata {
-  const url = `${site.url}${path}`;
+  noindex?: boolean;
+}): Promise<Metadata> {
+  const t = await getTranslations({ locale, namespace: "metadata" });
+  const hrefFor = typeof href === "function" ? href : () => href;
+  const alternates = languageAlternates(hrefFor, locale);
+  const url = alternates.canonical as string;
   return {
     title,
     description,
-    keywords: [...keywords, ...baseKeywords].slice(0, 14),
-    alternates: { canonical: url, languages: { "de-DE": url } },
+    keywords: [...keywords, ...(t.raw("keywords") as string[])].slice(0, 14),
+    alternates,
     openGraph: {
       type: "website",
-      locale: site.locale,
+      locale: LOCALE_META[locale].og,
+      alternateLocale: routing.locales.filter((l) => l !== locale).map((l) => LOCALE_META[l].og),
       url,
       siteName: site.name,
       title,
@@ -54,10 +75,13 @@ export function pageMetadata({
       ...(image ? { images: [{ url: image, width: 1200, height: 630 }] } : {}),
     },
     twitter: { card: "summary_large_image", title, description },
+    ...(noindex ? { robots: { index: false, follow: true } } : {}),
   };
 }
 
-export function organizationJsonLd() {
+export async function organizationJsonLd(locale: Locale) {
+  const t = await getTranslations({ locale, namespace: "schema" });
+  const tp = await getTranslations({ locale, namespace: "pipeline" });
   const address = hasAddress()
     ? {
         address: {
@@ -71,6 +95,7 @@ export function organizationJsonLd() {
       }
     : {};
   const geo = site.geo ? { geo: { "@type": "GeoCoordinates", latitude: site.geo.lat, longitude: site.geo.lng } } : {};
+  const home = absoluteUrl("/", locale);
 
   return {
     "@context": "https://schema.org",
@@ -80,103 +105,115 @@ export function organizationJsonLd() {
         "@id": ORG_ID,
         name: site.name,
         alternateName: site.legalName,
-        url: site.url,
+        url: home,
         logo: `${site.url}/icon.svg`,
-        image: `${site.url}/opengraph-image`,
-        description:
-          "Medienagentur für Gastronomie, Festivals und Musik: Premium-Videografie und Fotografie, skaliert mit KI-Workflows – Content-Pipelines, KI-Voiceover, Websites und Automatisierung.",
-        slogan: "Ein Drehtag. Content für ein ganzes Quartal.",
+        image: `${site.url}/${locale}/opengraph-image/default`,
+        description: t("orgDescription"),
+        slogan: t("slogan"),
         email: site.email,
         telephone: site.phone.replace(/\s/g, "-"),
         founder: { "@type": "Person", name: site.owner },
         priceRange: site.priceRange,
-        areaServed: site.areaServed.map((name) => ({ "@type": "Country", name })),
+        areaServed: (t.raw("areaServed") as string[]).map((name) => ({ "@type": "Country", name })),
         knowsLanguage: ["de", "en", "ar"],
-        knowsAbout: [
-          "Videoproduktion",
-          "Eventfotografie",
-          "Food-Fotografie",
-          "Aftermovies",
-          "Social-Media-Marketing",
-          "Generative KI",
-          "KI-Voiceover",
-          "Marketing-Automatisierung mit n8n",
-        ],
+        knowsAbout: t.raw("knowsAbout") as string[],
         ...address,
         ...geo,
         ...(sameAs().length ? { sameAs: sameAs() } : {}),
         contactPoint: {
           "@type": "ContactPoint",
-          contactType: "Vertrieb und Beratung",
+          contactType: t("contactType"),
           email: site.email,
           telephone: site.phone.replace(/\s/g, "-"),
           availableLanguage: ["German", "English", "Arabic"],
         },
         hasOfferCatalog: {
           "@type": "OfferCatalog",
-          name: "Pakete",
-          itemListElement: pipelinePricing.packages.map((p) => ({
+          name: t("catalogName"),
+          itemListElement: pipelinePackages.map((p) => ({
             "@type": "Offer",
-            price: p.price.replace(/[^\d]/g, ""),
+            price: String(p.price),
             priceCurrency: "EUR",
-            ...(p.unit === "pro Monat"
-              ? { priceSpecification: { "@type": "UnitPriceSpecification", price: p.price.replace(/[^\d]/g, ""), priceCurrency: "EUR", unitText: "Monat" } }
+            ...(p.billing === "monthly"
+              ? { priceSpecification: { "@type": "UnitPriceSpecification", price: String(p.price), priceCurrency: "EUR", unitText: t("monthUnit") } }
               : {}),
-            itemOffered: { "@type": "Service", name: p.name, description: `${p.audience}. ${p.features.join(", ")}.` },
+            itemOffered: {
+              "@type": "Service",
+              name: tp(`pricing.packages.${p.id}.name`),
+              description: `${tp(`pricing.packages.${p.id}.audience`)}. ${(tp.raw(`pricing.packages.${p.id}.features`) as string[]).join(", ")}.`,
+            },
           })),
         },
       },
       {
         "@type": "WebSite",
         "@id": WEBSITE_ID,
-        url: site.url,
+        url: home,
         name: site.name,
-        inLanguage: "de-DE",
+        inLanguage: LOCALE_META[locale].hreflang,
         publisher: { "@id": ORG_ID },
       },
     ],
   };
 }
 
-export function faqJsonLd(items: { q: string; a: string }[]) {
+export function faqJsonLd(items: { q: string; a: string }[], locale: Locale) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    inLanguage: LOCALE_META[locale].hreflang,
     mainEntity: items.map((i) => ({ "@type": "Question", name: i.q, acceptedAnswer: { "@type": "Answer", text: i.a } })),
   };
 }
 
-export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
+export function breadcrumbJsonLd(items: { name: string; href: PathHref }[], locale: Locale) {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: items.map((it, i) => ({ "@type": "ListItem", position: i + 1, name: it.name, item: `${site.url}${it.path}` })),
+    itemListElement: items.map((it, i) => ({ "@type": "ListItem", position: i + 1, name: it.name, item: absoluteUrl(it.href, locale) })),
   };
 }
 
-export function serviceJsonLd({ name, description, path, serviceType, city }: { name: string; description: string; path: string; serviceType: string; city?: string }) {
+export async function serviceJsonLd({
+  locale,
+  name,
+  description,
+  href,
+  serviceType,
+  city,
+}: {
+  locale: Locale;
+  name: string;
+  description: string;
+  href: PathHref;
+  serviceType: string;
+  city?: string;
+}) {
+  const t = await getTranslations({ locale, namespace: "schema" });
   return {
     "@context": "https://schema.org",
     "@type": "Service",
     name,
     serviceType,
     description,
-    url: `${site.url}${path}`,
+    inLanguage: LOCALE_META[locale].hreflang,
+    url: absoluteUrl(href, locale),
     provider: { "@id": ORG_ID },
-    areaServed: city ? { "@type": "City", name: city } : site.areaServed.map((name) => ({ "@type": "Country", name })),
+    areaServed: city ? { "@type": "City", name: city } : (t.raw("areaServed") as string[]).map((n) => ({ "@type": "Country", name: n })),
   };
 }
 
-export function calculatorJsonLd() {
+export async function calculatorJsonLd(locale: Locale) {
+  const t = await getTranslations({ locale, namespace: "schema" });
   return {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: "Preisrechner von TasWiq Media.",
-    url: `${site.url}/preisrechner`,
+    name: t("calculatorName"),
+    url: absoluteUrl("/preisrechner", locale),
     applicationCategory: "BusinessApplication",
-    operatingSystem: "Alle, im Browser",
-    inLanguage: "de-DE",
-    description: "Video, Foto, Website oder KI-Workflows zusammenstellen und einen unverbindlichen Kostenrahmen erhalten. Richtwert, kein Angebot.",
+    operatingSystem: t("operatingSystem"),
+    inLanguage: LOCALE_META[locale].hreflang,
+    description: t("calculatorDescription"),
     publisher: { "@id": ORG_ID },
     offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
   };

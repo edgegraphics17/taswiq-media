@@ -3,13 +3,14 @@
 import { Check, Minus, Plus } from "lucide-react";
 import type { CalcState, Field, Option } from "@/config/pricing";
 import { priceHint } from "@/lib/pricing-engine";
-import { cn } from "@/lib/format";
+import { fieldCopy, type CalcI18n } from "@/lib/pricing-i18n";
+import { cn, formatEUR } from "@/lib/format";
 
 const COLS = { 1: "", 2: "sm:grid-cols-2", 3: "sm:grid-cols-3" } as const;
 
 /** Große, weiche Auswahlkarte: Auswahl = violetter Ring + weicher Schatten + Häkchen. */
-function OptionCard({ name, option, multi, checked, onChange }: { name: string; option: Option; multi: boolean; checked: boolean; onChange: () => void }) {
-  const hint = priceHint(option);
+function OptionCard({ name, option, multi, checked, onChange, i18n }: { name: string; option: Option; multi: boolean; checked: boolean; onChange: () => void; i18n: CalcI18n }) {
+  const hint = priceHint(option, i18n);
   return (
     <label
       className={cn(
@@ -43,7 +44,21 @@ function OptionCard({ name, option, multi, checked, onChange }: { name: string; 
   );
 }
 
-export function CalcField({ field, state, options, onChange }: { field: Field; state: CalcState; options: Record<string, Option[]>; onChange: (id: string, value: CalcState[string]) => void }) {
+export function CalcField({
+  field,
+  state,
+  options,
+  onChange,
+  i18n,
+}: {
+  field: Field;
+  state: CalcState;
+  options: Record<string, Option[]>;
+  onChange: (id: string, value: CalcState[string]) => void;
+  i18n: CalcI18n;
+}) {
+  const { t, locale } = i18n;
+  const copy = fieldCopy(i18n, field);
   if (field.typ === "schalter") {
     const on = state[field.id] === true;
     return (
@@ -58,8 +73,8 @@ export function CalcField({ field, state, options, onChange }: { field: Field; s
           <span className={cn("absolute top-1 left-1 size-5 rounded-full bg-white shadow transition-transform duration-300 ease-[var(--ease-soft)]", on && "translate-x-5")} />
         </span>
         <span>
-          <span className="block text-[15.5px] font-medium text-ink">{field.label}</span>
-          {field.hint && <span className="mt-0.5 block text-[13.5px] text-muted">{field.hint}</span>}
+          <span className="block text-[15.5px] font-medium text-ink">{copy.label}</span>
+          {copy.hint && <span className="mt-0.5 block text-[13.5px] text-muted">{copy.hint}</span>}
         </span>
       </label>
     );
@@ -72,12 +87,12 @@ export function CalcField({ field, state, options, onChange }: { field: Field; s
     return (
       <div className="rounded-3xl border border-line bg-white p-5">
         <label htmlFor={inputId} className="block text-[15.5px] font-medium text-ink">
-          {field.label}
+          {copy.label}
         </label>
-        {field.hint && <p className="mt-1 text-[13.5px] text-muted">{field.hint}</p>}
+        {copy.hint && <p className="mt-1 text-[13.5px] text-muted">{copy.hint}</p>}
         <div className="mt-4 flex flex-wrap items-center gap-3">
           <div className="inline-flex items-center rounded-full bg-canvas p-1">
-            <button type="button" onClick={() => set(n - 1)} disabled={n <= field.min} aria-label={`${field.label} verringern`} className="grid size-11 place-items-center rounded-full bg-white shadow-sm transition hover:text-brand-600 disabled:opacity-35">
+            <button type="button" onClick={() => set(n - 1)} disabled={n <= field.min} aria-label={t("decrease", { label: copy.label ?? "" })} className="grid size-11 place-items-center rounded-full bg-white shadow-sm transition hover:text-brand-600 disabled:opacity-35">
               <Minus className="size-4" aria-hidden />
             </button>
             <input
@@ -90,12 +105,13 @@ export function CalcField({ field, state, options, onChange }: { field: Field; s
               onChange={(e) => set(parseInt(e.target.value, 10))}
               className="num h-11 w-14 bg-transparent text-center text-lg font-medium text-ink outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
             />
-            <button type="button" onClick={() => set(n + 1)} disabled={n >= field.max} aria-label={`${field.label} erhöhen`} className="grid size-11 place-items-center rounded-full bg-brand-500 text-white shadow-[var(--shadow-brand)] transition hover:bg-brand-600 disabled:opacity-35">
+            <button type="button" onClick={() => set(n + 1)} disabled={n >= field.max} aria-label={t("increase", { label: copy.label ?? "" })} className="grid size-11 place-items-center rounded-full bg-brand-500 text-white shadow-[var(--shadow-brand)] transition hover:bg-brand-600 disabled:opacity-35">
               <Plus className="size-4" aria-hidden />
             </button>
           </div>
           <span className="num rounded-full bg-canvas px-3 py-1.5 text-sm text-muted">
-            je {field.preisProEinheit} € {n > 0 && <b className="font-medium text-brand-600">· {n * field.preisProEinheit} €</b>}
+            {t("perUnit", { amount: formatEUR(field.preisProEinheit, locale) })}{" "}
+            {n > 0 && <b className="font-medium text-brand-600">· {formatEUR(n * field.preisProEinheit, locale)}</b>}
           </span>
         </div>
       </div>
@@ -107,8 +123,8 @@ export function CalcField({ field, state, options, onChange }: { field: Field; s
   const value = state[field.id];
   return (
     <fieldset>
-      {field.label && <legend className="mb-3 text-sm font-medium text-muted">{field.label}</legend>}
-      {field.hint && <p className="mb-3 text-[13.5px] text-muted">{field.hint}</p>}
+      {copy.label && <legend className="mb-3 text-sm font-medium text-muted">{copy.label}</legend>}
+      {copy.hint && <p className="mb-3 text-[13.5px] text-muted">{copy.hint}</p>}
       <div className={cn("grid gap-3", COLS[field.spalten ?? 1])}>
         {list.map((o) => {
           const checked = multi ? (value as string[]).includes(o.id) : value === o.id;
@@ -119,6 +135,7 @@ export function CalcField({ field, state, options, onChange }: { field: Field; s
               option={o}
               multi={multi}
               checked={checked}
+              i18n={i18n}
               onChange={() => {
                 if (!multi) return onChange(field.id, o.id);
                 const arr = value as string[];

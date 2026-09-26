@@ -1,13 +1,15 @@
-import { references } from "@/config/content";
+import { getTranslations } from "next-intl/server";
+import { referenceArtists, referenceGroups } from "@/config/content";
 import { Reveal } from "@/components/ui/Reveal";
 
 /**
  * Referenz-Laufbänder im Stil der Logo-Reihe der Vorlage ("maze · Culture Amp"):
  * Namen typografisch statt Fremd-Logos, zwei gegenläufige Bänder, pausieren beim Hover.
  */
-export function References() {
-  const brands = references.groups.flatMap((g) => [{ label: g.label }, ...g.names.map((n) => ({ name: n }))]);
-  const artists = [{ label: references.artists.label }, ...references.artists.names.map((n) => ({ name: n }))];
+export async function References() {
+  const t = await getTranslations("home.references");
+  const brands = referenceGroups.flatMap((g) => [{ label: t(`groups.${g.id}`) }, ...g.names.map((n) => ({ name: n }))]);
+  const artists = [{ label: t("groups.artists") }, ...referenceArtists.map((n) => ({ name: n }))];
 
   const Row = ({ items, reverse }: { items: ({ label: string } | { name: string })[]; reverse?: boolean }) => (
     <div className="group/marquee relative flex overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_8%,black_92%,transparent)]">
@@ -37,8 +39,8 @@ export function References() {
   return (
     <div className="mt-20">
       <Reveal className="container-x text-center">
-        <p className="text-lg font-medium text-ink">{references.title}</p>
-        <p className="mt-1 text-sm text-muted">{references.partners.join(" · ")}</p>
+        <p className="text-lg font-medium text-ink">{t("title")}</p>
+        <p className="mt-1 text-sm text-muted">{(t.raw("partners") as string[]).join(" · ")}</p>
       </Reveal>
       <div className="mt-8 space-y-5">
         <Row items={brands} />

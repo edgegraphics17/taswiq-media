@@ -1,7 +1,8 @@
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 import { ArrowRight, BadgeCheck, Play, Star } from "lucide-react";
-import { hero, portfolio } from "@/config/content";
-import { site } from "@/config/site";
+import { portfolioItems } from "@/config/content";
+import { contactHref, site } from "@/config/site";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/SectionHeading";
 import { FloatCard, MiniBars } from "@/components/ui/FloatCard";
@@ -13,9 +14,15 @@ import poster from "../../../public/images/showreel-poster.jpg";
  * Hero im Soft-UI-Stil: zentrierte, leichte Headline mit rotierendem Wort,
  * zwei Pillen-Buttons, darunter das Showreel als abgerundete Karte mit
  * schwebenden Info-Karten (Stat-Karte schwarz, Qualitäts-Karte weiß, Play-Pille).
+ *
+ * Server Component: Texte kommen per getTranslations() aus messages/{de,en}.json –
+ * die Sprache liefert das [locale]-Segment, es wird kein Übersetzungs-JS an den Client geschickt.
  */
-export function Hero() {
-  const thumbs = portfolio.items.filter((p) => p.poster).slice(0, 4);
+export async function Hero() {
+  const t = await getTranslations("home.hero");
+  const rotating = t.raw("rotating") as string[];
+  const thumbs = portfolioItems.filter((p) => p.poster).slice(0, 4);
+
   return (
     <section id="home" className="relative overflow-hidden pt-32 pb-16 sm:pt-40">
       {/* weiche Farbnebel im Hintergrund */}
@@ -24,39 +31,38 @@ export function Hero() {
 
       <div className="container-x text-center">
         <div className="flex animate-rise justify-center">
-          <Eyebrow>{hero.eyebrow}</Eyebrow>
+          <Eyebrow>{t("eyebrow")}</Eyebrow>
         </div>
         <h1 className="mx-auto mt-5 max-w-4xl animate-rise text-[clamp(2.6rem,7vw,5.4rem)] leading-[1.02] font-medium [animation-delay:0.08s]">
-          {hero.titleStart}{" "}
-          <WordRotator words={hero.rotating} />
+          {t("titleStart")} <WordRotator words={rotating} />
           <span className="sr-only">
-            {hero.titleStart} {hero.rotating.join(", ")}
+            {t("titleStart")} {rotating.join(", ")}
           </span>
         </h1>
-        <p className="mx-auto mt-6 max-w-xl animate-rise text-[15.5px] leading-relaxed text-muted [animation-delay:0.16s]">{hero.sub}</p>
+        <p className="mx-auto mt-6 max-w-xl animate-rise text-[15.5px] leading-relaxed text-muted [animation-delay:0.16s]">{t("sub")}</p>
         <div className="mt-8 flex animate-rise flex-wrap justify-center gap-3 [animation-delay:0.24s]">
-          <ButtonLink href={hero.primary.href}>
-            {hero.primary.label} <ArrowRight className="size-4" aria-hidden />
+          <ButtonLink href={contactHref}>
+            {t("primary")} <ArrowRight className="size-4" aria-hidden />
           </ButtonLink>
-          <ButtonLink href={hero.secondary.href} variant="soft">
-            {hero.secondary.label}
+          <ButtonLink href="/preisrechner" variant="soft">
+            {t("secondary")}
           </ButtonLink>
         </div>
 
         {/* Social Proof: Projekt-Thumbnails als Avatar-Reihe */}
         <div className="mt-8 flex animate-rise items-center justify-center gap-3 [animation-delay:0.3s]">
           <div className="flex -space-x-2.5">
-            {thumbs.map((t) => (
-              <span key={t.id} className="relative size-9 overflow-hidden rounded-full ring-2 ring-canvas">
-                <Image src={t.poster!} alt="" fill sizes="36px" className="object-cover" />
+            {thumbs.map((p) => (
+              <span key={p.id} className="relative size-9 overflow-hidden rounded-full ring-2 ring-canvas">
+                <Image src={p.poster!} alt="" fill sizes="36px" className="object-cover" />
               </span>
             ))}
           </div>
           <p className="text-left text-[13px] leading-tight text-muted">
             <span className="flex items-center gap-1 font-medium text-ink">
-              <Star className="size-3.5 fill-amber-400 text-amber-400" aria-hidden /> 450+ Projekte
+              <Star className="size-3.5 fill-amber-400 text-amber-400" aria-hidden /> {t("proofTitle")}
             </span>
-            Hotels, Clubs, Festivals & Artists
+            {t("proofText")}
           </p>
         </div>
       </div>
@@ -65,7 +71,7 @@ export function Hero() {
       <div className="container-x mt-14 animate-rise [animation-delay:0.36s]">
         <div className="relative mx-auto max-w-5xl">
           <div className="relative aspect-[16/10] overflow-hidden rounded-[2rem] bg-night shadow-[var(--shadow-float)] sm:aspect-[16/9] sm:rounded-[2.5rem]">
-            <Image src={poster} alt="Standbild aus dem TasWiq-Showreel: Koch am Wok mit Flammen" fill priority placeholder="blur" sizes="(min-width:1024px) 1000px, 100vw" className="object-cover" />
+            <Image src={poster} alt={t("posterAlt")} fill priority placeholder="blur" sizes="(min-width:1024px) 1000px, 100vw" className="object-cover" />
             {site.heroVideo && <HeroVideo src={site.heroVideo} />}
           </div>
 
@@ -73,7 +79,7 @@ export function Hero() {
             <p className="num text-2xl font-medium tracking-tight sm:text-3xl">
               450<span className="text-lg text-brand-300">+</span>
             </p>
-            <p className="mt-0.5 text-[11px] leading-snug text-night-muted">Projekte in Gastro, Events & Musik</p>
+            <p className="mt-0.5 text-[11px] leading-snug text-night-muted">{t("statCard")}</p>
             <MiniBars className="mt-3 hidden sm:flex" />
           </FloatCard>
 
@@ -81,8 +87,8 @@ export function Hero() {
             <span className="grid size-10 place-items-center rounded-full bg-mint-500 text-white">
               <BadgeCheck className="size-5" aria-hidden />
             </span>
-            <p className="mt-3 text-sm font-medium">Erste Clips in 72 h</p>
-            <p className="text-xs text-muted">Kino-Look, KI-Tempo</p>
+            <p className="mt-3 text-sm font-medium">{t("qualityTitle")}</p>
+            <p className="text-xs text-muted">{t("qualityText")}</p>
           </FloatCard>
 
           <FloatCard className="right-4 -bottom-5 flex items-center gap-2.5 !rounded-full py-2 pr-4 pl-2 sm:-right-6">
@@ -90,8 +96,8 @@ export function Hero() {
               <Play className="size-4 translate-x-px fill-current" aria-hidden />
             </span>
             <span className="text-left text-[13px] leading-tight font-medium">
-              Showreel
-              <span className="block text-[11px] font-normal text-muted">Hotel-Restaurants · KL</span>
+              {t("showreel")}
+              <span className="block text-[11px] font-normal text-muted">{t("showreelMeta")}</span>
             </span>
           </FloatCard>
         </div>

@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
+import type { AppHref } from "@/config/site";
 import { ArrowRight, BadgeCheck } from "lucide-react";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/SectionHeading";
@@ -6,7 +8,7 @@ import { FloatCard, MiniBars } from "@/components/ui/FloatCard";
 import poster from "../../../public/images/cases/zuan-yuan.jpg";
 
 /** Hero der Unterseiten: zentrierte Headline, Pillen-Buttons, Bild-Karte mit schwebenden Stat-Karten. */
-export function ProductHero({
+export async function ProductHero({
   badge,
   titleStart,
   titleHighlight,
@@ -19,14 +21,12 @@ export function ProductHero({
   titleStart: string;
   titleHighlight: string;
   text: string;
-  primary: { label: string; href: string };
-  secondary: { label: string; href: string };
+  primary: { label: string; href: AppHref | `#${string}` };
+  secondary: { label: string; href: AppHref | `#${string}` };
   stats?: { value: string; label: string }[];
 }) {
-  const [s1, s2] = stats ?? [
-    { value: "72 h", label: "bis zu den ersten Clips" },
-    { value: "450+", label: "Projekte" },
-  ];
+  const t = await getTranslations("product");
+  const [s1, s2] = stats ?? (t.raw("defaultStats") as { value: string; label: string }[]);
   return (
     <section className="relative overflow-hidden pt-32 pb-12 sm:pt-40">
       <div className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-[520px] w-[900px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(120_64_254/0.13),transparent)]" aria-hidden />
@@ -51,7 +51,7 @@ export function ProductHero({
       <div className="container-x mt-12 animate-rise [animation-delay:0.32s]">
         <div className="relative mx-auto max-w-4xl">
           <div className="relative aspect-[16/8] overflow-hidden rounded-[2rem] shadow-[var(--shadow-float)] sm:rounded-[2.5rem]">
-            <Image src={poster} alt="Dim-Sum-Service im Zuan Yuan Restaurant" fill priority placeholder="blur" sizes="(min-width:1024px) 900px, 100vw" className="object-cover" />
+            <Image src={poster} alt={t("heroImageAlt")} fill priority placeholder="blur" sizes="(min-width:1024px) 900px, 100vw" className="object-cover" />
           </div>
           <FloatCard tone="night" className="top-4 -left-2 w-40 text-left sm:-left-8 sm:w-44">
             <p className="num text-2xl font-medium">{s1.value}</p>

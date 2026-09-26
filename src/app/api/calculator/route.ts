@@ -2,6 +2,8 @@ import { NextResponse, type NextRequest } from "next/server";
 import { calculatorSchema } from "@/lib/validation";
 import { computeEstimate, sanitizeState, summaryRows } from "@/lib/pricing-engine";
 import { getPricingData } from "@/lib/pricing-source";
+import { localizeOptions } from "@/lib/pricing-i18n";
+import { getCalcI18n } from "@/lib/pricing-i18n.server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
 
@@ -15,16 +17,18 @@ export const runtime = "nodejs";
  */
 export async function POST(req: NextRequest) {
   if (!rateLimit(`calc:${clientIp(req.headers)}`, 20, 10 * 60_000)) {
-    return NextResponse.json({ ok: false, error: "Zu viele Anfragen." }, { status: 429 });
+    return NextResponse.json({ ok: false, error: "rateLimit" }, { status: 429 });
   }
   const parsed = calculatorSchema.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return NextResponse.json({ ok: false, error: "Ungültige Auswahl." }, { status: 422 });
+  if (!parsed.success) return NextResponse.json({ ok: false, error: "invalid" }, { status: 422 });
 
   const data = await getPricingData();
   const state = sanitizeState(parsed.data.state, data);
-  const estimate = computeEstimate(state, Number.POSITIVE_INFINITY, data);
+  // Gespeicherte Kalkulationen sind für das (deutsche) Dashboard – Labels daher immer DE
+  const de = await getCalcI18n("de");
+  const estimate = computeEstimate(state, Number.POSITIVE_INFINITY, data, de);
   const services = (state.leistungen as string[]) ?? [];
-  if (!services.length) return NextResponse.json({ ok: false, error: "Keine Leistung gewählt." }, { status: 422 });
+  if (!services.length) return NextResponse.json({ ok: false, error: "noService" }, { status: 422 });
 
   const supabase = createAdminClient();
   if (!supabase) return NextResponse.json({ ok: true, id: null, estimate });
@@ -36,7 +40,7 @@ export async function POST(req: NextRequest) {
       industry: state.branche === "musik" ? "musik" : "gastro",
       service_ids: services,
       state: JSON.parse(JSON.stringify(state)),
-      summary: summaryRows(state, data),
+      summary: summaryRows(state, localizeOptions(data, de), de),
       line_items: JSON.parse(JSON.stringify({ einmalig: estimate.einmalig, monatlich: estimate.monatlich })),
       estimate_min: estimate.von,
       estimate_max: estimate.bis,

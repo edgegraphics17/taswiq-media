@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Play, Star } from "lucide-react";
 import type { PortfolioItem } from "@/config/content";
 import fog from "../../../public/images/fog.jpg";
@@ -8,6 +9,7 @@ import fog from "../../../public/images/fog.jpg";
  * WAS geliefert wird. Sobald echte Projektbilder da sind, `mock` durch `image` ersetzen.
  */
 export function PortfolioMock({ type }: { type: NonNullable<PortfolioItem["mock"]> }) {
+  const t = useTranslations("home.portfolio.mock");
   switch (type) {
     case "menu":
       // Speisekarte im Rechnungs-Look (Navy-Kopf, Teal-Labels)
@@ -19,7 +21,7 @@ export function PortfolioMock({ type }: { type: NonNullable<PortfolioItem["mock"
               <p className="absolute bottom-2 left-4 text-lg font-extrabold tracking-[0.18em] text-white">LILY&apos;S</p>
             </div>
             <div className="space-y-2.5 p-4">
-              {["Vorspeisen & Suppen", "Currys & Wok", "Salate & Bowls"].map((c) => (
+              {(t.raw("menuSections") as string[]).map((c) => (
                 <div key={c}>
                   <p className="text-[8px] font-bold tracking-[0.2em] text-brand-600 uppercase">{c}</p>
                   <div className="mt-1 flex items-center justify-between gap-2">
@@ -96,7 +98,7 @@ export function PortfolioMock({ type }: { type: NonNullable<PortfolioItem["mock"
             <div className="absolute inset-x-3 bottom-3 text-center">
               <p className="text-[10px] font-bold tracking-[0.3em] text-brand-300">LIVE · 2026</p>
               <p className="mt-1 text-sm leading-tight font-extrabold text-white">CLUBS & FESTIVALS</p>
-              <p className="text-[10px] text-white/60">Flyer · Teaser · Countdown</p>
+              <p className="text-[10px] text-white/60">{t("lineupSub")}</p>
             </div>
           </div>
         </div>
@@ -106,14 +108,14 @@ export function PortfolioMock({ type }: { type: NonNullable<PortfolioItem["mock"
       return (
         <div className="absolute inset-0 grid place-items-center">
           <div className="pf-mock relative h-[58%] w-[70%]">
-            {["BIO", "PRESS", "MEDIAKIT"].map((t, i) => (
+            {["BIO", "PRESS", "MEDIAKIT"].map((label, i) => (
               <div
-                key={t}
+                key={label}
                 className="absolute inset-0 overflow-hidden rounded-xl border border-white/15 bg-night-soft shadow-2xl"
                 style={{ transform: `translate(${(i - 1) * 18}px, ${(1 - i) * 12}px) rotate(${(i - 1) * 4}deg)` }}
               >
                 <Image src={fog} alt="" fill sizes="400px" className="object-cover opacity-30 grayscale" />
-                <p className="absolute bottom-3 left-4 text-2xl font-extrabold tracking-[0.12em] text-white/90">{t}</p>
+                <p className="absolute bottom-3 left-4 text-2xl font-extrabold tracking-[0.12em] text-white/90">{label}</p>
                 <span className="absolute top-3 right-3 h-1.5 w-10 rounded-full bg-brand-500" />
               </div>
             ))}
@@ -125,9 +127,9 @@ export function PortfolioMock({ type }: { type: NonNullable<PortfolioItem["mock"
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="pf-mock flex items-center gap-2 sm:gap-4">
             {[
-              { t: "Google-Review", s: <span className="flex text-brand-300">{Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-2.5 fill-current" />)}</span> },
-              { t: "KI-Entwurf", s: <span className="text-[10px] text-white/60">im Ton des Hauses</span> },
-              { t: "Freigabe", s: <span className="text-[10px] text-brand-300">1 Klick</span> },
+              { t: t("review"), s: <span className="flex text-brand-300">{Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-2.5 fill-current" />)}</span> },
+              { t: t("draft"), s: <span className="text-[10px] text-white/60">{t("draftSub")}</span> },
+              { t: t("approve"), s: <span className="text-[10px] text-brand-300">{t("approveSub")}</span> },
             ].map((n, i) => (
               <div key={n.t} className="flex items-center gap-2 sm:gap-4">
                 <div className={`rounded-xl border px-3 py-2.5 text-center ${i === 1 ? "border-brand-400 bg-brand-500/20" : "border-white/15 bg-white/5"}`}>

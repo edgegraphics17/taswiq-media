@@ -1,9 +1,11 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { LoaderCircle, Send } from "lucide-react";
-import { validateContactField, type ContactField } from "@/lib/validation";
+import { Link } from "@/i18n/navigation";
+import { validateContactField, type ContactField, type ValidationCode } from "@/lib/validation";
+import type { ServerErrorCode } from "@/lib/submit-lead";
 import { cn } from "@/lib/format";
 
 export interface ContactValues {
@@ -18,12 +20,13 @@ export interface ContactValues {
 
 export const emptyContact: ContactValues = { name: "", email: "", phone: "", company: "", message: "", consent: false, website: "" };
 
-const FIELDS: { id: Exclude<ContactField, "consent">; label: string; type: string; autoComplete: string; required?: boolean; wide?: boolean }[] = [
-  { id: "name", label: "Dein Name", type: "text", autoComplete: "name", required: true },
-  { id: "email", label: "Deine E-Mail", type: "email", autoComplete: "email", required: true },
-  { id: "phone", label: "Telefon", type: "tel", autoComplete: "tel" },
-  { id: "company", label: "Restaurant / Event / Firma", type: "text", autoComplete: "organization" },
-  { id: "message", label: "Noch etwas?", type: "textarea", autoComplete: "off", wide: true },
+/** Labels: messages → contactForm.fields.<id> */
+const FIELDS: { id: Exclude<ContactField, "consent">; type: string; autoComplete: string; required?: boolean; wide?: boolean }[] = [
+  { id: "name", type: "text", autoComplete: "name", required: true },
+  { id: "email", type: "email", autoComplete: "email", required: true },
+  { id: "phone", type: "tel", autoComplete: "tel" },
+  { id: "company", type: "text", autoComplete: "organization" },
+  { id: "message", type: "textarea", autoComplete: "off", wide: true },
 ];
 
 /**
@@ -33,7 +36,7 @@ const FIELDS: { id: Exclude<ContactField, "consent">; label: string; type: strin
  */
 export function ContactForm({
   idPrefix,
-  submitLabel = "Anfrage senden",
+  submitLabel,
   serverError,
   serverFields,
   submitting,
@@ -42,14 +45,15 @@ export function ContactForm({
 }: {
   idPrefix: string;
   submitLabel?: string;
-  serverError?: string | null;
-  serverFields?: Record<string, string>;
+  serverError?: ServerErrorCode | null;
+  serverFields?: Record<string, ValidationCode>;
   submitting: boolean;
   onSubmit: (values: ContactValues) => void;
   footer?: React.ReactNode;
 }) {
+  const t = useTranslations("contactForm");
   const [v, setV] = useState<ContactValues>(emptyContact);
-  const [errors, setErrors] = useState<Partial<Record<ContactField, string | null>>>({});
+  const [errors, setErrors] = useState<Partial<Record<ContactField, ValidationCode | null>>>({});
   const formRef = useRef<HTMLFormElement>(null);
 
   const set = <K extends keyof ContactValues>(k: K, val: ContactValues[K]) => {
@@ -73,7 +77,11 @@ export function ContactForm({
     onSubmit(v);
   };
 
-  const err = (k: ContactField) => errors[k] ?? serverFields?.[k];
+  /** Fehler-Code (Client oder Server) → Text in der Sprache der Seite */
+  const err = (k: ContactField) => {
+    const code = errors[k] ?? serverFields?.[k];
+    return code ? t(`errors.${code}`) : null;
+  };
 
   return (
     <form ref={formRef} onSubmit={submit} noValidate className="space-y-4">
@@ -97,8 +105,8 @@ export function ContactForm({
           return (
             <div key={f.id} className={cn(f.wide && "sm:col-span-2")}>
               <label htmlFor={id} className="mb-1.5 block pl-4 text-sm font-medium text-ink">
-                {f.label}
-                {f.required ? <span className="text-brand-600"> *</span> : <span className="font-normal text-muted"> (optional)</span>}
+                {t(`fields.${f.id}`)}
+                {f.required ? <span className="text-brand-600"> *</span> : <span className="font-normal text-muted"> {t("optional")}</span>}
               </label>
               {f.type === "textarea" ? (
                 <textarea {...common} rows={3} className={cn(common.className, "rounded-3xl py-3.5")} onChange={(e) => set(f.id, e.target.value)} />
@@ -139,11 +147,13 @@ export function ContactForm({
             className="mt-0.5 size-5 shrink-0 accent-[var(--color-brand-500)]"
           />
           <span>
-            Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage gespeichert werden. Details in der{" "}
-            <Link href="/datenschutz" className="font-medium text-brand-600 underline underline-offset-2">
-              Datenschutzerklärung
-            </Link>
-            .
+            {t.rich("consent", {
+              link: (chunks) => (
+                <Link href="/datenschutz" className="font-medium text-brand-600 underline underline-offset-2">
+                  {chunks}
+                </Link>
+              ),
+            })}
           </span>
         </label>
         {err("consent") && (
@@ -155,7 +165,7 @@ export function ContactForm({
 
       {serverError && (
         <p role="alert" className="rounded-3xl border border-danger/25 bg-danger/5 px-5 py-3 text-sm text-danger">
-          {serverError}
+          {t(`server.${serverError}`)}
         </p>
       )}
 
@@ -168,11 +178,11 @@ export function ContactForm({
         >
           {submitting ? (
             <>
-              Wird gesendet <LoaderCircle className="size-4 animate-spin" aria-hidden />
+              {t("sending")} <LoaderCircle className="size-4 animate-spin" aria-hidden />
             </>
           ) : (
             <>
-              {submitLabel} <Send className="size-4" aria-hidden />
+              {submitLabel ?? t("submit")} <Send className="size-4" aria-hidden />
             </>
           )}
         </button>

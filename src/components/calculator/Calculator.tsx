@@ -2,15 +2,17 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { useLocale, useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Calculator as CalcIcon, Check, ChevronDown, Copy, Printer } from "lucide-react";
 import type { CalcState } from "@/config/pricing";
 import { computeEstimate, initialState, stepError, summaryRows, summaryText, visibleSteps, type PricingData } from "@/lib/pricing-engine";
 import type { FunnelIndustry, InterestId, LeadTier } from "@/config/funnel";
 import { getAttribution, getSessionId } from "@/lib/attribution";
-import { submitLead } from "@/lib/submit-lead";
+import { submitLead, type ServerErrorCode } from "@/lib/submit-lead";
+import { asTranslator, localizeOptions, stepCopy, type CalcI18n } from "@/lib/pricing-i18n";
 import { track } from "@/lib/track";
-import { formatEUR, formatNumber, cn } from "@/lib/format";
+import { eurAffix, formatEUR, formatNumber, cn } from "@/lib/format";
 import { CalcField } from "@/components/calculator/Fields";
 import { QuoteSheet } from "@/components/calculator/QuoteSheet";
 import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
@@ -26,7 +28,14 @@ import { LeadResult } from "@/components/funnel/LeadResult";
  *  - Ergebnis: Aufstellung als Angebotsblatt, Kopieren, PDF, Anfrage
  *  - Pfeiltasten ← → navigieren
  */
-export function Calculator({ data }: { data: PricingData }) {
+export function Calculator({ data: rawData }: { data: PricingData }) {
+  const tr = useTranslations("calculator");
+  const tc = useTranslations("common");
+  const locale = useLocale();
+  const i18n = useMemo<CalcI18n>(() => ({ t: asTranslator(tr), locale }), [tr, locale]);
+  // Preise aus Supabase, Texte aus messages/{de,en}.json
+  const data = useMemo(() => localizeOptions(rawData, i18n), [rawData, i18n]);
+  const eur = eurAffix(locale);
   const [s, setS] = useState<CalcState>(() => initialState());
   const [current, setCurrent] = useState(0);
   const [maxReached, setMaxReached] = useState(0);
@@ -35,7 +44,7 @@ export function Calculator({ data }: { data: PricingData }) {
   const [copied, setCopied] = useState(false);
   const [requestId, setRequestId] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
-  const [serverError, setServerError] = useState<string | null>(null);
+  const [serverError, setServerError] = useState<ServerErrorCode | null>(null);
   const [done, setDone] = useState<{ tier: LeadTier; name: string; email: string } | null>(null);
   const [mounted, setMounted] = useState(false);
   const topRef = useRef<HTMLDivElement>(null);
@@ -47,13 +56,17 @@ export function Calculator({ data }: { data: PricingData }) {
   const idx = Math.min(current, steps.length - 1);
   const step = steps[idx];
   const isResult = Boolean(step.ergebnis);
-  const live = useMemo(() => computeEstimate(s, idx, data), [s, idx, data]);
-  const full = useMemo(() => computeEstimate(s, Number.POSITIVE_INFINITY, data), [s, data]);
-  const rows = useMemo(() => summaryRows(s, data), [s, data]);
+  const copy = useMemo(() => stepCopy(i18n, step), [i18n, step]);
+  const live = useMemo(() => computeEstimate(s, idx, data, i18n), [s, idx, data, i18n]);
+  const full = useMemo(() => computeEstimate(s, Number.POSITIVE_INFINITY, data, i18n), [s, data, i18n]);
+  const rows = useMemo(() => summaryRows(s, data, i18n), [s, data, i18n]);
 
   const leistungen = (s.leistungen as string[]) ?? [];
   const industry: FunnelIndustry = s.branche === "musik" ? "musik" : "gastro";
-  const sheetTitle = `${leistungen.map((id) => data.optionen.leistungen.find((o) => o.id === id)?.label).join(" · ")} für ${industry === "musik" ? "Festival & Musik" : "Gastronomie"}`;
+  const sheetTitle = tr("sheetTitle", {
+    services: leistungen.map((id) => data.optionen.leistungen.find((o) => o.id === id)?.label).join(" · "),
+    industry: tr(`industries.${industry === "musik" ? "musik" : "gastro"}`),
+  });
 
   const update = (id: string, value: CalcState[string]) => {
     setError(null);
@@ -65,7 +78,7 @@ export function Calculator({ data }: { data: PricingData }) {
       const list = visibleSteps(s);
       const t = Math.max(0, Math.min(target, list.length - 1));
       if (t > idx) {
-        const err = stepError(list[idx], s);
+        const err = stepError(list[idx], s, i18n);
         if (err) return setError(err);
       }
       setError(null);
@@ -78,7 +91,7 @@ export function Calculator({ data }: { data: PricingData }) {
         if (window.scrollY > top + 40) window.scrollTo({ top, behavior: "smooth" });
       });
     },
-    [s, idx],
+    [s, idx, i18n],
   );
 
   useEffect(() => {
@@ -109,9 +122,9 @@ export function Calculator({ data }: { data: PricingData }) {
       .catch(() => setRequestId(null));
   }, [isResult, s, full.von, full.bis]);
 
-  const copy = async () => {
+  const copySummary = async () => {
     try {
-      await navigator.clipboard.writeText(summaryText(s, full));
+      await navigator.clipboard.writeText(summaryText(s, full, data, i18n));
     } catch {
       /* Clipboard verweigert – still ignorieren */
     }
@@ -143,6 +156,7 @@ export function Calculator({ data }: { data: PricingData }) {
       message: v.message,
       consent: true,
       website: v.website,
+      locale,
       calculator: { state: s, requestId },
     });
     setSubmitting(false);
@@ -151,16 +165,22 @@ export function Calculator({ data }: { data: PricingData }) {
     setDone({ tier: res.tier, name: v.name, email: v.email });
   };
 
-  const nextLabel = idx === steps.length - 2 ? "Ergebnis anzeigen" : "Weiter";
-  const priceLabel = idx === 0 ? "Einstiegspreis" : "Richtwert einmalig";
+  const nextLabel = idx === steps.length - 2 ? tr("showResult") : tc("next");
+  const priceLabel = idx === 0 ? tr("entryPrice") : tr("estimateOneTime");
+  const money = (n: number) => (
+    <>
+      {eur.pre}
+      <AnimatedNumber value={n} locale={locale} />
+      {eur.post}
+    </>
+  );
   const price = (className?: string) =>
     idx === 0 ? (
-      <span className={cn("num", className)}>
-        ab <AnimatedNumber value={live.ab} /> €
-      </span>
+      <span className={cn("num", className)}>{tr.rich("from", { amount: () => money(live.ab) })}</span>
     ) : (
       <span className={cn("num", className)}>
-        <AnimatedNumber value={live.von} /> – <AnimatedNumber value={live.bis} /> €
+        {eur.pre}
+        <AnimatedNumber value={live.von} locale={locale} /> – {money(live.bis)}
       </span>
     );
 
@@ -169,16 +189,16 @@ export function Calculator({ data }: { data: PricingData }) {
       {/* Kopf */}
       <div ref={topRef} className="mx-auto max-w-2xl text-center">
         <div className="flex justify-center">
-          <Eyebrow icon={CalcIcon}>Preisrechner · 2 Minuten · unverbindlich</Eyebrow>
+          <Eyebrow icon={CalcIcon}>{tr("eyebrow")}</Eyebrow>
         </div>
         <h1 className="mt-4 text-[clamp(2.3rem,5vw,3.8rem)] leading-[1.03] font-medium">
-          Was kostet <span className="text-brand-500">dein Projekt?</span>
+          {tr("titleStart")} <span className="text-brand-500">{tr("titleAccent")}</span>
         </h1>
-        <p className="mt-3 text-[15px] text-muted">Stell dein Projekt zusammen und sieh sofort den Rahmen. Richtwert, kein Angebot.</p>
+        <p className="mt-3 text-[15px] text-muted">{tr("sub")}</p>
       </div>
 
       {/* Schritt-Pillen */}
-      <nav aria-label="Schritte" className="mt-8 -mx-4 overflow-x-auto px-4 [scrollbar-width:none]">
+      <nav aria-label={tr("stepsAria")} className="mt-8 -mx-4 overflow-x-auto px-4 [scrollbar-width:none]">
         <ol className="mx-auto flex w-fit gap-1.5 rounded-full border border-line bg-white p-1.5 shadow-[var(--shadow-soft)]">
           {steps.map((st, i) => {
             const state = i === idx ? "aktiv" : i <= maxReached ? "erledigt" : "offen";
@@ -197,7 +217,7 @@ export function Calculator({ data }: { data: PricingData }) {
                   )}
                 >
                   {state === "erledigt" ? <Check className="size-3.5" strokeWidth={3} aria-hidden /> : <span className="num text-xs opacity-70">{i + 1}</span>}
-                  {st.kurz}
+                  {stepCopy(i18n, st).kurz}
                 </button>
               </li>
             );
@@ -219,19 +239,19 @@ export function Calculator({ data }: { data: PricingData }) {
               aria-labelledby={`step-${step.id}`}
             >
               <p className="num text-sm font-medium text-brand-600">
-                Schritt {idx + 1} von {steps.length}
+                {tr("stepOf", { current: idx + 1, total: steps.length })}
               </p>
               <h2 id={`step-${step.id}`} className="mt-1.5 text-[clamp(1.5rem,3vw,2rem)] leading-tight font-medium">
-                {step.titel}
+                {copy.titel}
               </h2>
-              {step.hint && <p className="mt-2 max-w-[60ch] text-[15px] text-muted">{step.hint}</p>}
+              {copy.hint && <p className="mt-2 max-w-[60ch] text-[15px] text-muted">{copy.hint}</p>}
 
               {!isResult && (
                 <div className="mt-8 space-y-8">
                   {step.felder
                     .filter((f) => (f.wenn ? f.wenn(s) : true))
                     .map((f) => (
-                      <CalcField key={f.id} field={f} state={s} options={data.optionen} onChange={update} />
+                      <CalcField key={f.id} field={f} state={s} options={data.optionen} onChange={update} i18n={i18n} />
                     ))}
                 </div>
               )}
@@ -241,22 +261,25 @@ export function Calculator({ data }: { data: PricingData }) {
                   {/* Ergebnis als schwarze Kontrast-Karte */}
                   <div className="card-night relative overflow-hidden p-7 sm:p-9">
                     <div className="pointer-events-none absolute -top-24 -right-24 size-72 rounded-full bg-[radial-gradient(closest-side,rgb(120_64_254/0.45),transparent)]" aria-hidden />
-                    <p className="relative text-sm text-night-muted">Einmalige Kosten</p>
+                    <p className="relative text-sm text-night-muted">{tr("oneTimeCosts")}</p>
                     <p className="num relative mt-1 text-[clamp(2.2rem,5.4vw,3.4rem)] leading-none font-medium tracking-tight text-white">
-                      {formatNumber(full.von)} – {formatNumber(full.bis)} €
+                      {eur.pre}
+                      {formatNumber(full.von, locale)} – {eur.pre}
+                      {formatNumber(full.bis, locale)}
+                      {eur.post}
                     </p>
                     <div className="relative mt-5 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm">
                       <span className="size-2 rounded-full bg-mint-400" aria-hidden />
-                      Laufend pro Monat: <b className="num font-medium">{full.summeMtl > 0 ? formatEUR(full.summeMtl) : "keine"}</b>
+                      {tr("monthlyLabel")} <b className="num font-medium">{full.summeMtl > 0 ? formatEUR(full.summeMtl, locale) : tr("none")}</b>
                     </div>
                     <p className="relative mt-5 max-w-lg text-[13px] leading-relaxed text-night-muted">
-                      <b className="font-medium text-white">Richtwert, kein Angebot.</b> Die Spanne beruht allein auf deinen Angaben – danach nennen wir einen festen Preis.
+                      <b className="font-medium text-white">{tr("disclaimerStrong")}</b> {tr("disclaimer")}
                     </p>
                   </div>
 
                   <details className="group overflow-hidden rounded-3xl border border-line bg-white">
                     <summary className="flex min-h-14 list-none items-center justify-between px-6 font-medium text-ink [&::-webkit-details-marker]:hidden">
-                      Wie kommt der Betrag zustande?
+                      {tr("howCalculated")}
                       <ChevronDown className="size-5 text-muted transition-transform duration-300 group-open:rotate-180" aria-hidden />
                     </summary>
                     <div className="border-t border-line bg-canvas p-3 sm:p-5">
@@ -265,12 +288,12 @@ export function Calculator({ data }: { data: PricingData }) {
                   </details>
 
                   <div className="flex flex-wrap gap-2">
-                    <button type="button" onClick={copy} className="inline-flex min-h-11 items-center gap-2 rounded-full bg-canvas px-5 text-sm font-medium text-ink transition hover:bg-brand-50 hover:text-brand-600">
+                    <button type="button" onClick={copySummary} className="inline-flex min-h-11 items-center gap-2 rounded-full bg-canvas px-5 text-sm font-medium text-ink transition hover:bg-brand-50 hover:text-brand-600">
                       {copied ? <Check className="size-4" aria-hidden /> : <Copy className="size-4" aria-hidden />}
-                      {copied ? "Kopiert" : "Zusammenfassung kopieren"}
+                      {copied ? tr("copied") : tr("copy")}
                     </button>
                     <button type="button" onClick={() => window.print()} className="inline-flex min-h-11 items-center gap-2 rounded-full bg-canvas px-5 text-sm font-medium text-ink transition hover:bg-brand-50 hover:text-brand-600">
-                      <Printer className="size-4" aria-hidden /> Als PDF speichern
+                      <Printer className="size-4" aria-hidden /> {tr("pdf")}
                     </button>
                   </div>
 
@@ -279,9 +302,9 @@ export function Calculator({ data }: { data: PricingData }) {
                       <LeadResult tier={done.tier} name={done.name} email={done.email} industry={industry} />
                     ) : (
                       <>
-                        <h3 className="text-2xl font-medium">Angebot anfordern</h3>
-                        <p className="mt-1.5 mb-6 text-sm text-muted">Wir prüfen deine Zusammenstellung und melden uns innerhalb von 24 Stunden. Unverbindlich.</p>
-                        <ContactForm idPrefix="rechner" submitLabel="Angebot anfordern" submitting={submitting} serverError={serverError} onSubmit={submit} />
+                        <h3 className="text-2xl font-medium">{tr("requestTitle")}</h3>
+                        <p className="mt-1.5 mb-6 text-sm text-muted">{tr("requestText")}</p>
+                        <ContactForm idPrefix="rechner" submitLabel={tr("requestSubmit")} submitting={submitting} serverError={serverError} onSubmit={submit} />
                       </>
                     )}
                   </div>
@@ -304,7 +327,7 @@ export function Calculator({ data }: { data: PricingData }) {
           {price("relative mt-1 block text-[2.1rem] leading-tight font-medium tracking-tight text-white")}
           {idx > 0 && live.summeMtl > 0 && (
             <p className="relative mt-2 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs">
-              <span className="size-1.5 rounded-full bg-mint-400" aria-hidden /> dazu {formatEUR(live.summeMtl)}/Monat
+              <span className="size-1.5 rounded-full bg-mint-400" aria-hidden /> {tr("plusMonthly", { amount: formatEUR(live.summeMtl, locale) })}
             </p>
           )}
           {live.einmalig.length > 0 && idx > 0 && (
@@ -312,7 +335,7 @@ export function Calculator({ data }: { data: PricingData }) {
               {live.einmalig.map((l) => (
                 <li key={l.key} className="flex justify-between gap-3 rounded-full bg-white/[0.06] px-3.5 py-2 text-[13px]">
                   <span className="truncate text-night-muted">{l.label}</span>
-                  <span className="num shrink-0 text-white">{formatEUR(l.betrag)}</span>
+                  <span className="num shrink-0 text-white">{formatEUR(l.betrag, locale)}</span>
                 </li>
               ))}
             </ul>
@@ -320,12 +343,12 @@ export function Calculator({ data }: { data: PricingData }) {
           <div className="relative mt-6 flex gap-2">
             {idx > 0 && (
               <button type="button" onClick={() => go(idx - 1)} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/20 px-5 text-sm font-medium text-white hover:bg-white/10">
-                <ArrowLeft className="size-4" aria-hidden /> Zurück
+                <ArrowLeft className="size-4" aria-hidden /> {tc("back")}
               </button>
             )}
             {isResult ? (
               <a href="#angebot" className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-brand-500 px-5 text-sm font-medium text-white shadow-[var(--shadow-brand)]">
-                Angebot anfordern
+                {tr("requestTitle")}
               </a>
             ) : (
               <button type="button" onClick={() => go(idx + 1)} className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-brand-500 px-5 text-sm font-medium text-white shadow-[var(--shadow-brand)] transition hover:bg-brand-600">
@@ -333,7 +356,7 @@ export function Calculator({ data }: { data: PricingData }) {
               </button>
             )}
           </div>
-          <p className="relative mt-4 text-center text-xs text-night-muted">Tipp: Mit ← → durch die Schritte</p>
+          <p className="relative mt-4 text-center text-xs text-night-muted">{tr("keyboardTip")}</p>
         </aside>
       </div>
 
@@ -343,22 +366,22 @@ export function Calculator({ data }: { data: PricingData }) {
           <div className="min-w-0 flex-1 leading-tight">
             <p className="text-[11px] text-night-muted">
               {priceLabel}
-              {idx > 0 && live.summeMtl > 0 && <> · +{formatEUR(live.summeMtl)}/Mon.</>}
+              {idx > 0 && live.summeMtl > 0 && <> · {tr("plusMonthlyShort", { amount: formatEUR(live.summeMtl, locale) })}</>}
             </p>
             {price("block truncate text-base font-medium")}
           </div>
           {idx > 0 && (
-            <button type="button" onClick={() => go(idx - 1)} aria-label="Zurück" className="grid size-11 shrink-0 place-items-center rounded-full bg-white/10">
+            <button type="button" onClick={() => go(idx - 1)} aria-label={tc("back")} className="grid size-11 shrink-0 place-items-center rounded-full bg-white/10">
               <ArrowLeft className="size-4" aria-hidden />
             </button>
           )}
           {isResult ? (
             <a href="#angebot" className="inline-flex min-h-11 shrink-0 items-center rounded-full bg-brand-500 px-4 text-sm font-medium">
-              Anfragen
+              {tr("request")}
             </a>
           ) : (
             <button type="button" onClick={() => go(idx + 1)} className="inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-full bg-brand-500 px-4 text-sm font-medium">
-              {idx === steps.length - 2 ? "Ergebnis" : "Weiter"} <ArrowRight className="size-4" aria-hidden />
+              {idx === steps.length - 2 ? tr("resultShort") : tc("next")} <ArrowRight className="size-4" aria-hidden />
             </button>
           )}
         </div>

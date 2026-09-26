@@ -1,6 +1,9 @@
+import type { ComponentProps } from "react";
+import type { Link } from "@/i18n/navigation";
+
 /**
- * Zentrale Stammdaten der Agentur.
- * Alles, was in Metadata, JSON-LD, Footer und E-Mails auftaucht, kommt von hier.
+ * Zentrale Stammdaten der Agentur (sprachunabhängig).
+ * Übersetzbare Texte (Claims, USt-Hinweis, Navigation) liegen in messages/{de,en}.json.
  *
  * TODO vor dem Launch:
  *  - `url` auf die finale Domain setzen (bzw. NEXT_PUBLIC_SITE_URL)
@@ -13,7 +16,6 @@ export const site = {
   legalName: "TasWiq Media. – Karim Azzaoui",
   owner: "Karim Azzaoui",
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://taswiq-media.de").replace(/\/$/, ""),
-  locale: "de_DE",
   email: "karim@azzaoui.de",
   phone: "+49 162 2035499",
   phoneHref: "tel:+491622035499",
@@ -29,7 +31,6 @@ export const site = {
   },
   /** Koordinaten des Standorts – verbessert lokale Rankings (Google Maps Pack) */
   geo: null as null | { lat: number; lng: number },
-  areaServed: ["Deutschland", "Österreich", "Schweiz"],
   priceRange: "€€",
 
   social: {
@@ -39,22 +40,24 @@ export const site = {
     linkedin: "",
   },
 
-  /** Aus der Rechnung übernommen – Kleinunternehmerregelung */
-  vatNote: "Alle Preise sind Endpreise. Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.",
-
   /** Showreel für den Hero (MP4 in /public/videos, ~17 s, stumm). Leer = nur Standbild. */
   heroVideo: "/videos/showreel.mp4" as string,
 } as const;
 
-/** Navigation wie bei asap: Sektionen der Startseite + zwei eigene Unterseiten */
+/** Sprachbewusstes Link-Ziel: interne Route (+ optional Hash/Params) – next-intl übersetzt den Pfad. */
+export type AppHref = ComponentProps<typeof Link>["href"];
+
+/** Navigation: Sektionen der Startseite + zwei eigene Unterseiten. Labels: messages → nav.<key> */
 export const nav = [
-  { href: "/#home", label: "Home" },
-  { href: "/#services", label: "Services" },
-  { href: "/#ki", label: "KI-Lösungen" },
-  { href: "/content-pipeline", label: "Content-Pipeline" },
-  { href: "/#ablauf", label: "Ablauf" },
-  { href: "/preisrechner", label: "Preisrechner" },
-] as const;
+  { key: "home", href: { pathname: "/", hash: "home" } },
+  { key: "services", href: { pathname: "/", hash: "services" } },
+  { key: "ki", href: { pathname: "/", hash: "ki" } },
+  { key: "pipeline", href: "/content-pipeline" },
+  { key: "process", href: { pathname: "/", hash: "ablauf" } },
+  { key: "calculator", href: "/preisrechner" },
+] as const satisfies readonly { key: string; href: AppHref }[];
+
+export const contactHref = { pathname: "/", hash: "kontakt" } as const;
 
 export function sameAs(): string[] {
   return Object.values(site.social).filter(Boolean);

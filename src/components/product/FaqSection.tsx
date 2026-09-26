@@ -1,3 +1,4 @@
+import { getLocale, getTranslations } from "next-intl/server";
 import { CircleHelp, Plus } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -5,12 +6,14 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { faqJsonLd } from "@/lib/seo";
 
 /** FAQ als einzelne weiche Akkordeon-Karten + FAQPage-Schema für Google & KI-Suchen. */
-export function FaqSection({ items, title = "Gute Fragen.", accent = "Klare Antworten." }: { items: { q: string; a: string }[]; title?: string; accent?: string }) {
+export async function FaqSection({ items, title, accent }: { items: { q: string; a: string }[]; title?: string; accent?: string }) {
+  const locale = await getLocale();
+  const t = await getTranslations("product");
   return (
     <section className="py-16 sm:py-20">
       <div className="container-x">
         <Reveal>
-          <SectionHeading eyebrow="FAQ" icon={CircleHelp} title={title} accent={accent} />
+          <SectionHeading eyebrow="FAQ" icon={CircleHelp} title={title ?? t("faqTitle")} accent={accent ?? t("faqAccent")} />
         </Reveal>
         <Reveal delay={0.08} className="mx-auto mt-10 grid max-w-3xl gap-2.5">
           {items.map((f) => (
@@ -26,7 +29,7 @@ export function FaqSection({ items, title = "Gute Fragen.", accent = "Klare Antw
           ))}
         </Reveal>
       </div>
-      <JsonLd data={faqJsonLd(items)} />
+      <JsonLd data={faqJsonLd(items, locale)} />
     </section>
   );
 }

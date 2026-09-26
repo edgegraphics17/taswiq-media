@@ -24,7 +24,8 @@ Taswiq Media./
 │  ├─ videos/cases/*.mp4         ← 6-s-Vorschauclips je Projekt (0,5–0,8 MB)
 │  └─ images/                    ← Poster, Nebel-Motiv der Rechnung
 └─ src/
-   ├─ middleware.ts              ← schützt /admin/*
+   ├─ middleware.ts              ← next-intl (DE/EN) + schützt /admin/*
+   ├─ i18n/                      ← routing.ts (Sprachen, übersetzte Pfade), navigation.ts, request.ts
    ├─ app/
    │  ├─ layout.tsx              ← Fonts, Metadata, Organisation-JSON-LD
    │  ├─ globals.css             ← Design-Tokens + asap-Motion (Wobble, Wipe, 3D-Menü, Marquee)
@@ -41,9 +42,9 @@ Taswiq Media./
    │  ├─ api/leads/route.ts      ← Phase 3 – Funnel/Rechner → Supabase → n8n
    │  ├─ api/calculator/route.ts ← Phase 2 – Kalkulation protokollieren
    │  ├─ robots.ts, sitemap.ts, llms.txt/, opengraph-image.tsx
-   ├─ config/                    ← ALLE Inhalte & Preise (Copy ändern = nur hier)
-   │  ├─ site.ts                 ← Stammdaten, Adresse, Calendly, Social
-   │  ├─ content.ts              ← Copy Startseite + Portfolio + Referenzen
+   ├─ config/                    ← Struktur & Preise (IDs, Icons, Medien) – Texte in messages/
+   │  ├─ site.ts                 ← Stammdaten, Adresse, Calendly, Social, Navigation
+   │  ├─ content.ts              ← Struktur Startseite + Portfolio + Referenzen
    │  ├─ pipeline.ts             ← Copy Flaggschiff-Seite + Pakete + FAQ
    │  ├─ pricing.ts              ← Preis-Matrix + Rechner-Schritte
    │  ├─ funnel.ts               ← Funnel-Optionen + Starter-Pakete
@@ -228,6 +229,21 @@ Login           ──► Magic Link (shouldCreateUser: false) → /admin/auth/c
 Seiten: **Leads** (KPIs, Pipeline nach Status, Filter per URL, Tabelle mit Score/Tier/Status) · **Lead-Detail** (Kontakt-Buttons inkl. WhatsApp, Rechner-Auswahl, Score-Begründung, Verlauf + Notizen, Status/Auftragswert/Nächster Schritt) · **Kalkulationen** (Conversion Rechner → Lead) · **Preise** (Editor für `services`). Ohne Supabase lokal: Demo-Modus mit Beispieldaten; in Produktion gesperrt.
 
 ---
+
+## Phase 6 · Mehrsprachigkeit (DE/EN)
+
+- **next-intl 4**, App Router. Alle öffentlichen Seiten liegen unter `src/app/[locale]/(site)`, Dashboard bleibt unter `/admin` (deutsch).
+- **URLs:** Deutsch ohne Präfix (alle bisherigen URLs bleiben), Englisch unter `/en` mit übersetzten Pfaden:
+  `/preisrechner` ↔ `/en/pricing-calculator`, `/leistungen/festival-videograf` ↔ `/en/services/festival-videographer`,
+  `/impressum` ↔ `/en/legal-notice`, `/datenschutz` ↔ `/en/privacy`.
+- **Keine Auto-Redirects** nach Browsersprache oder Cookie (`localeDetection: false`) – die URL entscheidet.
+- **Texte:** `messages/de.json` (Referenz, typisiert über `src/global.d.ts`) und `messages/en.json` mit identischen Keys.
+  Neue Texte immer in beiden Dateien anlegen – `npm run typecheck` meldet fehlende DE-Keys.
+- **Rechner:** Optionslabels in `config/pricing.ts` sind die deutschen Stammdaten für Supabase-Seed & Dashboard.
+  Die Website zeigt `calculator.options.*` aus den JSONs; ein im Dashboard geändertes Label gewinnt auf Deutsch weiterhin.
+- **Validierung:** Zod liefert Codes (`nameRequired` …), die UI übersetzt sie (`contactForm.errors.*`). API-Fehler ebenso (`contactForm.server.*`).
+- **Leads:** Payload enthält `locale`; n8n bekommt zusätzlich `calculatorSummaryLocalized` → Bestätigungs-Mail in der Sprache des Leads.
+- **SEO:** Canonical je Sprache, `hreflang` de-DE / en / x-default (Metadata + Sitemap), `og:locale`, JSON-LD mit `inLanguage`, OG-Bild je Sprache.
 
 ## Go-Live-Checkliste
 1. Supabase-Projekt (Region Frankfurt) → Migration + `supabase/seed.sql` ausführen

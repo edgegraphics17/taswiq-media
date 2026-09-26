@@ -2,42 +2,44 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import { ArrowUpRight, Clapperboard, MapPin } from "lucide-react";
-import { portfolio } from "@/config/content";
+import { portfolioFilters, portfolioItems } from "@/config/content";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PortfolioMock } from "@/components/home/PortfolioMock";
 import { CaseVideo } from "@/components/home/CaseVideo";
-import { References } from "@/components/home/References";
 import { cn } from "@/lib/format";
 
 /**
  * Arbeiten: Segment-Pillen als Filter (wie "Pay Monthly / Pay Yearly"), Karten mit
  * abgerundetem Medium, Meta-Pillen oben und schwebendem Standort-Badge unten
  * (Muster "Kalsey Hand · Sr Product manager" der Vorlage).
+ * Die Referenz-Laufbänder (Server Component) kommen als `references`-Slot herein.
  */
-export function Portfolio() {
-  const [filter, setFilter] = useState("alle");
-  const items = portfolio.items.filter((p) => filter === "alle" || p.cat === filter);
+export function Portfolio({ references }: { references?: React.ReactNode }) {
+  const t = useTranslations("home.portfolio");
+  const [filter, setFilter] = useState<(typeof portfolioFilters)[number]>("alle");
+  const items = portfolioItems.filter((p) => filter === "alle" || p.cat === filter);
 
   return (
     <section id="arbeiten" aria-labelledby="arbeiten-title" className="py-16 sm:py-24">
       <div className="container-x">
         <Reveal>
-          <SectionHeading id="arbeiten-title" eyebrow={portfolio.tag} icon={Clapperboard} title={portfolio.title} text={portfolio.text} />
+          <SectionHeading id="arbeiten-title" eyebrow={t("tag")} icon={Clapperboard} title={t("title")} text={t("text")} />
           <LayoutGroup>
-            <div role="group" aria-label="Arbeiten filtern" className="mx-auto mt-8 flex w-fit max-w-full flex-wrap justify-center gap-1 rounded-full border border-line bg-white p-1.5 shadow-[var(--shadow-soft)]">
-              {portfolio.filters.map((f) => (
+            <div role="group" aria-label={t("filterAria")} className="mx-auto mt-8 flex w-fit max-w-full flex-wrap justify-center gap-1 rounded-full border border-line bg-white p-1.5 shadow-[var(--shadow-soft)]">
+              {portfolioFilters.map((f) => (
                 <button
-                  key={f.id}
+                  key={f}
                   type="button"
-                  aria-pressed={filter === f.id}
-                  onClick={() => setFilter(f.id)}
-                  className={cn("relative min-h-10 rounded-full px-4 text-sm font-medium transition-colors", filter === f.id ? "text-white" : "text-body hover:text-ink")}
+                  aria-pressed={filter === f}
+                  onClick={() => setFilter(f)}
+                  className={cn("relative min-h-10 rounded-full px-4 text-sm font-medium transition-colors", filter === f ? "text-white" : "text-body hover:text-ink")}
                 >
-                  {filter === f.id && <motion.span layoutId="pf-pill" className="absolute inset-0 rounded-full bg-brand-500 shadow-[var(--shadow-brand)]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
-                  <span className="relative">{f.label}</span>
+                  {filter === f && <motion.span layoutId="pf-pill" className="absolute inset-0 rounded-full bg-brand-500 shadow-[var(--shadow-brand)]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
+                  <span className="relative">{t(`filters.${f}`)}</span>
                 </button>
               ))}
             </div>
@@ -59,12 +61,12 @@ export function Portfolio() {
                 <div className="relative">
                   <div className={cn("relative aspect-[4/3] overflow-hidden rounded-[1.6rem]", !p.video && "bg-night")}>
                     <div className="absolute inset-0 transition-transform duration-700 ease-[var(--ease-soft)] group-focus-within:scale-105 group-hover:scale-105">
-                      {p.video && p.poster ? <CaseVideo src={p.video} poster={p.poster} alt={`${p.title} – Standbild aus dem Film`} /> : p.mock && <PortfolioMock type={p.mock} />}
+                      {p.video && p.poster ? <CaseVideo src={p.video} poster={p.poster} alt={t("posterAlt", { title: t(`items.${p.id}.title`) })} /> : p.mock && <PortfolioMock type={p.mock} />}
                     </div>
                     <div className="absolute top-3 left-3 flex flex-col items-start gap-1.5">
-                      <span className="rounded-full bg-white/90 px-3 py-1 text-[11px] font-medium text-ink backdrop-blur">{p.tag}</span>
+                      <span className="rounded-full bg-white/90 px-3 py-1 text-[11px] font-medium text-ink backdrop-blur">{t(`items.${p.id}.tag`)}</span>
                       <span className={cn("rounded-full px-3 py-1 text-[11px] font-medium backdrop-blur", p.kind === "case" ? "bg-brand-500 text-white" : "bg-white/70 text-ink")}>
-                        {p.kind === "case" ? "Projekt" : "Format"}
+                        {t(`kind.${p.kind}`)}
                       </span>
                     </div>
                   </div>
@@ -84,8 +86,8 @@ export function Portfolio() {
                   )}
                 </div>
                 <div className={cn("flex flex-1 flex-col px-3.5 pb-3.5", p.location ? "pt-9" : "pt-5")}>
-                  <h3 className="text-lg font-medium">{p.title}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-muted">{p.text}</p>
+                  <h3 className="text-lg font-medium">{t(`items.${p.id}.title`)}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-muted">{t(`items.${p.id}.text`)}</p>
                   {p.youtube && (
                     <a
                       href={p.youtube}
@@ -93,8 +95,8 @@ export function Portfolio() {
                       rel="noopener noreferrer"
                       className="mt-4 inline-flex min-h-10 items-center gap-1.5 self-start rounded-full bg-canvas px-4 text-sm font-medium text-ink transition hover:bg-brand-50 hover:text-brand-600"
                     >
-                      Ganzen Film ansehen <ArrowUpRight className="size-4" aria-hidden />
-                      <span className="sr-only">(öffnet YouTube)</span>
+                      {t("watchFilm")} <ArrowUpRight className="size-4" aria-hidden />
+                      <span className="sr-only">{t("opensYoutube")}</span>
                     </a>
                   )}
                 </div>
@@ -103,7 +105,7 @@ export function Portfolio() {
           </AnimatePresence>
         </motion.div>
       </div>
-      <References />
+      {references}
     </section>
   );
 }

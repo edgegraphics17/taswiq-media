@@ -1,12 +1,17 @@
 "use client";
 
-import type { LeadPayload } from "@/lib/validation";
+import type { LeadPayload, ValidationCode } from "@/lib/validation";
 import type { LeadTier } from "@/config/funnel";
 import { getAttribution } from "@/lib/attribution";
 
+/** Sprachneutrale Fehler-Codes → UI übersetzt über messages → contactForm.server.<code> */
+export type ServerErrorCode = "rateLimit" | "invalid" | "saveFailed" | "connection" | "offline";
+
 export type SubmitResult =
   | { ok: true; tier: LeadTier; leadId: string | null }
-  | { ok: false; error: string; fields?: Record<string, string> };
+  | { ok: false; error: ServerErrorCode; fields?: Record<string, ValidationCode> };
+
+const KNOWN: ServerErrorCode[] = ["rateLimit", "invalid", "saveFailed"];
 
 /** Sendet den Lead als JSON an /api/leads (→ Supabase → n8n-Webhook). */
 export async function submitLead(payload: Omit<LeadPayload, "attribution">): Promise<SubmitResult> {
@@ -19,14 +24,10 @@ export async function submitLead(payload: Omit<LeadPayload, "attribution">): Pro
     });
     const json = await res.json().catch(() => null);
     if (!res.ok || !json?.ok) {
-      return {
-        ok: false,
-        error: json?.error ?? "Die Verbindung hat nicht geklappt. Bitte versuch es noch einmal.",
-        fields: json?.fields,
-      };
+      return { ok: false, error: KNOWN.includes(json?.error) ? json.error : "connection", fields: json?.fields };
     }
     return { ok: true, tier: json.tier, leadId: json.leadId };
   } catch {
-    return { ok: false, error: "Keine Verbindung zum Server. Prüfe dein Internet und versuch es erneut – oder ruf uns direkt an." };
+    return { ok: false, error: "offline" };
   }
 }

@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { Workflow } from "lucide-react";
 import { InView } from "@/components/ui/InView";
 import { Reveal } from "@/components/ui/Reveal";
@@ -5,7 +6,8 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { cn } from "@/lib/format";
 
 /** Drei Modi: mittlere Karte schwarz hervorgehoben, Notiz als Pille. */
-export function ModesSection({ tag, title, accent, text, modes, footnote }: { tag: string; title: string; accent: string; text: string; modes: { label: string; title: string; text: string; note: string }[]; footnote: string }) {
+export async function ModesSection({ tag, title, accent, text, modes, footnote }: { tag: string; title: string; accent: string; text: string; modes: { label: string; title: string; text: string; note: string }[]; footnote: string }) {
+  const t = await getTranslations("product");
   return (
     <section className="py-16 sm:py-20">
       <div className="container-x">
@@ -30,7 +32,7 @@ export function ModesSection({ tag, title, accent, text, modes, footnote }: { ta
           })}
         </InView>
         <p className="mx-auto mt-8 max-w-2xl text-center text-sm text-muted">
-          <b className="font-medium text-ink">Gut zu wissen:</b> {footnote}
+          <b className="font-medium text-ink">{t("goodToKnow")}</b> {footnote}
         </p>
       </div>
     </section>

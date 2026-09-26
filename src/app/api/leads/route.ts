@@ -1,8 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { leadSchema } from "@/lib/validation";
+import { leadSchema, toValidationCode } from "@/lib/validation";
 import { scoreLead } from "@/lib/lead-scoring";
 import { computeEstimate, sanitizeState, summaryRows } from "@/lib/pricing-engine";
 import { getPricingData } from "@/lib/pricing-source";
+import { localizeOptions } from "@/lib/pricing-i18n";
+import { getCalcI18n } from "@/lib/pricing-i18n.server";
 import { bracketForRange } from "@/config/funnel";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { forwardToN8n, hashIp } from "@/lib/webhook";
@@ -24,17 +26,15 @@ export const runtime = "nodejs";
 export async function POST(req: NextRequest) {
   const ip = clientIp(req.headers);
   if (!rateLimit(`lead:${ip}`, 5, 10 * 60_000)) {
-    return NextResponse.json(
-      { ok: false, error: "Zu viele Anfragen in kurzer Zeit. Bitte versuch es in ein paar Minuten erneut." },
-      { status: 429 },
-    );
+    // Fehler als Code – der Client zeigt den Text in der Sprache der Seite
+    return NextResponse.json({ ok: false, error: "rateLimit" }, { status: 429 });
   }
 
   const parsed = leadSchema.safeParse(await req.json().catch(() => null));
   if (!parsed.success) {
     const fields: Record<string, string> = {};
-    for (const issue of parsed.error.issues) fields[String(issue.path[0] ?? "form")] ??= issue.message;
-    return NextResponse.json({ ok: false, error: "Bitte prüfe deine Angaben.", fields }, { status: 422 });
+    for (const issue of parsed.error.issues) fields[String(issue.path[0] ?? "form")] ??= toValidationCode(issue.message);
+    return NextResponse.json({ ok: false, error: "invalid", fields }, { status: 422 });
   }
   const data = parsed.data;
 
@@ -44,13 +44,22 @@ export async function POST(req: NextRequest) {
   // Rechner-Leads: Preis & Budget niemals vom Client übernehmen
   let estimate: { min: number; max: number; monthly: number } | null = null;
   let calculatorSummary: { label: string; wert: string }[] | null = null;
+  /** Zusammenfassung in der Sprache des Leads (für die Bestätigungs-Mail aus n8n) */
+  let calculatorSummaryLocalized: { label: string; wert: string }[] | null = null;
   let budget = data.budget;
   if (data.source === "rechner" && data.calculator) {
     const pricing = await getPricingData();
     const state = sanitizeState(data.calculator.state, pricing);
-    const e = computeEstimate(state, Number.POSITIVE_INFINITY, pricing);
+    // Dashboard & Supabase bleiben deutsch
+    const de = await getCalcI18n("de");
+    const e = computeEstimate(state, Number.POSITIVE_INFINITY, pricing, de);
     estimate = { min: e.von, max: e.bis, monthly: e.summeMtl };
-    calculatorSummary = summaryRows(state, pricing);
+    calculatorSummary = summaryRows(state, localizeOptions(pricing, de), de);
+    if (data.locale === "de") calculatorSummaryLocalized = calculatorSummary;
+    else {
+      const i18n = await getCalcI18n(data.locale);
+      calculatorSummaryLocalized = summaryRows(state, localizeOptions(pricing, i18n), i18n);
+    }
     budget = bracketForRange(e.von, e.bis);
   }
 
@@ -68,6 +77,7 @@ export async function POST(req: NextRequest) {
   const sourceMeta = {
     ...(data.attribution ?? {}),
     userAgent: req.headers.get("user-agent")?.slice(0, 300) ?? null,
+    locale: data.locale,
     calculatorSummary,
   };
 
@@ -103,10 +113,7 @@ export async function POST(req: NextRequest) {
 
     if (error) {
       console.error("[leads] Insert fehlgeschlagen", error);
-      return NextResponse.json(
-        { ok: false, error: "Deine Anfrage konnte nicht gespeichert werden. Ruf uns kurz an oder schreib per WhatsApp." },
-        { status: 500 },
-      );
+      return NextResponse.json({ ok: false, error: "saveFailed" }, { status: 500 });
     }
     leadId = row.id;
 
@@ -135,6 +142,8 @@ export async function POST(req: NextRequest) {
       budget,
       estimate,
       calculatorSummary,
+      calculatorSummaryLocalized,
+      locale: data.locale,
       score,
       scoreReasons: reasons,
       tier,

@@ -1,5 +1,5 @@
+import { getTranslations } from "next-intl/server";
 import { Award, Handshake, Rocket, Search, type LucideIcon } from "lucide-react";
-import { process } from "@/config/content";
 import { Reveal } from "@/components/ui/Reveal";
 import { InView } from "@/components/ui/InView";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -12,15 +12,17 @@ const ICONS: LucideIcon[] = [Search, Award, Rocket, Handshake];
  * Titel, Text, rosé Icon-Kreis unten links, große blasse Nummer unten rechts –
  * Schritt 2 als schwarze Kontrast-Karte mit Mint-Icon.
  */
-export function Process() {
+export async function Process() {
+  const t = await getTranslations("home.process");
+  const steps = t.raw("steps") as { title: string; text: string }[];
   return (
     <section id="ablauf" aria-labelledby="ablauf-title" className="py-16 sm:py-24">
       <div className="container-x">
         <Reveal>
-          <SectionHeading id="ablauf-title" eyebrow={process.tag} icon={Rocket} title={process.title} accent={process.accent} text={process.text} />
+          <SectionHeading id="ablauf-title" eyebrow={t("tag")} icon={Rocket} title={t("title")} accent={t("accent")} text={t("text")} />
         </Reveal>
         <InView role="list" className="stagger mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {process.steps.map((s, i) => {
+          {steps.map((s, i) => {
             const dark = i === 1;
             const Ico = ICONS[i];
             return (

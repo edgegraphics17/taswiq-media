@@ -42,31 +42,33 @@ export interface Option {
   badge?: string;
 }
 
+/**
+ * Felder & Schritte enthalten nur Logik. Überschriften, Labels, Hinweise und Einheiten
+ * kommen aus messages → calculator.steps.<id> / calculator.fields.<id>
+ * (`posten` dort = Präfix der Posten-Zeile, z. B. "Video" → "Video · Standard").
+ */
 interface FieldBase {
   id: string;
-  label?: string;
-  hint?: string;
-  /** Präfix für die Posten-Zeile im Ergebnis, z. B. "Video" → "Video · Standard" */
-  posten?: string;
   wenn?: (s: CalcState) => boolean;
 }
 export type Field =
   | (FieldBase & { typ: "radio"; quelle: string; spalten?: 1 | 2 | 3; standard: string })
   | (FieldBase & { typ: "check"; quelle: string; spalten?: 1 | 2 | 3; standard: string[]; min?: number })
-  | (FieldBase & { typ: "zahl"; label: string; min: number; max: number; standard: number; preisProEinheit: number; einheit: string; dreh?: boolean })
-  | (FieldBase & { typ: "schalter"; label: string });
+  | (FieldBase & { typ: "zahl"; min: number; max: number; standard: number; preisProEinheit: number; dreh?: boolean })
+  | (FieldBase & { typ: "schalter" });
 
 export interface Step {
   id: string;
-  kurz: string;
-  titel: string;
-  hint?: string;
   felder: Field[];
   wenn?: (s: CalcState) => boolean;
   ergebnis?: boolean;
 }
 
-/* ─────────────────────────── OPTIONEN ─────────────────────────── */
+/* ─────────────────────────── OPTIONEN ───────────────────────────
+ * `label`/`hint`/`badge` hier = deutsche Stammdaten für Supabase-Seed & Dashboard.
+ * Die Website zeigt die Texte aus messages → calculator.options (DE + EN);
+ * ein im Dashboard geändertes Label überschreibt auf Deutsch weiterhin (lib/pricing-i18n.ts).
+ */
 
 export const OPTIONEN: Record<string, Option[]> = {
   branche: [
@@ -158,76 +160,56 @@ const hat = (s: CalcState, id: string) => Array.isArray(s.leistungen) && s.leist
 export const SCHRITTE: Step[] = [
   {
     id: "start",
-    kurz: "Projekt",
-    titel: "Was dürfen wir für dich produzieren?",
-    hint: "Diese Auswahl bestimmt, welche Fragen danach kommen. Ändern kannst du alles jederzeit.",
     felder: [
-      { id: "branche", typ: "radio", label: "Deine Branche", quelle: "branche", spalten: 2, standard: "gastro" },
-      { id: "leistungen", typ: "check", label: "Leistungen – Mehrfachauswahl", quelle: "leistungen", spalten: 2, standard: ["video"], min: 1 },
+      { id: "branche", typ: "radio", quelle: "branche", spalten: 2, standard: "gastro" },
+      { id: "leistungen", typ: "check", quelle: "leistungen", spalten: 2, standard: ["video"], min: 1 },
     ],
   },
   {
     id: "video",
-    kurz: "Video",
-    titel: "Wie groß wird der Dreh?",
-    hint: "Jedes Paket enthält Schnitt, Musik und Color Grading. Reels schneiden wir per KI-Pipeline – deshalb sind zusätzliche Clips günstig.",
     wenn: (s) => hat(s, "video"),
     felder: [
-      { id: "videoUmfang", typ: "radio", label: "Umfang", posten: "Video", quelle: "videoUmfang", spalten: 1, standard: "standard" },
-      { id: "videoExtras", typ: "check", label: "Extras", quelle: "videoExtras", spalten: 2, standard: [] },
-      { id: "extraReels", typ: "zahl", label: "Zusätzliche Reels", hint: "Aus demselben Material, per KI-Schnitt vorproduziert und von uns finalisiert.", min: 0, max: 30, standard: 0, preisProEinheit: 45, einheit: "Reel" },
+      { id: "videoUmfang", typ: "radio", quelle: "videoUmfang", spalten: 1, standard: "standard" },
+      { id: "videoExtras", typ: "check", quelle: "videoExtras", spalten: 2, standard: [] },
+      { id: "extraReels", typ: "zahl", min: 0, max: 30, standard: 0, preisProEinheit: 45 },
     ],
   },
   {
     id: "foto",
-    kurz: "Foto",
-    titel: "Wie viele Bilder brauchst du?",
-    hint: "Alle Fotos kommen bearbeitet, in Web- und Druckauflösung.",
     wenn: (s) => hat(s, "foto"),
     felder: [
-      { id: "fotoUmfang", typ: "radio", label: "Umfang", posten: "Foto", quelle: "fotoUmfang", spalten: 1, standard: "standard" },
-      { id: "fotoExtras", typ: "check", label: "Extras", quelle: "fotoExtras", spalten: 2, standard: [] },
+      { id: "fotoUmfang", typ: "radio", quelle: "fotoUmfang", spalten: 1, standard: "standard" },
+      { id: "fotoExtras", typ: "check", quelle: "fotoExtras", spalten: 2, standard: [] },
     ],
   },
   {
     id: "web",
-    kurz: "Web",
-    titel: "Was soll deine Website können?",
-    hint: "Gäste finden dich online, sehen die Karte und reservieren oder bestellen direkt – ohne Provision an Plattformen.",
     wenn: (s) => hat(s, "web"),
     felder: [
-      { id: "webArt", typ: "radio", label: "Paket", posten: "Web", quelle: "webArt", spalten: 2, standard: "reservierung" },
-      { id: "webExtras", typ: "check", label: "Sichtbarkeit & Extras", quelle: "webExtras", spalten: 2, standard: [] },
+      { id: "webArt", typ: "radio", quelle: "webArt", spalten: 2, standard: "reservierung" },
+      { id: "webExtras", typ: "check", quelle: "webExtras", spalten: 2, standard: [] },
     ],
   },
   {
     id: "ki",
-    kurz: "KI",
-    titel: "Welche Abläufe sollen automatisch laufen?",
-    hint: "Jeder Workflow wird mit n8n gebaut, läuft auf deinen Konten und gehört dir. Mehrfachauswahl.",
     wenn: (s) => hat(s, "ki"),
     felder: [{ id: "kiWorkflows", typ: "check", quelle: "kiWorkflows", spalten: 2, standard: ["captions"], min: 1 }],
   },
   {
     id: "extras",
-    kurz: "Extras",
-    titel: "Sprachen, Anfahrt, Tempo",
     felder: [
-      { id: "sprachen", typ: "zahl", label: "Zusätzliche Sprachfassungen", hint: "KI-Voiceover oder Untertitel pro Sprache – z. B. EN, AR, TR.", min: 0, max: 4, standard: 0, preisProEinheit: 190, einheit: "Sprache", wenn: (s) => hat(s, "video") || hat(s, "ki") },
-      { id: "anfahrt", typ: "radio", label: "Wo wird gedreht?", posten: "Anfahrt", quelle: "anfahrt", spalten: 3, standard: "lokal", wenn: (s) => hat(s, "video") || hat(s, "foto") },
-      { id: "express", typ: "schalter", label: "Es eilt: Lieferung in 72 Stunden", hint: `Wir ziehen dein Projekt vor. Aufschlag ${Math.round(KONFIG.expressAufschlag * 100)} %.` },
+      { id: "sprachen", typ: "zahl", min: 0, max: 4, standard: 0, preisProEinheit: 190, wenn: (s) => hat(s, "video") || hat(s, "ki") },
+      { id: "anfahrt", typ: "radio", quelle: "anfahrt", spalten: 3, standard: "lokal", wenn: (s) => hat(s, "video") || hat(s, "foto") },
+      { id: "express", typ: "schalter" },
     ],
   },
   {
     id: "laufend",
-    kurz: "Laufend",
-    titel: "Soll es danach weitergehen?",
-    hint: "Diese Posten laufen monatlich. Alles monatlich kündbar nach der Mindestlaufzeit.",
     felder: [
-      { id: "contentAbo", typ: "radio", label: "Content-Abo", posten: "Content-Abo", quelle: "contentAbo", spalten: 3, standard: "keins" },
-      { id: "hosting", typ: "radio", label: "Hosting der Website", quelle: "hosting", spalten: 2, standard: "wartung", wenn: (s) => hat(s, "web") },
-      { id: "kiBetrieb", typ: "radio", label: "Betreuung der Workflows", quelle: "kiBetrieb", spalten: 3, standard: "basis", wenn: (s) => hat(s, "ki") },
+      { id: "contentAbo", typ: "radio", quelle: "contentAbo", spalten: 3, standard: "keins" },
+      { id: "hosting", typ: "radio", quelle: "hosting", spalten: 2, standard: "wartung", wenn: (s) => hat(s, "web") },
+      { id: "kiBetrieb", typ: "radio", quelle: "kiBetrieb", spalten: 3, standard: "basis", wenn: (s) => hat(s, "ki") },
     ],
   },
-  { id: "ende", kurz: "Ergebnis", titel: "Dein Kostenrahmen", felder: [], ergebnis: true },
+  { id: "ende", felder: [], ergebnis: true },
 ];

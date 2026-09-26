@@ -1,4 +1,6 @@
 import { KONFIG, OPTIONEN, SCHRITTE, type CalcState, type Field, type Option, type Step } from "@/config/pricing";
+import { fieldCopy, stepCopy, type CalcI18n } from "@/lib/pricing-i18n";
+import { formatEUR } from "@/lib/format";
 
 /**
  * Reine, seiteneffektfreie Rechner-Engine (Logik nach asapmarketing.de/rechner.html).
@@ -7,6 +9,9 @@ import { KONFIG, OPTIONEN, SCHRITTE, type CalcState, type Field, type Option, ty
  *
  * Kernidee: Es zählt nur, was schon beantwortet ist. Der Richtwert wächst mit
  * jedem Schritt – Schritt 1 zeigt "ab X €", danach eine Spanne.
+ *
+ * Mehrsprachig: Alle lesbaren Texte (Posten, Zuschläge, Fehler) kommen über `i18n`
+ * aus messages → calculator. Optionslabels übersetzt vorher `localizeOptions()`.
  */
 
 export interface PriceLine {
@@ -57,11 +62,11 @@ export function initialState(): CalcState {
 }
 
 /** Ist der Schritt vollständig? (Pflicht-Mindestauswahl bei Checkbox-Feldern) */
-export function stepError(step: Step, s: CalcState): string | null {
+export function stepError(step: Step, s: CalcState, { t }: CalcI18n): string | null {
   for (const f of step.felder) {
     if (!fieldVisible(f, s)) continue;
     if (f.typ === "check" && f.min && (s[f.id] as string[]).length < f.min) {
-      return f.id === "leistungen" ? "Wähle mindestens eine Leistung." : "Wähle mindestens eine Option.";
+      return f.id === "leistungen" ? t("engine.minService") : t("engine.minOption");
     }
   }
   return null;
@@ -90,8 +95,10 @@ export function sanitizeState(input: unknown, data: PricingData = DEFAULT_DATA):
  * @param answeredUpTo Index im Array der sichtbaren Schritte, bis zu dem Antworten zählen.
  *                     Standard: alles (Ergebnis / Server).
  */
-export function computeEstimate(s: CalcState, answeredUpTo = Number.POSITIVE_INFINITY, data: PricingData = DEFAULT_DATA): Estimate {
+export function computeEstimate(s: CalcState, answeredUpTo: number, data: PricingData, i18n: CalcI18n): Estimate {
   const { konfig } = data;
+  const { t, locale } = i18n;
+  const eur = (n: number) => formatEUR(n, locale);
   const steps = visibleSteps(s);
   const upto = Math.min(answeredUpTo, steps.length - 1);
   const festival = s.branche === "musik";
@@ -101,7 +108,8 @@ export function computeEstimate(s: CalcState, answeredUpTo = Number.POSITIVE_INF
   let drehSumme = 0;
 
   const addOption = (f: Field & { quelle: string }, o: Option) => {
-    const label = f.posten ? `${f.posten} · ${o.label}` : o.label;
+    const { posten } = fieldCopy(i18n, f);
+    const label = posten ? `${posten} · ${o.label}` : o.label;
     if (o.preis) {
       ein.push({ key: `${f.id}:${o.id}`, label, detail: o.hint, betrag: o.preis });
       if (o.dreh) drehSumme += o.preis;
@@ -125,7 +133,13 @@ export function computeEstimate(s: CalcState, answeredUpTo = Number.POSITIVE_INF
         const n = Number(s[f.id]) || 0;
         if (n > 0) {
           const betrag = n * f.preisProEinheit;
-          ein.push({ key: f.id, label: `${f.label}: ${n} × ${f.einheit}`, detail: `je ${f.preisProEinheit} €`, betrag });
+          const copy = fieldCopy(i18n, f);
+          ein.push({
+            key: f.id,
+            label: t("engine.count", { label: copy.label ?? f.id, count: n, unit: copy.einheit ?? "" }),
+            detail: t("engine.perUnit", { amount: eur(f.preisProEinheit) }),
+            betrag,
+          });
           if (f.dreh) drehSumme += betrag;
         }
       }
@@ -135,8 +149,8 @@ export function computeEstimate(s: CalcState, answeredUpTo = Number.POSITIVE_INF
   if (festival && drehSumme > 0) {
     ein.push({
       key: "festival",
-      label: "Festival- & Nachtdreh-Zuschlag",
-      detail: `+${Math.round((konfig.festivalFaktor - 1) * 100)} % auf Dreh-Leistungen`,
+      label: t("engine.festival"),
+      detail: t("engine.festivalDetail", { pct: Math.round((konfig.festivalFaktor - 1) * 100) }),
       betrag: drehSumme * (konfig.festivalFaktor - 1),
     });
   }
@@ -145,7 +159,7 @@ export function computeEstimate(s: CalcState, answeredUpTo = Number.POSITIVE_INF
   const expressAnswered = steps.findIndex((st) => st.felder.some((f) => f.id === "express")) <= upto;
   if (s.express === true && expressAnswered && summeEin > 0) {
     const auf = summeEin * konfig.expressAufschlag;
-    ein.push({ key: "express", label: "Express-Lieferung (72 h)", detail: `+${Math.round(konfig.expressAufschlag * 100)} %`, betrag: auf });
+    ein.push({ key: "express", label: t("engine.express"), detail: t("engine.expressDetail", { pct: Math.round(konfig.expressAufschlag * 100) }), betrag: auf });
     summeEin += auf;
   }
   const summeMtl = mtl.reduce((a, l) => a + l.betrag, 0);
@@ -175,50 +189,53 @@ function einstiegspreis(s: CalcState, data: PricingData): number {
   return Math.round(sum);
 }
 
-/** "+ 490 €", "+ 49 €/Monat", "inklusive" – Preishinweis auf jeder Karte */
-export function priceHint(o: Option): string {
-  const eur = (n: number) => new Intl.NumberFormat("de-DE").format(n) + " €";
+/** "490 €", "49 €/Monat", "inklusive" – Preishinweis auf jeder Karte */
+export function priceHint(o: Option, { t, locale }: CalcI18n): string {
   const parts: string[] = [];
-  if (o.preis) parts.push(`${eur(o.preis)}`);
-  if (o.mtl) parts.push(`${eur(o.mtl)}/Monat`);
-  if (!parts.length && (o.preis === 0 || o.mtl === 0)) return "inklusive";
+  if (o.preis) parts.push(formatEUR(o.preis, locale));
+  if (o.mtl) parts.push(t("engine.perMonth", { amount: formatEUR(o.mtl, locale) }));
+  if (!parts.length && (o.preis === 0 || o.mtl === 0)) return t("engine.included");
   return parts.join(" · ");
 }
 
 /** Lesbare Auswahl-Liste – für PDF, "Zusammenfassung kopieren", Lead-Payload & Supabase */
-export function summaryRows(s: CalcState, data: PricingData = DEFAULT_DATA): { id: string; label: string; wert: string }[] {
+export function summaryRows(s: CalcState, data: PricingData, i18n: CalcI18n): { id: string; label: string; wert: string }[] {
+  const { t } = i18n;
   const rows: { id: string; label: string; wert: string }[] = [];
   for (const st of visibleSteps(s)) {
     if (st.ergebnis) continue;
+    const { kurz } = stepCopy(i18n, st);
     for (const f of st.felder) {
       if (!fieldVisible(f, s)) continue;
       let wert: string;
       if (f.typ === "radio") wert = opt(f.quelle, s[f.id], data)?.label ?? "–";
       else if (f.typ === "check")
-        wert = (s[f.id] as string[]).map((id) => opt(f.quelle, id, data)?.label).filter(Boolean).join(", ") || "keine";
-      else if (f.typ === "schalter") wert = s[f.id] ? "ja" : "nein";
-      else wert = Number(s[f.id]) === 0 ? "keine" : String(s[f.id]);
+        wert = (s[f.id] as string[]).map((id) => opt(f.quelle, id, data)?.label).filter(Boolean).join(", ") || t("engine.none");
+      else if (f.typ === "schalter") wert = s[f.id] ? t("engine.yes") : t("engine.no");
+      else wert = Number(s[f.id]) === 0 ? t("engine.none") : String(s[f.id]);
       // Leistungs-Schritte bekommen ein Präfix, sonst gäbe es "Umfang" für Video UND Foto
+      const fieldLabel = fieldCopy(i18n, f).label;
       const generic = ["start", "extras", "laufend"].includes(st.id);
-      const label = generic ? (f.label ?? st.kurz) : `${st.kurz} · ${f.label ?? "Auswahl"}`;
+      const label = generic ? (fieldLabel ?? kurz) : `${kurz} · ${fieldLabel ?? t("engine.selection")}`;
       rows.push({ id: f.id, label, wert });
     }
   }
   return rows;
 }
 
-export function summaryText(s: CalcState, e: Estimate): string {
-  const eur = (n: number) => new Intl.NumberFormat("de-DE").format(n) + " €";
-  const lines = ["TASWIQ MEDIA. – KOSTENRAHMEN", ""];
-  summaryRows(s).forEach((r) => lines.push(`- ${r.label}: ${r.wert}`));
-  lines.push("", "POSTEN EINMALIG");
+export function summaryText(s: CalcState, e: Estimate, data: PricingData, i18n: CalcI18n): string {
+  const { t, locale } = i18n;
+  const eur = (n: number) => formatEUR(n, locale);
+  const lines = [t("summary.heading"), ""];
+  summaryRows(s, data, i18n).forEach((r) => lines.push(`- ${r.label}: ${r.wert}`));
+  lines.push("", t("summary.oneTime"));
   e.einmalig.forEach((l) => lines.push(`- ${l.label}: ${eur(l.betrag)}`));
   if (e.monatlich.length) {
-    lines.push("", "POSTEN MONATLICH");
-    e.monatlich.forEach((l) => lines.push(`- ${l.label}: ${eur(l.betrag)}/Monat`));
+    lines.push("", t("summary.monthly"));
+    e.monatlich.forEach((l) => lines.push(`- ${l.label}: ${t("engine.perMonth", { amount: eur(l.betrag) })}`));
   }
-  lines.push("", `Richtwert einmalig: ${eur(e.von)} – ${eur(e.bis)}`);
-  lines.push(`Laufend: ${e.summeMtl > 0 ? eur(e.summeMtl) + " pro Monat" : "keine laufenden Kosten"}`);
-  lines.push("", "Richtwert, kein Angebot. Endpreise gemäß § 19 UStG.");
+  lines.push("", t("summary.range", { from: eur(e.von), to: eur(e.bis) }));
+  lines.push(t("summary.running", { value: e.summeMtl > 0 ? t("summary.perMonthLong", { amount: eur(e.summeMtl) }) : t("summary.noRunning") }));
+  lines.push("", t("summary.footer"));
   return lines.join("\n");
 }

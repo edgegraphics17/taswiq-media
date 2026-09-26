@@ -1,0 +1,1538 @@
+{
+  "metadata": {
+    "siteTitle": "TasWiq Media. – Creative Agency for Hospitality, Festivals & AI Content",
+    "titleTemplate": "%s | TasWiq Media.",
+    "description": "Cinematic video and photography for restaurants, bars and festivals – scaled with AI: one shoot day becomes dozens of reels, ads and posts. Fixed prices, first clips within 72 hours.",
+    "ogTitle": "TasWiq Media. – Content that makes people hungry. Content that gets loud.",
+    "ogDescription": "Creative agency for hospitality, festivals & music. Cinematic on set, AI speed in post-production.",
+    "category": "Marketing",
+    "keywords": [
+      "restaurant marketing agency",
+      "hospitality content agency",
+      "festival videographer",
+      "aftermovie production",
+      "food photographer",
+      "restaurant social media agency",
+      "event videographer",
+      "AI content production",
+      "AI voiceover",
+      "AI marketing agency"
+    ],
+    "calculator": {
+      "title": "Pricing Calculator – What Do Video, Photo, Web & AI Cost?",
+      "description": "Build your project in two minutes: aftermovie, food photography, website or AI workflows. See your budget range instantly – no sign-up, no strings attached.",
+      "keywords": [
+        "aftermovie cost",
+        "food photography prices",
+        "videographer rates",
+        "restaurant website cost",
+        "AI automation cost"
+      ]
+    },
+    "pipeline": {
+      "title": "Content Pipeline – One Shoot Day, a Quarter's Worth of Content",
+      "description": "Our AI content pipeline turns one shoot day into 12 to 30 clips in every format, length and language. Built for restaurants, bars and festivals – at a fixed price.",
+      "keywords": [
+        "AI content pipeline",
+        "restaurant social media content",
+        "reels production",
+        "AI video production"
+      ]
+    },
+    "legalNotice": {
+      "title": "Legal Notice"
+    },
+    "privacy": {
+      "title": "Privacy Policy"
+    },
+    "notFound": {
+      "title": "Page not found"
+    }
+  },
+  "og": {
+    "alt": "TasWiq Media. – Content that makes people hungry.",
+    "eyebrow": "CREATIVE AGENCY FOR HOSPITALITY, FESTIVALS & MUSIC",
+    "line1": "Content that",
+    "line2": "sells out."
+  },
+  "schema": {
+    "orgDescription": "Creative agency for hospitality, festivals and music: cinematic videography and photography, scaled with AI workflows – content pipelines, AI voiceover, websites and automation.",
+    "slogan": "One shoot day. A whole quarter's worth of content.",
+    "knowsAbout": [
+      "Video production",
+      "Event photography",
+      "Food photography",
+      "Aftermovies",
+      "Social media marketing",
+      "Generative AI",
+      "AI voiceover",
+      "Marketing automation with n8n"
+    ],
+    "areaServed": [
+      "Germany",
+      "Austria",
+      "Switzerland"
+    ],
+    "contactType": "Sales and consulting",
+    "catalogName": "Packages",
+    "monthUnit": "Month",
+    "calculatorName": "TasWiq Media. Pricing Calculator",
+    "calculatorDescription": "Put together video, photo, web or AI workflows and get a non-binding budget range. An estimate, not a quote.",
+    "operatingSystem": "Any, in the browser",
+    "breadcrumbHome": "Home",
+    "breadcrumbCalculator": "Pricing Calculator"
+  },
+  "site": {
+    "vatNote": "All prices are final. No VAT is charged under the German small business regulation (§ 19 UStG)."
+  },
+  "common": {
+    "skipToContent": "Skip to content",
+    "homeAria": "TasWiq Media. – Home",
+    "mainNav": "Main navigation",
+    "mobileNav": "Mobile navigation",
+    "menu": "Menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "consultation": "Book a free intro call",
+    "consultationShort": "Intro call",
+    "startProject": "Start your project",
+    "call": "Call",
+    "email": "Email",
+    "phone": "Phone",
+    "whatsapp": "WhatsApp",
+    "whatsappCta": "Message us directly",
+    "back": "Back",
+    "next": "Next",
+    "opensYoutube": "(opens YouTube)"
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "ki": "AI Solutions",
+    "pipeline": "Content Pipeline",
+    "process": "Process",
+    "calculator": "Pricing"
+  },
+  "languageSwitcher": {
+    "label": "Choose language",
+    "switchTo": "View this page in {language}",
+    "languages": {
+      "de": "German",
+      "en": "English"
+    }
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Hospitality · Festivals · Music",
+      "titleStart": "Content that",
+      "rotating": [
+        "makes you hungry.",
+        "turns it up.",
+        "sells tickets.",
+        "fills tables."
+      ],
+      "sub": "We film and photograph restaurants, bars and festivals at cinema level – then use AI workflows to turn every shoot into dozens of reels, ads and posts.",
+      "primary": "Start your project",
+      "secondary": "Get a price",
+      "proofTitle": "450+ projects",
+      "proofText": "Hotels, clubs, festivals & artists",
+      "posterAlt": "Still from the TasWiq showreel: chef at a flaming wok",
+      "statCard": "projects across hospitality, events & music",
+      "qualityTitle": "First clips in 72 h",
+      "qualityText": "Cinematic look, AI speed",
+      "showreel": "Showreel",
+      "showreelMeta": "Hotel restaurants · KL"
+    },
+    "promise": {
+      "tag": "Why TasWiq",
+      "title": "Camera craft meets AI pipeline.",
+      "text": "TasWiq (تسويق) is Arabic for marketing – and that's the whole point: visuals that don't just look good, but fill tables and sell tickets. We've shot for hotel restaurants across Kuala Lumpur, from IL Forno at Hyatt Centric to Zuan Yuan at One World Hotel. Today we pair that cinematic look with AI workflows, so a single shoot day fuels weeks of content.",
+      "stats": [
+        {
+          "value": "450+",
+          "label": "projects across hospitality, events & music"
+        },
+        {
+          "value": "72 h",
+          "label": "until your first clips"
+        },
+        {
+          "value": "4",
+          "label": "languages via AI voiceover"
+        }
+      ],
+      "referencesTitle": "References you can taste",
+      "referencesPlaces": "Kuala Lumpur & Petaling Jaya",
+      "imageAlt": "Sushi station at Cinnamon Coffee House, One World Hotel",
+      "clipsPerShoot": "Clips per shoot",
+      "cardTag": "Our promise",
+      "cardTitle": "You take care of your guests. We take care of the content.",
+      "checks": [
+        "One shoot – every format, from 16:9 to 9:16",
+        "One dedicated point of contact for everything",
+        "Fixed price agreed before the first shoot day",
+        "First clips 72 hours after the shoot",
+        "Full usage rights to every file"
+      ],
+      "aiBadge": "+AI"
+    },
+    "services": {
+      "tag": "What we do",
+      "title": "Our services",
+      "text": "From first concept to ongoing content subscription – fully coordinated, all under one roof.",
+      "cta": "Enquire about all services",
+      "videoBadge": "4K · Multi-cam · Drone",
+      "videoImageAlt": "Pizza being prepared at IL Forno, Hyatt Centric Kuala Lumpur",
+      "fotoImageAlt": "Dim sum baskets at Zuan Yuan restaurant",
+      "webTags": [
+        "Website",
+        "Digital menu",
+        "Reservations",
+        "SEO & GEO",
+        "n8n workflows",
+        "Google profile"
+      ],
+      "items": {
+        "video": {
+          "title": "Video & Aftermovies",
+          "text": "Aftermovies, brand films and music videos in 4K – with multi-cam, drone and cinematic grading.",
+          "tags": [
+            "Festival",
+            "Club",
+            "Restaurant"
+          ]
+        },
+        "foto": {
+          "title": "Photography",
+          "text": "Food, venue, event and artist shoots. Fully edited, in web and print resolution, ready to use.",
+          "tags": [
+            "Food",
+            "Event",
+            "Press kit"
+          ]
+        },
+        "social": {
+          "title": "Social Media Content",
+          "text": "Reels, stories and posts on a weekly rhythm – planned, written and published for you.",
+          "tags": [
+            "Instagram",
+            "TikTok",
+            "Google"
+          ]
+        },
+        "audio": {
+          "title": "AI Audio & Voiceover",
+          "text": "Language versions of your clips in your own voice or an AI voice, subtitles included.",
+          "tags": [
+            "DE",
+            "EN",
+            "AR",
+            "TR"
+          ]
+        },
+        "visuals": {
+          "title": "AI Video & Visuals",
+          "text": "Generated scenes, visualizers and ad variants for line-ups, launches and campaigns.",
+          "tags": [
+            "Visuals",
+            "Ads",
+            "Motion"
+          ]
+        },
+        "web": {
+          "title": "Web & AI Workflows",
+          "text": "Websites, digital menus and n8n workflows that take work off your plate every single day.",
+          "tags": [
+            "Website",
+            "QR menu",
+            "n8n"
+          ]
+        }
+      }
+    },
+    "ki": {
+      "tag": "AI Solutions",
+      "title": "AI that actually ships content, every day.",
+      "text": "Tools that start pulling their weight from the very first shoot: editing, translating, voicing, posting. We set them up and run them – just like your content.",
+      "flagship": {
+        "badge": "Our flagship",
+        "title": "One shoot day. A whole quarter's worth of content.",
+        "text": "Our pipeline turns the raw footage of a single shoot into 12 to 30 finished clips – in multiple formats, lengths and languages. You get fresh material every week without shooting every week.",
+        "primary": "See how the pipeline works",
+        "secondary": "Calculate costs",
+        "imageAlt": "Bartender at The Sphere Lounge, One World Hotel",
+        "floatLabel": "From 1 shoot day",
+        "floatValue": "30 clips"
+      },
+      "cards": {
+        "cut": {
+          "title": "Editing at scale",
+          "text": "AI suggests hooks, lengths and formats. We pick the winners and give them the look."
+        },
+        "languages": {
+          "title": "Languages & voices",
+          "text": "One clip, four languages – voiceover and subtitles tailored to your audience."
+        },
+        "captions": {
+          "title": "Captions & planning",
+          "text": "Copy in your tone of voice, a posting plan and hashtags – prepared by AI, polished by us."
+        },
+        "reporting": {
+          "title": "Insights",
+          "text": "Which clips perform? AI crunches the numbers and writes the report. You read insights, not spreadsheets."
+        }
+      },
+      "split": {
+        "gastro": {
+          "tag": "You run a restaurant or bar",
+          "title": "Start with the Social Retainer.",
+          "text": "Half a shoot day per month, 12 reels and 20 photos – menu, team and atmosphere. Plus your digital menu and Google Business Profile.",
+          "cta": "View the hospitality package"
+        },
+        "festival": {
+          "tag": "You run festivals & events",
+          "title": "Plan the aftermovie with the AI package.",
+          "text": "Multi-cam shoot, aftermovie within 7 days and 20+ ad variants for next season's presale – in multiple languages.",
+          "cta": "View the festival package"
+        }
+      }
+    },
+    "portfolio": {
+      "tag": "Work & References",
+      "title": "Results that move people",
+      "text": "Hotel restaurants in Kuala Lumpur, clubs and festivals, artists and brands – a selection of our work.",
+      "filterAria": "Filter work",
+      "filters": {
+        "alle": "All",
+        "gastro": "Hospitality & Hotels",
+        "festival": "Festivals & Artists",
+        "ki": "AI & Web"
+      },
+      "kind": {
+        "case": "Project",
+        "format": "Format"
+      },
+      "watchFilm": "Watch the full film",
+      "posterAlt": "{title} – still from the film",
+      "items": {
+        "zuan-yuan": {
+          "tag": "Restaurant film",
+          "title": "Zuan Yuan – Cantonese Cuisine",
+          "text": "Dim sum, signature dishes and the chef at the table: a brand film for the Cantonese fine-dining restaurant."
+        },
+        "il-forno": {
+          "tag": "Restaurant film",
+          "title": "IL Forno – Italian Fine Dining",
+          "text": "Stone-oven pizza and pasta from the open kitchen: the launch film for the new Italian at Hyatt Centric."
+        },
+        "cinnamon": {
+          "tag": "Buffet film",
+          "title": "Cinnamon Coffee House",
+          "text": "Wok flames, grill and international stations: the all-day dining buffet, brought to life."
+        },
+        "the-sphere": {
+          "tag": "Lounge film",
+          "title": "The Sphere Lounge",
+          "text": "Cocktails, high tea and live music: the lounge from afternoon tea to evening vibes."
+        },
+        "lilys": {
+          "tag": "Print & digital",
+          "title": "LILY'S Restaurant – Menu",
+          "text": "A full menu redesign in the new style: 8 pages, print and digital, in German and English."
+        },
+        "festivals": {
+          "tag": "Event campaigns",
+          "title": "Clubs & Festivals",
+          "text": "Visuals and campaigns for Tomorrowland, DWP Bali, Afro Nation, splash!, O Beach Ibiza and clubs all over Germany."
+        },
+        "artists": {
+          "tag": "Artist branding",
+          "title": "Media kits for artists",
+          "text": "Press kits, AI photo shoots and booking calendars – for artists including Pierce Merrill and DJ Yuna."
+        },
+        "voiceover": {
+          "tag": "AI voiceover",
+          "title": "One clip, four languages",
+          "text": "Voiceover and subtitles in DE, EN, AR and TR – for guests, tourists and communities."
+        },
+        "reviews": {
+          "tag": "Automation",
+          "title": "Reviews on autopilot",
+          "text": "An n8n workflow replies to Google reviews in your house style – you just hit approve."
+        }
+      },
+      "mock": {
+        "menuSections": [
+          "Starters & Soups",
+          "Curries & Wok",
+          "Salads & Bowls"
+        ],
+        "lineupSub": "Flyer · Teaser · Countdown",
+        "review": "Google review",
+        "draft": "AI draft",
+        "draftSub": "in your house style",
+        "approve": "Approve",
+        "approveSub": "1 click"
+      },
+      "opensYoutube": "(opens YouTube)"
+    },
+    "references": {
+      "title": "Brands, events & artists we've worked with",
+      "partners": [
+        "Google Partner",
+        "Meta Marketing Partner"
+      ],
+      "groups": {
+        "hospitality": "Hospitality",
+        "clubs": "Clubs & Festivals",
+        "spirits": "Spirits",
+        "automotive": "Automotive",
+        "brands": "Brands",
+        "artists": "Artists"
+      }
+    },
+    "process": {
+      "tag": "Our process",
+      "title": "4 steps to your",
+      "accent": "content engine",
+      "text": "Structured, transparent and fast – this is how we work with you.",
+      "steps": [
+        {
+          "title": "Deep Dive",
+          "text": "We get to know your venue or festival: audience, channels, vibe. Honest and no strings attached."
+        },
+        {
+          "title": "The Master Plan",
+          "text": "Shot list, shoot schedule and AI pipeline. You know upfront exactly which formats you'll get, and how many."
+        },
+        {
+          "title": "Shoot & Production",
+          "text": "Premium gear on location, then editing, grading and AI finishing. First clips within 72 hours."
+        },
+        {
+          "title": "Scale & Optimize",
+          "text": "We measure what performs and produce more variants – automated, no extra shoot day needed."
+        }
+      ]
+    },
+    "calculatorTeaser": {
+      "label": "Budget range",
+      "title": "What does it cost?",
+      "titleAccent": "Find out in two minutes.",
+      "text": "It's the most common question in every intro call. Build your project yourself – video, photo, website or AI workflows, with everything that goes with it. You'll instantly see the range you're looking at.",
+      "pills": [
+        "Two minutes",
+        "No sign-up",
+        "No obligation"
+      ],
+      "primary": "Price your project",
+      "secondary": "Rather just ask us",
+      "exampleLabel": "Here's what you'll get",
+      "exampleSummary": "Video Standard · Drone · 1 language",
+      "rangeNote": "One-time estimate · plus {monthly}/month",
+      "included": "What's included",
+      "foot": "Sample configuration. Your numbers depend on your selections."
+    },
+    "contact": {
+      "tag": "Contact",
+      "title": "Ready for content",
+      "accent": "that performs?",
+      "text": "Let's build something great. We'll get back to you within 24 hours."
+    }
+  },
+  "footer": {
+    "claim": "Premium content for hospitality, festivals and music – scaled with AI workflows.",
+    "navigation": "Navigation",
+    "services": "Services",
+    "contact": "Contact",
+    "legalNotice": "Legal notice",
+    "privacy": "Privacy"
+  },
+  "contactBox": {
+    "title": "Rather talk it through?",
+    "text": "A quick message is all it takes – personal advice, no strings attached."
+  },
+  "product": {
+    "calculateCosts": "Calculate costs",
+    "requestConsultation": "Book a consultation",
+    "requestProject": "Start your project",
+    "featuresTag": "Services",
+    "featuresTitle": "What you get.",
+    "faqTitle": "Good questions.",
+    "faqAccent": "Straight answers.",
+    "requestTag": "Enquiry",
+    "goodToKnow": "Good to know:",
+    "recommended": "Recommended",
+    "mostChosen": "Most popular",
+    "youGet": "What you get",
+    "requestPackage": "Enquire about {name}",
+    "heroImageAlt": "Dim sum service at Zuan Yuan restaurant",
+    "defaultStats": [
+      {
+        "value": "72 h",
+        "label": "until your first clips"
+      },
+      {
+        "value": "450+",
+        "label": "projects"
+      }
+    ],
+    "seoFunnel": {
+      "title": "Let's talk about",
+      "accent": "your project.",
+      "text": "Four quick questions – then we'll get back to you within 24 hours with a proposal and a fixed price."
+    }
+  },
+  "pipeline": {
+    "breadcrumb": "Content Pipeline",
+    "schemaName": "AI Content Pipeline",
+    "schemaServiceType": "Video production with AI post-production",
+    "hero": {
+      "badge": "The TasWiq Media. flagship",
+      "titleStart": "One shoot day.",
+      "titleHighlight": "A quarter's worth of content",
+      "text": "We shoot at your venue for a day – and our pipeline turns it into 12 to 30 finished clips in every format, length and language. You post something new every week without shooting every week. We plan, shoot, edit and manage it all.",
+      "stats": [
+        {
+          "value": "12–30",
+          "label": "clips per shoot"
+        },
+        {
+          "value": "72 h",
+          "label": "until your first clips"
+        },
+        {
+          "value": "4",
+          "label": "languages via AI"
+        },
+        {
+          "value": "1",
+          "label": "point of contact"
+        }
+      ]
+    },
+    "problem": {
+      "tag": "The problem",
+      "title": "One shoot a year no longer feeds a channel that needs to be alive every week.",
+      "text": "Guests decide where to eat and party on Instagram, TikTok and Google. Show up there once a quarter and you lose to the place next door. That's exactly where the pipeline comes in:",
+      "points": [
+        "Fresh content every week – without a camera in your venue every week.",
+        "No more filming during service just to stay visible.",
+        "Instead of \"we really should post something\", next month's plan is ready to go.",
+        "New season, new menu, new line-up: we update existing clips instead of reshooting."
+      ],
+      "story": {
+        "label": "A day on set",
+        "quote": "\"Mise en place at 4 pm, a full house at 7 pm – we capture both.\"",
+        "text": "The shot list is locked in advance. We film the kitchen, team, dishes and guests, plus hooks for reels and wide shots for the brand film. After the shoot, the pipeline pre-cuts variants; we select, grade and add sound. You approve everything in a single review round – done."
+      },
+      "note": "Transparent, not disguised: on request, we label AI voices and generated scenes. Your dishes and guests are always filmed for real."
+    },
+    "features": {
+      "tag": "Features",
+      "title": "Not just editing.",
+      "accent": "Actual thinking.",
+      "text": "The pipeline knows your brand: colours, fonts, tone of voice, dos and don'ts. The result is variants that look like you – not like a template.",
+      "items": [
+        {
+          "title": "Every format from one shoot",
+          "text": "16:9, 9:16, 4:5 and 1:1 – automatically reframed, checked by us."
+        },
+        {
+          "title": "Hook variants",
+          "text": "Three to five openers per clip, so you can test what grabs attention in the first seconds."
+        },
+        {
+          "title": "AI voiceover",
+          "text": "Your own voice or a premium AI voice – in German, English, Arabic or Turkish."
+        },
+        {
+          "title": "On-brand subtitles",
+          "text": "Automatically transcribed and styled in your colours and fonts."
+        },
+        {
+          "title": "Captions & posting plan",
+          "text": "Copy, hashtags and a schedule for the whole month – prepared and polished."
+        },
+        {
+          "title": "Seasonal updates",
+          "text": "New prices, new dish, new date: we update existing clips instead of reshooting."
+        },
+        {
+          "title": "Ad variants for A/B testing",
+          "text": "20+ variants for Meta and TikTok ads, cleanly named and exported."
+        },
+        {
+          "title": "Searchable archive",
+          "text": "Every shot tagged – \"pasta, evening, close-up\" found in seconds."
+        },
+        {
+          "title": "Reporting",
+          "text": "Which clips perform? A short monthly report with clear recommendations."
+        }
+      ]
+    },
+    "modes": {
+      "tag": "How your content gets made",
+      "title": "Your venue stays your venue.",
+      "accent": "We adapt.",
+      "text": "No film crew bringing your service to a standstill. We shoot when it suits you – or work with what you already have. You choose the mode:",
+      "modes": [
+        {
+          "label": "Mode 01",
+          "title": "From our shoot",
+          "text": "We come by for half a day or a full day and capture everything for the weeks ahead.",
+          "note": "The classic"
+        },
+        {
+          "label": "Mode 02",
+          "title": "From your footage",
+          "text": "You send phone clips from everyday life, the pipeline turns them into finished reels.",
+          "note": "Perfect to get started"
+        },
+        {
+          "label": "Mode 03",
+          "title": "Always-on",
+          "text": "One shoot day a month plus ongoing production – your feed keeps running without you thinking about it.",
+          "note": "The retainer"
+        }
+      ],
+      "footnote": "Switch any time: changing modes takes one message. Retainers can be cancelled monthly after the minimum term."
+    },
+    "audience": {
+      "tag": "Who it's for",
+      "title": "At home in hospitality and festivals –",
+      "accent": "and open to your industry.",
+      "text": "The pipeline is built for businesses that need to be visible every week and have no time to film.",
+      "chips": [
+        "Restaurants",
+        "Bars & cocktail bars",
+        "Cafés & bakeries",
+        "Catering",
+        "Festivals & open airs",
+        "Clubs",
+        "Concerts & tours",
+        "Artists & labels",
+        "Hotels",
+        "Event venues"
+      ]
+    },
+    "role": {
+      "tag": "Our role",
+      "title": "You don't get a tool.",
+      "accent": "You get finished content.",
+      "text": "Technology alone takes work off nobody's plate. We handle concept, shoot and pipeline – and stay your point of contact.",
+      "items": [
+        {
+          "title": "Concept & shot list",
+          "text": "Which formats, which mood, which message? We plan before the camera rolls."
+        },
+        {
+          "title": "On-location shoot",
+          "text": "Premium cameras, lighting and sound – timed around your service, without disturbing guests."
+        },
+        {
+          "title": "Pipeline & approval",
+          "text": "AI does the rough cut, we do the finishing. You sign off in one clear review round."
+        },
+        {
+          "title": "Support & fine-tuning",
+          "text": "We keep an eye on the numbers and adjust. One point of contact, no call-centre queue."
+        }
+      ]
+    },
+    "pricing": {
+      "tag": "Packages",
+      "title": "Fixed prices.",
+      "accent": "Classic craft, AI speed.",
+      "text": "Every package starts with a real shoot on location. AI comes in afterwards – for volume, variants and speed.",
+      "units": {
+        "once": "one-time",
+        "monthly": "per month"
+      },
+      "packages": {
+        "classic": {
+          "name": "Classic Aftermovie",
+          "audience": "For festivals, club nights & concerts",
+          "meta": "1 shoot day · 2 cameras · delivered in 7 days",
+          "features": [
+            "2–3 min aftermovie in 4K",
+            "6 social cutdowns in 9:16",
+            "Royalty-free music",
+            "Cinematic colour grading",
+            "1 revision round included"
+          ]
+        },
+        "aiPromo": {
+          "name": "AI-Enhanced Promo",
+          "audience": "For launches, line-ups & grand openings",
+          "meta": "Shoot day + AI post-production",
+          "features": [
+            "Everything in Classic Aftermovie",
+            "20+ ad variants: hooks, lengths, formats",
+            "AI voiceover in up to 4 languages",
+            "AI-generated scenes & transitions",
+            "Ad-ready export for Meta & TikTok"
+          ]
+        },
+        "retainer": {
+          "name": "Hospitality Social Retainer",
+          "audience": "For restaurants, bars & cafés",
+          "meta": "6-month minimum term",
+          "features": [
+            "Half a shoot day per month",
+            "12 reels + 20 photos per month",
+            "Captions & posting plan",
+            "Google profile management",
+            "Monthly reporting"
+          ]
+        }
+      },
+      "trust": [
+        "Fixed price before the shoot",
+        "Full usage rights",
+        "Final prices (§ 19 UStG)",
+        "Reply within 24 hours"
+      ]
+    },
+    "faq": [
+      {
+        "q": "How quickly will I see the first results?",
+        "a": "First social clips land 72 hours after the shoot; the finished film follows within 7 to 14 days depending on the package. With Express, everything is delivered within 72 hours."
+      },
+      {
+        "q": "What does the AI do – and what doesn't it do?",
+        "a": "AI handles the grunt work: edit variants, subtitles, translations, voiceover and format adjustments. Camera, lighting, selection and the final look remain handcrafted. Dishes and guests are always filmed for real."
+      },
+      {
+        "q": "Who owns the rights to the photos and videos?",
+        "a": "You do. You receive exclusive usage rights to all final files, unlimited in time and territory, as soon as the invoice is paid."
+      },
+      {
+        "q": "What if I don't like the edit?",
+        "a": "One revision round is included in every package. Additional rounds cost €49.99 – though we rarely need them, because the master plan is agreed upfront."
+      },
+      {
+        "q": "Do you shoot outside your city?",
+        "a": "Yes – across Germany, Austria and Switzerland, and internationally on request. Travel is billed transparently and included up to 50 km."
+      },
+      {
+        "q": "How do you handle guests on camera and data protection?",
+        "a": "We announce shoots with notices, only film guests with their consent and provide consent templates. At festivals, we coordinate with the organiser."
+      }
+    ],
+    "funnel": {
+      "title": "Stop filming.",
+      "accent": "Start posting.",
+      "text": "Tell us a bit about your venue or event – we'll get back to you with a plan and a fixed price within 24 hours."
+    }
+  },
+  "seoPages": {
+    "gastro": {
+      "navLabel": "Restaurant Media Agency",
+      "keyword": "Restaurant media agency",
+      "metaTitle": "Restaurant Media Agency – Food Photography, Reels & Digital Menus",
+      "metaDescription": "Media agency for restaurants, bars & cafés: food photography, weekly reels, digital menus and Google Business Profile. Fixed prices, first clips within 72 h.",
+      "keywords": [
+        "restaurant media agency",
+        "restaurant marketing agency",
+        "food photographer",
+        "hospitality social media",
+        "digital menu"
+      ],
+      "hero": {
+        "badge": "Media agency for hospitality",
+        "titleStart": "Visuals that",
+        "titleHighlight": "fill tables",
+        "text": "Food photography, reels and social media for restaurants, bars and cafés – plus a digital menu and Google Business Profile. One shoot a month, content for every week."
+      },
+      "problem": {
+        "title": "Guests decide on their phone before they ever see your door.",
+        "text": "Google, Instagram, TikTok – that's where bookings happen today. Show up with dark phone photos, or not at all, and you lose to the place next door.",
+        "points": [
+          "Food photos that look just as good on the menu, on Google and on delivery apps",
+          "Fresh reels every week, without filming during service",
+          "Digital menu with QR code – prices updated in seconds",
+          "A well-kept Google profile, so you show up for \"restaurants near me\""
+        ]
+      },
+      "features": [
+        {
+          "title": "Food photography",
+          "text": "Plates, drinks and atmosphere – with food styling and magazine-quality lighting."
+        },
+        {
+          "title": "Weekly reels",
+          "text": "12 reels a month from half a shoot day, planned and captioned."
+        },
+        {
+          "title": "Digital menu",
+          "text": "Mobile menu with QR codes for tables and windows – from €199."
+        },
+        {
+          "title": "Website with reservations",
+          "text": "Table bookings around the clock, with zero platform commission."
+        },
+        {
+          "title": "Google & reviews",
+          "text": "Profile management and AI-assisted review replies in your tone of voice."
+        },
+        {
+          "title": "Multilingual",
+          "text": "Menu and clips in DE, EN, AR or TR – for tourists and communities."
+        }
+      ],
+      "faq": [
+        {
+          "q": "How much does a restaurant media agency cost?",
+          "a": "Individual services start at €199 (digital menu) and €390 (Food Photo Express). The Social Retainer with a shoot, 12 reels and 20 photos per month is €1,490 per month. The pricing calculator shows your range in two minutes."
+        },
+        {
+          "q": "Will the shoot disrupt service?",
+          "a": "No. We shoot food and kitchen before service and atmosphere during service with a small setup – guests are only filmed with their consent."
+        },
+        {
+          "q": "Can I update prices on the digital menu myself?",
+          "a": "Yes, any time. The menu updates instantly and the QR codes stay the same."
+        },
+        {
+          "q": "Do you post for us too?",
+          "a": "With the retainer, yes: we plan, write and post. You approve everything in one review round per month."
+        }
+      ]
+    },
+    "festival": {
+      "navLabel": "Festival Videographer",
+      "keyword": "Festival videographer",
+      "metaTitle": "Festival Videographer – Aftermovies in 7 Days, Reels & AI Promo",
+      "metaDescription": "Festival videographer for open airs, clubs and concerts: multi-cam aftermovie in 7 days, social cutdowns and AI ad variants for your presale. Germany and beyond.",
+      "keywords": [
+        "festival videographer",
+        "aftermovie production",
+        "event videographer",
+        "concert videographer",
+        "club aftermovie"
+      ],
+      "hero": {
+        "badge": "Festival videographer",
+        "titleStart": "Aftermovies that",
+        "titleHighlight": "kick off your presale",
+        "text": "Multi-cam coverage at your festival, the aftermovie in 7 days and social cutdowns for every platform. With AI variants for next season's ads – in multiple languages."
+      },
+      "problem": {
+        "title": "Your aftermovie is the best ad for next year.",
+        "text": "If it drops three months later, the hype is gone. We deliver while the crowd is still talking about it.",
+        "points": [
+          "Aftermovie in 7 days – or within 72 hours with Express",
+          "Cutdowns for reels, TikTok and stories included",
+          "20+ ad variants for early-bird and presale campaigns",
+          "Line-up reveals and visualizers with AI-generated scenes"
+        ]
+      },
+      "features": [
+        {
+          "title": "Multi-cam & drone",
+          "text": "Stage, crowd, backstage and aerials – with two or more cameras."
+        },
+        {
+          "title": "Aftermovie in 4K",
+          "text": "A 2–3 minute film with royalty-free music and cinematic grading."
+        },
+        {
+          "title": "Social cutdowns",
+          "text": "Vertical clips for reels and TikTok, straight after the event."
+        },
+        {
+          "title": "AI ad variants",
+          "text": "Hooks, lengths and formats for A/B testing during presale."
+        },
+        {
+          "title": "Artist content",
+          "text": "Clips for your performing artists – more reach for your event."
+        },
+        {
+          "title": "Multilingual",
+          "text": "Voiceover and subtitles for international visitors."
+        }
+      ],
+      "faq": [
+        {
+          "q": "How much does a festival aftermovie cost?",
+          "a": "Our Classic Aftermovie with one shoot day, two cameras and 6 social cutdowns is €2,490. With AI variants and voiceover (AI-Enhanced Promo) it's €3,490. Price multi-day festivals in the pricing calculator."
+        },
+        {
+          "q": "How fast is the aftermovie ready?",
+          "a": "Within 7 days, with the first cutdowns after 72 hours. With the Express option, we deliver everything within 72 hours."
+        },
+        {
+          "q": "Do you cover multi-day festivals?",
+          "a": "Yes. For multiple days we scale crew and cameras accordingly – the calculator shows you the range."
+        },
+        {
+          "q": "Can we use the footage for advertising?",
+          "a": "Yes, you receive full, unlimited usage rights to all final files."
+        }
+      ]
+    },
+    "ai": {
+      "navLabel": "AI Marketing Agency",
+      "keyword": "AI marketing agency",
+      "metaTitle": "AI Marketing Agency – Content Pipelines, Voiceover & Automation",
+      "metaDescription": "AI marketing agency for hospitality and events: content pipelines, AI voiceover in 4 languages, ad variants and n8n automations – set up and managed for you.",
+      "keywords": [
+        "AI marketing agency",
+        "AI content agency",
+        "AI voiceover",
+        "n8n automation agency",
+        "AI video production"
+      ],
+      "hero": {
+        "badge": "AI marketing agency",
+        "titleStart": "AI that",
+        "titleHighlight": "actually delivers content",
+        "text": "Not a tool demo – finished results: content pipelines, voiceover in four languages, ad variants and automations that take work off your plate every day."
+      },
+      "problem": {
+        "title": "There's no shortage of AI tools. What's missing is someone who makes them work.",
+        "text": "Between \"we tried ChatGPT\" and \"it runs on its own every day\" lies real work: prompts, approvals, brand look, integrations. That's what we take care of.",
+        "points": [
+          "Content pipeline: 12–30 clips in every format from a single shoot",
+          "AI voiceover and subtitles in DE, EN, AR and TR",
+          "n8n workflows for captions, reviews and enquiries",
+          "Reporting that tells you what works – instead of spreadsheets"
+        ]
+      },
+      "features": [
+        {
+          "title": "Content pipelines",
+          "text": "Automated editing with a human final check."
+        },
+        {
+          "title": "AI voiceover",
+          "text": "Your own voice or premium voices in multiple languages."
+        },
+        {
+          "title": "Ad variants",
+          "text": "Dozens of variants for A/B testing on Meta and TikTok."
+        },
+        {
+          "title": "n8n automation",
+          "text": "Workflows that run on your accounts and belong to you."
+        },
+        {
+          "title": "Review replies",
+          "text": "Google reviews answered in your house style – you just approve."
+        },
+        {
+          "title": "Ongoing support",
+          "text": "Monitoring, updates and further development from €49 per month."
+        }
+      ],
+      "faq": [
+        {
+          "q": "How much does an AI automation cost?",
+          "a": "A single workflow starts at €490 one-time, with support from €49 per month. The complete content pipeline is part of the AI-Enhanced Promo at €3,490."
+        },
+        {
+          "q": "Who owns the workflows?",
+          "a": "You do. We build on your accounts, and you get access and documentation."
+        },
+        {
+          "q": "Is AI content recognisable?",
+          "a": "On request, we label generated scenes and AI voices. Dishes, guests and stages are always filmed for real."
+        },
+        {
+          "q": "Are you GDPR compliant?",
+          "a": "We choose providers with EU data processing wherever possible, sign data processing agreements and document all data flows."
+        }
+      ]
+    }
+  },
+  "funnel": {
+    "steps": [
+      "Project",
+      "Status",
+      "Budget",
+      "Contact"
+    ],
+    "progress": "Progress",
+    "legend": "Step {step} of 4: {label}",
+    "industryAria": "Your industry",
+    "duration": "Takes about 60 seconds",
+    "industries": {
+      "gastro": "Hospitality",
+      "musik": "Festivals & Music",
+      "andere": "Other industry"
+    },
+    "interests": {
+      "aftermovie": "Aftermovie / event film",
+      "reels": "Brand film & reels",
+      "foto": "Food & event photography",
+      "social": "Social media management",
+      "ki_content": "AI content & voiceover",
+      "automation": "AI workflows & automation",
+      "web": "Website & digital menu",
+      "musikvideo": "Music video & artist promo",
+      "unsicher": "Not sure yet"
+    },
+    "statuses": {
+      "neustart": "Starting from scratch – no content yet",
+      "gelegentlich": "The occasional phone clip, not much of a plan",
+      "regelmaessig": "We post regularly and want higher quality",
+      "projekt": "A specific event or project with a date",
+      "dringend": "Urgent – needs to be ready within 2 weeks"
+    },
+    "budgets": {
+      "unter_1k": "Under €1,000",
+      "1k_2_5k": "€1,000 – €2,500",
+      "2_5k_5k": "€2,500 – €5,000",
+      "ueber_5k": "Over €5,000",
+      "keine_angabe": "Prefer not to say"
+    },
+    "step1": {
+      "title": "What are you planning?",
+      "sub": "Select every area you'd like support with."
+    },
+    "step2": {
+      "title": "Where are you with your content?",
+      "sub": "This helps us find the right starting point for you."
+    },
+    "step3": {
+      "title": "What budget do you have in mind?",
+      "sub": "Totally optional – but it helps us recommend the right packages."
+    },
+    "step4": {
+      "title": "Almost there! How can we reach you?",
+      "sub": "We'll get back to you within 24 hours – promise."
+    },
+    "errors": {
+      "interests": "Please select at least one area.",
+      "status": "Please select where you currently stand.",
+      "budget": "Please choose a budget range – or \"Prefer not to say\"."
+    },
+    "starter": {
+      "gastro-menu": {
+        "name": "Digital Menu",
+        "text": "Mobile menu with QR codes for tables & windows – update it any time."
+      },
+      "gastro-photo": {
+        "name": "Food Photo Express",
+        "text": "2 hours on location · 25 edited photos for your menu, Google & Instagram."
+      },
+      "gastro-reels": {
+        "name": "Reels from Your Footage",
+        "text": "You send phone clips, we cut 10 reels with subtitles & music."
+      },
+      "musik-visualizer": {
+        "name": "AI Visualizer",
+        "text": "Animated visualizer for one track – in 16:9 and 9:16."
+      },
+      "musik-shooting": {
+        "name": "Artist Photo Shoot",
+        "text": "2 hours · 25 edited photos for your press kit & social media."
+      },
+      "musik-promo": {
+        "name": "Promo Kit",
+        "text": "5 reels from your footage · beat sync · subtitles."
+      },
+      "andere-photo": {
+        "name": "Photo Express",
+        "text": "2 hours on location · 25 edited photos for web & social."
+      },
+      "andere-reels": {
+        "name": "Reels from Your Footage",
+        "text": "You send clips, we cut 10 reels with subtitles & music."
+      },
+      "andere-workflow": {
+        "name": "AI Workflow Starter",
+        "text": "One automated workflow, e.g. captions or review replies."
+      }
+    }
+  },
+  "contactForm": {
+    "fields": {
+      "name": "Your name",
+      "email": "Your email",
+      "phone": "Phone",
+      "company": "Restaurant / event / company",
+      "message": "Anything else?"
+    },
+    "optional": "(optional)",
+    "consent": "I agree that my details will be stored to process my enquiry. Details in the <link>privacy policy</link>.",
+    "submit": "Send enquiry",
+    "sending": "Sending",
+    "errors": {
+      "nameRequired": "Please enter your name.",
+      "nameTooLong": "Please shorten your name to 120 characters.",
+      "emailInvalid": "This email address looks incomplete – please double-check it.",
+      "phoneTooLong": "That phone number is too long.",
+      "phoneInvalid": "Please use digits, spaces, + and - only.",
+      "textTooLong": "This text is too long – please shorten it.",
+      "consentRequired": "Please confirm the privacy notice.",
+      "interestsRequired": "Please select at least one area.",
+      "invalid": "Please check this field."
+    },
+    "server": {
+      "rateLimit": "Too many requests in a short time. Please try again in a few minutes.",
+      "invalid": "Please check your details.",
+      "saveFailed": "We couldn't save your enquiry. Give us a quick call or message us on WhatsApp.",
+      "connection": "The connection didn't work. Please try again.",
+      "offline": "No connection to the server. Check your internet and try again – or just give us a call."
+    }
+  },
+  "leadResult": {
+    "reset": "Submit another enquiry",
+    "starter": {
+      "title": "Thanks, {name}! We've got fixed packages for that.",
+      "text": "For your budget, our starter packages are a perfect fit – fixed price, no intro call needed. We've also sent the overview to your inbox.",
+      "book": "Book via WhatsApp",
+      "whatsappText": "Hi TasWiq, I'd like to book the \"{name}\" package."
+    },
+    "growth": {
+      "title": "Thanks, {name}! Your quote arrives within 24 hours.",
+      "text": "We've received your enquiry. Here's what happens next:",
+      "steps": [
+        "We review your details and take a look at your channels.",
+        "Within 24 hours, you'll receive a quote with a fixed price.",
+        "If everything fits, we schedule the Deep Dive – by call or on location."
+      ],
+      "callNow": "Rather talk right away?"
+    },
+    "premium": {
+      "title": "{name}, let's talk directly.",
+      "text": "We plan projects of this size personally. Pick a slot for a 30-minute strategy call – free and without obligation.",
+      "iframeTitle": "Book a call",
+      "loadCalendar": "Load calendar",
+      "calendlyNote": "Loading the calendar transfers data to Calendly (USA).",
+      "callNow": "Call now",
+      "noSlot": "No suitable slot? We'll reach out to you personally today."
+    }
+  },
+  "calculator": {
+    "eyebrow": "Pricing calculator · 2 minutes · no obligation",
+    "titleStart": "What will",
+    "titleAccent": "your project cost?",
+    "sub": "Build your project and see the range instantly. An estimate, not a quote.",
+    "stepsAria": "Steps",
+    "stepOf": "Step {current} of {total}",
+    "oneTimeCosts": "One-time costs",
+    "monthlyLabel": "Ongoing per month:",
+    "none": "none",
+    "disclaimerStrong": "An estimate, not a quote.",
+    "disclaimer": "The range is based solely on your selections – afterwards, we'll give you a fixed price.",
+    "howCalculated": "How is this amount calculated?",
+    "copy": "Copy summary",
+    "copied": "Copied",
+    "pdf": "Save as PDF",
+    "requestTitle": "Request a quote",
+    "requestText": "We'll review your configuration and get back to you within 24 hours. No obligation.",
+    "requestSubmit": "Request a quote",
+    "request": "Enquire",
+    "showResult": "Show result",
+    "resultShort": "Result",
+    "entryPrice": "Starting price",
+    "estimateOneTime": "One-time estimate",
+    "from": "from <amount></amount>",
+    "plusMonthly": "plus {amount}/month",
+    "plusMonthlyShort": "+{amount}/mo",
+    "keyboardTip": "Tip: use ← → to move between steps",
+    "sheetTitle": "{services} for {industry}",
+    "industries": {
+      "gastro": "Hospitality",
+      "musik": "Festivals & Music"
+    },
+    "decrease": "Decrease {label}",
+    "increase": "Increase {label}",
+    "perUnit": "{amount} each",
+    "steps": {
+      "start": {
+        "kurz": "Project",
+        "titel": "What can we produce for you?",
+        "hint": "Your selection determines the questions that follow. You can change everything at any time."
+      },
+      "video": {
+        "kurz": "Video",
+        "titel": "How big is the shoot?",
+        "hint": "Every package includes editing, music and colour grading. We cut reels with our AI pipeline – which is why extra clips are so affordable."
+      },
+      "foto": {
+        "kurz": "Photo",
+        "titel": "How many images do you need?",
+        "hint": "All photos are fully edited, in web and print resolution."
+      },
+      "web": {
+        "kurz": "Web",
+        "titel": "What should your website do?",
+        "hint": "Guests find you online, browse the menu and book or order directly – with zero platform commission."
+      },
+      "ki": {
+        "kurz": "AI",
+        "titel": "Which workflows should run on autopilot?",
+        "hint": "Every workflow is built with n8n, runs on your accounts and belongs to you. Select as many as you like."
+      },
+      "extras": {
+        "kurz": "Extras",
+        "titel": "Languages, travel, turnaround"
+      },
+      "laufend": {
+        "kurz": "Ongoing",
+        "titel": "Should we keep it going afterwards?",
+        "hint": "These items are billed monthly. Everything can be cancelled monthly after the minimum term."
+      },
+      "ende": {
+        "kurz": "Result",
+        "titel": "Your budget range"
+      }
+    },
+    "fields": {
+      "branche": {
+        "label": "Your industry"
+      },
+      "leistungen": {
+        "label": "Services – select all that apply"
+      },
+      "videoUmfang": {
+        "label": "Scope",
+        "posten": "Video"
+      },
+      "videoExtras": {
+        "label": "Extras"
+      },
+      "extraReels": {
+        "label": "Additional reels",
+        "hint": "From the same footage, pre-cut by AI and finalised by us.",
+        "einheit": "reel"
+      },
+      "fotoUmfang": {
+        "label": "Scope",
+        "posten": "Photo"
+      },
+      "fotoExtras": {
+        "label": "Extras"
+      },
+      "webArt": {
+        "label": "Package",
+        "posten": "Web"
+      },
+      "webExtras": {
+        "label": "Visibility & extras"
+      },
+      "kiWorkflows": {},
+      "sprachen": {
+        "label": "Additional language versions",
+        "hint": "AI voiceover or subtitles per language – e.g. EN, AR, TR.",
+        "einheit": "language"
+      },
+      "anfahrt": {
+        "label": "Where is the shoot?",
+        "posten": "Travel"
+      },
+      "express": {
+        "label": "It's urgent: delivery within 72 hours",
+        "hint": "We'll move your project to the front of the line. {pct}% surcharge."
+      },
+      "contentAbo": {
+        "label": "Content subscription",
+        "posten": "Content subscription"
+      },
+      "hosting": {
+        "label": "Website hosting"
+      },
+      "kiBetrieb": {
+        "label": "Workflow management"
+      }
+    },
+    "options": {
+      "branche": {
+        "gastro": {
+          "label": "Hospitality",
+          "hint": "Restaurant, bar, café, catering"
+        },
+        "musik": {
+          "label": "Festivals & Music",
+          "hint": "Open air, club, concert, artist"
+        }
+      },
+      "leistungen": {
+        "video": {
+          "label": "Video",
+          "hint": "Aftermovie, brand film, reels"
+        },
+        "foto": {
+          "label": "Photo",
+          "hint": "Food, venue, event, artist"
+        },
+        "web": {
+          "label": "Web",
+          "hint": "Website, digital menu, tickets"
+        },
+        "ki": {
+          "label": "AI Workflows",
+          "hint": "Content pipelines, voice, n8n"
+        }
+      },
+      "videoUmfang": {
+        "kompakt": {
+          "label": "Compact",
+          "hint": "Half a shoot day · 1 clip (60 s) + 3 reels"
+        },
+        "standard": {
+          "label": "Standard",
+          "hint": "1 shoot day · film (2–3 min) + 6 reels",
+          "badge": "Popular"
+        },
+        "premium": {
+          "label": "Premium",
+          "hint": "2 shoot days · multi-cam · film + 12 reels"
+        }
+      },
+      "videoExtras": {
+        "drohne": {
+          "label": "Drone footage",
+          "hint": "Aerial shots of your venue or crowd"
+        },
+        "zweitkamera": {
+          "label": "Second camera + operator",
+          "hint": "More angles, no missed moments"
+        },
+        "gimbal": {
+          "label": "FPV & gimbal shots",
+          "hint": "Dynamic camera moves through your venue"
+        },
+        "grading": {
+          "label": "Cinematic colour grading",
+          "hint": "A custom look instead of a standard LUT"
+        }
+      },
+      "fotoUmfang": {
+        "kompakt": {
+          "label": "Compact",
+          "hint": "2 hours · 25 edited photos"
+        },
+        "standard": {
+          "label": "Standard",
+          "hint": "Half a day · 60 edited photos",
+          "badge": "Popular"
+        },
+        "premium": {
+          "label": "Premium",
+          "hint": "Full day · 150 photos incl. retouching"
+        }
+      },
+      "fotoExtras": {
+        "styling": {
+          "label": "Food styling",
+          "hint": "Plates, props and lighting like a magazine"
+        },
+        "retusche": {
+          "label": "High-end retouching",
+          "hint": "For menus, posters and large formats"
+        },
+        "kivarianten": {
+          "label": "AI image variants",
+          "hint": "Backgrounds, formats, seasonal versions"
+        }
+      },
+      "webArt": {
+        "speisekarte": {
+          "label": "Digital menu",
+          "hint": "Mobile menu with QR code, update it any time"
+        },
+        "onepager": {
+          "label": "One-page website",
+          "hint": "Menu or line-up, opening hours, directions"
+        },
+        "reservierung": {
+          "label": "Website with reservations",
+          "hint": "Multi-page · bookings/tickets around the clock",
+          "badge": "Recommended"
+        },
+        "komplett": {
+          "label": "Website with online ordering",
+          "hint": "Reservations + online ordering + dashboard"
+        }
+      },
+      "webExtras": {
+        "mehrsprachig": {
+          "label": "Second language",
+          "hint": "e.g. German or Arabic"
+        },
+        "gmb": {
+          "label": "Google Business Profile",
+          "hint": "Setup and optimisation with photos & map"
+        },
+        "seo": {
+          "label": "SEO starter package",
+          "hint": "Get found locally for \"restaurants near me\""
+        },
+        "geo": {
+          "label": "GEO for AI search",
+          "hint": "Visible in ChatGPT, Gemini & Google AI"
+        }
+      },
+      "kiWorkflows": {
+        "captions": {
+          "label": "Captions & posting plan",
+          "hint": "Copy in your tone of voice, polished by us"
+        },
+        "voiceover": {
+          "label": "AI voiceover & translation",
+          "hint": "Your clips in DE · EN · AR · TR"
+        },
+        "varianten": {
+          "label": "Ad variant generator",
+          "hint": "Hooks, lengths, formats for A/B tests"
+        },
+        "bewertungen": {
+          "label": "Review replies",
+          "hint": "Reply to Google reviews automatically"
+        },
+        "leads": {
+          "label": "Enquiry automation",
+          "hint": "Sort and route bookings & enquiries"
+        },
+        "reporting": {
+          "label": "Reporting dashboard",
+          "hint": "Numbers from every channel, once a week"
+        }
+      },
+      "anfahrt": {
+        "lokal": {
+          "label": "Local",
+          "hint": "up to 50 km – included"
+        },
+        "regional": {
+          "label": "Regional",
+          "hint": "up to 200 km"
+        },
+        "bundesweit": {
+          "label": "Anywhere in Germany",
+          "hint": "incl. overnight stay"
+        }
+      },
+      "contentAbo": {
+        "keins": {
+          "label": "No subscription",
+          "hint": "One-off project"
+        },
+        "basis": {
+          "label": "Social Basic",
+          "hint": "6 reels + 10 photos per month"
+        },
+        "retainer": {
+          "label": "Social Retainer",
+          "hint": "12 reels + 20 photos, planning & posting",
+          "badge": "Hospitality favourite"
+        }
+      },
+      "hosting": {
+        "eigen": {
+          "label": "Stays with my current provider"
+        },
+        "wartung": {
+          "label": "Hosting & maintenance",
+          "hint": "Domain, SSL, backups, small changes"
+        }
+      },
+      "kiBetrieb": {
+        "keiner": {
+          "label": "Self-managed",
+          "hint": "You run the workflows yourself"
+        },
+        "basis": {
+          "label": "Managed Basic",
+          "hint": "Monitoring, updates, bug fixes"
+        },
+        "aktiv": {
+          "label": "Managed Plus",
+          "hint": "Plus ongoing development every month"
+        }
+      }
+    },
+    "engine": {
+      "festival": "Festival & night shoot surcharge",
+      "festivalDetail": "+{pct}% on shoot services",
+      "express": "Express delivery (72 h)",
+      "expressDetail": "+{pct}%",
+      "count": "{label}: {count} × {unit}",
+      "perUnit": "{amount} each",
+      "none": "none",
+      "yes": "yes",
+      "no": "no",
+      "selection": "Selection",
+      "included": "included",
+      "perMonth": "{amount}/month",
+      "minService": "Please select at least one service.",
+      "minOption": "Please select at least one option."
+    },
+    "summary": {
+      "heading": "TASWIQ MEDIA. – BUDGET RANGE",
+      "oneTime": "ONE-TIME ITEMS",
+      "monthly": "MONTHLY ITEMS",
+      "range": "One-time estimate: {from} – {to}",
+      "running": "Ongoing: {value}",
+      "perMonthLong": "{amount} per month",
+      "noRunning": "no ongoing costs",
+      "footer": "An estimate, not a quote. Final prices under § 19 UStG (no VAT charged)."
+    },
+    "sheet": {
+      "asOf": "As of {date}",
+      "title": "Budget range",
+      "oneTime": "{range} one-time",
+      "monthly": "{amount} / month",
+      "noRunning": "no ongoing costs",
+      "selection": "Your selection",
+      "services": "Services",
+      "no": "No.",
+      "description": "Description",
+      "sum": "Subtotal",
+      "rangeLabel": "Estimate range",
+      "total": "Total range",
+      "monthlyTitle": "Ongoing per month",
+      "perMonth": "{amount}/month",
+      "disclaimerStrong": "An estimate, not a quote.",
+      "disclaimer": "The range is based solely on your selections. We'll work out together what your project really needs – and then give you a fixed price.",
+      "contact": "Contact",
+      "nextStep": "Next step",
+      "nextStepText": "Request a quote – reply within 24 hours with a fixed price.",
+      "rights": "Usage rights",
+      "rightsText": "Exclusive, unlimited in time and territory – upon receipt of payment."
+    }
+  },
+  "legal": {
+    "tag": "Legal",
+    "bindingNote": "This is a courtesy translation. The German version is legally binding.",
+    "impressum": {
+      "title": "Legal Notice",
+      "placeholder": "Placeholder – complete with the full address and have it legally reviewed before going live (e.g. via eRecht24).",
+      "provider": "Information pursuant to § 5 DDG (German Digital Services Act)",
+      "addressPlaceholder": "[Street, postcode, city]",
+      "contact": "Contact",
+      "phone": "Phone",
+      "email": "Email",
+      "vat": "VAT",
+      "responsible": "Responsible for content",
+      "responsibleText": "{owner}, address as above."
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "draft": "Draft – describes the technical data flows of this website. Have it legally reviewed before going live.",
+      "controller": "Controller",
+      "formsTitle": "Contact form, funnel & pricing calculator",
+      "formsText": "When you contact us via the funnel or the pricing calculator, we store your details (name, email, optionally phone, company, message, selected services, budget range and calculation) to process your enquiry (Art. 6(1)(b) GDPR). The data is stored in a Supabase database (hosted in the EU, Frankfurt region) and processed via a self-hosted n8n workflow: a notification to us and a confirmation email to you. We only store your IP address as a salted hash to protect against spam. If no contract results, we delete enquiries after 24 months at the latest.",
+      "calendlyTitle": "Appointment booking (Calendly)",
+      "calendlyText": "We only load the booking calendar after you click. Data is then transferred to Calendly LLC (USA) (Art. 6(1)(a) GDPR, EU-US Data Privacy Framework).",
+      "videosTitle": "Videos",
+      "videosText": "Preview clips are hosted on our own server. Links to YouTube only open in a new tab when you click them.",
+      "rightsTitle": "Your rights",
+      "rightsText": "Access, rectification, erasure, restriction, data portability and objection – a quick email to us is all it takes."
+    }
+  },
+  "notFound": {
+    "badge": "Error 404",
+    "title": "This page doesn't exist.",
+    "text": "Maybe you'll find what you're looking for here:",
+    "home": "Back to home",
+    "calculator": "To the pricing calculator"
+  }
+}

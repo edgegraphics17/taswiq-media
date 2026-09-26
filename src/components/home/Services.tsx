@@ -1,6 +1,8 @@
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 import { ArrowRight, Layers } from "lucide-react";
-import { services, portfolio } from "@/config/content";
+import { posterOf, serviceItems } from "@/config/content";
+import { contactHref } from "@/config/site";
 import { Reveal } from "@/components/ui/Reveal";
 import { Icon } from "@/components/ui/Icon";
 import { ButtonLink } from "@/components/ui/Button";
@@ -9,21 +11,28 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { FloatCard } from "@/components/ui/FloatCard";
 import { cn } from "@/lib/format";
 
+type Item = { icon: string; title: string; text: string; tags: string[] };
+
 /**
  * Bento-Box: sechs Services in unterschiedlich großen Karten, die sich nahtlos fügen.
  *   Desktop (3 Spalten):  [ 01 Video (2) ][ 02 Foto (schwarz, 2 Zeilen) ]
  *                         [ 03 ][ 04    ][ 02 ]
  *                         [ 05 ][ 06 Web & Automatisierung (2) ]
  */
-export function Services() {
-  const [video, foto, social, audio, visuals, web] = services.items;
-  const poster = (id: string) => portfolio.items.find((p) => p.id === id)?.poster ?? "";
+export async function Services() {
+  const t = await getTranslations("home.services");
+  const [video, foto, social, audio, visuals, web]: Item[] = serviceItems.map((s) => ({
+    icon: s.icon,
+    title: t(`items.${s.id}.title`),
+    text: t(`items.${s.id}.text`),
+    tags: t.raw(`items.${s.id}.tags`) as string[],
+  }));
 
   return (
     <section id="services" aria-labelledby="services-title" className="py-16 sm:py-24">
       <div className="container-x">
         <Reveal>
-          <SectionHeading id="services-title" eyebrow={services.tag} icon={Layers} title={services.title} text={services.text} />
+          <SectionHeading id="services-title" eyebrow={t("tag")} icon={Layers} title={t("title")} text={t("text")} />
         </Reveal>
 
         <InView className="stagger mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -33,14 +42,14 @@ export function Services() {
               <Head n="01" icon={video.icon} />
               <h3 className="mt-5 text-2xl font-medium">{video.title}</h3>
               <p className="mt-2.5 text-[15px] leading-relaxed text-muted">{video.text}</p>
-              <Tags text={video.tags} className="mt-auto pt-6" />
+              <Tags tags={video.tags} className="mt-auto pt-6" />
             </div>
             <div className="relative min-h-56">
               <div className="absolute inset-0 overflow-hidden rounded-[1.5rem]">
-                <Image src={poster("il-forno")} alt="Pizza-Zubereitung im IL Forno, Hyatt Centric Kuala Lumpur" fill sizes="(min-width:1024px) 420px, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                <Image src={posterOf("il-forno")} alt={t("videoImageAlt")} fill sizes="(min-width:1024px) 420px, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
               <FloatCard className="-bottom-4 -left-3 !rounded-full px-4 py-2">
-                <p className="text-xs font-medium">4K · Multi-Cam · Drohne</p>
+                <p className="text-xs font-medium">{t("videoBadge")}</p>
               </FloatCard>
             </div>
           </article>
@@ -55,9 +64,9 @@ export function Services() {
             </div>
             <h3 className="mt-6 text-2xl font-medium text-white">{foto.title}</h3>
             <p className="mt-2.5 text-[15px] leading-relaxed text-night-muted">{foto.text}</p>
-            <Tags text={foto.tags} dark className="mt-5" />
+            <Tags tags={foto.tags} dark className="mt-5" />
             <div className="relative mt-6 min-h-52 flex-1 overflow-hidden rounded-[1.5rem]">
-              <Image src={poster("zuan-yuan")} alt="Dim-Sum-Körbe im Zuan Yuan Restaurant" fill sizes="(min-width:1024px) 400px, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+              <Image src={posterOf("zuan-yuan")} alt={t("fotoImageAlt")} fill sizes="(min-width:1024px) 400px, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
             </div>
           </article>
 
@@ -76,9 +85,9 @@ export function Services() {
               <p className="mt-2.5 text-[15px] leading-relaxed text-muted">{web.text}</p>
             </div>
             <ul className="flex max-w-xs flex-wrap gap-2 md:justify-end">
-              {["Website", "Digitale Speisekarte", "Reservierung", "SEO & GEO", "n8n-Workflows", "Google-Profil"].map((t) => (
-                <li key={t} className="rounded-full border border-line px-3.5 py-1.5 text-[13px] font-medium text-ink">
-                  {t}
+              {(t.raw("webTags") as string[]).map((tag) => (
+                <li key={tag} className="rounded-full border border-line px-3.5 py-1.5 text-[13px] font-medium text-ink">
+                  {tag}
                 </li>
               ))}
             </ul>
@@ -86,8 +95,8 @@ export function Services() {
         </InView>
 
         <Reveal className="mt-10 flex justify-center">
-          <ButtonLink href={services.cta.href} variant="white">
-            {services.cta.label} <ArrowRight className="size-4" aria-hidden />
+          <ButtonLink href={contactHref} variant="white">
+            {t("cta")} <ArrowRight className="size-4" aria-hidden />
           </ButtonLink>
         </Reveal>
       </div>
@@ -106,19 +115,19 @@ function Head({ n, icon }: { n?: string; icon: string }) {
   );
 }
 
-function Tags({ text, dark, className }: { text: string; dark?: boolean; className?: string }) {
+function Tags({ tags, dark, className }: { tags: string[]; dark?: boolean; className?: string }) {
   return (
     <ul className={cn("flex flex-wrap gap-1.5", className)}>
-      {text.split(" · ").map((t) => (
-        <li key={t} className={cn("rounded-full px-3 py-1 text-xs font-medium", dark ? "bg-white/10 text-white" : "bg-canvas text-ink")}>
-          {t}
+      {tags.map((tag) => (
+        <li key={tag} className={cn("rounded-full px-3 py-1 text-xs font-medium", dark ? "bg-white/10 text-white" : "bg-canvas text-ink")}>
+          {tag}
         </li>
       ))}
     </ul>
   );
 }
 
-function SoftCard({ i, n, item, tint }: { i: number; n: string; item: { icon: string; title: string; text: string; tags: string }; tint?: boolean }) {
+function SoftCard({ i, n, item, tint }: { i: number; n: string; item: Item; tint?: boolean }) {
   return (
     <article
       style={{ "--i": i } as React.CSSProperties}
@@ -130,7 +139,7 @@ function SoftCard({ i, n, item, tint }: { i: number; n: string; item: { icon: st
       <Head n={n} icon={item.icon} />
       <h3 className="mt-5 text-xl font-medium">{item.title}</h3>
       <p className="mt-2 text-[15px] leading-relaxed text-muted">{item.text}</p>
-      <Tags text={item.tags} className="mt-auto pt-5" />
+      <Tags tags={item.tags} className="mt-auto pt-5" />
     </article>
   );
 }

@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import type { AppHref } from "@/config/site";
 import { cn } from "@/lib/format";
 
 type Variant = "primary" | "soft" | "white" | "night" | "ghost-night" | "link";
@@ -16,6 +17,10 @@ const styles: Record<Variant, string> = {
 const base =
   "inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-[15px] font-medium transition-all duration-300 ease-[var(--ease-soft)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-45";
 
+/**
+ * Pillen-Link. `href` ist eine interne Route (next-intl übersetzt Pfad + Sprach-Präfix)
+ * oder ein reiner Sprung-Anker auf derselben Seite ("#anfrage").
+ */
 export function ButtonLink({
   href,
   variant = "primary",
@@ -23,13 +28,21 @@ export function ButtonLink({
   children,
   ...rest
 }: {
-  href: string;
+  href: AppHref | `#${string}`;
   variant?: Variant;
   className?: string;
   children: React.ReactNode;
 } & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href">) {
+  const cls = cn(base, styles[variant], className);
+  if (typeof href === "string" && href.startsWith("#")) {
+    return (
+      <a href={href} className={cls} {...rest}>
+        {children}
+      </a>
+    );
+  }
   return (
-    <Link href={href} className={cn(base, styles[variant], className)} {...rest}>
+    <Link href={href as AppHref} className={cls} {...rest}>
       {children}
     </Link>
   );

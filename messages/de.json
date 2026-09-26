@@ -1,0 +1,1538 @@
+{
+  "metadata": {
+    "siteTitle": "TasWiq Media. – Medienagentur für Gastronomie, Festivals & KI-Content",
+    "titleTemplate": "%s | TasWiq Media.",
+    "description": "Premium-Video und Fotografie für Restaurants, Bars und Festivals – skaliert mit KI: aus einem Drehtag werden Dutzende Reels, Ads und Posts. Festpreise, erste Clips in 72 Stunden.",
+    "ogTitle": "TasWiq Media. – Content, der satt macht. Content, der laut ist.",
+    "ogDescription": "Medienagentur für Gastronomie, Festivals & Musik. Kino-Look vor Ort, KI-Tempo in der Postproduktion.",
+    "category": "Marketing",
+    "keywords": [
+      "Medienagentur Gastronomie",
+      "Festival Videograf",
+      "KI Marketing Agentur",
+      "Aftermovie erstellen lassen",
+      "Food Fotograf",
+      "Restaurant Social Media Agentur",
+      "Eventvideograf",
+      "KI Content Produktion",
+      "KI Voiceover",
+      "Content Agentur Gastronomie"
+    ],
+    "calculator": {
+      "title": "Preisrechner – Was kostet Video, Foto, Website & KI?",
+      "description": "Stell dein Projekt in zwei Minuten zusammen: Aftermovie, Food-Fotos, Website oder KI-Workflows. Du siehst sofort den Kostenrahmen – ohne Anmeldung, unverbindlich.",
+      "keywords": [
+        "Aftermovie Kosten",
+        "Food Fotograf Preise",
+        "Videograf Preise",
+        "Restaurant Website Kosten",
+        "KI Automatisierung Kosten"
+      ]
+    },
+    "pipeline": {
+      "title": "Content-Pipeline – Ein Drehtag, Content für ein Quartal",
+      "description": "Unsere KI-Content-Pipeline macht aus einem Drehtag 12 bis 30 Clips in allen Formaten, Längen und Sprachen. Für Restaurants, Bars und Festivals – mit Festpreis.",
+      "keywords": [
+        "KI Content Pipeline",
+        "Social Media Content Gastronomie",
+        "Reels produzieren lassen",
+        "KI Video Produktion"
+      ]
+    },
+    "legalNotice": {
+      "title": "Impressum"
+    },
+    "privacy": {
+      "title": "Datenschutz"
+    },
+    "notFound": {
+      "title": "Seite nicht gefunden"
+    }
+  },
+  "og": {
+    "alt": "TasWiq Media. – Content, der satt macht.",
+    "eyebrow": "MEDIENAGENTUR FÜR GASTRONOMIE, FESTIVALS & MUSIK",
+    "line1": "Content, der",
+    "line2": "satt macht."
+  },
+  "schema": {
+    "orgDescription": "Medienagentur für Gastronomie, Festivals und Musik: Premium-Videografie und Fotografie, skaliert mit KI-Workflows – Content-Pipelines, KI-Voiceover, Websites und Automatisierung.",
+    "slogan": "Ein Drehtag. Content für ein ganzes Quartal.",
+    "knowsAbout": [
+      "Videoproduktion",
+      "Eventfotografie",
+      "Food-Fotografie",
+      "Aftermovies",
+      "Social-Media-Marketing",
+      "Generative KI",
+      "KI-Voiceover",
+      "Marketing-Automatisierung mit n8n"
+    ],
+    "areaServed": [
+      "Deutschland",
+      "Österreich",
+      "Schweiz"
+    ],
+    "contactType": "Vertrieb und Beratung",
+    "catalogName": "Pakete",
+    "monthUnit": "Monat",
+    "calculatorName": "Preisrechner von TasWiq Media.",
+    "calculatorDescription": "Video, Foto, Website oder KI-Workflows zusammenstellen und einen unverbindlichen Kostenrahmen erhalten. Richtwert, kein Angebot.",
+    "operatingSystem": "Alle, im Browser",
+    "breadcrumbHome": "Start",
+    "breadcrumbCalculator": "Preisrechner"
+  },
+  "site": {
+    "vatNote": "Alle Preise sind Endpreise. Gemäß § 19 UStG wird keine Umsatzsteuer berechnet."
+  },
+  "common": {
+    "skipToContent": "Zum Inhalt springen",
+    "homeAria": "TasWiq Media. – Startseite",
+    "mainNav": "Hauptnavigation",
+    "mobileNav": "Mobile Navigation",
+    "menu": "Menü",
+    "openMenu": "Menü öffnen",
+    "closeMenu": "Menü schließen",
+    "consultation": "Kostenloses Erstgespräch",
+    "consultationShort": "Erstgespräch",
+    "startProject": "Projekt starten",
+    "call": "Anrufen",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "whatsapp": "WhatsApp",
+    "whatsappCta": "Direkt schreiben",
+    "back": "Zurück",
+    "next": "Weiter",
+    "opensYoutube": "(öffnet YouTube)"
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "ki": "KI-Lösungen",
+    "pipeline": "Content-Pipeline",
+    "process": "Ablauf",
+    "calculator": "Preisrechner"
+  },
+  "languageSwitcher": {
+    "label": "Sprache wählen",
+    "switchTo": "Seite auf {language} anzeigen",
+    "languages": {
+      "de": "Deutsch",
+      "en": "Englisch"
+    }
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Gastro · Festivals · Musik",
+      "titleStart": "Content, der",
+      "rotating": [
+        "satt macht.",
+        "laut ist.",
+        "Tickets verkauft.",
+        "Tische füllt."
+      ],
+      "sub": "Wir filmen und fotografieren Restaurants, Bars und Festivals auf Kino-Niveau – und machen aus jedem Dreh mit KI-Workflows Dutzende Reels, Ads und Posts.",
+      "primary": "Projekt starten",
+      "secondary": "Preis berechnen",
+      "proofTitle": "450+ Projekte",
+      "proofText": "Hotels, Clubs, Festivals & Artists",
+      "posterAlt": "Standbild aus dem TasWiq-Showreel: Koch am Wok mit Flammen",
+      "statCard": "Projekte in Gastro, Events & Musik",
+      "qualityTitle": "Erste Clips in 72 h",
+      "qualityText": "Kino-Look, KI-Tempo",
+      "showreel": "Showreel",
+      "showreelMeta": "Hotel-Restaurants · KL"
+    },
+    "promise": {
+      "tag": "Warum TasWiq",
+      "title": "Kamera-Handwerk trifft KI-Pipeline.",
+      "text": "TasWiq (تسويق) ist Arabisch und heißt Marketing. Genau darum geht's: Bilder, die nicht nur schön sind, sondern Tische füllen und Tickets verkaufen. Gedreht haben wir unter anderem für Hotel-Restaurants in Kuala Lumpur – vom IL Forno im Hyatt Centric bis zum Zuan Yuan im One World Hotel. Heute verbinden wir diesen Kino-Look mit KI-Workflows, damit aus einem Drehtag Content für Wochen wird.",
+      "stats": [
+        {
+          "value": "450+",
+          "label": "Projekte in Gastro, Events & Musik"
+        },
+        {
+          "value": "72 h",
+          "label": "bis zu den ersten Clips"
+        },
+        {
+          "value": "4",
+          "label": "Sprachen per KI-Voiceover"
+        }
+      ],
+      "referencesTitle": "Referenzen, die man schmeckt",
+      "referencesPlaces": "Kuala Lumpur & Petaling Jaya",
+      "imageAlt": "Sushi-Station im Cinnamon Coffee House, One World Hotel",
+      "clipsPerShoot": "Clips pro Dreh",
+      "cardTag": "Unser Versprechen",
+      "cardTitle": "Du kümmerst dich um deine Gäste. Wir um den Content.",
+      "checks": [
+        "Ein Dreh – alle Formate, von 16:9 bis 9:16",
+        "Ein fester Ansprechpartner für alles",
+        "Festpreis steht vor dem ersten Drehtag",
+        "Erste Clips 72 Stunden nach dem Dreh",
+        "Volle Nutzungsrechte an allen Dateien"
+      ],
+      "aiBadge": "+KI"
+    },
+    "services": {
+      "tag": "Was wir anbieten",
+      "title": "Unsere Services",
+      "text": "Vom ersten Konzept bis zum laufenden Content-Abo – alles koordiniert, alles aus einer Hand.",
+      "cta": "Alle Services anfragen",
+      "videoBadge": "4K · Multi-Cam · Drohne",
+      "videoImageAlt": "Pizza-Zubereitung im IL Forno, Hyatt Centric Kuala Lumpur",
+      "fotoImageAlt": "Dim-Sum-Körbe im Zuan Yuan Restaurant",
+      "webTags": [
+        "Website",
+        "Digitale Speisekarte",
+        "Reservierung",
+        "SEO & GEO",
+        "n8n-Workflows",
+        "Google-Profil"
+      ],
+      "items": {
+        "video": {
+          "title": "Video & Aftermovie",
+          "text": "Aftermovies, Imagefilme und Musikvideos in 4K – mit Multi-Cam, Drohne und Kino-Grading.",
+          "tags": [
+            "Festival",
+            "Club",
+            "Restaurant"
+          ]
+        },
+        "foto": {
+          "title": "Fotografie",
+          "text": "Food, Location, Event und Artist. Bearbeitet, in Web- und Druckauflösung, sofort nutzbar.",
+          "tags": [
+            "Food",
+            "Event",
+            "Press-Kit"
+          ]
+        },
+        "social": {
+          "title": "Social-Media-Content",
+          "text": "Reels, Stories und Posts im Wochenrhythmus – geplant, getextet und gepostet.",
+          "tags": [
+            "Instagram",
+            "TikTok",
+            "Google"
+          ]
+        },
+        "audio": {
+          "title": "KI-Audio & Voiceover",
+          "text": "Sprachfassungen deiner Clips mit deiner oder einer KI-Stimme, inklusive Untertitel.",
+          "tags": [
+            "DE",
+            "EN",
+            "AR",
+            "TR"
+          ]
+        },
+        "visuals": {
+          "title": "KI-Video & Visuals",
+          "text": "Generierte Szenen, Visualizer und Ad-Varianten für Line-ups, Launches und Kampagnen.",
+          "tags": [
+            "Visuals",
+            "Ads",
+            "Motion"
+          ]
+        },
+        "web": {
+          "title": "Web & Automatisierung",
+          "text": "Websites, digitale Speisekarten und n8n-Workflows, die dir jeden Tag Arbeit abnehmen.",
+          "tags": [
+            "Website",
+            "QR-Karte",
+            "n8n"
+          ]
+        }
+      }
+    },
+    "ki": {
+      "tag": "KI-Lösungen",
+      "title": "KI, die im Alltag wirklich Content liefert.",
+      "text": "Werkzeuge, die ab dem ersten Dreh etwas übernehmen: schneiden, übersetzen, vertonen, posten. Wir richten sie ein und betreuen sie – wie deinen Content.",
+      "flagship": {
+        "badge": "Unser Flaggschiff",
+        "title": "Ein Drehtag. Content für ein ganzes Quartal.",
+        "text": "Unsere Pipeline macht aus dem Rohmaterial eines Drehs 12 bis 30 fertige Clips – in mehreren Formaten, Längen und Sprachen. Du bekommst jede Woche neues Material, ohne jede Woche zu drehen.",
+        "primary": "Wie die Pipeline arbeitet",
+        "secondary": "Kosten berechnen",
+        "imageAlt": "Barkeeper in The Sphere Lounge, One World Hotel",
+        "floatLabel": "Aus 1 Drehtag",
+        "floatValue": "30 Clips"
+      },
+      "cards": {
+        "cut": {
+          "title": "Schnitt in Serie",
+          "text": "Die KI schlägt Hooks, Längen und Formate vor. Wir wählen aus und geben den Look."
+        },
+        "languages": {
+          "title": "Sprachen & Stimmen",
+          "text": "Ein Clip, vier Sprachen – Voiceover und Untertitel, abgestimmt auf dein Publikum."
+        },
+        "captions": {
+          "title": "Captions & Planung",
+          "text": "Texte in deinem Ton, Posting-Plan und Hashtags – vorbereitet, von uns redigiert."
+        },
+        "reporting": {
+          "title": "Auswertung",
+          "text": "Welche Clips ziehen? Die KI wertet aus und schreibt den Report. Du liest Erkenntnisse statt Tabellen."
+        }
+      },
+      "split": {
+        "gastro": {
+          "tag": "Du bist aus der Gastronomie",
+          "title": "Dann starte mit dem Social-Retainer.",
+          "text": "Ein halber Drehtag im Monat, 12 Reels und 20 Fotos – Karte, Team und Atmosphäre. Dazu die digitale Speisekarte und dein Google-Profil.",
+          "cta": "Gastro-Paket ansehen"
+        },
+        "festival": {
+          "tag": "Du veranstaltest Festivals & Events",
+          "title": "Dann plane das Aftermovie mit KI-Paket.",
+          "text": "Multi-Cam-Dreh, Aftermovie in 7 Tagen und 20+ Ad-Varianten für den Vorverkauf der nächsten Saison – in mehreren Sprachen.",
+          "cta": "Festival-Paket ansehen"
+        }
+      }
+    },
+    "portfolio": {
+      "tag": "Arbeiten & Referenzen",
+      "title": "Ergebnisse, die bewegen",
+      "text": "Hotel-Restaurants in Kuala Lumpur, Clubs und Festivals, Artists und Marken – eine Auswahl unserer Projekte.",
+      "filterAria": "Arbeiten filtern",
+      "filters": {
+        "alle": "Alle",
+        "gastro": "Gastro & Hotel",
+        "festival": "Festival & Artists",
+        "ki": "KI & Web"
+      },
+      "kind": {
+        "case": "Projekt",
+        "format": "Format"
+      },
+      "watchFilm": "Ganzen Film ansehen",
+      "posterAlt": "{title} – Standbild aus dem Film",
+      "items": {
+        "zuan-yuan": {
+          "tag": "Restaurant-Film",
+          "title": "Zuan Yuan – Kantonesische Küche",
+          "text": "Dim Sum, Signature-Gerichte und der Chef am Tisch: ein Imagefilm für das kantonesische Fine-Dining-Restaurant."
+        },
+        "il-forno": {
+          "tag": "Restaurant-Film",
+          "title": "IL Forno – Italian Fine Dining",
+          "text": "Pizza aus dem Steinofen, Pasta aus der offenen Küche: der Launch-Film für das neue Italiener im Hyatt Centric."
+        },
+        "cinnamon": {
+          "tag": "Buffet-Film",
+          "title": "Cinnamon Coffee House",
+          "text": "Wok-Flammen, Grill und internationale Stationen: das All-Day-Dining-Buffet in Szene gesetzt."
+        },
+        "the-sphere": {
+          "tag": "Lounge-Film",
+          "title": "The Sphere Lounge",
+          "text": "Cocktails, High Tea und Live-Musik: die Lounge zwischen Afternoon Tea und Abendstimmung."
+        },
+        "lilys": {
+          "tag": "Print & Digital",
+          "title": "LILY'S Restaurant – Speisekarte",
+          "text": "Redesign der Speisekarte im neuen Stil: 8 Seiten, Druck und Digital, Inhalte auf Deutsch und Englisch."
+        },
+        "festivals": {
+          "tag": "Event-Kampagnen",
+          "title": "Clubs & Festivals",
+          "text": "Visuals und Kampagnen für Tomorrowland, DWP Bali, Afro Nation, splash!, O Beach Ibiza und Clubs in ganz Deutschland."
+        },
+        "artists": {
+          "tag": "Artist-Branding",
+          "title": "Media-Kits für Artists",
+          "text": "Press-Kits, KI-Shootings und Booking-Kalender – u. a. für Pierce Merrill und DJ Yuna."
+        },
+        "voiceover": {
+          "tag": "KI-Voiceover",
+          "title": "Ein Clip, vier Sprachen",
+          "text": "Voiceover und Untertitel in DE, EN, AR und TR – für Gäste, Touristen und Communities."
+        },
+        "reviews": {
+          "tag": "Automatisierung",
+          "title": "Bewertungen auf Autopilot",
+          "text": "Ein n8n-Workflow beantwortet Google-Reviews im Ton des Hauses – du gibst nur frei."
+        }
+      },
+      "mock": {
+        "menuSections": [
+          "Vorspeisen & Suppen",
+          "Currys & Wok",
+          "Salate & Bowls"
+        ],
+        "lineupSub": "Flyer · Teaser · Countdown",
+        "review": "Google-Review",
+        "draft": "KI-Entwurf",
+        "draftSub": "im Ton des Hauses",
+        "approve": "Freigabe",
+        "approveSub": "1 Klick"
+      },
+      "opensYoutube": "(öffnet YouTube)"
+    },
+    "references": {
+      "title": "Marken, Events & Artists, mit denen wir gearbeitet haben",
+      "partners": [
+        "Google Partner",
+        "Meta Marketing Partner"
+      ],
+      "groups": {
+        "hospitality": "Hospitality",
+        "clubs": "Clubs & Festivals",
+        "spirits": "Spirits",
+        "automotive": "Automotive",
+        "brands": "Marken",
+        "artists": "Artists"
+      }
+    },
+    "process": {
+      "tag": "Unser Ablauf",
+      "title": "In 4 Schritten zum",
+      "accent": "Content-System",
+      "text": "Strukturiert, transparent und schnell – so arbeiten wir mit dir.",
+      "steps": [
+        {
+          "title": "Deep Dive",
+          "text": "Wir lernen dein Lokal oder Festival kennen: Zielgruppe, Kanäle, Stimmung. Ehrlich und unverbindlich."
+        },
+        {
+          "title": "Der Masterplan",
+          "text": "Shotlist, Drehplan und KI-Pipeline. Vorab steht fest, welche Formate in welcher Menge entstehen."
+        },
+        {
+          "title": "Dreh & Umsetzung",
+          "text": "Premium-Equipment vor Ort, danach Schnitt, Grading und KI-Veredelung. Erste Clips nach 72 Stunden."
+        },
+        {
+          "title": "Scale & Optimize",
+          "text": "Wir messen, was performt, und produzieren Varianten nach – automatisiert, ohne neuen Drehtag."
+        }
+      ]
+    },
+    "calculatorTeaser": {
+      "label": "Kostenrahmen",
+      "title": "Was kostet das bei uns?",
+      "titleAccent": "Sieh es in zwei Minuten.",
+      "text": "Die häufigste Frage im Erstgespräch. Stell dein Projekt selbst zusammen – Video, Foto, Website oder KI-Workflows, mit allem, was dazugehört. Du siehst sofort, in welchem Rahmen es sich bewegt.",
+      "pills": [
+        "Zwei Minuten",
+        "Ohne Anmeldung",
+        "Unverbindlich"
+      ],
+      "primary": "Projekt durchrechnen",
+      "secondary": "Lieber direkt fragen",
+      "exampleLabel": "So sieht das Ergebnis aus",
+      "exampleSummary": "Video Standard · Drohne · 1 Sprache",
+      "rangeNote": "Richtwert einmalig · dazu {monthly}/Monat",
+      "included": "Das steckt drin",
+      "foot": "Beispielhafte Zusammenstellung. Deine Zahlen hängen von deinen Angaben ab."
+    },
+    "contact": {
+      "tag": "Kontakt",
+      "title": "Bereit für Content,",
+      "accent": "der wirkt?",
+      "text": "Starte jetzt dein Projekt. Wir melden uns innerhalb von 24 Stunden bei dir."
+    }
+  },
+  "footer": {
+    "claim": "Premium-Content für Gastronomie, Festivals und Musik – skaliert mit KI-Workflows.",
+    "navigation": "Navigation",
+    "services": "Leistungen",
+    "contact": "Kontakt",
+    "legalNotice": "Impressum",
+    "privacy": "Datenschutz"
+  },
+  "contactBox": {
+    "title": "Lieber direkt sprechen?",
+    "text": "Kurze Nachricht genügt – wir beraten dich persönlich und unverbindlich."
+  },
+  "product": {
+    "calculateCosts": "Kosten berechnen",
+    "requestConsultation": "Beratung anfragen",
+    "requestProject": "Projekt anfragen",
+    "featuresTag": "Leistungen",
+    "featuresTitle": "Was du bekommst.",
+    "faqTitle": "Gute Fragen.",
+    "faqAccent": "Klare Antworten.",
+    "requestTag": "Anfrage",
+    "goodToKnow": "Gut zu wissen:",
+    "recommended": "Empfehlung",
+    "mostChosen": "Meist gewählt",
+    "youGet": "Das bekommst du",
+    "requestPackage": "{name} anfragen",
+    "heroImageAlt": "Dim-Sum-Service im Zuan Yuan Restaurant",
+    "defaultStats": [
+      {
+        "value": "72 h",
+        "label": "bis zu den ersten Clips"
+      },
+      {
+        "value": "450+",
+        "label": "Projekte"
+      }
+    ],
+    "seoFunnel": {
+      "title": "Lass uns über",
+      "accent": "dein Projekt sprechen.",
+      "text": "Vier kurze Fragen, dann melden wir uns innerhalb von 24 Stunden mit einem Vorschlag und Festpreis."
+    }
+  },
+  "pipeline": {
+    "breadcrumb": "Content-Pipeline",
+    "schemaName": "KI-Content-Pipeline",
+    "schemaServiceType": "Videoproduktion mit KI-Postproduktion",
+    "hero": {
+      "badge": "Das Flaggschiff von TasWiq Media.",
+      "titleStart": "Ein Drehtag.",
+      "titleHighlight": "Content für ein Quartal",
+      "text": "Wir drehen einen Tag bei dir – und unsere Pipeline macht daraus 12 bis 30 fertige Clips in allen Formaten, Längen und Sprachen. Du postest jede Woche Neues, ohne jede Woche zu drehen. Wir planen, drehen, schneiden und betreuen.",
+      "stats": [
+        {
+          "value": "12–30",
+          "label": "Clips pro Dreh"
+        },
+        {
+          "value": "72 h",
+          "label": "bis zu den ersten Clips"
+        },
+        {
+          "value": "4",
+          "label": "Sprachen per KI"
+        },
+        {
+          "value": "1",
+          "label": "Ansprechpartner"
+        }
+      ]
+    },
+    "problem": {
+      "tag": "Das Problem",
+      "title": "Ein Dreh im Jahr reicht nicht mehr für einen Feed, der jede Woche lebt.",
+      "text": "Gäste entscheiden auf Instagram, TikTok und Google, wo sie essen und feiern. Wer dort nur alle drei Monate auftaucht, verliert gegen den Laden nebenan. Genau da setzt die Pipeline an:",
+      "points": [
+        "Jede Woche neuer Content – ohne jede Woche eine Kamera im Laden.",
+        "Du musst im Service nicht mehr selbst filmen, um sichtbar zu bleiben.",
+        "Statt „wir müssten mal wieder was posten“ liegt der Plan für den Monat bereit.",
+        "Saison, neue Karte, neues Line-up: Wir aktualisieren Clips, statt neu zu drehen."
+      ],
+      "story": {
+        "label": "So läuft ein Drehtag",
+        "quote": "„Um 16 Uhr Mise en Place, um 19 Uhr volles Haus – wir sind bei beidem dabei.“",
+        "text": "Vorab steht die Shotlist. Wir filmen Küche, Team, Gerichte und Gäste, dazu Hooks für Reels und Totale für den Imagefilm. Nach dem Dreh schneidet die Pipeline Varianten vor, wir wählen aus, graden und vertonen. Du gibst in einer Freigabe-Runde frei – fertig."
+      },
+      "note": "Ehrlich statt getarnt: KI-Stimmen und generierte Szenen kennzeichnen wir auf Wunsch. Deine Gerichte und Gäste sind immer echt gefilmt."
+    },
+    "features": {
+      "tag": "Funktionen",
+      "title": "Nicht nur schneiden.",
+      "accent": "Mitdenken.",
+      "text": "Die Pipeline kennt deine Marke: Farben, Schriften, Tonalität, Do's und Don'ts. Danach entstehen Varianten, die nach dir aussehen – nicht nach Vorlage.",
+      "items": [
+        {
+          "title": "Alle Formate aus einem Dreh",
+          "text": "16:9, 9:16, 4:5 und 1:1 – automatisch neu kadriert, von uns kontrolliert."
+        },
+        {
+          "title": "Hook-Varianten",
+          "text": "Drei bis fünf Einstiege pro Clip, damit du testen kannst, was in den ersten Sekunden zieht."
+        },
+        {
+          "title": "KI-Voiceover",
+          "text": "Deine Stimme oder eine Premium-KI-Stimme – in Deutsch, Englisch, Arabisch oder Türkisch."
+        },
+        {
+          "title": "Untertitel im Markenlook",
+          "text": "Automatisch transkribiert, in deinen Farben und Schriften gesetzt."
+        },
+        {
+          "title": "Captions & Posting-Plan",
+          "text": "Texte, Hashtags und Zeitplan für den ganzen Monat – vorbereitet und redigiert."
+        },
+        {
+          "title": "Saison-Updates",
+          "text": "Neue Preise, neues Gericht, neues Datum: Wir aktualisieren bestehende Clips statt neu zu drehen."
+        },
+        {
+          "title": "Ad-Varianten für A/B-Tests",
+          "text": "20+ Varianten für Meta- und TikTok-Ads, sauber benannt und exportiert."
+        },
+        {
+          "title": "Durchsuchbares Archiv",
+          "text": "Jede Aufnahme verschlagwortet – „Pasta, Abend, Nahaufnahme“ ist in Sekunden gefunden."
+        },
+        {
+          "title": "Reporting",
+          "text": "Welche Clips performen? Einmal im Monat als kurzer Report mit klaren Empfehlungen."
+        }
+      ]
+    },
+    "modes": {
+      "tag": "So kommt dein Content zustande",
+      "title": "Dein Laden bleibt dein Laden.",
+      "accent": "Wir passen uns an.",
+      "text": "Kein Filmteam, das den Service lahmlegt. Wir drehen, wann es passt – oder arbeiten mit dem, was du schon hast. Du entscheidest den Modus:",
+      "modes": [
+        {
+          "label": "Modus 01",
+          "title": "Aus unserem Dreh",
+          "text": "Wir kommen einen halben oder ganzen Tag vorbei und filmen alles für die nächsten Wochen.",
+          "note": "Der Klassiker"
+        },
+        {
+          "label": "Modus 02",
+          "title": "Aus deinem Material",
+          "text": "Du schickst Handy-Clips aus dem Alltag, die Pipeline macht daraus fertige Reels.",
+          "note": "Ideal zum Start"
+        },
+        {
+          "label": "Modus 03",
+          "title": "Always-on",
+          "text": "Ein Drehtag pro Monat plus laufende Produktion – dein Feed läuft, ohne dass du daran denkst.",
+          "note": "Der Retainer"
+        }
+      ],
+      "footnote": "Wechseln geht jederzeit: Modus anpassen dauert eine Nachricht. Retainer sind nach der Mindestlaufzeit monatlich kündbar."
+    },
+    "audience": {
+      "tag": "Für wen",
+      "title": "In Gastro und Festival zu Hause –",
+      "accent": "und offen für deine Branche.",
+      "text": "Die Pipeline ist für Betriebe gebaut, die jede Woche sichtbar sein müssen und keine Zeit zum Filmen haben.",
+      "chips": [
+        "Restaurants",
+        "Bars & Cocktailbars",
+        "Cafés & Bäckereien",
+        "Catering",
+        "Festivals & Open Airs",
+        "Clubs",
+        "Konzerte & Touren",
+        "Artists & Labels",
+        "Hotels",
+        "Eventlocations"
+      ]
+    },
+    "role": {
+      "tag": "Unsere Rolle",
+      "title": "Du bekommst kein Tool.",
+      "accent": "Du bekommst fertigen Content.",
+      "text": "Technik allein nimmt niemandem Arbeit ab. Wir übernehmen Konzept, Dreh und Pipeline und bleiben dein Ansprechpartner.",
+      "items": [
+        {
+          "title": "Konzept & Shotlist",
+          "text": "Welche Formate, welche Stimmung, welche Botschaft? Wir planen, bevor die Kamera läuft."
+        },
+        {
+          "title": "Dreh vor Ort",
+          "text": "Premium-Kameras, Licht und Ton – abgestimmt auf deinen Service, ohne Gäste zu stören."
+        },
+        {
+          "title": "Pipeline & Freigabe",
+          "text": "Die KI schneidet vor, wir veredeln. Du gibst in einer übersichtlichen Freigabe-Runde frei."
+        },
+        {
+          "title": "Betreuung & Nachschärfen",
+          "text": "Wir schauen auf die Zahlen und justieren nach. Ein Ansprechpartner, keine Warteschleife."
+        }
+      ]
+    },
+    "pricing": {
+      "tag": "Pakete",
+      "title": "Festpreise.",
+      "accent": "Klassisches Handwerk, KI‑Tempo.",
+      "text": "Jedes Paket startet mit einem echten Dreh vor Ort. Die KI kommt danach – für Menge, Varianten und Geschwindigkeit.",
+      "units": {
+        "once": "einmalig",
+        "monthly": "pro Monat"
+      },
+      "packages": {
+        "classic": {
+          "name": "Classic Aftermovie",
+          "audience": "Für Festivals, Clubnächte & Konzerte",
+          "meta": "1 Drehtag · 2 Kameras · Lieferung in 7 Tagen",
+          "features": [
+            "Aftermovie 2–3 Min. in 4K",
+            "6 Social-Cutdowns in 9:16",
+            "Lizenzfreie Musik",
+            "Kino-Color-Grading",
+            "1 Korrekturschleife inklusive"
+          ]
+        },
+        "aiPromo": {
+          "name": "AI-Enhanced Promo",
+          "audience": "Für Launches, Line-ups & Neueröffnungen",
+          "meta": "Drehtag + KI-Postproduktion",
+          "features": [
+            "Alles aus Classic Aftermovie",
+            "20+ Ad-Varianten: Hooks, Längen, Formate",
+            "KI-Voiceover in bis zu 4 Sprachen",
+            "KI-generierte Szenen & Übergänge",
+            "Ad-ready Export für Meta & TikTok"
+          ]
+        },
+        "retainer": {
+          "name": "Gastro Social-Retainer",
+          "audience": "Für Restaurants, Bars & Cafés",
+          "meta": "6 Monate Mindestlaufzeit",
+          "features": [
+            "1 halber Drehtag pro Monat",
+            "12 Reels + 20 Fotos pro Monat",
+            "Captions & Posting-Plan",
+            "Google-Profil-Pflege",
+            "Monatliches Reporting"
+          ]
+        }
+      },
+      "trust": [
+        "Festpreis vor dem Dreh",
+        "Volle Nutzungsrechte",
+        "Endpreise nach § 19 UStG",
+        "Antwort in 24 Stunden"
+      ]
+    },
+    "faq": [
+      {
+        "q": "Wie schnell bekomme ich die ersten Ergebnisse?",
+        "a": "Erste Social-Clips liefern wir 72 Stunden nach dem Dreh, den fertigen Film je nach Paket nach 7 bis 14 Tagen. Mit Express geht alles in 72 Stunden."
+      },
+      {
+        "q": "Was macht die KI – und was nicht?",
+        "a": "Die KI übernimmt Fleißarbeit: Schnitt-Varianten, Untertitel, Übersetzungen, Voiceover und Formatanpassungen. Kamera, Licht, Auswahl und finaler Look bleiben Handarbeit. Gerichte und Gäste sind immer echt gefilmt."
+      },
+      {
+        "q": "Wem gehören die Rechte an Fotos und Videos?",
+        "a": "Dir. Du bekommst ausschließliche, zeitlich und räumlich unbegrenzte Nutzungsrechte an allen finalen Dateien, sobald die Rechnung bezahlt ist."
+      },
+      {
+        "q": "Was, wenn mir der Schnitt nicht gefällt?",
+        "a": "Eine Korrekturschleife ist in jedem Paket enthalten. Weitere Runden kosten 49,99 € – meist brauchen wir sie nicht, weil der Masterplan vorher steht."
+      },
+      {
+        "q": "Dreht ihr auch außerhalb eurer Stadt?",
+        "a": "Ja, in ganz Deutschland, Österreich und der Schweiz. Anfahrt rechnen wir transparent ab – bis 50 km ist sie inklusive."
+      },
+      {
+        "q": "Wie läuft das mit Gästen im Bild und Datenschutz?",
+        "a": "Wir kündigen Drehs mit Aushängen an, filmen Gäste nur mit Einverständnis und liefern Einwilligungsvorlagen mit. Bei Festivals stimmen wir uns mit dem Veranstalter ab."
+      }
+    ],
+    "funnel": {
+      "title": "Hör auf zu filmen.",
+      "accent": "Fang an zu posten.",
+      "text": "Erzähl uns kurz von deinem Lokal oder Event – wir melden uns mit einem Plan und Festpreis innerhalb von 24 Stunden."
+    }
+  },
+  "seoPages": {
+    "gastro": {
+      "navLabel": "Medienagentur Gastronomie",
+      "keyword": "Medienagentur Gastronomie",
+      "metaTitle": "Medienagentur für Gastronomie – Food-Fotos, Reels & Speisekarte",
+      "metaDescription": "Medienagentur für Restaurants, Bars & Cafés: Food-Fotografie, Reels im Wochenrhythmus, digitale Speisekarte und Google-Profil. Festpreise, erste Clips in 72 h.",
+      "keywords": [
+        "Medienagentur Gastronomie",
+        "Restaurant Marketing Agentur",
+        "Food Fotograf",
+        "Gastro Social Media",
+        "digitale Speisekarte"
+      ],
+      "hero": {
+        "badge": "Medienagentur für Gastronomie",
+        "titleStart": "Bilder, die",
+        "titleHighlight": "Tische füllen",
+        "text": "Food-Fotografie, Reels und Social Media für Restaurants, Bars und Cafés – plus digitale Speisekarte und Google-Profil. Ein Dreh im Monat, Content für jede Woche."
+      },
+      "problem": {
+        "title": "Gäste entscheiden auf dem Handy, bevor sie deine Tür sehen.",
+        "text": "Google-Profil, Instagram, TikTok – dort wird heute reserviert. Wer dort mit dunklen Handyfotos oder gar nicht auftaucht, verliert gegen den Laden nebenan.",
+        "points": [
+          "Food-Fotos, die auf Karte, Google und Lieferdiensten gleich gut aussehen",
+          "Jede Woche neue Reels, ohne dass du im Service filmen musst",
+          "Digitale Speisekarte mit QR-Code – Preise in Sekunden geändert",
+          "Google-Profil gepflegt, damit du bei „Restaurant in der Nähe“ auftauchst"
+        ]
+      },
+      "features": [
+        {
+          "title": "Food-Fotografie",
+          "text": "Teller, Drinks und Atmosphäre – mit Food-Styling und Licht wie im Magazin."
+        },
+        {
+          "title": "Reels im Wochenrhythmus",
+          "text": "12 Reels pro Monat aus einem halben Drehtag, geplant und getextet."
+        },
+        {
+          "title": "Digitale Speisekarte",
+          "text": "Mobile Karte mit QR-Codes für Tische und Fenster – ab 199 €."
+        },
+        {
+          "title": "Website mit Reservierung",
+          "text": "Tischreservierung rund um die Uhr, ohne Provision an Plattformen."
+        },
+        {
+          "title": "Google & Bewertungen",
+          "text": "Profil-Pflege und KI-gestützte Antworten auf Reviews in deinem Ton."
+        },
+        {
+          "title": "Mehrsprachig",
+          "text": "Karte und Clips in DE, EN, AR oder TR – für Touristen und Communities."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Was kostet eine Medienagentur für Gastronomie?",
+          "a": "Einzelne Leistungen starten bei 199 € (digitale Speisekarte) und 390 € (Food-Foto Express). Der Social-Retainer mit Dreh, 12 Reels und 20 Fotos pro Monat kostet 1.490 € monatlich. Im Preisrechner siehst du deinen Rahmen in zwei Minuten."
+        },
+        {
+          "q": "Stört der Dreh den laufenden Service?",
+          "a": "Nein. Wir drehen Food und Küche vor dem Service und Atmosphäre im laufenden Betrieb mit kleinem Setup – Gäste filmen wir nur mit Einverständnis."
+        },
+        {
+          "q": "Kann ich Preise auf der digitalen Speisekarte selbst ändern?",
+          "a": "Ja, jederzeit. Die Karte ist sofort aktualisiert, die QR-Codes bleiben gleich."
+        },
+        {
+          "q": "Postet ihr auch für uns?",
+          "a": "Im Retainer ja: Wir planen, texten und posten. Du gibst in einer Freigabe-Runde pro Monat frei."
+        }
+      ]
+    },
+    "festival": {
+      "navLabel": "Festival-Videograf",
+      "keyword": "Festival Videograf",
+      "metaTitle": "Festival-Videograf – Aftermovies in 7 Tagen, Reels & KI-Promo",
+      "metaDescription": "Festival-Videograf für Open Airs, Clubs und Konzerte: Multi-Cam-Aftermovie in 7 Tagen, Social-Cutdowns und KI-Ad-Varianten für den Vorverkauf. Deutschlandweit.",
+      "keywords": [
+        "Festival Videograf",
+        "Aftermovie erstellen lassen",
+        "Eventvideograf",
+        "Konzert Videograf",
+        "Club Aftermovie"
+      ],
+      "hero": {
+        "badge": "Festival-Videograf",
+        "titleStart": "Aftermovies, die den",
+        "titleHighlight": "Vorverkauf starten",
+        "text": "Multi-Cam-Dreh auf deinem Festival, Aftermovie in 7 Tagen und Social-Cutdowns für jede Plattform. Mit KI-Varianten für die Ads der nächsten Saison – in mehreren Sprachen."
+      },
+      "problem": {
+        "title": "Das Aftermovie ist die beste Werbung fürs nächste Jahr.",
+        "text": "Wenn es erst drei Monate später kommt, ist der Hype vorbei. Wir liefern, solange die Crowd noch darüber spricht.",
+        "points": [
+          "Aftermovie in 7 Tagen – mit Express sogar in 72 Stunden",
+          "Cutdowns für Reels, TikTok und Stories direkt mitgeliefert",
+          "20+ Ad-Varianten für Early-Bird- und Vorverkaufs-Kampagnen",
+          "Line-up-Reveals und Visualizer mit KI-generierten Szenen"
+        ]
+      },
+      "features": [
+        {
+          "title": "Multi-Cam & Drohne",
+          "text": "Bühne, Crowd, Backstage und Luftbilder – mit zwei oder mehr Kameras."
+        },
+        {
+          "title": "Aftermovie in 4K",
+          "text": "2–3 Minuten Film mit lizenzfreier Musik und Kino-Grading."
+        },
+        {
+          "title": "Social-Cutdowns",
+          "text": "Hochkant-Clips für Reels und TikTok, direkt nach dem Event."
+        },
+        {
+          "title": "KI-Ad-Varianten",
+          "text": "Hooks, Längen und Formate für A/B-Tests im Vorverkauf."
+        },
+        {
+          "title": "Artist-Content",
+          "text": "Clips für auftretende Artists – mehr Reichweite für dein Event."
+        },
+        {
+          "title": "Mehrsprachig",
+          "text": "Voiceover und Untertitel für internationale Besucher."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Was kostet ein Festival-Aftermovie?",
+          "a": "Unser Classic Aftermovie mit einem Drehtag, zwei Kameras und 6 Social-Cutdowns kostet 2.490 €. Mit KI-Varianten und Voiceover (AI-Enhanced Promo) 3.490 €. Mehrtägige Festivals rechnest du im Preisrechner."
+        },
+        {
+          "q": "Wie schnell ist das Aftermovie fertig?",
+          "a": "In 7 Tagen, erste Cutdowns nach 72 Stunden. Mit Express-Option liefern wir alles in 72 Stunden."
+        },
+        {
+          "q": "Dreht ihr auch mehrtägige Festivals?",
+          "a": "Ja. Für mehrere Tage planen wir Crew und Kameras entsprechend – der Rechner zeigt dir den Rahmen."
+        },
+        {
+          "q": "Dürfen wir das Material für Werbung nutzen?",
+          "a": "Ja, du erhältst volle, unbegrenzte Nutzungsrechte an allen finalen Dateien."
+        }
+      ]
+    },
+    "ai": {
+      "navLabel": "KI-Marketing-Agentur",
+      "keyword": "KI Marketing Agentur",
+      "metaTitle": "KI-Marketing-Agentur – Content-Pipelines, Voiceover & Automatisierung",
+      "metaDescription": "KI-Marketing-Agentur für Gastronomie und Events: Content-Pipelines, KI-Voiceover in 4 Sprachen, Ad-Varianten und n8n-Automatisierungen – eingerichtet und betreut.",
+      "keywords": [
+        "KI Marketing Agentur",
+        "KI Content Agentur",
+        "KI Voiceover",
+        "n8n Automatisierung Agentur",
+        "KI Video Produktion"
+      ],
+      "hero": {
+        "badge": "KI-Marketing-Agentur",
+        "titleStart": "KI, die",
+        "titleHighlight": "wirklich Content liefert",
+        "text": "Keine Tool-Demo, sondern fertige Ergebnisse: Content-Pipelines, Voiceover in vier Sprachen, Ad-Varianten und Automatisierungen, die dir jeden Tag Arbeit abnehmen."
+      },
+      "problem": {
+        "title": "KI-Tools gibt es genug. Was fehlt, ist jemand, der sie zum Laufen bringt.",
+        "text": "Zwischen „ChatGPT ausprobiert“ und „läuft jeden Tag von allein“ liegt Arbeit: Prompts, Freigaben, Markenlook, Schnittstellen. Die übernehmen wir.",
+        "points": [
+          "Content-Pipeline: aus einem Dreh 12–30 Clips in allen Formaten",
+          "KI-Voiceover und Untertitel in DE, EN, AR und TR",
+          "n8n-Workflows für Captions, Bewertungen und Anfragen",
+          "Reporting, das dir sagt, was funktioniert – statt Tabellen"
+        ]
+      },
+      "features": [
+        {
+          "title": "Content-Pipelines",
+          "text": "Automatisierter Schnitt mit menschlicher Endkontrolle."
+        },
+        {
+          "title": "KI-Voiceover",
+          "text": "Deine Stimme oder Premium-Stimmen in mehreren Sprachen."
+        },
+        {
+          "title": "Ad-Varianten",
+          "text": "Dutzende Varianten für A/B-Tests auf Meta und TikTok."
+        },
+        {
+          "title": "n8n-Automatisierung",
+          "text": "Workflows, die auf deinen Konten laufen und dir gehören."
+        },
+        {
+          "title": "Bewertungs-Antworten",
+          "text": "Google-Reviews im Ton des Hauses, du gibst nur frei."
+        },
+        {
+          "title": "Betreuung",
+          "text": "Monitoring, Updates und Weiterentwicklung ab 49 € im Monat."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Was kostet eine KI-Automatisierung?",
+          "a": "Ein einzelner Workflow startet bei 490 € einmalig, Betreuung ab 49 € im Monat. Die komplette Content-Pipeline ist Teil der AI-Enhanced Promo für 3.490 €."
+        },
+        {
+          "q": "Wem gehören die Workflows?",
+          "a": "Dir. Wir bauen auf deinen Konten, du bekommst Zugang und Dokumentation."
+        },
+        {
+          "q": "Ist KI-Content erkennbar?",
+          "a": "Generierte Szenen und KI-Stimmen kennzeichnen wir auf Wunsch. Gerichte, Gäste und Bühnen filmen wir immer echt."
+        },
+        {
+          "q": "Arbeitet ihr DSGVO-konform?",
+          "a": "Wir wählen Anbieter mit EU-Verarbeitung wo möglich, schließen Auftragsverarbeitungsverträge und dokumentieren die Datenflüsse."
+        }
+      ]
+    }
+  },
+  "funnel": {
+    "steps": [
+      "Vorhaben",
+      "Status",
+      "Budget",
+      "Kontakt"
+    ],
+    "progress": "Fortschritt",
+    "legend": "Schritt {step} von 4: {label}",
+    "industryAria": "Deine Branche",
+    "duration": "Dauert ca. 60 Sekunden",
+    "industries": {
+      "gastro": "Gastronomie",
+      "musik": "Festival & Musik",
+      "andere": "Andere Branche"
+    },
+    "interests": {
+      "aftermovie": "Aftermovie / Eventfilm",
+      "reels": "Imagefilm & Reels",
+      "foto": "Food- & Eventfotografie",
+      "social": "Social-Media-Betreuung",
+      "ki_content": "KI-Content & Voiceover",
+      "automation": "KI-Automatisierung",
+      "web": "Website & Speisekarte",
+      "musikvideo": "Musikvideo & Artist-Promo",
+      "unsicher": "Bin noch unsicher"
+    },
+    "statuses": {
+      "neustart": "Neustart – wir haben noch keinen Content",
+      "gelegentlich": "Ab und zu Handy-Content, wenig Plan",
+      "regelmaessig": "Wir posten regelmäßig, wollen mehr Qualität",
+      "projekt": "Konkretes Event oder Projekt mit Termin",
+      "dringend": "Dringend – muss in 2 Wochen stehen"
+    },
+    "budgets": {
+      "unter_1k": "Unter 1.000 €",
+      "1k_2_5k": "1.000 – 2.500 €",
+      "2_5k_5k": "2.500 – 5.000 €",
+      "ueber_5k": "Über 5.000 €",
+      "keine_angabe": "Keine Angabe"
+    },
+    "step1": {
+      "title": "Was ist dein Vorhaben?",
+      "sub": "Wähle alle Bereiche, bei denen du Unterstützung brauchst."
+    },
+    "step2": {
+      "title": "Wo stehst du mit deinem Content?",
+      "sub": "Das hilft uns, den richtigen Einstieg für dich zu finden."
+    },
+    "step3": {
+      "title": "Welches Budget hast du eingeplant?",
+      "sub": "Kein Muss – aber so können wir dir passende Pakete empfehlen."
+    },
+    "step4": {
+      "title": "Fast geschafft! Wie erreichen wir dich?",
+      "sub": "Wir melden uns innerhalb von 24 Stunden – versprochen."
+    },
+    "errors": {
+      "interests": "Wähle mindestens einen Bereich aus.",
+      "status": "Wähle aus, wo du gerade stehst.",
+      "budget": "Wähle eine Budget-Stufe – oder „Keine Angabe“."
+    },
+    "starter": {
+      "gastro-menu": {
+        "name": "Digitale Speisekarte",
+        "text": "Mobile Karte mit QR-Codes für Tische & Fenster – jederzeit änderbar."
+      },
+      "gastro-photo": {
+        "name": "Food-Foto Express",
+        "text": "2 Stunden vor Ort · 25 bearbeitete Fotos für Karte, Google & Instagram."
+      },
+      "gastro-reels": {
+        "name": "Reels aus deinem Material",
+        "text": "Du lieferst Handy-Clips, wir schneiden 10 Reels mit Untertiteln & Musik."
+      },
+      "musik-visualizer": {
+        "name": "KI-Visualizer",
+        "text": "Animierter Visualizer für einen Song – in 16:9 und 9:16."
+      },
+      "musik-shooting": {
+        "name": "Artist-Shooting",
+        "text": "2 Stunden · 25 bearbeitete Fotos für Press-Kit & Social Media."
+      },
+      "musik-promo": {
+        "name": "Promo-Kit",
+        "text": "5 Reels aus deinem Material · Beat-Sync · Untertitel."
+      },
+      "andere-photo": {
+        "name": "Foto Express",
+        "text": "2 Stunden vor Ort · 25 bearbeitete Fotos für Web & Social."
+      },
+      "andere-reels": {
+        "name": "Reels aus deinem Material",
+        "text": "Du lieferst Clips, wir schneiden 10 Reels mit Untertiteln & Musik."
+      },
+      "andere-workflow": {
+        "name": "KI-Workflow Starter",
+        "text": "Ein automatisierter Ablauf, z. B. Captions oder Bewertungs-Antworten."
+      }
+    }
+  },
+  "contactForm": {
+    "fields": {
+      "name": "Dein Name",
+      "email": "Deine E-Mail",
+      "phone": "Telefon",
+      "company": "Restaurant / Event / Firma",
+      "message": "Noch etwas?"
+    },
+    "optional": "(optional)",
+    "consent": "Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage gespeichert werden. Details in der <link>Datenschutzerklärung</link>.",
+    "submit": "Anfrage senden",
+    "sending": "Wird gesendet",
+    "errors": {
+      "nameRequired": "Bitte gib deinen Namen an.",
+      "nameTooLong": "Bitte kürze deinen Namen auf 120 Zeichen.",
+      "emailInvalid": "Diese E-Mail-Adresse ist unvollständig – bitte prüfe sie noch einmal.",
+      "phoneTooLong": "Die Telefonnummer ist zu lang.",
+      "phoneInvalid": "Bitte nur Ziffern, Leerzeichen, + und - verwenden.",
+      "textTooLong": "Dieser Text ist zu lang – bitte kürze ihn.",
+      "consentRequired": "Bitte bestätige kurz die Datenschutzhinweise.",
+      "interestsRequired": "Wähle mindestens einen Bereich.",
+      "invalid": "Bitte prüfe dieses Feld."
+    },
+    "server": {
+      "rateLimit": "Zu viele Anfragen in kurzer Zeit. Bitte versuch es in ein paar Minuten erneut.",
+      "invalid": "Bitte prüfe deine Angaben.",
+      "saveFailed": "Deine Anfrage konnte nicht gespeichert werden. Ruf uns kurz an oder schreib per WhatsApp.",
+      "connection": "Die Verbindung hat nicht geklappt. Bitte versuch es noch einmal.",
+      "offline": "Keine Verbindung zum Server. Prüfe dein Internet und versuch es erneut – oder ruf uns direkt an."
+    }
+  },
+  "leadResult": {
+    "reset": "Neue Anfrage stellen",
+    "starter": {
+      "title": "Danke, {name}! Dafür haben wir feste Pakete.",
+      "text": "Für dein Budget sind unsere Starter-Pakete ideal – fester Preis, kein Erstgespräch nötig. Die Übersicht liegt auch in deinem Postfach.",
+      "book": "Per WhatsApp buchen",
+      "whatsappText": "Hallo TasWiq, ich möchte das Paket „{name}“ buchen."
+    },
+    "growth": {
+      "title": "Danke, {name}! Dein Angebot kommt in 24 Stunden.",
+      "text": "Deine Anfrage ist da. So geht es weiter:",
+      "steps": [
+        "Wir prüfen deine Angaben und schauen uns deine Kanäle an.",
+        "Innerhalb von 24 Stunden bekommst du ein Angebot mit Festpreis.",
+        "Passt alles, planen wir den Deep Dive – per Call oder vor Ort."
+      ],
+      "callNow": "Lieber sofort sprechen?"
+    },
+    "premium": {
+      "title": "{name}, lass uns direkt sprechen.",
+      "text": "Projekte dieser Größe planen wir persönlich. Such dir einen Termin für ein 30-minütiges Strategiegespräch aus – kostenlos und unverbindlich.",
+      "iframeTitle": "Termin buchen",
+      "loadCalendar": "Kalender laden",
+      "calendlyNote": "Beim Laden werden Daten an Calendly (USA) übertragen.",
+      "callNow": "Jetzt anrufen",
+      "noSlot": "Kein passender Termin? Wir melden uns noch heute persönlich bei dir."
+    }
+  },
+  "calculator": {
+    "eyebrow": "Preisrechner · 2 Minuten · unverbindlich",
+    "titleStart": "Was kostet",
+    "titleAccent": "dein Projekt?",
+    "sub": "Stell dein Projekt zusammen und sieh sofort den Rahmen. Richtwert, kein Angebot.",
+    "stepsAria": "Schritte",
+    "stepOf": "Schritt {current} von {total}",
+    "oneTimeCosts": "Einmalige Kosten",
+    "monthlyLabel": "Laufend pro Monat:",
+    "none": "keine",
+    "disclaimerStrong": "Richtwert, kein Angebot.",
+    "disclaimer": "Die Spanne beruht allein auf deinen Angaben – danach nennen wir einen festen Preis.",
+    "howCalculated": "Wie kommt der Betrag zustande?",
+    "copy": "Zusammenfassung kopieren",
+    "copied": "Kopiert",
+    "pdf": "Als PDF speichern",
+    "requestTitle": "Angebot anfordern",
+    "requestText": "Wir prüfen deine Zusammenstellung und melden uns innerhalb von 24 Stunden. Unverbindlich.",
+    "requestSubmit": "Angebot anfordern",
+    "request": "Anfragen",
+    "showResult": "Ergebnis anzeigen",
+    "resultShort": "Ergebnis",
+    "entryPrice": "Einstiegspreis",
+    "estimateOneTime": "Richtwert einmalig",
+    "from": "ab <amount></amount>",
+    "plusMonthly": "dazu {amount}/Monat",
+    "plusMonthlyShort": "+{amount}/Mon.",
+    "keyboardTip": "Tipp: Mit ← → durch die Schritte",
+    "sheetTitle": "{services} für {industry}",
+    "industries": {
+      "gastro": "Gastronomie",
+      "musik": "Festival & Musik"
+    },
+    "decrease": "{label} verringern",
+    "increase": "{label} erhöhen",
+    "perUnit": "je {amount}",
+    "steps": {
+      "start": {
+        "kurz": "Projekt",
+        "titel": "Was dürfen wir für dich produzieren?",
+        "hint": "Diese Auswahl bestimmt, welche Fragen danach kommen. Ändern kannst du alles jederzeit."
+      },
+      "video": {
+        "kurz": "Video",
+        "titel": "Wie groß wird der Dreh?",
+        "hint": "Jedes Paket enthält Schnitt, Musik und Color Grading. Reels schneiden wir per KI-Pipeline – deshalb sind zusätzliche Clips günstig."
+      },
+      "foto": {
+        "kurz": "Foto",
+        "titel": "Wie viele Bilder brauchst du?",
+        "hint": "Alle Fotos kommen bearbeitet, in Web- und Druckauflösung."
+      },
+      "web": {
+        "kurz": "Web",
+        "titel": "Was soll deine Website können?",
+        "hint": "Gäste finden dich online, sehen die Karte und reservieren oder bestellen direkt – ohne Provision an Plattformen."
+      },
+      "ki": {
+        "kurz": "KI",
+        "titel": "Welche Abläufe sollen automatisch laufen?",
+        "hint": "Jeder Workflow wird mit n8n gebaut, läuft auf deinen Konten und gehört dir. Mehrfachauswahl."
+      },
+      "extras": {
+        "kurz": "Extras",
+        "titel": "Sprachen, Anfahrt, Tempo"
+      },
+      "laufend": {
+        "kurz": "Laufend",
+        "titel": "Soll es danach weitergehen?",
+        "hint": "Diese Posten laufen monatlich. Alles monatlich kündbar nach der Mindestlaufzeit."
+      },
+      "ende": {
+        "kurz": "Ergebnis",
+        "titel": "Dein Kostenrahmen"
+      }
+    },
+    "fields": {
+      "branche": {
+        "label": "Deine Branche"
+      },
+      "leistungen": {
+        "label": "Leistungen – Mehrfachauswahl"
+      },
+      "videoUmfang": {
+        "label": "Umfang",
+        "posten": "Video"
+      },
+      "videoExtras": {
+        "label": "Extras"
+      },
+      "extraReels": {
+        "label": "Zusätzliche Reels",
+        "hint": "Aus demselben Material, per KI-Schnitt vorproduziert und von uns finalisiert.",
+        "einheit": "Reel"
+      },
+      "fotoUmfang": {
+        "label": "Umfang",
+        "posten": "Foto"
+      },
+      "fotoExtras": {
+        "label": "Extras"
+      },
+      "webArt": {
+        "label": "Paket",
+        "posten": "Web"
+      },
+      "webExtras": {
+        "label": "Sichtbarkeit & Extras"
+      },
+      "kiWorkflows": {},
+      "sprachen": {
+        "label": "Zusätzliche Sprachfassungen",
+        "hint": "KI-Voiceover oder Untertitel pro Sprache – z. B. EN, AR, TR.",
+        "einheit": "Sprache"
+      },
+      "anfahrt": {
+        "label": "Wo wird gedreht?",
+        "posten": "Anfahrt"
+      },
+      "express": {
+        "label": "Es eilt: Lieferung in 72 Stunden",
+        "hint": "Wir ziehen dein Projekt vor. Aufschlag {pct} %."
+      },
+      "contentAbo": {
+        "label": "Content-Abo",
+        "posten": "Content-Abo"
+      },
+      "hosting": {
+        "label": "Hosting der Website"
+      },
+      "kiBetrieb": {
+        "label": "Betreuung der Workflows"
+      }
+    },
+    "options": {
+      "branche": {
+        "gastro": {
+          "label": "Gastronomie",
+          "hint": "Restaurant, Bar, Café, Catering"
+        },
+        "musik": {
+          "label": "Festival & Musik",
+          "hint": "Open Air, Club, Konzert, Artist"
+        }
+      },
+      "leistungen": {
+        "video": {
+          "label": "Video",
+          "hint": "Aftermovie, Imagefilm, Reels"
+        },
+        "foto": {
+          "label": "Foto",
+          "hint": "Food, Location, Event, Artist"
+        },
+        "web": {
+          "label": "Web",
+          "hint": "Website, Speisekarte, Tickets"
+        },
+        "ki": {
+          "label": "KI-Automatisierung",
+          "hint": "Content-Pipelines, Voice, n8n"
+        }
+      },
+      "videoUmfang": {
+        "kompakt": {
+          "label": "Kompakt",
+          "hint": "Halber Drehtag · 1 Clip (60 s) + 3 Reels"
+        },
+        "standard": {
+          "label": "Standard",
+          "hint": "1 Drehtag · Film (2–3 Min.) + 6 Reels",
+          "badge": "Beliebt"
+        },
+        "premium": {
+          "label": "Premium",
+          "hint": "2 Drehtage · Multi-Cam · Film + 12 Reels"
+        }
+      },
+      "videoExtras": {
+        "drohne": {
+          "label": "Drohnenaufnahmen",
+          "hint": "Luftbilder von Location oder Crowd"
+        },
+        "zweitkamera": {
+          "label": "Zweite Kamera + Operator",
+          "hint": "Mehr Perspektiven, sichere Momente"
+        },
+        "gimbal": {
+          "label": "FPV- & Gimbal-Fahrten",
+          "hint": "Dynamische Kamerafahrten durch die Location"
+        },
+        "grading": {
+          "label": "Kino-Color-Grading",
+          "hint": "Eigener Look statt Standard-LUT"
+        }
+      },
+      "fotoUmfang": {
+        "kompakt": {
+          "label": "Kompakt",
+          "hint": "2 Stunden · 25 bearbeitete Fotos"
+        },
+        "standard": {
+          "label": "Standard",
+          "hint": "Halber Tag · 60 bearbeitete Fotos",
+          "badge": "Beliebt"
+        },
+        "premium": {
+          "label": "Premium",
+          "hint": "Ganzer Tag · 150 Fotos inkl. Retusche"
+        }
+      },
+      "fotoExtras": {
+        "styling": {
+          "label": "Food-Styling",
+          "hint": "Teller, Props und Licht wie im Magazin"
+        },
+        "retusche": {
+          "label": "High-End-Retusche",
+          "hint": "Für Karte, Plakate und Großformate"
+        },
+        "kivarianten": {
+          "label": "KI-Bildvarianten",
+          "hint": "Hintergründe, Formate, Saison-Versionen"
+        }
+      },
+      "webArt": {
+        "speisekarte": {
+          "label": "Digitale Speisekarte",
+          "hint": "Mobile Karte mit QR-Code, jederzeit änderbar"
+        },
+        "onepager": {
+          "label": "One-Pager Website",
+          "hint": "Karte oder Line-up, Öffnungszeiten, Anfahrt"
+        },
+        "reservierung": {
+          "label": "Website mit Reservierung",
+          "hint": "Mehrseitig · Reservierung/Tickets rund um die Uhr",
+          "badge": "Empfehlung"
+        },
+        "komplett": {
+          "label": "Website mit Bestellung",
+          "hint": "Reservierung + Online-Bestellung + Dashboard"
+        }
+      },
+      "webExtras": {
+        "mehrsprachig": {
+          "label": "Zweite Sprache",
+          "hint": "z. B. Englisch oder Arabisch"
+        },
+        "gmb": {
+          "label": "Google-Unternehmensprofil",
+          "hint": "Einrichtung und Optimierung mit Fotos & Karte"
+        },
+        "seo": {
+          "label": "SEO-Startpaket",
+          "hint": "„Restaurant in der Nähe“ – lokal gefunden werden"
+        },
+        "geo": {
+          "label": "GEO für KI-Suchen",
+          "hint": "Sichtbar in ChatGPT, Gemini & Google AI"
+        }
+      },
+      "kiWorkflows": {
+        "captions": {
+          "label": "Captions & Posting-Plan",
+          "hint": "Texte in deinem Ton, von uns redigiert"
+        },
+        "voiceover": {
+          "label": "KI-Voiceover & Übersetzung",
+          "hint": "Deine Clips in DE · EN · AR · TR"
+        },
+        "varianten": {
+          "label": "Ad-Varianten-Generator",
+          "hint": "Hooks, Längen, Formate für A/B-Tests"
+        },
+        "bewertungen": {
+          "label": "Bewertungs-Antworten",
+          "hint": "Google-Reviews automatisch beantworten"
+        },
+        "leads": {
+          "label": "Anfragen-Automatik",
+          "hint": "Reservierungen & Anfragen sortieren, weiterleiten"
+        },
+        "reporting": {
+          "label": "Reporting-Dashboard",
+          "hint": "Zahlen aus allen Kanälen, einmal pro Woche"
+        }
+      },
+      "anfahrt": {
+        "lokal": {
+          "label": "Lokal",
+          "hint": "bis 50 km – inklusive"
+        },
+        "regional": {
+          "label": "Regional",
+          "hint": "bis 200 km"
+        },
+        "bundesweit": {
+          "label": "Deutschlandweit",
+          "hint": "inkl. Übernachtung"
+        }
+      },
+      "contentAbo": {
+        "keins": {
+          "label": "Kein Abo",
+          "hint": "Einmaliges Projekt"
+        },
+        "basis": {
+          "label": "Social Basis",
+          "hint": "6 Reels + 10 Fotos pro Monat"
+        },
+        "retainer": {
+          "label": "Social-Retainer",
+          "hint": "12 Reels + 20 Fotos, Planung & Posting",
+          "badge": "Gastro-Favorit"
+        }
+      },
+      "hosting": {
+        "eigen": {
+          "label": "Bleibt bei meinem Anbieter"
+        },
+        "wartung": {
+          "label": "Hosting & Wartung",
+          "hint": "Domain, SSL, Backups, kleine Änderungen"
+        }
+      },
+      "kiBetrieb": {
+        "keiner": {
+          "label": "Ohne Betreuung",
+          "hint": "Du betreibst die Workflows selbst"
+        },
+        "basis": {
+          "label": "Betrieb Basis",
+          "hint": "Monitoring, Updates, Fehlerbehebung"
+        },
+        "aktiv": {
+          "label": "Betrieb Aktiv",
+          "hint": "Zusätzlich Weiterentwicklung jeden Monat"
+        }
+      }
+    },
+    "engine": {
+      "festival": "Festival- & Nachtdreh-Zuschlag",
+      "festivalDetail": "+{pct} % auf Dreh-Leistungen",
+      "express": "Express-Lieferung (72 h)",
+      "expressDetail": "+{pct} %",
+      "count": "{label}: {count} × {unit}",
+      "perUnit": "je {amount}",
+      "none": "keine",
+      "yes": "ja",
+      "no": "nein",
+      "selection": "Auswahl",
+      "included": "inklusive",
+      "perMonth": "{amount}/Monat",
+      "minService": "Wähle mindestens eine Leistung.",
+      "minOption": "Wähle mindestens eine Option."
+    },
+    "summary": {
+      "heading": "TASWIQ MEDIA. – KOSTENRAHMEN",
+      "oneTime": "POSTEN EINMALIG",
+      "monthly": "POSTEN MONATLICH",
+      "range": "Richtwert einmalig: {from} – {to}",
+      "running": "Laufend: {value}",
+      "perMonthLong": "{amount} pro Monat",
+      "noRunning": "keine laufenden Kosten",
+      "footer": "Richtwert, kein Angebot. Endpreise gemäß § 19 UStG."
+    },
+    "sheet": {
+      "asOf": "Stand {date}",
+      "title": "Kostenrahmen",
+      "oneTime": "{range} einmalig",
+      "monthly": "{amount} / Monat",
+      "noRunning": "keine laufenden Kosten",
+      "selection": "Deine Auswahl",
+      "services": "Leistungen",
+      "no": "Nr.",
+      "description": "Beschreibung",
+      "sum": "Summe",
+      "rangeLabel": "Richtwert-Spanne",
+      "total": "Gesamtrahmen",
+      "monthlyTitle": "Laufend pro Monat",
+      "perMonth": "{amount}/Monat",
+      "disclaimerStrong": "Richtwert, kein Angebot.",
+      "disclaimer": "Die Spanne beruht allein auf deinen Angaben. Was dein Projekt wirklich braucht, klären wir gemeinsam – danach nennen wir einen festen Preis.",
+      "contact": "Kontakt",
+      "nextStep": "Nächster Schritt",
+      "nextStepText": "Angebot anfordern – Antwort innerhalb von 24 Stunden mit Festpreis.",
+      "rights": "Nutzungsrechte",
+      "rightsText": "Ausschließlich, zeitlich und räumlich unbegrenzt – nach Zahlungseingang."
+    }
+  },
+  "legal": {
+    "tag": "Rechtliches",
+    "bindingNote": "",
+    "impressum": {
+      "title": "Impressum",
+      "placeholder": "Platzhalter – vor dem Livegang mit vollständiger Anschrift ergänzen und rechtlich prüfen lassen (z. B. über eRecht24).",
+      "provider": "Angaben gemäß § 5 DDG",
+      "addressPlaceholder": "[Straße, PLZ, Ort]",
+      "contact": "Kontakt",
+      "phone": "Telefon",
+      "email": "E-Mail",
+      "vat": "Umsatzsteuer",
+      "responsible": "Verantwortlich für den Inhalt",
+      "responsibleText": "{owner}, Anschrift wie oben."
+    },
+    "privacy": {
+      "title": "Datenschutzerklärung",
+      "draft": "Entwurf – beschreibt die technischen Datenflüsse dieser Website. Vor dem Livegang rechtlich prüfen lassen.",
+      "controller": "Verantwortlicher",
+      "formsTitle": "Kontaktformular, Funnel & Preisrechner",
+      "formsText": "Wenn du uns über den Funnel oder den Preisrechner schreibst, speichern wir deine Angaben (Name, E-Mail, optional Telefon, Firma, Nachricht, gewählte Leistungen, Budget-Stufe und Kalkulation) zur Bearbeitung deiner Anfrage (Art. 6 Abs. 1 lit. b DSGVO). Die Daten liegen in einer Supabase-Datenbank (Hosting in der EU, Region Frankfurt) und werden über einen selbst betriebenen n8n-Workflow verarbeitet: Benachrichtigung an uns und eine Bestätigungs-E-Mail an dich. Deine IP-Adresse speichern wir nur als gesalzenen Hash zum Schutz vor Spam. Anfragen löschen wir, wenn kein Auftrag zustande kommt, spätestens nach 24 Monaten.",
+      "calendlyTitle": "Terminbuchung (Calendly)",
+      "calendlyText": "Den Buchungskalender laden wir erst nach deinem Klick. Dabei werden Daten an Calendly LLC (USA) übertragen (Art. 6 Abs. 1 lit. a DSGVO, EU-US Data Privacy Framework).",
+      "videosTitle": "Videos",
+      "videosText": "Vorschau-Clips liegen auf unserem eigenen Server. Links zu YouTube öffnen sich erst auf deinen Klick in einem neuen Tab.",
+      "rightsTitle": "Deine Rechte",
+      "rightsText": "Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch – eine E-Mail an uns genügt."
+    }
+  },
+  "notFound": {
+    "badge": "Fehler 404",
+    "title": "Diese Seite gibt es nicht.",
+    "text": "Vielleicht findest du hier, was du suchst:",
+    "home": "Zur Startseite",
+    "calculator": "Zum Preisrechner"
+  }
+}
