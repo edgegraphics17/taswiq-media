@@ -1,0 +1,570 @@
+{
+  "name": "TasWiq · Lead-Automation (Funnel → Supabase → Discord → Mail → Follow-up)",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## TasWiq · Lead-Automation\n1. **Header Auth** Credential: Name `x-taswiq-secret`, Wert = `N8N_WEBHOOK_SECRET` aus `.env`\n2. Production-URL dieses Webhooks → `N8N_LEAD_WEBHOOK_URL`\n3. Discord-Webhook-URL in beiden Discord-Nodes eintragen (Slack: Incoming Webhook, Body `{ text: ... }`)\n4. SMTP + Supabase (Service-Role-Key) Credentials verbinden, `DEIN-PROJEKT` ersetzen\n5. `SITE_URL` / `CALENDLY_URL` im Code-Node anpassen",
+        "height": 300,
+        "width": 420,
+        "color": 5
+      },
+      "id": "f024a682-8184-4146-84af-2a430965d8e9",
+      "name": "Anleitung",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        -420
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "taswiq-lead",
+        "authentication": "headerAuth",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "0c39c829-7a31-4962-9533-9433fd939e8a",
+      "name": "Webhook: Lead eingegangen",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "4708ad4f-e6a6-4b48-8499-6c82301e5909",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CHANGE_ME",
+          "name": "TasWiq Webhook Secret"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// ─── Anpassen ───────────────────────────────────────────────\nconst SITE_URL = 'https://taswiq-media.de';\nconst CALENDLY_URL = 'https://calendly.com/DEIN-NAME/erstgespraech';\nconst PHONE = '+49 162 2035499';\nconst WHATSAPP = 'https://wa.me/491622035499';\n// ────────────────────────────────────────────────────────────\n\nconst input = $input.first().json;\nconst payload = input.body ?? input;          // Webhook v2 legt den Body unter .body ab\nconst lead = payload.lead;\nif (!lead?.email) throw new Error('Payload ohne lead.email – falsche Quelle?');\n\nconst eur = (n) => new Intl.NumberFormat('de-DE').format(n) + ' €';\nconst INDUSTRY = { gastro: 'Gastronomie', musik: 'Festival & Musik', andere: 'Andere Branche' };\nconst BUDGET = { unter_1k: 'unter 1.000 €', '1k_2_5k': '1.000–2.500 €', '2_5k_5k': '2.500–5.000 €', ueber_5k: 'über 5.000 €', keine_angabe: 'keine Angabe' };\nconst TIER = { starter: 'Starter', growth: 'Growth', premium: 'PREMIUM' };\nconst SOURCE = { funnel: 'Funnel', rechner: 'Preisrechner', ki_seite: 'Content-Pipeline-Seite', branchen_seite: 'SEO-Seite' };\n\n// Branchen-Intro – personalisierter Einstieg der Willkommens-Mail\nconst INTRO = {\n  gastro: 'danke für deine Anfrage! Wir lieben Küchen, in denen es zischt, und Gäste, die ihr Handy zücken, bevor sie essen. Genau diese Momente machen wir zu Content, der Tische füllt.',\n  musik: 'danke für deine Anfrage! Nichts verkauft das nächste Event besser als ein Aftermovie, das den Abend zurückholt – und Clips, die schon während des Vorverkaufs laufen.',\n  andere: 'danke für deine Anfrage! Wir schauen uns dein Vorhaben genau an und melden uns mit einem konkreten Vorschlag.',\n};\n\nconst STARTER = {\n  gastro: [['Digitale Speisekarte', '199 €'], ['Food-Foto Express', '390 €'], ['Reels aus deinem Material', '490 €']],\n  musik: [['KI-Visualizer', '290 €'], ['Artist-Shooting', '390 €'], ['Promo-Kit', '390 €']],\n  andere: [['Foto Express', '390 €'], ['Reels aus deinem Material', '490 €'], ['KI-Workflow Starter', '490 €']],\n};\n\nconst btn = (href, label) => `<a href=\"${href}\" style=\"display:inline-block;background:#5aaeb8;color:#0f1720;font-weight:700;text-decoration:none;padding:14px 26px;border-radius:999px\">${label}</a>`;\n\nlet subject, body;\nif (lead.tier === 'starter') {\n  subject = `${lead.firstName}, hier sind deine Starter-Pakete`;\n  const rows = STARTER[lead.industry].map(([n, p]) => `<tr><td style=\"padding:10px 0;border-bottom:1px solid #dfe4ea;font-weight:700;color:#1c2631\">${n}</td><td style=\"padding:10px 0;border-bottom:1px solid #dfe4ea;text-align:right;font-weight:800;color:#1c2631\">${p}</td></tr>`).join('');\n  body = `<p>Für dein Budget sind unsere festen Pakete ideal – kein Erstgespräch nötig, Start innerhalb weniger Tage:</p>\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"margin:18px 0\">${rows}</table>\n<p>Antworte einfach auf diese Mail oder schreib uns per WhatsApp, welches Paket du möchtest.</p>\n<p>${btn(WHATSAPP, 'Paket per WhatsApp buchen')}</p>`;\n} else if (lead.tier === 'premium') {\n  subject = `${lead.firstName}, lass uns direkt sprechen`;\n  body = `<p>Projekte dieser Größe planen wir persönlich. Such dir einen Termin für ein 30-minütiges Strategiegespräch aus – kostenlos und unverbindlich:</p>\n<p>${btn(CALENDLY_URL + '?name=' + encodeURIComponent(lead.name) + '&email=' + encodeURIComponent(lead.email), 'Termin auswählen')}</p>\n<p>Lieber sofort? Ruf mich an: <a href=\"tel:${PHONE.replace(/\\s/g, '')}\" style=\"color:#287681;font-weight:700\">${PHONE}</a></p>`;\n} else {\n  subject = `Dein Angebot kommt in 24 Stunden, ${lead.firstName}`;\n  body = `<p>So geht es weiter:</p>\n<ol style=\"padding-left:18px;line-height:1.7\"><li>Wir prüfen deine Angaben und schauen uns deine Kanäle an.</li><li>Innerhalb von 24 Stunden bekommst du ein Angebot mit Festpreis.</li><li>Passt alles, planen wir den Deep Dive – per Call oder vor Ort.</li></ol>`;\n}\n\nconst estimate = lead.estimate ? `<p style=\"margin:18px 0;padding:14px 18px;background:#1f2b38;color:#fff;border-radius:8px\"><span style=\"font-size:11px;letter-spacing:.2em;color:#8fd3dc\">DEIN RICHTWERT</span><br><b style=\"font-size:20px\">${eur(lead.estimate.min)} – ${eur(lead.estimate.max)}</b></p>` : '';\n\nconst html = `<!doctype html><html lang=\"de\"><body style=\"margin:0;background:#f3f5f8;font-family:'Exo 2',Segoe UI,Arial,sans-serif;color:#4a5664\">\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr><td align=\"center\" style=\"padding:24px 12px\">\n<table width=\"600\" cellpadding=\"0\" cellspacing=\"0\" style=\"max-width:600px;background:#fff;border-radius:12px;overflow:hidden\">\n<tr><td style=\"background:#18222e;padding:28px 32px;color:#fff\">\n<div style=\"font-size:11px;letter-spacing:.22em;color:#8fd3dc;font-weight:700\">TASWIQ MEDIA.</div>\n<div style=\"font-size:26px;font-weight:800;margin-top:8px\">Hallo ${lead.firstName},</div></td></tr>\n<tr><td style=\"padding:28px 32px;font-size:15px;line-height:1.6\">\n<p>${INTRO[lead.industry]}</p>${estimate}${body}\n<p style=\"margin-top:28px\">Bis gleich,<br><b style=\"color:#1c2631\">Karim Azzaoui</b><br>TasWiq Media.</p></td></tr>\n<tr><td style=\"border-top:3px solid #5aaeb8;background:#f3f5f8;padding:16px 32px;font-size:11px;color:#5e6a78\">\nTasWiq Media. · ${PHONE} · <a href=\"${SITE_URL}\" style=\"color:#287681\">${SITE_URL.replace('https://', '')}</a></td></tr>\n</table></td></tr></table></body></html>`;\n\n// Discord-Embed (Slack: siehe Notiz im Workflow)\nconst color = lead.tier === 'premium' ? 0x5aaeb8 : lead.tier === 'growth' ? 0x8fd3dc : 0x9aa6b4;\nconst discord = {\n  username: 'TasWiq Leads',\n  content: lead.tier === 'premium' ? '@here Premium-Lead – bitte heute noch melden!' : undefined,\n  embeds: [{\n    title: `${TIER[lead.tier]} · ${lead.name}${lead.company ? ' (' + lead.company + ')' : ''}`,\n    url: lead.id ? `${SITE_URL}/admin/leads/${lead.id}` : undefined,\n    color,\n    fields: [\n      { name: 'Branche', value: INDUSTRY[lead.industry], inline: true },\n      { name: 'Budget', value: lead.estimate ? `${eur(lead.estimate.min)}–${eur(lead.estimate.max)}` : BUDGET[lead.budget], inline: true },\n      { name: 'Score', value: String(lead.score), inline: true },\n      { name: 'Quelle', value: SOURCE[lead.source] ?? lead.source, inline: true },\n      { name: 'Kontakt', value: `${lead.email}${lead.phone ? '\\n' + lead.phone : ''}`, inline: true },\n      { name: 'Vorhaben', value: (lead.interests ?? []).join(', ') || '–' },\n      ...(lead.message ? [{ name: 'Nachricht', value: lead.message.slice(0, 1000) }] : []),\n    ],\n    timestamp: lead.createdAt,\n  }],\n};\n\nreturn [{ json: { lead, meta: payload.meta ?? {}, email: { subject, html }, discord } }];"
+      },
+      "id": "335e55bd-d7da-48f0-a7ec-a70d5b83a337",
+      "name": "Lead aufbereiten",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://discord.com/api/webhooks/CHANGE_ME",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.discord) }}",
+        "options": {}
+      },
+      "id": "16502286-675d-4823-ba5d-acb5f154d297",
+      "name": "Discord: Neuer Lead",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        500,
+        -200
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "f7236868-c792-4330-b45d-e17d40344aee",
+                    "leftValue": "={{ $json.lead.tier }}",
+                    "rightValue": "starter",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Starter"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "e284de84-128e-462d-8759-73011bb01311",
+                    "leftValue": "={{ $json.lead.tier }}",
+                    "rightValue": "growth",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Growth"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "1a679675-6bd8-42cf-a8a6-71fbf0f48d84",
+                    "leftValue": "={{ $json.lead.tier }}",
+                    "rightValue": "premium",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Premium"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "67c2675f-859a-4b35-b8dc-4924eca105e2",
+      "name": "Switch: Tier",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        500,
+        60
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "TasWiq Media. <karim@azzaoui.de>",
+        "toEmail": "={{ $json.lead.email }}",
+        "subject": "={{ $json.email.subject }}",
+        "emailFormat": "html",
+        "html": "={{ $json.email.html }}",
+        "options": {
+          "appendAttribution": false,
+          "replyTo": "karim@azzaoui.de"
+        }
+      },
+      "id": "9fd6cc2b-ebf0-4bbe-a6dd-ab1b3177d0f5",
+      "name": "E-Mail: Starter-Pakete",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        780,
+        -100
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "CHANGE_ME",
+          "name": "SMTP TasWiq"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "TasWiq Media. <karim@azzaoui.de>",
+        "toEmail": "={{ $json.lead.email }}",
+        "subject": "={{ $json.email.subject }}",
+        "emailFormat": "html",
+        "html": "={{ $json.email.html }}",
+        "options": {
+          "appendAttribution": false,
+          "replyTo": "karim@azzaoui.de"
+        }
+      },
+      "id": "f27ac5a9-061c-4389-b4ff-33b58f8fe962",
+      "name": "E-Mail: Angebot in 24 h",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        780,
+        60
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "CHANGE_ME",
+          "name": "SMTP TasWiq"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "TasWiq Media. <karim@azzaoui.de>",
+        "toEmail": "={{ $json.lead.email }}",
+        "subject": "={{ $json.email.subject }}",
+        "emailFormat": "html",
+        "html": "={{ $json.email.html }}",
+        "options": {
+          "appendAttribution": false,
+          "replyTo": "karim@azzaoui.de"
+        }
+      },
+      "id": "4106f885-0ffc-4d5d-a7e6-cf4a4c5f9f90",
+      "name": "E-Mail: Premium + Termin",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        780,
+        220
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "CHANGE_ME",
+          "name": "SMTP TasWiq"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://DEIN-PROJEKT.supabase.co/rest/v1/leads?id=eq.{{ $('Lead aufbereiten').item.json.lead.id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "supabaseApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Prefer",
+              "value": "return=minimal"
+            }
+          ]
+        },
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ automation: { notified_at: $now.toISO(), welcome_sent_at: $now.toISO(), welcome_template: $('Lead aufbereiten').item.json.lead.tier } }) }}"
+      },
+      "id": "0c7dc8ff-740e-4a23-898d-d20ff0887ec9",
+      "name": "Supabase: Automation speichern",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1040,
+        60
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "CHANGE_ME",
+          "name": "Supabase TasWiq (Service Role)"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://DEIN-PROJEKT.supabase.co/rest/v1/lead_events",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "supabaseApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Prefer",
+              "value": "return=minimal"
+            }
+          ]
+        },
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ lead_id: $('Lead aufbereiten').item.json.lead.id, type: 'automation', body: 'Team benachrichtigt & Willkommens-Mail (' + $('Lead aufbereiten').item.json.lead.tier + ') versendet' }) }}"
+      },
+      "id": "ea49cb22-5613-48e6-874b-bddb34e44093",
+      "name": "Supabase: Verlauf-Eintrag",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1280,
+        60
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "CHANGE_ME",
+          "name": "Supabase TasWiq (Service Role)"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "amount": 48,
+        "unit": "hours"
+      },
+      "id": "9ef81c60-07a5-4852-931b-a4bb4764dad4",
+      "name": "Warten: 48 Stunden",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1520,
+        60
+      ],
+      "webhookId": "428a6699-cc03-43f1-8cfe-f6f45dc9431d"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://DEIN-PROJEKT.supabase.co/rest/v1/leads?id=eq.{{ $('Lead aufbereiten').item.json.lead.id }}&select=status,name,tier",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "supabaseApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Prefer",
+              "value": "return=minimal"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0a215451-940a-493c-9258-72ebc84a0a41",
+      "name": "Supabase: Status prüfen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1760,
+        60
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "CHANGE_ME",
+          "name": "Supabase TasWiq (Service Role)"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0e3587c8-2fec-4d64-b717-b19c8bd73daa",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "neu",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "8740f4da-e4b0-4adf-a755-a36d006f3ba7",
+      "name": "IF: Noch unbearbeitet?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        2000,
+        60
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://discord.com/api/webhooks/CHANGE_ME",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ username: 'TasWiq Leads', content: '⏰ Seit 48 h unbeantwortet: ' + $json.name + ' (' + $json.tier + ') → https://taswiq-media.de/admin/leads/' + $('Lead aufbereiten').item.json.lead.id }) }}",
+        "options": {}
+      },
+      "id": "26edb1a7-fe98-48ad-b466-fe03cb640a7c",
+      "name": "Discord: Follow-up-Erinnerung",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2240,
+        40
+      ],
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "connections": {
+    "Webhook: Lead eingegangen": {
+      "main": [
+        [
+          {
+            "node": "Lead aufbereiten",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lead aufbereiten": {
+      "main": [
+        [
+          {
+            "node": "Discord: Neuer Lead",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Switch: Tier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch: Tier": {
+      "main": [
+        [
+          {
+            "node": "E-Mail: Starter-Pakete",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "E-Mail: Angebot in 24 h",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "E-Mail: Premium + Termin",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "E-Mail: Starter-Pakete": {
+      "main": [
+        [
+          {
+            "node": "Supabase: Automation speichern",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "E-Mail: Angebot in 24 h": {
+      "main": [
+        [
+          {
+            "node": "Supabase: Automation speichern",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "E-Mail: Premium + Termin": {
+      "main": [
+        [
+          {
+            "node": "Supabase: Automation speichern",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase: Automation speichern": {
+      "main": [
+        [
+          {
+            "node": "Supabase: Verlauf-Eintrag",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase: Verlauf-Eintrag": {
+      "main": [
+        [
+          {
+            "node": "Warten: 48 Stunden",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Warten: 48 Stunden": {
+      "main": [
+        [
+          {
+            "node": "Supabase: Status prüfen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase: Status prüfen": {
+      "main": [
+        [
+          {
+            "node": "IF: Noch unbearbeitet?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: Noch unbearbeitet?": {
+      "main": [
+        [
+          {
+            "node": "Discord: Follow-up-Erinnerung",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "timezone": "Europe/Berlin"
+  },
+  "pinData": {},
+  "tags": []
+}
