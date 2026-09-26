@@ -12,7 +12,7 @@ export const STATUS_LABEL: Record<LeadStatusEnum, string> = {
 
 /** Status-Farben: Punkt + Text, nie Farbe allein */
 export const STATUS_TONE: Record<LeadStatusEnum, string> = {
-  neu: "bg-teal-wash text-teal-deep ring-teal/30",
+  neu: "bg-brand-50 text-brand-600 ring-brand-200",
   kontaktiert: "bg-sky-50 text-sky-800 ring-sky-200",
   angebot: "bg-amber-50 text-amber-800 ring-amber-200",
   verhandlung: "bg-violet-50 text-violet-800 ring-violet-200",

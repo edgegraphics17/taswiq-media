@@ -1,50 +1,36 @@
+import { Workflow } from "lucide-react";
 import { InView } from "@/components/ui/InView";
 import { Reveal } from "@/components/ui/Reveal";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { cn } from "@/lib/format";
 
-/** asap #ablauf auf der Produktseite: drei Modi als dunkle Karten mit "Modus 01–03". */
-export function ModesSection({
-  tag,
-  title,
-  accent,
-  text,
-  modes,
-  footnote,
-}: {
-  tag: string;
-  title: string;
-  accent: string;
-  text: string;
-  modes: { label: string; title: string; text: string; note: string }[];
-  footnote: string;
-}) {
+/** Drei Modi: mittlere Karte schwarz hervorgehoben, Notiz als Pille. */
+export function ModesSection({ tag, title, accent, text, modes, footnote }: { tag: string; title: string; accent: string; text: string; modes: { label: string; title: string; text: string; note: string }[]; footnote: string }) {
   return (
-    <section className="grain relative overflow-hidden bg-ink-900 py-24 sm:py-28">
-      <div className="container-x relative">
-        <Reveal className="max-w-2xl">
-          <p className="tag-line text-teal-light">{tag}</p>
-          <h2 className="mt-4 text-[clamp(1.9rem,3.4vw,2.8rem)] leading-[1.12] font-extrabold tracking-[-0.02em] text-white">
-            {title}
-            <br />
-            <span className="text-teal-light">{accent}</span>
-          </h2>
-          <p className="mt-5 text-[17px] text-mist">{text}</p>
+    <section className="py-16 sm:py-20">
+      <div className="container-x">
+        <Reveal>
+          <SectionHeading eyebrow={tag} icon={Workflow} title={title} accent={accent} text={text} />
         </Reveal>
-        <InView className="stagger mt-12 grid gap-5 md:grid-cols-3">
-          {modes.map((m, i) => (
-            <article
-              key={m.title}
-              style={{ "--i": i } as React.CSSProperties}
-              className="group rounded-3xl border border-white/10 bg-white/[0.04] p-7 transition-all duration-400 hover:border-teal/40 hover:bg-teal/10"
-            >
-              <p className="num text-xs font-bold tracking-[0.2em] text-teal-light uppercase">{m.label}</p>
-              <h3 className="mt-3 text-xl font-bold text-white">{m.title}</h3>
-              <p className="mt-2.5 leading-relaxed text-mist">{m.text}</p>
-              <p className="mt-5 inline-flex rounded-full border border-teal/30 px-3 py-1 text-xs font-semibold text-teal-light">{m.note}</p>
-            </article>
-          ))}
+        <InView className="stagger mt-12 grid gap-4 md:grid-cols-3">
+          {modes.map((m, i) => {
+            const dark = i === 1;
+            return (
+              <article
+                key={m.title}
+                style={{ "--i": i } as React.CSSProperties}
+                className={cn("flex flex-col rounded-[2rem] p-7", dark ? "bg-night text-white shadow-[var(--shadow-float)]" : "border border-line bg-white shadow-[var(--shadow-soft)]")}
+              >
+                <p className={cn("num text-sm font-medium", dark ? "text-mint-400" : "text-brand-600")}>{m.label}</p>
+                <h3 className={cn("mt-3 text-2xl font-medium", dark && "text-white")}>{m.title}</h3>
+                <p className={cn("mt-2.5 flex-1 leading-relaxed", dark ? "text-night-muted" : "text-muted")}>{m.text}</p>
+                <p className={cn("mt-6 self-start rounded-full px-3.5 py-1.5 text-xs font-medium", dark ? "bg-white/10 text-white" : "bg-brand-50 text-brand-600")}>{m.note}</p>
+              </article>
+            );
+          })}
         </InView>
-        <p className="mt-8 max-w-3xl text-sm text-haze">
-          <b className="text-white">Gut zu wissen:</b> {footnote}
+        <p className="mx-auto mt-8 max-w-2xl text-center text-sm text-muted">
+          <b className="font-medium text-ink">Gut zu wissen:</b> {footnote}
         </p>
       </div>
     </section>

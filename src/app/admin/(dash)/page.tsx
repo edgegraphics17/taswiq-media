@@ -34,7 +34,7 @@ export default async function LeadsPage({ searchParams }: { searchParams: Promis
       {!isDemoMode() && <LiveRefresh />}
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="eyebrow">Dashboard</p>
+          <p className="text-xs font-medium text-brand-600">Dashboard</p>
           <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-ink">Leads</h1>
         </div>
         <p className="text-sm text-muted">{formatNumber(k.newThisMonth)} neue Leads diesen Monat</p>
@@ -61,8 +61,8 @@ export default async function LeadsPage({ searchParams }: { searchParams: Promis
             <li key={s}>
               <Link href={`/admin?status=${s}`} className="group grid grid-cols-[110px_1fr_36px] items-center gap-3 rounded-md py-0.5 text-sm" title={`${STATUS_LABEL[s]}: ${n} Leads`}>
                 <span className="text-body group-hover:text-ink">{STATUS_LABEL[s]}</span>
-                <span className="h-3.5 rounded-r bg-fog" aria-hidden>
-                  <span className="block h-full rounded-r-[4px] bg-teal transition-[filter] group-hover:brightness-90" style={{ width: `${(n / maxN) * 100}%`, minWidth: n ? 4 : 0 }} />
+                <span className="h-3.5 rounded-r bg-canvas" aria-hidden>
+                  <span className="block h-full rounded-r-[4px] bg-brand-500 transition-[filter] group-hover:brightness-90" style={{ width: `${(n / maxN) * 100}%`, minWidth: n ? 4 : 0 }} />
                 </span>
                 <span className="num text-right font-semibold text-ink">{n}</span>
               </Link>
@@ -100,11 +100,11 @@ export default async function LeadsPage({ searchParams }: { searchParams: Promis
             <input name="q" defaultValue={filters.q ?? ""} placeholder="Name, E-Mail oder Firma" className="h-11 w-full min-w-48 rounded-lg border border-line bg-white pr-3 pl-9 text-sm text-ink" />
           </span>
         </label>
-        <button type="submit" className="h-11 rounded-lg bg-ink-900 px-5 text-sm font-semibold text-white">
+        <button type="submit" className="h-11 rounded-lg bg-night px-5 text-sm font-semibold text-white">
           Filtern
         </button>
         {(filters.status || filters.tier || filters.q) && (
-          <Link href="/admin" className="flex h-11 items-center px-2 text-sm font-semibold text-teal-deep">
+          <Link href="/admin" className="flex h-11 items-center px-2 text-sm font-semibold text-brand-600">
             Zurücksetzen
           </Link>
         )}
@@ -115,7 +115,7 @@ export default async function LeadsPage({ searchParams }: { searchParams: Promis
           <p className="p-10 text-center text-muted">Keine Leads für diese Filter. Setz die Filter zurück, um alle zu sehen.</p>
         ) : (
           <table className="w-full min-w-[920px] text-sm">
-            <thead className="border-b border-line bg-fog/60 text-left text-xs text-muted">
+            <thead className="border-b border-line bg-canvas/70 text-left text-xs text-muted">
               <tr>
                 {["Eingang", "Lead", "Branche", "Quelle", "Budget / Schätzung", "Score", "Tier", "Status", ""].map((h) => (
                   <th key={h} scope="col" className="px-4 py-3 font-semibold">
@@ -126,10 +126,10 @@ export default async function LeadsPage({ searchParams }: { searchParams: Promis
             </thead>
             <tbody className="divide-y divide-line">
               {leads.map((l) => (
-                <tr key={l.id} className="hover:bg-fog/60">
+                <tr key={l.id} className="hover:bg-canvas/70">
                   <td className="num px-4 py-3 whitespace-nowrap text-muted">{formatDateTime(l.created_at)}</td>
                   <td className="px-4 py-3">
-                    <Link href={`/admin/leads/${l.id}`} className="font-semibold text-ink hover:text-teal-deep">
+                    <Link href={`/admin/leads/${l.id}`} className="font-semibold text-ink hover:text-brand-600">
                       {l.name}
                     </Link>
                     <p className="text-xs text-muted">{l.company ?? l.email}</p>
@@ -149,7 +149,7 @@ export default async function LeadsPage({ searchParams }: { searchParams: Promis
                     <StatusPill status={l.status} />
                   </td>
                   <td className="px-2 py-3">
-                    <Link href={`/admin/leads/${l.id}`} aria-label={`${l.name} öffnen`} className="grid size-9 place-items-center rounded-lg text-muted hover:bg-fog hover:text-ink">
+                    <Link href={`/admin/leads/${l.id}`} aria-label={`${l.name} öffnen`} className="grid size-9 place-items-center rounded-lg text-muted hover:bg-canvas hover:text-ink">
                       <ChevronRight className="size-4" aria-hidden />
                     </Link>
                   </td>

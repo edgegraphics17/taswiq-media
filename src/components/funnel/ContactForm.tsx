@@ -90,30 +90,30 @@ export function ContactForm({
             "aria-describedby": error ? `${id}-err` : undefined,
             onBlur: () => blur(f.id),
             className: cn(
-              "w-full rounded-xl border bg-white px-4 text-[16px] text-ink transition-[border-color,box-shadow] outline-none placeholder:text-muted/70 focus:border-teal focus:shadow-[0_0_0_4px_rgb(90_174_184/0.18)]",
-              error ? "border-danger" : "border-line",
+              "w-full border bg-canvas px-5 text-[16px] text-ink transition-[border-color,box-shadow,background-color] outline-none placeholder:text-muted/70 focus:border-brand-500 focus:bg-white focus:shadow-[0_0_0_4px_rgb(120_64_254/0.14)]",
+              error ? "border-danger bg-white" : "border-transparent",
             ),
           };
           return (
             <div key={f.id} className={cn(f.wide && "sm:col-span-2")}>
-              <label htmlFor={id} className="mb-1.5 block text-sm font-semibold text-ink">
+              <label htmlFor={id} className="mb-1.5 block pl-4 text-sm font-medium text-ink">
                 {f.label}
-                {f.required ? <span className="text-teal-deep"> *</span> : <span className="font-normal text-muted"> (optional)</span>}
+                {f.required ? <span className="text-brand-600"> *</span> : <span className="font-normal text-muted"> (optional)</span>}
               </label>
               {f.type === "textarea" ? (
-                <textarea {...common} rows={3} className={cn(common.className, "py-3")} onChange={(e) => set(f.id, e.target.value)} />
+                <textarea {...common} rows={3} className={cn(common.className, "rounded-3xl py-3.5")} onChange={(e) => set(f.id, e.target.value)} />
               ) : (
                 <input
                   {...common}
                   type={f.type}
                   inputMode={f.type === "tel" ? "tel" : f.type === "email" ? "email" : undefined}
                   required={f.required}
-                  className={cn(common.className, "h-12")}
+                  className={cn(common.className, "h-12 rounded-full")}
                   onChange={(e) => set(f.id, e.target.value)}
                 />
               )}
               {error && (
-                <p id={`${id}-err`} role="alert" className="mt-1.5 text-sm text-danger">
+                <p id={`${id}-err`} role="alert" className="mt-1.5 pl-4 text-sm text-danger">
                   {error}
                 </p>
               )}
@@ -129,18 +129,18 @@ export function ContactForm({
       </div>
 
       <div>
-        <label className="flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-body">
+        <label className="flex cursor-pointer items-start gap-3 rounded-3xl bg-canvas p-4 text-sm leading-relaxed text-body">
           <input
             id={`${idPrefix}-consent`}
             type="checkbox"
             checked={v.consent}
             onChange={(e) => set("consent", e.target.checked)}
             aria-invalid={Boolean(err("consent")) || undefined}
-            className="mt-0.5 size-5 shrink-0 accent-[var(--color-teal-deep)]"
+            className="mt-0.5 size-5 shrink-0 accent-[var(--color-brand-500)]"
           />
           <span>
             Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage gespeichert werden. Details in der{" "}
-            <Link href="/datenschutz" className="font-semibold text-teal-deep underline underline-offset-2">
+            <Link href="/datenschutz" className="font-medium text-brand-600 underline underline-offset-2">
               Datenschutzerklärung
             </Link>
             .
@@ -154,7 +154,7 @@ export function ContactForm({
       </div>
 
       {serverError && (
-        <p role="alert" className="rounded-xl border border-danger/30 bg-danger/5 px-4 py-3 text-sm text-danger">
+        <p role="alert" className="rounded-3xl border border-danger/25 bg-danger/5 px-5 py-3 text-sm text-danger">
           {serverError}
         </p>
       )}
@@ -164,7 +164,7 @@ export function ContactForm({
         <button
           type="submit"
           disabled={submitting}
-          className="ml-auto inline-flex min-h-12 items-center gap-2 rounded-full bg-teal px-7 font-semibold text-ink-950 shadow-[var(--shadow-teal)] transition-all hover:-translate-y-0.5 hover:bg-teal-light disabled:opacity-60"
+          className="ml-auto inline-flex min-h-12 items-center gap-2 rounded-full bg-brand-500 px-7 font-medium text-white shadow-[var(--shadow-brand)] transition-all hover:-translate-y-0.5 hover:bg-brand-600 disabled:opacity-60"
         >
           {submitting ? (
             <>

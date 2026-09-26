@@ -15,12 +15,12 @@ const MESSAGES: Record<string, string> = {
 export default async function LoginPage({ searchParams }: { searchParams: Promise<{ error?: string; sent?: string }> }) {
   const { error, sent } = await searchParams;
   return (
-    <main className="grid min-h-dvh place-items-center bg-ink-900 px-5">
+    <main className="grid min-h-dvh place-items-center bg-night px-5">
       <div className="w-full max-w-sm rounded-3xl bg-white p-8 shadow-2xl">
         <Logo tone="dark" className="h-12" />
         <h1 className="mt-6 text-2xl font-extrabold tracking-tight text-ink">Dashboard-Login</h1>
         {sent ? (
-          <p role="status" className="mt-4 rounded-xl bg-teal-wash p-4 text-sm text-teal-deep">
+          <p role="status" className="mt-4 rounded-xl bg-brand-50 p-4 text-sm text-brand-600">
             Wenn die Adresse als Admin hinterlegt ist, kommt gleich ein Login-Link per E-Mail.
           </p>
         ) : (
@@ -28,13 +28,13 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
             <label htmlFor="email" className="block text-sm font-semibold text-ink">
               E-Mail
             </label>
-            <input id="email" name="email" type="email" required autoComplete="email" className="h-12 w-full rounded-xl border border-line px-4 text-[16px] outline-none focus:border-teal" />
+            <input id="email" name="email" type="email" required autoComplete="email" className="h-12 w-full rounded-xl border border-line px-4 text-[16px] outline-none focus:border-brand-500" />
             {error && (
               <p role="alert" className="text-sm text-danger">
                 {MESSAGES[error] ?? "Das hat nicht geklappt. Bitte versuch es erneut."}
               </p>
             )}
-            <button type="submit" className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-teal font-semibold text-ink-950">
+            <button type="submit" className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-brand-500 font-semibold text-white">
               <Mail className="size-4" aria-hidden /> Login-Link senden
             </button>
           </form>

@@ -1,5 +1,10 @@
 import {
   Archive,
+  Award,
+  Handshake,
+  Headphones,
+  Medal,
+  Rocket,
   AudioLines,
   Camera,
   Captions,
@@ -23,6 +28,11 @@ import {
 /** Icon-IDs aus den Content-Configs → Lucide (ein Icon-Set, 1.75px Strich, keine Emojis) */
 const ICONS: Record<string, LucideIcon> = {
   archive: Archive,
+  award: Award,
+  handshake: Handshake,
+  headphones: Headphones,
+  medal: Medal,
+  rocket: Rocket,
   audio: AudioLines,
   camera: Camera,
   captions: Captions,

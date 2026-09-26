@@ -18,7 +18,7 @@ export default async function PricesPage({ searchParams }: { searchParams: Promi
 
   return (
     <div className="mx-auto max-w-[1000px]">
-      <p className="eyebrow">Preisrechner</p>
+      <p className="text-xs font-medium text-brand-600">Preisrechner</p>
       <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-ink">Preise</h1>
       <p className="mt-2 max-w-2xl text-sm text-muted">Änderungen sind sofort im Rechner live. Deaktivierte Optionen werden ausgeblendet. Beträge in Euro, Endpreise.</p>
       {flags.saved && <p role="status" className="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-sm text-emerald-800">Preise gespeichert – der Rechner ist aktualisiert.</p>}
@@ -29,7 +29,7 @@ export default async function PricesPage({ searchParams }: { searchParams: Promi
         {groups.map((g) => (
           <fieldset key={g} className="overflow-hidden rounded-2xl border border-line bg-white">
             <legend className="sr-only">{GROUP_LABEL[g]}</legend>
-            <p className="border-b border-line bg-fog/60 px-4 py-2.5 text-xs font-bold tracking-wide text-ink">{GROUP_LABEL[g]}</p>
+            <p className="border-b border-line bg-canvas/70 px-4 py-2.5 text-xs font-bold tracking-wide text-ink">{GROUP_LABEL[g]}</p>
             <div className="divide-y divide-line">
               {OPTIONEN[g].map((base) => {
                 const o = data.optionen[g]?.find((x) => x.id === base.id);
@@ -49,7 +49,7 @@ export default async function PricesPage({ searchParams }: { searchParams: Promi
                       <input name={`mtl:${key}`} type="number" min={0} defaultValue={o?.mtl ?? base.mtl ?? ""} className="num h-10 rounded-lg border border-line px-3 text-sm text-ink" />
                     </label>
                     <label className="flex items-center gap-2 text-xs font-semibold text-muted sm:mt-4">
-                      <input name={`active:${key}`} type="checkbox" defaultChecked={Boolean(o)} className="size-4 accent-[var(--color-teal-deep)]" /> Aktiv
+                      <input name={`active:${key}`} type="checkbox" defaultChecked={Boolean(o)} className="size-4 accent-[var(--color-brand-500)]" /> Aktiv
                     </label>
                   </div>
                 );
@@ -58,7 +58,7 @@ export default async function PricesPage({ searchParams }: { searchParams: Promi
           </fieldset>
         ))}
         <div className="sticky bottom-4 flex justify-end">
-          <button type="submit" className="h-12 rounded-full bg-teal px-8 font-semibold text-ink-950 shadow-[var(--shadow-teal)]">Preise speichern</button>
+          <button type="submit" className="h-12 rounded-full bg-brand-500 px-8 font-semibold text-white shadow-[var(--shadow-brand)]">Preise speichern</button>
         </div>
       </form>
     </div>

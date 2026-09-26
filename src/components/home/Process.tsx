@@ -1,52 +1,50 @@
-"use client";
-
+import { Award, Handshake, Rocket, Search, type LucideIcon } from "lucide-react";
 import { process } from "@/config/content";
 import { Reveal } from "@/components/ui/Reveal";
 import { InView } from "@/components/ui/InView";
-import { SlideDots } from "@/components/ui/SlideDots";
-import { useActiveSlide } from "@/hooks/useActiveSlide";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { cn } from "@/lib/format";
 
-/** asap #process: 4 Schritte auf Verbindungslinie, Kreis füllt sich Teal mit Glow (Hover/aktiv). */
-export function Process() {
-  const { ref, active, scrollTo } = useActiveSlide<HTMLDivElement>(process.steps.length);
-  return (
-    <section id="ablauf" aria-labelledby="ablauf-title" className="grain relative overflow-hidden bg-ink-900 py-24 sm:py-32">
-      <div className="pointer-events-none absolute -top-40 left-1/2 size-[700px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgb(90_174_184/0.12)_0%,transparent_65%)]" aria-hidden />
-      <div className="container-x relative">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="tag-line text-teal-light">{process.tag}</p>
-          <h2 id="ablauf-title" className="mt-4 text-[clamp(2rem,3.5vw,3rem)] leading-[1.12] font-extrabold tracking-[-0.02em] text-white">
-            {process.title}
-            <br />
-            <span className="text-teal-light">{process.accent}</span>
-          </h2>
-          <p className="mt-5 text-[17px] text-mist">{process.text}</p>
-        </Reveal>
+const ICONS: LucideIcon[] = [Search, Award, Rocket, Handshake];
 
-        <InView
-            ref={ref}
-            role="list"
-            className="stagger snap-slider relative mt-16 grid gap-10 min-[900px]:grid-cols-4 min-[900px]:before:absolute min-[900px]:before:top-[30px] min-[900px]:before:right-[12%] min-[900px]:before:left-[12%] min-[900px]:before:h-px min-[900px]:before:bg-[linear-gradient(90deg,transparent,rgb(90_174_184/0.35),rgb(90_174_184/0.35),transparent)]"
-          >
-            {process.steps.map((s, i) => (
+/**
+ * Ablauf als Bento-Karten im Muster der Vorlage ("Professional work 01 · Award winning 02"):
+ * Titel, Text, rosé Icon-Kreis unten links, große blasse Nummer unten rechts –
+ * Schritt 2 als schwarze Kontrast-Karte mit Mint-Icon.
+ */
+export function Process() {
+  return (
+    <section id="ablauf" aria-labelledby="ablauf-title" className="py-16 sm:py-24">
+      <div className="container-x">
+        <Reveal>
+          <SectionHeading id="ablauf-title" eyebrow={process.tag} icon={Rocket} title={process.title} accent={process.accent} text={process.text} />
+        </Reveal>
+        <InView role="list" className="stagger mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {process.steps.map((s, i) => {
+            const dark = i === 1;
+            const Ico = ICONS[i];
+            return (
               <div
                 role="listitem"
                 key={s.title}
                 style={{ "--i": i } as React.CSSProperties}
                 className={cn(
-                  "group relative text-center max-[899px]:rounded-3xl max-[899px]:border max-[899px]:border-white/5 max-[899px]:bg-white/[0.03] max-[899px]:px-5 max-[899px]:py-8 max-[899px]:[&.is-active]:border-teal/25 max-[899px]:[&.is-active]:bg-teal/10",
+                  "flex min-h-72 flex-col rounded-[2rem] p-7 transition-transform duration-500 ease-[var(--ease-soft)] hover:-translate-y-1",
+                  dark ? "bg-night text-white shadow-[var(--shadow-float)]" : "border border-line bg-white shadow-[var(--shadow-soft)]",
                 )}
               >
-                <span className="num relative z-10 mx-auto grid size-[60px] place-items-center rounded-full border border-teal/30 bg-ink-800 text-lg font-extrabold text-teal-light transition-all duration-400 group-hover:scale-110 group-hover:bg-teal group-hover:text-ink-950 group-hover:shadow-[0_0_30px_rgb(90_174_184/0.45)] group-[.is-active]:scale-110 group-[.is-active]:bg-teal group-[.is-active]:text-ink-950">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="mt-6 text-lg font-bold text-white">{s.title}</h3>
-                <p className="mx-auto mt-2.5 max-w-[260px] text-[15px] leading-relaxed text-mist">{s.text}</p>
+                <h3 className={cn("text-2xl font-medium", dark && "text-white")}>{s.title}</h3>
+                <p className={cn("mt-3 text-[15px] leading-relaxed", dark ? "text-night-muted" : "text-muted")}>{s.text}</p>
+                <div className="mt-auto flex items-end justify-between pt-8">
+                  <span className={cn("grid size-12 place-items-center rounded-full", dark ? "bg-mint-500 text-white" : "bg-blush-100 text-blush-600")}>
+                    <Ico className="size-5" aria-hidden />
+                  </span>
+                  <span className={cn("num text-5xl leading-none font-light", dark ? "text-white/30" : "text-ink/15")}>{String(i + 1).padStart(2, "0")}</span>
+                </div>
               </div>
-            ))}
+            );
+          })}
         </InView>
-        <SlideDots count={process.steps.length} active={active} onSelect={scrollTo} tone="dark" label="Ablauf-Schritte" />
       </div>
     </section>
   );

@@ -1,115 +1,108 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, MapPin, Play } from "lucide-react";
+import Image from "next/image";
+import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
+import { ArrowUpRight, Clapperboard, MapPin } from "lucide-react";
 import { portfolio } from "@/config/content";
 import { Reveal } from "@/components/ui/Reveal";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PortfolioMock } from "@/components/home/PortfolioMock";
 import { CaseVideo } from "@/components/home/CaseVideo";
 import { References } from "@/components/home/References";
 import { cn } from "@/lib/format";
 
 /**
- * asap #portfolio: Filter-Buttons + Karten mit Overlay. Echte Projekte spielen
- * beim Hover einen Clip aus dem Film ab und verlinken auf den vollen Film.
- * Darunter die Referenz-Laufbänder (Marken, Events, Artists).
+ * Arbeiten: Segment-Pillen als Filter (wie "Pay Monthly / Pay Yearly"), Karten mit
+ * abgerundetem Medium, Meta-Pillen oben und schwebendem Standort-Badge unten
+ * (Muster "Kalsey Hand · Sr Product manager" der Vorlage).
  */
 export function Portfolio() {
   const [filter, setFilter] = useState("alle");
   const items = portfolio.items.filter((p) => filter === "alle" || p.cat === filter);
 
   return (
-    <section id="arbeiten" aria-labelledby="arbeiten-title" className="relative overflow-hidden bg-ink-950 py-24 sm:py-32">
+    <section id="arbeiten" aria-labelledby="arbeiten-title" className="py-16 sm:py-24">
       <div className="container-x">
-        <Reveal className="flex flex-wrap items-end justify-between gap-8">
-          <div className="max-w-2xl">
-            <p className="tag-line text-teal-light">{portfolio.tag}</p>
-            <h2 id="arbeiten-title" className="mt-4 text-[clamp(2rem,3.5vw,3rem)] leading-[1.12] font-extrabold tracking-[-0.02em] text-white">
-              {portfolio.title}
-            </h2>
-            <p className="mt-4 text-[17px] text-mist">{portfolio.text}</p>
-          </div>
-          <div className="flex flex-wrap gap-2" role="group" aria-label="Arbeiten filtern">
-            {portfolio.filters.map((f) => (
-              <button
-                key={f.id}
-                type="button"
-                aria-pressed={filter === f.id}
-                onClick={() => setFilter(f.id)}
-                className={cn(
-                  "min-h-11 rounded-full border px-5 text-sm font-semibold transition-all duration-300",
-                  filter === f.id ? "border-teal bg-teal text-ink-950" : "border-white/15 text-white/75 hover:border-white/40 hover:text-white",
-                )}
-              >
-                {f.label}
-              </button>
-            ))}
-          </div>
+        <Reveal>
+          <SectionHeading id="arbeiten-title" eyebrow={portfolio.tag} icon={Clapperboard} title={portfolio.title} text={portfolio.text} />
+          <LayoutGroup>
+            <div role="group" aria-label="Arbeiten filtern" className="mx-auto mt-8 flex w-fit max-w-full flex-wrap justify-center gap-1 rounded-full border border-line bg-white p-1.5 shadow-[var(--shadow-soft)]">
+              {portfolio.filters.map((f) => (
+                <button
+                  key={f.id}
+                  type="button"
+                  aria-pressed={filter === f.id}
+                  onClick={() => setFilter(f.id)}
+                  className={cn("relative min-h-10 rounded-full px-4 text-sm font-medium transition-colors", filter === f.id ? "text-white" : "text-body hover:text-ink")}
+                >
+                  {filter === f.id && <motion.span layoutId="pf-pill" className="absolute inset-0 rounded-full bg-brand-500 shadow-[var(--shadow-brand)]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
+                  <span className="relative">{f.label}</span>
+                </button>
+              ))}
+            </div>
+          </LayoutGroup>
         </Reveal>
 
-        <motion.div layout className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <motion.div layout className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {items.map((p) => (
               <motion.article
                 layout
                 key={p.id}
-                initial={{ opacity: 0, scale: 0.92 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.92, transition: { duration: 0.2 } }}
-                transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
-                className="group relative aspect-[4/5] overflow-hidden sm:aspect-[1/0.95] rounded-[20px] border border-white/[0.07] bg-white/[0.04]"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.2 } }}
+                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                className="card group flex flex-col p-2.5"
               >
-                <div className="absolute inset-0 transition-transform duration-700 ease-[var(--ease-smooth)] group-focus-within:scale-[1.06] group-hover:scale-[1.06]">
-                  {p.video && p.poster ? <CaseVideo src={p.video} poster={p.poster} alt={`${p.title} – Standbild aus dem Film`} /> : p.mock && <PortfolioMock type={p.mock} />}
-                </div>
-                <div className="absolute inset-0 bg-[linear-gradient(to_top,rgb(8_12_16/0.96)_0%,rgb(8_12_16/0.6)_42%,rgb(8_12_16/0.05)_78%)]" />
-
-                <span
-                  className={cn(
-                    "absolute top-4 left-4 rounded-full px-3 py-1 text-[11px] font-bold tracking-[0.12em] uppercase",
-                    p.kind === "case" ? "bg-teal text-ink-950" : "border border-white/20 bg-ink-950/50 text-white/80 backdrop-blur",
-                  )}
-                >
-                  {p.kind === "case" ? "Projekt" : "Format"}
-                </span>
-                {p.video && (
-                  <span className="absolute top-4 right-4 grid size-9 place-items-center rounded-full border border-white/25 bg-ink-950/40 text-white backdrop-blur transition-opacity group-hover:opacity-0" aria-hidden>
-                    <Play className="size-4 translate-x-px fill-current" />
-                  </span>
-                )}
-
-                <div className="absolute inset-x-0 bottom-0 p-6">
-                  <p className="text-xs font-bold tracking-[0.14em] text-teal-light uppercase">{p.tag}</p>
-                  <h3 className="mt-1.5 text-lg leading-snug font-bold text-white">{p.title}</h3>
-                  {p.location && (
-                    <p className="mt-1 flex items-center gap-1.5 text-[13px] text-haze">
-                      <MapPin className="size-3.5 shrink-0" aria-hidden /> {p.location}
-                    </p>
-                  )}
-                  <div className="grid grid-rows-[0fr] opacity-0 transition-all duration-500 group-focus-within:mt-2.5 group-focus-within:grid-rows-[1fr] group-focus-within:opacity-100 group-hover:mt-2.5 group-hover:grid-rows-[1fr] group-hover:opacity-100 max-md:mt-2.5 max-md:grid-rows-[1fr] max-md:opacity-100">
-                    <div className="overflow-hidden">
-                      <p className="text-sm leading-relaxed text-mist">{p.text}</p>
-                      {p.youtube && (
-                        <a
-                          href={p.youtube}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="mt-3 inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-teal-light hover:text-white"
-                        >
-                          Ganzen Film ansehen <ArrowUpRight className="size-4" aria-hidden />
-                          <span className="sr-only">(öffnet YouTube)</span>
-                        </a>
-                      )}
+                <div className="relative">
+                  <div className={cn("relative aspect-[4/3] overflow-hidden rounded-[1.6rem]", !p.video && "bg-night")}>
+                    <div className="absolute inset-0 transition-transform duration-700 ease-[var(--ease-soft)] group-focus-within:scale-105 group-hover:scale-105">
+                      {p.video && p.poster ? <CaseVideo src={p.video} poster={p.poster} alt={`${p.title} – Standbild aus dem Film`} /> : p.mock && <PortfolioMock type={p.mock} />}
+                    </div>
+                    <div className="absolute top-3 left-3 flex flex-col items-start gap-1.5">
+                      <span className="rounded-full bg-white/90 px-3 py-1 text-[11px] font-medium text-ink backdrop-blur">{p.tag}</span>
+                      <span className={cn("rounded-full px-3 py-1 text-[11px] font-medium backdrop-blur", p.kind === "case" ? "bg-brand-500 text-white" : "bg-white/70 text-ink")}>
+                        {p.kind === "case" ? "Projekt" : "Format"}
+                      </span>
                     </div>
                   </div>
+                  {p.location && (
+                    <div className="absolute right-3 -bottom-5 flex max-w-[85%] items-center gap-2 rounded-full border border-line bg-white py-1.5 pr-3.5 pl-1.5 shadow-[var(--shadow-float)]">
+                      <span className="relative size-8 shrink-0 overflow-hidden rounded-full">
+                        {p.poster && <Image src={p.poster} alt="" fill sizes="32px" className="object-cover" />}
+                      </span>
+                      <span className="min-w-0 text-left leading-tight">
+                        <span className="block truncate text-xs font-medium text-ink">{p.location.split(" · ")[0]}</span>
+                        <span className="flex items-center gap-1 truncate text-[10.5px] text-muted">
+                          <MapPin className="size-3 shrink-0" aria-hidden />
+                          {p.location.split(" · ")[1]}
+                        </span>
+                      </span>
+                    </div>
+                  )}
+                </div>
+                <div className={cn("flex flex-1 flex-col px-3.5 pb-3.5", p.location ? "pt-9" : "pt-5")}>
+                  <h3 className="text-lg font-medium">{p.title}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-muted">{p.text}</p>
+                  {p.youtube && (
+                    <a
+                      href={p.youtube}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-flex min-h-10 items-center gap-1.5 self-start rounded-full bg-canvas px-4 text-sm font-medium text-ink transition hover:bg-brand-50 hover:text-brand-600"
+                    >
+                      Ganzen Film ansehen <ArrowUpRight className="size-4" aria-hidden />
+                      <span className="sr-only">(öffnet YouTube)</span>
+                    </a>
+                  )}
                 </div>
               </motion.article>
             ))}
           </AnimatePresence>
         </motion.div>
       </div>
-
       <References />
     </section>
   );

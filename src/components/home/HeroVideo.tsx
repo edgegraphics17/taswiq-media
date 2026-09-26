@@ -30,7 +30,7 @@ export function HeroVideo({ src }: { src: string }) {
       playsInline
       aria-hidden
       onPlaying={() => setPlaying(true)}
-      className={cn("absolute inset-0 -z-20 size-full object-cover transition-opacity duration-1000", playing ? "opacity-100" : "opacity-0")}
+      className={cn("absolute inset-0 size-full object-cover transition-opacity duration-1000", playing ? "opacity-100" : "opacity-0")}
     />
   );
 }

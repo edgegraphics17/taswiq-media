@@ -1,7 +1,7 @@
 # TasWiq Media. – Website
 
 Medienagentur für Gastronomie, Festivals & Musik – Premium-Video/Foto, skaliert mit KI.
-Struktur, Funnel, Rechner und Animationen nach asapmarketing.de, Design aus der TasWiq-Rechnung.
+Logik nach asapmarketing.de, Design-System „Soft UI“ (Violett, Bento, schwebende Karten) – Tokens in `src/app/globals.css`.
 
 **Stack:** Next.js 15 · Tailwind CSS 4 · Framer Motion · Supabase · n8n · Zod
 
@@ -31,6 +31,6 @@ Mit Backend: `.env.example` → `.env.local` kopieren und ausfüllen.
 | Funnel-Optionen, Starter-Pakete | `src/config/funnel.ts` |
 | SEO-Landingpages | `src/config/seo-pages.ts` |
 | Adresse, Domain, Calendly, Social | `src/config/site.ts` |
-| Farben, Motion | `src/app/globals.css` |
+| Farben, Radien, Schatten, Motion | `src/app/globals.css` (`@theme`) |
 
 Ausführlich: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) · Vorlage-Analyse: [`docs/ASAP-ANALYSE.md`](docs/ASAP-ANALYSE.md)

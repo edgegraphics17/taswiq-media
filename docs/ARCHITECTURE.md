@@ -1,7 +1,7 @@
 # TasWiq Media. – Architektur (Phasen 1–5)
 
-**Struktur, Funnels, Rechner & Animationen:** nach asapmarketing.de (Analyse: [`ASAP-ANALYSE.md`](./ASAP-ANALYSE.md))
-**Farben, Typografie & UI-Details:** aus der TasWiq-Rechnung (Navy `#18222E`, Teal `#5AAEB8`, Exo 2, gesperrte Teal-Labels)
+**Logik (Funnel, Rechner, Scoring, Backend):** nach asapmarketing.de (Analyse: [`ASAP-ANALYSE.md`](./ASAP-ANALYSE.md))
+**Design-System „Soft UI“ (seit Redesign 27.09.2026):** nach der Design-Vorlage – Violett `#7840FE`, Canvas `#F6F6F6`, Kontrast-Schwarz `#141414`, Mint `#1DAF59`, Rosé `#F9CFD4`, Inter Tight; weiche Radien (`rounded-[2rem]`), alle Buttons/Tags als Pillen, Bento-Grids, schwebende Info-Karten. Tokens in `src/app/globals.css`.
 **Stack:** Next.js 15.5 (App Router) · Tailwind CSS 4 · Framer Motion · Supabase · n8n · Zod
 
 ---

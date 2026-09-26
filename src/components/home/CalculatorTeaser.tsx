@@ -1,72 +1,81 @@
-import Link from "next/link";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, Calculator } from "lucide-react";
 import { calculatorTeaser as t } from "@/config/content";
 import { computeEstimate, sanitizeState } from "@/lib/pricing-engine";
 import { getPricingData } from "@/lib/pricing-source";
 import { formatEUR, formatNumber } from "@/lib/format";
 import { Reveal } from "@/components/ui/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
+import { Eyebrow } from "@/components/ui/SectionHeading";
 
 /**
- * asap #rechner-teaser: dunkle Box, links Argument + Pills + CTA, rechts Beispiel-Ergebnis.
- * Das Beispiel rechnet mit derselben Engine wie der Rechner – nie veraltete Zahlen.
+ * Rechner-Teaser: schwarze Kontrast-Karte (Argument + Mint-Checks) neben einer weißen
+ * "Plan"-Karte im Stil der Pricing-Karten der Vorlage. Zahlen kommen live aus der Engine.
  */
 export async function CalculatorTeaser() {
   const data = await getPricingData();
   const e = computeEstimate(sanitizeState(t.example.state, data), Number.POSITIVE_INFINITY, data);
 
   return (
-    <section id="preisrechner-teaser" aria-labelledby="teaser-title" className="px-4 py-24 sm:px-8 sm:py-28">
-      <Reveal className="glow-box mx-auto grid max-w-[1200px] items-center gap-12 rounded-[28px] px-6 py-10 shadow-[0_30px_80px_rgb(90_174_184/0.18)] sm:px-12 sm:py-14 lg:grid-cols-[1.15fr_0.85fr] lg:px-14">
-        <div>
-          <p className="tag-line text-teal-light">{t.label}</p>
-          <h2 id="teaser-title" className="mt-4 text-[clamp(1.7rem,2.8vw,2.4rem)] leading-[1.15] font-extrabold tracking-[-0.02em] text-white">
-            {t.title}
-            <br />
-            <span className="text-teal-light">{t.titleAccent}</span>
+    <section id="preisrechner-teaser" aria-labelledby="teaser-title" className="py-16 sm:py-24">
+      <div className="container-x grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
+        <Reveal className="card-night flex flex-col p-8 sm:p-11">
+          <Eyebrow tone="dark" icon={Calculator}>
+            {t.label}
+          </Eyebrow>
+          <h2 id="teaser-title" className="mt-5 text-[clamp(2rem,3.8vw,3.1rem)] leading-[1.05] font-medium text-white">
+            {t.title} <span className="text-brand-300">{t.titleAccent}</span>
           </h2>
-          <p className="mt-4 max-w-[52ch] leading-relaxed text-mist">{t.text}</p>
-          <ul className="mt-6 flex flex-wrap gap-2.5">
+          <p className="mt-4 max-w-[52ch] leading-relaxed text-night-muted">{t.text}</p>
+          <ul className="mt-7 flex flex-wrap gap-2">
             {t.pills.map((p) => (
-              <li key={p} className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[13px] font-semibold text-white/85">
-                <Check className="size-3.5 text-teal-light" strokeWidth={3} aria-hidden /> {p}
+              <li key={p} className="inline-flex items-center gap-2 rounded-full bg-white/[0.07] px-4 py-2 text-sm font-medium text-white">
+                <span className="grid size-5 place-items-center rounded-full bg-mint-500 text-white">
+                  <Check className="size-3" strokeWidth={3} aria-hidden />
+                </span>
+                {p}
               </li>
             ))}
           </ul>
-          <p className="mt-5 max-w-[46ch] text-[13px] leading-relaxed text-haze">{t.hint}</p>
-          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
-            <ButtonLink href={t.primary.href} className="max-sm:w-full">
+          <div className="mt-auto flex flex-wrap items-center gap-3 pt-10">
+            <ButtonLink href={t.primary.href}>
               {t.primary.label} <ArrowRight className="size-4" aria-hidden />
             </ButtonLink>
-            <Link href={t.secondary.href} className="inline-flex min-h-11 items-center gap-2 font-semibold text-teal-light transition-[gap] hover:gap-3.5">
-              {t.secondary.label} <ArrowRight className="size-4" aria-hidden />
-            </Link>
+            <ButtonLink href={t.secondary.href} variant="ghost-night">
+              {t.secondary.label}
+            </ButtonLink>
           </div>
-        </div>
+        </Reveal>
 
-        {/* Beispiel-Ergebnis im Look der Rechnungs-Summenbox */}
-        <div className="rounded-[22px] border border-white/15 bg-white/[0.05] p-6 backdrop-blur-sm sm:p-7">
-          <p className="text-[11px] font-bold tracking-[0.14em] text-haze uppercase">{t.example.label}</p>
-          <p className="num mt-2 text-[clamp(1.5rem,2.6vw,2rem)] font-extrabold tracking-tight text-white">
-            {formatNumber(e.von)} – {formatNumber(e.bis)} € <small className="text-sm font-semibold text-haze">einmalig</small>
+        <Reveal delay={0.1} className="card flex flex-col p-6 sm:p-8">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="text-lg font-medium text-ink">{t.example.label}</p>
+              <p className="text-sm text-muted">Video Standard · Drohne · 1 Sprache</p>
+            </div>
+            <span className="grid size-12 shrink-0 place-items-center rounded-full bg-night text-white">
+              <Calculator className="size-5" aria-hidden />
+            </span>
+          </div>
+          <p className="num mt-6 flex items-baseline gap-2">
+            <span className="text-[2.6rem] leading-none font-medium tracking-tight text-ink">{formatNumber(e.von)}</span>
+            <span className="text-xl text-muted">– {formatNumber(e.bis)} €</span>
           </p>
-          <ul className="mt-4">
-            {e.einmalig.map((l) => (
-              <li key={l.key} className="flex justify-between gap-3 border-t border-white/10 py-2.5 text-sm text-mist">
-                <span>{l.label}</span>
-                <b className="num font-semibold text-white/90">{formatEUR(l.betrag)}</b>
-              </li>
-            ))}
-            {e.monatlich.map((l) => (
-              <li key={l.key} className="flex justify-between gap-3 border-t border-white/10 py-2.5 text-sm text-mist">
-                <span>{l.label}</span>
-                <b className="num font-semibold text-teal-light">{formatEUR(l.betrag)}/Monat</b>
+          <p className="mt-1 text-sm text-muted">Richtwert einmalig · dazu {formatEUR(e.summeMtl)}/Monat</p>
+          <p className="mt-6 text-sm font-medium text-ink">Das steckt drin</p>
+          <ul className="mt-3 space-y-2">
+            {[...e.einmalig, ...e.monatlich].map((l) => (
+              <li key={l.key} className="flex items-center justify-between gap-3 rounded-full bg-canvas px-4 py-2.5 text-sm">
+                <span className="flex items-center gap-2 text-body">
+                  <span className="size-1.5 rounded-full bg-brand-500" aria-hidden />
+                  {l.label}
+                </span>
+                <b className="num font-medium text-ink">{formatEUR(l.betrag)}</b>
               </li>
             ))}
           </ul>
-          <p className="mt-4 text-xs leading-relaxed text-haze">{t.example.foot}</p>
-        </div>
-      </Reveal>
+          <p className="mt-5 text-xs leading-relaxed text-muted">{t.example.foot}</p>
+        </Reveal>
+      </div>
     </section>
   );
 }

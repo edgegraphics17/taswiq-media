@@ -1,55 +1,40 @@
-import { Check, Info } from "lucide-react";
+import { Check, Info, Lightbulb } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
+import { Eyebrow } from "@/components/ui/SectionHeading";
 
-/** asap #problem: Argument + Liste links, Beispiel-Szene als Karte rechts, Hinweis darunter. */
-export function ProblemSection({
-  tag,
-  title,
-  text,
-  points,
-  story,
-  note,
-}: {
-  tag: string;
-  title: string;
-  text: string;
-  points: string[];
-  story?: { label: string; quote: string; text: string };
-  note?: string;
-}) {
+/** Problem: weiße Karte mit Argument + Checkliste, daneben schwarze Szene-Karte mit Mint-Akzent. */
+export function ProblemSection({ tag, title, text, points, story, note }: { tag: string; title: string; text: string; points: string[]; story?: { label: string; quote: string; text: string }; note?: string }) {
   return (
-    <section className="py-24 sm:py-28">
-      <div className="container-x grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-        <Reveal>
-          <p className="tag-line text-teal-deep">{tag}</p>
-          <h2 className="mt-4 text-[clamp(1.8rem,3.2vw,2.6rem)] leading-[1.15] font-extrabold tracking-[-0.02em] text-ink">{title}</h2>
-          <p className="mt-5 text-[17px] leading-relaxed text-body">{text}</p>
-          <ul className="mt-7 space-y-3.5">
+    <section className="py-16 sm:py-20">
+      <div className="container-x grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+        <Reveal className="card p-7 sm:p-10">
+          <Eyebrow icon={Lightbulb}>{tag}</Eyebrow>
+          <h2 className="mt-4 text-[clamp(1.9rem,3.4vw,2.7rem)] leading-[1.08] font-medium">{title}</h2>
+          <p className="mt-4 text-[15px] leading-relaxed text-muted">{text}</p>
+          <ul className="mt-7 grid gap-2.5">
             {points.map((p) => (
-              <li key={p} className="flex gap-3 text-[15.5px] text-body">
-                <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-teal-wash text-teal-deep">
-                  <Check className="size-3.5" strokeWidth={3} aria-hidden />
+              <li key={p} className="flex items-center gap-3 rounded-full bg-canvas p-1.5 pr-5 text-[14.5px] text-body">
+                <span className="grid size-8 shrink-0 place-items-center rounded-full bg-brand-500 text-white">
+                  <Check className="size-4" strokeWidth={3} aria-hidden />
                 </span>
                 {p}
               </li>
             ))}
           </ul>
         </Reveal>
-        {story && (
-          <Reveal delay={0.15} className="self-center">
-            <figure className="glow-box rounded-3xl p-8 text-white shadow-[0_26px_70px_rgb(90_174_184/0.2)]">
-              <p className="text-xs font-bold tracking-[0.14em] text-teal-light uppercase">{story.label}</p>
-              <blockquote className="mt-4 text-xl leading-snug font-bold">{story.quote}</blockquote>
-              <figcaption className="mt-4 leading-relaxed text-mist">{story.text}</figcaption>
-            </figure>
+        {story ? (
+          <Reveal delay={0.1} className="card-night flex flex-col p-7 sm:p-10">
+            <Eyebrow tone="dark">{story.label}</Eyebrow>
+            <blockquote className="mt-5 text-[clamp(1.4rem,2.4vw,1.9rem)] leading-snug font-medium">{story.quote}</blockquote>
+            <p className="mt-5 leading-relaxed text-night-muted">{story.text}</p>
             {note && (
-              <p className="mt-5 flex gap-3 rounded-2xl border border-line bg-fog p-4 text-sm leading-relaxed text-body">
-                <Info className="mt-0.5 size-4 shrink-0 text-teal-deep" aria-hidden />
+              <p className="mt-auto flex gap-3 rounded-3xl bg-white/[0.06] p-4 pt-4 text-sm leading-relaxed text-night-muted">
+                <Info className="mt-0.5 size-4 shrink-0 text-mint-400" aria-hidden />
                 {note}
               </p>
             )}
           </Reveal>
-        )}
+        ) : null}
       </div>
     </section>
   );

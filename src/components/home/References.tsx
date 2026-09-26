@@ -2,9 +2,8 @@ import { references } from "@/config/content";
 import { Reveal } from "@/components/ui/Reveal";
 
 /**
- * Referenz-Laufbänder: Namen typografisch in Exo 2 statt Fremd-Logos.
- * Zwei Bänder laufen gegenläufig, pausieren beim Hover; bei "Bewegung reduzieren"
- * stehen sie still und brechen um.
+ * Referenz-Laufbänder im Stil der Logo-Reihe der Vorlage ("maze · Culture Amp"):
+ * Namen typografisch statt Fremd-Logos, zwei gegenläufige Bänder, pausieren beim Hover.
  */
 export function References() {
   const brands = references.groups.flatMap((g) => [{ label: g.label }, ...g.names.map((n) => ({ name: n }))]);
@@ -16,16 +15,16 @@ export function References() {
         <ul
           key={copy}
           aria-hidden={copy === 1 || undefined}
-          className="flex shrink-0 animate-marquee items-center gap-x-10 pr-10 group-hover/marquee:[animation-play-state:paused] motion-reduce:animate-none"
+          className="flex shrink-0 animate-marquee items-center gap-x-8 pr-8 group-hover/marquee:[animation-play-state:paused] motion-reduce:animate-none"
           style={reverse ? { animationDirection: "reverse" } : undefined}
         >
           {items.map((it, i) =>
             "label" in it ? (
-              <li key={`l-${i}`} className="rounded-full border border-teal/30 px-3 py-1 text-[11px] font-bold tracking-[0.2em] whitespace-nowrap text-teal-light uppercase">
+              <li key={`l-${i}`} className="rounded-full bg-brand-50 px-3 py-1 text-xs font-medium whitespace-nowrap text-brand-600">
                 {it.label}
               </li>
             ) : (
-              <li key={`n-${i}`} className="text-[clamp(1.25rem,2.4vw,1.9rem)] font-extrabold tracking-tight whitespace-nowrap text-white/35 transition-colors hover:text-white">
+              <li key={`n-${i}`} className="text-[clamp(1.2rem,2.2vw,1.7rem)] font-medium tracking-tight whitespace-nowrap text-ink/35 transition-colors hover:text-ink">
                 {it.name}
               </li>
             ),
@@ -36,15 +35,12 @@ export function References() {
   );
 
   return (
-    <div className="mt-24">
-      <Reveal className="container-x flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <p className="tag-line text-teal-light">{references.tag}</p>
-          <h3 className="mt-3 max-w-xl text-2xl leading-snug font-extrabold tracking-tight text-white sm:text-3xl">{references.title}</h3>
-        </div>
-        <p className="text-sm text-haze">{references.partners.join(" · ")}</p>
+    <div className="mt-20">
+      <Reveal className="container-x text-center">
+        <p className="text-lg font-medium text-ink">{references.title}</p>
+        <p className="mt-1 text-sm text-muted">{references.partners.join(" · ")}</p>
       </Reveal>
-      <div className="mt-10 space-y-6">
+      <div className="mt-8 space-y-5">
         <Row items={brands} />
         <Row items={artists} reverse />
       </div>

@@ -12,14 +12,14 @@ export default async function OpengraphImage() {
   const src = `data:image/jpeg;base64,${poster.toString("base64")}`;
   return new ImageResponse(
     (
-      <div style={{ width: "100%", height: "100%", display: "flex", position: "relative", background: "#18222e" }}>
+      <div style={{ width: "100%", height: "100%", display: "flex", position: "relative", background: "#141414" }}>
         <img src={src} alt="" width={1200} height={630} style={{ position: "absolute", inset: 0, objectFit: "cover" }} />
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(24,34,46,0.55), rgba(15,23,32,0.95))" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(20,20,20,0.35), rgba(20,20,20,0.95))" }} />
         <div style={{ position: "relative", display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: 72, width: "100%" }}>
-          <div style={{ fontSize: 22, letterSpacing: 6, color: "#8fd3dc", fontWeight: 700 }}>MEDIENAGENTUR FÜR GASTRONOMIE, FESTIVALS & MUSIK</div>
-          <div style={{ fontSize: 110, color: "white", fontWeight: 800, lineHeight: 1, marginTop: 18 }}>Content.</div>
-          <div style={{ fontSize: 54, color: "#8fd3dc", fontWeight: 800, marginTop: 8 }}>Der satt macht.</div>
-          <div style={{ display: "flex", marginTop: 36, height: 6, width: 120, background: "#5aaeb8", borderRadius: 3 }} />
+          <div style={{ fontSize: 22, letterSpacing: 6, color: "#b9a0ff", fontWeight: 700 }}>MEDIENAGENTUR FÜR GASTRONOMIE, FESTIVALS & MUSIK</div>
+          <div style={{ fontSize: 96, color: "white", fontWeight: 600, lineHeight: 1, marginTop: 18, letterSpacing: -3 }}>Content, der</div>
+          <div style={{ fontSize: 96, color: "#9a70ff", fontWeight: 600, lineHeight: 1.05, letterSpacing: -3 }}>satt macht.</div>
+          <div style={{ display: "flex", marginTop: 36, height: 6, width: 120, background: "#7840fe", borderRadius: 3 }} />
           <div style={{ fontSize: 30, color: "white", fontWeight: 700, marginTop: 22 }}>TasWiq Media.</div>
         </div>
       </div>

@@ -13,7 +13,7 @@ export default async function CalcPage() {
 
   return (
     <div className="mx-auto max-w-[1100px]">
-      <p className="eyebrow">Preisrechner</p>
+      <p className="text-xs font-medium text-brand-600">Preisrechner</p>
       <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-ink">Kalkulationen</h1>
 
       <dl className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-3">
@@ -28,7 +28,7 @@ export default async function CalcPage() {
           {serviceCount.map((s) => (
             <li key={s.label} className="grid grid-cols-[150px_1fr_36px] items-center gap-3 text-sm" title={`${s.label}: ${s.n}`}>
               <span className="text-body">{s.label}</span>
-              <span className="h-3.5 rounded-r bg-fog" aria-hidden><span className="block h-full rounded-r-[4px] bg-teal" style={{ width: `${(s.n / max) * 100}%` }} /></span>
+              <span className="h-3.5 rounded-r bg-canvas" aria-hidden><span className="block h-full rounded-r-[4px] bg-brand-500" style={{ width: `${(s.n / max) * 100}%` }} /></span>
               <span className="num text-right font-semibold text-ink">{s.n}</span>
             </li>
           ))}
@@ -37,7 +37,7 @@ export default async function CalcPage() {
 
       <div className="mt-6 overflow-x-auto rounded-2xl border border-line bg-white">
         <table className="w-full min-w-[720px] text-sm">
-          <thead className="border-b border-line bg-fog/60 text-left text-xs text-muted">
+          <thead className="border-b border-line bg-canvas/70 text-left text-xs text-muted">
             <tr>{["Datum", "Branche", "Leistungen", "Richtwert", "Monatlich", "Anfrage"].map((h) => <th key={h} scope="col" className="px-4 py-3 font-semibold">{h}</th>)}</tr>
           </thead>
           <tbody className="divide-y divide-line">

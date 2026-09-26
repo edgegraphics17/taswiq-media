@@ -1,13 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Exo_2, League_Spartan } from "next/font/google";
+import { Inter_Tight, League_Spartan } from "next/font/google";
 import { MotionProvider } from "@/components/providers/MotionProvider";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { organizationJsonLd, baseKeywords } from "@/lib/seo";
 import { site } from "@/config/site";
 import "./globals.css";
 
-/** Exo 2 = Hausschrift der Rechnung; League Spartan = Wortmarke im Logo */
-const exo = Exo_2({ subsets: ["latin", "latin-ext"], variable: "--font-exo", display: "swap" });
+/** Inter Tight = neutrale Grotesk der Design-Vorlage; League Spartan = Wortmarke im Logo */
+const inter = Inter_Tight({ subsets: ["latin", "latin-ext"], variable: "--font-inter-tight", display: "swap" });
 const spartan = League_Spartan({ subsets: ["latin"], weight: ["700"], variable: "--font-spartan", display: "swap" });
 
 export const metadata: Metadata = {
@@ -38,14 +38,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#18222e",
+  themeColor: "#f6f6f6",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="de" className={`${exo.variable} ${spartan.variable}`}>
+    <html lang="de" className={`${inter.variable} ${spartan.variable}`}>
       <body>
         <MotionProvider>{children}</MotionProvider>
         <JsonLd data={organizationJsonLd()} />

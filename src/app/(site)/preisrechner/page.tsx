@@ -16,7 +16,7 @@ export const metadata = pageMetadata({
 export default async function PreisrechnerPage() {
   const data = await getPricingData();
   return (
-    <div className="bg-fog pt-16 lg:pt-[72px]">
+    <div className="relative">
       <Calculator data={data} />
       <JsonLd data={calculatorJsonLd()} />
       <JsonLd data={breadcrumbJsonLd([{ name: "Start", path: "/" }, { name: "Preisrechner", path: "/preisrechner" }])} />

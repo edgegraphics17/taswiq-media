@@ -27,7 +27,7 @@ export default async function LeadDetail({
 
   return (
     <div className="mx-auto max-w-[1100px]">
-      <Link href="/admin" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-teal-deep">
+      <Link href="/admin" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-600">
         <ArrowLeft className="size-4" aria-hidden /> Alle Leads
       </Link>
 
@@ -57,7 +57,7 @@ export default async function LeadDetail({
             </a>
           )}
           {wa && (
-            <a href={wa} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-teal px-4 text-sm font-semibold text-ink-950">
+            <a href={wa} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-brand-500 px-4 text-sm font-semibold text-white">
               <MessageCircle className="size-4" aria-hidden /> WhatsApp
             </a>
           )}
@@ -79,7 +79,7 @@ export default async function LeadDetail({
                 <dt className="text-muted">Vorhaben</dt>
                 <dd className="mt-1 flex flex-wrap gap-1.5">
                   {lead.interests.map((i) => (
-                    <span key={i} className="rounded-full bg-fog px-2.5 py-0.5 text-xs font-semibold text-ink">{INTERESTS.find((x) => x.id === i)?.label ?? i}</span>
+                    <span key={i} className="rounded-full bg-canvas px-2.5 py-0.5 text-xs font-semibold text-ink">{INTERESTS.find((x) => x.id === i)?.label ?? i}</span>
                   ))}
                 </dd>
               </div>
@@ -104,7 +104,7 @@ export default async function LeadDetail({
             <h2 className="text-sm font-bold text-ink">Warum dieser Score?</h2>
             <ul className="mt-2 flex flex-wrap gap-1.5">
               {lead.score_reasons.map((r) => (
-                <li key={r} className="rounded-md bg-fog px-2 py-1 text-xs text-body">{r}</li>
+                <li key={r} className="rounded-md bg-canvas px-2 py-1 text-xs text-body">{r}</li>
               ))}
             </ul>
           </section>
@@ -115,12 +115,12 @@ export default async function LeadDetail({
               <input type="hidden" name="id" value={lead.id} />
               <label htmlFor="note" className="sr-only">Notiz</label>
               <input id="note" name="body" placeholder="Notiz hinzufügen, z. B. „Rückruf am Freitag“" className="h-11 flex-1 rounded-lg border border-line px-3 text-sm" />
-              <button type="submit" className="h-11 rounded-lg bg-ink-900 px-4 text-sm font-semibold text-white">Speichern</button>
+              <button type="submit" className="h-11 rounded-lg bg-night px-4 text-sm font-semibold text-white">Speichern</button>
             </form>
             <ol className="mt-4 space-y-3 border-l-2 border-line pl-4">
               {events.map((e) => (
                 <li key={e.id} className="relative text-sm">
-                  <span className="absolute top-1.5 -left-[21px] size-2.5 rounded-full border-2 border-white bg-teal" aria-hidden />
+                  <span className="absolute top-1.5 -left-[21px] size-2.5 rounded-full border-2 border-white bg-brand-500" aria-hidden />
                   <p className="font-semibold text-ink">
                     {EVENT_LABEL[e.type]}
                     {e.type === "status_change" && e.to_status && <> → {STATUS_LABEL[e.to_status]}</>}
@@ -155,12 +155,12 @@ export default async function LeadDetail({
               Interne Notiz
               <textarea name="owner_notes" rows={4} defaultValue={lead.owner_notes ?? ""} className="rounded-lg border border-line p-3 text-sm text-ink" />
             </label>
-            <button type="submit" className="mt-4 h-11 w-full rounded-lg bg-teal text-sm font-semibold text-ink-950">Speichern</button>
+            <button type="submit" className="mt-4 h-11 w-full rounded-lg bg-brand-500 text-sm font-semibold text-white">Speichern</button>
           </form>
 
           <section className="rounded-2xl border border-line bg-white p-5 text-sm">
             <h2 className="font-bold text-ink">Automation (n8n)</h2>
-            <pre className="mt-2 overflow-x-auto rounded-lg bg-fog p-3 text-xs text-body">{JSON.stringify(lead.automation as Json, null, 2)}</pre>
+            <pre className="mt-2 overflow-x-auto rounded-lg bg-canvas p-3 text-xs text-body">{JSON.stringify(lead.automation as Json, null, 2)}</pre>
           </section>
         </aside>
       </div>

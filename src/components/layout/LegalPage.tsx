@@ -1,11 +1,11 @@
-/** Schlichte Textseite für Rechtliches – helle Kopfleiste, lesbare Zeilenlänge. */
+/** Textseite für Rechtliches – weiße Karte auf Canvas, lesbare Zeilenlänge. */
 export function LegalPage({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="pt-28 pb-24 sm:pt-36">
-      <article className="container-x max-w-3xl">
-        <p className="tag-line text-teal-deep">Rechtliches</p>
-        <h1 className="mt-4 text-4xl font-extrabold tracking-tight text-ink">{title}</h1>
-        <div className="mt-10 space-y-6 leading-relaxed text-body [&_h2]:mt-10 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-ink [&_a]:font-semibold [&_a]:text-teal-deep">{children}</div>
+    <div className="container-x pt-28 pb-16 sm:pt-32">
+      <article className="card mx-auto max-w-3xl p-8 sm:p-12">
+        <p className="inline-flex rounded-full bg-brand-50 px-3 py-1 text-xs font-medium text-brand-600">Rechtliches</p>
+        <h1 className="mt-4 text-4xl font-medium">{title}</h1>
+        <div className="mt-8 space-y-5 leading-relaxed text-body [&_a]:font-medium [&_a]:text-brand-600 [&_h2]:mt-9 [&_h2]:text-xl [&_h2]:font-medium [&_h2]:text-ink">{children}</div>
       </article>
     </div>
   );

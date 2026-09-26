@@ -1,100 +1,106 @@
 @import "tailwindcss";
 
 /* ══════════════════════════════════════════════════════════════════
-   TasWiq Media. – Design Tokens
-   Farben & Typo: gemessen aus der Rechnung 26-2026 (LILY'S)
-   Motion & Interaktion: übernommen von asapmarketing.de
+   TasWiq Media. – Design-System "Soft UI"
+   Quelle: Design-Vorlage (Omoway-Stil) – Farben aus der Vorlage gemessen:
+   Violett #7840FE · Canvas #F6F6F6 · Kontrast-Schwarz #141414 · Grün #1DAF59 · Rosé #F9CFD4
+   Formsprache: extrem weiche Radien, alle Buttons/Badges/Tags als Pillen,
+   Bento-Grids, schwebende Info-Karten über Medien.
    ══════════════════════════════════════════════════════════════════ */
 @theme {
-  --font-sans: var(--font-exo), ui-sans-serif, system-ui, sans-serif;
-  --font-logo: var(--font-spartan), var(--font-exo), sans-serif;
+  --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
+  --font-logo: var(--font-spartan), var(--font-inter-tight), sans-serif;
 
-  /* Navy – Hero, dunkle Boxen */
-  --color-ink-950: #0f1720;
-  --color-ink-900: #18222e; /* Rechnungs-Hero */
-  --color-ink-800: #1f2b38; /* "Gesamtbetrag"-Box */
-  --color-ink-700: #2a3747;
-  --color-ink-600: #3a4859;
-  --color-ink: #1c2631; /* Überschriften auf Hell */
+  /* Flächen */
+  --color-canvas: #f6f6f6; /* Off-White der Vorlage */
+  --color-surface: #ffffff;
+  --color-line: #ececef;
 
   /* Text */
-  --color-body: #4a5664;
-  --color-muted: #5e6a78;
-  --color-mist: #b8c2cd; /* Sekundärtext auf Navy */
-  --color-haze: #9aa6b4;
+  --color-ink: #111113; /* Headlines */
+  --color-body: #45454c; /* Fließtext (≥ 8:1) */
+  --color-muted: #6e6e73; /* Sekundärtext (≥ 4.6:1 auf Canvas) */
 
-  /* Flächen & Linien */
-  --color-fog: #f3f5f8;
-  --color-line: #dfe4ea;
+  /* Kontrast-Karten */
+  --color-night: #141414; /* schwarze Karten der Vorlage */
+  --color-night-soft: #1f1f22;
+  --color-night-line: #2c2c31;
+  --color-night-muted: #9b9ba3; /* Text auf Schwarz (6.7:1) */
 
-  /* Teal – Markenakzent */
-  --color-teal: #5aaeb8;
-  --color-teal-light: #8fd3dc;
-  --color-teal-deep: #287681; /* Text auf Hell (AA) */
-  --color-teal-wash: #eaf5f7;
+  /* Primär: Violett */
+  --color-brand-50: #f5f1ff;
+  --color-brand-100: #ebe3ff;
+  --color-brand-200: #d7c7ff;
+  --color-brand-300: #b9a0ff;
+  --color-brand-400: #9a70ff;
+  --color-brand-500: #7840fe; /* Buttons – Weiß darauf 5.3:1 */
+  --color-brand-600: #6635e8; /* violetter Text auf Hell – 6:1 */
+  --color-brand-700: #5226c7;
 
-  --color-danger: #b42318;
-  --color-success: #1f7a4d;
+  /* Sekundär: Rosé (Menü-Button, Eyebrow-Icons) */
+  --color-blush-50: #fff5f6;
+  --color-blush-100: #fde8eb;
+  --color-blush-200: #f9cfd4;
+  --color-blush-500: #e0566e;
+  --color-blush-600: #c9433f;
 
-  /* asap-Easing */
-  --ease-wobble: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-wipe: cubic-bezier(0.8, 0, 0.2, 1);
+  /* Akzent in dunklen Karten: Mint/Emerald */
+  --color-mint-400: #4ade80;
+  --color-mint-500: #1daf59;
 
-  --shadow-teal: 0 8px 30px rgb(90 174 184 / 0.35);
-  --shadow-teal-lg: 0 40px 100px rgb(90 174 184 / 0.25);
-  --shadow-card: 0 20px 60px rgb(15 23 32 / 0.08);
+  --color-danger: #c42b2b;
 
-  --animate-orb: orbFloat 9s ease-in-out infinite;
-  --animate-shine: gradientShine 4s linear infinite;
-  --animate-blink: blink 1s step-end infinite;
-  --animate-scroll: scrollPulse 2s var(--ease-smooth) infinite;
-  --animate-hero-up: heroUp 0.8s var(--ease-expo) both;
-  --animate-marquee: marquee 60s linear infinite;
+  /* Schatten – weich, großflächig */
+  --shadow-soft: 0 12px 40px -16px rgb(17 17 19 / 0.14);
+  --shadow-float: 0 24px 60px -18px rgb(17 17 19 / 0.28);
+  --shadow-brand: 0 12px 30px -10px rgb(120 64 254 / 0.55);
+  --shadow-picked: 0 16px 40px -18px rgb(120 64 254 / 0.45);
 
-  @keyframes orbFloat {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-30px) scale(1.05); }
-  }
-  @keyframes gradientShine {
-    to { background-position: 200% center; }
-  }
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float 8s ease-in-out infinite;
+  --animate-marquee: marquee 50s linear infinite;
+  --animate-rise: rise 0.9s var(--ease-soft) both;
+  --animate-bars: bars 2.4s ease-in-out infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
   }
   @keyframes marquee {
     to { transform: translateX(-100%); }
   }
-  @keyframes heroUp {
-    from { opacity: 0; transform: translateY(30px); }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(24px); }
     to { opacity: 1; transform: none; }
   }
-  @keyframes scrollPulse {
-    0% { opacity: 0; transform: scaleY(0); transform-origin: top; }
-    50% { opacity: 1; }
-    100% { opacity: 0; transform: scaleY(1); transform-origin: bottom; }
+  @keyframes bars {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(0.62); }
   }
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5.5rem;
+    scroll-padding-top: 6rem;
     -webkit-text-size-adjust: 100%;
   }
   body {
-    @apply bg-white font-sans text-body antialiased;
+    @apply bg-canvas font-sans text-body antialiased;
     text-rendering: optimizeLegibility;
   }
+  h1, h2, h3 {
+    @apply text-ink;
+    letter-spacing: -0.03em;
+  }
   ::selection {
-    background: var(--color-teal-light);
-    color: var(--color-ink-900);
+    background: var(--color-brand-200);
+    color: var(--color-ink);
   }
   :focus-visible {
-    outline: 2px solid var(--color-teal);
+    outline: 2px solid var(--color-brand-500);
     outline-offset: 3px;
   }
   button,
@@ -119,180 +125,43 @@
 }
 
 @layer components {
-  /* Gesperrte Teal-Labels – prägendes Typo-Element der Rechnung */
-  .eyebrow {
-    @apply text-xs font-semibold tracking-[0.22em] text-teal-deep uppercase;
-  }
-  .eyebrow-dark {
-    @apply text-xs font-semibold tracking-[0.22em] text-teal-light uppercase;
-  }
-  /* asap-Section-Tag mit Linie davor */
-  .tag-line {
-    @apply inline-flex items-center gap-2.5 text-xs font-bold tracking-[0.16em] uppercase;
-  }
-  .tag-line::before {
-    content: "";
-    width: 28px;
-    height: 2px;
-    background: currentColor;
-  }
   .container-x {
-    @apply mx-auto w-full max-w-[1200px] px-5 sm:px-8;
+    @apply mx-auto w-full max-w-[1240px] px-4 sm:px-6;
   }
   .num {
     font-variant-numeric: tabular-nums;
   }
-
-  /* Filmkorn über dem Nebel */
-  .grain::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.08;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* Weiße Karte der Vorlage: fast unsichtbarer Rand + weicher Schatten */
+  .card {
+    @apply rounded-[2rem] border border-line bg-surface shadow-[var(--shadow-soft)];
+  }
+  .card-night {
+    @apply rounded-[2rem] bg-night text-white;
   }
 
-  /* Dunkle asap-Box mit Teal-Glow oben rechts (Flaggschiff, Rechner-Teaser, Summe) */
-  .glow-box {
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(135deg, #15222c 0%, var(--color-ink-800) 55%, #16303a 100%);
-  }
-  .glow-box::after {
-    content: "";
-    position: absolute;
-    top: -160px;
-    right: -110px;
-    width: 440px;
-    height: 440px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgb(90 174 184 / 0.22) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .glow-box > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  /* Typewriter-Verlauf (asap: gradientShine) */
-  .shine-text {
-    background: linear-gradient(90deg, var(--color-teal), var(--color-teal-light), #d2f0f4, var(--color-teal));
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: var(--animate-shine);
-  }
-
-  /* ─── Service-Karten: asap-Signature-Hover ────────────────────────
-     Karte wächst & kippt (abwechselnd ±1.5°), alle anderen schrumpfen. */
-  @media (hover: hover) and (min-width: 900px) {
-    .service-card {
-      transition:
-        transform 0.35s var(--ease-wobble),
-        box-shadow 0.35s ease,
-        background-color 0.35s ease,
-        border-color 0.35s ease,
-        opacity 0.35s ease;
-    }
-    .service-card:nth-child(odd):hover {
-      transform: scale(1.05) translateY(-10px) rotate(-1.5deg);
-    }
-    .service-card:nth-child(even):hover {
-      transform: scale(1.05) translateY(-10px) rotate(1.5deg);
-    }
-    .service-card:hover {
-      background: #fff;
-      border-color: rgb(90 174 184 / 0.35);
-      box-shadow: var(--shadow-teal-lg);
-      z-index: 10;
-    }
-    .services-grid:has(.service-card:hover) .service-card:not(:hover) {
-      transform: scale(0.95);
-      opacity: 0.65;
-    }
-    .service-card:hover .service-icon {
-      background: var(--color-teal);
-      border-color: var(--color-teal);
-      color: var(--color-ink-950);
-      transform: scale(1.1) rotate(5deg);
-    }
-  }
-
-  /* KI-Karten: Teal-Linie fährt von links ein */
-  .ki-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--color-teal), transparent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s var(--ease-smooth);
-  }
-  .ki-card:hover::before {
-    transform: scaleX(1);
-  }
-
-  /* ─── Mobile Slider (< 900px): Scroll-Snap, aktive Karte hervorgehoben ─── */
+  /* ─── Mobile Slider (< 900px): Scroll-Snap ─── */
   @media (max-width: 899px) {
     .snap-slider {
       display: flex !important;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
-      gap: 16px;
-      padding: 12px 20px 28px;
-      margin-inline: -20px;
+      gap: 12px;
+      padding: 8px 16px 24px;
+      margin-inline: -16px;
       scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
     }
     .snap-slider::-webkit-scrollbar {
       display: none;
     }
     .snap-slider > * {
-      flex: 0 0 82%;
+      flex: 0 0 84%;
       scroll-snap-align: center;
-      opacity: 0.45;
-      transform: scale(0.94);
-      transition:
-        opacity 0.45s var(--ease-bounce),
-        transform 0.45s var(--ease-bounce),
-        box-shadow 0.45s ease;
+      transition: opacity 0.4s var(--ease-soft);
+      opacity: 0.55;
     }
     .snap-slider > .is-active {
       opacity: 1;
-      transform: scale(1);
     }
-  }
-
-  /* ─── Funnel-Wipe (asap: wipeIn/wipeInRev, 0.8s, 2 Flächen versetzt) ─── */
-  .wipe-panel {
-    position: absolute;
-    inset: 0;
-    clip-path: inset(0 100% 0 0);
-  }
-  .wipe-fwd .wipe-panel {
-    animation: wipeIn 0.8s var(--ease-wipe) forwards;
-  }
-  .wipe-rev .wipe-panel {
-    animation: wipeInRev 0.8s var(--ease-wipe) forwards;
-  }
-  .wipe-panel:nth-child(2) {
-    animation-delay: 0.1s !important;
-  }
-  @keyframes wipeIn {
-    0% { clip-path: inset(0 100% 0 0); }
-    40%, 60% { clip-path: inset(0 0 0 0); }
-    100% { clip-path: inset(0 0 0 100%); }
-  }
-  @keyframes wipeInRev {
-    0% { clip-path: inset(0 0 0 100%); }
-    40%, 60% { clip-path: inset(0 0 0 0); }
-    100% { clip-path: inset(0 100% 0 0); }
   }
 
   /* Erfolgs-Häkchen zeichnet sich */
@@ -307,73 +176,26 @@
     animation: draw 0.4s cubic-bezier(0.65, 0, 0.45, 1) 0.4s forwards;
   }
   @keyframes draw {
-    to { stroke-dashoffset: 0; }
-  }
-
-  /* ─── 3D-Mobile-Menü (asap): Seite klappt weg, Menü erscheint links ─── */
-  html.menu3d-open,
-  html.menu3d-open body {
-    background: #0b141b;
-    overflow: hidden;
-  }
-  html.menu3d-open body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    background:
-      radial-gradient(circle at 15% 20%, rgb(90 174 184 / 0.2), transparent 55%),
-      linear-gradient(160deg, #13202a 0%, #18222e 45%, #0b141b 100%);
-  }
-  .page-canvas {
-    position: relative;
-    z-index: 2;
-    background: #fff;
-  }
-  .page-canvas.is-lifted {
-    position: fixed;
-    inset: 0;
-    height: 100dvh;
-    overflow: hidden;
-    border-radius: 28px;
-    transform-origin: left center;
-    will-change: transform;
-    transform: perspective(1000px) rotateY(0deg) scale(1) translateX(0);
-    transition: transform 0.72s var(--ease-expo);
-  }
-  .page-canvas.is-folded {
-    transform: perspective(1000px) rotateY(-24deg) scale(0.84) translateX(var(--fold-x, 95px));
-    box-shadow: -35px 25px 70px rgb(0 0 0 / 0.85);
-    cursor: pointer;
-  }
-  .page-canvas.is-folded > * {
-    pointer-events: none;
-  }
-  .page-canvas.is-lifted * {
-    animation-play-state: paused !important;
+    to {
+      stroke-dashoffset: 0;
+    }
   }
 }
 
-/* ─── Gestaffeltes Reveal für Karten-Raster (Desktop) ───────────────────
-   Per CSS-Animation mit fill-mode "backwards": nach dem Einblenden bleibt
-   kein Inline-Transform zurück → Hover-Effekte der Karten funktionieren. */
+/* ─── Gestaffeltes Einblenden von Karten-Rastern (Desktop) ───
+   CSS-Animation mit fill-mode "backwards" → kein Inline-Transform bleibt
+   zurück, Hover-Effekte der Karten funktionieren weiter. */
 @media (min-width: 900px) {
   .stagger:not(.visible) > * {
     opacity: 0;
   }
   .stagger.visible > * {
-    animation: staggerUp 0.8s var(--ease-wobble) backwards;
-    animation-delay: calc(var(--i, 0) * 110ms);
-  }
-}
-@keyframes staggerUp {
-  from {
-    opacity: 0;
-    transform: translateY(50px) scale(0.9);
+    animation: rise 0.8s var(--ease-soft) backwards;
+    animation-delay: calc(var(--i, 0) * 80ms);
   }
 }
 
-/* ─── PDF-Export des Kostenrahmens (Druckansicht wie bei asap) ─── */
+/* ─── PDF-Export des Kostenrahmens ─── */
 .print-root {
   display: none;
 }

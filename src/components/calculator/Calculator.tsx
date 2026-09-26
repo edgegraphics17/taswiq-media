@@ -3,17 +3,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Check, Copy, Printer } from "lucide-react";
+import { ArrowLeft, ArrowRight, Calculator as CalcIcon, Check, ChevronDown, Copy, Printer } from "lucide-react";
 import type { CalcState } from "@/config/pricing";
-import {
-  computeEstimate,
-  initialState,
-  stepError,
-  summaryRows,
-  summaryText,
-  visibleSteps,
-  type PricingData,
-} from "@/lib/pricing-engine";
+import { computeEstimate, initialState, stepError, summaryRows, summaryText, visibleSteps, type PricingData } from "@/lib/pricing-engine";
 import type { FunnelIndustry, InterestId, LeadTier } from "@/config/funnel";
 import { getAttribution, getSessionId } from "@/lib/attribution";
 import { submitLead } from "@/lib/submit-lead";
@@ -22,15 +14,16 @@ import { formatEUR, formatNumber, cn } from "@/lib/format";
 import { CalcField } from "@/components/calculator/Fields";
 import { QuoteSheet } from "@/components/calculator/QuoteSheet";
 import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
+import { Eyebrow } from "@/components/ui/SectionHeading";
 import { ContactForm, type ContactValues } from "@/components/funnel/ContactForm";
 import { LeadResult } from "@/components/funnel/LeadResult";
 
 /**
- * Preisrechner – Aufbau & Logik nach asapmarketing.de/rechner.html:
- *  - links dunkle Info-Spalte mit Schrittleiste (erledigte Schritte anklickbar)
- *  - Verzweigung: gewählte Leistungen bestimmen die folgenden Schritte
- *  - sticky Leiste unten: Richtwert live ("ab" in Schritt 1, danach Spanne) + Zurück/Weiter
- *  - Ergebnis: Summenbox, Aufstellung als Rechnungs-Sheet, Kopieren, PDF, Anfrage
+ * Preisrechner – Soft UI.
+ *  - Schritte als Pillen-Leiste (erledigte anklickbar), verzweigt nach gewählten Leistungen
+ *  - große Auswahlkarten mit violettem Ring
+ *  - Desktop: sticky schwarze Kontrast-Karte mit Live-Richtwert; Mobil: schwebende Preis-Pille unten
+ *  - Ergebnis: Aufstellung als Angebotsblatt, Kopieren, PDF, Anfrage
  *  - Pfeiltasten ← → navigieren
  */
 export function Calculator({ data }: { data: PricingData }) {
@@ -45,7 +38,7 @@ export function Calculator({ data }: { data: PricingData }) {
   const [serverError, setServerError] = useState<string | null>(null);
   const [done, setDone] = useState<{ tier: LeadTier; name: string; email: string } | null>(null);
   const [mounted, setMounted] = useState(false);
-  const mainRef = useRef<HTMLDivElement>(null);
+  const topRef = useRef<HTMLDivElement>(null);
   const loggedState = useRef<string>("");
 
   useEffect(() => setMounted(true), []);
@@ -81,14 +74,13 @@ export function Calculator({ data }: { data: PricingData }) {
       setMaxReached((m) => Math.max(m, t));
       track("rechner_schritt", { schritt: list[t].id });
       requestAnimationFrame(() => {
-        const top = (mainRef.current?.getBoundingClientRect().top ?? 0) + window.scrollY - 88;
-        if (Math.abs(top - window.scrollY) > 40) window.scrollTo({ top, behavior: "smooth" });
+        const top = (topRef.current?.getBoundingClientRect().top ?? 0) + window.scrollY - 96;
+        if (window.scrollY > top + 40) window.scrollTo({ top, behavior: "smooth" });
       });
     },
     [s, idx],
   );
 
-  // Pfeiltasten wie bei asap (nicht in Eingabefeldern)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const tag = (e.target as HTMLElement).tagName;
@@ -160,17 +152,34 @@ export function Calculator({ data }: { data: PricingData }) {
   };
 
   const nextLabel = idx === steps.length - 2 ? "Ergebnis anzeigen" : "Weiter";
+  const priceLabel = idx === 0 ? "Einstiegspreis" : "Richtwert einmalig";
+  const price = (className?: string) =>
+    idx === 0 ? (
+      <span className={cn("num", className)}>
+        ab <AnimatedNumber value={live.ab} /> €
+      </span>
+    ) : (
+      <span className={cn("num", className)}>
+        <AnimatedNumber value={live.von} /> – <AnimatedNumber value={live.bis} /> €
+      </span>
+    );
 
   return (
-    <div className="lg:grid lg:min-h-[calc(100dvh-72px)] lg:grid-cols-[340px_1fr]">
-      {/* ─── Info-Spalte mit Schrittleiste ─── */}
-      <aside className="glow-box px-5 pt-10 pb-8 text-white sm:px-8 lg:sticky lg:top-[72px] lg:h-[calc(100dvh-72px)] lg:overflow-y-auto lg:pt-10">
-        <p className="tag-line text-teal-light">Preisrechner</p>
-        <h1 className="mt-4 text-[clamp(1.8rem,3vw,2.3rem)] leading-tight font-extrabold tracking-tight">Was kostet mein Projekt?</h1>
-        <p className="mt-3 text-[15px] leading-relaxed text-mist">Stell dein Projekt zusammen und sieh sofort den Rahmen. Richtwert, kein Angebot.</p>
+    <div className="container-x pt-28 pb-32 sm:pt-32 lg:pb-20">
+      {/* Kopf */}
+      <div ref={topRef} className="mx-auto max-w-2xl text-center">
+        <div className="flex justify-center">
+          <Eyebrow icon={CalcIcon}>Preisrechner · 2 Minuten · unverbindlich</Eyebrow>
+        </div>
+        <h1 className="mt-4 text-[clamp(2.3rem,5vw,3.8rem)] leading-[1.03] font-medium">
+          Was kostet <span className="text-brand-500">dein Projekt?</span>
+        </h1>
+        <p className="mt-3 text-[15px] text-muted">Stell dein Projekt zusammen und sieh sofort den Rahmen. Richtwert, kein Angebot.</p>
+      </div>
 
-        {/* Desktop: vertikale Schrittleiste */}
-        <ol className="mt-8 hidden flex-col gap-px lg:flex" aria-label="Schritte">
+      {/* Schritt-Pillen */}
+      <nav aria-label="Schritte" className="mt-8 -mx-4 overflow-x-auto px-4 [scrollbar-width:none]">
+        <ol className="mx-auto flex w-fit gap-1.5 rounded-full border border-line bg-white p-1.5 shadow-[var(--shadow-soft)]">
           {steps.map((st, i) => {
             const state = i === idx ? "aktiv" : i <= maxReached ? "erledigt" : "offen";
             return (
@@ -181,177 +190,181 @@ export function Calculator({ data }: { data: PricingData }) {
                   disabled={i > maxReached && i > idx}
                   aria-current={i === idx ? "step" : undefined}
                   className={cn(
-                    "flex min-h-11 w-full items-center gap-3 border-l-[3px] py-2 pl-4 text-left text-[15px] transition-colors disabled:cursor-default",
-                    state === "aktiv" && "border-teal font-semibold text-white",
-                    state === "erledigt" && "border-white/45 text-white hover:border-teal-light",
-                    state === "offen" && "border-white/12 text-white/45",
+                    "flex h-10 items-center gap-1.5 rounded-full px-4 text-sm font-medium whitespace-nowrap transition-all duration-300 disabled:cursor-default",
+                    state === "aktiv" && "bg-brand-500 text-white shadow-[var(--shadow-brand)]",
+                    state === "erledigt" && "text-brand-600 hover:bg-brand-50",
+                    state === "offen" && "text-muted/70",
                   )}
                 >
-                  <span
-                    className={cn(
-                      "num grid size-6 shrink-0 place-items-center rounded-full text-[11px] font-bold",
-                      state === "aktiv" && "bg-teal text-ink-950",
-                      state === "erledigt" && "bg-white/85 text-ink-900",
-                      state === "offen" && "bg-white/10 text-white/60",
-                    )}
-                  >
-                    {state === "erledigt" ? <Check className="size-3.5" strokeWidth={3} aria-hidden /> : i + 1}
-                  </span>
+                  {state === "erledigt" ? <Check className="size-3.5" strokeWidth={3} aria-hidden /> : <span className="num text-xs opacity-70">{i + 1}</span>}
                   {st.kurz}
                 </button>
               </li>
             );
           })}
         </ol>
+      </nav>
 
-        {/* Mobil: aktueller Schritt + Balken */}
-        <div className="mt-7 lg:hidden">
-          <div className="flex items-baseline justify-between gap-3">
-            <span className="font-semibold">{step.kurz}</span>
-            <span className="num text-sm text-haze">
-              Schritt {idx + 1} von {steps.length}
-            </span>
-          </div>
-          <div className="mt-2.5 h-1.5 overflow-hidden rounded-full bg-white/10">
-            <div className="h-full rounded-full bg-teal transition-[width] duration-500" style={{ width: `${((idx + 1) / steps.length) * 100}%` }} />
-          </div>
-        </div>
-      </aside>
-
-      {/* ─── Frage-Bereich ─── */}
-      <div ref={mainRef} className="relative flex min-w-0 flex-col">
-        <div className="flex-1 px-5 pt-8 pb-10 sm:px-10 lg:pt-12">
-          <div className="max-w-[840px]">
-            <AnimatePresence mode="wait" custom={dir} initial={false}>
-              <motion.section
-                key={step.id}
-                custom={dir}
-                initial={{ opacity: 0, x: 28 * dir }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 * dir, transition: { duration: 0.18 } }}
-                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                aria-labelledby={`step-${step.id}`}
-              >
-                <h2 id={`step-${step.id}`} className="text-[clamp(1.4rem,3.2vw,1.9rem)] font-extrabold tracking-tight text-ink">
-                  {step.titel}
-                </h2>
-                {step.hint && <p className="mt-2 max-w-[60ch] text-[15px] text-muted">{step.hint}</p>}
-
-                {!isResult && (
-                  <div className="mt-8 space-y-9">
-                    {step.felder
-                      .filter((f) => (f.wenn ? f.wenn(s) : true))
-                      .map((f) => (
-                        <CalcField key={f.id} field={f} state={s} options={data.optionen} onChange={update} />
-                      ))}
-                  </div>
-                )}
-
-                {isResult && (
-                  <div className="mt-8">
-                    <div className="glow-box rounded-[22px] p-7 text-white shadow-[0_24px_60px_rgb(90_174_184/0.2)] sm:p-8">
-                      <p className="text-xs font-bold tracking-[0.14em] text-teal-light uppercase">Einmalige Kosten</p>
-                      <p className="num mt-1 text-[clamp(1.8rem,4.6vw,2.6rem)] leading-tight font-extrabold tracking-tight">
-                        {formatNumber(full.von)} – {formatNumber(full.bis)} €
-                      </p>
-                      <p className="mt-4 flex items-baseline justify-between gap-4 border-t border-white/10 pt-4">
-                        <span className="text-xs font-bold tracking-[0.14em] text-teal-light uppercase">Laufend pro Monat</span>
-                        <b className="num text-lg">{full.summeMtl > 0 ? formatEUR(full.summeMtl) : "keine"}</b>
-                      </p>
-                      <p className="mt-4 text-[13px] leading-relaxed text-mist">
-                        <b className="text-white">Richtwert, kein Angebot.</b> Die Spanne beruht allein auf deinen Angaben. Was dein Projekt wirklich braucht,
-                        besprechen wir gemeinsam – danach nennen wir einen festen Preis.
-                      </p>
-                    </div>
-
-                    <details className="group mt-5 overflow-hidden rounded-2xl border border-line bg-white">
-                      <summary className="flex min-h-14 list-none items-center justify-between px-5 font-semibold text-ink [&::-webkit-details-marker]:hidden">
-                        Wie kommt der Betrag zustande?
-                        <span className="text-xl text-muted transition-transform group-open:rotate-45" aria-hidden>
-                          +
-                        </span>
-                      </summary>
-                      <div className="border-t border-line bg-fog p-3 sm:p-5">
-                        <QuoteSheet estimate={full} rows={rows} title={sheetTitle} className="rounded-xl shadow-[var(--shadow-card)]" />
-                      </div>
-                    </details>
-
-                    <div className="mt-4 flex flex-wrap gap-2.5">
-                      <button type="button" onClick={copy} className="inline-flex min-h-11 items-center gap-2 rounded-full border-[1.5px] border-line bg-white px-5 text-sm font-semibold text-ink transition hover:border-teal hover:text-teal-deep">
-                        {copied ? <Check className="size-4" aria-hidden /> : <Copy className="size-4" aria-hidden />}
-                        {copied ? "Kopiert" : "Zusammenfassung kopieren"}
-                      </button>
-                      <button type="button" onClick={() => window.print()} className="inline-flex min-h-11 items-center gap-2 rounded-full border-[1.5px] border-line bg-white px-5 text-sm font-semibold text-ink transition hover:border-teal hover:text-teal-deep">
-                        <Printer className="size-4" aria-hidden /> Als PDF speichern
-                      </button>
-                    </div>
-
-                    <div id="angebot" className="mt-10 scroll-mt-28 rounded-3xl border border-teal/20 bg-white p-6 shadow-[var(--shadow-card)] sm:p-8">
-                      {done ? (
-                        <LeadResult tier={done.tier} name={done.name} email={done.email} industry={industry} />
-                      ) : (
-                        <>
-                          <h3 className="text-xl font-extrabold tracking-tight text-ink">Angebot anfordern</h3>
-                          <p className="mt-1.5 mb-6 text-sm text-muted">
-                            Wir prüfen deine Zusammenstellung und melden uns innerhalb von 24 Stunden. Unverbindlich – aus der Anfrage entsteht keine Beauftragung.
-                          </p>
-                          <ContactForm idPrefix="rechner" submitLabel="Angebot anfordern" submitting={submitting} serverError={serverError} onSubmit={submit} />
-                        </>
-                      )}
-                    </div>
-                  </div>
-                )}
-              </motion.section>
-            </AnimatePresence>
-
-            {error && (
-              <p role="alert" className="mt-6 text-sm font-semibold text-danger">
-                {error}
+      <div className="mt-8 grid items-start gap-4 lg:grid-cols-[1fr_360px]">
+        {/* ─── Frage-Bereich ─── */}
+        <div className="card min-w-0 overflow-hidden p-5 sm:p-8">
+          <AnimatePresence mode="wait" custom={dir} initial={false}>
+            <motion.section
+              key={step.id}
+              custom={dir}
+              initial={{ opacity: 0, x: 40 * dir }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -28 * dir, transition: { duration: 0.18 } }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              aria-labelledby={`step-${step.id}`}
+            >
+              <p className="num text-sm font-medium text-brand-600">
+                Schritt {idx + 1} von {steps.length}
               </p>
-            )}
-          </div>
+              <h2 id={`step-${step.id}`} className="mt-1.5 text-[clamp(1.5rem,3vw,2rem)] leading-tight font-medium">
+                {step.titel}
+              </h2>
+              {step.hint && <p className="mt-2 max-w-[60ch] text-[15px] text-muted">{step.hint}</p>}
+
+              {!isResult && (
+                <div className="mt-8 space-y-8">
+                  {step.felder
+                    .filter((f) => (f.wenn ? f.wenn(s) : true))
+                    .map((f) => (
+                      <CalcField key={f.id} field={f} state={s} options={data.optionen} onChange={update} />
+                    ))}
+                </div>
+              )}
+
+              {isResult && (
+                <div className="mt-8 space-y-4">
+                  {/* Ergebnis als schwarze Kontrast-Karte */}
+                  <div className="card-night relative overflow-hidden p-7 sm:p-9">
+                    <div className="pointer-events-none absolute -top-24 -right-24 size-72 rounded-full bg-[radial-gradient(closest-side,rgb(120_64_254/0.45),transparent)]" aria-hidden />
+                    <p className="relative text-sm text-night-muted">Einmalige Kosten</p>
+                    <p className="num relative mt-1 text-[clamp(2.2rem,5.4vw,3.4rem)] leading-none font-medium tracking-tight text-white">
+                      {formatNumber(full.von)} – {formatNumber(full.bis)} €
+                    </p>
+                    <div className="relative mt-5 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm">
+                      <span className="size-2 rounded-full bg-mint-400" aria-hidden />
+                      Laufend pro Monat: <b className="num font-medium">{full.summeMtl > 0 ? formatEUR(full.summeMtl) : "keine"}</b>
+                    </div>
+                    <p className="relative mt-5 max-w-lg text-[13px] leading-relaxed text-night-muted">
+                      <b className="font-medium text-white">Richtwert, kein Angebot.</b> Die Spanne beruht allein auf deinen Angaben – danach nennen wir einen festen Preis.
+                    </p>
+                  </div>
+
+                  <details className="group overflow-hidden rounded-3xl border border-line bg-white">
+                    <summary className="flex min-h-14 list-none items-center justify-between px-6 font-medium text-ink [&::-webkit-details-marker]:hidden">
+                      Wie kommt der Betrag zustande?
+                      <ChevronDown className="size-5 text-muted transition-transform duration-300 group-open:rotate-180" aria-hidden />
+                    </summary>
+                    <div className="border-t border-line bg-canvas p-3 sm:p-5">
+                      <QuoteSheet estimate={full} rows={rows} title={sheetTitle} className="rounded-3xl shadow-[var(--shadow-soft)]" />
+                    </div>
+                  </details>
+
+                  <div className="flex flex-wrap gap-2">
+                    <button type="button" onClick={copy} className="inline-flex min-h-11 items-center gap-2 rounded-full bg-canvas px-5 text-sm font-medium text-ink transition hover:bg-brand-50 hover:text-brand-600">
+                      {copied ? <Check className="size-4" aria-hidden /> : <Copy className="size-4" aria-hidden />}
+                      {copied ? "Kopiert" : "Zusammenfassung kopieren"}
+                    </button>
+                    <button type="button" onClick={() => window.print()} className="inline-flex min-h-11 items-center gap-2 rounded-full bg-canvas px-5 text-sm font-medium text-ink transition hover:bg-brand-50 hover:text-brand-600">
+                      <Printer className="size-4" aria-hidden /> Als PDF speichern
+                    </button>
+                  </div>
+
+                  <div id="angebot" className="scroll-mt-28 rounded-[2rem] border border-brand-100 bg-brand-50/60 p-5 sm:p-8">
+                    {done ? (
+                      <LeadResult tier={done.tier} name={done.name} email={done.email} industry={industry} />
+                    ) : (
+                      <>
+                        <h3 className="text-2xl font-medium">Angebot anfordern</h3>
+                        <p className="mt-1.5 mb-6 text-sm text-muted">Wir prüfen deine Zusammenstellung und melden uns innerhalb von 24 Stunden. Unverbindlich.</p>
+                        <ContactForm idPrefix="rechner" submitLabel="Angebot anfordern" submitting={submitting} serverError={serverError} onSubmit={submit} />
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
+            </motion.section>
+          </AnimatePresence>
+
+          {error && (
+            <p role="alert" className="mt-6 text-sm font-medium text-danger">
+              {error}
+            </p>
+          )}
         </div>
 
-        {/* ─── Sticky Richtwert-Leiste ─── */}
-        <div className="sticky bottom-0 z-20 border-t border-line bg-white/95 px-5 py-3.5 backdrop-blur-xl sm:px-10">
-          <div className="flex max-w-[840px] items-center gap-3">
-            <div className="min-w-0 flex-1" aria-live="polite">
-              <p className="text-xs text-muted">
-                {idx === 0 ? "Einstiegspreis" : "Richtwert einmalig"}
-                {idx > 0 && live.summeMtl > 0 && <> · dazu {formatEUR(live.summeMtl)}/Monat</>}
-              </p>
-              <p className="truncate text-[clamp(1rem,3.4vw,1.3rem)] font-extrabold tracking-tight text-ink">
-                {idx === 0 ? (
-                  <>
-                    ab <AnimatedNumber value={live.ab} /> €
-                  </>
-                ) : (
-                  <>
-                    <AnimatedNumber value={live.von} /> – <AnimatedNumber value={live.bis} /> €
-                  </>
-                )}
-              </p>
-            </div>
+        {/* ─── Desktop: sticky schwarze Preis-Karte ─── */}
+        <aside className="card-night sticky top-28 hidden overflow-hidden p-6 lg:block" aria-live="polite">
+          <div className="pointer-events-none absolute -top-20 -right-20 size-56 rounded-full bg-[radial-gradient(closest-side,rgb(120_64_254/0.4),transparent)]" aria-hidden />
+          <p className="relative text-sm text-night-muted">{priceLabel}</p>
+          {price("relative mt-1 block text-[2.1rem] leading-tight font-medium tracking-tight text-white")}
+          {idx > 0 && live.summeMtl > 0 && (
+            <p className="relative mt-2 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs">
+              <span className="size-1.5 rounded-full bg-mint-400" aria-hidden /> dazu {formatEUR(live.summeMtl)}/Monat
+            </p>
+          )}
+          {live.einmalig.length > 0 && idx > 0 && (
+            <ul className="relative mt-5 max-h-64 space-y-1.5 overflow-y-auto pr-1">
+              {live.einmalig.map((l) => (
+                <li key={l.key} className="flex justify-between gap-3 rounded-full bg-white/[0.06] px-3.5 py-2 text-[13px]">
+                  <span className="truncate text-night-muted">{l.label}</span>
+                  <span className="num shrink-0 text-white">{formatEUR(l.betrag)}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+          <div className="relative mt-6 flex gap-2">
             {idx > 0 && (
-              <button type="button" onClick={() => go(idx - 1)} aria-label="Zurück" className="grid size-12 shrink-0 place-items-center rounded-full border-[1.5px] border-line text-body hover:border-ink/40 sm:w-auto sm:px-5">
-                <ArrowLeft className="size-4 sm:hidden" aria-hidden />
-                <span className="hidden sm:inline">Zurück</span>
+              <button type="button" onClick={() => go(idx - 1)} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/20 px-5 text-sm font-medium text-white hover:bg-white/10">
+                <ArrowLeft className="size-4" aria-hidden /> Zurück
               </button>
             )}
             {isResult ? (
-              <a href="#angebot" className="inline-flex min-h-12 shrink-0 items-center gap-2 rounded-full bg-teal px-5 font-semibold text-ink-950 shadow-[var(--shadow-teal)] sm:px-7">
+              <a href="#angebot" className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-brand-500 px-5 text-sm font-medium text-white shadow-[var(--shadow-brand)]">
                 Angebot anfordern
               </a>
             ) : (
-              <button type="button" onClick={() => go(idx + 1)} className="inline-flex min-h-12 shrink-0 items-center gap-2 rounded-full bg-teal px-5 font-semibold text-ink-950 shadow-[var(--shadow-teal)] transition hover:bg-teal-light sm:px-7">
+              <button type="button" onClick={() => go(idx + 1)} className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-brand-500 px-5 text-sm font-medium text-white shadow-[var(--shadow-brand)] transition hover:bg-brand-600">
                 {nextLabel} <ArrowRight className="size-4" aria-hidden />
               </button>
             )}
           </div>
+          <p className="relative mt-4 text-center text-xs text-night-muted">Tipp: Mit ← → durch die Schritte</p>
+        </aside>
+      </div>
+
+      {/* ─── Mobil: schwebende Preis-Pille ─── */}
+      <div className="fixed inset-x-3 bottom-3 z-30 lg:hidden">
+        <div className="flex items-center gap-2 rounded-full bg-night p-1.5 pl-5 text-white shadow-[var(--shadow-float)]" aria-live="polite">
+          <div className="min-w-0 flex-1 leading-tight">
+            <p className="text-[11px] text-night-muted">
+              {priceLabel}
+              {idx > 0 && live.summeMtl > 0 && <> · +{formatEUR(live.summeMtl)}/Mon.</>}
+            </p>
+            {price("block truncate text-base font-medium")}
+          </div>
+          {idx > 0 && (
+            <button type="button" onClick={() => go(idx - 1)} aria-label="Zurück" className="grid size-11 shrink-0 place-items-center rounded-full bg-white/10">
+              <ArrowLeft className="size-4" aria-hidden />
+            </button>
+          )}
+          {isResult ? (
+            <a href="#angebot" className="inline-flex min-h-11 shrink-0 items-center rounded-full bg-brand-500 px-4 text-sm font-medium">
+              Anfragen
+            </a>
+          ) : (
+            <button type="button" onClick={() => go(idx + 1)} className="inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-full bg-brand-500 px-4 text-sm font-medium">
+              {idx === steps.length - 2 ? "Ergebnis" : "Weiter"} <ArrowRight className="size-4" aria-hidden />
+            </button>
+          )}
         </div>
       </div>
 
-      {/* Druckvorlage (PDF) – liegt außerhalb der Seite, nur beim Drucken sichtbar */}
+      {/* Druckvorlage (PDF) – außerhalb der Seite, nur beim Drucken sichtbar */}
       {mounted &&
         createPortal(
           <div className="print-root">

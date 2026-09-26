@@ -1,54 +1,136 @@
-"use client";
-
-import { ArrowRight } from "lucide-react";
-import { services } from "@/config/content";
+import Image from "next/image";
+import { ArrowRight, Layers } from "lucide-react";
+import { services, portfolio } from "@/config/content";
 import { Reveal } from "@/components/ui/Reveal";
 import { Icon } from "@/components/ui/Icon";
 import { ButtonLink } from "@/components/ui/Button";
 import { InView } from "@/components/ui/InView";
-import { SlideDots } from "@/components/ui/SlideDots";
-import { useActiveSlide } from "@/hooks/useActiveSlide";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { FloatCard } from "@/components/ui/FloatCard";
+import { cn } from "@/lib/format";
 
 /**
- * asap #services: 6 Karten. Desktop-Hover = Signature-Effekt (Karte wächst & kippt,
- * Nachbarn schrumpfen – siehe globals.css). Mobile = Scroll-Snap-Slider mit Punkten.
+ * Bento-Box: sechs Services in unterschiedlich großen Karten, die sich nahtlos fügen.
+ *   Desktop (3 Spalten):  [ 01 Video (2) ][ 02 Foto (schwarz, 2 Zeilen) ]
+ *                         [ 03 ][ 04    ][ 02 ]
+ *                         [ 05 ][ 06 Web & Automatisierung (2) ]
  */
 export function Services() {
-  const { ref, active, scrollTo } = useActiveSlide<HTMLDivElement>(services.items.length);
+  const [video, foto, social, audio, visuals, web] = services.items;
+  const poster = (id: string) => portfolio.items.find((p) => p.id === id)?.poster ?? "";
+
   return (
-    <section id="services" aria-labelledby="services-title" className="overflow-hidden bg-fog py-24 sm:py-32">
+    <section id="services" aria-labelledby="services-title" className="py-16 sm:py-24">
       <div className="container-x">
-        <Reveal className="flex flex-wrap items-end justify-between gap-6">
-          <div className="max-w-2xl">
-            <p className="tag-line text-teal-deep">{services.tag}</p>
-            <h2 id="services-title" className="mt-4 text-[clamp(2rem,3.5vw,3rem)] leading-[1.12] font-extrabold tracking-[-0.02em] text-ink">
-              {services.title}
-            </h2>
-            <p className="mt-4 text-[17px] text-body">{services.text}</p>
-          </div>
-          <ButtonLink href={services.cta.href} variant="ghost-light">
+        <Reveal>
+          <SectionHeading id="services-title" eyebrow={services.tag} icon={Layers} title={services.title} text={services.text} />
+        </Reveal>
+
+        <InView className="stagger mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {/* 01 – groß mit Medium + schwebender Karte */}
+          <article style={{ "--i": 0 } as React.CSSProperties} className="card group grid gap-6 overflow-visible p-6 sm:p-7 md:col-span-2 md:grid-cols-[1fr_1.1fr]">
+            <div className="flex flex-col">
+              <Head n="01" icon={video.icon} />
+              <h3 className="mt-5 text-2xl font-medium">{video.title}</h3>
+              <p className="mt-2.5 text-[15px] leading-relaxed text-muted">{video.text}</p>
+              <Tags text={video.tags} className="mt-auto pt-6" />
+            </div>
+            <div className="relative min-h-56">
+              <div className="absolute inset-0 overflow-hidden rounded-[1.5rem]">
+                <Image src={poster("il-forno")} alt="Pizza-Zubereitung im IL Forno, Hyatt Centric Kuala Lumpur" fill sizes="(min-width:1024px) 420px, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+              </div>
+              <FloatCard className="-bottom-4 -left-3 !rounded-full px-4 py-2">
+                <p className="text-xs font-medium">4K · Multi-Cam · Drohne</p>
+              </FloatCard>
+            </div>
+          </article>
+
+          {/* 02 – schwarze Hochkant-Karte */}
+          <article style={{ "--i": 1 } as React.CSSProperties} className="card-night group flex flex-col p-6 sm:p-7 lg:row-span-2">
+            <div className="flex items-start justify-between">
+              <span className="grid size-12 place-items-center rounded-full bg-mint-500 text-white">
+                <Icon name={foto.icon} className="size-5" />
+              </span>
+              <span className="num text-4xl font-light text-white/25">02</span>
+            </div>
+            <h3 className="mt-6 text-2xl font-medium text-white">{foto.title}</h3>
+            <p className="mt-2.5 text-[15px] leading-relaxed text-night-muted">{foto.text}</p>
+            <Tags text={foto.tags} dark className="mt-5" />
+            <div className="relative mt-6 min-h-52 flex-1 overflow-hidden rounded-[1.5rem]">
+              <Image src={poster("zuan-yuan")} alt="Dim-Sum-Körbe im Zuan Yuan Restaurant" fill sizes="(min-width:1024px) 400px, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+            </div>
+          </article>
+
+          {[social, audio].map((s, i) => (
+            <SoftCard key={s.title} i={i + 2} n={`0${i + 3}`} item={s} />
+          ))}
+
+          <SoftCard i={4} n="05" item={visuals} tint />
+
+          {/* 06 – breite Karte mit Tag-Pillen */}
+          <article style={{ "--i": 5 } as React.CSSProperties} className="card relative flex flex-col gap-6 p-6 sm:p-7 md:col-span-2 md:flex-row md:items-end md:justify-between">
+            <span className="num absolute top-6 right-7 text-4xl font-light text-ink/15">06</span>
+            <div className="max-w-md">
+              <Head icon={web.icon} />
+              <h3 className="mt-5 text-2xl font-medium">{web.title}</h3>
+              <p className="mt-2.5 text-[15px] leading-relaxed text-muted">{web.text}</p>
+            </div>
+            <ul className="flex max-w-xs flex-wrap gap-2 md:justify-end">
+              {["Website", "Digitale Speisekarte", "Reservierung", "SEO & GEO", "n8n-Workflows", "Google-Profil"].map((t) => (
+                <li key={t} className="rounded-full border border-line px-3.5 py-1.5 text-[13px] font-medium text-ink">
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </article>
+        </InView>
+
+        <Reveal className="mt-10 flex justify-center">
+          <ButtonLink href={services.cta.href} variant="white">
             {services.cta.label} <ArrowRight className="size-4" aria-hidden />
           </ButtonLink>
         </Reveal>
-
-        <InView ref={ref} className="services-grid stagger snap-slider mt-14 grid gap-6 min-[900px]:grid-cols-2 lg:grid-cols-3">
-          {services.items.map((s, i) => (
-            <article
-              key={s.title}
-              style={{ "--i": i } as React.CSSProperties}
-              className="service-card relative flex flex-col rounded-[20px] border border-transparent bg-white p-8 max-[899px]:shadow-[var(--shadow-card)] min-[900px]:bg-white/70"
-            >
-              <span className="service-icon grid size-[52px] place-items-center rounded-2xl border border-teal/25 bg-teal-wash text-teal-deep transition-all duration-300">
-                <Icon name={s.icon} className="size-6" />
-              </span>
-              <h3 className="mt-6 text-xl font-bold tracking-tight text-ink">{s.title}</h3>
-              <p className="mt-2.5 flex-1 text-[15px] leading-relaxed text-body">{s.text}</p>
-              <p className="mt-6 border-t border-line pt-4 text-[12px] font-semibold tracking-[0.14em] text-teal-deep uppercase">{s.tags}</p>
-            </article>
-          ))}
-        </InView>
-        <SlideDots count={services.items.length} active={active} onSelect={scrollTo} label="Services" />
       </div>
     </section>
+  );
+}
+
+function Head({ n, icon }: { n?: string; icon: string }) {
+  return (
+    <div className="flex items-start justify-between">
+      <span className="grid size-12 place-items-center rounded-full bg-blush-100 text-blush-600">
+        <Icon name={icon} className="size-5" />
+      </span>
+      {n && <span className="num text-4xl font-light text-ink/15">{n}</span>}
+    </div>
+  );
+}
+
+function Tags({ text, dark, className }: { text: string; dark?: boolean; className?: string }) {
+  return (
+    <ul className={cn("flex flex-wrap gap-1.5", className)}>
+      {text.split(" · ").map((t) => (
+        <li key={t} className={cn("rounded-full px-3 py-1 text-xs font-medium", dark ? "bg-white/10 text-white" : "bg-canvas text-ink")}>
+          {t}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function SoftCard({ i, n, item, tint }: { i: number; n: string; item: { icon: string; title: string; text: string; tags: string }; tint?: boolean }) {
+  return (
+    <article
+      style={{ "--i": i } as React.CSSProperties}
+      className={cn(
+        "flex flex-col rounded-[2rem] border p-6 transition-[transform,box-shadow] duration-500 ease-[var(--ease-soft)] hover:-translate-y-1 hover:shadow-[var(--shadow-float)] sm:p-7",
+        tint ? "border-brand-100 bg-brand-50" : "border-line bg-white shadow-[var(--shadow-soft)]",
+      )}
+    >
+      <Head n={n} icon={item.icon} />
+      <h3 className="mt-5 text-xl font-medium">{item.title}</h3>
+      <p className="mt-2 text-[15px] leading-relaxed text-muted">{item.text}</p>
+      <Tags text={item.tags} className="mt-auto pt-5" />
+    </article>
   );
 }

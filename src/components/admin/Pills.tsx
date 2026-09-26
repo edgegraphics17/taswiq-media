@@ -16,7 +16,7 @@ export function TierPill({ tier }: { tier: LeadRow["tier"] }) {
     <span
       className={cn(
         "inline-flex rounded-full px-2.5 py-0.5 text-xs font-bold tracking-wide whitespace-nowrap",
-        tier === "premium" ? "bg-ink-900 text-white" : tier === "growth" ? "bg-teal-wash text-teal-deep" : "border border-line text-muted",
+        tier === "premium" ? "bg-night text-white" : tier === "growth" ? "bg-brand-50 text-brand-600" : "border border-line text-muted",
       )}
     >
       {TIER_LABEL[tier]}
@@ -29,7 +29,7 @@ export function ScoreBar({ score }: { score: number }) {
   return (
     <span className="flex items-center gap-2" title={`Lead-Score ${score} von 100`}>
       <span className="h-1.5 w-14 overflow-hidden rounded-full bg-line" aria-hidden>
-        <span className="block h-full rounded-full bg-teal-deep" style={{ width: `${score}%` }} />
+        <span className="block h-full rounded-full bg-brand-500-deep" style={{ width: `${score}%` }} />
       </span>
       <span className="num text-xs font-semibold text-ink">{score}</span>
     </span>

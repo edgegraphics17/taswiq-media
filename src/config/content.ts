@@ -5,12 +5,13 @@
  */
 
 export const hero = {
-  word: "Content.",
-  /** Typewriter-Zeile (asap: "Aus einer Hand." / "As soon as possible.") */
-  typewriter: ["Der satt macht.", "Der laut ist.", "In KI-Tempo."],
+  eyebrow: "Gastro · Festivals · Musik",
+  titleStart: "Content, der",
+  /** Wechselnde Wörter (weiche Slide-Animation) */
+  rotating: ["satt macht.", "laut ist.", "Tickets verkauft.", "Tische füllt."],
   sub: "Wir filmen und fotografieren Restaurants, Bars und Festivals auf Kino-Niveau – und machen aus jedem Dreh mit KI-Workflows Dutzende Reels, Ads und Posts.",
-  primary: { label: "Jetzt Projekt starten", href: "/#kontakt" },
-  secondary: { label: "Leistungen entdecken", href: "/#services" },
+  primary: { label: "Projekt starten", href: "/#kontakt" },
+  secondary: { label: "Preis berechnen", href: "/preisrechner" },
   /** 450+ = Projekte aus Event-, Artist- und Gastro-Arbeit (EDGE & Spots KL), Rest = Leistungsversprechen */
   stats: [
     { value: "450+", label: "Projekte" },
