@@ -1,13 +1,16 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import type { AppHref } from "@/config/site";
-import { ArrowRight, BadgeCheck } from "lucide-react";
+import { ArrowRight, BadgeCheck, Globe } from "lucide-react";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/SectionHeading";
 import { FloatCard, MiniBars } from "@/components/ui/FloatCard";
-import poster from "../../../public/images/cases/zuan-yuan.jpg";
+import { PartnerBadge } from "@/components/ui/PartnerBadge";
 
-/** Hero der Unterseiten: zentrierte Headline, Pillen-Buttons, Bild-Karte mit schwebenden Stat-Karten. */
+/**
+ * Hero der Landingpages: zentrierte Headline, Pillen-Buttons, darunter echtes Projekt –
+ * Software im Browser-Rahmen, Media/Immobilien als Foto – mit schwebenden Stat-Karten.
+ */
 export async function ProductHero({
   badge,
   titleStart,
@@ -16,6 +19,10 @@ export async function ProductHero({
   primary,
   secondary,
   stats,
+  image,
+  imageAlt,
+  frame = "browser",
+  url,
 }: {
   badge: string;
   titleStart: string;
@@ -24,6 +31,10 @@ export async function ProductHero({
   primary: { label: string; href: AppHref | `#${string}` };
   secondary: { label: string; href: AppHref | `#${string}` };
   stats?: { value: string; label: string }[];
+  image: string;
+  imageAlt: string;
+  frame?: "browser" | "photo";
+  url?: string;
 }) {
   const t = await getTranslations("product");
   const [s1, s2] = stats ?? (t.raw("defaultStats") as { value: string; label: string }[]);
@@ -34,8 +45,8 @@ export async function ProductHero({
         <div className="flex animate-rise justify-center">
           <Eyebrow>{badge}</Eyebrow>
         </div>
-        <h1 className="mx-auto mt-5 max-w-4xl animate-rise text-[clamp(2.4rem,6.4vw,4.8rem)] leading-[1.03] font-medium [animation-delay:0.08s]">
-          {titleStart} <span className="text-brand-500">{titleHighlight}</span>.
+        <h1 className="mx-auto mt-5 max-w-4xl animate-rise text-[clamp(2.3rem,6vw,4.6rem)] leading-[1.04] font-medium text-balance [animation-delay:0.08s]">
+          {titleStart} <span className="text-brand-500">{titleHighlight}</span>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl animate-rise text-[15.5px] leading-relaxed text-muted [animation-delay:0.16s]">{text}</p>
         <div className="mt-8 flex animate-rise flex-wrap justify-center gap-3 [animation-delay:0.24s]">
@@ -46,14 +57,35 @@ export async function ProductHero({
             {secondary.label}
           </ButtonLink>
         </div>
+        <div className="mt-6 flex animate-rise justify-center [animation-delay:0.28s]">
+          <PartnerBadge />
+        </div>
       </div>
 
       <div className="container-x mt-12 animate-rise [animation-delay:0.32s]">
         <div className="relative mx-auto max-w-4xl">
-          <div className="relative aspect-[16/8] overflow-hidden rounded-[2rem] shadow-[var(--shadow-float)] sm:rounded-[2.5rem]">
-            <Image src={poster} alt={t("heroImageAlt")} fill priority placeholder="blur" sizes="(min-width:1024px) 900px, 100vw" className="object-cover" />
-          </div>
-          <FloatCard tone="night" className="top-4 -left-2 w-40 text-left sm:-left-8 sm:w-44">
+          {frame === "browser" ? (
+            <div className="overflow-hidden rounded-[1.6rem] border border-line bg-white shadow-[var(--shadow-float)] sm:rounded-[2rem]">
+              <div className="flex items-center gap-1.5 border-b border-line px-4 py-3">
+                {["bg-blush-500/70", "bg-amber-400/80", "bg-mint-500/70"].map((c) => (
+                  <span key={c} className={`size-2.5 rounded-full ${c}`} aria-hidden />
+                ))}
+                {url && (
+                  <span className="ml-3 flex min-w-0 items-center gap-1.5 truncate rounded-full bg-canvas px-3 py-1 text-xs text-muted">
+                    <Globe className="size-3 shrink-0" aria-hidden /> {url}
+                  </span>
+                )}
+              </div>
+              <div className="relative aspect-[16/9]">
+                <Image src={image} alt={imageAlt} fill priority sizes="(min-width:1024px) 900px, 100vw" className="object-cover object-top" />
+              </div>
+            </div>
+          ) : (
+            <div className="relative aspect-[16/8] overflow-hidden rounded-[2rem] shadow-[var(--shadow-float)] sm:rounded-[2.5rem]">
+              <Image src={image} alt={imageAlt} fill priority sizes="(min-width:1024px) 900px, 100vw" className="object-cover" />
+            </div>
+          )}
+          <FloatCard tone="night" className="top-14 -left-2 w-40 text-left sm:-left-8 sm:w-44">
             <p className="num text-2xl font-medium">{s1.value}</p>
             <p className="text-[11px] text-night-muted">{s1.label}</p>
             <MiniBars className="mt-2" />
@@ -69,17 +101,6 @@ export async function ProductHero({
           </FloatCard>
         </div>
       </div>
-
-      {stats && stats.length > 2 && (
-        <dl className="container-x mt-14 grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-4">
-          {stats.map((s) => (
-            <div key={s.label} className="card flex flex-col-reverse p-5 text-left">
-              <dt className="mt-1 text-xs text-muted">{s.label}</dt>
-              <dd className="num text-3xl font-medium tracking-tight text-ink">{s.value}</dd>
-            </div>
-          ))}
-        </dl>
-      )}
     </section>
   );
 }

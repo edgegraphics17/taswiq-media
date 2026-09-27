@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 /** Nur diese Namespaces brauchen Client Components – der Rest bleibt auf dem Server (kleineres RSC-Payload). */
-const CLIENT_NAMESPACES = ["common", "nav", "languageSwitcher", "funnel", "contactForm", "leadResult", "calculator", "home", "site"] as const;
+const CLIENT_NAMESPACES = ["common", "nav", "languageSwitcher", "funnel", "contactForm", "leadResult", "calculator", "portfolio", "site"] as const;
 
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;

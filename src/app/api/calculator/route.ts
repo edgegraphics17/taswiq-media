@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { calculatorSchema } from "@/lib/validation";
+import { isIndustry } from "@/config/pricing";
 import { computeEstimate, sanitizeState, summaryRows } from "@/lib/pricing-engine";
 import { getPricingData } from "@/lib/pricing-source";
 import { localizeOptions } from "@/lib/pricing-i18n";
@@ -37,7 +38,7 @@ export async function POST(req: NextRequest) {
     .from("calculator_requests")
     .insert({
       session_id: parsed.data.sessionId ?? null,
-      industry: state.branche === "musik" ? "musik" : "gastro",
+      industry: isIndustry(state.branche) ? state.branche : "andere",
       service_ids: services,
       state: JSON.parse(JSON.stringify(state)),
       summary: summaryRows(state, localizeOptions(data, de), de),

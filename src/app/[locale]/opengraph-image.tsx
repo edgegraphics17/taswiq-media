@@ -16,16 +16,16 @@ export async function generateImageMetadata({ params }: { params: { locale: Loca
   return [{ id: "default", alt: t("alt"), size, contentType }];
 }
 
-/** Social-Vorschaubild je Sprache: Showreel-Standbild, dunkler Verlauf, violette Headline. */
+/** Social-Vorschaubild je Sprache: echtes Projekt (Bestellsystem) als Hintergrund, dunkler Verlauf, violette Headline. */
 export default async function OpengraphImage({ params }: { params: Promise<{ locale: Locale }> | { locale: Locale } }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "og" });
-  const poster = await readFile(path.join(process.cwd(), "public/images/showreel-poster.jpg"));
+  const poster = await readFile(path.join(process.cwd(), "public/images/portfolio/site-daron.jpg"));
   const src = `data:image/jpeg;base64,${poster.toString("base64")}`;
   return new ImageResponse(
     (
       <div style={{ width: "100%", height: "100%", display: "flex", position: "relative", background: "#141414" }}>
-        <img src={src} alt="" width={1200} height={630} style={{ position: "absolute", inset: 0, objectFit: "cover" }} />
+        <img src={src} alt="" width={1200} height={630} style={{ position: "absolute", inset: 0, objectFit: "cover", objectPosition: "top" }} />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(20,20,20,0.35), rgba(20,20,20,0.95))" }} />
         <div style={{ position: "relative", display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: 72, width: "100%" }}>
           <div style={{ fontSize: 22, letterSpacing: 6, color: "#b9a0ff", fontWeight: 700 }}>{t("eyebrow")}</div>

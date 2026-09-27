@@ -1,6 +1,7 @@
 import { getCalculatorRequests } from "@/lib/admin/data";
 import { formatDateTime, formatNumber } from "@/lib/format";
 import { OPTIONEN } from "@/config/pricing";
+import { INDUSTRY_LABEL } from "@/lib/admin/labels";
 
 /** Auswertung des Preisrechners: Was wird kalkuliert, was konvertiert? */
 export default async function CalcPage() {
@@ -44,7 +45,7 @@ export default async function CalcPage() {
             {reqs.map((r) => (
               <tr key={r.id}>
                 <td className="num px-4 py-3 whitespace-nowrap text-muted">{formatDateTime(r.created_at)}</td>
-                <td className="px-4 py-3 text-body">{r.industry === "musik" ? "Festival & Musik" : "Gastro"}</td>
+                <td className="px-4 py-3 text-body">{INDUSTRY_LABEL[r.industry] ?? r.industry}</td>
                 <td className="px-4 py-3 text-body">{r.service_ids.map(label).join(", ")}</td>
                 <td className="num px-4 py-3 font-semibold text-ink">{formatNumber(r.estimate_min)}–{formatNumber(r.estimate_max)} €</td>
                 <td className="num px-4 py-3 text-body">{r.monthly_total ? `${formatNumber(r.monthly_total)} €` : "–"}</td>

@@ -1,31 +1,27 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-import { ArrowRight, BadgeCheck, Play, Star } from "lucide-react";
-import { portfolioItems } from "@/config/content";
-import { contactHref, site } from "@/config/site";
+import { ArrowRight, BadgeCheck, BellRing, Globe, Star } from "lucide-react";
+import { contactHref } from "@/config/site";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/SectionHeading";
 import { FloatCard, MiniBars } from "@/components/ui/FloatCard";
-import { HeroVideo } from "@/components/home/HeroVideo";
+import { PartnerBadge } from "@/components/ui/PartnerBadge";
 import { WordRotator } from "@/components/home/WordRotator";
-import poster from "../../../public/images/showreel-poster.jpg";
+import daron from "../../../public/images/portfolio/site-daron.jpg";
+import omedMobile from "../../../public/images/portfolio/mobile-omed.jpg";
 
 /**
- * Hero im Soft-UI-Stil: zentrierte, leichte Headline mit rotierendem Wort,
- * zwei Pillen-Buttons, darunter das Showreel als abgerundete Karte mit
- * schwebenden Info-Karten (Stat-Karte schwarz, Qualitäts-Karte weiß, Play-Pille).
- *
- * Server Component: Texte kommen per getTranslations() aus messages/{de,en}.json –
- * die Sprache liefert das [locale]-Segment, es wird kein Übersetzungs-JS an den Client geschickt.
+ * Hero: Software-Versprechen mit rotierendem System-Typ ("Dein eigenes Bestellsystem."),
+ * zwei Pillen-Buttons, Social Proof aus der Media-Zeit, "backed by winsym.ai".
+ * Darunter echte Projekte als Produkt-Collage: Bestellsystem im Browser, Buchung auf dem Handy,
+ * schwebende Karten mit Live-Bestellung und 0 % Provision.
  */
 export async function Hero() {
   const t = await getTranslations("home.hero");
   const rotating = t.raw("rotating") as string[];
-  const thumbs = portfolioItems.filter((p) => p.poster).slice(0, 4);
 
   return (
     <section id="home" className="relative overflow-hidden pt-32 pb-16 sm:pt-40">
-      {/* weiche Farbnebel im Hintergrund */}
       <div className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-[520px] w-[900px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(120_64_254/0.14),transparent)]" aria-hidden />
       <div className="pointer-events-none absolute top-40 -right-40 -z-10 size-[420px] rounded-full bg-[radial-gradient(closest-side,rgb(249_207_212/0.6),transparent)]" aria-hidden />
 
@@ -33,72 +29,82 @@ export async function Hero() {
         <div className="flex animate-rise justify-center">
           <Eyebrow>{t("eyebrow")}</Eyebrow>
         </div>
-        <h1 className="mx-auto mt-5 max-w-4xl animate-rise text-[clamp(2.6rem,7vw,5.4rem)] leading-[1.02] font-medium [animation-delay:0.08s]">
-          {t("titleStart")} <WordRotator words={rotating} />
+        <h1 className="mx-auto mt-5 max-w-5xl animate-rise text-[clamp(2.5rem,6.6vw,5.2rem)] leading-[1.03] font-medium [animation-delay:0.08s]">
+          <span aria-hidden>
+            {t("titleStart")}{" "}
+            <span className="text-brand-500">
+              <WordRotator words={rotating} />
+            </span>
+          </span>
           <span className="sr-only">
             {t("titleStart")} {rotating.join(", ")}
           </span>
         </h1>
-        <p className="mx-auto mt-6 max-w-xl animate-rise text-[15.5px] leading-relaxed text-muted [animation-delay:0.16s]">{t("sub")}</p>
+        <p className="mx-auto mt-6 max-w-2xl animate-rise text-[16px] leading-relaxed text-muted [animation-delay:0.16s]">{t("sub")}</p>
         <div className="mt-8 flex animate-rise flex-wrap justify-center gap-3 [animation-delay:0.24s]">
           <ButtonLink href={contactHref}>
             {t("primary")} <ArrowRight className="size-4" aria-hidden />
           </ButtonLink>
-          <ButtonLink href="/preisrechner" variant="soft">
+          <ButtonLink href="/portfolio" variant="soft">
             {t("secondary")}
           </ButtonLink>
         </div>
 
-        {/* Social Proof: Projekt-Thumbnails als Avatar-Reihe */}
-        <div className="mt-8 flex animate-rise items-center justify-center gap-3 [animation-delay:0.3s]">
-          <div className="flex -space-x-2.5">
-            {thumbs.map((p) => (
-              <span key={p.id} className="relative size-9 overflow-hidden rounded-full ring-2 ring-canvas">
-                <Image src={p.poster!} alt="" fill sizes="36px" className="object-cover" />
-              </span>
-            ))}
-          </div>
-          <p className="text-left text-[13px] leading-tight text-muted">
-            <span className="flex items-center gap-1 font-medium text-ink">
-              <Star className="size-3.5 fill-amber-400 text-amber-400" aria-hidden /> {t("proofTitle")}
+        <div className="mt-8 flex animate-rise flex-wrap items-center justify-center gap-x-6 gap-y-3 [animation-delay:0.3s]">
+          <p className="flex items-center gap-2 text-left text-[13px] leading-tight text-muted">
+            <span className="flex text-amber-400" aria-hidden>
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} className="size-3.5 fill-current" />
+              ))}
             </span>
-            {t("proofText")}
+            <span>
+              <span className="font-medium text-ink">{t("proofTitle")}</span> {t("proofText")}
+            </span>
           </p>
+          <PartnerBadge />
         </div>
       </div>
 
-      {/* Medien-Collage mit schwebenden Karten */}
+      {/* Produkt-Collage aus echten Projekten */}
       <div className="container-x mt-14 animate-rise [animation-delay:0.36s]">
-        <div className="relative mx-auto max-w-5xl">
-          <div className="relative aspect-[16/10] overflow-hidden rounded-[2rem] bg-night shadow-[var(--shadow-float)] sm:aspect-[16/9] sm:rounded-[2.5rem]">
-            <Image src={poster} alt={t("posterAlt")} fill priority placeholder="blur" sizes="(min-width:1024px) 1000px, 100vw" className="object-cover" />
-            {site.heroVideo && <HeroVideo src={site.heroVideo} />}
+        <div className="relative mx-auto max-w-5xl pb-6 sm:pb-10">
+          <div className="overflow-hidden rounded-[1.6rem] border border-line bg-white shadow-[var(--shadow-float)] sm:rounded-[2rem]">
+            <div className="flex items-center gap-1.5 border-b border-line px-4 py-3">
+              {["bg-blush-500/70", "bg-amber-400/80", "bg-mint-500/70"].map((c) => (
+                <span key={c} className={`size-2.5 rounded-full ${c}`} aria-hidden />
+              ))}
+              <span className="ml-3 flex min-w-0 items-center gap-1.5 truncate rounded-full bg-canvas px-3 py-1 text-xs text-muted">
+                <Globe className="size-3 shrink-0" aria-hidden /> {t("browserUrl")}
+              </span>
+            </div>
+            <div className="relative aspect-[16/10]">
+              <Image src={daron} alt={t("browserAlt")} fill priority placeholder="blur" sizes="(min-width:1024px) 1000px, 100vw" className="object-cover object-top" />
+            </div>
           </div>
 
-          <FloatCard tone="night" className="top-3 -left-2 w-32 !p-3 text-left sm:top-10 sm:-left-10 sm:w-48 sm:!p-3.5">
-            <p className="num text-2xl font-medium tracking-tight sm:text-3xl">
-              450<span className="text-lg text-brand-300">+</span>
+          {/* Handy mit Buchungssystem */}
+          <div className="absolute -right-1 bottom-0 w-[30%] max-w-[210px] animate-float-slow sm:-right-8">
+            <div className="rounded-[1.9rem] border-[5px] border-night bg-night shadow-[var(--shadow-float)] sm:rounded-[2.4rem] sm:border-[7px]">
+              <div className="relative aspect-[390/844] overflow-hidden rounded-[1.5rem] sm:rounded-[1.9rem]">
+                <Image src={omedMobile} alt={t("phoneAlt")} fill placeholder="blur" sizes="210px" className="object-cover object-top" />
+              </div>
+            </div>
+          </div>
+
+          <FloatCard tone="night" className="top-16 -left-2 w-40 !p-3 text-left sm:top-24 sm:-left-10 sm:w-52 sm:!p-3.5">
+            <p className="flex items-center gap-1.5 text-[11px] text-night-muted">
+              <BellRing className="size-3.5 text-mint-400" aria-hidden /> {t("orderLabel")}
             </p>
-            <p className="mt-0.5 text-[11px] leading-snug text-night-muted">{t("statCard")}</p>
-            <MiniBars className="mt-3 hidden sm:flex" />
+            <p className="num mt-1 text-xl font-medium tracking-tight sm:text-2xl">{t("orderValue")}</p>
+            <MiniBars className="mt-2 hidden sm:flex" values={[40, 55, 48, 70, 82, 100]} />
           </FloatCard>
 
-          <FloatCard slow className="-bottom-6 left-4 hidden w-52 text-left sm:block lg:-left-8">
+          <FloatCard slow className="-bottom-2 left-4 hidden w-56 text-left sm:block lg:-left-8">
             <span className="grid size-10 place-items-center rounded-full bg-mint-500 text-white">
               <BadgeCheck className="size-5" aria-hidden />
             </span>
-            <p className="mt-3 text-sm font-medium">{t("qualityTitle")}</p>
-            <p className="text-xs text-muted">{t("qualityText")}</p>
-          </FloatCard>
-
-          <FloatCard className="right-4 -bottom-5 flex items-center gap-2.5 !rounded-full py-2 pr-4 pl-2 sm:-right-6">
-            <span className="grid size-9 place-items-center rounded-full bg-brand-500 text-white">
-              <Play className="size-4 translate-x-px fill-current" aria-hidden />
-            </span>
-            <span className="text-left text-[13px] leading-tight font-medium">
-              {t("showreel")}
-              <span className="block text-[11px] font-normal text-muted">{t("showreelMeta")}</span>
-            </span>
+            <p className="mt-3 text-sm font-medium">{t("feeTitle")}</p>
+            <p className="text-xs text-muted">{t("feeText")}</p>
           </FloatCard>
         </div>
       </div>

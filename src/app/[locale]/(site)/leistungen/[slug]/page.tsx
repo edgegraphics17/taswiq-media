@@ -1,19 +1,27 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Camera, Clapperboard, Music } from "lucide-react";
 import { ProductHero } from "@/components/product/ProductHero";
 import { ProblemSection } from "@/components/product/ProblemSection";
 import { FeatureGrid } from "@/components/product/FeatureGrid";
 import { PricingSection } from "@/components/product/PricingSection";
 import { FaqSection } from "@/components/product/FaqSection";
 import { FunnelSection } from "@/components/product/FunnelSection";
+import { PortfolioTeaser } from "@/components/home/PortfolioTeaser";
+import { Process } from "@/components/home/Process";
+import { BlogTeaser } from "@/components/home/BlogTeaser";
+import { References } from "@/components/home/References";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { getSeoPageBySlug, seoFeatureIcons, seoPages, type SeoPage } from "@/config/seo-pages";
+import { getSeoPageBySlug, seoPages, type SeoPage } from "@/config/seo-pages";
 import { routing, type Locale } from "@/i18n/routing";
 import { getPackages } from "@/lib/packages";
 import { breadcrumbJsonLd, pageMetadata, serviceJsonLd } from "@/lib/seo";
 
-/** Geo-SEO-Landingpages – statisch gebaut (je Sprache eigener Slug), unbekannte Slugs → 404 */
+/**
+ * SEO-Landingpages (Branchen, Leistungen, Premium-Media) – statisch gebaut, je Sprache eigener Slug.
+ * Aufbau: Hero → Problem → Funktionen → Projekte → Ablauf → Pakete → Ratgeber → FAQ → Funnel.
+ */
 export const dynamicParams = false;
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) => seoPages.map((p) => ({ locale, slug: p.slugs[locale] })));
@@ -30,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: `seoPages.${page.id}` });
   return pageMetadata({
     locale,
-    // hreflang verknüpft /leistungen/medienagentur-gastronomie ↔ /en/services/restaurant-media-agency
+    // hreflang verknüpft /leistungen/software-gastronomie ↔ /en/services/restaurant-software
     href: hrefOf(page),
     title: page.city ? `${t("metaTitle")} – ${page.city}` : t("metaTitle"),
     description: t("metaDescription"),
@@ -46,9 +54,11 @@ export default async function SeoLandingPage({ params }: Props) {
 
   const t = await getTranslations(`seoPages.${page.id}`);
   const tp = await getTranslations("product");
-  const tpr = await getTranslations("pipeline");
+  const tpk = await getTranslations("packages");
   const ts = await getTranslations("schema");
   const href = hrefOf(page)(locale);
+  const media = page.packages === "media";
+  const section = media ? "mediaSection" : "softwareSection";
 
   return (
     <>
@@ -57,30 +67,40 @@ export default async function SeoLandingPage({ params }: Props) {
         titleStart={t("hero.titleStart")}
         titleHighlight={t("hero.titleHighlight")}
         text={t("hero.text")}
-        primary={{ label: tp("calculateCosts"), href: "/preisrechner" }}
-        secondary={{ label: tp("requestProject"), href: "#anfrage" }}
+        primary={{ label: media ? tp("requestProject") : tp("requestConsultation"), href: "#anfrage" }}
+        secondary={{ label: tp("calculateCosts"), href: "/preisrechner" }}
+        stats={t.raw("hero.stats") as { value: string; label: string }[]}
+        image={page.hero.image}
+        imageAlt={t("hero.imageAlt")}
+        frame={page.hero.frame}
+        url={page.hero.url}
       />
-      <ProblemSection tag={t("keyword")} title={t("problem.title")} text={t("problem.text")} points={t.raw("problem.points") as string[]} />
+      {media && <References className="pb-6" />}
+      <ProblemSection tag={t("keyword")} title={t("problem.title")} text={t("problem.text")} points={t.raw("problem.points") as string[]} story={t.has("problem.story") ? (t.raw("problem.story") as { label: string; quote: string; text: string }) : undefined} />
       <FeatureGrid
         tag={tp("featuresTag")}
-        title={tp("featuresTitle")}
-        items={(t.raw("features") as { title: string; text: string }[]).map((f, i) => ({ ...f, icon: seoFeatureIcons[i] }))}
+        title={t("featuresTitle")}
+        items={(t.raw("features") as { title: string; text: string }[]).map((f, i) => ({ ...f, icon: page.featureIcons[i] }))}
       />
+      <PortfolioTeaser id="projekte" ids={page.portfolio} title={tp("portfolioTitle")} text={tp("portfolioText")} />
+      {!media && <Process />}
       <PricingSection
-        tag={tpr("pricing.tag")}
-        title={tpr("pricing.title")}
-        accent={tpr("pricing.accent")}
-        text={tpr("pricing.text")}
-        packages={await getPackages(locale)}
-        trust={tpr.raw("pricing.trust") as string[]}
+        tag={tpk(`${section}.tag`)}
+        title={tpk(`${section}.title`)}
+        accent={tpk(`${section}.accent`)}
+        text={tpk(`${section}.text`)}
+        packages={await getPackages(locale, page.packages)}
+        trust={tpk.raw(`${section}.trust`) as string[]}
         highlight={page.highlightPackage}
+        icons={media ? [Camera, Music, Clapperboard] : undefined}
       />
+      <BlogTeaser slugs={page.blog} title={tp("guidesTitle")} />
       <FaqSection items={t.raw("faq") as { q: string; a: string }[]} />
       <FunnelSection
         title={tp("seoFunnel.title")}
         accent={tp("seoFunnel.accent")}
         text={tp("seoFunnel.text")}
-        source="branchen_seite"
+        source={page.kind === "branche" ? "branchen_seite" : "ki_seite"}
         industry={page.industry}
         interests={page.interests}
       />

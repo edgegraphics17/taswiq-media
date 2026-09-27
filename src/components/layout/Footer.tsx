@@ -2,8 +2,9 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { Mail, MessageCircle, Phone } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { site, hasAddress, nav, type AppHref } from "@/config/site";
-import { seoPages } from "@/config/seo-pages";
+import { industryPages, mediaPage, servicePages } from "@/config/seo-pages";
 import { Logo } from "@/components/ui/Logo";
+import { PartnerBadge } from "@/components/ui/PartnerBadge";
 
 /** Footer als große weiße Karte auf Canvas – mit schwarzer CTA-Kapsel oben. */
 export async function Footer() {
@@ -31,15 +32,25 @@ export async function Footer() {
         </div>
       </div>
 
-      <div className="card mt-3 grid gap-10 p-8 sm:grid-cols-2 sm:p-10 lg:grid-cols-[1.4fr_1fr_1.1fr_1.1fr]">
+      <div className="card mt-3 grid gap-10 p-8 sm:grid-cols-2 sm:p-10 lg:grid-cols-[1.3fr_1fr_1.1fr_1.1fr_1.1fr]">
         <div>
           <Logo className="h-11" />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">{t("claim")}</p>
+          <PartnerBadge className="mt-5" />
+          <p className="mt-3 max-w-xs text-xs leading-relaxed text-muted">{t("partnerNote")}</p>
         </div>
         <FooterCol title={t("navigation")} links={nav.map((n) => ({ key: n.key, href: n.href, label: tNav(n.key) }))} />
         <FooterCol
           title={t("services")}
-          links={seoPages.map((p) => ({
+          links={[...servicePages, mediaPage].map((p) => ({
+            key: p.id,
+            href: { pathname: "/leistungen/[slug]", params: { slug: p.slugs[locale] } },
+            label: tSeo(`${p.id}.navLabel`),
+          }))}
+        />
+        <FooterCol
+          title={t("industries")}
+          links={industryPages.map((p) => ({
             key: p.id,
             href: { pathname: "/leistungen/[slug]", params: { slug: p.slugs[locale] } },
             label: tSeo(`${p.id}.navLabel`),

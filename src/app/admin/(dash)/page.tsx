@@ -1,14 +1,13 @@
 import Link from "next/link";
 import { ChevronRight, Search } from "lucide-react";
 import { computeKpis, getLeads } from "@/lib/admin/data";
-import { BUDGET_LABEL, SOURCE_LABEL, STATUS_LABEL } from "@/lib/admin/labels";
+import { BUDGET_LABEL, INDUSTRY_LABEL, SOURCE_LABEL, STATUS_LABEL } from "@/lib/admin/labels";
 import { LEAD_STATUSES } from "@/types/database";
 import { isDemoMode } from "@/lib/env";
 import { formatDateTime, formatEUR, formatNumber } from "@/lib/format";
 import { ScoreBar, StatusPill, TierPill } from "@/components/admin/Pills";
 import { LiveRefresh } from "@/components/admin/LiveRefresh";
 
-const INDUSTRY = { gastro: "Gastro", musik: "Festival & Musik", andere: "Andere" } as const;
 
 /**
  * Lead-Übersicht als Server Component: Filter über URL-Parameter (teilbar, Zurück-Taste funktioniert),
@@ -134,7 +133,7 @@ export default async function LeadsPage({ searchParams }: { searchParams: Promis
                     </Link>
                     <p className="text-xs text-muted">{l.company ?? l.email}</p>
                   </td>
-                  <td className="px-4 py-3 text-body">{INDUSTRY[l.industry]}</td>
+                  <td className="px-4 py-3 text-body">{INDUSTRY_LABEL[l.industry] ?? l.industry}</td>
                   <td className="px-4 py-3 text-body">{SOURCE_LABEL[l.source]}</td>
                   <td className="num px-4 py-3 text-body">
                     {l.estimate_min ? `${formatNumber(l.estimate_min)}–${formatNumber(l.estimate_max ?? 0)} €` : BUDGET_LABEL[l.budget]}

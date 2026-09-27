@@ -40,20 +40,30 @@ export const site = {
     linkedin: "",
   },
 
-  /** Showreel für den Hero (MP4 in /public/videos, ~17 s, stumm). Leer = nur Standbild. */
+  /** Showreel der Media-Sektion (MP4 in /public/videos, ~17 s, stumm). Leer = nur Standbild. */
   heroVideo: "/videos/showreel.mp4" as string,
+
+  /**
+   * Technologie-Partner: winsym.ai (Kuala Lumpur) liefert KI-Forschung, Modelle & Methodik,
+   * TasWiq ist die Agentur – Beratung, Design und Entwicklung passieren in Deutschland.
+   */
+  partner: {
+    name: "winsym.ai",
+    url: "https://winsym-ai.vercel.app",
+    city: "Kuala Lumpur",
+  },
 } as const;
 
 /** Sprachbewusstes Link-Ziel: interne Route (+ optional Hash/Params) – next-intl übersetzt den Pfad. */
 export type AppHref = ComponentProps<typeof Link>["href"];
 
-/** Navigation: Sektionen der Startseite + zwei eigene Unterseiten. Labels: messages → nav.<key> */
+/** Navigation: Sektionen der Startseite + eigene Unterseiten. Labels: messages → nav.<key> */
 export const nav = [
-  { key: "home", href: { pathname: "/", hash: "home" } },
   { key: "services", href: { pathname: "/", hash: "services" } },
-  { key: "ki", href: { pathname: "/", hash: "ki" } },
-  { key: "pipeline", href: "/content-pipeline" },
+  { key: "industries", href: { pathname: "/", hash: "branchen" } },
+  { key: "portfolio", href: "/portfolio" },
   { key: "process", href: { pathname: "/", hash: "ablauf" } },
+  { key: "blog", href: "/blog" },
   { key: "calculator", href: "/preisrechner" },
 ] as const satisfies readonly { key: string; href: AppHref }[];
 

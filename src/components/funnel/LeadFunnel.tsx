@@ -16,6 +16,12 @@ import {
   Music,
   Sparkles,
   Workflow,
+  AppWindow,
+  CalendarCheck,
+  ChartLine,
+  CodeXml,
+  ShoppingCart,
+  Smartphone,
   type LucideIcon,
 } from "lucide-react";
 import {
@@ -23,7 +29,7 @@ import {
   funnelIndustries,
   interests as INTERESTS,
   projectStatuses,
-  type BudgetBracket,
+  type FunnelBudget,
   type FunnelIndustry,
   type InterestId,
   type LeadSource,
@@ -38,15 +44,23 @@ import { track } from "@/lib/track";
 import { cn } from "@/lib/format";
 
 const INTEREST_ICONS: Record<InterestId, LucideIcon> = {
+  software: CodeXml,
+  bestellsystem: ShoppingCart,
+  buchungssystem: CalendarCheck,
+  webapp: AppWindow,
+  dashboard: ChartLine,
+  app: Smartphone,
+  web: MonitorSmartphone,
+  automation: Sparkles,
+  media: Clapperboard,
+  unsicher: CircleHelp,
+  // Legacy
   aftermovie: Clapperboard,
   reels: Film,
   foto: Camera,
   social: Megaphone,
-  ki_content: Sparkles,
-  automation: Workflow,
-  web: MonitorSmartphone,
+  ki_content: Workflow,
   musikvideo: Music,
-  unsicher: CircleHelp,
 };
 
 /** Große Pillen-Option: Auswahl = weicher violetter Ring + Schatten. */
@@ -64,7 +78,7 @@ const pill = (on: boolean) =>
  */
 export function LeadFunnel({
   source = "funnel",
-  initialIndustry = "gastro",
+  initialIndustry = "andere",
   initialInterests = [],
   idPrefix = "funnel",
 }: {
@@ -78,7 +92,7 @@ export function LeadFunnel({
   const [industry, setIndustry] = useState<FunnelIndustry>(initialIndustry);
   const [picked, setPicked] = useState<InterestId[]>(initialInterests);
   const [status, setStatus] = useState<ProjectStatus | null>(null);
-  const [budget, setBudget] = useState<BudgetBracket | null>(null);
+  const [budget, setBudget] = useState<FunnelBudget | null>(null);
   const t = useTranslations("funnel");
   const tc = useTranslations("common");
   const locale = useLocale();
@@ -213,7 +227,7 @@ export function LeadFunnel({
                     {heading(1)}
 
                     <LayoutGroup id={`${idPrefix}-ind`}>
-                      <div role="radiogroup" aria-label={t("industryAria")} className="mt-5 inline-flex max-w-full flex-wrap gap-1 rounded-full bg-canvas p-1.5">
+                      <div role="radiogroup" aria-label={t("industryAria")} className="mt-5 inline-flex max-w-full flex-wrap gap-1 rounded-[1.4rem] bg-canvas p-1.5">
                         {funnelIndustries.map((ind) => (
                           <label key={ind} className={cn("relative min-h-10 cursor-pointer rounded-full px-4 py-2 text-sm font-medium transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand-500", industry === ind ? "text-white" : "text-body hover:text-ink")}>
                             <input type="radio" name={`${idPrefix}-industry`} value={ind} checked={industry === ind} onChange={() => setIndustry(ind)} className="sr-only" />

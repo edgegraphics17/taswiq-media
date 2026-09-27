@@ -51,14 +51,16 @@ export const contactFields = {
 const calcStateSchema = z.record(z.string().max(40), z.union([z.string().max(60), z.array(z.string().max(60)).max(20), z.number(), z.boolean()]));
 
 export const leadSchema = z.object({
-  source: z.enum(["funnel", "rechner", "ki_seite", "branchen_seite"]).default("funnel"),
-  industry: z.enum(["gastro", "musik", "andere"]),
+  source: z.enum(["funnel", "rechner", "ki_seite", "branchen_seite", "blog", "portfolio"]).default("funnel"),
+  industry: z.enum(["gastro", "immobilien", "automotive", "kanzlei", "beauty", "handwerk", "musik", "andere"]),
   interests: z
-    .array(z.enum(["aftermovie", "reels", "foto", "social", "ki_content", "automation", "web", "musikvideo", "unsicher"]))
+    .array(
+      z.enum(["software", "bestellsystem", "buchungssystem", "webapp", "dashboard", "app", "web", "automation", "media", "unsicher", "aftermovie", "reels", "foto", "social", "ki_content", "musikvideo"]),
+    )
     .min(1, "interestsRequired")
-    .max(9),
+    .max(12),
   projectStatus: z.enum(["neustart", "gelegentlich", "regelmaessig", "projekt", "dringend"]).nullable().optional(),
-  budget: z.enum(["unter_1k", "1k_2_5k", "2_5k_5k", "ueber_5k", "keine_angabe"]),
+  budget: z.enum(["unter_5k", "5k_15k", "15k_40k", "ueber_40k", "keine_angabe"]),
   ...contactFields,
   /** Honeypot – für Menschen unsichtbar. Wird in der API separat geprüft. */
   website: z.string().max(500).optional(),

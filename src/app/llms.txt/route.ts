@@ -1,9 +1,10 @@
 import { getTranslations } from "next-intl/server";
 import { site } from "@/config/site";
-import { seoPages } from "@/config/seo-pages";
+import { industryPages, mediaPage, servicePages, type SeoPage } from "@/config/seo-pages";
 import { portfolioItems } from "@/config/content";
-import { pipelinePackages } from "@/config/pipeline";
-import { routing } from "@/i18n/routing";
+import { allPackages } from "@/config/packages";
+import { posts } from "@/content/blog";
+import { routing, type Locale } from "@/i18n/routing";
 import { absoluteUrl } from "@/lib/seo";
 import { formatEUR } from "@/lib/format";
 
@@ -15,10 +16,13 @@ import { formatEUR } from "@/lib/format";
 export const dynamic = "force-static";
 
 export async function GET() {
-  const t = await getTranslations({ locale: "de", namespace: "pipeline" });
   const ts = await getTranslations({ locale: "de", namespace: "schema" });
-  const tp = await getTranslations({ locale: "de", namespace: "home.portfolio.items" });
-  const cases = portfolioItems.filter((p) => p.kind === "case" && p.location);
+  const tpk = await getTranslations({ locale: "de", namespace: "packages" });
+  const tpo = await getTranslations({ locale: "de", namespace: "portfolio" });
+  const tpf = (key: `${string}.title`) => tpo(`items.${key}` as Parameters<typeof tpo>[0]);
+  const tseoDe = await getTranslations({ locale: "de", namespace: "seoPages" });
+
+  const pageUrl = (p: SeoPage, l: Locale) => absoluteUrl({ pathname: "/leistungen/[slug]", params: { slug: p.slugs[l] } }, l);
 
   const pages = await Promise.all(
     routing.locales.map(async (locale) => {
@@ -26,35 +30,52 @@ export async function GET() {
       const tseo = await getTranslations({ locale, namespace: "seoPages" });
       return [
         `### ${locale.toUpperCase()}`,
-        `- ${tn("home")}: ${absoluteUrl("/", locale)}`,
-        `- ${tn("pipeline")}: ${absoluteUrl("/content-pipeline", locale)}`,
+        `- Home: ${absoluteUrl("/", locale)}`,
+        `- ${tn("portfolio")}: ${absoluteUrl("/portfolio", locale)}`,
         `- ${tn("calculator")}: ${absoluteUrl("/preisrechner", locale)}`,
-        ...seoPages.map((p) => `- ${tseo(`${p.id}.navLabel`)}: ${absoluteUrl({ pathname: "/leistungen/[slug]", params: { slug: p.slugs[locale] } }, locale)}`),
+        ...[...servicePages, ...industryPages, mediaPage].map((p) => `- ${tseo(`${p.id}.navLabel`)}: ${pageUrl(p, locale)}`),
       ].join("\n");
     }),
   );
 
+  const cases = portfolioItems.filter((p) => p.kind === "live" || p.kind === "demo" || p.kind === "internal");
+  const media = portfolioItems.filter((p) => p.kind === "film" || p.kind === "reel" || p.kind === "case");
+
   const body = `# ${site.name}
 
 > ${ts("orgDescription")}
-> Inhaber: ${site.owner}. Einsatzgebiet: ${(ts.raw("areaServed") as string[]).join(", ")}. Sprachen: Deutsch, English.
+> Inhaber: ${site.owner}. Einsatzgebiet: ${(ts.raw("areaServed") as string[]).join(", ")}. Sprachen: Deutsch, English, Arabisch.
+> Technologie-Partner: ${site.partner.name} (${site.partner.city}) – KI-Technologie & Methodik. Beratung, Design und Entwicklung: TasWiq Media in Deutschland.
 
-## Leistungen
+## Schwerpunkt
 
-- Video & Aftermovies: Imagefilme, Restaurant-Filme, Festival-Aftermovies, Reels in 4K
-- Fotografie: Food, Location, Event, Artist
-- Social-Media-Content: Reels, Stories, Posts, Planung und Posting
-- KI-Audio & Voiceover: Sprachfassungen in DE, EN, AR, TR
-- KI-Video & Visuals: generierte Szenen, Visualizer, Ad-Varianten
-- Web & Automatisierung: Websites, digitale Speisekarten, n8n-Workflows
+Individuelle Software und Systeme für kleine und mittlere Unternehmen – gebaut mit KI-gestützter Entwicklung, deshalb in Wochen statt Monaten:
+${servicePages.map((p) => `- ${tseoDe(`${p.id}.navLabel`)}: ${tseoDe(`${p.id}.metaDescription`)}`).join("\n")}
 
-## Pakete (Endpreise, § 19 UStG)
+## Branchen
 
-${pipelinePackages.map((p) => `- ${t(`pricing.packages.${p.id}.name`)}: ${formatEUR(p.price)} ${t(`pricing.units.${p.billing}`)} – ${t(`pricing.packages.${p.id}.audience`)}`).join("\n")}
+${industryPages.map((p) => `- ${tseoDe(`${p.id}.navLabel`)}: ${pageUrl(p, "de")}`).join("\n")}
 
-## Referenzprojekte
+## Premium-Media (ausgewählte Projekte)
 
-${cases.map((c) => `- ${tp(`${c.id}.title`)} (${c.location})${c.youtube ? ` – ${c.youtube}` : ""}`).join("\n")}
+Video- und Content-Produktion für Events, Festivals, Artists und Marken – Referenzen u. a. Hyatt Centric, One World Hotel, Tomorrowland, Afro Nation, Audi, Lufthansa, adidas.
+- ${tseoDe("media.navLabel")}: ${pageUrl(mediaPage, "de")}
+
+## Pakete (Einstiegspreise, Endpreise nach § 19 UStG)
+
+${allPackages.map((p) => `- ${tpk(`${p.id}.name`)}: ${p.from ? "ab " : ""}${formatEUR(p.price)} ${tpk(`units.${p.billing}`)} – ${tpk(`${p.id}.audience`)}`).join("\n")}
+
+## Software-Projekte
+
+${cases.map((c) => `- ${tpf(`${c.id}.title`)}${c.location ? ` (${c.location})` : ""}${c.media.type === "site" ? ` – ${c.media.url}` : ""}`).join("\n")}
+
+## Media-Referenzen
+
+${media.map((c) => `- ${tpf(`${c.id}.title`)}${c.location ? ` (${c.location})` : ""}${c.media.type === "video" && c.media.youtube ? ` – ${c.media.youtube}` : ""}`).join("\n")}
+
+## Ratgeber (Deutsch)
+
+${posts.map((p) => `- ${p.title}: ${absoluteUrl({ pathname: "/blog/[slug]", params: { slug: p.slug } }, "de")}`).join("\n")}
 
 ## Seiten
 

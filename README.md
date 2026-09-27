@@ -1,6 +1,6 @@
 # TasWiq Media. – Website
 
-Medienagentur für Gastronomie, Festivals & Musik – Premium-Video/Foto, skaliert mit KI.
+Software-Agentur für KMU & Mittelstand – Bestell- & Buchungssysteme, Portale, Dashboards, Websites und KI-Automatisierung. Premium-Media für Events, Festivals & Artists als zweites Standbein. Backed by winsym.ai (KI-Technologie, Kuala Lumpur).
 Logik nach asapmarketing.de, Design-System „Soft UI“ (Violett, Bento, schwebende Karten) – Tokens in `src/app/globals.css`.
 
 **Stack:** Next.js 15 · Tailwind CSS 4 · Framer Motion · Supabase · n8n · Zod
@@ -25,12 +25,14 @@ Mit Backend: `.env.example` → `.env.local` kopieren und ausfüllen.
 
 | Was | Datei |
 |-----|-------|
-| Texte der Startseite, Portfolio, Referenzen | `src/config/content.ts` |
-| Flaggschiff-Seite, Pakete, FAQ | `src/config/pipeline.ts` |
+| Struktur Startseite, Portfolio-Projekte, Referenzen | `src/config/content.ts` |
+| Pakete & Einstiegspreise (Software + Premium-Media) | `src/config/packages.ts` |
+| Ratgeber-Artikel (Blog, Deutsch) | `src/content/blog/posts/*.ts` |
+| Alle sichtbaren Texte (DE/EN) | `messages/de.json`, `messages/en.json` |
 | Preise & Rechner-Schritte | `src/config/pricing.ts` oder Dashboard → Preise |
 | Funnel-Optionen, Starter-Pakete | `src/config/funnel.ts` |
-| SEO-Landingpages | `src/config/seo-pages.ts` |
-| Adresse, Domain, Calendly, Social | `src/config/site.ts` |
+| Branchen-, Leistungs- & Media-Landingpages (inkl. alter Slugs → 301) | `src/config/seo-pages.ts` |
+| Adresse, Domain, Calendly, Social, Partner winsym.ai | `src/config/site.ts` |
 | Farben, Radien, Schatten, Motion | `src/app/globals.css` (`@theme`) |
 
 Ausführlich: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) · Vorlage-Analyse: [`docs/ASAP-ANALYSE.md`](docs/ASAP-ANALYSE.md)

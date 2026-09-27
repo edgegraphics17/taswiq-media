@@ -1,72 +1,65 @@
 {
   "metadata": {
-    "siteTitle": "TasWiq Media. – Creative Agency for Hospitality, Festivals & AI Content",
+    "siteTitle": "TasWiq Media. – Custom Software, Web Apps & Systems for SMEs",
     "titleTemplate": "%s | TasWiq Media.",
-    "description": "Cinematic video and photography for restaurants, bars and festivals – scaled with AI: one shoot day becomes dozens of reels, ads and posts. Fixed prices, first clips within 72 hours.",
-    "ogTitle": "TasWiq Media. – Content that makes people hungry. Content that gets loud.",
-    "ogDescription": "Creative agency for hospitality, festivals & music. Cinematic on set, AI speed in post-production.",
-    "category": "Marketing",
+    "description": "Your own ordering systems, booking systems, client portals, dashboards and websites for small and mid-sized businesses – built with AI in weeks, at a fixed price. Backed by winsym.ai.",
+    "ogTitle": "TasWiq Media. – Own your software, not rent a platform",
+    "ogDescription": "Ordering systems, booking systems, portals and dashboards for SMEs – built with AI in weeks. Backed by winsym.ai.",
+    "category": "Software Development",
     "keywords": [
-      "restaurant marketing agency",
-      "hospitality content agency",
-      "festival videographer",
-      "aftermovie production",
-      "food photographer",
-      "restaurant social media agency",
-      "event videographer",
-      "AI content production",
-      "AI voiceover",
-      "AI marketing agency"
+      "custom software for SMEs",
+      "software development agency Germany",
+      "commission-free ordering system",
+      "salon booking system",
+      "client portal tax advisor",
+      "property management software",
+      "web app development",
+      "business dashboard development",
+      "AI automation for business",
+      "website development"
     ],
     "calculator": {
-      "title": "Pricing Calculator – What Do Video, Photo, Web & AI Cost?",
-      "description": "Build your project in two minutes: aftermovie, food photography, website or AI workflows. See your budget range instantly – no sign-up, no strings attached.",
+      "title": "Pricing calculator – What does software, a website or an ordering system cost?",
+      "description": "Put your project together in two minutes: ordering system, booking system, client portal, dashboard, website or AI workflows. See the cost range instantly – no obligation.",
       "keywords": [
-        "aftermovie cost",
-        "food photography prices",
-        "videographer rates",
-        "restaurant website cost",
-        "AI automation cost"
-      ]
-    },
-    "pipeline": {
-      "title": "Content Pipeline – One Shoot Day, a Quarter's Worth of Content",
-      "description": "Our AI content pipeline turns one shoot day into 12 to 30 clips in every format, length and language. Built for restaurants, bars and festivals – at a fixed price.",
-      "keywords": [
-        "AI content pipeline",
-        "restaurant social media content",
-        "reels production",
-        "AI video production"
+        "software cost",
+        "ordering system cost",
+        "booking system cost",
+        "website cost",
+        "custom software cost"
       ]
     },
     "legalNotice": {
-      "title": "Legal Notice"
+      "title": "Legal notice"
     },
     "privacy": {
-      "title": "Privacy Policy"
+      "title": "Privacy policy"
     },
     "notFound": {
       "title": "Page not found"
     }
   },
   "og": {
-    "alt": "TasWiq Media. – Content that makes people hungry.",
-    "eyebrow": "CREATIVE AGENCY FOR HOSPITALITY, FESTIVALS & MUSIC",
-    "line1": "Content that",
-    "line2": "sells out."
+    "alt": "TasWiq Media. – Own your software, not rent a platform",
+    "eyebrow": "SOFTWARE FOR SMES · BACKED BY WINSYM.AI",
+    "line1": "Your own",
+    "line2": "system."
   },
   "schema": {
-    "orgDescription": "Creative agency for hospitality, festivals and music: cinematic videography and photography, scaled with AI workflows – content pipelines, AI voiceover, websites and automation.",
-    "slogan": "One shoot day. A whole quarter's worth of content.",
+    "orgDescription": "Software agency for small and mid-sized businesses: own ordering systems, booking systems, client portals, dashboards, web apps, websites and AI automation – built in Germany with AI-assisted development. Technology partner: winsym.ai (Kuala Lumpur). Plus premium media for events, festivals and artists.",
+    "slogan": "Own your software, not rent a platform.",
     "knowsAbout": [
-      "Video production",
-      "Event photography",
-      "Food photography",
-      "Aftermovies",
-      "Social media marketing",
-      "Generative AI",
-      "AI voiceover",
-      "Marketing automation with n8n"
+      "Custom software",
+      "Web app development",
+      "Online ordering systems",
+      "Online booking systems",
+      "Client portals",
+      "Business dashboards",
+      "AI automation",
+      "Workflow automation with n8n",
+      "Websites & SEO",
+      "Generative Engine Optimization",
+      "Event video & aftermovies"
     ],
     "areaServed": [
       "Germany",
@@ -75,12 +68,13 @@
     ],
     "contactType": "Sales and consulting",
     "catalogName": "Packages",
-    "monthUnit": "Month",
-    "calculatorName": "TasWiq Media. Pricing Calculator",
-    "calculatorDescription": "Put together video, photo, web or AI workflows and get a non-binding budget range. An estimate, not a quote.",
+    "monthUnit": "month",
+    "calculatorName": "TasWiq Media. pricing calculator",
+    "calculatorDescription": "Put together an ordering system, booking system, portal, dashboard, website or AI workflows and get a non-binding cost range. An estimate, not a quote.",
     "operatingSystem": "Any, in the browser",
     "breadcrumbHome": "Home",
-    "breadcrumbCalculator": "Pricing Calculator"
+    "breadcrumbCalculator": "Pricing calculator",
+    "partnerDescription": "AI transformation partner for small and mid-sized businesses based in Kuala Lumpur – technology partner of TasWiq Media."
   },
   "site": {
     "vatNote": "All prices are final. No VAT is charged under the German small business regulation (§ 19 UStG)."
@@ -108,9 +102,10 @@
   "nav": {
     "home": "Home",
     "services": "Services",
-    "ki": "AI Solutions",
-    "pipeline": "Content Pipeline",
+    "industries": "Industries",
+    "portfolio": "Portfolio",
     "process": "Process",
+    "blog": "Guides",
     "calculator": "Pricing"
   },
   "languageSwitcher": {
@@ -121,356 +116,698 @@
       "en": "English"
     }
   },
+  "partner": {
+    "backedBy": "backed by",
+    "opensNewTab": "(opens winsym.ai in a new tab)"
+  },
   "home": {
     "hero": {
-      "eyebrow": "Hospitality · Festivals · Music",
-      "titleStart": "Content that",
+      "eyebrow": "Software for small & mid-sized businesses",
+      "titleStart": "Your own",
       "rotating": [
-        "makes you hungry.",
-        "turns it up.",
-        "sells tickets.",
-        "fills tables."
+        "ordering system.",
+        "booking system.",
+        "client portal.",
+        "dashboard."
       ],
-      "sub": "We film and photograph restaurants, bars and festivals at cinema level – then use AI workflows to turn every shoot into dozens of reels, ads and posts.",
-      "primary": "Start your project",
-      "secondary": "Get a price",
+      "sub": "We build software you own – instead of paying commission to platforms and subscriptions for tools that don't fit. AI-assisted, in weeks instead of months, at a fixed price.",
+      "primary": "Free consultation",
+      "secondary": "See our work",
       "proofTitle": "450+ projects",
-      "proofText": "Hotels, clubs, festivals & artists",
-      "posterAlt": "Still from the TasWiq showreel: chef at a flaming wok",
-      "statCard": "projects across hospitality, events & music",
-      "qualityTitle": "First clips in 72 h",
-      "qualityText": "Cinematic look, AI speed",
-      "showreel": "Showreel",
-      "showreelMeta": "Hotel restaurants · KL"
-    },
-    "promise": {
-      "tag": "Why TasWiq",
-      "title": "Camera craft meets AI pipeline.",
-      "text": "TasWiq (تسويق) is Arabic for marketing – and that's the whole point: visuals that don't just look good, but fill tables and sell tickets. We've shot for hotel restaurants across Kuala Lumpur, from IL Forno at Hyatt Centric to Zuan Yuan at One World Hotel. Today we pair that cinematic look with AI workflows, so a single shoot day fuels weeks of content.",
-      "stats": [
-        {
-          "value": "450+",
-          "label": "projects across hospitality, events & music"
-        },
-        {
-          "value": "72 h",
-          "label": "until your first clips"
-        },
-        {
-          "value": "4",
-          "label": "languages via AI voiceover"
-        }
-      ],
-      "referencesTitle": "References you can taste",
-      "referencesPlaces": "Kuala Lumpur & Petaling Jaya",
-      "imageAlt": "Sushi station at Cinnamon Coffee House, One World Hotel",
-      "clipsPerShoot": "Clips per shoot",
-      "cardTag": "Our promise",
-      "cardTitle": "You take care of your guests. We take care of the content.",
-      "checks": [
-        "One shoot – every format, from 16:9 to 9:16",
-        "One dedicated point of contact for everything",
-        "Fixed price agreed before the first shoot day",
-        "First clips 72 hours after the shoot",
-        "Full usage rights to every file"
-      ],
-      "aiBadge": "+AI"
-    },
-    "services": {
-      "tag": "What we do",
-      "title": "Our services",
-      "text": "From first concept to ongoing content subscription – fully coordinated, all under one roof.",
-      "cta": "Enquire about all services",
-      "videoBadge": "4K · Multi-cam · Drone",
-      "videoImageAlt": "Pizza being prepared at IL Forno, Hyatt Centric Kuala Lumpur",
-      "fotoImageAlt": "Dim sum baskets at Zuan Yuan restaurant",
-      "webTags": [
-        "Website",
-        "Digital menu",
-        "Reservations",
-        "SEO & GEO",
-        "n8n workflows",
-        "Google profile"
-      ],
-      "items": {
-        "video": {
-          "title": "Video & Aftermovies",
-          "text": "Aftermovies, brand films and music videos in 4K – with multi-cam, drone and cinematic grading.",
-          "tags": [
-            "Festival",
-            "Club",
-            "Restaurant"
-          ]
-        },
-        "foto": {
-          "title": "Photography",
-          "text": "Food, venue, event and artist shoots. Fully edited, in web and print resolution, ready to use.",
-          "tags": [
-            "Food",
-            "Event",
-            "Press kit"
-          ]
-        },
-        "social": {
-          "title": "Social Media Content",
-          "text": "Reels, stories and posts on a weekly rhythm – planned, written and published for you.",
-          "tags": [
-            "Instagram",
-            "TikTok",
-            "Google"
-          ]
-        },
-        "audio": {
-          "title": "AI Audio & Voiceover",
-          "text": "Language versions of your clips in your own voice or an AI voice, subtitles included.",
-          "tags": [
-            "DE",
-            "EN",
-            "AR",
-            "TR"
-          ]
-        },
-        "visuals": {
-          "title": "AI Video & Visuals",
-          "text": "Generated scenes, visualizers and ad variants for line-ups, launches and campaigns.",
-          "tags": [
-            "Visuals",
-            "Ads",
-            "Motion"
-          ]
-        },
-        "web": {
-          "title": "Web & AI Workflows",
-          "text": "Websites, digital menus and n8n workflows that take work off your plate every single day.",
-          "tags": [
-            "Website",
-            "QR menu",
-            "n8n"
-          ]
-        }
-      }
-    },
-    "ki": {
-      "tag": "AI Solutions",
-      "title": "AI that actually ships content, every day.",
-      "text": "Tools that start pulling their weight from the very first shoot: editing, translating, voicing, posting. We set them up and run them – just like your content.",
-      "flagship": {
-        "badge": "Our flagship",
-        "title": "One shoot day. A whole quarter's worth of content.",
-        "text": "Our pipeline turns the raw footage of a single shoot into 12 to 30 finished clips – in multiple formats, lengths and languages. You get fresh material every week without shooting every week.",
-        "primary": "See how the pipeline works",
-        "secondary": "Calculate costs",
-        "imageAlt": "Bartender at The Sphere Lounge, One World Hotel",
-        "floatLabel": "From 1 shoot day",
-        "floatValue": "30 clips"
-      },
-      "cards": {
-        "cut": {
-          "title": "Editing at scale",
-          "text": "AI suggests hooks, lengths and formats. We pick the winners and give them the look."
-        },
-        "languages": {
-          "title": "Languages & voices",
-          "text": "One clip, four languages – voiceover and subtitles tailored to your audience."
-        },
-        "captions": {
-          "title": "Captions & planning",
-          "text": "Copy in your tone of voice, a posting plan and hashtags – prepared by AI, polished by us."
-        },
-        "reporting": {
-          "title": "Insights",
-          "text": "Which clips perform? AI crunches the numbers and writes the report. You read insights, not spreadsheets."
-        }
-      },
-      "split": {
-        "gastro": {
-          "tag": "You run a restaurant or bar",
-          "title": "Start with the Social Retainer.",
-          "text": "Half a shoot day per month, 12 reels and 20 photos – menu, team and atmosphere. Plus your digital menu and Google Business Profile.",
-          "cta": "View the hospitality package"
-        },
-        "festival": {
-          "tag": "You run festivals & events",
-          "title": "Plan the aftermovie with the AI package.",
-          "text": "Multi-cam shoot, aftermovie within 7 days and 20+ ad variants for next season's presale – in multiple languages.",
-          "cta": "View the festival package"
-        }
-      }
-    },
-    "portfolio": {
-      "tag": "Work & References",
-      "title": "Results that move people",
-      "text": "Hotel restaurants in Kuala Lumpur, clubs and festivals, artists and brands – a selection of our work.",
-      "filterAria": "Filter work",
-      "filters": {
-        "alle": "All",
-        "gastro": "Hospitality & Hotels",
-        "festival": "Festivals & Artists",
-        "ki": "AI & Web"
-      },
-      "kind": {
-        "case": "Project",
-        "format": "Format"
-      },
-      "watchFilm": "Watch the full film",
-      "posterAlt": "{title} – still from the film",
-      "items": {
-        "zuan-yuan": {
-          "tag": "Restaurant film",
-          "title": "Zuan Yuan – Cantonese Cuisine",
-          "text": "Dim sum, signature dishes and the chef at the table: a brand film for the Cantonese fine-dining restaurant."
-        },
-        "il-forno": {
-          "tag": "Restaurant film",
-          "title": "IL Forno – Italian Fine Dining",
-          "text": "Stone-oven pizza and pasta from the open kitchen: the launch film for the new Italian at Hyatt Centric."
-        },
-        "cinnamon": {
-          "tag": "Buffet film",
-          "title": "Cinnamon Coffee House",
-          "text": "Wok flames, grill and international stations: the all-day dining buffet, brought to life."
-        },
-        "the-sphere": {
-          "tag": "Lounge film",
-          "title": "The Sphere Lounge",
-          "text": "Cocktails, high tea and live music: the lounge from afternoon tea to evening vibes."
-        },
-        "lilys": {
-          "tag": "Print & digital",
-          "title": "LILY'S Restaurant – Menu",
-          "text": "A full menu redesign in the new style: 8 pages, print and digital, in German and English."
-        },
-        "festivals": {
-          "tag": "Event campaigns",
-          "title": "Clubs & Festivals",
-          "text": "Visuals and campaigns for Tomorrowland, DWP Bali, Afro Nation, splash!, O Beach Ibiza and clubs all over Germany."
-        },
-        "artists": {
-          "tag": "Artist branding",
-          "title": "Media kits for artists",
-          "text": "Press kits, AI photo shoots and booking calendars – for artists including Pierce Merrill and DJ Yuna."
-        },
-        "voiceover": {
-          "tag": "AI voiceover",
-          "title": "One clip, four languages",
-          "text": "Voiceover and subtitles in DE, EN, AR and TR – for guests, tourists and communities."
-        },
-        "reviews": {
-          "tag": "Automation",
-          "title": "Reviews on autopilot",
-          "text": "An n8n workflow replies to Google reviews in your house style – you just hit approve."
-        }
-      },
-      "mock": {
-        "menuSections": [
-          "Starters & Soups",
-          "Curries & Wok",
-          "Salads & Bowls"
-        ],
-        "lineupSub": "Flyer · Teaser · Countdown",
-        "review": "Google review",
-        "draft": "AI draft",
-        "draftSub": "in your house style",
-        "approve": "Approve",
-        "approveSub": "1 click"
-      },
-      "opensYoutube": "(opens YouTube)"
+      "proofText": "for hotels, festivals, brands & businesses",
+      "browserUrl": "daron-brot-ii.vercel.app",
+      "browserAlt": "Own ordering system of Daron Brot II bakery in Aachen",
+      "phoneAlt": "Online appointment booking of OMED hair salon on a phone",
+      "orderLabel": "New order",
+      "orderValue": "+ €18.50",
+      "feeTitle": "0% commission",
+      "feeText": "The order belongs to you."
     },
     "references": {
-      "title": "Brands, events & artists we've worked with",
-      "partners": [
-        "Google Partner",
-        "Meta Marketing Partner"
-      ],
+      "title": "Trusted through 450+ projects with hotels, festivals, brands & artists",
+      "text": "Media is where we grew up. Today we build software for businesses with the same standards.",
       "groups": {
         "hospitality": "Hospitality",
-        "clubs": "Clubs & Festivals",
+        "clubs": "Clubs & festivals",
         "spirits": "Spirits",
         "automotive": "Automotive",
         "brands": "Brands",
         "artists": "Artists"
       }
     },
+    "problem": {
+      "tag": "Platform or your own system?",
+      "title": "You pay every month for software you don't own.",
+      "text": "Commission per order, fees per booking, licences per user: platforms and subscription tools are convenient at first – and expensive in the long run. Plus they keep your customer data, and your brand sits next to your competitors.",
+      "platforms": [
+        "Delivery platforms",
+        "Booking apps",
+        "Property portals",
+        "Per-seat subscriptions",
+        "Excel & WhatsApp groups"
+      ],
+      "platformsAria": "Typical platforms and tools",
+      "punchline": "Build it once. Own it forever. Exactly the way your business works.",
+      "tableCaption": "Comparison: platforms and subscription tools versus your own software",
+      "colTopic": "Topic",
+      "colPlatform": "Platform / subscription",
+      "colOwn": "Your own system",
+      "compare": {
+        "fees": {
+          "topic": "Cost",
+          "platform": "Commission or fee – every month",
+          "own": "One-off, then just operations"
+        },
+        "data": {
+          "topic": "Customer data",
+          "platform": "With the provider",
+          "own": "With you, in the EU"
+        },
+        "brand": {
+          "topic": "Brand",
+          "platform": "Next to your competitors",
+          "own": "Your name, your design"
+        },
+        "features": {
+          "topic": "Features",
+          "platform": "Whatever the provider decides",
+          "own": "Whatever your business needs"
+        },
+        "exit": {
+          "topic": "Independence",
+          "platform": "Price increase? Tough luck.",
+          "own": "You own the code"
+        }
+      }
+    },
+    "services": {
+      "tag": "What we build",
+      "title": "Software for businesses",
+      "accent": "that want to grow.",
+      "text": "Six building blocks that connect into one system – from ordering to dashboards. One team, and it's all yours.",
+      "cta": "Discuss your project",
+      "ctaSecondary": "Calculate costs",
+      "systemsImageAlt": "Website of OMED hair salon with its own appointment booking",
+      "systemsBadge": "Live: hair salon · bakery",
+      "customImageAlt": "Antragsbruder web app with document upload",
+      "items": {
+        "systems": {
+          "title": "Ordering & booking systems",
+          "text": "Online ordering and appointment booking under your name – with payment, reminders and a dashboard. No commission to platforms.",
+          "tags": [
+            "Restaurants",
+            "Salons",
+            "Practices",
+            "Garages"
+          ]
+        },
+        "custom": {
+          "title": "Custom software",
+          "text": "Your processes as your own system: orders, jobs, invoicing, inventory, admin. No more five tools and three spreadsheets.",
+          "tags": [
+            "Processes",
+            "Roles",
+            "Integrations"
+          ]
+        },
+        "dashboards": {
+          "title": "Dashboards & reporting",
+          "text": "Revenue, enquiries, utilisation and open invoices from every tool in one place – live or as a Monday report.",
+          "tags": [
+            "KPIs",
+            "Alerts",
+            "Weekly report"
+          ]
+        },
+        "portals": {
+          "title": "Web apps & client portals",
+          "text": "Login, documents, status and messages – for clients, tenants, customers or your team. As an app on the home screen.",
+          "tags": [
+            "Portal",
+            "PWA",
+            "iOS & Android"
+          ]
+        },
+        "ai": {
+          "title": "AI automation",
+          "text": "Answer enquiries, extract receipts, pick up calls – AI workflows inside your tools, with your approval.",
+          "tags": [
+            "Agents",
+            "Documents",
+            "n8n"
+          ]
+        },
+        "web": {
+          "title": "Websites that sell",
+          "text": "Fast, mobile, visible on Google and in AI search – with an enquiry funnel and ready to grow into a system.",
+          "tags": [
+            "SEO",
+            "GEO",
+            "Funnel",
+            "Multilingual",
+            "Google profile"
+          ]
+        }
+      }
+    },
+    "industries": {
+      "tag": "Who we build for",
+      "title": "Industries we",
+      "accent": "understand.",
+      "text": "Every industry has its own processes – and its own platforms taking a cut. Pick yours.",
+      "items": {
+        "gastro": {
+          "title": "Restaurants & food",
+          "who": "Restaurants · takeaways · bakeries · cafés · delivery",
+          "text": "Your own ordering system instead of commission, reservations, kitchen board and loyalty perks."
+        },
+        "immobilien": {
+          "title": "Real estate & property management",
+          "who": "Estate agents · property managers · developers",
+          "text": "Prospect funnel, tenant portal with damage reports, property dashboard."
+        },
+        "automotive": {
+          "title": "Automotive & mobility",
+          "who": "Car dealers · garages · driving schools · rentals",
+          "text": "Online garage bookings, your own vehicle marketplace, student app with lesson booking."
+        },
+        "kanzlei": {
+          "title": "Firms & advisory",
+          "who": "Tax advisors · lawyers · insurance brokers · coaches",
+          "text": "Client portal with document upload, AI receipt recognition, deadlines and booking."
+        },
+        "beauty": {
+          "title": "Beauty, health & wellness",
+          "who": "Hairdressers · barbers · beauty · physio · studios",
+          "text": "Commission-free booking, reminders, deposits, client records."
+        },
+        "handwerk": {
+          "title": "Trades & services",
+          "who": "Trades · cleaning · removals · facility services",
+          "text": "Enquiries with photos, quote generator, scheduling, field app, digital sign-off."
+        }
+      },
+      "events": {
+        "title": "Events, festivals & artists",
+        "text": "Our roots: premium aftermovies, artist campaigns and brand films – plus landing pages and ticketing tools.",
+        "cta": "See premium media"
+      },
+      "other": "Your industry isn't listed? Retail, education, associations, clubs – the process matters, not the label."
+    },
+    "promise": {
+      "tag": "Why TasWiq",
+      "title": "Marketing in the name. Software at the core.",
+      "text": "TasWiq (تسويق) is Arabic for marketing. Making films for Hyatt, Tomorrowland and Audi taught us what makes people buy. Today we build software with that same eye – not just functional, but made to sell and to be enjoyed by your team.",
+      "stats": [
+        {
+          "value": "7 days",
+          "label": "to a clickable prototype"
+        },
+        {
+          "value": "Weeks",
+          "label": "not months to launch – thanks to AI"
+        },
+        {
+          "value": "100%",
+          "label": "code, data and rights are yours"
+        }
+      ],
+      "referencesLine": "Live projects in Aachen, Rhine-Main & Kuala Lumpur",
+      "cardTag": "Our promise",
+      "cardTitle": "You run your business. We build the system for it.",
+      "checks": [
+        "Fixed price after the prototype",
+        "One dedicated contact in Germany",
+        "Hosting & data in the EU",
+        "You own the source code",
+        "Delivery in usable stages",
+        "Operations & growth on request"
+      ],
+      "agency": {
+        "where": "Agency · Germany",
+        "text": "Consulting, design, development and your point of contact."
+      },
+      "partner": {
+        "where": "Technology partner · Kuala Lumpur",
+        "text": "AI methodology, models and experience from AI transformation for SMEs."
+      }
+    },
     "process": {
       "tag": "Our process",
-      "title": "4 steps to your",
-      "accent": "content engine",
-      "text": "Structured, transparent and fast – this is how we work with you.",
+      "title": "4 steps to",
+      "accent": "your system",
+      "text": "Understand first, then show, then build. That's how we avoid expensive surprises.",
       "steps": [
         {
-          "title": "Deep Dive",
-          "text": "We get to know your venue or festival: audience, channels, vibe. Honest and no strings attached."
+          "title": "Workshop",
+          "text": "We look at your process – on site or by video. Where do you lose time, money, customers? Honest and non-binding."
         },
         {
-          "title": "The Master Plan",
-          "text": "Shot list, shoot schedule and AI pipeline. You know upfront exactly which formats you'll get, and how many."
+          "title": "Prototype in 7 days",
+          "text": "You click through your future system before any code is written. Then you get a fixed price."
         },
         {
-          "title": "Shoot & Production",
-          "text": "Premium gear on location, then editing, grading and AI finishing. First clips within 72 hours."
+          "title": "Build in stages",
+          "text": "AI-assisted development, every stage is usable. You see progress every one to two weeks."
         },
         {
-          "title": "Scale & Optimize",
-          "text": "We measure what performs and produce more variants – automated, no extra shoot day needed."
+          "title": "Run & grow",
+          "text": "Hosting, updates, support – and new features every month if you want."
         }
       ]
     },
+    "media": {
+      "tag": "Where we come from",
+      "title": "Premium media for events, festivals & artists.",
+      "text": "Film and content is where we grew up – for hotels in Kuala Lumpur, festivals like Afro Nation and artists like Central Cee. Today we only take on a few selected projects.",
+      "note": "Final prices under § 19 UStG (German small business). Festival & night shoots with surcharge, travel depending on location.",
+      "cta": "See premium media",
+      "posterAlt": "Still from the TasWiq showreel: chef at the wok with flames",
+      "showreel": "Showreel",
+      "showreelMeta": "Hotel restaurants · KL"
+    },
     "calculatorTeaser": {
-      "label": "Budget range",
-      "title": "What does it cost?",
-      "titleAccent": "Find out in two minutes.",
-      "text": "It's the most common question in every intro call. Build your project yourself – video, photo, website or AI workflows, with everything that goes with it. You'll instantly see the range you're looking at.",
+      "label": "Cost range",
+      "title": "What does your system cost?",
+      "titleAccent": "See it in two minutes.",
+      "text": "The most common question in a first call. Build your project yourself – ordering, booking, portal, dashboard, website or AI – with every feature. You'll see the range instantly.",
       "pills": [
         "Two minutes",
         "No sign-up",
         "No obligation"
       ],
-      "primary": "Price your project",
-      "secondary": "Rather just ask us",
-      "exampleLabel": "Here's what you'll get",
-      "exampleSummary": "Video Standard · Drone · 1 language",
-      "rangeNote": "One-time estimate · plus {monthly}/month",
+      "primary": "Calculate your project",
+      "secondary": "Rather ask directly",
+      "exampleLabel": "What the result looks like",
+      "exampleSummary": "Restaurant · Ordering Pro · Website · WhatsApp",
+      "rangeNote": "One-off estimate · plus {monthly}/month",
       "included": "What's included",
-      "foot": "Sample configuration. Your numbers depend on your selections."
+      "foot": "Example configuration. Your numbers depend on your input."
     },
     "contact": {
       "tag": "Contact",
-      "title": "Ready for content",
-      "accent": "that performs?",
-      "text": "Let's build something great. We'll get back to you within 24 hours."
+      "title": "Ready for your",
+      "accent": "own system?",
+      "text": "Four short questions, then we'll get back to you within 24 hours – with an honest assessment and a proposal."
+    }
+  },
+  "portfolio": {
+    "tag": "Portfolio",
+    "title": "Projects to",
+    "titleAccent": "browse.",
+    "text": "Live software, websites, films and reels – filter by area and open any project for details, video or a live demo.",
+    "metaTitle": "Portfolio – Software, Websites, Films & Reels",
+    "metaDescription": "See an ordering system, booking system, web apps and websites live – plus hotel films, food reels and property videos. The TasWiq Media portfolio.",
+    "keywords": [
+      "software agency portfolio",
+      "web app case studies",
+      "ordering system example",
+      "booking system example",
+      "food reels examples"
+    ],
+    "gridAria": "Projects",
+    "filterAria": "Filter projects",
+    "countLive": "{n} projects shown",
+    "stats": [
+      {
+        "value": "5",
+        "label": "websites & web apps online"
+      },
+      {
+        "value": "450+",
+        "label": "media projects"
+      },
+      {
+        "value": "9",
+        "label": "languages in one project"
+      },
+      {
+        "value": "7 days",
+        "label": "to a prototype"
+      }
+    ],
+    "filters": {
+      "alle": "All",
+      "software": "Software & systems",
+      "web": "Websites",
+      "gastro": "Food & hospitality",
+      "events": "Events & artists",
+      "media": "Films & reels"
+    },
+    "kind": {
+      "live": "Live",
+      "demo": "Demo",
+      "film": "Film",
+      "reel": "Reel",
+      "case": "Reference",
+      "internal": "Our own system"
+    },
+    "posterAlt": "{title} – preview",
+    "resultLabel": "Result",
+    "servicesLabel": "Services",
+    "visitLive": "View live",
+    "tryLive": "Try it yourself",
+    "watchFilm": "Full film on YouTube",
+    "opensYoutube": "(opens YouTube)",
+    "opensNewTab": "(opens in a new tab)",
+    "requestSimilar": "Request a similar project",
+    "calculate": "Calculate costs",
+    "ctaPrimary": "Discuss your project",
+    "close": "Close",
+    "prev": "Previous project",
+    "next": "Next project",
+    "teaser": {
+      "tag": "Work",
+      "title": "Real projects. Live in use.",
+      "text": "Ordering system, appointment booking, web app, websites – and the films we grew up with. Click a project for details.",
+      "cta": "See the full portfolio"
+    },
+    "funnel": {
+      "title": "Your project",
+      "accent": "next?",
+      "text": "Tell us briefly what you're planning. We'll get back to you within 24 hours with an honest assessment."
+    },
+    "mock": {
+      "menuSections": [
+        "Starters & soups",
+        "Curries & wok",
+        "Salads & bowls"
+      ],
+      "lineupSub": "Flyer · teaser · countdown",
+      "review": "Google review",
+      "draft": "AI draft",
+      "draftSub": "in your house style",
+      "approve": "Approval",
+      "approveSub": "1 click",
+      "dashTitle": "TasWiq · Leads",
+      "dashLeads": "Enquiries",
+      "dashScore": "Avg. score",
+      "dashWon": "Win rate",
+      "dashPremium": "Premium",
+      "dashGrowth": "Growth"
+    },
+    "items": {
+      "daron": {
+        "tag": "Ordering system",
+        "title": "Daron Brot II – commission-free ordering",
+        "text": "Own online ordering system for a bakery in Aachen: menu with variants, pickup and delivery with fee and minimum order, order status via link and an iPad kitchen board with a chime – in German, English and Arabic.",
+        "result": "The bakery takes orders directly through its own website – no platform commission, its own customer data and a dashboard for prices, items and opening hours.",
+        "services": [
+          "Ordering system",
+          "Kitchen board",
+          "Dashboard",
+          "Staff accounts",
+          "DE · EN · AR",
+          "SEO & llms.txt"
+        ]
+      },
+      "omed": {
+        "tag": "Booking system",
+        "title": "OMED hair salon – own appointment booking",
+        "text": "Website with a multi-step booking tool for a hair salon in Aachen-Burtscheid: services with duration and price, calendar with free slots, confirmation and customer area.",
+        "result": "Appointments run through the salon's own system instead of a booking platform. Double bookings are prevented at database level, and customer data can't be read from outside.",
+        "services": [
+          "Booking system",
+          "Website",
+          "Local SEO",
+          "Database & security"
+        ]
+      },
+      "antragsbruder": {
+        "tag": "Web app",
+        "title": "Antragsbruder – digital applications",
+        "text": "Web app that explains official letters in plain language, organises documents and prepares applications – with document upload, user account and four free entitlement calculators.",
+        "result": "Users upload documents, see via checklist what's missing and check entitlements in minutes – in nine languages.",
+        "services": [
+          "Web app",
+          "Upload & account",
+          "Entitlement calculators",
+          "Plain language",
+          "9 languages"
+        ]
+      },
+      "klarvoran": {
+        "tag": "Website",
+        "title": "KlarVoran – website for job coaching",
+        "text": "Website for a certified training provider in Kriftel near Frankfurt: services, voucher-funded coaching, offers for institutions and a clear path to a free first consultation.",
+        "result": "A clear structure for two audiences – job seekers and institutions – with local SEO for Frankfurt, Hofheim and the Main-Taunus district.",
+        "services": [
+          "Website",
+          "Local SEO",
+          "Consultation funnel",
+          "WhatsApp contact"
+        ]
+      },
+      "mipp": {
+        "tag": "Website",
+        "title": "MIPP – website for a political party (demo)",
+        "text": "Demo website for a political party in Malaysia: clear messages, president, positions, audiences, press and a membership funnel.",
+        "result": "A multilingual presence with a membership funnel as the basis for campaigns and member growth.",
+        "services": [
+          "Website",
+          "Multilingual",
+          "Membership funnel",
+          "Design system"
+        ]
+      },
+      "taswiq-system": {
+        "tag": "Lead system",
+        "title": "TasWiq lead system – calculator, funnel & dashboard",
+        "text": "Our own system: a branching pricing calculator, a 4-step funnel with lead scoring, an admin dashboard with pipeline and n8n automations for notifications and follow-ups.",
+        "result": "Every enquiry arrives pre-qualified – with budget, score and the right next step. Try the calculator yourself.",
+        "services": [
+          "Pricing calculator",
+          "Lead scoring",
+          "Admin dashboard",
+          "n8n",
+          "Supabase"
+        ]
+      },
+      "reviews": {
+        "tag": "AI automation",
+        "title": "Reviews on autopilot",
+        "text": "An n8n workflow reads new Google reviews, drafts a reply in the house style and queues it for approval.",
+        "result": "Every review gets a reply – with one click instead of five minutes of writing.",
+        "services": [
+          "n8n",
+          "AI draft",
+          "Approval step"
+        ]
+      },
+      "lilys": {
+        "tag": "Print & digital",
+        "title": "LILY'S Restaurant – menu",
+        "text": "Menu redesign in a new style: 8 pages, print and digital, content in German and English.",
+        "result": "One menu for table and phone – the basis for a digital menu and ordering system.",
+        "services": [
+          "Menu",
+          "Print",
+          "Digital",
+          "DE · EN"
+        ]
+      },
+      "agile": {
+        "tag": "Property film",
+        "title": "AGILE – real estate film",
+        "text": "Property film for a residential project: show apartment, bedroom, kitchen, pool landscape, gym and shared spaces in a calm cinematic look.",
+        "result": "A film that sells a lifestyle, not square metres – for exposé, website and social ads.",
+        "services": [
+          "Property film",
+          "Gimbal",
+          "Colour grading",
+          "16:9 & 9:16"
+        ]
+      },
+      "mangal": {
+        "tag": "Food reel",
+        "title": "Mangal – takeaway reel",
+        "text": "Vertical reel for a takeaway: fresh bread, grill, fryer and sauces in close-up – cut for pace.",
+        "result": "Content that makes people hungry – for Instagram, TikTok and the Google profile.",
+        "services": [
+          "Food reel",
+          "9:16",
+          "Sound design"
+        ]
+      },
+      "land-of-plenty": {
+        "tag": "Food reel",
+        "title": "Land of Plenty – frozen yogurt & waffles",
+        "text": "Reel for a café with frozen yogurt, waffles and coffee: toppings, latte art and atmosphere in one minute.",
+        "result": "A reel that shows product and place – from topping to storefront.",
+        "services": [
+          "Food reel",
+          "9:16",
+          "Edit & grading"
+        ]
+      },
+      "bistro": {
+        "tag": "Food reel",
+        "title": "Imbiss Bistro – atmosphere reel",
+        "text": "Short reel with the menu on the wall, a plated dish and the lounge – warm light, calm edit.",
+        "result": "Mood instead of advertising – ideal for stories and the Google profile.",
+        "services": [
+          "Food reel",
+          "9:16"
+        ]
+      },
+      "bread": {
+        "tag": "Food reel",
+        "title": "Bread making – bakery",
+        "text": "Short clip from the bakery: flatbread, dough and counter in close-up.",
+        "result": "Making craft visible – the moment before the customer orders.",
+        "services": [
+          "Food clip",
+          "9:16"
+        ]
+      },
+      "zuan-yuan": {
+        "tag": "Restaurant film",
+        "title": "Zuan Yuan – Cantonese cuisine",
+        "text": "Dim sum, signature dishes and the chef at the table: a brand film for the Cantonese fine-dining restaurant.",
+        "result": "A film for website, social media and the screens in the hotel.",
+        "services": [
+          "Brand film",
+          "4K",
+          "Colour grading"
+        ]
+      },
+      "il-forno": {
+        "tag": "Restaurant film",
+        "title": "IL Forno – Italian fine dining",
+        "text": "Stone-oven pizza, pasta from the open kitchen: the launch film for the new Italian restaurant at Hyatt Centric.",
+        "result": "Launch film for the opening, used online and in the hotel.",
+        "services": [
+          "Launch film",
+          "4K",
+          "Reels"
+        ]
+      },
+      "cinnamon": {
+        "tag": "Buffet film",
+        "title": "Cinnamon Coffee House",
+        "text": "Wok flames, grill and international stations: the all-day-dining buffet brought to life.",
+        "result": "A film that shows the buffet's variety in one minute.",
+        "services": [
+          "Brand film",
+          "4K",
+          "Colour grading"
+        ]
+      },
+      "the-sphere": {
+        "tag": "Lounge film",
+        "title": "The Sphere Lounge",
+        "text": "Cocktails, high tea and live music: the lounge between afternoon tea and evening mood.",
+        "result": "Mood film for the hotel's website and social media.",
+        "services": [
+          "Brand film",
+          "4K"
+        ]
+      },
+      "festivals": {
+        "tag": "Event campaigns",
+        "title": "Clubs & festivals",
+        "text": "Visuals and campaigns for Tomorrowland, DWP Bali, Afro Nation, splash!, O Beach Ibiza and clubs across Germany.",
+        "result": "Campaign content for line-up announcements, pre-sales and aftermovies.",
+        "services": [
+          "Visuals",
+          "Campaigns",
+          "Aftermovie",
+          "Ads"
+        ]
+      },
+      "artists": {
+        "tag": "Artist branding",
+        "title": "Media kits for artists",
+        "text": "Press kits, AI shoots and booking calendars – for Pierce Merrill and DJ Yuna, among others.",
+        "result": "A professional presence for bookers and press – digital and instantly shareable.",
+        "services": [
+          "Press kit",
+          "AI shoot",
+          "Booking calendar"
+        ]
+      }
+    }
+  },
+  "blog": {
+    "tag": "Guides",
+    "title": "Know-how for businesses",
+    "titleAccent": "going digital.",
+    "text": "Costs, processes and honest assessments on software, websites and AI – for restaurants, real estate, automotive, firms, beauty and trades.",
+    "metaTitle": "Guides – Software, Websites & AI for SMEs",
+    "metaDescription": "Guides on ordering systems, booking systems, custom software, web apps, dashboards, AI automation and website costs – for small and mid-sized businesses.",
+    "keywords": [
+      "software guide SME",
+      "custom software cost",
+      "commission-free ordering",
+      "salon booking system",
+      "AI automation SME"
+    ],
+    "languageNote": "Our guides are written in German for the DACH market.",
+    "listAria": "Articles",
+    "filterAria": "Filter articles",
+    "all": "All topics",
+    "categories": {
+      "branchen": "Industries",
+      "software": "Software",
+      "ki": "AI",
+      "ratgeber": "Costs & comparisons",
+      "media": "Media"
+    },
+    "minutes": "{n} min read",
+    "read": "Read (German)",
+    "empty": "No articles in this category yet.",
+    "back": "All articles",
+    "takeaways": "Key takeaways",
+    "toc": "Contents",
+    "faq": "FAQ",
+    "related": "Read next",
+    "ctaText": "Want to know what this means for your business? Look at the solution or calculate your project.",
+    "ctaPage": "See the solution",
+    "ctaCalculator": "Calculate costs",
+    "teaserTitle": "Guides for decision-makers.",
+    "teaserText": "What does your own system cost, when is it worth it, how does it work? Honest answers, no jargon. (In German)",
+    "teaserCta": "All articles",
+    "funnel": {
+      "title": "Sounds like",
+      "accent": "your business?",
+      "text": "Four short questions, then we'll get back to you within 24 hours with an honest assessment."
     }
   },
   "footer": {
-    "claim": "Premium content for hospitality, festivals and music – scaled with AI workflows.",
+    "claim": "Your own software for small and mid-sized businesses – ordering, booking, portals, dashboards and websites. Built with AI in weeks.",
     "navigation": "Navigation",
     "services": "Services",
+    "industries": "Industries",
     "contact": "Contact",
     "legalNotice": "Legal notice",
-    "privacy": "Privacy"
+    "privacy": "Privacy",
+    "partnerNote": "Agency & development in Germany · AI technology by winsym.ai, Kuala Lumpur."
   },
   "contactBox": {
-    "title": "Rather talk it through?",
-    "text": "A quick message is all it takes – personal advice, no strings attached."
+    "title": "Rather talk directly?",
+    "text": "A short message is enough – we'll look at your process and tell you honestly whether your own system is worth it."
   },
   "product": {
     "calculateCosts": "Calculate costs",
-    "requestConsultation": "Book a consultation",
-    "requestProject": "Start your project",
-    "featuresTag": "Services",
+    "requestConsultation": "Free consultation",
+    "requestProject": "Request a project",
+    "featuresTag": "Features",
     "featuresTitle": "What you get.",
     "faqTitle": "Good questions.",
-    "faqAccent": "Straight answers.",
+    "faqAccent": "Clear answers.",
     "requestTag": "Enquiry",
     "goodToKnow": "Good to know:",
     "recommended": "Recommended",
     "mostChosen": "Most popular",
     "youGet": "What you get",
-    "requestPackage": "Enquire about {name}",
-    "heroImageAlt": "Dim sum service at Zuan Yuan restaurant",
+    "requestPackage": "Request {name}",
+    "portfolioTitle": "Projects that fit.",
+    "portfolioText": "Real systems and films from our portfolio – click for details, video or a live demo.",
+    "guidesTitle": "Guides on the topic.",
     "defaultStats": [
       {
-        "value": "72 h",
-        "label": "until your first clips"
+        "value": "7 days",
+        "label": "to a prototype"
       },
       {
         "value": "450+",
@@ -479,471 +816,1303 @@
     ],
     "seoFunnel": {
       "title": "Let's talk about",
-      "accent": "your project.",
-      "text": "Four quick questions – then we'll get back to you within 24 hours with a proposal and a fixed price."
+      "accent": "your system.",
+      "text": "Four short questions, then we'll get back to you within 24 hours with an assessment and the next step."
     }
   },
-  "pipeline": {
-    "breadcrumb": "Content Pipeline",
-    "schemaName": "AI Content Pipeline",
-    "schemaServiceType": "Video production with AI post-production",
-    "hero": {
-      "badge": "The TasWiq Media. flagship",
-      "titleStart": "One shoot day.",
-      "titleHighlight": "A quarter's worth of content",
-      "text": "We shoot at your venue for a day – and our pipeline turns it into 12 to 30 finished clips in every format, length and language. You post something new every week without shooting every week. We plan, shoot, edit and manage it all.",
-      "stats": [
-        {
-          "value": "12–30",
-          "label": "clips per shoot"
-        },
-        {
-          "value": "72 h",
-          "label": "until your first clips"
-        },
-        {
-          "value": "4",
-          "label": "languages via AI"
-        },
-        {
-          "value": "1",
-          "label": "point of contact"
-        }
+  "packages": {
+    "from": "from",
+    "units": {
+      "once": "one-off",
+      "monthly": "/ month"
+    },
+    "website": {
+      "name": "Website",
+      "audience": "For businesses that want to be found online and get enquiries",
+      "meta": "Business website from €2,490 · hosting & maintenance from €49/month",
+      "features": [
+        "Mobile first & fast",
+        "SEO & GEO for AI search",
+        "Enquiry funnel with scoring",
+        "CMS for self-editing",
+        "Multilingual possible"
       ]
     },
-    "problem": {
-      "tag": "The problem",
-      "title": "One shoot a year no longer feeds a channel that needs to be alive every week.",
-      "text": "Guests decide where to eat and party on Instagram, TikTok and Google. Show up there once a quarter and you lose to the place next door. That's exactly where the pipeline comes in:",
-      "points": [
-        "Fresh content every week – without a camera in your venue every week.",
-        "No more filming during service just to stay visible.",
-        "Instead of \"we really should post something\", next month's plan is ready to go.",
-        "New season, new menu, new line-up: we update existing clips instead of reshooting."
-      ],
-      "story": {
-        "label": "A day on set",
-        "quote": "\"Mise en place at 4 pm, a full house at 7 pm – we capture both.\"",
-        "text": "The shot list is locked in advance. We film the kitchen, team, dishes and guests, plus hooks for reels and wide shots for the brand film. After the shoot, the pipeline pre-cuts variants; we select, grade and add sound. You approve everything in a single review round – done."
-      },
-      "note": "Transparent, not disguised: on request, we label AI voices and generated scenes. Your dishes and guests are always filmed for real."
-    },
-    "features": {
-      "tag": "Features",
-      "title": "Not just editing.",
-      "accent": "Actual thinking.",
-      "text": "The pipeline knows your brand: colours, fonts, tone of voice, dos and don'ts. The result is variants that look like you – not like a template.",
-      "items": [
-        {
-          "title": "Every format from one shoot",
-          "text": "16:9, 9:16, 4:5 and 1:1 – automatically reframed, checked by us."
-        },
-        {
-          "title": "Hook variants",
-          "text": "Three to five openers per clip, so you can test what grabs attention in the first seconds."
-        },
-        {
-          "title": "AI voiceover",
-          "text": "Your own voice or a premium AI voice – in German, English, Arabic or Turkish."
-        },
-        {
-          "title": "On-brand subtitles",
-          "text": "Automatically transcribed and styled in your colours and fonts."
-        },
-        {
-          "title": "Captions & posting plan",
-          "text": "Copy, hashtags and a schedule for the whole month – prepared and polished."
-        },
-        {
-          "title": "Seasonal updates",
-          "text": "New prices, new dish, new date: we update existing clips instead of reshooting."
-        },
-        {
-          "title": "Ad variants for A/B testing",
-          "text": "20+ variants for Meta and TikTok ads, cleanly named and exported."
-        },
-        {
-          "title": "Searchable archive",
-          "text": "Every shot tagged – \"pasta, evening, close-up\" found in seconds."
-        },
-        {
-          "title": "Reporting",
-          "text": "Which clips perform? A short monthly report with clear recommendations."
-        }
+    "system": {
+      "name": "Ordering or booking system",
+      "audience": "For restaurants, salons, practices, garages & services",
+      "meta": "Ordering system from €3,900 · operations & support from €149/month",
+      "features": [
+        "Your own platform, no commission",
+        "Online payment",
+        "Confirmations by email & WhatsApp",
+        "Dashboard for your team",
+        "Prototype in 7 days"
       ]
     },
-    "modes": {
-      "tag": "How your content gets made",
-      "title": "Your venue stays your venue.",
-      "accent": "We adapt.",
-      "text": "No film crew bringing your service to a standstill. We shoot when it suits you – or work with what you already have. You choose the mode:",
-      "modes": [
-        {
-          "label": "Mode 01",
-          "title": "From our shoot",
-          "text": "We come by for half a day or a full day and capture everything for the weeks ahead.",
-          "note": "The classic"
-        },
-        {
-          "label": "Mode 02",
-          "title": "From your footage",
-          "text": "You send phone clips from everyday life, the pipeline turns them into finished reels.",
-          "note": "Perfect to get started"
-        },
-        {
-          "label": "Mode 03",
-          "title": "Always-on",
-          "text": "One shoot day a month plus ongoing production – your feed keeps running without you thinking about it.",
-          "note": "The retainer"
-        }
-      ],
-      "footnote": "Switch any time: changing modes takes one message. Retainers can be cancelled monthly after the minimum term."
-    },
-    "audience": {
-      "tag": "Who it's for",
-      "title": "At home in hospitality and festivals –",
-      "accent": "and open to your industry.",
-      "text": "The pipeline is built for businesses that need to be visible every week and have no time to film.",
-      "chips": [
-        "Restaurants",
-        "Bars & cocktail bars",
-        "Cafés & bakeries",
-        "Catering",
-        "Festivals & open airs",
-        "Clubs",
-        "Concerts & tours",
-        "Artists & labels",
-        "Hotels",
-        "Event venues"
+    "custom": {
+      "name": "Custom software",
+      "audience": "For businesses with their own processes – portals, dashboards, systems",
+      "meta": "Dashboard from €6,900 · portal from €9,900 · core process from €14,900",
+      "features": [
+        "Workshop & process analysis",
+        "Roles & permissions",
+        "Integrations with your tools",
+        "AI features",
+        "You own the source code"
       ]
     },
-    "role": {
-      "tag": "Our role",
-      "title": "You don't get a tool.",
-      "accent": "You get finished content.",
-      "text": "Technology alone takes work off nobody's plate. We handle concept, shoot and pipeline – and stay your point of contact.",
-      "items": [
-        {
-          "title": "Concept & shot list",
-          "text": "Which formats, which mood, which message? We plan before the camera rolls."
-        },
-        {
-          "title": "On-location shoot",
-          "text": "Premium cameras, lighting and sound – timed around your service, without disturbing guests."
-        },
-        {
-          "title": "Pipeline & approval",
-          "text": "AI does the rough cut, we do the finishing. You sign off in one clear review round."
-        },
-        {
-          "title": "Support & fine-tuning",
-          "text": "We keep an eye on the numbers and adjust. One point of contact, no call-centre queue."
-        }
+    "brand": {
+      "name": "Brand & hospitality film",
+      "audience": "For hotels, restaurants and brands",
+      "meta": "1 shoot day · travel depending on location",
+      "features": [
+        "Cinematic brand film",
+        "6 reels from the same shoot",
+        "Cinema grading",
+        "Full usage rights"
       ]
     },
-    "pricing": {
+    "artist": {
+      "name": "Artist campaign",
+      "audience": "For artists, labels and management",
+      "meta": "Music video or visualizer · press kit",
+      "features": [
+        "Music video or visualizer",
+        "Press kit & shoot",
+        "8 reels for the release",
+        "AI language versions"
+      ]
+    },
+    "festival": {
+      "name": "Festival & event premium",
+      "audience": "For festivals, clubs and promoters",
+      "meta": "Surcharge for festival & night shoots",
+      "features": [
+        "Multi-cam crew",
+        "Teaser in 72h, aftermovie in 7 days",
+        "20+ ad variants for pre-sales",
+        "Drone & gimbal",
+        "Landing page on request"
+      ]
+    },
+    "softwareSection": {
       "tag": "Packages",
-      "title": "Fixed prices.",
-      "accent": "Classic craft, AI speed.",
-      "text": "Every package starts with a real shoot on location. AI comes in afterwards – for volume, variants and speed.",
-      "units": {
-        "once": "one-time",
-        "monthly": "per month"
-      },
-      "packages": {
-        "classic": {
-          "name": "Classic Aftermovie",
-          "audience": "For festivals, club nights & concerts",
-          "meta": "1 shoot day · 2 cameras · delivered in 7 days",
-          "features": [
-            "2–3 min aftermovie in 4K",
-            "6 social cutdowns in 9:16",
-            "Royalty-free music",
-            "Cinematic colour grading",
-            "1 revision round included"
-          ]
-        },
-        "aiPromo": {
-          "name": "AI-Enhanced Promo",
-          "audience": "For launches, line-ups & grand openings",
-          "meta": "Shoot day + AI post-production",
-          "features": [
-            "Everything in Classic Aftermovie",
-            "20+ ad variants: hooks, lengths, formats",
-            "AI voiceover in up to 4 languages",
-            "AI-generated scenes & transitions",
-            "Ad-ready export for Meta & TikTok"
-          ]
-        },
-        "retainer": {
-          "name": "Hospitality Social Retainer",
-          "audience": "For restaurants, bars & cafés",
-          "meta": "6-month minimum term",
-          "features": [
-            "Half a shoot day per month",
-            "12 reels + 20 photos per month",
-            "Captions & posting plan",
-            "Google profile management",
-            "Monthly reporting"
-          ]
-        }
-      },
+      "title": "Clear starting prices.",
+      "accent": "Fixed price after the prototype.",
+      "text": "Every project starts with a workshop and a clickable prototype. Then you get a fixed price – no timesheets, no surprises.",
       "trust": [
-        "Fixed price before the shoot",
-        "Full usage rights",
-        "Final prices (§ 19 UStG)",
-        "Reply within 24 hours"
+        "Fixed price after the prototype",
+        "You own code & data",
+        "Hosting in the EU",
+        "Final prices under § 19 UStG"
       ]
     },
-    "faq": [
-      {
-        "q": "How quickly will I see the first results?",
-        "a": "First social clips land 72 hours after the shoot; the finished film follows within 7 to 14 days depending on the package. With Express, everything is delivered within 72 hours."
-      },
-      {
-        "q": "What does the AI do – and what doesn't it do?",
-        "a": "AI handles the grunt work: edit variants, subtitles, translations, voiceover and format adjustments. Camera, lighting, selection and the final look remain handcrafted. Dishes and guests are always filmed for real."
-      },
-      {
-        "q": "Who owns the rights to the photos and videos?",
-        "a": "You do. You receive exclusive usage rights to all final files, unlimited in time and territory, as soon as the invoice is paid."
-      },
-      {
-        "q": "What if I don't like the edit?",
-        "a": "One revision round is included in every package. Additional rounds cost €49.99 – though we rarely need them, because the master plan is agreed upfront."
-      },
-      {
-        "q": "Do you shoot outside your city?",
-        "a": "Yes – across Germany, Austria and Switzerland, and internationally on request. Travel is billed transparently and included up to 50 km."
-      },
-      {
-        "q": "How do you handle guests on camera and data protection?",
-        "a": "We announce shoots with notices, only film guests with their consent and provide consent templates. At festivals, we coordinate with the organiser."
-      }
-    ],
-    "funnel": {
-      "title": "Stop filming.",
-      "accent": "Start posting.",
-      "text": "Tell us a bit about your venue or event – we'll get back to you with a plan and a fixed price within 24 hours."
+    "mediaSection": {
+      "tag": "Premium packages",
+      "title": "Few projects.",
+      "accent": "Full focus.",
+      "text": "We only take on a limited number of media projects per season – with the team and experience from 450+ productions.",
+      "trust": [
+        "Full usage rights",
+        "Aftermovie in 7 days",
+        "Fixed price before the shoot",
+        "Final prices under § 19 UStG"
+      ]
     }
   },
   "seoPages": {
     "gastro": {
-      "navLabel": "Restaurant Media Agency",
-      "keyword": "Restaurant media agency",
-      "metaTitle": "Restaurant Media Agency – Food Photography, Reels & Digital Menus",
-      "metaDescription": "Media agency for restaurants, bars & cafés: food photography, weekly reels, digital menus and Google Business Profile. Fixed prices, first clips within 72 h.",
+      "navLabel": "Restaurant software",
+      "keyword": "Software for restaurants & food businesses",
+      "metaTitle": "Restaurant Software – Your Own Ordering System, Zero Commission",
+      "metaDescription": "Your own ordering system, reservations and kitchen dashboard for restaurants, takeaways, bakeries and delivery services. No platform commission, from €3,900.",
       "keywords": [
-        "restaurant media agency",
-        "restaurant marketing agency",
-        "food photographer",
-        "hospitality social media",
-        "digital menu"
+        "restaurant software",
+        "restaurant ordering system",
+        "commission-free online ordering",
+        "online ordering system restaurant",
+        "food delivery platform alternative"
       ],
       "hero": {
-        "badge": "Media agency for hospitality",
-        "titleStart": "Visuals that",
-        "titleHighlight": "fill tables",
-        "text": "Food photography, reels and social media for restaurants, bars and cafés – plus a digital menu and Google Business Profile. One shoot a month, content for every week."
-      },
-      "problem": {
-        "title": "Guests decide on their phone before they ever see your door.",
-        "text": "Google, Instagram, TikTok – that's where bookings happen today. Show up with dark phone photos, or not at all, and you lose to the place next door.",
-        "points": [
-          "Food photos that look just as good on the menu, on Google and on delivery apps",
-          "Fresh reels every week, without filming during service",
-          "Digital menu with QR code – prices updated in seconds",
-          "A well-kept Google profile, so you show up for \"restaurants near me\""
+        "badge": "Restaurants & food",
+        "titleStart": "Your guests order from you.",
+        "titleHighlight": "Not from the platform.",
+        "text": "Your own ordering system, reservations and kitchen board – under your name, with no commission per order. For restaurants, takeaways, bakeries, cafés and delivery services.",
+        "imageAlt": "Ordering system of Daron Brot II bakery in Aachen",
+        "stats": [
+          {
+            "value": "0%",
+            "label": "commission on direct orders"
+          },
+          {
+            "value": "3 languages",
+            "label": "DE · EN · AR in the live project"
+          }
         ]
       },
+      "problem": {
+        "title": "Every regular's order costs you commission.",
+        "text": "Delivery platforms bring new guests – and then take a cut of every order after that. They keep the customer data, and your brand disappears among a hundred others. Your own system brings back margin, data and the relationship.",
+        "points": [
+          "Commission even on regulars who already know you",
+          "No customer data for offers, loyalty rewards or lunch menus",
+          "Orders on three tablets, reservations on the phone",
+          "Menu on the website out of date, prices nowhere in one place"
+        ]
+      },
+      "featuresTitle": "What your restaurant system does.",
       "features": [
         {
-          "title": "Food photography",
-          "text": "Plates, drinks and atmosphere – with food styling and magazine-quality lighting."
+          "title": "Online ordering",
+          "text": "Menu with variants, extras and allergens. Pickup and delivery with zones and minimum order value."
         },
         {
-          "title": "Weekly reels",
-          "text": "12 reels a month from half a shoot day, planned and captioned."
+          "title": "Kitchen board",
+          "text": "New orders with a chime on the tablet, status with one tap, cancellations with a reason."
         },
         {
-          "title": "Digital menu",
-          "text": "Mobile menu with QR codes for tables and windows – from €199."
+          "title": "Online payment",
+          "text": "Card, PayPal, Apple Pay and Google Pay – the money goes straight to you."
         },
         {
-          "title": "Website with reservations",
-          "text": "Table bookings around the clock, with zero platform commission."
+          "title": "Reservations",
+          "text": "Let guests book tables online, with confirmation and reminders by email or WhatsApp."
         },
         {
-          "title": "Google & reviews",
-          "text": "Profile management and AI-assisted review replies in your tone of voice."
+          "title": "Dashboard & numbers",
+          "text": "Revenue per hour, top items, share of direct orders – at a glance."
         },
         {
           "title": "Multilingual",
-          "text": "Menu and clips in DE, EN, AR or TR – for tourists and communities."
+          "text": "Menu and ordering in German, English, Arabic or Turkish – for every guest."
         }
       ],
       "faq": [
         {
-          "q": "How much does a restaurant media agency cost?",
-          "a": "Individual services start at €199 (digital menu) and €390 (Food Photo Express). The Social Retainer with a shoot, 12 reels and 20 photos per month is €1,490 per month. The pricing calculator shows your range in two minutes."
+          "q": "Do I have to cancel Lieferando or Wolt?",
+          "a": "No. Most businesses run both: the platform for new guests, your own system for everyone who comes back."
         },
         {
-          "q": "Will the shoot disrupt service?",
-          "a": "No. We shoot food and kitchen before service and atmosphere during service with a small setup – guests are only filmed with their consent."
+          "q": "How much does an ordering system cost?",
+          "a": "From €3,900 one-off to start, with online payment and kitchen display from €6,900. Operations from €49 per month."
         },
         {
-          "q": "Can I update prices on the digital menu myself?",
-          "a": "Yes, any time. The menu updates instantly and the QR codes stay the same."
+          "q": "How fast can it go live?",
+          "a": "You'll see the clickable prototype after about seven days; most systems go live after three to four weeks."
         },
         {
-          "q": "Do you post for us too?",
-          "a": "With the retainer, yes: we plan, write and post. You approve everything in one review round per month."
+          "q": "Can I change prices and items myself?",
+          "a": "Yes. You change prices, items, opening hours and sold-out status in the dashboard."
+        },
+        {
+          "q": "Do you also shoot food photos and reels?",
+          "a": "Yes – that's where we come from. Food reels and photos are available on top of the system, so the menu actually sells."
         }
       ]
     },
-    "festival": {
-      "navLabel": "Festival Videographer",
-      "keyword": "Festival videographer",
-      "metaTitle": "Festival Videographer – Aftermovies in 7 Days, Reels & AI Promo",
-      "metaDescription": "Festival videographer for open airs, clubs and concerts: multi-cam aftermovie in 7 days, social cutdowns and AI ad variants for your presale. Germany and beyond.",
+    "immobilien": {
+      "navLabel": "Real estate software",
+      "keyword": "Software for estate agents & property managers",
+      "metaTitle": "Software for Estate Agents & Property Managers – Tenant Portal & Leads",
+      "metaDescription": "Tenant portal with damage reports, prospect funnel, property dashboard and owner login – custom software for agents, property managers and developers.",
       "keywords": [
+        "property management software",
+        "estate agent software",
+        "tenant portal",
+        "custom real estate software",
+        "prospect management"
+      ],
+      "hero": {
+        "badge": "Real estate & property management",
+        "titleStart": "Fewer phone calls.",
+        "titleHighlight": "More properties let.",
+        "text": "Pre-qualify prospects, let them book viewings online, have tenants report damage through a portal – custom software for estate agents, property managers and developers. With a premium property film if you like.",
+        "imageAlt": "Still from the AGILE property film: living area with a view of the greenery",
+        "stats": [
+          {
+            "value": "1 portal",
+            "label": "for tenants, owners & contractors"
+          },
+          {
+            "value": "7 days",
+            "label": "to a clickable prototype"
+          }
+        ]
+      },
+      "problem": {
+        "title": "Your week disappears into repetition.",
+        "text": "The same questions from prospects, damage reports by phone, documents by email. Your property software handles the accounting – but not the many processes around it.",
+        "points": [
+          "Dozens of enquiries per listing, most don't fit",
+          "Damage reported by phone, notes and WhatsApp – no status",
+          "Sensitive documents sitting in email inboxes",
+          "Owners keep asking what's happening with their property"
+        ]
+      },
+      "featuresTitle": "What your real estate system does.",
+      "features": [
+        {
+          "title": "Property dashboard",
+          "text": "Property data, floor plans, energy certificate, photos and status in one place – exposé at the push of a button."
+        },
+        {
+          "title": "Prospect funnel",
+          "text": "A few online questions filter suitable candidates and invite them straight to a viewing."
+        },
+        {
+          "title": "Secure document collection",
+          "text": "Upload with a checklist, encrypted storage in the EU, automatic deletion once done."
+        },
+        {
+          "title": "Tenant portal & damage reports",
+          "text": "Report damage with a photo, track status, commission contractors via link."
+        },
+        {
+          "title": "Automated workflows",
+          "text": "AI reply drafts for standard enquiries, reminders, forwarding – with human approval."
+        },
+        {
+          "title": "Owner reporting",
+          "text": "A login for owners with letting status, open cases and documents."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does this replace my property management software?",
+          "a": "No. We add the processes it lacks and connect it via API where possible."
+        },
+        {
+          "q": "How much does a tenant portal cost?",
+          "a": "A customer portal starts at around €9,900; with workflows, roles and approvals around €16,900."
+        },
+        {
+          "q": "Where is the data stored?",
+          "a": "In a database in the EU, encrypted, with roles, permissions and an audit log."
+        },
+        {
+          "q": "Do you also make property videos?",
+          "a": "Yes. For premium properties we produce cinematic property films – the AGILE film in our portfolio is one example."
+        }
+      ]
+    },
+    "automotive": {
+      "navLabel": "Car dealer & driving school software",
+      "keyword": "Software for car dealers, garages & driving schools",
+      "metaTitle": "Software for Car Dealers, Garages & Driving Schools – Bookings & App",
+      "metaDescription": "Online garage bookings, vehicle stock on your own website, a student app for driving schools – custom software for automotive & mobility businesses.",
+      "keywords": [
+        "driving school software",
+        "driving school app",
+        "garage online booking",
+        "car dealer software",
+        "car rental software"
+      ],
+      "hero": {
+        "badge": "Automotive & mobility",
+        "titleStart": "Appointments, vehicles, lessons.",
+        "titleHighlight": "One system.",
+        "text": "Online garage bookings, vehicle stock with test-drive booking, a student app for driving schools – for car dealers, garages, rentals and driving schools. We've produced content for Audi, Volvo and NIO.",
+        "imageAlt": "Example of an own online booking system",
+        "stats": [
+          {
+            "value": "24/7",
+            "label": "online bookings"
+          },
+          {
+            "value": "iOS & Android",
+            "label": "as web app or native app"
+          }
+        ]
+      },
+      "problem": {
+        "title": "The day runs on the phone and the WhatsApp group.",
+        "text": "Appointments are given out by phone, instructors plan in Excel, vehicle enquiries come through three portals. Every call interrupts the work – and in the end nobody sees utilisation or open payments.",
+        "points": [
+          "Booking by phone blocks reception and office",
+          "No-shows without reminders",
+          "Vehicle enquiries only via third-party marketplaces",
+          "No overview of utilisation and payments"
+        ]
+      },
+      "featuresTitle": "What your automotive system does.",
+      "features": [
+        {
+          "title": "Vehicle stock",
+          "text": "Your own vehicle marketplace on your website with filters, finance calculator and enquiry funnel."
+        },
+        {
+          "title": "Online bookings",
+          "text": "Service, inspection, tyre change or test drive – with capacity planning and no overbooking."
+        },
+        {
+          "title": "Student & customer app",
+          "text": "Book lessons, track progress, get reminders – as an app on the home screen."
+        },
+        {
+          "title": "Team planning",
+          "text": "Instructors, mechanics and lifts in a weekly plan, daily overview on the phone."
+        },
+        {
+          "title": "Online payment",
+          "text": "Pay for lessons, packages and deposits online – fewer open invoices."
+        },
+        {
+          "title": "Utilisation & numbers",
+          "text": "Utilisation per day, revenue per service, no-show rate in the dashboard."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Do we need an app in the App Store?",
+          "a": "Usually not. A home-screen web app works on iPhone and Android, with push notifications and no store approval."
+        },
+        {
+          "q": "Can you connect our dealer management system?",
+          "a": "If it offers an API, yes. We check this in the workshop before quoting."
+        },
+        {
+          "q": "How much does a student app cost?",
+          "a": "As a web app from around €4,900; with booking for several instructors from around €8,900."
+        },
+        {
+          "q": "Do you also make vehicle videos?",
+          "a": "Yes. For premium vehicles and launches we produce films and reels – we've worked for Audi, Volvo and NIO, among others."
+        }
+      ]
+    },
+    "kanzlei": {
+      "navLabel": "Software for firms & advisors",
+      "keyword": "Software for tax advisors & law firms",
+      "metaTitle": "Client Portal & Software for Tax Advisors, Law Firms & Consultants",
+      "metaDescription": "Your own client portal with document upload, AI receipt recognition, deadlines and appointment booking – for tax advisors, lawyers, brokers and coaches.",
+      "keywords": [
+        "client portal tax advisor",
+        "law firm software",
+        "tax advisor software",
+        "accounting firm digitalisation",
+        "document upload portal"
+      ],
+      "hero": {
+        "badge": "Firms & advisory",
+        "titleStart": "Documents arrive complete.",
+        "titleHighlight": "And on time.",
+        "text": "A client portal with checklists, document upload and AI receipt recognition – alongside your practice software. For tax advisors, lawyers, insurance brokers, consultants and coaches.",
+        "imageAlt": "Antragsbruder web app: upload documents and get them explained",
+        "stats": [
+          {
+            "value": "EU hosting",
+            "label": "encrypted, with roles & audit log"
+          },
+          {
+            "value": "9 languages",
+            "label": "in our application web app"
+          }
+        ]
+      },
+      "problem": {
+        "title": "Your practice software is digital. The way there isn't.",
+        "text": "Receipts arrive as WhatsApp photos, email attachments or in a folder. Questions run through three channels, and at month-end half is missing. A client portal cleans up exactly that stretch.",
+        "points": [
+          "Receipts spread across five channels",
+          "Chasing missing documents",
+          "Questions buried in endless email threads",
+          "Deadlines depend on individual memory"
+        ]
+      },
+      "featuresTitle": "What your client portal does.",
+      "features": [
+        {
+          "title": "Secure login",
+          "text": "Two-factor sign-in, roles for client, clerk and partner, full audit log."
+        },
+        {
+          "title": "Upload & checklists",
+          "text": "Clients see what's missing – via phone photo, PDF or forwarded email."
+        },
+        {
+          "title": "AI receipt recognition",
+          "text": "Date, amount, tax rate and supplier extracted – a person reviews and confirms."
+        },
+        {
+          "title": "Appointments & deadlines",
+          "text": "Book consultations online, deadline overview with automatic reminders."
+        },
+        {
+          "title": "Questions in context",
+          "text": "Ask directly on the receipt or document instead of long email threads."
+        },
+        {
+          "title": "Privacy by design",
+          "text": "EU hosting, encryption, data processing agreements, deletion policy."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does it replace DATEV or our practice software?",
+          "a": "No. The portal complements it and hands over data via API or prepares it for import."
+        },
+        {
+          "q": "How much does a client portal cost?",
+          "a": "From around €9,900 for login, documents, status and messages; with workflows and approvals from around €16,900."
+        },
+        {
+          "q": "Is client data used to train AI?",
+          "a": "No. We use services with data processing agreements and no training on your data, hosted in the EU."
+        },
+        {
+          "q": "Does this also work for coaches and training providers?",
+          "a": "Yes. For KlarVoran, a job and application coaching provider in Rhine-Main, we built the website and first-consultation funnel."
+        }
+      ]
+    },
+    "beauty": {
+      "navLabel": "Booking system for salons",
+      "keyword": "Booking system for hair & beauty salons",
+      "metaTitle": "Booking System for Hair Salons, Beauty & Studios – No Commission",
+      "metaDescription": "Your own online booking for hairdressers, barbers, beauty, physio and studios – with double-booking protection, reminders and deposits. From €2,900.",
+      "keywords": [
+        "salon booking system",
+        "hairdresser online booking",
+        "commission-free booking system",
+        "beauty salon booking",
+        "salon software"
+      ],
+      "hero": {
+        "badge": "Beauty, health & wellness",
+        "titleStart": "Clients book with you.",
+        "titleHighlight": "Not in someone else's app.",
+        "text": "Your own booking system with calendar, staff selection, reminders and deposits – for hairdressers, barbers, beauty, physio, practices and studios. Build it once, own it.",
+        "imageAlt": "Website of OMED hair salon with its own appointment booking",
+        "stats": [
+          {
+            "value": "0",
+            "label": "double bookings – enforced in the database"
+          },
+          {
+            "value": "from €2,900",
+            "label": "one-off instead of monthly per calendar"
+          }
+        ]
+      },
+      "problem": {
+        "title": "You pay every month for bookings in someone else's app.",
+        "text": "Booking platforms are quick to set up – but they keep costing, per staff member or per booking. Your clients book in an app where your competitors sit right next to you, and the data stays with the provider.",
+        "points": [
+          "Ongoing fees per calendar or booking",
+          "Your clients see other salons there too",
+          "No control over client data and notes",
+          "No-shows without deposit or cancellation rule"
+        ]
+      },
+      "featuresTitle": "What your booking system does.",
+      "features": [
+        {
+          "title": "Online booking",
+          "text": "Services with duration and price, real-time availability matched to opening hours and breaks."
+        },
+        {
+          "title": "Staff & rooms",
+          "text": "Preferred stylist or \"anyone\", rooms and equipment, multiple locations."
+        },
+        {
+          "title": "Reminders",
+          "text": "Confirmation and reminder by email or WhatsApp – fewer no-shows."
+        },
+        {
+          "title": "Deposits & fees",
+          "text": "For long appointments like colour or extensions: online deposit, clear rules."
+        },
+        {
+          "title": "Reviews",
+          "text": "Automatically ask for a Google review after the appointment."
+        },
+        {
+          "title": "Utilisation",
+          "text": "Utilisation per stylist, return rate and revenue per appointment in the dashboard."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Can I import my existing appointments?",
+          "a": "Yes, via export from your old system, as far as the provider allows it."
+        },
+        {
+          "q": "How do new clients find me without a marketplace?",
+          "a": "Through Google Maps, local SEO and Instagram – with a booking button in your Google profile and a fast website."
+        },
+        {
+          "q": "How much does it cost?",
+          "a": "Booking Start from €2,900; with client accounts, deposits and waiting list from €5,400. Operations from €49 per month."
+        },
+        {
+          "q": "Does it work for physio and studios?",
+          "a": "Yes. Services, rooms, equipment and group classes can be freely combined."
+        }
+      ]
+    },
+    "handwerk": {
+      "navLabel": "Software for trades & services",
+      "keyword": "Software for tradespeople & service businesses",
+      "metaTitle": "Software for Tradespeople & Service Businesses – Quote to Invoice",
+      "metaDescription": "Enquiry funnel, quote generator, job scheduling, field app and digital sign-off – custom software for trades, cleaning, removals and services.",
+      "keywords": [
+        "software for tradespeople",
+        "field service app",
+        "job scheduling software",
+        "service business software",
+        "quote software"
+      ],
+      "hero": {
+        "badge": "Trades & services",
+        "titleStart": "From enquiry to invoice.",
+        "titleHighlight": "Without the paperwork.",
+        "text": "Enquiries with photos, quotes from building blocks, job scheduling, field app and digital sign-off – for trade businesses, cleaning, removals, facility services and other service providers.",
+        "imageAlt": "Example of a web app with document upload and checklist",
+        "stats": [
+          {
+            "value": "Minutes",
+            "label": "instead of hours per quote"
+          },
+          {
+            "value": "1 system",
+            "label": "for office and site"
+          }
+        ]
+      },
+      "problem": {
+        "title": "The work isn't the problem. The paperwork is.",
+        "text": "Enquiries come without photos or measurements, quotes get written at the kitchen table at night, photos live on personal phones, and the invoice waits for a note from the technician.",
+        "points": [
+          "Site visits just to collect information",
+          "Quotes in Word, prices from memory",
+          "Scheduling on a whiteboard and in group chats",
+          "Invoices delayed by missing sign-offs"
+        ]
+      },
+      "featuresTitle": "What your business system does.",
+      "features": [
+        {
+          "title": "Quote generator",
+          "text": "Services, materials and rates as building blocks – quote in one click, accepted online."
+        },
+        {
+          "title": "Job scheduling",
+          "text": "Weekly plan for all teams via drag & drop, conflicts visible instantly."
+        },
+        {
+          "title": "Field app",
+          "text": "Jobs, address, contact and materials on the phone – even offline."
+        },
+        {
+          "title": "Photos & documentation",
+          "text": "Photos and notes go straight to the job, not to personal phones."
+        },
+        {
+          "title": "Digital sign-off",
+          "text": "Signature on the tablet, report sent automatically to customer and office."
+        },
+        {
+          "title": "Numbers at a glance",
+          "text": "Quotes vs. orders, margin per job, days to invoice."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Isn't there off-the-shelf software for this?",
+          "a": "Yes, and if it fits, use it. Custom pays off when your process is different or you want to save licences for many users."
+        },
+        {
+          "q": "Does the app work without signal?",
+          "a": "Yes, with offline storage. Data syncs as soon as there's reception again."
+        },
+        {
+          "q": "How much does it cost?",
+          "a": "Enquiry funnel with quote generator from around €6,900; a complete core process from around €14,900."
+        },
+        {
+          "q": "Can we keep our accounting software?",
+          "a": "Yes. We hand invoices over to your existing accounting via API or export."
+        }
+      ]
+    },
+    "individualsoftware": {
+      "navLabel": "Custom software",
+      "keyword": "Custom software for SMEs",
+      "metaTitle": "Custom Software for SMEs – Built with AI in Weeks",
+      "metaDescription": "Software for your processes: workshop, clickable prototype in 7 days, fixed price, delivery in stages. You own the code. From €14,900.",
+      "keywords": [
+        "custom software development",
+        "bespoke software SME",
+        "software development company Germany",
+        "custom business software",
+        "AI software development"
+      ],
+      "hero": {
+        "badge": "Custom software & systems",
+        "titleStart": "Software that works",
+        "titleHighlight": "the way your business does.",
+        "text": "We build systems for small and mid-sized businesses – five tools and three spreadsheets become one piece of software. AI-assisted, in weeks instead of months, at a fixed price. You own the code.",
+        "imageAlt": "Antragsbruder web app – custom-built software",
+        "stats": [
+          {
+            "value": "7 days",
+            "label": "to a clickable prototype"
+          },
+          {
+            "value": "100%",
+            "label": "code & data are yours"
+          }
+        ]
+      },
+      "problem": {
+        "title": "Five tools, three spreadsheets and one colleague who knows everything.",
+        "text": "Off-the-shelf software covers standard processes. But the process that makes you different runs on workarounds: entering data twice, copying between tools, asking around. That costs time every day – and makes you dependent.",
+        "points": [
+          "The same data in several tools",
+          "Knowledge tied to individual people",
+          "Many licences, little real use",
+          "Growth means more admin"
+        ]
+      },
+      "featuresTitle": "How your software gets built.",
+      "features": [
+        {
+          "title": "Workshop, not wish list",
+          "text": "We look at your process and prioritise by time saved, not by features."
+        },
+        {
+          "title": "Prototype in 7 days",
+          "text": "Clickable, with sample data. Changes cost almost nothing at this stage."
+        },
+        {
+          "title": "AI-assisted development",
+          "text": "AI handles routine code; people review architecture, security and UX."
+        },
+        {
+          "title": "Integrations",
+          "text": "Connect POS, accounting, CRM, ERP or inventory – instead of entering data twice."
+        },
+        {
+          "title": "Security & privacy",
+          "text": "EU hosting, roles & permissions, tests and security checks on every change."
+        },
+        {
+          "title": "Operations & growth",
+          "text": "Monitoring, updates and new features every month – predictable, no new big project."
+        }
+      ],
+      "faq": [
+        {
+          "q": "How much does custom software cost?",
+          "a": "A core process from around €14,900; several processes with roles and integrations from around €24,900. We give a fixed price after the prototype."
+        },
+        {
+          "q": "How long does it take?",
+          "a": "A core process is often productive after six to ten weeks. Larger platforms are delivered in usable stages."
+        },
+        {
+          "q": "Who owns the software?",
+          "a": "You do. You get source code, access and documentation. We use widely adopted technology like Next.js, TypeScript and PostgreSQL."
+        },
+        {
+          "q": "What does \"backed by winsym.ai\" mean?",
+          "a": "winsym.ai is our technology partner in Kuala Lumpur for AI methodology and models. Consulting, design and development for you happen with us in Germany."
+        }
+      ]
+    },
+    "bestellsystem": {
+      "navLabel": "Commission-free ordering system",
+      "keyword": "Commission-free ordering system",
+      "metaTitle": "Your Own Online Ordering System – Zero Commission",
+      "metaDescription": "Online ordering under your name: menu, cart, payment, kitchen display, delivery zones. No commission per order. From €3,900.",
+      "keywords": [
+        "commission-free ordering system",
+        "own ordering system",
+        "restaurant online ordering",
+        "delivery platform alternative",
+        "restaurant ordering software"
+      ],
+      "hero": {
+        "badge": "Ordering system",
+        "titleStart": "Your own ordering system.",
+        "titleHighlight": "Zero commission.",
+        "text": "Guests order directly on your website – with pickup, delivery, kitchen board and online payment. You keep the margin and the customer data. Live at Daron Brot II bakery in Aachen.",
+        "imageAlt": "Ordering system of Daron Brot II bakery with menu and cart",
+        "stats": [
+          {
+            "value": "0%",
+            "label": "commission per order"
+          },
+          {
+            "value": "from €3,900",
+            "label": "one-off, operations from €49/month"
+          }
+        ]
+      },
+      "problem": {
+        "title": "Platforms profit from your best guests.",
+        "text": "Once someone has ordered through a platform, they usually reorder there – and commission is due every time. Your own system brings those guests to your site.",
+        "points": [
+          "Commission on repeat orders too",
+          "Customer data stays with the platform",
+          "Your brand among a hundred competitors",
+          "No loyalty rewards, no own promotions"
+        ]
+      },
+      "featuresTitle": "What your ordering system does.",
+      "features": [
+        {
+          "title": "Menu & cart",
+          "text": "Variants, extras, allergens, sold-out switch – as convenient as the platform app."
+        },
+        {
+          "title": "Online payment",
+          "text": "Card, PayPal, Apple Pay, Google Pay. The money goes straight to you."
+        },
+        {
+          "title": "Kitchen display",
+          "text": "New orders with a chime, status with one tap, cancellations with a reason."
+        },
+        {
+          "title": "Delivery zones",
+          "text": "Minimum order value, delivery fee and times per zone."
+        },
+        {
+          "title": "Status & WhatsApp",
+          "text": "Guests see \"being prepared\" and \"on the way\" – via link or WhatsApp."
+        },
+        {
+          "title": "Numbers & loyalty",
+          "text": "Top items, revenue per hour, vouchers and loyalty rewards."
+        }
+      ],
+      "faq": [
+        {
+          "q": "When does your own system pay off?",
+          "a": "When a noticeable share of your platform revenue comes from regulars. The calculation is in our guide (German)."
+        },
+        {
+          "q": "How do guests find my system?",
+          "a": "Flyers with a QR code in every bag, an order button in your Google profile, a loyalty perk for direct orders."
+        },
+        {
+          "q": "Does it work for bakeries and takeaways?",
+          "a": "Yes. Our live project is a bakery with pickup and delivery in Aachen."
+        },
+        {
+          "q": "Who owns the data?",
+          "a": "You do. The database is in the EU, and you can get the full source code."
+        }
+      ]
+    },
+    "buchungssystem": {
+      "navLabel": "Online booking system",
+      "keyword": "Online booking system",
+      "metaTitle": "Your Own Online Booking System – Appointments, Reservations, Classes",
+      "metaDescription": "Online booking under your name: calendar, staff, reminders, deposits, double-booking protection. For salons, practices, garages. From €2,900.",
+      "keywords": [
+        "online booking system",
+        "appointment booking software",
+        "booking system for website",
+        "online scheduling",
+        "commission-free booking"
+      ],
+      "hero": {
+        "badge": "Booking system",
+        "titleStart": "Appointments now",
+        "titleHighlight": "book themselves.",
+        "text": "Your own online booking with calendar, staff selection, reminders and deposits – for salons, practices, studios, garages, firms and coaches. Live at OMED hair salon in Aachen.",
+        "imageAlt": "Website of OMED hair salon with multi-step online booking",
+        "stats": [
+          {
+            "value": "24/7",
+            "label": "bookable – even after hours"
+          },
+          {
+            "value": "from €2,900",
+            "label": "one-off instead of a subscription"
+          }
+        ]
+      },
+      "problem": {
+        "title": "Every call interrupts the actual work.",
+        "text": "Booking by phone takes time, causes misunderstandings and blocks the flow. Booking platforms solve that – for ongoing fees and with your customer data on someone else's servers.",
+        "points": [
+          "The phone rings during treatments",
+          "No-shows without reminders or deposits",
+          "Ongoing fees per calendar or booking",
+          "Customer data with the platform provider"
+        ]
+      },
+      "featuresTitle": "What your booking system does.",
+      "features": [
+        {
+          "title": "Real-time calendar",
+          "text": "Availability matched to opening hours, breaks, holidays and lead time."
+        },
+        {
+          "title": "Double-booking protection",
+          "text": "Two appointments at the same time are impossible at database level."
+        },
+        {
+          "title": "Confirmation & reminder",
+          "text": "By email or WhatsApp, with a link to reschedule or cancel."
+        },
+        {
+          "title": "Deposits",
+          "text": "Online for long or expensive appointments, with a clear cancellation rule."
+        },
+        {
+          "title": "Team & rooms",
+          "text": "Several staff, rooms, equipment and locations in one calendar."
+        },
+        {
+          "title": "Reporting",
+          "text": "Utilisation, no-show rate and revenue per appointment in the dashboard."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Can it be added to my existing website?",
+          "a": "Yes. Either as part of a new website or as a separate booking page you link to."
+        },
+        {
+          "q": "Can customers still call?",
+          "a": "Of course. You enter phone bookings in the same calendar – one source of truth."
+        },
+        {
+          "q": "How much does it cost?",
+          "a": "Booking Start from €2,900, Pro with client accounts, deposits and waiting list from €5,400, Team & locations from €8,900."
+        },
+        {
+          "q": "How fast is it live?",
+          "a": "Usually after three to four weeks; you'll see the prototype after about seven days."
+        }
+      ]
+    },
+    "webapp": {
+      "navLabel": "Web apps & client portals",
+      "keyword": "Web app development",
+      "metaTitle": "Web App & Client Portal Development for SMEs",
+      "metaDescription": "Client portals, internal tools and apps for iOS & Android – as home-screen web app or native app. Login, documents, status, push. From €4,900.",
+      "keywords": [
+        "web app development",
+        "client portal development",
+        "progressive web app",
+        "app development cost",
+        "business web app"
+      ],
+      "hero": {
+        "badge": "Web apps & portals",
+        "titleStart": "Your service in",
+        "titleHighlight": "your customers' pocket.",
+        "text": "Client portals, internal tools and apps – in the browser, on the home screen or in the App Store. With login, documents, status, push notifications and multiple languages. Example: the Antragsbruder web app.",
+        "imageAlt": "Antragsbruder web app with upload and plain-language explanations of official letters",
+        "stats": [
+          {
+            "value": "9 languages",
+            "label": "in the Antragsbruder web app"
+          },
+          {
+            "value": "from €4,900",
+            "label": "as a home-screen web app"
+          }
+        ]
+      },
+      "problem": {
+        "title": "Your customers ask about status. Every day.",
+        "text": "Where's my order? Did you get my documents? When's the next appointment? These questions reach your team by email and phone – even though the answer is already in the system.",
+        "points": [
+          "Status questions by phone and email",
+          "Documents going back and forth by email",
+          "Staff on the road without access",
+          "Want an app, but worried about cost and the store"
+        ]
+      },
+      "featuresTitle": "What your web app does.",
+      "features": [
+        {
+          "title": "Login & roles",
+          "text": "Customers, staff and partners only see what they should."
+        },
+        {
+          "title": "Documents & upload",
+          "text": "Secure uploads, checklists, versions and approvals."
+        },
+        {
+          "title": "App without the store",
+          "text": "As a progressive web app on the home screen – with push, on iOS and Android."
+        },
+        {
+          "title": "Multilingual",
+          "text": "Interface and content in several languages – key for diverse audiences."
+        },
+        {
+          "title": "Integrations",
+          "text": "Connect CRM, ERP, accounting or existing databases."
+        },
+        {
+          "title": "Fast & secure",
+          "text": "Sub-second load times, EU hosting, tests on every change."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Web app or native app?",
+          "a": "For portals, booking and internal tools a web app is usually enough. Native apps pay off when offline use or deep device integration is required."
+        },
+        {
+          "q": "How much does a client portal cost?",
+          "a": "From around €9,900 for login, documents, status and messages; with workflows and approvals from around €16,900."
+        },
+        {
+          "q": "Can it become a native app later?",
+          "a": "Yes. Database, integrations and logic stay – mainly the interface is new."
+        },
+        {
+          "q": "Do I own the app?",
+          "a": "Yes, including source code and store accounts."
+        }
+      ]
+    },
+    "dashboard": {
+      "navLabel": "Dashboards & reporting",
+      "keyword": "Dashboard development",
+      "metaTitle": "Business Dashboard Development – All Your Numbers in One Place",
+      "metaDescription": "Dashboards for SMEs: revenue, enquiries, utilisation, open invoices from POS, CRM and accounting – in real time or as a weekly report. From €6,900.",
+      "keywords": [
+        "business dashboard development",
+        "KPI dashboard",
+        "company dashboard",
+        "SME reporting software",
+        "custom dashboard"
+      ],
+      "hero": {
+        "badge": "Dashboards & reporting",
+        "titleStart": "All your numbers in one place.",
+        "titleHighlight": "Finally.",
+        "text": "Revenue, enquiries, utilisation and open invoices from POS, CRM, calendar and accounting – as a live dashboard or a Monday report with an AI summary. For owners who want to decide instead of search.",
+        "imageAlt": "Example of a system with an order dashboard",
+        "stats": [
+          {
+            "value": "5–8",
+            "label": "KPIs that really matter"
+          },
+          {
+            "value": "Mon 7am",
+            "label": "weekly report in your inbox"
+          }
+        ]
+      },
+      "problem": {
+        "title": "You don't have a data problem. You have a collection problem.",
+        "text": "The numbers exist – spread across POS, accounting, calendar, inbox and Google. By the time you've pulled them together, the decision has already been made. On gut feeling.",
+        "points": [
+          "Numbers spread across five tools",
+          "Monthly reporting takes days",
+          "No warning when something tips",
+          "The team doesn't see what matters"
+        ]
+      },
+      "featuresTitle": "What your dashboard does.",
+      "features": [
+        {
+          "title": "KPIs with a question",
+          "text": "Every number answers a question that leads to a decision."
+        },
+        {
+          "title": "Connected sources",
+          "text": "POS, accounting, CRM, calendar, Google, your own systems – automatically."
+        },
+        {
+          "title": "Real time & alerts",
+          "text": "Warnings by email, push or WhatsApp when utilisation or payments tip."
+        },
+        {
+          "title": "Roles",
+          "text": "Owners see everything, team leads their area, staff their goals."
+        },
+        {
+          "title": "AI summary",
+          "text": "Three sentences of context every Monday – what went well, where to look."
+        },
+        {
+          "title": "Mobile too",
+          "text": "All numbers on your phone, as an app on the home screen."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Isn't an off-the-shelf BI tool enough?",
+          "a": "For marketing data, often yes. As soon as POS, your own software and accounting come together or permissions matter, a custom dashboard pays off."
+        },
+        {
+          "q": "How much does a dashboard cost?",
+          "a": "Weekly report from €890, dashboard from around €6,900, Dashboard Pro with real time, roles and alerts from around €11,900."
+        },
+        {
+          "q": "How current is the data?",
+          "a": "Depending on the source: real time, hourly or daily – we define it per KPI."
+        },
+        {
+          "q": "Do you use this yourselves?",
+          "a": "Yes. Our own lead system shows enquiries, lead score and status in one dashboard."
+        }
+      ]
+    },
+    "ki": {
+      "navLabel": "AI automation",
+      "keyword": "AI automation for businesses",
+      "metaTitle": "AI Automation for SMEs – Enquiries, Documents, Phone",
+      "metaDescription": "AI workflows with fast payback: answer enquiries, extract receipts, phone assistant, website chat, reviews. With human approval. From €590.",
+      "keywords": [
+        "AI automation for business",
+        "AI for SMEs",
+        "AI phone assistant",
+        "AI document extraction",
+        "n8n agency"
+      ],
+      "hero": {
+        "badge": "AI automation",
+        "titleStart": "AI that actually",
+        "titleHighlight": "takes work off your plate.",
+        "text": "Sort enquiries, extract receipts, answer calls, reply to reviews – AI workflows that run inside your existing tools. With your approval. Technology backed by winsym.ai.",
+        "imageAlt": "Web app that explains official letters in plain language",
+        "stats": [
+          {
+            "value": "1–2 weeks",
+            "label": "until the first workflow runs"
+          },
+          {
+            "value": "from €590",
+            "label": "per workflow"
+          }
+        ]
+      },
+      "problem": {
+        "title": "AI as a chat window barely saves time.",
+        "text": "AI only pays off when it's built into your processes: it reads, sorts, drafts and hands over – and a person approves. That's exactly what we build.",
+        "points": [
+          "Writing the same answers from scratch every day",
+          "Typing up receipts and documents by hand",
+          "Calls lost outside opening hours",
+          "Pilot projects that never go live"
+        ]
+      },
+      "featuresTitle": "Workflows with fast payback.",
+      "features": [
+        {
+          "title": "Enquiry automation",
+          "text": "Read emails and forms, classify, draft a reply, forward."
+        },
+        {
+          "title": "Documents & receipts",
+          "text": "Extract and file invoices, contracts and forms automatically."
+        },
+        {
+          "title": "AI phone assistant",
+          "text": "Answers calls, handles standard questions, books appointments, summarises."
+        },
+        {
+          "title": "Workflows with n8n",
+          "text": "Reliable automations between your tools – with monitoring."
+        },
+        {
+          "title": "Reviews",
+          "text": "Reply drafts for Google reviews in your house style, you approve."
+        },
+        {
+          "title": "Weekly report",
+          "text": "Numbers from all tools, with AI context, every Monday in your inbox."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is our data used to train AI?",
+          "a": "No. We use services with data processing agreements, no training on your data and EU hosting where possible."
+        },
+        {
+          "q": "Will AI replace our staff?",
+          "a": "In our projects, AI mainly removes routine – so there's more time for customers."
+        },
+        {
+          "q": "How much does a workflow cost?",
+          "a": "Between €590 and €1,490 one-off, plus operations from €49 per month and usually low AI usage costs."
+        },
+        {
+          "q": "Who is winsym.ai?",
+          "a": "Our technology partner in Kuala Lumpur, specialised in AI transformation for SMEs. We deliver your project from Germany."
+        }
+      ]
+    },
+    "website": {
+      "navLabel": "Websites that sell",
+      "keyword": "Website development",
+      "metaTitle": "Website Development – Fast, SEO & AI-Search Optimised",
+      "metaDescription": "Websites for SMEs that bring enquiries: fast, mobile, SEO and GEO for AI search, enquiry funnel, booking or ordering. From €1,490.",
+      "keywords": [
+        "website development",
+        "web design agency",
+        "website cost",
+        "website for small business",
+        "SEO website"
+      ],
+      "hero": {
+        "badge": "Websites",
+        "titleStart": "A website that",
+        "titleHighlight": "brings enquiries.",
+        "text": "Fast, mobile, found on Google and in AI search like ChatGPT – with enquiry funnel, booking or ordering. And ready to grow into a system later. Example: KlarVoran, job coaching in Rhine-Main.",
+        "imageAlt": "Website of KlarVoran, job and application coaching in Rhine-Main",
+        "stats": [
+          {
+            "value": "< 1 s",
+            "label": "target load time"
+          },
+          {
+            "value": "from €1,490",
+            "label": "one-pager, business from €2,490"
+          }
+        ]
+      },
+      "problem": {
+        "title": "Pretty isn't enough. It has to sell.",
+        "text": "Many websites look good and still bring no enquiries: too slow, awkward on mobile, invisible on Google, no clear next step.",
+        "points": [
+          "Visitors but no enquiries",
+          "Slow on mobile",
+          "Invisible on Google and AI search",
+          "Changes only via the agency"
+        ]
+      },
+      "featuresTitle": "What your website does.",
+      "features": [
+        {
+          "title": "Mobile first",
+          "text": "Built for the phone – that's where most visitors come from."
+        },
+        {
+          "title": "SEO & local SEO",
+          "text": "Structured data, Google profile, pages for your key search terms."
+        },
+        {
+          "title": "GEO for AI search",
+          "text": "Clear answers, llms.txt and schema, so ChatGPT, Gemini & co. mention you."
+        },
+        {
+          "title": "Fast",
+          "text": "Modern tech, optimised images – load times Google rewards."
+        },
+        {
+          "title": "Multilingual",
+          "text": "German, English, Arabic or Turkish – with correct language markup."
+        },
+        {
+          "title": "Measured enquiries",
+          "text": "Enquiry funnel with lead scoring and clean, consent-based tracking."
+        }
+      ],
+      "faq": [
+        {
+          "q": "How much does a website cost?",
+          "a": "One-pager from €1,490, business website from €2,490, Website Pro from €4,490. Hosting & maintenance from €49 per month."
+        },
+        {
+          "q": "Can I edit content myself?",
+          "a": "Yes, via a simple CMS or dashboard – no coding required."
+        },
+        {
+          "q": "How long does it take?",
+          "a": "A one-pager is often online after a week, a business website after two to four weeks."
+        },
+        {
+          "q": "Can I add booking or a shop later?",
+          "a": "Yes. We build so that booking, ordering or customer login can be added seamlessly."
+        }
+      ]
+    },
+    "media": {
+      "navLabel": "Premium media for events",
+      "keyword": "Premium event video & festival aftermovie",
+      "metaTitle": "Premium Aftermovies & Event Video – Festivals, Artists, Brands",
+      "metaDescription": "Premium aftermovies, artist campaigns and brand films from the team behind work for Tomorrowland, Afro Nation, Hyatt and Audi. Few projects, full focus.",
+      "keywords": [
+        "festival aftermovie",
         "festival videographer",
-        "aftermovie production",
-        "event videographer",
-        "concert videographer",
-        "club aftermovie"
+        "premium event video",
+        "music video production",
+        "hotel brand film"
       ],
       "hero": {
-        "badge": "Festival videographer",
-        "titleStart": "Aftermovies that",
-        "titleHighlight": "kick off your presale",
-        "text": "Multi-cam coverage at your festival, the aftermovie in 7 days and social cutdowns for every platform. With AI variants for next season's ads – in multiple languages."
-      },
-      "problem": {
-        "title": "Your aftermovie is the best ad for next year.",
-        "text": "If it drops three months later, the hype is gone. We deliver while the crowd is still talking about it.",
-        "points": [
-          "Aftermovie in 7 days – or within 72 hours with Express",
-          "Cutdowns for reels, TikTok and stories included",
-          "20+ ad variants for early-bird and presale campaigns",
-          "Line-up reveals and visualizers with AI-generated scenes"
+        "badge": "Premium media · events, festivals & artists",
+        "titleStart": "Films that kick off",
+        "titleHighlight": "ticket sales.",
+        "text": "Media is where we grew up: campaigns for Tomorrowland, DWP Bali, Afro Nation and splash!, artists like Chris Brown and Central Cee, hotel films for Hyatt Centric. Today we only take on a few premium projects.",
+        "imageAlt": "Still from the TasWiq showreel: chef at the wok with flames",
+        "stats": [
+          {
+            "value": "450+",
+            "label": "projects with hotels, festivals & artists"
+          },
+          {
+            "value": "7 days",
+            "label": "to the finished aftermovie"
+          }
         ]
       },
-      "features": [
-        {
-          "title": "Multi-cam & drone",
-          "text": "Stage, crowd, backstage and aerials – with two or more cameras."
-        },
-        {
-          "title": "Aftermovie in 4K",
-          "text": "A 2–3 minute film with royalty-free music and cinematic grading."
-        },
-        {
-          "title": "Social cutdowns",
-          "text": "Vertical clips for reels and TikTok, straight after the event."
-        },
-        {
-          "title": "AI ad variants",
-          "text": "Hooks, lengths and formats for A/B testing during presale."
-        },
-        {
-          "title": "Artist content",
-          "text": "Clips for your performing artists – more reach for your event."
-        },
-        {
-          "title": "Multilingual",
-          "text": "Voiceover and subtitles for international visitors."
-        }
-      ],
-      "faq": [
-        {
-          "q": "How much does a festival aftermovie cost?",
-          "a": "Our Classic Aftermovie with one shoot day, two cameras and 6 social cutdowns is €2,490. With AI variants and voiceover (AI-Enhanced Promo) it's €3,490. Price multi-day festivals in the pricing calculator."
-        },
-        {
-          "q": "How fast is the aftermovie ready?",
-          "a": "Within 7 days, with the first cutdowns after 72 hours. With the Express option, we deliver everything within 72 hours."
-        },
-        {
-          "q": "Do you cover multi-day festivals?",
-          "a": "Yes. For multiple days we scale crew and cameras accordingly – the calculator shows you the range."
-        },
-        {
-          "q": "Can we use the footage for advertising?",
-          "a": "Yes, you receive full, unlimited usage rights to all final files."
-        }
-      ]
-    },
-    "ai": {
-      "navLabel": "AI Marketing Agency",
-      "keyword": "AI marketing agency",
-      "metaTitle": "AI Marketing Agency – Content Pipelines, Voiceover & Automation",
-      "metaDescription": "AI marketing agency for hospitality and events: content pipelines, AI voiceover in 4 languages, ad variants and n8n automations – set up and managed for you.",
-      "keywords": [
-        "AI marketing agency",
-        "AI content agency",
-        "AI voiceover",
-        "n8n automation agency",
-        "AI video production"
-      ],
-      "hero": {
-        "badge": "AI marketing agency",
-        "titleStart": "AI that",
-        "titleHighlight": "actually delivers content",
-        "text": "Not a tool demo – finished results: content pipelines, voiceover in four languages, ad variants and automations that take work off your plate every day."
-      },
       "problem": {
-        "title": "There's no shortage of AI tools. What's missing is someone who makes them work.",
-        "text": "Between \"we tried ChatGPT\" and \"it runs on its own every day\" lies real work: prompts, approvals, brand look, integrations. That's what we take care of.",
+        "title": "The aftermovie is your most important sales video.",
+        "text": "It helps decide whether someone buys an early-bird ticket. A simple cut isn't enough – it needs dramaturgy, crowd emotion, sound design and variants for every channel.",
         "points": [
-          "Content pipeline: 12–30 clips in every format from a single shoot",
-          "AI voiceover and subtitles in DE, EN, AR and TR",
-          "n8n workflows for captions, reviews and enquiries",
-          "Reporting that tells you what works – instead of spreadsheets"
+          "Multi-cam crew with a plan for the peak moments",
+          "Aftermovie in 7 days, teaser in 72 hours",
+          "20+ ad variants for pre-sales",
+          "AI language versions for international crowds"
         ]
       },
+      "featuresTitle": "What a premium project includes.",
       "features": [
         {
-          "title": "Content pipelines",
-          "text": "Automated editing with a human final check."
+          "title": "Aftermovie & brand film",
+          "text": "Cinematic 4K, own dramaturgy, grading that fits the brand."
         },
         {
-          "title": "AI voiceover",
-          "text": "Your own voice or premium voices in multiple languages."
+          "title": "Photography",
+          "text": "Event, artist, food and location – edited and ready to use."
+        },
+        {
+          "title": "Formats for every channel",
+          "text": "16:9, 9:16 and 1:1 from one shoot – for YouTube, Reels, TikTok and ads."
+        },
+        {
+          "title": "Language versions",
+          "text": "Voiceover and subtitles in DE, EN, AR and TR via AI, finalised by us."
         },
         {
           "title": "Ad variants",
-          "text": "Dozens of variants for A/B testing on Meta and TikTok."
+          "text": "Hooks, lengths and formats for A/B tests during pre-sales."
         },
         {
-          "title": "n8n automation",
-          "text": "Workflows that run on your accounts and belong to you."
-        },
-        {
-          "title": "Review replies",
-          "text": "Google reviews answered in your house style – you just approve."
-        },
-        {
-          "title": "Ongoing support",
-          "text": "Monitoring, updates and further development from €49 per month."
+          "title": "Landing page & ticketing",
+          "text": "Because we build software: pre-sale page, guest list or accreditation on top."
         }
       ],
       "faq": [
         {
-          "q": "How much does an AI automation cost?",
-          "a": "A single workflow starts at €490 one-time, with support from €49 per month. The complete content pipeline is part of the AI-Enhanced Promo at €3,490."
+          "q": "Why only a few media projects?",
+          "a": "Our main business today is software. We still do media – but selectively and with full focus."
         },
         {
-          "q": "Who owns the workflows?",
-          "a": "You do. We build on your accounts, and you get access and documentation."
+          "q": "How much does a premium aftermovie cost?",
+          "a": "Festival & Event Premium from €4,900, artist campaign from €3,490, brand & hospitality film from €2,990."
         },
         {
-          "q": "Is AI content recognisable?",
-          "a": "On request, we label generated scenes and AI voices. Dishes, guests and stages are always filmed for real."
+          "q": "Do you shoot abroad?",
+          "a": "Yes. We've produced in Europe and Southeast Asia, including for hotels in Kuala Lumpur."
         },
         {
-          "q": "Are you GDPR compliant?",
-          "a": "We choose providers with EU data processing wherever possible, sign data processing agreements and document all data flows."
+          "q": "Do we get full usage rights?",
+          "a": "Yes, unlimited in time and territory after payment. Raw footage on request for a fee."
         }
       ]
     }
@@ -960,92 +2129,92 @@
     "industryAria": "Your industry",
     "duration": "Takes about 60 seconds",
     "industries": {
-      "gastro": "Hospitality",
-      "musik": "Festivals & Music",
-      "andere": "Other industry"
+      "gastro": "Food & hospitality",
+      "immobilien": "Real estate",
+      "automotive": "Automotive",
+      "kanzlei": "Firms & advisory",
+      "beauty": "Beauty & health",
+      "handwerk": "Trades & services",
+      "musik": "Events & artists",
+      "andere": "Other"
     },
     "interests": {
+      "software": "Custom software",
+      "bestellsystem": "Ordering system",
+      "buchungssystem": "Booking system",
+      "webapp": "Web app & client portal",
+      "dashboard": "Dashboard & reporting",
+      "app": "Mobile app",
+      "web": "Website",
+      "automation": "AI automation",
+      "media": "Premium video & photo",
+      "unsicher": "Not sure yet – advise me",
       "aftermovie": "Aftermovie / event film",
       "reels": "Brand film & reels",
-      "foto": "Food & event photography",
+      "foto": "Photography",
       "social": "Social media management",
       "ki_content": "AI content & voiceover",
-      "automation": "AI workflows & automation",
-      "web": "Website & digital menu",
-      "musikvideo": "Music video & artist promo",
-      "unsicher": "Not sure yet"
+      "musikvideo": "Music video & artist promo"
     },
     "statuses": {
-      "neustart": "Starting from scratch – no content yet",
-      "gelegentlich": "The occasional phone clip, not much of a plan",
-      "regelmaessig": "We post regularly and want higher quality",
-      "projekt": "A specific event or project with a date",
-      "dringend": "Urgent – needs to be ready within 2 weeks"
+      "neustart": "We work with paper, Excel & WhatsApp",
+      "gelegentlich": "We use platforms or subscription tools and overpay",
+      "regelmaessig": "We have software that no longer fits",
+      "projekt": "A concrete project with a deadline",
+      "dringend": "Urgent – needs to be live in 4 weeks"
     },
     "budgets": {
+      "unter_5k": "Under €5,000",
+      "5k_15k": "€5,000 – €15,000",
+      "15k_40k": "€15,000 – €40,000",
+      "ueber_40k": "Over €40,000",
+      "keine_angabe": "Not sure yet",
       "unter_1k": "Under €1,000",
       "1k_2_5k": "€1,000 – €2,500",
       "2_5k_5k": "€2,500 – €5,000",
-      "ueber_5k": "Over €5,000",
-      "keine_angabe": "Prefer not to say"
+      "ueber_5k": "Over €5,000"
     },
     "step1": {
-      "title": "What are you planning?",
-      "sub": "Select every area you'd like support with."
+      "title": "What would you like to build?",
+      "sub": "Pick your industry and everything you're interested in."
     },
     "step2": {
-      "title": "Where are you with your content?",
+      "title": "How do you work today?",
       "sub": "This helps us find the right starting point for you."
     },
     "step3": {
-      "title": "What budget do you have in mind?",
-      "sub": "Totally optional – but it helps us recommend the right packages."
+      "title": "What budget have you planned?",
+      "sub": "Optional – but it helps us recommend the right package."
     },
     "step4": {
-      "title": "Almost there! How can we reach you?",
+      "title": "Almost done! How can we reach you?",
       "sub": "We'll get back to you within 24 hours – promise."
     },
     "errors": {
       "interests": "Please select at least one area.",
-      "status": "Please select where you currently stand.",
-      "budget": "Please choose a budget range – or \"Prefer not to say\"."
+      "status": "Please select how you work today.",
+      "budget": "Please select a budget – or \"Not sure yet\"."
     },
     "starter": {
-      "gastro-menu": {
-        "name": "Digital Menu",
-        "text": "Mobile menu with QR codes for tables & windows – update it any time."
+      "prototyp": {
+        "name": "Prototype sprint",
+        "text": "Workshop + clickable prototype of your system in 7 days. Credited towards the project."
       },
-      "gastro-photo": {
-        "name": "Food Photo Express",
-        "text": "2 hours on location · 25 edited photos for your menu, Google & Instagram."
+      "website-start": {
+        "name": "Website Start",
+        "text": "One-pager with enquiry funnel, SEO basics and WhatsApp – expandable to a business website any time."
       },
-      "gastro-reels": {
-        "name": "Reels from Your Footage",
-        "text": "You send phone clips, we cut 10 reels with subtitles & music."
+      "buchung-start": {
+        "name": "Booking System Start",
+        "text": "Services, calendar, confirmation by email & WhatsApp – no commission."
       },
-      "musik-visualizer": {
-        "name": "AI Visualizer",
-        "text": "Animated visualizer for one track – in 16:9 and 9:16."
+      "bestell-start": {
+        "name": "Ordering System Start",
+        "text": "Menu, cart, pickup & delivery, order dashboard – no commission."
       },
-      "musik-shooting": {
-        "name": "Artist Photo Shoot",
-        "text": "2 hours · 25 edited photos for your press kit & social media."
-      },
-      "musik-promo": {
-        "name": "Promo Kit",
-        "text": "5 reels from your footage · beat sync · subtitles."
-      },
-      "andere-photo": {
-        "name": "Photo Express",
-        "text": "2 hours on location · 25 edited photos for web & social."
-      },
-      "andere-reels": {
-        "name": "Reels from Your Footage",
-        "text": "You send clips, we cut 10 reels with subtitles & music."
-      },
-      "andere-workflow": {
+      "ki-start": {
         "name": "AI Workflow Starter",
-        "text": "One automated workflow, e.g. captions or review replies."
+        "text": "One automated process, e.g. answering enquiries or extracting receipts."
       }
     }
   },
@@ -1054,7 +2223,7 @@
       "name": "Your name",
       "email": "Your email",
       "phone": "Phone",
-      "company": "Restaurant / event / company",
+      "company": "Company / business",
       "message": "Anything else?"
     },
     "optional": "(optional)",
@@ -1081,38 +2250,38 @@
     }
   },
   "leadResult": {
-    "reset": "Submit another enquiry",
+    "reset": "Start a new enquiry",
     "starter": {
-      "title": "Thanks, {name}! We've got fixed packages for that.",
-      "text": "For your budget, our starter packages are a perfect fit – fixed price, no intro call needed. We've also sent the overview to your inbox.",
-      "book": "Book via WhatsApp",
-      "whatsappText": "Hi TasWiq, I'd like to book the \"{name}\" package."
+      "title": "Thanks, {name}! There are fixed starter packages for this.",
+      "text": "For your budget, these packages with a fixed starting price fit best. The overview is in your inbox too – or message us directly.",
+      "book": "Ask via WhatsApp",
+      "whatsappText": "Hi TasWiq, I'm interested in the \"{name}\" package."
     },
     "growth": {
-      "title": "Thanks, {name}! Your quote arrives within 24 hours.",
-      "text": "We've received your enquiry. Here's what happens next:",
+      "title": "Thanks, {name}! You'll hear from us within 24 hours.",
+      "text": "Your enquiry has arrived. Here's what happens next:",
       "steps": [
-        "We review your details and take a look at your channels.",
-        "Within 24 hours, you'll receive a quote with a fixed price.",
-        "If everything fits, we schedule the Deep Dive – by call or on location."
+        "We review your details and how you work today.",
+        "Within 24 hours you get an assessment and a suggested call time.",
+        "In the workshop we define what your system must do – then comes the prototype."
       ],
       "callNow": "Rather talk right away?"
     },
     "premium": {
       "title": "{name}, let's talk directly.",
-      "text": "We plan projects of this size personally. Pick a slot for a 30-minute strategy call – free and without obligation.",
-      "iframeTitle": "Book a call",
+      "text": "We plan projects of this size personally. Pick a slot for a 30-minute strategy call – free and non-binding.",
+      "iframeTitle": "Book an appointment",
       "loadCalendar": "Load calendar",
-      "calendlyNote": "Loading the calendar transfers data to Calendly (USA).",
+      "calendlyNote": "Loading transfers data to Calendly (USA).",
       "callNow": "Call now",
-      "noSlot": "No suitable slot? We'll reach out to you personally today."
+      "noSlot": "No suitable slot? We'll get back to you personally today."
     }
   },
   "calculator": {
     "eyebrow": "Pricing calculator · 2 minutes · no obligation",
-    "titleStart": "What will",
-    "titleAccent": "your project cost?",
-    "sub": "Build your project and see the range instantly. An estimate, not a quote.",
+    "titleStart": "What does",
+    "titleAccent": "your system cost?",
+    "sub": "Put your project together and see the range instantly. An estimate, not a quote – you get a fixed price after the prototype.",
     "stepsAria": "Steps",
     "stepOf": "Step {current} of {total}",
     "oneTimeCosts": "One-time costs",
@@ -1138,8 +2307,14 @@
     "keyboardTip": "Tip: use ← → to move between steps",
     "sheetTitle": "{services} for {industry}",
     "industries": {
-      "gastro": "Hospitality",
-      "musik": "Festivals & Music"
+      "gastro": "Restaurants & food",
+      "immobilien": "Real estate & property management",
+      "automotive": "Automotive & mobility",
+      "kanzlei": "Firms & advisory",
+      "beauty": "Beauty, health & wellness",
+      "handwerk": "Trades & services",
+      "musik": "Events, festivals & artists",
+      "andere": "your business"
     },
     "decrease": "Decrease {label}",
     "increase": "Increase {label}",
@@ -1147,41 +2322,51 @@
     "steps": {
       "start": {
         "kurz": "Project",
-        "titel": "What can we produce for you?",
-        "hint": "Your selection determines the questions that follow. You can change everything at any time."
+        "titel": "What should we build for you?",
+        "hint": "This choice decides which questions follow. Multiple choice – you can change everything at any time."
       },
-      "video": {
-        "kurz": "Video",
-        "titel": "How big is the shoot?",
-        "hint": "Every package includes editing, music and colour grading. We cut reels with our AI pipeline – which is why extra clips are so affordable."
+      "website": {
+        "kurz": "Website",
+        "titel": "How big is your website?",
+        "hint": "All websites are mobile-optimised, fast and prepared for Google & AI search."
       },
-      "foto": {
-        "kurz": "Photo",
-        "titel": "How many images do you need?",
-        "hint": "All photos are fully edited, in web and print resolution."
+      "system": {
+        "kurz": "System",
+        "titel": "How much should your system do?",
+        "hint": "Your own platform under your name – no commission per order or booking."
       },
-      "web": {
-        "kurz": "Web",
-        "titel": "What should your website do?",
-        "hint": "Guests find you online, browse the menu and book or order directly – with zero platform commission."
+      "software": {
+        "kurz": "Software",
+        "titel": "How extensive is the software?",
+        "hint": "Estimates – you get a fixed price after the workshop and clickable prototype."
+      },
+      "funktionen": {
+        "kurz": "Features",
+        "titel": "Which extra features do you need?",
+        "hint": "Optional. Everything can be added later too."
       },
       "ki": {
         "kurz": "AI",
-        "titel": "Which workflows should run on autopilot?",
-        "hint": "Every workflow is built with n8n, runs on your accounts and belongs to you. Select as many as you like."
+        "titel": "Which processes should run automatically?",
+        "hint": "Every workflow runs on your accounts and belongs to you. Multiple choice."
+      },
+      "media": {
+        "kurz": "Media",
+        "titel": "Which premium package fits?",
+        "hint": "We only take on a few media projects per season. Festival & night shoots with surcharge."
       },
       "extras": {
-        "kurz": "Extras",
-        "titel": "Languages, travel, turnaround"
+        "kurz": "Speed",
+        "titel": "How fast should it go?"
       },
       "laufend": {
-        "kurz": "Ongoing",
-        "titel": "Should we keep it going afterwards?",
-        "hint": "These items are billed monthly. Everything can be cancelled monthly after the minimum term."
+        "kurz": "Operations",
+        "titel": "Who takes care of it afterwards?",
+        "hint": "Monthly running costs. Cancel monthly after the minimum term."
       },
       "ende": {
         "kurz": "Result",
-        "titel": "Your budget range"
+        "titel": "Your cost range"
       }
     },
     "fields": {
@@ -1189,211 +2374,328 @@
         "label": "Your industry"
       },
       "leistungen": {
-        "label": "Services – select all that apply"
+        "label": "What do you need? – multiple choice"
       },
-      "videoUmfang": {
+      "websiteUmfang": {
         "label": "Scope",
-        "posten": "Video"
+        "posten": "Website"
       },
-      "videoExtras": {
-        "label": "Extras"
+      "websiteExtras": {
+        "label": "Visibility & content"
       },
-      "extraReels": {
-        "label": "Additional reels",
-        "hint": "From the same footage, pre-cut by AI and finalised by us.",
-        "einheit": "reel"
+      "bestellUmfang": {
+        "label": "Ordering system",
+        "posten": "Ordering system"
       },
-      "fotoUmfang": {
-        "label": "Scope",
-        "posten": "Photo"
+      "buchungUmfang": {
+        "label": "Booking system",
+        "posten": "Booking system"
       },
-      "fotoExtras": {
-        "label": "Extras"
+      "portalUmfang": {
+        "label": "Web app & client portal",
+        "posten": "Portal"
       },
-      "webArt": {
+      "dashboardUmfang": {
+        "label": "Dashboard",
+        "posten": "Dashboard"
+      },
+      "softwareUmfang": {
+        "label": "Custom software",
+        "posten": "Software"
+      },
+      "appUmfang": {
+        "label": "Mobile app",
+        "posten": "App"
+      },
+      "funktionen": {
+        "label": "Extra features",
+        "posten": "Feature"
+      },
+      "kiWorkflows": {
+        "posten": "AI"
+      },
+      "mediaPaket": {
         "label": "Package",
-        "posten": "Web"
+        "posten": "Media"
       },
-      "webExtras": {
-        "label": "Visibility & extras"
-      },
-      "kiWorkflows": {},
-      "sprachen": {
-        "label": "Additional language versions",
-        "hint": "AI voiceover or subtitles per language – e.g. EN, AR, TR.",
-        "einheit": "language"
+      "mediaExtras": {
+        "label": "Extras"
       },
       "anfahrt": {
         "label": "Where is the shoot?",
         "posten": "Travel"
       },
       "express": {
-        "label": "It's urgent: delivery within 72 hours",
-        "hint": "We'll move your project to the front of the line. {pct}% surcharge."
+        "label": "It's urgent: start within 7 days",
+        "hint": "We bring your project forward and add capacity. Surcharge {pct}%."
       },
-      "contentAbo": {
-        "label": "Content subscription",
-        "posten": "Content subscription"
-      },
-      "hosting": {
-        "label": "Website hosting"
-      },
-      "kiBetrieb": {
-        "label": "Workflow management"
+      "betrieb": {
+        "label": "Hosting, operations & support",
+        "posten": "Operations"
       }
     },
     "options": {
       "branche": {
         "gastro": {
-          "label": "Hospitality",
-          "hint": "Restaurant, bar, café, catering"
+          "label": "Restaurants & food",
+          "hint": "Restaurant, delivery, bakery, café"
+        },
+        "immobilien": {
+          "label": "Real estate & property",
+          "hint": "Agents, property managers, developers"
+        },
+        "automotive": {
+          "label": "Automotive & mobility",
+          "hint": "Car dealer, garage, driving school, rental"
+        },
+        "kanzlei": {
+          "label": "Firms & advisory",
+          "hint": "Tax advisors, lawyers, brokers, coaches"
+        },
+        "beauty": {
+          "label": "Beauty, health & wellness",
+          "hint": "Hair, barber, beauty, physio, studio"
+        },
+        "handwerk": {
+          "label": "Trades & services",
+          "hint": "Trades, cleaning, removals, services"
         },
         "musik": {
-          "label": "Festivals & Music",
-          "hint": "Open air, club, concert, artist"
+          "label": "Events, festivals & artists",
+          "hint": "Promoters, clubs, labels, artists"
+        },
+        "andere": {
+          "label": "Other industry",
+          "hint": "Retail, education, clubs, associations"
         }
       },
       "leistungen": {
-        "video": {
-          "label": "Video",
-          "hint": "Aftermovie, brand film, reels"
+        "bestellung": {
+          "label": "Ordering system",
+          "hint": "Online ordering without commission"
         },
-        "foto": {
-          "label": "Photo",
-          "hint": "Food, venue, event, artist"
+        "buchung": {
+          "label": "Booking system",
+          "hint": "Appointments, reservations, classes"
         },
-        "web": {
-          "label": "Web",
-          "hint": "Website, digital menu, tickets"
+        "website": {
+          "label": "Website",
+          "hint": "New or relaunch, SEO & AI search"
+        },
+        "portal": {
+          "label": "Web app & client portal",
+          "hint": "Login, documents, status, self-service"
+        },
+        "dashboard": {
+          "label": "Dashboard & reporting",
+          "hint": "All numbers in one place"
+        },
+        "software": {
+          "label": "Custom software",
+          "hint": "Your processes as your own system"
+        },
+        "app": {
+          "label": "Mobile app",
+          "hint": "iOS & Android"
         },
         "ki": {
-          "label": "AI Workflows",
-          "hint": "Content pipelines, voice, n8n"
+          "label": "AI automation",
+          "hint": "Workflows, agents, documents"
+        },
+        "media": {
+          "label": "Premium media",
+          "hint": "Event, artist or brand film"
         }
       },
-      "videoUmfang": {
-        "kompakt": {
-          "label": "Compact",
-          "hint": "Half a shoot day · 1 clip (60 s) + 3 reels"
+      "websiteUmfang": {
+        "onepager": {
+          "label": "One-pager",
+          "hint": "One strong page with contact, map & WhatsApp"
         },
-        "standard": {
-          "label": "Standard",
-          "hint": "1 shoot day · film (2–3 min) + 6 reels",
+        "business": {
+          "label": "Business website",
+          "hint": "Up to 8 pages · CMS · enquiry funnel · SEO basics",
           "badge": "Popular"
         },
-        "premium": {
-          "label": "Premium",
-          "hint": "2 shoot days · multi-cam · film + 12 reels"
+        "pro": {
+          "label": "Website Pro",
+          "hint": "Multilingual · blog · landing pages · tracking"
         }
       },
-      "videoExtras": {
+      "websiteExtras": {
+        "seo": {
+          "label": "Local SEO package",
+          "hint": "Get found for \"… near me\""
+        },
+        "geo": {
+          "label": "GEO for AI search",
+          "hint": "Visible in ChatGPT, Gemini & Google AI"
+        },
+        "gmb": {
+          "label": "Google Business Profile",
+          "hint": "Setup and optimisation"
+        },
+        "texte": {
+          "label": "Copy & image editing",
+          "hint": "We write, you approve"
+        }
+      },
+      "bestellUmfang": {
+        "start": {
+          "label": "Ordering Start",
+          "hint": "Menu · cart · pickup & delivery · order dashboard"
+        },
+        "pro": {
+          "label": "Ordering Pro",
+          "hint": "+ online payment · kitchen display · delivery zones · vouchers",
+          "badge": "Recommended"
+        },
+        "filialen": {
+          "label": "Multiple locations",
+          "hint": "Branches · roles · central reporting"
+        }
+      },
+      "buchungUmfang": {
+        "start": {
+          "label": "Booking Start",
+          "hint": "Services · calendar · confirmation by email & WhatsApp"
+        },
+        "pro": {
+          "label": "Booking Pro",
+          "hint": "+ client account · deposit · reminders · waiting list",
+          "badge": "Popular"
+        },
+        "team": {
+          "label": "Team & locations",
+          "hint": "Several staff, rooms or branches · shift plan"
+        }
+      },
+      "portalUmfang": {
+        "basis": {
+          "label": "Client portal",
+          "hint": "Login · documents · status · messages"
+        },
+        "erweitert": {
+          "label": "Portal with workflows",
+          "hint": "+ roles · forms · approvals · automations",
+          "badge": "Popular"
+        }
+      },
+      "dashboardUmfang": {
+        "basis": {
+          "label": "Dashboard",
+          "hint": "KPIs from 2–3 sources, updated daily"
+        },
+        "pro": {
+          "label": "Dashboard Pro",
+          "hint": "Real time · roles · alerts · forecasts"
+        }
+      },
+      "softwareUmfang": {
+        "s": {
+          "label": "One core process",
+          "hint": "e.g. order → job → invoice as your own system"
+        },
+        "m": {
+          "label": "Several processes",
+          "hint": "Roles & permissions · integrations · admin area",
+          "badge": "Popular"
+        },
+        "l": {
+          "label": "Platform",
+          "hint": "Several departments or locations, custom modules"
+        }
+      },
+      "appUmfang": {
+        "pwa": {
+          "label": "Home-screen web app",
+          "hint": "iOS & Android without the App Store · push",
+          "badge": "Affordable"
+        },
+        "native": {
+          "label": "Native app",
+          "hint": "App Store & Google Play · offline · push"
+        }
+      },
+      "funktionen": {
+        "zahlung": {
+          "label": "Online payment",
+          "hint": "Stripe, PayPal, Apple Pay, Google Pay"
+        },
+        "schnittstellen": {
+          "label": "Integrations",
+          "hint": "POS, DATEV, CRM, ERP or inventory"
+        },
+        "ki": {
+          "label": "AI feature",
+          "hint": "Chat, document extraction, text suggestions"
+        },
+        "whatsapp": {
+          "label": "WhatsApp notifications",
+          "hint": "Confirmations and status automatically"
+        },
+        "mehrsprachig": {
+          "label": "Multilingual",
+          "hint": "e.g. German, English, Arabic, Turkish"
+        },
+        "migration": {
+          "label": "Data migration",
+          "hint": "From Excel, paper lists or the old system"
+        }
+      },
+      "kiWorkflows": {
+        "anfragen": {
+          "label": "Enquiry automation",
+          "hint": "Sort, answer and forward emails & forms"
+        },
+        "dokumente": {
+          "label": "Documents & receipts",
+          "hint": "Extract, file and check automatically"
+        },
+        "telefon": {
+          "label": "AI phone assistant",
+          "hint": "Answers calls, books appointments, summarises"
+        },
+        "chatbot": {
+          "label": "Website chat",
+          "hint": "Answers questions with your knowledge, 24/7"
+        },
+        "bewertungen": {
+          "label": "Review replies",
+          "hint": "Google reviews in your house style"
+        },
+        "reporting": {
+          "label": "Weekly report",
+          "hint": "Numbers from all tools, once a week"
+        }
+      },
+      "mediaPaket": {
+        "brand": {
+          "label": "Brand & hospitality film",
+          "hint": "1 shoot day · brand film + 6 reels · cinema grading"
+        },
+        "artist": {
+          "label": "Artist campaign",
+          "hint": "Music video or visualizer · press kit · 8 reels"
+        },
+        "festival": {
+          "label": "Festival & event premium",
+          "hint": "Multi-cam crew · aftermovie in 7 days · 20+ ad variants",
+          "badge": "Premium"
+        }
+      },
+      "mediaExtras": {
         "drohne": {
           "label": "Drone footage",
-          "hint": "Aerial shots of your venue or crowd"
+          "hint": "Aerial shots of venue or crowd"
         },
         "zweitkamera": {
           "label": "Second camera + operator",
           "hint": "More angles, no missed moments"
         },
-        "gimbal": {
-          "label": "FPV & gimbal shots",
-          "hint": "Dynamic camera moves through your venue"
-        },
-        "grading": {
-          "label": "Cinematic colour grading",
-          "hint": "A custom look instead of a standard LUT"
-        }
-      },
-      "fotoUmfang": {
-        "kompakt": {
-          "label": "Compact",
-          "hint": "2 hours · 25 edited photos"
-        },
-        "standard": {
-          "label": "Standard",
-          "hint": "Half a day · 60 edited photos",
-          "badge": "Popular"
-        },
-        "premium": {
-          "label": "Premium",
-          "hint": "Full day · 150 photos incl. retouching"
-        }
-      },
-      "fotoExtras": {
-        "styling": {
-          "label": "Food styling",
-          "hint": "Plates, props and lighting like a magazine"
-        },
-        "retusche": {
-          "label": "High-end retouching",
-          "hint": "For menus, posters and large formats"
-        },
-        "kivarianten": {
-          "label": "AI image variants",
-          "hint": "Backgrounds, formats, seasonal versions"
-        }
-      },
-      "webArt": {
-        "speisekarte": {
-          "label": "Digital menu",
-          "hint": "Mobile menu with QR code, update it any time"
-        },
-        "onepager": {
-          "label": "One-page website",
-          "hint": "Menu or line-up, opening hours, directions"
-        },
-        "reservierung": {
-          "label": "Website with reservations",
-          "hint": "Multi-page · bookings/tickets around the clock",
-          "badge": "Recommended"
-        },
-        "komplett": {
-          "label": "Website with online ordering",
-          "hint": "Reservations + online ordering + dashboard"
-        }
-      },
-      "webExtras": {
-        "mehrsprachig": {
-          "label": "Second language",
-          "hint": "e.g. German or Arabic"
-        },
-        "gmb": {
-          "label": "Google Business Profile",
-          "hint": "Setup and optimisation with photos & map"
-        },
-        "seo": {
-          "label": "SEO starter package",
-          "hint": "Get found locally for \"restaurants near me\""
-        },
-        "geo": {
-          "label": "GEO for AI search",
-          "hint": "Visible in ChatGPT, Gemini & Google AI"
-        }
-      },
-      "kiWorkflows": {
-        "captions": {
-          "label": "Captions & posting plan",
-          "hint": "Copy in your tone of voice, polished by us"
-        },
-        "voiceover": {
-          "label": "AI voiceover & translation",
-          "hint": "Your clips in DE · EN · AR · TR"
-        },
         "varianten": {
-          "label": "Ad variant generator",
-          "hint": "Hooks, lengths, formats for A/B tests"
-        },
-        "bewertungen": {
-          "label": "Review replies",
-          "hint": "Reply to Google reviews automatically"
-        },
-        "leads": {
-          "label": "Enquiry automation",
-          "hint": "Sort and route bookings & enquiries"
-        },
-        "reporting": {
-          "label": "Reporting dashboard",
-          "hint": "Numbers from every channel, once a week"
+          "label": "AI language versions",
+          "hint": "Voiceover & subtitles in DE · EN · AR · TR"
         }
       },
       "anfahrt": {
@@ -1406,53 +2708,34 @@
           "hint": "up to 200 km"
         },
         "bundesweit": {
-          "label": "Anywhere in Germany",
+          "label": "Germany-wide",
           "hint": "incl. overnight stay"
         }
       },
-      "contentAbo": {
-        "keins": {
-          "label": "No subscription",
-          "hint": "One-off project"
-        },
-        "basis": {
-          "label": "Social Basic",
-          "hint": "6 reels + 10 photos per month"
-        },
-        "retainer": {
-          "label": "Social Retainer",
-          "hint": "12 reels + 20 photos, planning & posting",
-          "badge": "Hospitality favourite"
-        }
-      },
-      "hosting": {
-        "eigen": {
-          "label": "Stays with my current provider"
+      "betrieb": {
+        "selbst": {
+          "label": "Self-hosted",
+          "hint": "You get code & access, you handle hosting"
         },
         "wartung": {
           "label": "Hosting & maintenance",
-          "hint": "Domain, SSL, backups, small changes"
-        }
-      },
-      "kiBetrieb": {
-        "keiner": {
-          "label": "Self-managed",
-          "hint": "You run the workflows yourself"
+          "hint": "Server, SSL, backups, security updates"
         },
-        "basis": {
-          "label": "Managed Basic",
-          "hint": "Monitoring, updates, bug fixes"
+        "betrieb": {
+          "label": "Operations & support",
+          "hint": "+ monitoring, support, small changes",
+          "badge": "Recommended"
         },
-        "aktiv": {
-          "label": "Managed Plus",
-          "hint": "Plus ongoing development every month"
+        "wachstum": {
+          "label": "Ongoing development",
+          "hint": "+ new features every month (approx. 1 day)"
         }
       }
     },
     "engine": {
       "festival": "Festival & night shoot surcharge",
       "festivalDetail": "+{pct}% on shoot services",
-      "express": "Express delivery (72 h)",
+      "express": "Express start (within 7 days)",
       "expressDetail": "+{pct}%",
       "count": "{label}: {count} × {unit}",
       "perUnit": "{amount} each",
@@ -1494,9 +2777,9 @@
       "disclaimer": "The range is based solely on your selections. We'll work out together what your project really needs – and then give you a fixed price.",
       "contact": "Contact",
       "nextStep": "Next step",
-      "nextStepText": "Request a quote – reply within 24 hours with a fixed price.",
-      "rights": "Usage rights",
-      "rightsText": "Exclusive, unlimited in time and territory – upon receipt of payment."
+      "nextStepText": "Workshop & clickable prototype – then we give you a fixed price. Reply within 24 hours.",
+      "rights": "Rights & code",
+      "rightsText": "Source code, data and usage rights are yours – after payment, without limits in time or territory."
     }
   },
   "legal": {

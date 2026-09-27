@@ -18,7 +18,9 @@ export const routing = defineRouting({
   pathnames: {
     "/": "/",
     "/preisrechner": { de: "/preisrechner", en: "/pricing-calculator" },
-    "/content-pipeline": "/content-pipeline",
+    "/portfolio": "/portfolio",
+    "/blog": "/blog",
+    "/blog/[slug]": "/blog/[slug]",
     "/leistungen/[slug]": { de: "/leistungen/[slug]", en: "/services/[slug]" },
     "/impressum": { de: "/impressum", en: "/legal-notice" },
     "/datenschutz": { de: "/datenschutz", en: "/privacy" },

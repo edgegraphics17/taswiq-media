@@ -6,11 +6,13 @@ import type { BudgetBracket, FunnelIndustry, InterestId, LeadSource, LeadTier, P
  * (gespeicherter Wert – der Client-Score wird nie übernommen).
  *
  *  Tier-Regeln (in dieser Reihenfolge):
- *   1. Budget "Unter 1.000 €"                        → starter  (Standard-Pakete, Self-Service)
- *   2. Budget "Über 5.000 €"                         → premium  (direkte Terminbuchung / Calendly)
- *   3. Budget 2.500–5.000 € + Termin/dringend + Score ≥ 70 → premium
- *   4. alles andere                                  → growth   (Angebot in 24 h)
+ *   1. Budget "Unter 5.000 €"                              → starter  (Einstiegspakete, Prototyp-Sprint)
+ *   2. Budget "15.000–40.000 €" oder "Über 40.000 €"       → premium  (direkte Terminbuchung / Calendly)
+ *   3. Budget 5.000–15.000 € + Termin/dringend/Rechner + Score ≥ 70 → premium
+ *   4. alles andere                                        → growth   (Angebot in 24 h)
  */
+
+const SYSTEMS: InterestId[] = ["software", "bestellsystem", "buchungssystem", "webapp", "dashboard", "app"];
 
 export interface ScoreInput {
   industry: FunnelIndustry;
@@ -29,11 +31,16 @@ export interface ScoreResult {
 }
 
 const BUDGET_POINTS: Record<BudgetBracket, number> = {
-  unter_1k: 5,
-  "1k_2_5k": 20,
-  "2_5k_5k": 35,
-  ueber_5k: 50,
+  unter_5k: 10,
+  "5k_15k": 30,
+  "15k_40k": 45,
+  ueber_40k: 55,
   keine_angabe: 12,
+  // Legacy-Stufen (Content-Zeit)
+  unter_1k: 5,
+  "1k_2_5k": 12,
+  "2_5k_5k": 18,
+  ueber_5k: 30,
 };
 
 const STATUS_POINTS: Record<ProjectStatus, number> = {
@@ -58,13 +65,13 @@ export function scoreLead(input: ScoreInput): ScoreResult {
   // Wer den Rechner durchklickt, hat ein konkretes Projekt im Kopf
   if (input.source === "rechner") add(12, "Kalkulation im Rechner");
 
-  // Kernnische = passende Referenzen, höhere Abschlusswahrscheinlichkeit
-  if (input.industry !== "andere") add(8, "Kernbranche");
+  // Zielbranchen mit eigener Landingpage = passende Referenzen & Pakete
+  if (input.industry !== "andere") add(8, "Zielbranche");
 
   const concrete = input.interests.filter((i) => i !== "unsicher");
   add(Math.min(concrete.length, 3) * 3, `${concrete.length} Leistungen`);
-  // KI = Upsell-Potenzial Richtung Retainer
-  if (concrete.some((i) => i === "ki_content" || i === "automation")) add(4, "KI-Interesse");
+  // Systeme = laufender Betrieb, höchster Kundenwert
+  if (concrete.some((i) => SYSTEMS.includes(i))) add(6, "System-Projekt");
 
   if (input.hasPhone) add(5, "Telefon angegeben");
   if (input.hasCompany) add(4, "Firma angegeben");
@@ -72,10 +79,10 @@ export function scoreLead(input: ScoreInput): ScoreResult {
   score = Math.max(0, Math.min(100, score));
 
   let tier: LeadTier = "growth";
-  if (input.budget === "unter_1k") tier = "starter";
-  else if (input.budget === "ueber_5k") tier = "premium";
+  if (input.budget === "unter_5k" || input.budget === "unter_1k" || input.budget === "1k_2_5k") tier = "starter";
+  else if (input.budget === "15k_40k" || input.budget === "ueber_40k") tier = "premium";
   else if (
-    input.budget === "2_5k_5k" &&
+    input.budget === "5k_15k" &&
     (input.projectStatus === "projekt" || input.projectStatus === "dringend" || input.source === "rechner") &&
     score >= 70
   ) {

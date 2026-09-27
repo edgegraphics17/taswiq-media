@@ -1,16 +1,16 @@
 import { getTranslations } from "next-intl/server";
-import { Award, Handshake, Rocket, Search, type LucideIcon } from "lucide-react";
+import { Frame, Handshake, Rocket, Search, type LucideIcon } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { InView } from "@/components/ui/InView";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { cn } from "@/lib/format";
 
-const ICONS: LucideIcon[] = [Search, Award, Rocket, Handshake];
+const ICONS: LucideIcon[] = [Search, Frame, Rocket, Handshake];
 
 /**
- * Ablauf als Bento-Karten im Muster der Vorlage ("Professional work 01 · Award winning 02"):
+ * Ablauf als Bento-Karten: Workshop → Prototyp in 7 Tagen → Umsetzung in Etappen → Betrieb.
  * Titel, Text, rosé Icon-Kreis unten links, große blasse Nummer unten rechts –
- * Schritt 2 als schwarze Kontrast-Karte mit Mint-Icon.
+ * Schritt 2 (Prototyp) als schwarze Kontrast-Karte mit Mint-Icon.
  */
 export async function Process() {
   const t = await getTranslations("home.process");

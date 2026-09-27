@@ -1,4 +1,4 @@
-import { KONFIG, OPTIONEN, SCHRITTE, type CalcState, type Field, type Option, type Step } from "@/config/pricing";
+import { KONFIG, LEISTUNG_QUELLE, OPTIONEN, SCHRITTE, type CalcState, type Field, type Option, type Step } from "@/config/pricing";
 import { fieldCopy, stepCopy, type CalcI18n } from "@/lib/pricing-i18n";
 import { formatEUR } from "@/lib/format";
 
@@ -179,13 +179,13 @@ export function computeEstimate(s: CalcState, answeredUpTo: number, data: Pricin
 function einstiegspreis(s: CalcState, data: PricingData): number {
   const leistungen = (s.leistungen as string[]) ?? [];
   const f = s.branche === "musik" ? data.konfig.festivalFaktor : 1;
-  const min = (quelle: string, dreh: boolean) =>
-    Math.min(...(data.optionen[quelle] ?? []).map((o) => o.preis ?? Infinity)) * (dreh ? f : 1);
   let sum = 0;
-  if (leistungen.includes("video")) sum += min("videoUmfang", true);
-  if (leistungen.includes("foto")) sum += min("fotoUmfang", true);
-  if (leistungen.includes("web")) sum += min("webArt", false);
-  if (leistungen.includes("ki")) sum += min("kiWorkflows", false);
+  for (const id of leistungen) {
+    const ref = LEISTUNG_QUELLE[id];
+    if (!ref) continue;
+    const min = Math.min(...(data.optionen[ref.quelle] ?? []).map((o) => o.preis ?? Infinity));
+    if (Number.isFinite(min)) sum += min * (ref.dreh ? f : 1);
+  }
   return Math.round(sum);
 }
 
@@ -215,7 +215,7 @@ export function summaryRows(s: CalcState, data: PricingData, i18n: CalcI18n): { 
       else wert = Number(s[f.id]) === 0 ? t("engine.none") : String(s[f.id]);
       // Leistungs-Schritte bekommen ein Präfix, sonst gäbe es "Umfang" für Video UND Foto
       const fieldLabel = fieldCopy(i18n, f).label;
-      const generic = ["start", "extras", "laufend"].includes(st.id);
+      const generic = ["start", "extras", "laufend", "funktionen"].includes(st.id);
       const label = generic ? (fieldLabel ?? kurz) : `${kurz} · ${fieldLabel ?? t("engine.selection")}`;
       rows.push({ id: f.id, label, wert });
     }

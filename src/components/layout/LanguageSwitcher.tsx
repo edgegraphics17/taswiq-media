@@ -36,7 +36,12 @@ export function LanguageSwitcher({ className }: { className?: string }) {
       href:
         pathname === "/leistungen/[slug]" && params.slug
           ? { pathname, params: { slug: translateSeoSlug(params.slug, target) ?? params.slug } }
-          : (pathname as Exclude<AppPathname, "/leistungen/[slug]">),
+          : pathname === "/blog/[slug]"
+            ? // Ratgeber-Artikel gibt es nur auf Deutsch → in der anderen Sprache zur Übersicht
+              target === "de" && params.slug
+              ? { pathname, params: { slug: params.slug } }
+              : "/blog"
+            : (pathname as Exclude<AppPathname, "/leistungen/[slug]" | "/blog/[slug]">),
     });
 
   return (

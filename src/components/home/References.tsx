@@ -3,10 +3,11 @@ import { referenceArtists, referenceGroups } from "@/config/content";
 import { Reveal } from "@/components/ui/Reveal";
 
 /**
- * Referenz-Laufbänder im Stil der Logo-Reihe der Vorlage ("maze · Culture Amp"):
- * Namen typografisch statt Fremd-Logos, zwei gegenläufige Bänder, pausieren beim Hover.
+ * Referenz-Laufbänder: Namen typografisch statt Fremd-Logos, zwei gegenläufige Bänder,
+ * pausieren beim Hover. Direkt unter dem Hero = Social Proof aus 450+ Media-Projekten
+ * für Hotels, Festivals, Marken und Artists – das Fundament für die Software-Arbeit.
  */
-export async function References() {
+export async function References({ className }: { className?: string }) {
   const t = await getTranslations("home.references");
   const brands = referenceGroups.flatMap((g) => [{ label: t(`groups.${g.id}`) }, ...g.names.map((n) => ({ name: n }))]);
   const artists = [{ label: t("groups.artists") }, ...referenceArtists.map((n) => ({ name: n }))];
@@ -26,7 +27,7 @@ export async function References() {
                 {it.label}
               </li>
             ) : (
-              <li key={`n-${i}`} className="text-[clamp(1.2rem,2.2vw,1.7rem)] font-medium tracking-tight whitespace-nowrap text-ink/35 transition-colors hover:text-ink">
+              <li key={`n-${i}`} className="text-[clamp(1.1rem,2vw,1.55rem)] font-medium tracking-tight whitespace-nowrap text-ink/40 transition-colors hover:text-ink">
                 {it.name}
               </li>
             ),
@@ -37,15 +38,17 @@ export async function References() {
   );
 
   return (
-    <div className="mt-20">
+    <section aria-labelledby="references-title" className={className ?? "py-12"}>
       <Reveal className="container-x text-center">
-        <p className="text-lg font-medium text-ink">{t("title")}</p>
-        <p className="mt-1 text-sm text-muted">{(t.raw("partners") as string[]).join(" · ")}</p>
+        <p id="references-title" className="text-lg font-medium text-ink">
+          {t("title")}
+        </p>
+        <p className="mx-auto mt-1 max-w-2xl text-sm text-muted">{t("text")}</p>
       </Reveal>
       <div className="mt-8 space-y-5">
         <Row items={brands} />
         <Row items={artists} reverse />
       </div>
-    </div>
+    </section>
   );
 }

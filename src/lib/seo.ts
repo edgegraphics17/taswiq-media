@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { site, sameAs, hasAddress } from "@/config/site";
-import { pipelinePackages } from "@/config/pipeline";
+import { allPackages } from "@/config/packages";
 import { getPathname } from "@/i18n/navigation";
 import { routing, LOCALE_META, type Locale } from "@/i18n/routing";
 
@@ -20,6 +20,7 @@ export type PathHref = Parameters<typeof getPathname>[0]["href"];
 
 export const ORG_ID = `${site.url}/#organisation`;
 export const WEBSITE_ID = `${site.url}/#website`;
+export const PARTNER_ID = `${site.url}/#partner-winsym`;
 
 /** Absolute URL einer internen Route in einer Sprache, z. B. ("/preisrechner", "en") → https://…/en/pricing-calculator */
 export function absoluteUrl(href: PathHref, locale: Locale) {
@@ -81,7 +82,7 @@ export async function pageMetadata({
 
 export async function organizationJsonLd(locale: Locale) {
   const t = await getTranslations({ locale, namespace: "schema" });
-  const tp = await getTranslations({ locale, namespace: "pipeline" });
+  const tp = await getTranslations({ locale, namespace: "packages" });
   const address = hasAddress()
     ? {
         address: {
@@ -115,7 +116,6 @@ export async function organizationJsonLd(locale: Locale) {
         founder: { "@type": "Person", name: site.owner },
         priceRange: site.priceRange,
         areaServed: (t.raw("areaServed") as string[]).map((name) => ({ "@type": "Country", name })),
-        knowsLanguage: ["de", "en", "ar"],
         knowsAbout: t.raw("knowsAbout") as string[],
         ...address,
         ...geo,
@@ -130,20 +130,32 @@ export async function organizationJsonLd(locale: Locale) {
         hasOfferCatalog: {
           "@type": "OfferCatalog",
           name: t("catalogName"),
-          itemListElement: pipelinePackages.map((p) => ({
+          itemListElement: allPackages.map((p) => ({
             "@type": "Offer",
-            price: String(p.price),
             priceCurrency: "EUR",
-            ...(p.billing === "monthly"
-              ? { priceSpecification: { "@type": "UnitPriceSpecification", price: String(p.price), priceCurrency: "EUR", unitText: t("monthUnit") } }
-              : {}),
+            priceSpecification: {
+              "@type": "PriceSpecification",
+              ...(p.from ? { minPrice: String(p.price) } : { price: String(p.price) }),
+              priceCurrency: "EUR",
+            },
             itemOffered: {
               "@type": "Service",
-              name: tp(`pricing.packages.${p.id}.name`),
-              description: `${tp(`pricing.packages.${p.id}.audience`)}. ${(tp.raw(`pricing.packages.${p.id}.features`) as string[]).join(", ")}.`,
+              name: tp(`${p.id}.name`),
+              description: `${tp(`${p.id}.audience`)}. ${(tp.raw(`${p.id}.features`) as string[]).join(", ")}.`,
             },
           })),
         },
+        // Technologie-Partner: winsym.ai (KI-Technologie, Kuala Lumpur)
+        knowsLanguage: ["de", "en", "ar"],
+        sponsor: { "@id": PARTNER_ID },
+      },
+      {
+        "@type": "Organization",
+        "@id": PARTNER_ID,
+        name: site.partner.name,
+        url: site.partner.url,
+        description: t("partnerDescription"),
+        address: { "@type": "PostalAddress", addressLocality: site.partner.city, addressCountry: "MY" },
       },
       {
         "@type": "WebSite",

@@ -23,10 +23,24 @@ export const STATUS_TONE: Record<LeadStatusEnum, string> = {
 
 export const TIER_LABEL = { starter: "Starter", growth: "Growth", premium: "Premium" } as const;
 export const BUDGET_LABEL: Record<string, string> = {
+  unter_5k: "< 5.000 €",
+  "5k_15k": "5.000–15.000 €",
+  "15k_40k": "15.000–40.000 €",
+  ueber_40k: "> 40.000 €",
   unter_1k: "< 1.000 €",
   "1k_2_5k": "1.000–2.500 €",
   "2_5k_5k": "2.500–5.000 €",
   ueber_5k: "> 5.000 €",
   keine_angabe: "k. A.",
 };
-export const SOURCE_LABEL: Record<string, string> = { funnel: "Funnel", rechner: "Rechner", ki_seite: "Pipeline-Seite", branchen_seite: "SEO-Seite" };
+export const SOURCE_LABEL: Record<string, string> = { funnel: "Funnel", rechner: "Rechner", ki_seite: "Leistungsseite", branchen_seite: "Branchenseite", blog: "Blog", portfolio: "Portfolio" };
+export const INDUSTRY_LABEL: Record<string, string> = {
+  gastro: "Gastronomie & Food",
+  immobilien: "Immobilien",
+  automotive: "Automotive & Mobilität",
+  kanzlei: "Kanzleien & Beratung",
+  beauty: "Beauty & Gesundheit",
+  handwerk: "Handwerk & Services",
+  musik: "Events & Artists",
+  andere: "Andere",
+};

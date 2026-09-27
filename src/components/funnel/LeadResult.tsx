@@ -5,14 +5,14 @@ import { useLocale, useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { CalendarCheck, MessageCircle, Phone } from "lucide-react";
 import { site } from "@/config/site";
-import { starterPackages, type FunnelIndustry, type LeadTier } from "@/config/funnel";
+import { starterPackages, starterPrices, type FunnelIndustry, type LeadTier } from "@/config/funnel";
 import { formatEUR } from "@/lib/format";
 
 /**
  * Abschluss-Screen mit Lead-Scoring-Twist:
- *  starter (< 1.000 €)  → produktisierte Standard-Pakete, sofort per WhatsApp buchbar
- *  growth               → "Angebot in 24 h" + nächste Schritte
- *  premium (> 5.000 €)  → direkte Terminbuchung (Calendly, Zwei-Klick-Lösung für DSGVO)
+ *  starter (< 5.000 €)   → Einstiegspakete mit festem Preis (Prototyp-Sprint, Website, Buchung …)
+ *  growth               → "Einschätzung in 24 h" + nächste Schritte
+ *  premium (≥ 15.000 €) → direkte Terminbuchung (Calendly, Zwei-Klick-Lösung für DSGVO)
  */
 export function LeadResult({ tier, name, email, industry, onReset }: { tier: LeadTier; name: string; email: string; industry: FunnelIndustry; onReset?: () => void }) {
   const t = useTranslations("leadResult");
@@ -48,7 +48,7 @@ function Starter({ first, industry }: { first: string; industry: FunnelIndustry 
   const t = useTranslations("leadResult.starter");
   const tp = useTranslations("funnel");
   const locale = useLocale();
-  const packs = starterPackages[industry].map((p) => ({ ...p, name: tp(`starter.${p.id}.name`), text: tp(`starter.${p.id}.text`) }));
+  const packs = starterPackages[industry].map((id) => ({ id, price: starterPrices[id], name: tp(`starter.${id}.name`), text: tp(`starter.${id}.text`) }));
   const wa = (name: string) => `${site.whatsappHref}?text=${encodeURIComponent(t("whatsappText", { name }))}`;
   return (
     <>

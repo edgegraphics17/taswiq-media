@@ -1,16 +1,16 @@
 /**
- * Typen für das Supabase-Schema (supabase/migrations/20260926000000_init.sql).
+ * Typen für das Supabase-Schema (supabase/migrations/*.sql).
  * Nach Schema-Änderungen neu generieren:
  *   npx supabase gen types typescript --project-id <id> > src/types/database.ts
  */
 
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
-type Industry = "gastro" | "musik" | "andere";
+type Industry = "gastro" | "immobilien" | "automotive" | "kanzlei" | "beauty" | "handwerk" | "musik" | "andere";
 type ProjectStatus = "neustart" | "gelegentlich" | "regelmaessig" | "projekt" | "dringend";
-type BudgetBracket = "unter_1k" | "1k_2_5k" | "2_5k_5k" | "ueber_5k" | "keine_angabe";
+type BudgetBracket = "unter_5k" | "5k_15k" | "15k_40k" | "ueber_40k" | "keine_angabe" | "unter_1k" | "1k_2_5k" | "2_5k_5k" | "ueber_5k";
 type LeadTier = "starter" | "growth" | "premium";
-type LeadSource = "funnel" | "rechner" | "ki_seite" | "branchen_seite";
+type LeadSource = "funnel" | "rechner" | "ki_seite" | "branchen_seite" | "blog" | "portfolio";
 type LeadStatus = "neu" | "kontaktiert" | "angebot" | "verhandlung" | "gewonnen" | "verloren" | "archiviert";
 type LeadEventType = "created" | "status_change" | "note" | "email_sent" | "call" | "automation";
 

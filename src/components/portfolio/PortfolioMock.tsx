@@ -1,15 +1,18 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Play, Star } from "lucide-react";
-import type { PortfolioItem } from "@/config/content";
+import { Star } from "lucide-react";
+import type { PortfolioMedia } from "@/config/content";
 import fog from "../../../public/images/fog.jpg";
 
 /**
  * Visuals für Portfolio-Karten ohne Stock-Fotos: kleine Kompositionen, die zeigen,
- * WAS geliefert wird. Sobald echte Projektbilder da sind, `mock` durch `image` ersetzen.
+ * WAS geliefert wird. Sobald echte Projektbilder da sind, `media` auf "site" oder "video" umstellen.
  */
-export function PortfolioMock({ type }: { type: NonNullable<PortfolioItem["mock"]> }) {
-  const t = useTranslations("home.portfolio.mock");
+type MockKey = "lineupSub" | "review" | "draft" | "draftSub" | "approve" | "approveSub" | "dashTitle" | "dashLeads" | "dashScore" | "dashWon" | "dashPremium" | "dashGrowth";
+
+export function PortfolioMock({ type }: { type: Extract<PortfolioMedia, { type: "mock" }>["mock"] }) {
+  const tp = useTranslations("portfolio");
+  const t = (k: MockKey) => tp(`mock.${k}`);
   switch (type) {
     case "menu":
       // Speisekarte im Rechnungs-Look (Navy-Kopf, Teal-Labels)
@@ -21,7 +24,7 @@ export function PortfolioMock({ type }: { type: NonNullable<PortfolioItem["mock"
               <p className="absolute bottom-2 left-4 text-lg font-extrabold tracking-[0.18em] text-white">LILY&apos;S</p>
             </div>
             <div className="space-y-2.5 p-4">
-              {(t.raw("menuSections") as string[]).map((c) => (
+              {(tp.raw("mock.menuSections") as string[]).map((c) => (
                 <div key={c}>
                   <p className="text-[8px] font-bold tracking-[0.2em] text-brand-600 uppercase">{c}</p>
                   <div className="mt-1 flex items-center justify-between gap-2">
@@ -34,58 +37,45 @@ export function PortfolioMock({ type }: { type: NonNullable<PortfolioItem["mock"
           </div>
         </div>
       );
-    case "film":
+    case "dashboard":
+      // Eigenes Lead-System: Kennzahlen, Pipeline, Score – so sieht das Admin-Dashboard aus
       return (
-        <div className="absolute inset-0 grid place-items-center">
-          <div className="pf-mock relative aspect-video w-[78%] overflow-hidden rounded-xl border border-white/15 shadow-2xl">
-            <Image src={fog} alt="" fill sizes="500px" className="object-cover object-bottom" />
-            <div className="absolute inset-0 bg-night/40" />
-            <span className="absolute top-1/2 left-1/2 grid size-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-brand-500 text-white">
-              <Play className="size-5 translate-x-px fill-current" aria-hidden />
-            </span>
-            <div className="absolute inset-x-3 bottom-3 h-1 rounded-full bg-white/25">
-              <div className="h-full w-2/5 rounded-full bg-brand-500" />
+        <div className="absolute inset-0 grid place-items-center p-5">
+          <div className="pf-mock w-[88%] max-w-[420px] overflow-hidden rounded-2xl border border-white/10 bg-night-soft shadow-2xl">
+            <div className="flex items-center gap-1.5 border-b border-white/10 px-3 py-2">
+              {["bg-blush-500", "bg-amber-400", "bg-mint-400"].map((c) => (
+                <span key={c} className={`size-2 rounded-full ${c}`} />
+              ))}
+              <span className="ml-2 text-[9px] font-medium text-white/50">{t("dashTitle")}</span>
             </div>
-            <span className="absolute top-2.5 left-3 text-[10px] font-bold tracking-widest text-white/80">4K · 16:9</span>
-          </div>
-        </div>
-      );
-    case "phones":
-      return (
-        <div className="absolute inset-0 flex items-center justify-center gap-3">
-          {["30% 50%", "55% 70%", "80% 40%"].map((pos, i) => (
-            <div
-              key={pos}
-              className="pf-mock relative aspect-[9/16] w-[24%] overflow-hidden rounded-2xl border-2 border-white/20 shadow-2xl"
-              style={{ transform: `translateY(${i === 1 ? -14 : 10}px) rotate(${(i - 1) * 5}deg)` }}
-            >
-              <Image src={fog} alt="" fill sizes="160px" className="object-cover" style={{ objectPosition: pos }} />
-              <div className="absolute inset-x-2 bottom-2 space-y-1">
-                <span className="block h-1 w-3/4 rounded bg-white/70" />
-                <span className="block h-1 w-1/2 rounded bg-white/40" />
-              </div>
+            <div className="grid grid-cols-3 gap-2 p-3">
+              {[
+                { l: t("dashLeads"), v: "128" },
+                { l: t("dashScore"), v: "74" },
+                { l: t("dashWon"), v: "31 %" },
+              ].map((k) => (
+                <div key={k.l} className="rounded-lg bg-white/5 p-2">
+                  <p className="text-[8px] text-white/50">{k.l}</p>
+                  <p className="num text-sm font-semibold text-white">{k.v}</p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      );
-    case "wave":
-      return (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-5">
-          <div className="pf-mock flex h-20 items-center gap-1" aria-hidden>
-            {Array.from({ length: 28 }).map((_, i) => (
-              <span
-                key={i}
-                className="w-1.5 rounded-full bg-brand-400"
-                style={{ height: `${Math.round(20 + Math.abs(Math.sin(i * 0.9)) * 60 + (i % 3) * 6)}%` }}
-              />
-            ))}
-          </div>
-          <div className="flex gap-2">
-            {["DE", "EN", "AR", "TR"].map((l, i) => (
-              <span key={l} className={`rounded-full px-3 py-1 text-xs font-bold ${i === 0 ? "bg-brand-500 text-white" : "border border-white/20 text-white/80"}`}>
-                {l}
-              </span>
-            ))}
+            <div className="flex h-16 items-end gap-1 px-3 pb-3" aria-hidden>
+              {[30, 48, 40, 62, 55, 78, 70, 92, 84, 100].map((h, i) => (
+                <span key={i} className="flex-1 rounded-sm bg-brand-400" style={{ height: `${h}%`, opacity: 0.45 + i * 0.05 }} />
+              ))}
+            </div>
+            <div className="space-y-1.5 border-t border-white/10 p-3">
+              {[
+                { n: "Autohaus M.", s: t("dashPremium"), c: "bg-brand-500" },
+                { n: "Kanzlei P.", s: t("dashGrowth"), c: "bg-mint-500" },
+              ].map((r) => (
+                <div key={r.n} className="flex items-center justify-between rounded-md bg-white/5 px-2 py-1.5">
+                  <span className="text-[9px] text-white/80">{r.n}</span>
+                  <span className={`rounded-full px-1.5 py-0.5 text-[8px] font-semibold text-white ${r.c}`}>{r.s}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       );

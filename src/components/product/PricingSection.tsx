@@ -1,19 +1,20 @@
 import { getLocale, getTranslations } from "next-intl/server";
-import { ArrowRight, BadgePercent, Clapperboard, Megaphone, ShieldCheck, Sparkles, type LucideIcon } from "lucide-react";
+import { ArrowRight, BadgePercent, Boxes, CodeXml, Monitor, ShieldCheck, Sparkles, type LucideIcon } from "lucide-react";
 import { ButtonLink } from "@/components/ui/Button";
 import { InView } from "@/components/ui/InView";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { cn, eurAffix, formatNumber } from "@/lib/format";
 
-export type Pack = { id: string; name: string; audience: string; price: number; unit: string; meta: string; features: string[]; featured?: boolean };
-const ICONS: LucideIcon[] = [Clapperboard, Sparkles, Megaphone];
+export type Pack = { id: string; name: string; audience: string; price: number; unit: string; meta: string; features: string[]; featured?: boolean; from?: string };
+const ICONS: LucideIcon[] = [Monitor, Boxes, CodeXml];
 
 /**
- * Pakete im Muster der Pricing-Karten der Vorlage ("Starter · $29 · Facility you will get"):
+ * Pakete im Muster der Pricing-Karten der Vorlage ("Starter · $29 · Facility you will get"),
+ * Preise als "ab …" (Umfang klärt der Workshop):
  * großer Preis, Leistungen als graue Pillen-Zeilen, Empfehlung als schwarze Karte.
  */
-export async function PricingSection({ tag, title, accent, text, packages, trust, highlight }: { tag: string; title: string; accent: string; text: string; packages: Pack[]; trust: string[]; highlight?: string }) {
+export async function PricingSection({ tag, title, accent, text, packages, trust, highlight, icons }: { tag: string; title: string; accent: string; text: string; packages: Pack[]; trust: string[]; highlight?: string; icons?: LucideIcon[] }) {
   const locale = await getLocale();
   const t = await getTranslations("product");
   const eur = eurAffix(locale);
@@ -26,7 +27,7 @@ export async function PricingSection({ tag, title, accent, text, packages, trust
         <InView className="stagger mt-12 grid items-stretch gap-4 lg:grid-cols-3">
           {packages.map((p, i) => {
             const featured = highlight ? p.id === highlight : p.featured;
-            const Ico = ICONS[i] ?? Sparkles;
+            const Ico = (icons ?? ICONS)[i] ?? Sparkles;
             return (
               <article
                 key={p.id}
@@ -44,6 +45,7 @@ export async function PricingSection({ tag, title, accent, text, packages, trust
                 </div>
                 {featured && <span className="mt-4 self-start rounded-full bg-brand-500 px-3 py-1 text-xs font-medium text-white">{highlight ? t("recommended") : t("mostChosen")}</span>}
                 <p className="mt-6 flex items-baseline gap-2">
+                  {p.from && <span className={cn("text-lg", featured ? "text-night-muted" : "text-muted")}>{p.from}</span>}
                   {eur.pre && <span className={cn("text-lg", featured ? "text-night-muted" : "text-muted")}>€</span>}
                   <span className="num text-5xl font-medium tracking-tight">{formatNumber(p.price, locale)}</span>
                   {eur.post && <span className={cn("text-lg", featured ? "text-night-muted" : "text-muted")}>€</span>}

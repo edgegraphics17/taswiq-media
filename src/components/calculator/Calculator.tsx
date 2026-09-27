@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import { useLocale, useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Calculator as CalcIcon, Check, ChevronDown, Copy, Printer } from "lucide-react";
-import type { CalcState } from "@/config/pricing";
+import { isIndustry, LEISTUNG_INTEREST, type CalcState } from "@/config/pricing";
 import { computeEstimate, initialState, stepError, summaryRows, summaryText, visibleSteps, type PricingData } from "@/lib/pricing-engine";
 import type { FunnelIndustry, InterestId, LeadTier } from "@/config/funnel";
 import { getAttribution, getSessionId } from "@/lib/attribution";
@@ -62,10 +62,10 @@ export function Calculator({ data: rawData }: { data: PricingData }) {
   const rows = useMemo(() => summaryRows(s, data, i18n), [s, data, i18n]);
 
   const leistungen = (s.leistungen as string[]) ?? [];
-  const industry: FunnelIndustry = s.branche === "musik" ? "musik" : "gastro";
+  const industry: FunnelIndustry = isIndustry(s.branche) ? s.branche : "andere";
   const sheetTitle = tr("sheetTitle", {
     services: leistungen.map((id) => data.optionen.leistungen.find((o) => o.id === id)?.label).join(" · "),
-    industry: tr(`industries.${industry === "musik" ? "musik" : "gastro"}`),
+    industry: tr(`industries.${industry}`),
   });
 
   const update = (id: string, value: CalcState[string]) => {
@@ -135,13 +135,7 @@ export function Calculator({ data: rawData }: { data: PricingData }) {
   const submit = async (v: ContactValues) => {
     setSubmitting(true);
     setServerError(null);
-    const interests: InterestId[] = [];
-    if (leistungen.includes("video")) interests.push(industry === "musik" ? "aftermovie" : "reels");
-    if (leistungen.includes("foto")) interests.push("foto");
-    if (leistungen.includes("web")) interests.push("web");
-    if (leistungen.includes("ki")) interests.push("automation");
-    if (s.contentAbo && s.contentAbo !== "keins") interests.push("social");
-    if (Number(s.sprachen) > 0) interests.push("ki_content");
+    const interests = leistungen.map((id) => LEISTUNG_INTEREST[id]).filter((i): i is InterestId => Boolean(i));
 
     const res = await submitLead({
       source: "rechner",

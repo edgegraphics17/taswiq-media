@@ -1,20 +1,22 @@
 import "server-only";
 import { getTranslations } from "next-intl/server";
-import { pipelinePackages } from "@/config/pipeline";
+import { mediaPackages, softwarePackages } from "@/config/packages";
 import type { Locale } from "@/i18n/routing";
 import type { Pack } from "@/components/product/PricingSection";
 
-/** Pakete = Preise aus config/pipeline.ts + Texte aus messages → pipeline.pricing */
-export async function getPackages(locale: Locale): Promise<Pack[]> {
-  const t = await getTranslations({ locale, namespace: "pipeline" });
-  return pipelinePackages.map((p) => ({
+/** Pakete = Preise aus config/packages.ts + Texte aus messages → packages */
+export async function getPackages(locale: Locale, group: "software" | "media" = "software"): Promise<Pack[]> {
+  const t = await getTranslations({ locale, namespace: "packages" });
+  const list = group === "media" ? mediaPackages : softwarePackages;
+  return list.map((p) => ({
     id: p.id,
-    name: t(`pricing.packages.${p.id}.name`),
-    audience: t(`pricing.packages.${p.id}.audience`),
-    meta: t(`pricing.packages.${p.id}.meta`),
-    features: t.raw(`pricing.packages.${p.id}.features`) as string[],
+    name: t(`${p.id}.name`),
+    audience: t(`${p.id}.audience`),
+    meta: t(`${p.id}.meta`),
+    features: t.raw(`${p.id}.features`) as string[],
     price: p.price,
-    unit: t(`pricing.units.${p.billing}`),
+    unit: t(`units.${p.billing}`),
+    from: p.from ? t("from") : undefined,
     featured: p.featured,
   }));
 }

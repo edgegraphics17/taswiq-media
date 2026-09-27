@@ -9,7 +9,7 @@ import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { contactHref, nav, type AppHref } from "@/config/site";
 import { cn } from "@/lib/format";
 
-const SPY_IDS = ["home", "services", "ki", "ablauf", "kontakt"];
+const SPY_IDS = ["home", "services", "branchen", "ablauf", "kontakt"];
 
 /**
  * Schwebende Pillen-Navigation (Vorlage): weiße Kapsel mit weichem Schatten.
@@ -50,7 +50,8 @@ export function Header({
 
   const isActive = (href: AppHref) => {
     if (typeof href === "object" && href.hash) return pathname === "/" && activeId === href.hash;
-    return pathname === (typeof href === "string" ? href : href.pathname);
+    const target = typeof href === "string" ? href : href.pathname;
+    return pathname === target || (target !== "/" && pathname.startsWith(`${target}/`));
   };
 
   return (

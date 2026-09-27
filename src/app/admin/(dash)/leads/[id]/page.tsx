@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, Mail, MessageCircle, Phone } from "lucide-react";
 import { getLead } from "@/lib/admin/data";
 import { addNote, updateLead } from "@/app/admin/actions";
-import { BUDGET_LABEL, SOURCE_LABEL, STATUS_LABEL } from "@/lib/admin/labels";
+import { BUDGET_LABEL, INDUSTRY_LABEL, SOURCE_LABEL, STATUS_LABEL } from "@/lib/admin/labels";
 import { LEAD_STATUSES, type Json } from "@/types/database";
 import { getTranslations } from "next-intl/server";
 import { formatDateTime, formatNumber } from "@/lib/format";
@@ -74,7 +74,7 @@ export default async function LeadDetail({
             <dl className="mt-3 grid gap-x-6 gap-y-3 text-sm sm:grid-cols-2">
               <div><dt className="text-muted">E-Mail</dt><dd className="font-medium text-ink">{lead.email}</dd></div>
               <div><dt className="text-muted">Telefon</dt><dd className="font-medium text-ink">{lead.phone ?? "–"}</dd></div>
-              <div><dt className="text-muted">Branche</dt><dd className="font-medium text-ink">{lead.industry}</dd></div>
+              <div><dt className="text-muted">Branche</dt><dd className="font-medium text-ink">{INDUSTRY_LABEL[lead.industry] ?? lead.industry}</dd></div>
               <div><dt className="text-muted">Budget</dt><dd className="num font-medium text-ink">{lead.estimate_min ? `${formatNumber(lead.estimate_min)}–${formatNumber(lead.estimate_max ?? 0)} € (Rechner)` : BUDGET_LABEL[lead.budget]}</dd></div>
               <div><dt className="text-muted">Status laut Lead</dt><dd className="font-medium text-ink">{lead.project_status ? tf(`statuses.${lead.project_status}`) : "–"}</dd></div>
               <div><dt className="text-muted">Sprache der Anfrage</dt><dd className="font-medium text-ink">{leadLocale === "en" ? "Englisch" : "Deutsch"}</dd></div>
