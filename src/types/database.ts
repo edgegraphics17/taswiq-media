@@ -1,7 +1,6 @@
 /**
- * Typen für das Supabase-Schema (supabase/migrations/*.sql).
- * Nach Schema-Änderungen neu generieren:
- *   npx supabase gen types typescript --project-id <id> > src/types/database.ts
+ * Typen für das Backend-Schema (backend/schema.sql, API in backend/server.mjs).
+ * Bei Schema-Änderungen hier von Hand nachziehen – die API liefert JSON-Spalten bereits als Objekte/Arrays.
  */
 
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
@@ -92,82 +91,37 @@ type LeadEventRowT = {
 
 type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
-export interface Database {
-  public: {
-    Tables: {
-      services: {
-        Row: ServiceRow;
-        Insert: Optional<ServiceRow, "hint" | "preis" | "mtl" | "dreh" | "is_active" | "sort_order" | "created_at" | "updated_at">;
-        Update: Partial<ServiceRow>;
-        Relationships: [];
-      };
-      calculator_requests: {
-        Row: CalculatorRequestRow;
-        Insert: Optional<
-          CalculatorRequestRow,
-          "id" | "created_at" | "session_id" | "summary" | "line_items" | "monthly_total" | "utm" | "referrer" | "converted_lead_id"
-        >;
-        Update: Partial<CalculatorRequestRow>;
-        Relationships: [];
-      };
-      leads: {
-        Row: LeadRowT;
-        Insert: Optional<
-          LeadRowT,
-          | "id"
-          | "created_at"
-          | "updated_at"
-          | "phone"
-          | "company"
-          | "message"
-          | "source"
-          | "interests"
-          | "project_status"
-          | "estimate_min"
-          | "estimate_max"
-          | "monthly_estimate"
-          | "calculator_request_id"
-          | "score_reasons"
-          | "status"
-          | "deal_value"
-          | "owner_notes"
-          | "next_action_at"
-          | "last_contacted_at"
-          | "source_meta"
-          | "automation"
-          | "ip_hash"
-        >;
-        Update: Partial<LeadRowT>;
-        Relationships: [];
-      };
-      lead_events: {
-        Row: LeadEventRowT;
-        Insert: Optional<LeadEventRowT, "id" | "from_status" | "to_status" | "body" | "payload" | "created_by" | "created_at">;
-        Update: Partial<LeadEventRowT>;
-        Relationships: [];
-      };
-    };
-    Views: {
-      lead_pipeline_summary: {
-        Row: { status: LeadStatus; lead_count: number; estimate_max_sum: number; deal_value_sum: number };
-        Relationships: [];
-      };
-    };
-    Functions: {
-      is_admin: { Args: Record<string, never>; Returns: boolean };
-    };
-    Enums: {
-      industry: Industry;
-      project_status: ProjectStatus;
-      budget_bracket: BudgetBracket;
-      lead_tier: LeadTier;
-      lead_source: LeadSource;
-      lead_status: LeadStatus;
-      lead_event_type: LeadEventType;
-    };
-    CompositeTypes: Record<string, never>;
-  };
-}
+export type LeadInsert = Optional<
+  LeadRowT,
+  | "id"
+  | "created_at"
+  | "updated_at"
+  | "phone"
+  | "company"
+  | "message"
+  | "source"
+  | "interests"
+  | "project_status"
+  | "estimate_min"
+  | "estimate_max"
+  | "monthly_estimate"
+  | "calculator_request_id"
+  | "score_reasons"
+  | "status"
+  | "deal_value"
+  | "owner_notes"
+  | "next_action_at"
+  | "last_contacted_at"
+  | "source_meta"
+  | "automation"
+  | "ip_hash"
+>;
+export type CalculatorRequestInsert = Optional<
+  CalculatorRequestRow,
+  "id" | "created_at" | "session_id" | "summary" | "line_items" | "monthly_total" | "utm" | "referrer" | "converted_lead_id"
+>;
+export type ServiceUpsert = Pick<ServiceRow, "group_id" | "option_id" | "label" | "preis" | "mtl" | "is_active">;
+export type ServiceRowType = ServiceRow;
 
 export type LeadRow = LeadRowT;
 export type LeadEventRow = LeadEventRowT;

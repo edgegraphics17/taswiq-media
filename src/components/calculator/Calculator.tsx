@@ -33,7 +33,7 @@ export function Calculator({ data: rawData }: { data: PricingData }) {
   const tc = useTranslations("common");
   const locale = useLocale();
   const i18n = useMemo<CalcI18n>(() => ({ t: asTranslator(tr), locale }), [tr, locale]);
-  // Preise aus Supabase, Texte aus messages/{de,en}.json
+  // Preise aus dem Backend, Texte aus messages/{de,en}.json
   const data = useMemo(() => localizeOptions(rawData, i18n), [rawData, i18n]);
   const eur = eurAffix(locale);
   const [s, setS] = useState<CalcState>(() => initialState());

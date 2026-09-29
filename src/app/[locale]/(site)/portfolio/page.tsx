@@ -4,6 +4,7 @@ import { ArrowRight, Briefcase } from "lucide-react";
 import { portfolioItems, thumbOf } from "@/config/content";
 import { contactHref, site } from "@/config/site";
 import { PortfolioExplorer } from "@/components/portfolio/PortfolioExplorer";
+import { PortfolioGallery } from "@/components/portfolio/PortfolioGallery";
 import { References } from "@/components/home/References";
 import { FunnelSection } from "@/components/product/FunnelSection";
 import { ButtonLink } from "@/components/ui/Button";
@@ -65,6 +66,8 @@ export default async function PortfolioPage({ params }: Props) {
           </div>
         </div>
       </section>
+
+      <PortfolioGallery />
 
       <References />
 

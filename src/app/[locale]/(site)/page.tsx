@@ -9,6 +9,7 @@ import { PortfolioTeaser } from "@/components/home/PortfolioTeaser";
 import { PromiseSection } from "@/components/home/Promise";
 import { Process } from "@/components/home/Process";
 import { MediaSection } from "@/components/home/MediaSection";
+import { EventStrip } from "@/components/home/EventStrip";
 import { CalculatorTeaser } from "@/components/home/CalculatorTeaser";
 import { BlogTeaser } from "@/components/home/BlogTeaser";
 import { Contact } from "@/components/home/Contact";
@@ -32,6 +33,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
       <PromiseSection />
       <Process />
       <MediaSection />
+      <EventStrip />
       <CalculatorTeaser />
       <BlogTeaser />
       <Contact />

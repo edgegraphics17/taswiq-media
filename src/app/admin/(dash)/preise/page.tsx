@@ -2,10 +2,13 @@ import { getPricingData } from "@/lib/pricing-source";
 import { updatePrices } from "@/app/admin/actions";
 import { OPTIONEN } from "@/config/pricing";
 
+/** Nur Gruppen mit Preisen (Branchen & Leistungswahl haben keine und bleiben Stammdaten in pricing.ts). */
 const GROUP_LABEL: Record<string, string> = {
-  videoUmfang: "Video · Umfang", videoExtras: "Video · Extras", fotoUmfang: "Foto · Umfang", fotoExtras: "Foto · Extras",
-  webArt: "Web · Pakete", webExtras: "Web · Extras", kiWorkflows: "KI · Workflows", anfahrt: "Anfahrt",
-  contentAbo: "Content-Abo (monatlich)", hosting: "Hosting (monatlich)", kiBetrieb: "KI-Betreuung (monatlich)",
+  websiteUmfang: "Website · Umfang", websiteExtras: "Website · Extras", bestellUmfang: "Bestellsystem · Umfang",
+  buchungUmfang: "Buchungssystem · Umfang", portalUmfang: "Kundenportal · Umfang", dashboardUmfang: "Dashboard · Umfang",
+  softwareUmfang: "Individuelle Software · Umfang", appUmfang: "Mobile App · Umfang", funktionen: "Zusatzfunktionen",
+  kiWorkflows: "KI · Workflows", mediaPaket: "Premium-Media · Pakete", mediaExtras: "Premium-Media · Extras",
+  anfahrt: "Anfahrt", betrieb: "Betrieb & Support (monatlich)",
 };
 
 /**
@@ -14,7 +17,7 @@ const GROUP_LABEL: Record<string, string> = {
  */
 export default async function PricesPage({ searchParams }: { searchParams: Promise<{ saved?: string; demo?: string; error?: string }> }) {
   const [data, flags] = await Promise.all([getPricingData(), searchParams]);
-  const groups = Object.keys(GROUP_LABEL);
+  const groups = Object.keys(OPTIONEN).filter((g) => g in GROUP_LABEL);
 
   return (
     <div className="mx-auto max-w-[1000px]">
@@ -23,7 +26,7 @@ export default async function PricesPage({ searchParams }: { searchParams: Promi
       <p className="mt-2 max-w-2xl text-sm text-muted">Änderungen sind sofort im Rechner live. Deaktivierte Optionen werden ausgeblendet. Beträge in Euro, Endpreise.</p>
       {flags.saved && <p role="status" className="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-sm text-emerald-800">Preise gespeichert – der Rechner ist aktualisiert.</p>}
       {flags.demo && <p role="status" className="mt-4 rounded-xl bg-amber-50 px-4 py-3 text-sm text-amber-900">Demo-Modus – nichts gespeichert.</p>}
-      {flags.error && <p role="alert" className="mt-4 rounded-xl bg-rose-50 px-4 py-3 text-sm text-rose-800">Speichern fehlgeschlagen. Ist die Migration eingespielt?</p>}
+      {flags.error && <p role="alert" className="mt-4 rounded-xl bg-rose-50 px-4 py-3 text-sm text-rose-800">Speichern fehlgeschlagen. Ist das Backend erreichbar?</p>}
 
       <form action={updatePrices} className="mt-6 space-y-6">
         {groups.map((g) => (

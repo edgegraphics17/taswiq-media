@@ -7,7 +7,7 @@ const SESSION_KEY = "taswiq:session";
 
 /**
  * Erfasst UTM-Parameter & Referrer beim ersten Seitenaufruf der Session
- * (First-Touch) – landet mit jedem Lead in Supabase → Kampagnen-Auswertung.
+ * (First-Touch) – landet mit jedem Lead im Backend → Kampagnen-Auswertung.
  */
 export function getAttribution(): Attribution {
   if (typeof window === "undefined") return {};

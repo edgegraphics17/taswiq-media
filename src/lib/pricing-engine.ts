@@ -198,7 +198,7 @@ export function priceHint(o: Option, { t, locale }: CalcI18n): string {
   return parts.join(" · ");
 }
 
-/** Lesbare Auswahl-Liste – für PDF, "Zusammenfassung kopieren", Lead-Payload & Supabase */
+/** Lesbare Auswahl-Liste – für PDF, "Zusammenfassung kopieren", Lead-Payload & Backend */
 export function summaryRows(s: CalcState, data: PricingData, i18n: CalcI18n): { id: string; label: string; wert: string }[] {
   const { t } = i18n;
   const rows: { id: string; label: string; wert: string }[] = [];

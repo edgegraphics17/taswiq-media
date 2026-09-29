@@ -44,7 +44,7 @@ export default async function DashLayout({ children }: { children: React.ReactNo
       <main className="min-w-0 px-4 py-6 sm:px-8 lg:py-10">
         {admin.demo && (
           <p className="mb-6 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-            <b>Demo-Modus:</b> Supabase ist nicht verbunden – du siehst Beispieldaten, Änderungen werden nicht gespeichert.
+            <b>Demo-Modus:</b> Das Backend ist nicht verbunden – du siehst Beispieldaten, Änderungen werden nicht gespeichert.
           </p>
         )}
         {children}

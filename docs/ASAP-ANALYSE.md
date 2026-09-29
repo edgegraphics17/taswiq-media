@@ -82,7 +82,7 @@ Hero mit Partner-Badge + 4 Kennzahlen → Problem (Liste + „So läuft ein Anru
 | KI-Telefonassistent (Flaggschiff) | **KI-Content-Pipeline** (eigene Unterseite) |
 | Projekt-Rechner (Web/Shop/App) | Rechner mit Verzweigung nach **Branche → Leistungen (Video/Foto/Web/KI) → Umfang je Leistung** |
 | Druckansicht | Angebots-Sheet im Rechnungs-Design (Navy-Kopf, Job-Nr., Gesamtbetrag-Box) |
-| mailer.php | `/api/leads` → Supabase → n8n (Slack/Discord, Mail je Branche, Follow-up) |
+| mailer.php | `/api/leads` → Backend → n8n (Slack/Discord, Mail je Branche, Follow-up) |
 | gleicher Erfolgs-Screen | **Lead-Scoring:** < 1.000 € → Starter-Pakete, > 5.000 € → Calendly-Termin |
 | Sie/du gemischt | durchgehend „du“ |
 | Emojis als Icons | Lucide-Icons (skalierbar, markenkonform) |

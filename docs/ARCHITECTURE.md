@@ -2,7 +2,7 @@
 
 **Logik (Funnel, Rechner, Scoring, Backend):** nach asapmarketing.de (Analyse: [`ASAP-ANALYSE.md`](./ASAP-ANALYSE.md))
 **Design-System „Soft UI“ (seit Redesign 27.09.2026):** nach der Design-Vorlage – Violett `#7840FE`, Canvas `#F6F6F6`, Kontrast-Schwarz `#141414`, Mint `#1DAF59`, Rosé `#F9CFD4`, Inter Tight; weiche Radien (`rounded-[2rem]`), alle Buttons/Tags als Pillen, Bento-Grids, schwebende Info-Karten. Tokens in `src/app/globals.css`.
-**Stack:** Next.js 15.5 (App Router) · Tailwind CSS 4 · Framer Motion · Supabase · n8n · Zod
+**Stack:** Next.js 15.5 (App Router) · Tailwind CSS 4 · Framer Motion · Backend auf Fly.io-Sprite (Node + SQLite) · n8n · Zod
 
 ---
 
@@ -15,8 +15,9 @@ Taswiq Media./
 │  └─ ASAP-ANALYSE.md            ← Blaupause: Sektionen, Funnel, Rechner, Motion von asap
 ├─ n8n/
 │  └─ taswiq-lead-automation.json ← importierbarer Workflow (14 Nodes)
-├─ supabase/
-│  ├─ migrations/20260926000000_init.sql  ← Schema, RLS, Trigger, View
+├─ backend/                      ← läuft auf dem Sprite "taswiq-media" (siehe Phase 4)
+│  ├─ server.mjs                 ← REST-API + SSE (Node, node:sqlite)
+│  ├─ schema.sql                 ← SQLite-Schema
 │  └─ seed.sql                   ← generiert aus src/config/pricing.ts
 ├─ scripts/generate-seed.ts      ← npm run db:seed-sql
 ├─ public/
@@ -39,7 +40,7 @@ Taswiq Media./
    │  │  ├─ (dash)/              ← Leads, Lead-Detail, Kalkulationen, Preis-Editor
    │  │  ├─ login/, auth/callback/
    │  │  └─ actions.ts           ← Server Actions (Status, Notizen, Preise, Login)
-   │  ├─ api/leads/route.ts      ← Phase 3 – Funnel/Rechner → Supabase → n8n
+   │  ├─ api/leads/route.ts      ← Phase 3 – Funnel/Rechner → Backend → n8n
    │  ├─ api/calculator/route.ts ← Phase 2 – Kalkulation protokollieren
    │  ├─ robots.ts, sitemap.ts, llms.txt/, opengraph-image.tsx
    ├─ config/                    ← Struktur & Preise (IDs, Icons, Medien) – Texte in messages/
@@ -51,12 +52,13 @@ Taswiq Media./
    │  └─ seo-pages.ts            ← Geo-SEO-Seiten
    ├─ lib/
    │  ├─ pricing-engine.ts       ← reine Rechenlogik (Client + Server identisch)
-   │  ├─ pricing-source.ts       ← Preise aus Supabase überschreiben config (Cache 5 Min.)
+   │  ├─ pricing-source.ts       ← Preise aus dem Backend überschreiben config (Cache 5 Min.)
    │  ├─ lead-scoring.ts         ← Score + Tier
    │  ├─ validation.ts           ← Zod-Schemas (Client-Inline + Server)
    │  ├─ webhook.ts              ← n8n-Forwarding (Secret + HMAC, 4-s-Timeout)
    │  ├─ seo.ts                  ← Metadata-Helfer + JSON-LD
-   │  ├─ supabase/               ← server / admin (Service-Role) / browser / middleware
+   │  ├─ db.ts                   ← einzige Naht zum Backend (Token, Timeout, Retry)
+   │  ├─ session.ts              ← signiertes Admin-Cookie (Web Crypto, Edge-tauglich)
    │  └─ admin/                  ← Datenschicht Dashboard + Demo-Daten
    └─ components/
       ├─ layout/                 ← SiteShell (3D-Menü), Header, MobileMenu, Footer
@@ -132,7 +134,7 @@ Monatlich separat
 
 **Preise ändern – drei Wege:**
 1. `src/config/pricing.ts` (Code, Version hochzählen)
-2. Dashboard → **Preise** (schreibt in Supabase `services`, live nach Speichern)
+2. Dashboard → **Preise** (schreibt in die Backend-Tabelle `services`, live nach Speichern)
 3. Direkt in der Tabelle `services`
 
 Ergebnis: Summenbox · Aufstellung als **A4-Blatt im Rechnungs-Design** (Job-Nr., Gesamt-Box) · „Zusammenfassung kopieren“ · „Als PDF speichern“ (`window.print` + eigene Druckvorlage) · Anfrage direkt im Ergebnis. Server rechnet jede Kalkulation neu (`/api/calculator`, `/api/leads`) – Client-Preise werden nie übernommen.
@@ -183,23 +185,32 @@ Ergebnis: Summenbox · Aufstellung als **A4-Blatt im Rechnungs-Design** (Job-Nr.
 
 ## Phase 4 · Backend & Automatisierung
 
-### Supabase (`supabase/migrations/20260926000000_init.sql`)
+### Backend (Sprite `taswiq-media` auf Fly.io · Code in `backend/`)
+Ersetzt Supabase. Ein kleiner Node-Dienst (`backend/server.mjs`, keine Abhängigkeiten, `node:sqlite`) läuft dort als Service `api`
+(Port 8080) und speichert in SQLite (`backend/schema.sql`, Daten auf dem persistenten Sprite-Volume). Sprites schlafen bei Inaktivität;
+der Client (`src/lib/db.ts`) hat deshalb ein 10-s-Timeout und einen Retry bei Verbindungsfehlern.
+
 | Tabelle | Inhalt |
 |---------|--------|
-| `services` | Preis-Matrix (group_id, option_id, preis, mtl, dreh, is_active) – überschreibt pricing.ts |
+| `services` | Preis-Matrix (group_id, option_id, preis, mtl, dreh, is_active) – überschreibt pricing.ts (leer = Standardwerte) |
 | `calculator_requests` | jede Kalkulation: State, Posten, Spanne, Preisversion, UTM, `converted_lead_id` |
 | `leads` | Kontakt, Qualifizierung, Score/Tier, **Kunden-Status** (neu → kontaktiert → angebot → verhandlung → gewonnen/verloren/archiviert), Auftragswert, n8n-Automation |
-| `lead_events` | Verlauf: Erstellung & Status-Wechsel automatisch per Trigger, Notizen, Automationen |
-| View `lead_pipeline_summary` | Anzahl & Summen je Status (security_invoker) |
+| `lead_events` | Verlauf: Erstellung & Status-Wechsel automatisch (im API-Dienst, in einer Transaktion), Notizen, Automationen |
+| `login_tokens` | einmalige Magic-Link-Tokens (nur SHA-256-Hash, 15 min gültig) |
 
-**Sicherheit:** RLS auf allen Tabellen. Website schreibt nur über API-Routen mit Service-Key. Admins = `app_metadata.role = 'admin'` (nicht vom Nutzer änderbar) + optional `ADMIN_EMAILS`. IPs nur als gesalzener Hash.
+**API** (Header `x-taswiq-token`, nur von Next.js-Server und n8n genutzt): `POST /leads`, `GET /leads?status&tier&q`, `GET|PATCH /leads/:id`
+(`?fields=a,b` = flach, für n8n), `POST /leads/:id/events`, `POST|GET /calculator-requests`, `GET|PUT /services`, `POST /auth/request`,
+`POST /auth/verify`, `GET /events` (SSE), `GET /health` (offen).
+
+**Sicherheit:** Der Browser spricht nie mit dem Backend. Rechte werden im Dienst/Next.js geprüft (keine RLS): Admin = E-Mail in `ADMIN_EMAILS`
++ signiertes Session-Cookie. Secrets liegen auf dem Sprite in `/home/sprite/taswiq/.env` und `.token` (0600), nie im Repo. IPs nur als gesalzener Hash.
 
 ### n8n (`n8n/taswiq-lead-automation.json`)
 ```
 Webhook (Header-Auth) → Code: Lead aufbereiten (Mail-Template je Branche × Tier, Discord-Embed)
    ├─ Discord: Neuer Lead
    └─ Switch: Tier ─┬─ Starter  → Mail: Starter-Pakete ─┐
-                    ├─ Growth   → Mail: Angebot 24 h ───┼→ Supabase: automation speichern → Verlauf-Eintrag
+                    ├─ Growth   → Mail: Angebot 24 h ───┼→ Backend: automation speichern → Verlauf-Eintrag
                     └─ Premium  → Mail: Premium+Termin ─┘        → Warten 48 h → Status prüfen
                                                                     → IF noch „neu“ → Discord: Follow-up-Erinnerung
 ```
@@ -219,14 +230,14 @@ Setup-Schritte stehen als Sticky-Note im Workflow. Slack statt Discord: Incoming
 
 ### Admin-Dashboard – Architektur
 ```
-Request /admin/* ──► middleware.ts (Supabase-Session erneuern, Rolle prüfen → sonst /admin/login)
-                 ──► (dash)/layout.tsx  requireAdmin()   ← zweite Prüfung serverseitig
-                 ──► Server Components lesen mit der Nutzer-Session → RLS (is_admin()) als dritte Ebene
-Mutationen      ──► Server Actions (actions.ts) prüfen Rolle erneut → update/insert → revalidatePath
-Live            ──► LiveRefresh (Supabase Realtime auf `leads`) → router.refresh()
-Login           ──► Magic Link (shouldCreateUser: false) → /admin/auth/callback
+Request /admin/* ──► middleware.ts (signiertes Session-Cookie prüfen, Edge-tauglich → sonst /admin/login)
+                 ──► (dash)/layout.tsx  requireAdmin()   ← zweite Prüfung serverseitig (ADMIN_EMAILS)
+                 ──► Server Components lesen über src/lib/db.ts (Backend-API mit Token)
+Mutationen      ──► Server Actions (actions.ts) prüfen Admin erneut → Backend → revalidatePath
+Live            ──► LiveRefresh (EventSource) → /admin/api/live (SSE-Proxy, nur mit Session) → Backend /events → router.refresh()
+Login           ──► Magic Link: Backend erzeugt Einmal-Token (nur für ADMIN_EMAILS) → Mail via n8n-Webhook → /admin/auth/callback löst ein, setzt Cookie
 ```
-Seiten: **Leads** (KPIs, Pipeline nach Status, Filter per URL, Tabelle mit Score/Tier/Status) · **Lead-Detail** (Kontakt-Buttons inkl. WhatsApp, Rechner-Auswahl, Score-Begründung, Verlauf + Notizen, Status/Auftragswert/Nächster Schritt) · **Kalkulationen** (Conversion Rechner → Lead) · **Preise** (Editor für `services`). Ohne Supabase lokal: Demo-Modus mit Beispieldaten; in Produktion gesperrt.
+Seiten: **Leads** (KPIs, Pipeline nach Status, Filter per URL, Tabelle mit Score/Tier/Status) · **Lead-Detail** (Kontakt-Buttons inkl. WhatsApp, Rechner-Auswahl, Score-Begründung, Verlauf + Notizen, Status/Auftragswert/Nächster Schritt) · **Kalkulationen** (Conversion Rechner → Lead) · **Preise** (Editor für `services`). Ohne Backend lokal: Demo-Modus mit Beispieldaten; in Produktion gesperrt.
 
 ---
 
@@ -239,17 +250,19 @@ Seiten: **Leads** (KPIs, Pipeline nach Status, Filter per URL, Tabelle mit Score
 - **Keine Auto-Redirects** nach Browsersprache oder Cookie (`localeDetection: false`) – die URL entscheidet.
 - **Texte:** `messages/de.json` (Referenz, typisiert über `src/global.d.ts`) und `messages/en.json` mit identischen Keys.
   Neue Texte immer in beiden Dateien anlegen – `npm run typecheck` meldet fehlende DE-Keys.
-- **Rechner:** Optionslabels in `config/pricing.ts` sind die deutschen Stammdaten für Supabase-Seed & Dashboard.
+- **Rechner:** Optionslabels in `config/pricing.ts` sind die deutschen Stammdaten für Backend-Seed & Dashboard.
   Die Website zeigt `calculator.options.*` aus den JSONs; ein im Dashboard geändertes Label gewinnt auf Deutsch weiterhin.
 - **Validierung:** Zod liefert Codes (`nameRequired` …), die UI übersetzt sie (`contactForm.errors.*`). API-Fehler ebenso (`contactForm.server.*`).
 - **Leads:** Payload enthält `locale`; n8n bekommt zusätzlich `calculatorSummaryLocalized` → Bestätigungs-Mail in der Sprache des Leads.
 - **SEO:** Canonical je Sprache, `hreflang` de-DE / en / x-default (Metadata + Sitemap), `og:locale`, JSON-LD mit `inLanguage`, OG-Bild je Sprache.
 
 ## Go-Live-Checkliste
-1. Supabase-Projekt (Region Frankfurt) → Migration + `supabase/seed.sql` ausführen
-2. Admin anlegen: Auth → User einladen, dann
-   `update auth.users set raw_app_meta_data = raw_app_meta_data || '{"role":"admin"}' where email = 'karim@azzaoui.de';`
-3. n8n: Workflow importieren, Credentials (Header-Auth, SMTP, Supabase, Discord) verbinden, aktivieren
-4. `.env` aus `.env.example` befüllen (Vercel: Project → Environment Variables)
+1. Backend: Sprite `taswiq-media` (Service `api`) läuft; auf dem Sprite in `/home/sprite/taswiq/.env` `ADMIN_EMAILS`, `SITE_URL` und
+   `MAGIC_LINK_WEBHOOK_URL` setzen (sonst landet der Login-Link nur im Service-Log), Service neu starten. Sprite-URL-Zugriff so einstellen,
+   dass Vercel und n8n sie erreichen (Token-Schutz liegt im Dienst selbst).
+2. Admin = Adresse in `ADMIN_EMAILS` (kein Anlegen in einer Auth-Tabelle nötig)
+3. n8n: Workflow importieren, Credentials (Header-Auth `x-taswiq-secret`, Header-Auth `x-taswiq-token` = Backend, SMTP, Discord) verbinden, aktivieren;
+   zusätzlich einen Webhook-Flow für `admin.login` ({email, link} → Mail) anlegen
+4. `.env` aus `.env.example` befüllen (Vercel: Project → Environment Variables): `TASWIQ_API_URL`, `TASWIQ_API_TOKEN`, `SESSION_SECRET`, `ADMIN_EMAILS`
 5. `site.ts`: Domain, Adresse, Social-Profile · Impressum & Datenschutz final prüfen lassen
 6. Freigaben: Nennung der Referenzkunden/Artists und Nutzung der SPOTS-Filme (Endcards „Spots KL“ sind herausgeschnitten)

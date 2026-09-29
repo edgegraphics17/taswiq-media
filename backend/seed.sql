@@ -1,6 +1,6 @@
 -- Automatisch erzeugt aus src/config/pricing.ts – nicht von Hand bearbeiten.
 -- Neu erzeugen: npm run db:seed-sql
-insert into public.services (group_id, option_id, label, hint, preis, mtl, dreh, sort_order) values
+insert into services (group_id, option_id, label, hint, preis, mtl, dreh, sort_order) values
   ('branche', 'gastro', 'Gastronomie & Food', 'Restaurant, Lieferdienst, Bäckerei, Café', null, null, false, 0),
   ('branche', 'immobilien', 'Immobilien & Verwaltung', 'Makler, Hausverwaltung, Bauträger', null, null, false, 1),
   ('branche', 'automotive', 'Automotive & Mobilität', 'Autohaus, Werkstatt, Fahrschule, Vermietung', null, null, false, 2),

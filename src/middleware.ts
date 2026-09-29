@@ -1,17 +1,17 @@
 import type { NextRequest } from "next/server";
 import createIntlMiddleware from "next-intl/middleware";
 import { routing } from "@/i18n/routing";
-import { updateSession } from "@/lib/supabase/middleware";
+import { guardAdmin } from "@/lib/admin/middleware";
 
 const intl = createIntlMiddleware(routing);
 
 /**
  * Eine Middleware, zwei Aufgaben:
- *  - /admin/*  → Supabase-Session prüfen (Dashboard bleibt deutsch, ohne Sprach-Präfix)
+ *  - /admin/*  → Session-Cookie prüfen (Dashboard bleibt deutsch, ohne Sprach-Präfix)
  *  - alles andere → next-intl: Sprache erkennen, /en-Präfix & übersetzte Pfade auflösen
  */
 export async function middleware(request: NextRequest) {
-  if (request.nextUrl.pathname.startsWith("/admin")) return updateSession(request);
+  if (request.nextUrl.pathname.startsWith("/admin")) return guardAdmin(request);
   return intl(request);
 }
 

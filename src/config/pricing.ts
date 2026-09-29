@@ -15,7 +15,7 @@ import type { FunnelIndustry, InterestId } from "@/config/funnel";
  *  Premium-Paket für Events, Artists und Marken.
  *
  *  Beträge in Euro, Endpreise (Kleinunternehmer, § 19 UStG).
- *  Preise ohne Deploy ändern: Tabelle `services` in Supabase – deren Werte
+ *  Preise ohne Deploy ändern: Tabelle `services` im Backend – deren Werte
  *  überschreiben diese Datei zur Laufzeit (siehe lib/pricing-source.ts).
  *  Nach Änderungen `version` hochzählen – sie wird mit jeder Kalkulation gespeichert.
  */
@@ -71,7 +71,7 @@ export interface Step {
 }
 
 /* ─────────────────────────── OPTIONEN ───────────────────────────
- * `label`/`hint`/`badge` hier = deutsche Stammdaten für Supabase-Seed & Dashboard.
+ * `label`/`hint`/`badge` hier = deutsche Stammdaten für den Backend-Seed & Dashboard.
  * Die Website zeigt die Texte aus messages → calculator.options (DE + EN);
  * ein im Dashboard geändertes Label überschreibt auf Deutsch weiterhin (lib/pricing-i18n.ts).
  */

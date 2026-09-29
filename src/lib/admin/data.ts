@@ -1,31 +1,32 @@
 import "server-only";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { isDemoMode } from "@/lib/env";
-import { isAdminUser } from "@/lib/auth";
-import { createClient } from "@/lib/supabase/server";
+import { isAdminEmail } from "@/lib/auth";
+import { SESSION_COOKIE, verifySession } from "@/lib/session";
+import { getLeadWithEvents, listCalculatorRequests, listLeads, type LeadFilters } from "@/lib/db";
 import { demoCalcRequests, demoEvents, demoLeads } from "@/lib/admin/demo";
-import type { CalculatorRequest, LeadEventRow, LeadRow, LeadStatusEnum } from "@/types/database";
+import type { CalculatorRequest, LeadEventRow, LeadRow } from "@/types/database";
 
 /**
  * Datenschicht des Admin-Dashboards (nur Server Components / Server Actions).
- * Liest mit der Session des eingeloggten Admins → RLS greift zusätzlich zur Middleware.
- * Im lokalen Demo-Modus (ohne Supabase) kommen Beispieldaten.
+ * Liest über die Backend-API; die Berechtigung kommt aus dem signierten Session-Cookie
+ * (zusätzlich zur Middleware). Im lokalen Demo-Modus (ohne Backend) kommen Beispieldaten.
  */
+
+export type { LeadFilters };
+
+/** Eingeloggten Admin aus dem Cookie lesen – ohne Redirect (für Server Actions mit eigener Fehlerbehandlung). */
+export async function getAdminUser(): Promise<{ email: string } | null> {
+  const session = await verifySession((await cookies()).get(SESSION_COOKIE)?.value);
+  return session && isAdminEmail(session.email) ? session : null;
+}
 
 export async function requireAdmin() {
   if (isDemoMode()) return { email: "demo@taswiq.local", demo: true as const };
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user || !isAdminUser(user)) redirect("/admin/login");
-  return { email: user.email ?? "", demo: false as const };
-}
-
-export interface LeadFilters {
-  status?: string;
-  tier?: string;
-  q?: string;
+  const user = await getAdminUser();
+  if (!user) redirect("/admin/login");
+  return { email: user.email, demo: false as const };
 }
 
 export async function getLeads(f: LeadFilters = {}): Promise<LeadRow[]> {
@@ -37,17 +38,7 @@ export async function getLeads(f: LeadFilters = {}): Promise<LeadRow[]> {
         (!f.q || `${l.name} ${l.email} ${l.company ?? ""}`.toLowerCase().includes(f.q.toLowerCase())),
     );
   }
-  const supabase = await createClient();
-  let query = supabase.from("leads").select("*").order("created_at", { ascending: false }).limit(200);
-  if (f.status) query = query.eq("status", f.status as LeadStatusEnum);
-  if (f.tier) query = query.eq("tier", f.tier as LeadRow["tier"]);
-  if (f.q) {
-    const q = f.q.replace(/[%,()]/g, "");
-    query = query.or(`name.ilike.%${q}%,email.ilike.%${q}%,company.ilike.%${q}%`);
-  }
-  const { data, error } = await query;
-  if (error) throw new Error(`Leads konnten nicht geladen werden: ${error.message}`);
-  return data;
+  return listLeads(f);
 }
 
 export async function getLead(id: string): Promise<{ lead: LeadRow; events: LeadEventRow[] } | null> {
@@ -55,23 +46,15 @@ export async function getLead(id: string): Promise<{ lead: LeadRow; events: Lead
     const lead = demoLeads.find((l) => l.id === id);
     return lead ? { lead, events: demoEvents(id) } : null;
   }
-  const supabase = await createClient();
-  const [{ data: lead }, { data: events }] = await Promise.all([
-    supabase.from("leads").select("*").eq("id", id).maybeSingle(),
-    supabase.from("lead_events").select("*").eq("lead_id", id).order("created_at", { ascending: false }),
-  ]);
-  return lead ? { lead, events: events ?? [] } : null;
+  return getLeadWithEvents(id);
 }
 
 export async function getCalculatorRequests(): Promise<CalculatorRequest[]> {
   if (isDemoMode()) return demoCalcRequests;
-  const supabase = await createClient();
-  const { data, error } = await supabase.from("calculator_requests").select("*").order("created_at", { ascending: false }).limit(200);
-  if (error) throw new Error(error.message);
-  return data;
+  return listCalculatorRequests();
 }
 
-/** Kennzahlen – aus allen Leads berechnet (klein genug für In-Memory; bei >10k Leads auf SQL-View umstellen). */
+/** Kennzahlen – aus allen Leads berechnet (klein genug für In-Memory; bei >10k Leads im Backend aggregieren). */
 export function computeKpis(leads: LeadRow[]) {
   const open = leads.filter((l) => ["neu", "kontaktiert", "angebot", "verhandlung"].includes(l.status));
   const won = leads.filter((l) => l.status === "gewonnen");

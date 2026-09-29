@@ -13,7 +13,7 @@ export type SubmitResult =
 
 const KNOWN: ServerErrorCode[] = ["rateLimit", "invalid", "saveFailed"];
 
-/** Sendet den Lead als JSON an /api/leads (→ Supabase → n8n-Webhook). */
+/** Sendet den Lead als JSON an /api/leads (→ Backend → n8n-Webhook). */
 export async function submitLead(payload: Omit<LeadPayload, "attribution">): Promise<SubmitResult> {
   try {
     const res = await fetch("/api/leads", {

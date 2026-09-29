@@ -7,7 +7,7 @@ import { env, isN8nConfigured } from "@/lib/env";
  *  - `x-taswiq-secret`: Shared Secret (n8n Webhook → Header Auth)
  *  - `x-taswiq-signature`: HMAC-SHA256 über den Body (optional prüfbar im Code-Node)
  * Timeout 4 s – ein langsames n8n darf den Funnel nie blockieren.
- * Der Lead ist zu diesem Zeitpunkt bereits in Supabase gespeichert.
+ * Der Lead ist zu diesem Zeitpunkt bereits im Backend gespeichert.
  */
 export async function forwardToN8n(event: string, payload: Record<string, unknown>) {
   if (!isN8nConfigured()) {
