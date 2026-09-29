@@ -142,10 +142,19 @@ route("POST", "/leads", ({ body }) => {
 route("GET", "/leads", ({ query }) => {
   const where = [];
   const args = [];
-  if (query.get("status")) (where.push("status = ?"), args.push(query.get("status")));
-  if (query.get("tier")) (where.push("tier = ?"), args.push(query.get("tier")));
+  if (query.get("status")) {
+    where.push("status = ?");
+    args.push(query.get("status"));
+  }
+  if (query.get("tier")) {
+    where.push("tier = ?");
+    args.push(query.get("tier"));
+  }
   const q = query.get("q")?.replace(/[%_\\]/g, "").trim();
-  if (q) (where.push("(name like ? or email like ? or company like ?)"), args.push(`%${q}%`, `%${q}%`, `%${q}%`));
+  if (q) {
+    where.push("(name like ? or email like ? or company like ?)");
+    args.push(`%${q}%`, `%${q}%`, `%${q}%`);
+  }
   const rows = db.prepare(`select * from leads ${where.length ? "where " + where.join(" and ") : ""} order by created_at desc limit 200`).all(...args);
   return rows.map(lead);
 });
