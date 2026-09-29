@@ -9,7 +9,7 @@ const MESSAGES: Record<string, string> = {
   email: "Bitte gib eine gültige E-Mail-Adresse ein.",
   forbidden: "Dieses Konto hat keinen Zugriff aufs Dashboard.",
   link: "Der Login-Link ist abgelaufen oder wurde schon benutzt. Fordere einen neuen an.",
-  config: "Supabase ist nicht konfiguriert – trage die Umgebungsvariablen ein (siehe .env.example).",
+  config: "Backend ist nicht konfiguriert – trage TASWIQ_API_URL, TASWIQ_API_TOKEN und SESSION_SECRET ein (siehe .env.example).",
 };
 
 export default async function LoginPage({ searchParams }: { searchParams: Promise<{ error?: string; sent?: string }> }) {

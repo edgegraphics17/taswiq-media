@@ -5,7 +5,8 @@ import { computeEstimate, sanitizeState, summaryRows } from "@/lib/pricing-engin
 import { getPricingData } from "@/lib/pricing-source";
 import { localizeOptions } from "@/lib/pricing-i18n";
 import { getCalcI18n } from "@/lib/pricing-i18n.server";
-import { createAdminClient } from "@/lib/supabase/admin";
+import { insertCalculatorRequest } from "@/lib/db";
+import { isBackendConfigured } from "@/lib/env";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
@@ -14,7 +15,7 @@ export const runtime = "nodejs";
  * POST /api/calculator – speichert eine abgeschlossene Kalkulation (Ergebnis-Schritt).
  * Preis wird hier NEU berechnet (nie vom Client übernommen) und mit der
  * Preislisten-Version gespeichert. Die ID wird bei einer Anfrage mitgeschickt →
- * Lead und Kalkulation sind in Supabase verknüpft.
+ * Lead und Kalkulation sind im Backend verknüpft.
  */
 export async function POST(req: NextRequest) {
   if (!rateLimit(`calc:${clientIp(req.headers)}`, 20, 10 * 60_000)) {
@@ -31,12 +32,10 @@ export async function POST(req: NextRequest) {
   const services = (state.leistungen as string[]) ?? [];
   if (!services.length) return NextResponse.json({ ok: false, error: "noService" }, { status: 422 });
 
-  const supabase = createAdminClient();
-  if (!supabase) return NextResponse.json({ ok: true, id: null, estimate });
+  if (!isBackendConfigured()) return NextResponse.json({ ok: true, id: null, estimate });
 
-  const { data: row, error } = await supabase
-    .from("calculator_requests")
-    .insert({
+  try {
+    const id = await insertCalculatorRequest({
       session_id: parsed.data.sessionId ?? null,
       industry: isIndustry(state.branche) ? state.branche : "andere",
       service_ids: services,
@@ -49,13 +48,10 @@ export async function POST(req: NextRequest) {
       pricing_version: data.konfig.version,
       utm: parsed.data.attribution ?? {},
       referrer: parsed.data.attribution?.referrer ?? null,
-    })
-    .select("id")
-    .single();
-
-  if (error) {
+    });
+    return NextResponse.json({ ok: true, id, estimate });
+  } catch (error) {
     console.error("[calculator] Insert fehlgeschlagen", error);
     return NextResponse.json({ ok: true, id: null, estimate });
   }
-  return NextResponse.json({ ok: true, id: row.id, estimate });
 }

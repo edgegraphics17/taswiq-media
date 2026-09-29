@@ -1,6 +1,6 @@
 /**
  * 4-Schritte-Funnel nach asapmarketing.de (#contact): Vorhaben → Status → Budget → Kontakt.
- * IDs sind identisch mit den Postgres-Enums in supabase/migrations – nicht umbenennen,
+ * IDs sind identisch mit den CHECK-Werten in backend/schema.sql – nicht umbenennen,
  * ohne die Migration anzupassen. Labels: messages → funnel.
  *
  * Fokus seit 2026-09: Software & Systeme für KMU und Mittelstand. Media (Video, Foto)

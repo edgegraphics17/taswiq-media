@@ -1,7 +1,7 @@
 import type { CalculatorRequest, LeadEventRow, LeadRow } from "@/types/database";
 
 /**
- * Demo-Daten fürs Dashboard, solange Supabase lokal nicht verbunden ist.
+ * Demo-Daten fürs Dashboard, solange das Backend lokal nicht verbunden ist.
  * Fiktive Leads (Beispiel-Namen, example.com) – erscheinen nie in Produktion.
  */
 const base = Date.parse("2026-09-26T10:00:00Z");

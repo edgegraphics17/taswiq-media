@@ -1,9 +1,9 @@
 {
-  "name": "TasWiq · Lead-Automation (Funnel → Supabase → Discord → Mail → Follow-up)",
+  "name": "TasWiq · Lead-Automation (Funnel → Backend → Discord → Mail → Follow-up)",
   "nodes": [
     {
       "parameters": {
-        "content": "## TasWiq · Lead-Automation\n1. **Header Auth** Credential: Name `x-taswiq-secret`, Wert = `N8N_WEBHOOK_SECRET` aus `.env`\n2. Production-URL dieses Webhooks → `N8N_LEAD_WEBHOOK_URL`\n3. Discord-Webhook-URL in beiden Discord-Nodes eintragen (Slack: Incoming Webhook, Body `{ text: ... }`)\n4. SMTP + Supabase (Service-Role-Key) Credentials verbinden, `DEIN-PROJEKT` ersetzen\n5. `SITE_URL` / `CALENDLY_URL` im Code-Node anpassen",
+        "content": "## TasWiq · Lead-Automation\n1. **Header Auth** Credential: Name `x-taswiq-secret`, Wert = `N8N_WEBHOOK_SECRET` aus `.env`\n2. Production-URL dieses Webhooks → `N8N_LEAD_WEBHOOK_URL`\n3. Discord-Webhook-URL in beiden Discord-Nodes eintragen (Slack: Incoming Webhook, Body `{ text: ... }`)\n4. SMTP verbinden; **Header Auth** Credential `TasWiq Backend API`: Name `x-taswiq-token`, Wert = `TASWIQ_API_TOKEN` (Backend auf dem Sprite `taswiq-media`)\n5. `SITE_URL` / `CALENDLY_URL` im Code-Node anpassen",
         "height": 300,
         "width": 420,
         "color": 5
@@ -246,25 +246,17 @@
     {
       "parameters": {
         "method": "PATCH",
-        "url": "=https://DEIN-PROJEKT.supabase.co/rest/v1/leads?id=eq.{{ $('Lead aufbereiten').item.json.lead.id }}",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "supabaseApi",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Prefer",
-              "value": "return=minimal"
-            }
-          ]
-        },
+        "url": "=https://taswiq-media-bzj2u.sprites.app/leads/{{ $('Lead aufbereiten').item.json.lead.id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": false,
         "options": {},
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ JSON.stringify({ automation: { notified_at: $now.toISO(), welcome_sent_at: $now.toISO(), welcome_template: $('Lead aufbereiten').item.json.lead.tier } }) }}"
       },
       "id": "0c7dc8ff-740e-4a23-898d-d20ff0887ec9",
-      "name": "Supabase: Automation speichern",
+      "name": "Backend: Automation speichern",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
@@ -272,9 +264,9 @@
         60
       ],
       "credentials": {
-        "supabaseApi": {
+        "httpHeaderAuth": {
           "id": "CHANGE_ME",
-          "name": "Supabase TasWiq (Service Role)"
+          "name": "TasWiq Backend API"
         }
       },
       "onError": "continueRegularOutput"
@@ -282,25 +274,17 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://DEIN-PROJEKT.supabase.co/rest/v1/lead_events",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "supabaseApi",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Prefer",
-              "value": "return=minimal"
-            }
-          ]
-        },
+        "url": "=https://taswiq-media-bzj2u.sprites.app/leads/{{ $('Lead aufbereiten').item.json.lead.id }}/events",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": false,
         "options": {},
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ lead_id: $('Lead aufbereiten').item.json.lead.id, type: 'automation', body: 'Team benachrichtigt & Willkommens-Mail (' + $('Lead aufbereiten').item.json.lead.tier + ') versendet' }) }}"
+        "jsonBody": "={{ JSON.stringify({ type: 'automation', body: 'Team benachrichtigt & Willkommens-Mail (' + $('Lead aufbereiten').item.json.lead.tier + ') versendet' }) }}"
       },
       "id": "ea49cb22-5613-48e6-874b-bddb34e44093",
-      "name": "Supabase: Verlauf-Eintrag",
+      "name": "Backend: Verlauf-Eintrag",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
@@ -308,9 +292,9 @@
         60
       ],
       "credentials": {
-        "supabaseApi": {
+        "httpHeaderAuth": {
           "id": "CHANGE_ME",
-          "name": "Supabase TasWiq (Service Role)"
+          "name": "TasWiq Backend API"
         }
       },
       "onError": "continueRegularOutput"
@@ -333,22 +317,14 @@
     {
       "parameters": {
         "method": "GET",
-        "url": "=https://DEIN-PROJEKT.supabase.co/rest/v1/leads?id=eq.{{ $('Lead aufbereiten').item.json.lead.id }}&select=status,name,tier",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "supabaseApi",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Prefer",
-              "value": "return=minimal"
-            }
-          ]
-        },
+        "url": "=https://taswiq-media-bzj2u.sprites.app/leads/{{ $('Lead aufbereiten').item.json.lead.id }}?fields=status,name,tier",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": false,
         "options": {}
       },
       "id": "0a215451-940a-493c-9258-72ebc84a0a41",
-      "name": "Supabase: Status prüfen",
+      "name": "Backend: Status prüfen",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
@@ -356,9 +332,9 @@
         60
       ],
       "credentials": {
-        "supabaseApi": {
+        "httpHeaderAuth": {
           "id": "CHANGE_ME",
-          "name": "Supabase TasWiq (Service Role)"
+          "name": "TasWiq Backend API"
         }
       },
       "onError": "continueRegularOutput"
@@ -473,7 +449,7 @@
       "main": [
         [
           {
-            "node": "Supabase: Automation speichern",
+            "node": "Backend: Automation speichern",
             "type": "main",
             "index": 0
           }
@@ -484,7 +460,7 @@
       "main": [
         [
           {
-            "node": "Supabase: Automation speichern",
+            "node": "Backend: Automation speichern",
             "type": "main",
             "index": 0
           }
@@ -495,25 +471,25 @@
       "main": [
         [
           {
-            "node": "Supabase: Automation speichern",
+            "node": "Backend: Automation speichern",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Supabase: Automation speichern": {
+    "Backend: Automation speichern": {
       "main": [
         [
           {
-            "node": "Supabase: Verlauf-Eintrag",
+            "node": "Backend: Verlauf-Eintrag",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Supabase: Verlauf-Eintrag": {
+    "Backend: Verlauf-Eintrag": {
       "main": [
         [
           {
@@ -528,14 +504,14 @@
       "main": [
         [
           {
-            "node": "Supabase: Status prüfen",
+            "node": "Backend: Status prüfen",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Supabase: Status prüfen": {
+    "Backend: Status prüfen": {
       "main": [
         [
           {

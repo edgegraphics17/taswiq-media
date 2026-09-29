@@ -1,26 +1,31 @@
 /**
  * Zentraler Zugriff auf Umgebungsvariablen.
- * Die Seite läuft auch ohne Supabase/n8n (lokale Entwicklung) – Leads werden dann
+ * Die Seite läuft auch ohne Backend/n8n (lokale Entwicklung) – Leads werden dann
  * nur in der Konsole geloggt und das Admin-Dashboard zeigt Demo-Daten.
  */
 
 export const env = {
-  supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL ?? "",
-  supabaseAnonKey: process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "",
-  supabaseServiceKey: process.env.SUPABASE_SECRET_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY ?? "",
+  /** Basis-URL der Backend-API auf dem Sprite "taswiq-media" (ohne Slash am Ende). */
+  backendUrl: (process.env.TASWIQ_API_URL ?? "").replace(/\/$/, ""),
+  /** Gemeinsames Secret für die Backend-API (nur serverseitig, nie im Browser). */
+  backendToken: process.env.TASWIQ_API_TOKEN ?? "",
+  /** Signiert das Admin-Session-Cookie (mind. 32 Zeichen, z. B. `openssl rand -hex 32`). */
+  sessionSecret: process.env.SESSION_SECRET ?? "",
   n8nWebhookUrl: process.env.N8N_LEAD_WEBHOOK_URL ?? "",
   n8nWebhookSecret: process.env.N8N_WEBHOOK_SECRET ?? "",
   ipHashSalt: process.env.IP_HASH_SALT ?? "taswiq-dev-salt",
-  /** Zusätzliche Allowlist fürs Admin-Dashboard (kommagetrennt). Leer = nur Rolle prüfen. */
+  /** Allowlist fürs Admin-Dashboard (kommagetrennt). Leer = niemand darf rein. */
   adminEmails: (process.env.ADMIN_EMAILS ?? "")
     .split(",")
     .map((e) => e.trim().toLowerCase())
     .filter(Boolean),
 };
 
-export const isSupabaseConfigured = () => Boolean(env.supabaseUrl && env.supabaseAnonKey);
-export const isSupabaseAdminConfigured = () => Boolean(env.supabaseUrl && env.supabaseServiceKey);
+/** Backend-API erreichbar konfiguriert (Leads, Preise, Dashboard-Daten). */
+export const isBackendConfigured = () => Boolean(env.backendUrl && env.backendToken);
+/** Admin-Login möglich: Backend + Session-Secret. */
+export const isAdminAuthConfigured = () => isBackendConfigured() && env.sessionSecret.length >= 32;
 export const isN8nConfigured = () => Boolean(env.n8nWebhookUrl);
 
-/** Demo-Modus: nur lokal, nur wenn Supabase fehlt. In Produktion niemals. */
-export const isDemoMode = () => !isSupabaseConfigured() && process.env.NODE_ENV !== "production";
+/** Demo-Modus: nur lokal, nur wenn das Backend fehlt. In Produktion niemals. */
+export const isDemoMode = () => !isBackendConfigured() && process.env.NODE_ENV !== "production";

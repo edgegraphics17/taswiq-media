@@ -11,7 +11,7 @@ import { LiveRefresh } from "@/components/admin/LiveRefresh";
 
 /**
  * Lead-Übersicht als Server Component: Filter über URL-Parameter (teilbar, Zurück-Taste funktioniert),
- * Daten direkt aus Supabase mit RLS, Realtime-Refresh bei neuen Leads.
+ * Daten über die Backend-API (Session-Cookie), Live-Refresh per SSE bei neuen Leads.
  */
 export default async function LeadsPage({ searchParams }: { searchParams: Promise<{ status?: string; tier?: string; q?: string }> }) {
   const filters = await searchParams;

@@ -42,7 +42,7 @@ export function fieldCopy({ t }: CalcI18n, field: Field) {
 }
 
 /**
- * Optionstexte übersetzen. Preise/Aktiv-Status kommen weiter aus Supabase.
+ * Optionstexte übersetzen. Preise/Aktiv-Status kommen weiter aus dem Backend.
  * Deutsch: hat jemand im Dashboard das Label geändert (≠ Stammdaten), gewinnt das Dashboard.
  */
 export function localizeOptions(data: PricingData, { t, locale }: CalcI18n): PricingData {

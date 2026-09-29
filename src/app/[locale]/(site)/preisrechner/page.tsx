@@ -6,7 +6,7 @@ import type { Locale } from "@/i18n/routing";
 import { getPricingData } from "@/lib/pricing-source";
 import { breadcrumbJsonLd, calculatorJsonLd, pageMetadata } from "@/lib/seo";
 
-export const revalidate = 300; // Preise aus Supabase max. 5 Min. alt
+export const revalidate = 300; // Preise aus dem Backend max. 5 Min. alt
 
 type Props = { params: Promise<{ locale: Locale }> };
 

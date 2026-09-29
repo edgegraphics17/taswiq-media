@@ -1,5 +1,5 @@
 /**
- * Erzeugt supabase/seed.sql aus src/config/pricing.ts.
+ * Erzeugt backend/seed.sql (SQLite, wird vom Backend beim ersten Start geladen) aus src/config/pricing.ts.
  * Ausführen:  npm run db:seed-sql   (Node ≥ 22.18 führt TypeScript direkt aus)
  */
 import { writeFileSync } from "node:fs";
@@ -17,12 +17,12 @@ for (const [group, options] of Object.entries(OPTIONEN)) {
 
 const sql = `-- Automatisch erzeugt aus src/config/pricing.ts – nicht von Hand bearbeiten.
 -- Neu erzeugen: npm run db:seed-sql
-insert into public.services (group_id, option_id, label, hint, preis, mtl, dreh, sort_order) values
+insert into services (group_id, option_id, label, hint, preis, mtl, dreh, sort_order) values
 ${rows.join(",\n")}
 on conflict (group_id, option_id) do update set
   label = excluded.label, hint = excluded.hint, preis = excluded.preis,
   mtl = excluded.mtl, dreh = excluded.dreh, sort_order = excluded.sort_order;
 `;
 
-writeFileSync(new URL("../supabase/seed.sql", import.meta.url), sql);
+writeFileSync(new URL("../backend/seed.sql", import.meta.url), sql);
 console.log(`seed.sql geschrieben: ${rows.length} Optionen`);
