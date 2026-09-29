@@ -20,6 +20,7 @@ import { readFileSync, mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { DatabaseSync } from "node:sqlite";
+import { createJev } from "./jev.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT ?? 8080);
@@ -46,6 +47,9 @@ if (db.prepare("select count(*) as n from services").get().n === 0) {
     console.warn("[db] seed.sql nicht geladen:", e.message);
   }
 }
+
+const jev = createJev({ db });
+console.log(jev.enabled ? `[jev] aktiv (Tageslimit ${jev.usage().limit})` : "[jev] aus (kein JEV_API_KEY)");
 
 // ─── Helfer ─────────────────────────────────────────────────────────
 const now = () => new Date().toISOString();
@@ -136,8 +140,23 @@ route("POST", "/leads", ({ body }) => {
     }
   });
   broadcast("lead", id);
+  // Jev-Qualifizierung läuft im Hintergrund – der Lead ist gespeichert, die Antwort wartet nicht darauf.
+  void jev.qualify({ ...v, id }).then((r) => {
+    if (r && !r.skipped) broadcast("lead", id);
+  });
   return { id };
 });
+
+/** Jev für einen bestehenden Lead erneut ausführen (kostet einen Credit, zählt zum Tageslimit). */
+route("POST", "/leads/:id/qualify", async ({ params }) => {
+  const row = db.prepare("select * from leads where id = ?").get(params.id);
+  if (!row) throw new HttpError(404, "notFound");
+  const result = await jev.qualify(lead(row));
+  if (!result.skipped) broadcast("lead", params.id);
+  return result;
+});
+
+route("GET", "/jev/usage", () => jev.usage());
 
 route("GET", "/leads", ({ query }) => {
   const where = [];

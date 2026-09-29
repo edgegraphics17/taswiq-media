@@ -9,6 +9,15 @@ import { getTranslations } from "next-intl/server";
 import { formatDateTime, formatNumber } from "@/lib/format";
 import { ScoreBar, StatusPill, TierPill } from "@/components/admin/Pills";
 
+const JEV_LEVELS = ["Niedrig", "Mittel", "Hoch", "Sehr hoch"];
+
+/** Jev-Ergebnis aus lead.automation lesen – strikt geprüft, weil das JSON von außen befüllt wird. */
+function readJev(automation: Json): { priority: number; spam: number; package: string } | null {
+  const j = (automation as { jev?: Record<string, unknown> } | null)?.jev;
+  if (!j || typeof j.priority !== "number" || typeof j.spam !== "number" || typeof j.package !== "string") return null;
+  return { priority: j.priority, spam: j.spam, package: j.package };
+}
+
 const EVENT_LABEL = { created: "Lead erstellt", status_change: "Status geändert", note: "Notiz", email_sent: "E-Mail gesendet", call: "Anruf", automation: "Automation" } as const;
 
 export default async function LeadDetail({
@@ -26,6 +35,7 @@ export default async function LeadDetail({
   const tf = await getTranslations({ locale: "de", namespace: "funnel" });
   const leadLocale = (lead.source_meta as { locale?: string } | null)?.locale;
   const calc = (lead.source_meta as { calculatorSummary?: { label: string; wert: string }[] } | null)?.calculatorSummary;
+  const jev = readJev(lead.automation);
   const wa = lead.phone ? `https://wa.me/${lead.phone.replace(/[^\d]/g, "")}` : null;
 
   return (
@@ -112,6 +122,27 @@ export default async function LeadDetail({
               ))}
             </ul>
           </section>
+
+          {jev && (
+            <section className="rounded-2xl border border-line bg-white p-5">
+              <h2 className="text-sm font-bold text-ink">Jev-Einschätzung</h2>
+              <dl className="mt-2 grid grid-cols-3 gap-3 text-sm">
+                <div>
+                  <dt className="text-xs text-muted">Priorität</dt>
+                  <dd className="font-semibold text-ink">{JEV_LEVELS[Math.round(jev.priority)] ?? "–"}</dd>
+                </div>
+                <div>
+                  <dt className="text-xs text-muted">Passendes Paket</dt>
+                  <dd className="font-semibold text-ink capitalize">{jev.package}</dd>
+                </div>
+                <div>
+                  <dt className="text-xs text-muted">Spam-Risiko</dt>
+                  <dd className={jev.spam >= 0.5 ? "font-semibold text-rose-700" : "font-semibold text-ink"}>{Math.round(jev.spam * 100)} %</dd>
+                </div>
+              </dl>
+              <p className="mt-2 text-xs text-muted">Automatische Einschätzung – Grundlage bleibt der Score oben.</p>
+            </section>
+          )}
 
           <section className="rounded-2xl border border-line bg-white p-5">
             <h2 className="text-sm font-bold text-ink">Verlauf</h2>
