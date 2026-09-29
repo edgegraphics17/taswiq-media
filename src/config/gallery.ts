@@ -5,7 +5,7 @@
  * Neue Arbeiten: Datei ablegen, hier eintragen – Slider, Filter und Lightbox ziehen automatisch nach.
  */
 
-export type GallerySeries = "vibe" | "hnb" | "ayr" | "firstclass" | "jade" | "money" | "nonstop" | "allin" | "wuwh" | "blessed" | "candy" | "berlin" | "savage" | "luvsick" | "yves" | "catchme";
+export type GallerySeries = "vibe" | "hnb" | "ayr" | "firstclass" | "jade" | "money" | "nonstop" | "allin" | "wuwh" | "blessed" | "candy" | "berlin" | "savage" | "luvsick" | "yves" | "catchme" | "shego" | "dekkapa" | "live";
 
 /** Anzeigenamen der Reihen (Filter-Chips) – in der Reihenfolge, in der sie erscheinen */
 export const gallerySeries: { id: GallerySeries; name: string }[] = [
@@ -25,6 +25,9 @@ export const gallerySeries: { id: GallerySeries; name: string }[] = [
   { id: "luvsick", name: "LUVSICK" },
   { id: "yves", name: "YVES Club" },
   { id: "catchme", name: "Catch Me" },
+  { id: "shego", name: "mad Shego" },
+  { id: "dekkapa", name: "DEKKAPA" },
+  { id: "live", name: "Live & Presse" },
 ];
 
 export interface GalleryFlyer {
@@ -111,6 +114,16 @@ export const galleryPhotos: GalleryFlyer[] = [
   { id: "yves07", series: "yves", title: "YVES Club · Bar", src: "/portfolio/photos/yves07.webp", width: 934, height: 1400, blur: "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAAAQBACdASoMABIAPu1iqU2ppaOiMAgBMB2JbACdACBvoGhu/pZlrmNkAAD+7I9o7gSrYagMwgloyv4PrlDhzmOMgsDu/G+PCTcpXuocPfWCajPEpbCrmSp4XdeA18JpHAwtflZCha/ZVYmZsxY7Y4tiabeUuoSEGAA=" },
   { id: "yves09", series: "yves", title: "YVES Club · Lounge", src: "/portfolio/photos/yves09.webp", width: 934, height: 1400, blur: "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAAAwBACdASoMABIAPu1iqU2ppaOiMAgBMB2JYgC7ABul48qrzn4iQAKoAAAA/u7psUgbOJYzhxeUB4BPli0GOUYRTYImqETbPCfhDrC5PgSZj1JisxByzJCExqnBMZBAYIAAAA==" },
   { id: "yves10", series: "yves", title: "YVES Club · Lounge (2)", src: "/portfolio/photos/yves10.webp", width: 934, height: 1400, blur: "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAAAQBACdASoMABIAPu1iqU2ppaOiMAgBMB2JZACdACIfsu7u1xHcENhFAAD+6QEGUqCwNqmEJjpcIeu2lDY/zVkX3wIX3J1IFRryori4g0JCTrkeN/rGO/O1bMP+znP+0Vr7rHOuj9T2YK1AAAA=" },
+  { id: "sh0402", series: "shego", title: "mad Shego · Artist Shoot", src: "/portfolio/photos/sh0402.webp", width: 969, height: 1400, blur: "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAAAwBACdASoMABEAPu1iqU2ppaOiMAgBMB2JbACdMoMYADtxzF9OFc+tNQAA/UcjtcE7XijvdDewxe9q5rsKhVTUUf0NRAtLztjA0YGmLvmmySN9EfGAMbY/NfoDkagl5OeW2qyGNUYI64arVDMAVuNv8GFPjP8GHNS7Lk1G6l2XJpOAAAA=" },
+  { id: "sh0401", series: "shego", title: "mad Shego · Artist Shoot (2)", src: "/portfolio/photos/sh0401.webp", width: 1066, height: 1400, blur: "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAAAwAgCdASoMABAAA4BaJbACdLoAAk5dSicVgAD9n8KgbCnOyp4DWczxvwTN5ojChcZWFORtk9yryZWtoXzd5Hev53Y1if4k3Ul+1mSsq/BreaHDwqyn4XXVnt3aGCs5/6joXp2mx4/Og1wN1LJmNwAA" },
+  { id: "sh26a", series: "shego", title: "mad Shego · Editorial", src: "/portfolio/photos/sh26a.webp", width: 1050, height: 1400, blur: "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAABwAgCdASoMABAAA4BaJYwCdAYu5zDJV6NntR6AAPRjMHm9AypUx+0fQ+vBoHryCsOoIxYpf64avQPngrXGfefnBAA5kh+kSq2HzWuXQzAStxH3bvsSxmehIgA=" },
+  { id: "sh26c", series: "shego", title: "mad Shego · Editorial (2)", src: "/portfolio/photos/sh26c.webp", width: 1042, height: 1400, blur: "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAAAwAgCdASoMABAAA4BaJYwCdAC3sa2vbIrTAAD1X0E0agFZakCLIubjgBSRMoyfWfgUbiOvHoODk/2eEoppfjJlxzys9ySdvQxU0zZ5NgA=" },
+  { id: "dk9026", series: "dekkapa", title: "DEKKAPA · Portrait", src: "/portfolio/photos/dk9026.webp", width: 1100, height: 1100, blur: "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAADQAQCdASoMAAwAA4BaJaQAAxZiMPsuAAD+98GMstJuat2/EWLihj53g7xYE2wGqCPoAAAA" },
+  { id: "dk9051", series: "dekkapa", title: "DEKKAPA · Portrait (2)", src: "/portfolio/photos/dk9051.webp", width: 1100, height: 1100, blur: "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADwAQCdASoMAAwAA4BaJaQAAsRAZSdhswAA/kkrKF5gf7h0RwKbDKfv8GFcdL88nv0upFoUMY8HX1cf4sMKesF8OAA=" },
+  { id: "prshindy", series: "live", title: "Live · Hamburg", src: "/portfolio/photos/prshindy.webp", width: 933, height: 1400, blur: "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAAAQBACdASoMABIAPu1iqU2ppaOiMAgBMB2JZwAAXBua+o93lyawS8bYwAD+9CpvT5w7Z7mAXP04iNqTjNoXcw02B2oWY2joE2jSs2pzn8MS+9Hdqd/szoT9x+L6Z5RdBNHU1x0KMrDd2eyXC1bYAA==" },
+  { id: "pr7624", series: "live", title: "Live · Crowd", src: "/portfolio/photos/pr7624.webp", width: 933, height: 1400, blur: "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAADwAwCdASoMABIAPu1iqU2ppaQiMAgBMB2JYwDImYuutstR6iBIHq4AAP7mwd/SfjTxYVM1m5WJU2Xi3yFtrGwkjWmO4aNspVU2PHohfl0yI8URbda9dhCQ5k4kBeu+wAA=" },
+  { id: "pr4680", series: "live", title: "Live · Main Stage", src: "/portfolio/photos/pr4680.webp", width: 1100, height: 733, blur: "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADwAQCdASoMAAgAA4BaJQBYdiFsHNh0WwAA/vG8ZK0Nc9lvaO7aXcFrm0ZsMeuAJJcolNWkB5Nvq8rt7Qs4IqDGikAAAA==" },
+  { id: "pr9426", series: "live", title: "Presse · Portrait", src: "/portfolio/photos/pr9426.webp", width: 933, height: 1400, blur: "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAACwAwCdASoMABIAPu1iqU2ppaOiMAgBMB2JZwDG9BGl475C4fISAADJdKjCHjqH3suWPOviObpByFZo55Xg0Ofkll8AFN1VCDk8nvEmr4+HgscjiDPzMY/HxG2kyLcwNbK+dDETwAA=" },
   { id: "yves21", series: "yves", title: "YVES Club · Bear Lounge", src: "/portfolio/photos/yves21.webp", width: 1100, height: 734, blur: "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADwAQCdASoMAAgAA4BaJbACdADdjiCTGsAA/vQzucGrhVPkeLHGx0QSNRittgCAZ1pF6shq5cyEOyXtxHePjooq+772ODoAAAA=" },
   { id: "yves22", series: "yves", title: "YVES Club · Bear Lounge (2)", src: "/portfolio/photos/yves22.webp", width: 1100, height: 734, blur: "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADwAQCdASoMAAgAA4BaJbACdAELVc+mkAAA/vEC257rvuGYGTmMJDmM/raFhpfxCJQSgT9D2LTwAO4ITY2cNu0szdVxH/novy8AAA==" },
 ];
