@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { CaseVideo } from "@/components/portfolio/CaseVideo";
 import { gallerySeries, type GalleryFlyer, type GalleryMotion, type GallerySeries } from "@/config/gallery";
+import type { GalleryBrand } from "@/config/gallery-brands";
 import { cn } from "@/lib/format";
 
 /**
@@ -217,6 +218,34 @@ export function MotionRail({ items, dense = false }: { items: GalleryMotion[]; d
           <CaseVideo src={m.video} poster={m.poster} alt={t("gallery.motionAlt", { title: m.title })} />
           <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-night/85 to-transparent px-3 pt-8 pb-2.5 text-[11px] leading-tight font-medium text-white">{m.title}</span>
         </article>
+      ))}
+    </Rail>
+  );
+}
+
+/** Logo-Wand: Marken, die wir gestaltet haben – helle und dunkle Kacheln, damit jedes Logo lesbar bleibt. */
+export function BrandRail({ items }: { items: GalleryBrand[] }) {
+  const t = useTranslations("portfolio");
+  return (
+    <Rail label={t("gallery.brandAria")} itemCount={items.length}>
+      {items.map((b) => (
+        <figure
+          key={b.id}
+          className={cn(
+            "relative grid h-36 w-52 shrink-0 snap-start place-items-center overflow-hidden rounded-2xl p-6 shadow-[var(--shadow-soft)] sm:h-40 sm:w-60",
+            b.tone === "light" ? "bg-white ring-1 ring-line" : "bg-night",
+          )}
+        >
+          <Image
+            src={b.src}
+            alt={t("gallery.brandAlt", { name: b.name })}
+            width={b.width}
+            height={b.height}
+            sizes="240px"
+            className="max-h-full w-auto max-w-full object-contain"
+          />
+          <figcaption className="sr-only">{b.name}</figcaption>
+        </figure>
       ))}
     </Rail>
   );
