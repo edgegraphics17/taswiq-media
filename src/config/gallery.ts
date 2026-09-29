@@ -5,7 +5,7 @@
  * Neue Arbeiten: Datei ablegen, hier eintragen – Slider, Filter und Lightbox ziehen automatisch nach.
  */
 
-export type GallerySeries = "vibe" | "hnb" | "ayr" | "firstclass" | "jade" | "money" | "nonstop" | "allin" | "wuwh" | "blessed" | "candy" | "berlin" | "savage";
+export type GallerySeries = "vibe" | "hnb" | "ayr" | "firstclass" | "jade" | "money" | "nonstop" | "allin" | "wuwh" | "blessed" | "candy" | "berlin" | "savage" | "luvsick";
 
 /** Anzeigenamen der Reihen (Filter-Chips) – in der Reihenfolge, in der sie erscheinen */
 export const gallerySeries: { id: GallerySeries; name: string }[] = [
@@ -22,6 +22,7 @@ export const gallerySeries: { id: GallerySeries; name: string }[] = [
   { id: "candy", name: "Candy Night" },
   { id: "berlin", name: "Berlin" },
   { id: "savage", name: "4Ever Savage" },
+  { id: "luvsick", name: "LUVSICK" },
 ];
 
 export interface GalleryFlyer {
@@ -68,6 +69,8 @@ export const galleryFlyers: GalleryFlyer[] = [
   { id: "blessed-friday", series: "blessed", title: "Blessed · Friday", src: "/portfolio/flyers/blessed-friday.webp", width: 720, height: 1280, blur: "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAwBACdASoMABUAPu1iqU2ppaOiMAgBMB2JbACdMoMYAEQZ7T8mpn8YVNAA/n6iI3W+JcUOYPrsAedKVyiUdNwnRvP5Rdu+pIlrcvTZBnm5/evlUTnZ3ZlUWuh0zI/WQrT9B1/5LeujlMzYFuXYytymncEWYAAA" },
   { id: "blessed-saturday", series: "blessed", title: "Blessed · Saturday", src: "/portfolio/flyers/blessed-saturday.webp", width: 720, height: 1280, blur: "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAABwBACdASoMABUAPu1iqU2ppaOiMAgBMB2JaACdMoR3Ff/gPfCwzeBCPNH8aAD+LMHaQNPPEnhQ/0b5lT7+t27coFp5MJ/vw/d91g/fAFk8DGF590c8SwNr45u+ZrxtWqEBZqtvlTrFjmDlyk7PAAAA" },
   { id: "candy-monalisa", series: "candy", title: "Candy Night · Monalisa", src: "/portfolio/flyers/candy-monalisa.webp", width: 720, height: 1280, blur: "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAADQAwCdASoMABUAPu1iqU2ppaOiMAgBMB2JagAAShf0p22SKd/jQMAA93jq/xSy+S9zLmVZljfPFtlaqgOu/fZOgjbLuKhr+rSe+DAg8pALouQr/orKjfR9yAH7336qLSUooo7rq6euBeAw6AsSpivoKYWUW6UAAAA=" },
+  { id: "luvsick-five-years", series: "luvsick", title: "LUVSICK · Five Years", src: "/portfolio/flyers/luvsick-five-years.webp", width: 720, height: 1280, blur: "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAADQAwCdASoMABUAPu1iqU2ppaOiMAgBMB2JbAAAXkPsZEzw9tKWyAAA/oSljiSxy8v+DUWrngR7B0c/cYRl61Wsr/TF11DlbUENfbLVg8kJgvegfBCUpW4537c/uVpsj3rZsh/g60P5WcXVHC+Z1A/hu26ukrYAAAA=" },
+  { id: "luvsick-five-years-b", series: "luvsick", title: "LUVSICK · Five Years (Look 2)", src: "/portfolio/flyers/luvsick-five-years-b.webp", width: 720, height: 1280, blur: "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAADQAwCdASoMABUAPu1iqU2ppaOiMAgBMB2JYgAAXdLB+2GcfbQ6LPAA/oSljiSxy8v+DUkmN0oOelEjQVgnWdMg3p5ZlmTNixoolhxwEzyo0dbu9WYPnIjPQjt6bOcId5Blj3b56Jt7AUN1AgjD/4kAAAA=" },
 ];
 
 export const galleryMotion: GalleryMotion[] = [
@@ -84,4 +87,8 @@ export const galleryMotion: GalleryMotion[] = [
   { id: "badbunny", series: "blessed", title: "Bad Bunny Night", video: "/portfolio/motion/badbunny.mp4", poster: "/portfolio/motion/badbunny.webp", blur: "data:image/webp;base64,UklGRqQAAABXRUJQVlA4IJgAAABQBACdASoMABUAPu1iqU2ppaOiMAgBMB2JbACdMoGv/gJLMmI6T52uTpjAAP7usaiuyBNEfmkypb25j5tEcJI0u+kfJHWAUwvFHlQXc5xaHO67FitzQ9ARxQ6exE/qZZSoHQa/ZUKZw8CsxS+O2vsxauYGZMvzSzGLwFs9vV2zsNQyiRH8zU14Dz3g3M0U2P9PFzBiBAAAAA==" },
   { id: "albanien", series: "blessed", title: "Albanien Night", video: "/portfolio/motion/albanien.mp4", poster: "/portfolio/motion/albanien.webp", blur: "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAAAQBACdASoMABUAPu1iqU2ppaOiMAgBMB2JZACdAB6Vr9NTGtcfkojOwAD+7rGorsc3jGSp0+K/5R88Vqzun3QYA+YDCMMvfOMUZgbvm/UOF+I3MYYC8i8CG8Sr1gqfAKw28IrzyIhqOf8eTKR/m+owTgWVIDe82BgAAA==" },
   { id: "balkan", series: "blessed", title: "Blessed Balkan", video: "/portfolio/motion/balkan.mp4", poster: "/portfolio/motion/balkan.webp", blur: "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAACQAwCdASoMABUAPu1iqU2ppaQiMAgBMB2JbACsAB46dVJy0HGAAP7pR2T3aCvZzTpfXm8Q+4yJiAtcI+l/Ld8USHnXAmIOfzK+wQmW7lKGR4Fl+wtuJ3bZfNQVICiqwqoqOt4sESrMMV8AX11ia9XWdpmqdDiZIXpvfa2h1Dk+ptxAAAA=" },
+  { id: "luvsick-green", series: "luvsick", title: "LUVSICK · 3D Shirt Green", video: "/portfolio/motion/luvsick-green.mp4", poster: "/portfolio/motion/luvsick-green.webp", blur: "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAACwAwCdASoMABUAPu1iqU2ppaOiMAgBMB2JZyzAAAGEelyS5oPeAAD+zgejrF0/CXdawsR7rf9zLyTVwdjpndY3a4OcK1pNNQTVAAAA" },
+  { id: "luvsick-bw", series: "luvsick", title: "LUVSICK · 3D Shirt B&W", video: "/portfolio/motion/luvsick-bw.mp4", poster: "/portfolio/motion/luvsick-bw.webp", blur: "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAACQAwCdASoMABUAPu1iqU2ppaQiMAgBMB2JaSzAAAGEehwTHKdAAP7OB6OsXT8Jd1rCxHu0QLoY2sd2y1UYKpfVpmA1wOBAAAA=" },
+  { id: "luvsick-pink", series: "luvsick", title: "LUVSICK · 3D Shirt Pink", video: "/portfolio/motion/luvsick-pink.mp4", poster: "/portfolio/motion/luvsick-pink.webp", blur: "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAACQAwCdASoMABUAPu1iqU2ppaOiMAgBMB2JaSzAAAGEelremoIAAP7OB6OsXT8Jd1rCxHtxfZGWJy3badkOrUkNBAAAAA==" },
+  { id: "luvsick-trailer", series: "luvsick", title: "LUVSICK · Trailer", video: "/portfolio/motion/luvsick-trailer.mp4", poster: "/portfolio/motion/luvsick-trailer.webp", blur: "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAAAQBACdASoMABUAPu1kq04ppaQiMAgBMB2JbACdMoADTqHOaAeozbtRsAD9wRcYaeY5jLgWgahT3uBTUcBOpd5lkasjP3WXJXb0YdqOy9tQ34zGQh3H5Xepf9SRyGXxcxXFyV/tcaaro6sJP4YcZPa48IrbyRoJjS20FdkkyzbD202AAAA=" },
 ];
