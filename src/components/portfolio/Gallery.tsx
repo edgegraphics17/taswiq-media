@@ -92,7 +92,7 @@ function SeriesChips({ series, value, onChange, label }: { series: GallerySeries
 }
 
 /** Vollansicht eines Flyers: Pfeiltasten wechseln, Esc/Klick daneben schließt, Fokus kehrt zurück. */
-function FlyerLightbox({ items, index, onClose, onIndex }: { items: GalleryFlyer[]; index: number; onClose: () => void; onIndex: (i: number) => void }) {
+function FlyerLightbox({ items, index, kind, onClose, onIndex }: { items: GalleryFlyer[]; index: number; kind: "flyer" | "photo"; onClose: () => void; onIndex: (i: number) => void }) {
   const t = useTranslations("portfolio");
   const closeRef = useRef<HTMLButtonElement>(null);
   const item = items[index];
@@ -127,7 +127,7 @@ function FlyerLightbox({ items, index, onClose, onIndex }: { items: GalleryFlyer
         <Image
           key={item.id}
           src={item.src}
-          alt={t("gallery.flyerAlt", { title: item.title })}
+          alt={t(kind === "photo" ? "gallery.photoAlt" : "gallery.flyerAlt", { title: item.title })}
           width={item.width}
           height={item.height}
           sizes="(min-width:768px) 520px, 92vw"
@@ -159,7 +159,7 @@ function FlyerLightbox({ items, index, onClose, onIndex }: { items: GalleryFlyer
 }
 
 /** Flyer-Slider mit Reihen-Filter und Lightbox. `dense` = kleinere Karten für kompakte Streifen. */
-export function FlyerRail({ items, dense = false, filter = true }: { items: GalleryFlyer[]; dense?: boolean; filter?: boolean }) {
+export function FlyerRail({ items, dense = false, filter = true, kind = "flyer" }: { items: GalleryFlyer[]; dense?: boolean; filter?: boolean; kind?: "flyer" | "photo" }) {
   const t = useTranslations("portfolio");
   const [series, setSeries] = useState<GallerySeries | "all">("all");
   const [open, setOpen] = useState<number | null>(null);
@@ -169,7 +169,7 @@ export function FlyerRail({ items, dense = false, filter = true }: { items: Gall
   return (
     <div>
       {filter && present.length > 1 && <SeriesChips series={present} value={series} onChange={setSeries} label={t("gallery.filterAria")} />}
-      <Rail label={t("gallery.flyerAria")} itemCount={shown.length}>
+      <Rail label={t(kind === "photo" ? "gallery.photoAria" : "gallery.flyerAria")} itemCount={shown.length}>
         {shown.map((f, i) => (
           <button
             key={f.id}
@@ -184,7 +184,7 @@ export function FlyerRail({ items, dense = false, filter = true }: { items: Gall
           >
             <Image
               src={f.src}
-              alt={t("gallery.flyerAlt", { title: f.title })}
+              alt={t(kind === "photo" ? "gallery.photoAlt" : "gallery.flyerAlt", { title: f.title })}
               fill
               sizes={dense ? "150px" : "180px"}
               placeholder="blur"
@@ -197,7 +197,7 @@ export function FlyerRail({ items, dense = false, filter = true }: { items: Gall
           </button>
         ))}
       </Rail>
-      {open !== null && <FlyerLightbox items={shown} index={Math.min(open, shown.length - 1)} onClose={() => setOpen(null)} onIndex={setOpen} />}
+      {open !== null && <FlyerLightbox kind={kind} items={shown} index={Math.min(open, shown.length - 1)} onClose={() => setOpen(null)} onIndex={setOpen} />}
     </div>
   );
 }

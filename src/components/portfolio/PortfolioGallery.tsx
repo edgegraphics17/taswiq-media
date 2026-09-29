@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { Music2 } from "lucide-react";
 import { BrandRail, FlyerRail, MotionRail } from "@/components/portfolio/Gallery";
 import { Eyebrow } from "@/components/ui/SectionHeading";
-import { galleryFlyers, galleryMotion } from "@/config/gallery";
+import { galleryFlyers, galleryMotion, galleryPhotos } from "@/config/gallery";
 import { galleryBrands } from "@/config/gallery-brands";
 
 /**
@@ -32,6 +32,9 @@ export async function PortfolioGallery() {
 
         <h3 className="mt-6 mb-3 text-sm font-semibold tracking-wide text-ink">{t("gallery.motionTitle")}</h3>
         <MotionRail items={galleryMotion} dense />
+
+        <h3 className="mt-6 mb-3 text-sm font-semibold tracking-wide text-ink">{t("gallery.photoTitle")}</h3>
+        <FlyerRail items={galleryPhotos} kind="photo" dense />
 
         <h3 className="mt-6 mb-3 text-sm font-semibold tracking-wide text-ink">{t("gallery.brandTitle")}</h3>
         <BrandRail items={galleryBrands} />

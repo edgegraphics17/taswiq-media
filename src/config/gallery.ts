@@ -5,7 +5,7 @@
  * Neue Arbeiten: Datei ablegen, hier eintragen – Slider, Filter und Lightbox ziehen automatisch nach.
  */
 
-export type GallerySeries = "vibe" | "hnb" | "ayr" | "firstclass" | "jade" | "money" | "nonstop" | "allin" | "wuwh" | "blessed" | "candy" | "berlin" | "savage" | "luvsick";
+export type GallerySeries = "vibe" | "hnb" | "ayr" | "firstclass" | "jade" | "money" | "nonstop" | "allin" | "wuwh" | "blessed" | "candy" | "berlin" | "savage" | "luvsick" | "yves";
 
 /** Anzeigenamen der Reihen (Filter-Chips) – in der Reihenfolge, in der sie erscheinen */
 export const gallerySeries: { id: GallerySeries; name: string }[] = [
@@ -23,6 +23,7 @@ export const gallerySeries: { id: GallerySeries; name: string }[] = [
   { id: "berlin", name: "Berlin" },
   { id: "savage", name: "4Ever Savage" },
   { id: "luvsick", name: "LUVSICK" },
+  { id: "yves", name: "YVES Club" },
 ];
 
 export interface GalleryFlyer {
@@ -91,4 +92,19 @@ export const galleryMotion: GalleryMotion[] = [
   { id: "luvsick-bw", series: "luvsick", title: "LUVSICK · 3D Shirt B&W", video: "/portfolio/motion/luvsick-bw.mp4", poster: "/portfolio/motion/luvsick-bw.webp", blur: "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAACQAwCdASoMABUAPu1iqU2ppaQiMAgBMB2JaSzAAAGEehwTHKdAAP7OB6OsXT8Jd1rCxHu0QLoY2sd2y1UYKpfVpmA1wOBAAAA=" },
   { id: "luvsick-pink", series: "luvsick", title: "LUVSICK · 3D Shirt Pink", video: "/portfolio/motion/luvsick-pink.mp4", poster: "/portfolio/motion/luvsick-pink.webp", blur: "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAACQAwCdASoMABUAPu1iqU2ppaOiMAgBMB2JaSzAAAGEelremoIAAP7OB6OsXT8Jd1rCxHtxfZGWJy3badkOrUkNBAAAAA==" },
   { id: "luvsick-trailer", series: "luvsick", title: "LUVSICK · Trailer", video: "/portfolio/motion/luvsick-trailer.mp4", poster: "/portfolio/motion/luvsick-trailer.webp", blur: "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAAAQBACdASoMABUAPu1kq04ppaQiMAgBMB2JbACdMoADTqHOaAeozbtRsAD9wRcYaeY5jLgWgahT3uBTUcBOpd5lkasjP3WXJXb0YdqOy9tQ34zGQh3H5Xepf9SRyGXxcxXFyV/tcaaro6sJP4YcZPa48IrbyRoJjS20FdkkyzbD202AAAA=" },
+];
+
+/** Event- und Location-Fotos (Querformat wird im Slider zugeschnitten, die Lightbox zeigt das ganze Bild) */
+export const galleryPhotos: GalleryFlyer[] = [
+  { id: "mt4606", series: "money", title: "Money Talkz · La Louve", src: "/portfolio/photos/mt4606.webp", width: 1100, height: 1375, blur: "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAAAwAgCdASoMAA8AA4BaJQBOgCIZquNJ9Q6IAAD++ROYFYRwZu75x/uX1B1l2IZvq2l1CcBVHN+UfU0jxfXp3mlkMEK1YmYRbJ53nu8dgcRtfAB/Dp63zzKpQ7C/FHyWnLFY8fYA" },
+  { id: "mt4747", series: "money", title: "Money Talkz · La Louve (2)", src: "/portfolio/photos/mt4747.webp", width: 1100, height: 1375, blur: "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAAAQAgCdASoMAA8AA4BaJZgCdAYstjKQeTgAAP7s9Z7TP8DDRPNWqW/5+dm9b8itfiEP094Ktb2ZOQ8TU2Vb5V5kDqBOpltGIO4VE8ODb8LBJ9Urpp+vSQY/Js5M6O2MRdk6SnCAAAA=" },
+  { id: "mt4875", series: "money", title: "Money Talkz · La Louve (3)", src: "/portfolio/photos/mt4875.webp", width: 1100, height: 1375, blur: "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAAAQAgCdASoMAA8AA4BaJZgCdAYvXtk+surgAP70t5+dwhDHqavka5iUDZ6+ZcmSqrAdOJRCaLDJ7ir855/jOy1PjQvKhTfd3pgYIYYxM+5pCVKfDjK62wZs9hm2yeZer3k1YJNVONNHcLVdxreM+4AA" },
+  { id: "mt4894", series: "money", title: "Money Talkz · La Louve (4)", src: "/portfolio/photos/mt4894.webp", width: 1100, height: 1375, blur: "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAAAQAgCdASoMAA8AA4BaJagCdAEO0Ith0VwAAP74bE8BRjMsVss6yD1YbNMPvN2ndyHPYVR4kp4ISUlD1dnGcl/QGm1n/85pUzjZ1gHq9BYwcL3rvf+jepx6RXJZpUw/jsKF6h8535MR1mEdwAA=" },
+  { id: "mt4708", series: "money", title: "Money Talkz · La Louve (5)", src: "/portfolio/photos/mt4708.webp", width: 1100, height: 1375, blur: "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAQAgCdASoMAA8AA4BaJbACdAEUpON/qawAAP7veOTYwUEZVolDro326G0X4yeJRfSVJv+eQ98Y5mFWy83ZljAE+Bu40lY20u4x2anzb5rSZ9R1lGDuandh0pR9uJ2QemZE1tRUhAAAAA==" },
+  { id: "mt4944", series: "money", title: "Money Talkz · La Louve (6)", src: "/portfolio/photos/mt4944.webp", width: 1100, height: 1375, blur: "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAABwAgCdASoMAA8AA4BaJbACdAYt9ge6ODZRlUwAAP5fM8nZPRjzUq3zcCnAH9GYwBLRSjxaiaPfx6YiHqso4pXK8hpZTGzObQW+2mncuyIaaFEeAioRKD61Nmp3iEuc50gRhpFj39qjwBVlNdQAAA==" },
+  { id: "yves07", series: "yves", title: "YVES Club · Bar", src: "/portfolio/photos/yves07.webp", width: 934, height: 1400, blur: "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAAAQBACdASoMABIAPu1iqU2ppaOiMAgBMB2JbACdACBvoGhu/pZlrmNkAAD+7I9o7gSrYagMwgloyv4PrlDhzmOMgsDu/G+PCTcpXuocPfWCajPEpbCrmSp4XdeA18JpHAwtflZCha/ZVYmZsxY7Y4tiabeUuoSEGAA=" },
+  { id: "yves09", series: "yves", title: "YVES Club · Lounge", src: "/portfolio/photos/yves09.webp", width: 934, height: 1400, blur: "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAAAwBACdASoMABIAPu1iqU2ppaOiMAgBMB2JYgC7ABul48qrzn4iQAKoAAAA/u7psUgbOJYzhxeUB4BPli0GOUYRTYImqETbPCfhDrC5PgSZj1JisxByzJCExqnBMZBAYIAAAA==" },
+  { id: "yves10", series: "yves", title: "YVES Club · Lounge (2)", src: "/portfolio/photos/yves10.webp", width: 934, height: 1400, blur: "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAAAQBACdASoMABIAPu1iqU2ppaOiMAgBMB2JZACdACIfsu7u1xHcENhFAAD+6QEGUqCwNqmEJjpcIeu2lDY/zVkX3wIX3J1IFRryori4g0JCTrkeN/rGO/O1bMP+znP+0Vr7rHOuj9T2YK1AAAA=" },
+  { id: "yves21", series: "yves", title: "YVES Club · Bear Lounge", src: "/portfolio/photos/yves21.webp", width: 1100, height: 734, blur: "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADwAQCdASoMAAgAA4BaJbACdADdjiCTGsAA/vQzucGrhVPkeLHGx0QSNRittgCAZ1pF6shq5cyEOyXtxHePjooq+772ODoAAAA=" },
+  { id: "yves22", series: "yves", title: "YVES Club · Bear Lounge (2)", src: "/portfolio/photos/yves22.webp", width: 1100, height: 734, blur: "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADwAQCdASoMAAgAA4BaJbACdAELVc+mkAAA/vEC257rvuGYGTmMJDmM/raFhpfxCJQSgT9D2LTwAO4ITY2cNu0szdVxH/novy8AAA==" },
 ];
