@@ -5,7 +5,7 @@
  * Neue Arbeiten: Datei ablegen, hier eintragen – Slider, Filter und Lightbox ziehen automatisch nach.
  */
 
-export type GallerySeries = "vibe" | "hnb" | "ayr" | "firstclass" | "jade" | "money" | "nonstop" | "allin" | "wuwh" | "blessed" | "candy" | "berlin" | "savage" | "luvsick" | "yves";
+export type GallerySeries = "vibe" | "hnb" | "ayr" | "firstclass" | "jade" | "money" | "nonstop" | "allin" | "wuwh" | "blessed" | "candy" | "berlin" | "savage" | "luvsick" | "yves" | "catchme";
 
 /** Anzeigenamen der Reihen (Filter-Chips) – in der Reihenfolge, in der sie erscheinen */
 export const gallerySeries: { id: GallerySeries; name: string }[] = [
@@ -24,6 +24,7 @@ export const gallerySeries: { id: GallerySeries; name: string }[] = [
   { id: "savage", name: "4Ever Savage" },
   { id: "luvsick", name: "LUVSICK" },
   { id: "yves", name: "YVES Club" },
+  { id: "catchme", name: "Catch Me" },
 ];
 
 export interface GalleryFlyer {
@@ -92,6 +93,11 @@ export const galleryMotion: GalleryMotion[] = [
   { id: "luvsick-bw", series: "luvsick", title: "LUVSICK · 3D Shirt B&W", video: "/portfolio/motion/luvsick-bw.mp4", poster: "/portfolio/motion/luvsick-bw.webp", blur: "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAACQAwCdASoMABUAPu1iqU2ppaQiMAgBMB2JaSzAAAGEehwTHKdAAP7OB6OsXT8Jd1rCxHu0QLoY2sd2y1UYKpfVpmA1wOBAAAA=" },
   { id: "luvsick-pink", series: "luvsick", title: "LUVSICK · 3D Shirt Pink", video: "/portfolio/motion/luvsick-pink.mp4", poster: "/portfolio/motion/luvsick-pink.webp", blur: "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAACQAwCdASoMABUAPu1iqU2ppaOiMAgBMB2JaSzAAAGEelremoIAAP7OB6OsXT8Jd1rCxHtxfZGWJy3badkOrUkNBAAAAA==" },
   { id: "luvsick-trailer", series: "luvsick", title: "LUVSICK · Trailer", video: "/portfolio/motion/luvsick-trailer.mp4", poster: "/portfolio/motion/luvsick-trailer.webp", blur: "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAAAQBACdASoMABUAPu1kq04ppaQiMAgBMB2JbACdMoADTqHOaAeozbtRsAD9wRcYaeY5jLgWgahT3uBTUcBOpd5lkasjP3WXJXb0YdqOy9tQ34zGQh3H5Xepf9SRyGXxcxXFyV/tcaaro6sJP4YcZPa48IrbyRoJjS20FdkkyzbD202AAAA=" },
+  { id: "catchme", series: "catchme", title: "Catch Me · Teaser", video: "/portfolio/motion/catchme.mp4", poster: "/portfolio/motion/catchme.webp", blur: "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADwAwCdASoMABUAPu1iqU2ppaOiMAgBMB2JZQCdMoADZC2EI2QviSogAP7r8docO2BlCOXx11c3sHEXfH9JudP0+doz6XP4kqY/kpZoKq6l27bBDxNzGAAA" },
+  { id: "money-reel1", series: "money", title: "Money Talkz · Reel Bottle Service", video: "/portfolio/motion/money-reel1.mp4", poster: "/portfolio/motion/money-reel1.webp", blur: "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAAAQBACdASoMABUAPu1iqU2ppaOiMAgBMB2JbACdMoADfwVOHfI3P8a/AADNsWcJxo1Z7nP+YgUUyRkmcXq7Phv1ZpDOIlwUqLOq/sfjBXrrOdFGpS4FvawHZH5SOOSotJRpyW+zNrXKzJgA" },
+  { id: "money-reel2", series: "money", title: "Money Talkz · Reel Dancefloor", video: "/portfolio/motion/money-reel2.mp4", poster: "/portfolio/motion/money-reel2.webp", blur: "data:image/webp;base64,UklGRqQAAABXRUJQVlA4IJgAAABwBACdASoMABUAPu1mq04ppaQiMAgBMB2JagCdMoGv/gvBDtgPem6u7jDigAD+/knaUCLJsBX65XMNmPUi/Bcjb3IPtQUpQRnDmCoXLF7eFD+JtP1xIlh1NkD9qeMTTIn1tsyYH/Az6gQuQddowinAcIjPFqMzbrMkshoBkEy3M8oWWOy2E9++FX3HXGZqqf4H11WcG8BAAA==" },
+  { id: "faqyri", series: "blessed", title: "Blessed · Faqyri Night", video: "/portfolio/motion/faqyri.mp4", poster: "/portfolio/motion/faqyri.webp", blur: "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADwAwCdASoMABUAPu1iqU2ppaOiMAgBMB2JZQCdACFnb0yVttx4EvqAAP7lrLhoLYwgZDVHYMzmq0HtP6a8TjGL4KaUEalI8YM7o5hyvDxMXwIAAAA=" },
+  { id: "hnb-muster", series: "hnb", title: "Hot'n Brownie · Flyer Package", video: "/portfolio/motion/hnb-muster.mp4", poster: "/portfolio/motion/hnb-muster.webp", blur: "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAAAQBACdASoMABUAPu1iqU2ppaOiMAgBMB2JbACdABufTKU6VpeYgt0gUAD+5Fo2Bp5zknSEln9zNI4py7+L4SHXzfoioa68eKangiFWEhrqD6tW5ESOB1MVP+W255H2bEA4vD/SPriWcIbtDDXsv1MEI/58mES+Ot6ldl5qvQBZvAAA" },
 ];
 
 /** Event- und Location-Fotos (Querformat wird im Slider zugeschnitten, die Lightbox zeigt das ganze Bild) */
