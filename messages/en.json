@@ -445,6 +445,7 @@
       "open": "View {title} larger",
       "flyerAlt": "Flyer: {title}",
       "photoTitle": "Photos & venues",
+      "gastroTitle": "Restaurants & food",
       "photoAria": "Photo gallery, scrolls horizontally",
       "photoAlt": "Photo: {title}",
       "motionAlt": "Animated flyer: {title}",

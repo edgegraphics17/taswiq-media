@@ -5,7 +5,7 @@
  * Neue Arbeiten: Datei ablegen, hier eintragen – Slider, Filter und Lightbox ziehen automatisch nach.
  */
 
-export type GallerySeries = "vibe" | "hnb" | "ayr" | "firstclass" | "jade" | "money" | "nonstop" | "allin" | "wuwh" | "blessed" | "candy" | "berlin" | "savage" | "luvsick" | "yves" | "catchme" | "shego" | "dekkapa" | "live";
+export type GallerySeries = "vibe" | "hnb" | "ayr" | "firstclass" | "jade" | "money" | "nonstop" | "allin" | "wuwh" | "blessed" | "candy" | "berlin" | "savage" | "luvsick" | "yves" | "catchme" | "shego" | "dekkapa" | "live" | "landofplenty" | "lusburger" | "bistro";
 
 /** Anzeigenamen der Reihen (Filter-Chips) – in der Reihenfolge, in der sie erscheinen */
 export const gallerySeries: { id: GallerySeries; name: string }[] = [
@@ -28,6 +28,9 @@ export const gallerySeries: { id: GallerySeries; name: string }[] = [
   { id: "shego", name: "mad Shego" },
   { id: "dekkapa", name: "DEKKAPA" },
   { id: "live", name: "Live & Presse" },
+  { id: "landofplenty", name: "Land of Plenty" },
+  { id: "lusburger", name: "Lu's Burger" },
+  { id: "bistro", name: "Bistro Aachen" },
 ];
 
 export interface GalleryFlyer {
@@ -130,4 +133,15 @@ export const galleryPhotos: GalleryFlyer[] = [
   { id: "pr9426", series: "live", title: "Presse · Portrait", src: "/portfolio/photos/pr9426.webp", width: 933, height: 1400, blur: "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAACwAwCdASoMABIAPu1iqU2ppaOiMAgBMB2JZwDG9BGl475C4fISAADJdKjCHjqH3suWPOviObpByFZo55Xg0Ofkll8AFN1VCDk8nvEmr4+HgscjiDPzMY/HxG2kyLcwNbK+dDETwAA=" },
   { id: "yves21", series: "yves", title: "YVES Club · Bear Lounge", src: "/portfolio/photos/yves21.webp", width: 1100, height: 734, blur: "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADwAQCdASoMAAgAA4BaJbACdADdjiCTGsAA/vQzucGrhVPkeLHGx0QSNRittgCAZ1pF6shq5cyEOyXtxHePjooq+772ODoAAAA=" },
   { id: "yves22", series: "yves", title: "YVES Club · Bear Lounge (2)", src: "/portfolio/photos/yves22.webp", width: 1100, height: 734, blur: "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADwAQCdASoMAAgAA4BaJbACdAELVc+mkAAA/vEC257rvuGYGTmMJDmM/raFhpfxCJQSgT9D2LTwAO4ITY2cNu0szdVxH/novy8AAA==" },
+];
+
+/** Gastro-Fotos (Querformat) */
+export const galleryGastro: GalleryFlyer[] = [
+  { id: "lp57", series: "landofplenty", title: "Land of Plenty · Pancakes", src: "/portfolio/photos/lp57.webp", width: 1100, height: 617, blur: "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADwAQCdASoMAAcAA4BaJYwCdAEQEp+buYAA/u3vOhtqiWhIAJ3jOlwH96dNmaPRotzy8AphVchZaujgwK24vVT7MwJBi/n4AAA=" },
+  { id: "lp42", series: "landofplenty", title: "Land of Plenty · Plate", src: "/portfolio/photos/lp42.webp", width: 1100, height: 617, blur: "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADwAQCdASoMAAcAA4BaJQBOgMWbtab1qqAA/tD4tjImkRa0aM2Yb0kpMXl31ejZMU6+a7GkhkJPenEigi+oEnwDPTjgAA==" },
+  { id: "lp48", series: "landofplenty", title: "Land of Plenty · Detail", src: "/portfolio/photos/lp48.webp", width: 1100, height: 617, blur: "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAADwAQCdASoMAAcAA4BaJZQCdADdtmnyq4AA9qvzEtt3ZRd12I/zyx5lnQv6IO+XgnEDUjEL+4RalZPvfKHM7KtksphJ99AA" },
+  { id: "lp60", series: "landofplenty", title: "Land of Plenty · Signature", src: "/portfolio/photos/lp60.webp", width: 1100, height: 617, blur: "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAADQAQCdASoMAAcAA4BaJQBOgBttSoKbAADOLAfVDtnvRHwwNYqKvR4h3Xx7svKESa3iMFG7Zm9OHh9/HKDtFEEiOf/nu4AA" },
+  { id: "lu08", series: "lusburger", title: "Lu's Burger · The Art of Burger", src: "/portfolio/photos/lu08.webp", width: 1100, height: 617, blur: "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAAAQAgCdASoMAAcAA4BaJZgCdAEQ/bLU9rgAAP7vn6rNOqsYiPjezGoWTQ6Ag6TDse4z01XnvVV80L5UwN9irOOjEtzgo2jvABRvqP/M5HZSAAAA" },
+  { id: "lu94", series: "lusburger", title: "Lu's Burger · Interior", src: "/portfolio/photos/lu94.webp", width: 786, height: 1400, blur: "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAADQAwCdASoMABUAPu1iqU2ppaOiMAgBMB2JQBOgA3ahG4BKw4LUyAgAzhlmTBjntbBTJ6QW+UBJfzhER8pXM3K/rZtVZorouoQVD4u8kgRb6E+uLvP6CHysJSAfotBApOTmaFoareyvmR7KVsI2zsH1jNr6IQ0YAAA=" },
+  { id: "bi21", series: "bistro", title: "Bistro Aachen · Bar", src: "/portfolio/photos/bi21.webp", width: 786, height: 1400, blur: "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAADQAwCdASoMABUAPu1iqU2ppaOiMAgBMB2JYgCdABu06jCcFoNyywAA+ety0XxlBQFJlRIdsqYcFHBbRTzO21Pl8d15CFUKcibqlpdcLZXqISY0/phr05SLAjLqqCUWqXP+dg3IGamoYOS6NwIgJDwA" },
 ];

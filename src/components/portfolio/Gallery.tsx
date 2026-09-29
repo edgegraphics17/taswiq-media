@@ -159,7 +159,7 @@ function FlyerLightbox({ items, index, kind, onClose, onIndex }: { items: Galler
 }
 
 /** Flyer-Slider mit Reihen-Filter und Lightbox. `dense` = kleinere Karten für kompakte Streifen. */
-export function FlyerRail({ items, dense = false, filter = true, kind = "flyer" }: { items: GalleryFlyer[]; dense?: boolean; filter?: boolean; kind?: "flyer" | "photo" }) {
+export function FlyerRail({ items, dense = false, filter = true, kind = "flyer", wide = false }: { items: GalleryFlyer[]; dense?: boolean; filter?: boolean; kind?: "flyer" | "photo"; wide?: boolean }) {
   const t = useTranslations("portfolio");
   const [series, setSeries] = useState<GallerySeries | "all">("all");
   const [open, setOpen] = useState<number | null>(null);
@@ -179,14 +179,14 @@ export function FlyerRail({ items, dense = false, filter = true, kind = "flyer" 
             aria-label={t("gallery.open", { title: f.title })}
             className={cn(
               "group relative shrink-0 snap-start overflow-hidden rounded-2xl bg-night shadow-[var(--shadow-soft)] transition-[transform,box-shadow] duration-500 ease-[var(--ease-soft)] hover:-translate-y-1 hover:shadow-[var(--shadow-float)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500",
-              dense ? "aspect-[9/16] h-60 sm:h-64" : "aspect-[9/16] h-72 sm:h-80",
+              wide ? "aspect-[4/3] h-48 sm:h-56" : dense ? "aspect-[9/16] h-60 sm:h-64" : "aspect-[9/16] h-72 sm:h-80",
             )}
           >
             <Image
               src={f.src}
               alt={t(kind === "photo" ? "gallery.photoAlt" : "gallery.flyerAlt", { title: f.title })}
               fill
-              sizes={dense ? "150px" : "180px"}
+              sizes={wide ? "280px" : dense ? "150px" : "180px"}
               placeholder="blur"
               blurDataURL={f.blur}
               className="object-cover transition-transform duration-700 ease-[var(--ease-soft)] group-hover:scale-[1.04]"
