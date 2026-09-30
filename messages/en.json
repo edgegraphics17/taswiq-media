@@ -903,7 +903,11 @@
       "goToPage": "Go to page {n}",
       "chooseKit": "{n} kits – choose one",
       "chooserAria": "Choose a kit",
-      "openKit": "Open kit {name}"
+      "openKit": "Open kit {name}",
+      "scrollAria": "{kit} – all pages of {title}, scrollable with keyboard",
+      "scrollHint": "Scroll for all {total} pages",
+      "endLabel": "End of kit",
+      "nextKit": "Next kit: {name}"
     }
   },
   "blog": {
