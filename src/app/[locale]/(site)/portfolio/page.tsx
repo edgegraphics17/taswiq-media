@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ArrowRight, Briefcase } from "lucide-react";
-import { portfolioItems, thumbOf } from "@/config/content";
+import { thumbOf, visiblePortfolioItems } from "@/config/content";
 import { contactHref, site } from "@/config/site";
 import { PortfolioExplorer } from "@/components/portfolio/PortfolioExplorer";
 import { PortfolioGallery } from "@/components/portfolio/PortfolioGallery";
@@ -82,7 +82,7 @@ export default async function PortfolioPage({ params }: Props) {
           inLanguage: LOCALE_META[locale].hreflang,
           isPartOf: { "@id": WEBSITE_ID },
           publisher: { "@id": ORG_ID },
-          hasPart: portfolioItems.map((p) => {
+          hasPart: visiblePortfolioItems.map((p) => {
             const img = thumbOf(p);
             return {
               "@type": "CreativeWork",

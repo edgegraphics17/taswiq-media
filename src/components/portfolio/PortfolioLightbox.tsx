@@ -157,6 +157,22 @@ function Media({ item }: { item: PortfolioItem }) {
       </div>
     );
   }
+  // Hotel-Filme liegen nur auf YouTube → direkt im Dialog abspielen (datensparsame nocookie-Domain)
+  const yt = m.type === "video" && m.youtube ? youtubeId(m.youtube) : null;
+  if (yt) {
+    return (
+      <div className="relative grid place-items-center bg-night pt-16 lg:pt-0">
+        <iframe
+          key={yt}
+          src={`https://www.youtube-nocookie.com/embed/${yt}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
+          title={title}
+          allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+          referrerPolicy="strict-origin-when-cross-origin"
+          className="aspect-video w-full border-0"
+        />
+      </div>
+    );
+  }
   if (m.type === "site") {
     return (
       <div className="relative bg-[linear-gradient(160deg,var(--color-brand-100),var(--color-blush-100))] p-4 pt-16 sm:p-8 sm:pt-16">
@@ -179,6 +195,12 @@ function Media({ item }: { item: PortfolioItem }) {
       <PortfolioVisual item={item} alt={t("posterAlt", { title })} sizes="(min-width:1024px) 640px, 100vw" />
     </div>
   );
+}
+
+/** "https://www.youtube.com/watch?v=ID" oder "https://youtu.be/ID" → "ID" */
+function youtubeId(url: string): string | null {
+  const u = new URL(url);
+  return u.hostname === "youtu.be" ? u.pathname.slice(1) || null : u.searchParams.get("v");
 }
 
 function Details({ item, onClose }: { item: PortfolioItem; onClose: () => void }) {

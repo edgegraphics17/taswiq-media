@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
-import { portfolioFilters, portfolioItems, type PortfolioFilter, type PortfolioId, type PortfolioItem } from "@/config/content";
+import { featuredPortfolioIds, portfolioFilters, portfolioItems, visiblePortfolioItems, type PortfolioFilter, type PortfolioId, type PortfolioItem } from "@/config/content";
 import { PortfolioCard } from "@/components/portfolio/PortfolioCard";
 import { PortfolioLightbox } from "@/components/portfolio/PortfolioLightbox";
 import { track } from "@/lib/track";
@@ -22,7 +22,7 @@ export function PortfolioExplorer({ mode = "full", ids }: { mode?: "full" | "tea
   const [openId, setOpenId] = useState<PortfolioId | null>(null);
 
   const base = useMemo<PortfolioItem[]>(
-    () => (ids ? ids.map((id) => portfolioItems.find((p) => p.id === id)!).filter(Boolean) : mode === "teaser" ? portfolioItems.filter((p) => p.featured) : portfolioItems),
+    () => (ids ?? (mode === "teaser" ? featuredPortfolioIds : null))?.map((id) => portfolioItems.find((p) => p.id === id)!).filter(Boolean) ?? visiblePortfolioItems,
     [ids, mode],
   );
   const items = useMemo(() => base.filter((p) => filter === "alle" || p.cats.includes(filter)), [base, filter]);
@@ -35,7 +35,7 @@ export function PortfolioExplorer({ mode = "full", ids }: { mode?: "full" | "tea
   useEffect(() => {
     if (mode !== "full") return;
     const id = new URLSearchParams(window.location.search).get("projekt") as PortfolioId | null;
-    if (id && portfolioItems.some((p) => p.id === id)) setOpenId(id);
+    if (id && visiblePortfolioItems.some((p) => p.id === id)) setOpenId(id);
   }, [mode]);
 
   const syncUrl = useCallback(

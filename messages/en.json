@@ -469,8 +469,8 @@
     ],
     "filters": {
       "alle": "All",
-      "software": "Software & systems",
-      "web": "Websites",
+      "web": "Websites & software",
+      "ai": "AI content",
       "gastro": "Food & hospitality",
       "events": "Events & artists",
       "media": "Films & reels"

@@ -469,8 +469,8 @@
     ],
     "filters": {
       "alle": "Alle",
-      "software": "Software & Systeme",
-      "web": "Websites",
+      "web": "Websites & Software",
+      "ai": "KI-Content",
       "gastro": "Gastro & Food",
       "events": "Events & Artists",
       "media": "Film & Reels"

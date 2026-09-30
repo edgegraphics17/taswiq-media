@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { ArrowUpRight, Check, Cpu, MapPin, Target } from "lucide-react";
-import { portfolioItems, thumbOf } from "@/config/content";
+import { featuredPortfolioIds, getPortfolioItem, thumbOf } from "@/config/content";
 import { site } from "@/config/site";
 import { Reveal } from "@/components/ui/Reveal";
 import { Eyebrow } from "@/components/ui/SectionHeading";
@@ -15,7 +15,7 @@ export async function PromiseSection() {
   const t = await getTranslations("home.promise");
   const stats = t.raw("stats") as { value: string; label: string }[];
   const checks = t.raw("checks") as string[];
-  const thumbs = portfolioItems.map(thumbOf).filter(Boolean).slice(0, 6) as string[];
+  const thumbs = featuredPortfolioIds.map((id) => thumbOf(getPortfolioItem(id))).filter(Boolean) as string[];
 
   return (
     <section id="warum" aria-labelledby="warum-title" className="py-16 sm:py-24">

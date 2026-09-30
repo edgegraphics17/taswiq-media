@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { site } from "@/config/site";
 import { industryPages, mediaPage, servicePages, type SeoPage } from "@/config/seo-pages";
-import { portfolioItems } from "@/config/content";
+import { visiblePortfolioItems } from "@/config/content";
 import { allPackages } from "@/config/packages";
 import { posts } from "@/content/blog";
 import { routing, type Locale } from "@/i18n/routing";
@@ -38,8 +38,8 @@ export async function GET() {
     }),
   );
 
-  const cases = portfolioItems.filter((p) => p.kind === "live" || p.kind === "demo" || p.kind === "internal");
-  const media = portfolioItems.filter((p) => p.kind === "film" || p.kind === "reel" || p.kind === "case");
+  const cases = visiblePortfolioItems.filter((p) => p.kind === "live" || p.kind === "demo" || p.kind === "internal");
+  const media = visiblePortfolioItems.filter((p) => p.kind === "film" || p.kind === "reel" || p.kind === "case");
 
   const body = `# ${site.name}
 
