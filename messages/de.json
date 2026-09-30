@@ -724,6 +724,218 @@
           "4K"
         ]
       },
+      "infinity-cut": {
+        "tag": "Eröffnungs-Reel",
+        "title": "Infinity Cut – Grand Opening",
+        "text": "Hochkant-Trailer und Aushang für die Eröffnung eines Barbershops in Frankfurt: Motion-Design im Look der Marke, dazu Preisliste und Angebots-Flyer mit Buchungs-QR.",
+        "result": "Eröffnung, Preisliste und Angebote aus einem Guss – mit QR-Code direkt zur Online-Buchung.",
+        "services": [
+          "Motion Design",
+          "Reel 9:16",
+          "Preisliste & Flyer",
+          "Branding"
+        ]
+      },
+      "ggc": {
+        "tag": "KI-UGC-Ad",
+        "title": "GGC – Creator-Ads mit KI",
+        "text": "Kurze Creator-Style-Ads für eine Trinkflasche: Testimonial-Look wie bei TikTok und Instagram, komplett KI-generiert – ohne Dreh, Models oder Produktion vor Ort.",
+        "result": "Mehrere Ad-Varianten in wenigen Tagen zum Testen – ohne Drehkosten.",
+        "services": [
+          "KI-Video",
+          "UGC-Ads",
+          "Performance-Creatives",
+          "9:16"
+        ]
+      },
+      "brancos": {
+        "tag": "Brand-Intro",
+        "title": "Brancos FC – Wappen-Intro & Brand Kit",
+        "text": "Animiertes Wappen-Intro und Brand Kit für einen Fußballclub: Logo, Farben, Typografie, Trikots und Social-Vorlagen in einem Stil.",
+        "result": "Ein Auftritt, der auf Trikot, Feed und Bildschirm sofort wiedererkennbar ist.",
+        "services": [
+          "Branding",
+          "Logo-Animation",
+          "Brand Kit",
+          "Social-Vorlagen"
+        ]
+      },
+      "raum-rasen": {
+        "tag": "KI-Imagefilm",
+        "title": "Raum & Rasen – Imageclips",
+        "text": "Kurze Cinematic-Clips für einen Dienstleister rund um Gebäude und Grünflächen: Büro im Morgenlicht, gepflegter Rasen, Team vor der Frankfurter Skyline.",
+        "result": "Hochwertiges Bewegtbild für Website und Social Media – ohne aufwendigen Drehtag.",
+        "services": [
+          "KI-Video",
+          "Imageclips",
+          "9:16"
+        ]
+      },
+      "event-motion": {
+        "tag": "Event-Motion",
+        "title": "Zirkus-Teaser für die Club-Nacht",
+        "text": "Animierter Event-Teaser im Zirkus-Motiv: Flyer wird zum Bewegtbild, das im Feed Aufmerksamkeit holt und den Termin mitliefert.",
+        "result": "Aus einem statischen Flyer wird ein Teaser, der Story und Feed füllt.",
+        "services": [
+          "Motion Flyer",
+          "3D-Look",
+          "Reel 9:16"
+        ]
+      },
+      "ai-produktfilm": {
+        "tag": "KI-Produktfilm",
+        "title": "Uhren-Spot – Produktfilm mit KI",
+        "text": "Cinematischer Produktfilm für eine Uhr: Nahaufnahmen, Licht und Kamerafahrt aus dem Rechner statt aus dem Studio.",
+        "result": "Produktfilm in Studioqualität – ohne Studio, Set und Muster-Versand.",
+        "services": [
+          "KI-Video",
+          "Produktfilm",
+          "9:16"
+        ]
+      },
+      "culture-aftermovie": {
+        "tag": "Aftermovie",
+        "title": "Culture – Club-Aftermovie 4K",
+        "text": "Aftermovie im Hochformat in 4K: Nebel, Licht und Publikum – die Energie der Nacht in 22 Sekunden.",
+        "result": "Der Abend lebt im Feed weiter – und macht Lust auf die nächste Ausgabe.",
+        "services": [
+          "Aftermovie",
+          "4K 9:16",
+          "Schnitt & Sound"
+        ]
+      },
+      "huqup": {
+        "tag": "Brand-Film",
+        "title": "HUQ-UP – Statement-Film",
+        "text": "Ruhiger, dunkler Statement-Film im Querformat für die Marke HUQ-UP: Haltung statt Werbesprache.",
+        "result": "Ein Film, der die Marke erklärt, bevor jemand die Website öffnet.",
+        "services": [
+          "Brand-Film",
+          "16:9",
+          "Schnitt & Sound"
+        ]
+      },
+      "qabila": {
+        "tag": "Produktspot",
+        "title": "Qabila – Skincare-Spot",
+        "text": "Sauberer, heller Produktspot für eine Hautpflege-Marke: Wasser, Glas und Licht im Querformat.",
+        "result": "Produktfilm für Shop, Social Media und Anzeigen aus einem Guss.",
+        "services": [
+          "Produktspot",
+          "16:9",
+          "Motion Design"
+        ]
+      },
+      "bt-revive": {
+        "tag": "Produktspot",
+        "title": "BT Revive – Supplement-Spot",
+        "text": "Animierter Spot für ein Nahrungsergänzungsmittel: Typografie und Bewegung erklären das Produkt in unter einer Minute.",
+        "result": "Erklärt in 50 Sekunden, was das Produkt kann – ohne Dreh.",
+        "services": [
+          "Erklärspot",
+          "16:9",
+          "Motion Design"
+        ]
+      },
+      "motion-reel": {
+        "tag": "Showreel",
+        "title": "Motion-Flyer – Showreel",
+        "text": "16 animierte Flyer aus Club- und Eventarbeit im Schnelldurchlauf: aus statischen Motiven werden Reels, die im Feed auffallen.",
+        "result": "Mehr Reichweite für jeden Termin – ohne dass die Vorlage neu gebaut wird.",
+        "services": [
+          "Motion Flyer",
+          "Reels 9:16",
+          "Event-Marketing"
+        ]
+      },
+      "noizy": {
+        "tag": "Event-Motion",
+        "title": "Noizy – Liveshow-Ankündigung",
+        "text": "Animierte Ankündigung für eine Liveshow: Artist, Termin und Ticket-Hinweis als Reel.",
+        "result": "Ankündigung, die im Feed und in Stories funktioniert.",
+        "services": [
+          "Motion Flyer",
+          "9:16",
+          "Sound-Design"
+        ]
+      },
+      "nobless": {
+        "tag": "Event-Motion",
+        "title": "Nobless 3 – Event-Teaser",
+        "text": "Teaser für die dritte Ausgabe einer Club-Reihe: Tauben, Berge und Schriftzug als cineastischer Auftakt.",
+        "result": "Aus einer Ankündigung wird ein Ereignis.",
+        "services": [
+          "Event-Teaser",
+          "9:16",
+          "Sound-Design"
+        ]
+      },
+      "halloween": {
+        "tag": "Event-Motion",
+        "title": "Halloween – Party-Animation",
+        "text": "Verspielte Halloween-Animation für einen Party-Abend mit Kürbissen, Popcorn und Artist im Mittelpunkt.",
+        "result": "Saisonale Kampagne, die sofort nach Party aussieht.",
+        "services": [
+          "Motion Flyer",
+          "9:16",
+          "Illustration"
+        ]
+      },
+      "kalim": {
+        "tag": "Event-Motion",
+        "title": "Kalim – Liveshow-Animation",
+        "text": "Animierter Flyer für eine Liveshow: Gold auf Schwarz, Line-up und Ticket-Hinweis in Bewegung.",
+        "result": "Der Flyer, der im Feed stehen bleibt.",
+        "services": [
+          "Motion Flyer",
+          "9:16",
+          "Sound-Design"
+        ]
+      },
+      "la-louve-7": {
+        "tag": "Jubiläumsfilm",
+        "title": "La Louve – 7 Jahre",
+        "text": "Jubiläumsfilm im Querformat für einen Club: Karten, Zahlen und Artists als Motion-Design.",
+        "result": "Ein Jubiläum, das sich wie ein Event anfühlt.",
+        "services": [
+          "Jubiläumsfilm",
+          "16:9",
+          "Motion Design"
+        ]
+      },
+      "la-louve-fotos": {
+        "tag": "Eventfotografie",
+        "title": "La Louve – Rooftop-Fotos",
+        "text": "Eventfotografie von einem Rooftop-Sommerevent: Golden Hour, Gäste, Bar und Stimmung.",
+        "result": "Foto-Material für Recap, Social Media und den nächsten Vorverkauf.",
+        "services": [
+          "Eventfotografie",
+          "Bildauswahl",
+          "Retusche"
+        ]
+      },
+      "flyer-design": {
+        "tag": "Flyer-Design",
+        "title": "Flyer & Print-Design",
+        "text": "Auswahl aus Event- und Business-Flyern: Club-Nächte, Liveshows, Boat-Party und Aktionsflyer für einen Barbershop.",
+        "result": "Ein Look pro Marke – vom Insta-Post bis zum Aushang.",
+        "services": [
+          "Flyer",
+          "Social-Motive",
+          "Branding"
+        ]
+      },
+      "ki-shootings": {
+        "tag": "KI-Shooting",
+        "title": "KI-Shootings für Mode",
+        "text": "Produktbilder für Streetwear aus KI: dasselbe Shirt an Models, in mehreren Farben, vorn und hinten.",
+        "result": "Fashion-Katalog ohne Studio-Termin – Farben und Motive im Nachhinein änderbar.",
+        "services": [
+          "KI-Bilder",
+          "Fashion",
+          "Katalog"
+        ]
+      },
       "festivals": {
         "tag": "Event-Kampagnen",
         "title": "Clubs & Festivals",

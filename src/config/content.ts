@@ -42,6 +42,25 @@ export type PortfolioId =
   | "il-forno"
   | "cinnamon"
   | "the-sphere"
+  | "infinity-cut"
+  | "ggc"
+  | "brancos"
+  | "raum-rasen"
+  | "event-motion"
+  | "ai-produktfilm"
+  | "culture-aftermovie"
+  | "huqup"
+  | "qabila"
+  | "bt-revive"
+  | "motion-reel"
+  | "noizy"
+  | "nobless"
+  | "halloween"
+  | "kalim"
+  | "la-louve-7"
+  | "la-louve-fotos"
+  | "flyer-design"
+  | "ki-shootings"
   | "festivals"
   | "artists";
 
@@ -189,6 +208,123 @@ export const portfolioItems: PortfolioItem[] = [
     kind: "film",
     media: { type: "video", poster: "/images/cases/the-sphere.jpg", preview: "/videos/cases/the-sphere.mp4", youtube: "https://www.youtube.com/watch?v=qQjFA1WtrbU", orientation: "h" },
     location: "One World Hotel · Petaling Jaya",
+  },
+  /* Business, Branding & KI-Video */
+  {
+    id: "infinity-cut",
+    cats: ["media"],
+    kind: "reel",
+    media: { type: "video", poster: "/images/portfolio/infinity-cut.jpg", preview: "/videos/portfolio/infinity-cut-preview.mp4", full: "/videos/portfolio/infinity-cut.mp4", orientation: "v" },
+    location: "Frankfurt am Main",
+  },
+  {
+    id: "ggc",
+    cats: ["media"],
+    kind: "reel",
+    media: { type: "video", poster: "/images/portfolio/ggc.jpg", preview: "/videos/portfolio/ggc-preview.mp4", full: "/videos/portfolio/ggc.mp4", orientation: "v" },
+  },
+  {
+    id: "brancos",
+    cats: ["media"],
+    kind: "reel",
+    media: { type: "video", poster: "/images/portfolio/brancos.jpg", preview: "/videos/portfolio/brancos-preview.mp4", full: "/videos/portfolio/brancos.mp4", orientation: "v" },
+  },
+  {
+    id: "raum-rasen",
+    cats: ["media"],
+    kind: "reel",
+    media: { type: "video", poster: "/images/portfolio/raum-rasen.jpg", preview: "/videos/portfolio/raum-rasen-preview.mp4", full: "/videos/portfolio/raum-rasen.mp4", orientation: "v" },
+  },
+  {
+    id: "ai-produktfilm",
+    cats: ["media"],
+    kind: "reel",
+    media: { type: "video", poster: "/images/portfolio/ai-produktfilm.jpg", preview: "/videos/portfolio/ai-produktfilm-preview.mp4", full: "/videos/portfolio/ai-produktfilm.mp4", orientation: "v" },
+  },
+  /* Events */
+  {
+    id: "event-motion",
+    cats: ["events", "media"],
+    kind: "reel",
+    media: { type: "video", poster: "/images/portfolio/event-motion.jpg", preview: "/videos/portfolio/event-motion-preview.mp4", full: "/videos/portfolio/event-motion.mp4", orientation: "v" },
+  },
+  {
+    id: "culture-aftermovie",
+    cats: ["media", "events"],
+    kind: "reel",
+    media: { type: "video", poster: "/images/portfolio/culture-aftermovie.jpg", preview: "/videos/portfolio/culture-aftermovie-preview.mp4", full: "/videos/portfolio/culture-aftermovie.mp4", orientation: "v" },
+  },
+  {
+    id: "huqup",
+    cats: ["media"],
+    kind: "film",
+    media: { type: "video", poster: "/images/portfolio/huqup.jpg", preview: "/videos/portfolio/huqup-preview.mp4", full: "/videos/portfolio/huqup.mp4", orientation: "h" },
+  },
+  {
+    id: "qabila",
+    cats: ["media"],
+    kind: "film",
+    media: { type: "video", poster: "/images/portfolio/qabila.jpg", preview: "/videos/portfolio/qabila-preview.mp4", full: "/videos/portfolio/qabila.mp4", orientation: "h" },
+  },
+  {
+    id: "bt-revive",
+    cats: ["media"],
+    kind: "film",
+    media: { type: "video", poster: "/images/portfolio/bt-revive.jpg", preview: "/videos/portfolio/bt-revive-preview.mp4", full: "/videos/portfolio/bt-revive.mp4", orientation: "h" },
+  },
+  {
+    id: "motion-reel",
+    cats: ["events", "media"],
+    kind: "reel",
+    media: { type: "video", poster: "/images/portfolio/motion-reel.jpg", preview: "/videos/portfolio/motion-reel-preview.mp4", full: "/videos/portfolio/motion-reel.mp4", orientation: "v" },
+  },
+  {
+    id: "noizy",
+    cats: ["events", "media"],
+    kind: "reel",
+    media: { type: "video", poster: "/images/portfolio/noizy.jpg", preview: "/videos/portfolio/noizy-preview.mp4", full: "/videos/portfolio/noizy.mp4", orientation: "v" },
+  },
+  {
+    id: "nobless",
+    cats: ["events", "media"],
+    kind: "reel",
+    media: { type: "video", poster: "/images/portfolio/nobless.jpg", preview: "/videos/portfolio/nobless-preview.mp4", full: "/videos/portfolio/nobless.mp4", orientation: "v" },
+  },
+  {
+    id: "halloween",
+    cats: ["events", "media"],
+    kind: "reel",
+    media: { type: "video", poster: "/images/portfolio/halloween.jpg", preview: "/videos/portfolio/halloween-preview.mp4", full: "/videos/portfolio/halloween.mp4", orientation: "v" },
+  },
+  {
+    id: "kalim",
+    cats: ["events", "media"],
+    kind: "reel",
+    media: { type: "video", poster: "/images/portfolio/kalim.jpg", preview: "/videos/portfolio/kalim-preview.mp4", full: "/videos/portfolio/kalim.mp4", orientation: "v" },
+  },
+  {
+    id: "la-louve-7",
+    cats: ["events", "media"],
+    kind: "film",
+    media: { type: "video", poster: "/images/portfolio/la-louve-7.jpg", preview: "/videos/portfolio/la-louve-7-preview.mp4", full: "/videos/portfolio/la-louve-7.mp4", orientation: "h" },
+  },
+  {
+    id: "la-louve-fotos",
+    cats: ["events", "media"],
+    kind: "reel",
+    media: { type: "video", poster: "/images/portfolio/la-louve-fotos.jpg", preview: "/videos/portfolio/la-louve-fotos-preview.mp4", full: "/videos/portfolio/la-louve-fotos.mp4", orientation: "v" },
+  },
+  {
+    id: "flyer-design",
+    cats: ["events", "media"],
+    kind: "reel",
+    media: { type: "video", poster: "/images/portfolio/flyer-design.jpg", preview: "/videos/portfolio/flyer-design-preview.mp4", full: "/videos/portfolio/flyer-design.mp4", orientation: "v" },
+  },
+  {
+    id: "ki-shootings",
+    cats: ["media"],
+    kind: "reel",
+    media: { type: "video", poster: "/images/portfolio/ki-shootings.jpg", preview: "/videos/portfolio/ki-shootings-preview.mp4", full: "/videos/portfolio/ki-shootings.mp4", orientation: "v" },
   },
   /* Events & Artists */
   { id: "festivals", cats: ["events", "media"], kind: "case", media: { type: "mock", mock: "lineup" } },
