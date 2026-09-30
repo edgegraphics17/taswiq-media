@@ -3,14 +3,15 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
+import { ArrowRight, ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
 import { djKits } from "@/config/kits";
 import { cn } from "@/lib/format";
 
 /**
  * DJ-Presse-Kits: oben die Kit-Auswahl, darunter alle Seiten des Kits untereinander –
  * die nächste Seite schaut schon unten heraus, man scrollt einfach durch (wie ein PDF).
- * Schwebende Anzeige "Seite 2 von 8" mit Auf/Ab-Tasten, Pfeiltasten springen seitenweise.
+ * Pfeile links/rechts (Buttons und Tastatur) wechseln zum vorherigen/nächsten Kit,
+ * Scrollen bzw. Pfeil hoch/runter blättert durch die Seiten. Schwebende Anzeige "Seite 2 von 8".
  */
 export function KitsViewer({ title }: { title: string }) {
   const t = useTranslations("portfolio");
@@ -32,7 +33,7 @@ export function KitsViewer({ title }: { title: string }) {
   );
 
   const selectKit = useCallback((i: number) => {
-    setKitIndex(i);
+    setKitIndex((i + djKits.length) % djKits.length);
     setCurrent(0);
     scrollRef.current?.scrollTo({ top: 0, behavior: "instant" });
   }, []);
@@ -60,13 +61,18 @@ export function KitsViewer({ title }: { title: string }) {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
-      e.stopPropagation();
-      goTo(current + (e.key === "ArrowRight" ? 1 : -1));
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+        e.stopPropagation();
+        selectKit(kitIndex + (e.key === "ArrowRight" ? 1 : -1));
+      } else if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        e.preventDefault();
+        e.stopPropagation();
+        goTo(current + (e.key === "ArrowDown" ? 1 : -1));
+      }
     };
     window.addEventListener("keydown", onKey, true);
     return () => window.removeEventListener("keydown", onKey, true);
-  }, [current, goTo]);
+  }, [kitIndex, current, goTo, selectKit]);
 
   useEffect(() => {
     chooserRef.current?.querySelector<HTMLElement>('[aria-current="true"]')?.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
@@ -140,6 +146,22 @@ export function KitsViewer({ title }: { title: string }) {
           <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" aria-hidden />
         </button>
       </div>
+
+      {/* Kit wechseln: links/rechts */}
+      {(["prev", "next"] as const).map((side) => (
+        <button
+          key={side}
+          type="button"
+          onClick={() => selectKit(kitIndex + (side === "next" ? 1 : -1))}
+          aria-label={side === "next" ? t("kits.nextKitAria") : t("kits.prevKitAria")}
+          className={cn(
+            "absolute top-[58%] z-[2] grid size-11 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ink shadow-[var(--shadow-float)] backdrop-blur transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400",
+            side === "next" ? "right-2 sm:right-4" : "left-2 sm:left-4",
+          )}
+        >
+          {side === "next" ? <ChevronRight className="size-5" aria-hidden /> : <ChevronLeft className="size-5" aria-hidden />}
+        </button>
+      ))}
 
       {/* Schwebende Orientierung: Seitenzähler, Auf/Ab, Hinweis auf weitere Seiten */}
       <div className="pointer-events-none absolute inset-x-0 bottom-4 flex justify-center px-3">

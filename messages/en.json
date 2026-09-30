@@ -907,7 +907,9 @@
       "scrollAria": "{kit} – all pages of {title}, scrollable with keyboard",
       "scrollHint": "Scroll for all {total} pages",
       "endLabel": "End of kit",
-      "nextKit": "Next kit: {name}"
+      "nextKit": "Next kit: {name}",
+      "prevKitAria": "Previous kit",
+      "nextKitAria": "Next kit"
     }
   },
   "blog": {
