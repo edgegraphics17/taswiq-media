@@ -365,7 +365,7 @@ export const portfolioItems: PortfolioItem[] = [
   },
   /* Events & Artists */
   { id: "festivals", cats: ["events", "media"], kind: "case", media: { type: "mock", mock: "lineup" } },
-  { id: "dj-presskits", cats: ["events", "media"], kind: "case", media: { type: "kits", poster: "/images/portfolio/dj-presskits.jpg" } },
+  { id: "dj-presskits", cats: ["events", "media"], kind: "case", media: { type: "kits", poster: "/images/portfolio/dj-presskits-v2.jpg" } },
 ];
 
 export const getPortfolioItem = (id: PortfolioId) => portfolioItems.find((p) => p.id === id)!;

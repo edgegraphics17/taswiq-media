@@ -95,7 +95,7 @@ export function KitsViewer({ title }: { title: string }) {
               className={cn("w-24 shrink-0 text-left outline-offset-2 focus-visible:outline-2 focus-visible:outline-brand-400", i === kitIndex ? "opacity-100" : "opacity-60 hover:opacity-100")}
             >
               <span className={cn("relative block aspect-video overflow-hidden rounded-lg bg-night-soft", i === kitIndex && "ring-2 ring-brand-400")}>
-                <Image src={`/portfolio/kits/${k.id}/p1.webp`} alt="" fill sizes="96px" className="object-cover" />
+                <Image src={`/portfolio/presskits/${k.id}/p1.webp`} alt="" fill sizes="96px" className="object-cover" />
               </span>
               <span className="mt-1 block truncate text-[11px] text-white/80">{k.name}</span>
             </button>
@@ -121,7 +121,7 @@ export function KitsViewer({ title }: { title: string }) {
               className="scroll-mt-1"
             >
               <Image
-                src={`/portfolio/kits/${kit.id}/p${i + 1}.webp`}
+                src={`/portfolio/presskits/${kit.id}/p${i + 1}.webp`}
                 alt={t("kits.pageAlt", { kit: label, n: i + 1, total: kit.pages })}
                 width={kit.w}
                 height={kit.h}

@@ -1,5 +1,5 @@
 /**
- * DJ-Presse-Kits (Portfolio-Referenz): jede Seite als WebP unter public/portfolio/kits/<id>/p<n>.webp.
+ * DJ-Presse-Kits (Portfolio-Referenz): jede Seite als WebP unter public/portfolio/presskits/<id>/p<n>.webp.
  * Neues Kit: Seiten ablegen, hier eintragen – der Viewer im Portfolio zieht automatisch nach.
  */
 export interface DjKit {
