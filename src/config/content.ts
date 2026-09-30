@@ -46,20 +46,12 @@ export type PortfolioId =
   | "ggc"
   | "brancos"
   | "raum-rasen"
-  | "event-motion"
   | "ai-produktfilm"
-  | "culture-aftermovie"
   | "huqup"
   | "qabila"
   | "bt-revive"
   | "motion-reel"
-  | "noizy"
-  | "nobless"
-  | "halloween"
-  | "kalim"
-  | "la-louve-7"
   | "la-louve-fotos"
-  | "flyer-design"
   | "ki-shootings"
   | "festivals"
   | "artists";
@@ -72,7 +64,22 @@ export type PortfolioMedia =
   /** Film oder Reel: stummer Vorschau-Loop + optional voller Film mit Ton */
   | { type: "video"; poster: string; preview: string; full?: string; youtube?: string; orientation: "v" | "h" }
   /** Ohne Bildmaterial: kleine Komposition, die zeigt, was geliefert wurde */
-  | { type: "mock"; mock: "menu" | "lineup" | "mediakit" | "nodes" | "dashboard" };
+  | { type: "mock"; mock: "menu" | "lineup" | "mediakit" | "nodes" | "dashboard" }
+  /** Projekt-Paket: mehrere Videos und Fotos in einem Dialog · Karte zeigt den Vorschau-Loop */
+  | { type: "pack"; poster: string; preview: string; clips: PackClip[] }
+  /** Vorher/Nachher-Regler mit mehreren Beispielen */
+  | { type: "compare"; poster: string; pairs: ComparePair[] };
+
+/** Ein Clip oder Foto innerhalb eines Projekt-Pakets */
+export type PackClip =
+  | { kind: "video"; src: string; poster: string; orientation: "v" | "h" }
+  | { kind: "image"; src: string; width: number; height: number };
+
+/** Vorher/Nachher-Paar (beide Bilder im gleichen Ausschnitt) */
+export interface ComparePair {
+  before: string;
+  after: string;
+}
 
 export interface PortfolioItem {
   id: PortfolioId;
@@ -214,26 +221,69 @@ export const portfolioItems: PortfolioItem[] = [
     id: "infinity-cut",
     cats: ["media"],
     kind: "reel",
-    media: { type: "video", poster: "/images/portfolio/infinity-cut.jpg", preview: "/videos/portfolio/infinity-cut-preview.mp4", full: "/videos/portfolio/infinity-cut.mp4", orientation: "v" },
+    media: {
+      type: "pack",
+      poster: "/images/portfolio/infinity-cut.jpg",
+      preview: "/videos/portfolio/infinity-cut-preview.mp4",
+      clips: [
+        { kind: "video", src: "/videos/portfolio/infinity-cut.mp4", poster: "/images/portfolio/infinity-cut.jpg", orientation: "v" },
+        { kind: "video", src: "/portfolio/packs/infinity-cut/monitor.mp4", poster: "/portfolio/packs/infinity-cut/monitor.webp", orientation: "v" },
+        { kind: "image", src: "/portfolio/packs/infinity-cut/preisliste.webp", width: 720, height: 1280 },
+        { kind: "image", src: "/portfolio/packs/infinity-cut/combo.webp", width: 720, height: 1290 },
+        { kind: "image", src: "/portfolio/packs/infinity-cut/haare-solarium.webp", width: 720, height: 1290 },
+        { kind: "image", src: "/portfolio/packs/infinity-cut/extra.webp", width: 720, height: 1290 },
+      ],
+    },
     location: "Frankfurt am Main",
   },
   {
     id: "ggc",
     cats: ["media"],
     kind: "reel",
-    media: { type: "video", poster: "/images/portfolio/ggc.jpg", preview: "/videos/portfolio/ggc-preview.mp4", full: "/videos/portfolio/ggc.mp4", orientation: "v" },
+    media: {
+      type: "pack",
+      poster: "/images/portfolio/ggc.jpg",
+      preview: "/videos/portfolio/ggc-preview.mp4",
+      clips: [
+        { kind: "video", src: "/videos/portfolio/ggc.mp4", poster: "/images/portfolio/ggc.jpg", orientation: "v" },
+        { kind: "video", src: "/portfolio/packs/ggc/clip-2.mp4", poster: "/portfolio/packs/ggc/clip-2.webp", orientation: "v" },
+        { kind: "video", src: "/portfolio/packs/ggc/clip-3.mp4", poster: "/portfolio/packs/ggc/clip-3.webp", orientation: "v" },
+        { kind: "video", src: "/portfolio/packs/ggc/clip-4.mp4", poster: "/portfolio/packs/ggc/clip-4.webp", orientation: "v" },
+        { kind: "video", src: "/portfolio/packs/ggc/clip-5.mp4", poster: "/portfolio/packs/ggc/clip-5.webp", orientation: "v" },
+        { kind: "video", src: "/portfolio/packs/ggc/clip-6.mp4", poster: "/portfolio/packs/ggc/clip-6.webp", orientation: "v" },
+        { kind: "video", src: "/portfolio/packs/ggc/clip-7.mp4", poster: "/portfolio/packs/ggc/clip-7.webp", orientation: "v" },
+        { kind: "video", src: "/portfolio/packs/ggc/clip-8.mp4", poster: "/portfolio/packs/ggc/clip-8.webp", orientation: "v" },
+      ],
+    },
   },
   {
     id: "brancos",
     cats: ["media"],
     kind: "reel",
-    media: { type: "video", poster: "/images/portfolio/brancos.jpg", preview: "/videos/portfolio/brancos-preview.mp4", full: "/videos/portfolio/brancos.mp4", orientation: "v" },
+    media: {
+      type: "pack",
+      poster: "/images/portfolio/brancos.jpg",
+      preview: "/videos/portfolio/brancos-preview.mp4",
+      clips: [
+        { kind: "video", src: "/videos/portfolio/brancos.mp4", poster: "/images/portfolio/brancos.jpg", orientation: "v" },
+        { kind: "image", src: "/portfolio/packs/brancos/brand-kit.webp", width: 1600, height: 904 },
+      ],
+    },
   },
   {
     id: "raum-rasen",
     cats: ["media"],
     kind: "reel",
-    media: { type: "video", poster: "/images/portfolio/raum-rasen.jpg", preview: "/videos/portfolio/raum-rasen-preview.mp4", full: "/videos/portfolio/raum-rasen.mp4", orientation: "v" },
+    media: {
+      type: "pack",
+      poster: "/images/portfolio/raum-rasen.jpg",
+      preview: "/videos/portfolio/raum-rasen-preview.mp4",
+      clips: [
+        { kind: "video", src: "/portfolio/packs/raum-rasen/clip-1.mp4", poster: "/portfolio/packs/raum-rasen/clip-1.webp", orientation: "v" },
+        { kind: "video", src: "/portfolio/packs/raum-rasen/clip-2.mp4", poster: "/portfolio/packs/raum-rasen/clip-2.webp", orientation: "v" },
+        { kind: "video", src: "/portfolio/packs/raum-rasen/clip-3.mp4", poster: "/portfolio/packs/raum-rasen/clip-3.webp", orientation: "v" },
+      ],
+    },
   },
   {
     id: "ai-produktfilm",
@@ -242,18 +292,6 @@ export const portfolioItems: PortfolioItem[] = [
     media: { type: "video", poster: "/images/portfolio/ai-produktfilm.jpg", preview: "/videos/portfolio/ai-produktfilm-preview.mp4", full: "/videos/portfolio/ai-produktfilm.mp4", orientation: "v" },
   },
   /* Events */
-  {
-    id: "event-motion",
-    cats: ["events", "media"],
-    kind: "reel",
-    media: { type: "video", poster: "/images/portfolio/event-motion.jpg", preview: "/videos/portfolio/event-motion-preview.mp4", full: "/videos/portfolio/event-motion.mp4", orientation: "v" },
-  },
-  {
-    id: "culture-aftermovie",
-    cats: ["media", "events"],
-    kind: "reel",
-    media: { type: "video", poster: "/images/portfolio/culture-aftermovie.jpg", preview: "/videos/portfolio/culture-aftermovie-preview.mp4", full: "/videos/portfolio/culture-aftermovie.mp4", orientation: "v" },
-  },
   {
     id: "huqup",
     cats: ["media"],
@@ -279,52 +317,49 @@ export const portfolioItems: PortfolioItem[] = [
     media: { type: "video", poster: "/images/portfolio/motion-reel.jpg", preview: "/videos/portfolio/motion-reel-preview.mp4", full: "/videos/portfolio/motion-reel.mp4", orientation: "v" },
   },
   {
-    id: "noizy",
-    cats: ["events", "media"],
-    kind: "reel",
-    media: { type: "video", poster: "/images/portfolio/noizy.jpg", preview: "/videos/portfolio/noizy-preview.mp4", full: "/videos/portfolio/noizy.mp4", orientation: "v" },
-  },
-  {
-    id: "nobless",
-    cats: ["events", "media"],
-    kind: "reel",
-    media: { type: "video", poster: "/images/portfolio/nobless.jpg", preview: "/videos/portfolio/nobless-preview.mp4", full: "/videos/portfolio/nobless.mp4", orientation: "v" },
-  },
-  {
-    id: "halloween",
-    cats: ["events", "media"],
-    kind: "reel",
-    media: { type: "video", poster: "/images/portfolio/halloween.jpg", preview: "/videos/portfolio/halloween-preview.mp4", full: "/videos/portfolio/halloween.mp4", orientation: "v" },
-  },
-  {
-    id: "kalim",
-    cats: ["events", "media"],
-    kind: "reel",
-    media: { type: "video", poster: "/images/portfolio/kalim.jpg", preview: "/videos/portfolio/kalim-preview.mp4", full: "/videos/portfolio/kalim.mp4", orientation: "v" },
-  },
-  {
-    id: "la-louve-7",
-    cats: ["events", "media"],
-    kind: "film",
-    media: { type: "video", poster: "/images/portfolio/la-louve-7.jpg", preview: "/videos/portfolio/la-louve-7-preview.mp4", full: "/videos/portfolio/la-louve-7.mp4", orientation: "h" },
-  },
-  {
     id: "la-louve-fotos",
     cats: ["events", "media"],
-    kind: "reel",
-    media: { type: "video", poster: "/images/portfolio/la-louve-fotos.jpg", preview: "/videos/portfolio/la-louve-fotos-preview.mp4", full: "/videos/portfolio/la-louve-fotos.mp4", orientation: "v" },
-  },
-  {
-    id: "flyer-design",
-    cats: ["events", "media"],
-    kind: "reel",
-    media: { type: "video", poster: "/images/portfolio/flyer-design.jpg", preview: "/videos/portfolio/flyer-design-preview.mp4", full: "/videos/portfolio/flyer-design.mp4", orientation: "v" },
+    kind: "case",
+    media: {
+      type: "pack",
+      poster: "/images/portfolio/la-louve-fotos.jpg",
+      preview: "/videos/portfolio/la-louve-fotos-preview.mp4",
+      clips: [
+        { kind: "image", src: "/portfolio/packs/la-louve-fotos/rp_01181.webp", width: 1000, height: 1248 },
+        { kind: "image", src: "/portfolio/packs/la-louve-fotos/rp_01186.webp", width: 1000, height: 1250 },
+        { kind: "image", src: "/portfolio/packs/la-louve-fotos/rp_01189.webp", width: 1000, height: 1216 },
+        { kind: "image", src: "/portfolio/packs/la-louve-fotos/rp_01191.webp", width: 1000, height: 1250 },
+        { kind: "image", src: "/portfolio/packs/la-louve-fotos/rp_01194.webp", width: 1000, height: 1250 },
+        { kind: "image", src: "/portfolio/packs/la-louve-fotos/rp_01197.webp", width: 1000, height: 1288 },
+        { kind: "image", src: "/portfolio/packs/la-louve-fotos/rp_01203.webp", width: 1000, height: 1250 },
+        { kind: "image", src: "/portfolio/packs/la-louve-fotos/rp_01216.webp", width: 1000, height: 1330 },
+        { kind: "image", src: "/portfolio/packs/la-louve-fotos/rp_01224.webp", width: 1000, height: 1250 },
+        { kind: "image", src: "/portfolio/packs/la-louve-fotos/rp_01227.webp", width: 1000, height: 1356 },
+        { kind: "image", src: "/portfolio/packs/la-louve-fotos/rp_01228.webp", width: 1000, height: 1204 },
+        { kind: "image", src: "/portfolio/packs/la-louve-fotos/rp_01244.webp", width: 1000, height: 1302 },
+        { kind: "image", src: "/portfolio/packs/la-louve-fotos/rp_01255.webp", width: 1000, height: 1250 },
+        { kind: "image", src: "/portfolio/packs/la-louve-fotos/rp_01258.webp", width: 1000, height: 1250 },
+        { kind: "image", src: "/portfolio/packs/la-louve-fotos/rp_01259.webp", width: 1000, height: 1250 },
+        { kind: "image", src: "/portfolio/packs/la-louve-fotos/rp_01292.webp", width: 1000, height: 1256 },
+        { kind: "image", src: "/portfolio/packs/la-louve-fotos/rp_01295.webp", width: 1000, height: 1250 },
+        { kind: "image", src: "/portfolio/packs/la-louve-fotos/rp_01296.webp", width: 1000, height: 1280 },
+        { kind: "image", src: "/portfolio/packs/la-louve-fotos/rp_01350.webp", width: 1000, height: 1334 },
+      ],
+    },
   },
   {
     id: "ki-shootings",
     cats: ["media"],
-    kind: "reel",
-    media: { type: "video", poster: "/images/portfolio/ki-shootings.jpg", preview: "/videos/portfolio/ki-shootings-preview.mp4", full: "/videos/portfolio/ki-shootings.mp4", orientation: "v" },
+    kind: "case",
+    media: {
+      type: "compare",
+      poster: "/portfolio/packs/ki-shootings/hanger-model-nachher.webp",
+      pairs: [
+        { before: "/portfolio/packs/ki-shootings/hanger-model-vorher.webp", after: "/portfolio/packs/ki-shootings/hanger-model-nachher.webp" },
+        { before: "/portfolio/packs/ki-shootings/greenscreen-studio-1-vorher.webp", after: "/portfolio/packs/ki-shootings/greenscreen-studio-1-nachher.webp" },
+        { before: "/portfolio/packs/ki-shootings/greenscreen-studio-2-vorher.webp", after: "/portfolio/packs/ki-shootings/greenscreen-studio-2-nachher.webp" },
+      ],
+    },
   },
   /* Events & Artists */
   { id: "festivals", cats: ["events", "media"], kind: "case", media: { type: "mock", mock: "lineup" } },
@@ -336,7 +371,7 @@ export const getPortfolioItem = (id: PortfolioId) => portfolioItems.find((p) => 
 /** Vorschaubild eines Projekts (für Avatare, Teaser) */
 export function thumbOf(p: PortfolioItem): string | undefined {
   if (p.media.type === "site") return p.media.image;
-  if (p.media.type === "video") return p.media.poster;
+  if (p.media.type === "video" || p.media.type === "pack" || p.media.type === "compare") return p.media.poster;
   return undefined;
 }
 

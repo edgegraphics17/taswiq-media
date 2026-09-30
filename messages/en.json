@@ -725,9 +725,9 @@
         ]
       },
       "infinity-cut": {
-        "tag": "Opening reel",
+        "tag": "Client pack",
         "title": "Infinity Cut – grand opening",
-        "text": "Vertical trailer and poster for the opening of a barbershop in Frankfurt: motion design in the brand's look, plus price list and offer flyers with a booking QR code.",
+        "text": "Everything for a barbershop in Frankfurt in one pack: opening trailer, animated price list and promo flyers with booking QR – click through instead of searching.",
         "result": "Opening, price list and offers from one source – with a QR code straight to online booking.",
         "services": [
           "Motion design",
@@ -739,7 +739,7 @@
       "ggc": {
         "tag": "AI UGC ad",
         "title": "GGC – creator ads with AI",
-        "text": "Short creator-style ads for a drinking bottle: testimonial look as on TikTok and Instagram, fully AI-generated – no shoot, models or on-site production.",
+        "text": "Eight creator-style ads for a drinking bottle: testimonial look as on TikTok and Instagram, fully AI-generated – no shoot, models or on-site production. Click through all variants.",
         "result": "Multiple ad variants in a few days to test – no shooting costs.",
         "services": [
           "AI video",
@@ -751,7 +751,7 @@
       "brancos": {
         "tag": "Brand intro",
         "title": "Brancos FC – crest intro & brand kit",
-        "text": "Animated crest intro and brand kit for a football club: logo, colours, typography, kits and social templates in one style.",
+        "text": "Animated crest intro plus the full brand kit for a football club: logo, colours, typography, kits and social templates in one style.",
         "result": "An identity that is instantly recognisable on the kit, in the feed and on screen.",
         "services": [
           "Branding",
@@ -763,23 +763,12 @@
       "raum-rasen": {
         "tag": "AI brand film",
         "title": "Raum & Rasen – brand clips",
-        "text": "Short cinematic clips for a building and grounds service provider: office in morning light, manicured lawn, team in front of the Frankfurt skyline.",
+        "text": "Three cinematic clips for a building and grounds service provider: office in morning light, manicured lawn, team in front of the Frankfurt skyline.",
         "result": "High-end moving image for website and social media – without an elaborate shoot day.",
         "services": [
           "AI video",
           "Brand clips",
           "9:16"
-        ]
-      },
-      "event-motion": {
-        "tag": "Event motion",
-        "title": "Circus teaser for the club night",
-        "text": "Animated event teaser in a circus theme: the flyer becomes moving image that grabs attention in the feed and carries the date.",
-        "result": "A static flyer becomes a teaser that fills stories and feed.",
-        "services": [
-          "Motion flyer",
-          "3D look",
-          "9:16 reel"
         ]
       },
       "ai-produktfilm": {
@@ -791,17 +780,6 @@
           "AI video",
           "Product film",
           "9:16"
-        ]
-      },
-      "culture-aftermovie": {
-        "tag": "Aftermovie",
-        "title": "Culture – club aftermovie 4K",
-        "text": "Vertical aftermovie in 4K: fog, light and crowd – the energy of the night in 22 seconds.",
-        "result": "The night lives on in the feed – and builds appetite for the next edition.",
-        "services": [
-          "Aftermovie",
-          "4K 9:16",
-          "Edit & sound"
         ]
       },
       "huqup": {
@@ -848,65 +826,10 @@
           "Event marketing"
         ]
       },
-      "noizy": {
-        "tag": "Event motion",
-        "title": "Noizy – live show announcement",
-        "text": "Animated announcement for a live show: artist, date and ticket info as a reel.",
-        "result": "An announcement that works in feed and stories.",
-        "services": [
-          "Motion flyer",
-          "9:16",
-          "Sound design"
-        ]
-      },
-      "nobless": {
-        "tag": "Event motion",
-        "title": "Nobless 3 – event teaser",
-        "text": "Teaser for the third edition of a club series: doves, mountains and lettering as a cinematic opener.",
-        "result": "An announcement becomes an event.",
-        "services": [
-          "Event teaser",
-          "9:16",
-          "Sound design"
-        ]
-      },
-      "halloween": {
-        "tag": "Event motion",
-        "title": "Halloween – party animation",
-        "text": "Playful Halloween animation for a party night with pumpkins, popcorn and the artist front and centre.",
-        "result": "A seasonal campaign that looks like a party at first glance.",
-        "services": [
-          "Motion flyer",
-          "9:16",
-          "Illustration"
-        ]
-      },
-      "kalim": {
-        "tag": "Event motion",
-        "title": "Kalim – live show animation",
-        "text": "Animated flyer for a live show: gold on black, line-up and ticket info in motion.",
-        "result": "The flyer that stops the scroll.",
-        "services": [
-          "Motion flyer",
-          "9:16",
-          "Sound design"
-        ]
-      },
-      "la-louve-7": {
-        "tag": "Anniversary film",
-        "title": "La Louve – 7 years",
-        "text": "Widescreen anniversary film for a club: cards, numbers and artists as motion design.",
-        "result": "An anniversary that feels like an event.",
-        "services": [
-          "Anniversary film",
-          "16:9",
-          "Motion design"
-        ]
-      },
       "la-louve-fotos": {
-        "tag": "Event photography",
+        "tag": "Photo pack",
         "title": "La Louve – rooftop photos",
-        "text": "Event photography from a rooftop summer event: golden hour, guests, bar and atmosphere.",
+        "text": "19 photos from a rooftop summer event: golden hour, guests, bar and atmosphere. Click through and jump via the thumbnail strip.",
         "result": "Photo material for the recap, social media and the next presale.",
         "services": [
           "Event photography",
@@ -914,21 +837,10 @@
           "Retouching"
         ]
       },
-      "flyer-design": {
-        "tag": "Flyer design",
-        "title": "Flyer & print design",
-        "text": "Selection of event and business flyers: club nights, live shows, boat party and promo flyers for a barbershop.",
-        "result": "One look per brand – from Insta post to poster.",
-        "services": [
-          "Flyers",
-          "Social artwork",
-          "Branding"
-        ]
-      },
       "ki-shootings": {
-        "tag": "AI shooting",
+        "tag": "Before / after",
         "title": "AI shoots for fashion",
-        "text": "Streetwear product images from AI: the same shirt on models, in several colours, front and back.",
+        "text": "Left the original from the greenscreen shoot or clothes hanger, right the AI result: shirt on a model in the studio, colour and background freely choosable. Drag the slider and compare three examples.",
         "result": "Fashion catalogue without a studio date – colours and motifs can be changed afterwards.",
         "services": [
           "AI images",
@@ -959,6 +871,27 @@
           "Booking calendar"
         ]
       }
+    },
+    "pack": {
+      "videos": "{n, plural, one {# video} other {# videos}}",
+      "photos": "{n, plural, one {# photo} other {# photos}}",
+      "counter": "{n} of {total}",
+      "clipLabel": "{title} – item {n} of {total}",
+      "prev": "Previous item",
+      "next": "Next item",
+      "thumbsAria": "All items in this pack",
+      "showVideo": "Watch video {n}",
+      "showPhoto": "View photo {n}"
+    },
+    "compare": {
+      "before": "Before",
+      "after": "After",
+      "slider": "Slider between before and after",
+      "counter": "Example {n} of {total}",
+      "thumbsAria": "Examples",
+      "showPair": "Show example {n}",
+      "beforeAlt": "{title} – example {n}, before",
+      "afterAlt": "{title} – example {n}, after"
     }
   },
   "blog": {

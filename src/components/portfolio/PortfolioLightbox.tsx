@@ -10,6 +10,7 @@ import { Link } from "@/i18n/navigation";
 import type { PortfolioItem } from "@/config/content";
 import { contactHref } from "@/config/site";
 import { hostOf, PortfolioVisual } from "@/components/portfolio/PortfolioCard";
+import { CompareViewer, PackViewer } from "@/components/portfolio/PortfolioPack";
 import { cn } from "@/lib/format";
 
 /**
@@ -134,6 +135,8 @@ function Media({ item }: { item: PortfolioItem }) {
   const title = t(`items.${item.id}.title`);
   const m = item.media;
 
+  if (m.type === "pack") return <PackViewer key={item.id} clips={m.clips} title={title} />;
+  if (m.type === "compare") return <CompareViewer key={item.id} pairs={m.pairs} title={title} />;
   if (m.type === "video" && m.full) {
     const vertical = m.orientation === "v";
     return (

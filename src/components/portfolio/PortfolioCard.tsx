@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Globe, MapPin, Maximize2, Play } from "lucide-react";
+import { Globe, GripVertical, MapPin, Maximize2, Play } from "lucide-react";
 import type { PortfolioItem } from "@/config/content";
 import { CaseVideo } from "@/components/portfolio/CaseVideo";
 import { PortfolioMock } from "@/components/portfolio/PortfolioMock";
@@ -38,8 +38,11 @@ export function PortfolioVisual({ item, alt, sizes }: { item: PortfolioItem; alt
       </div>
     );
   }
-  if (m.type === "video") {
+  if (m.type === "video" || m.type === "pack") {
     return <CaseVideo src={m.preview} poster={m.poster} alt={alt} />;
+  }
+  if (m.type === "compare") {
+    return <Image src={m.poster} alt={alt} fill sizes={sizes ?? "(min-width:1024px) 33vw, (min-width:768px) 50vw, 100vw"} className="object-cover object-top" />;
   }
   return (
     <div className="absolute inset-0 bg-night">
@@ -52,7 +55,10 @@ export function PortfolioVisual({ item, alt, sizes }: { item: PortfolioItem; alt
 export function PortfolioCard({ item, onOpen }: { item: PortfolioItem; onOpen: () => void }) {
   const t = useTranslations("portfolio");
   const title = t(`items.${item.id}.title`);
-  const isVideo = item.media.type === "video";
+  const m = item.media;
+  const isVideo = m.type === "video" || (m.type === "pack" && m.clips[0]?.kind === "video");
+  const packVideos = m.type === "pack" ? m.clips.filter((c) => c.kind === "video").length : 0;
+  const packPhotos = m.type === "pack" ? m.clips.length - packVideos : 0;
   return (
     <article className="card group relative flex h-full flex-col p-2.5 transition-[transform,box-shadow] duration-500 ease-[var(--ease-soft)] hover:-translate-y-1 hover:shadow-[var(--shadow-float)]">
       <div className="relative aspect-[4/3] overflow-hidden rounded-[1.6rem] bg-night">
@@ -65,6 +71,16 @@ export function PortfolioCard({ item, onOpen }: { item: PortfolioItem; onOpen: (
             {t(`kind.${item.kind}`)}
           </span>
         </div>
+        {m.type === "pack" && (
+          <span className="num pointer-events-none absolute bottom-3 left-3 rounded-full bg-night/75 px-3 py-1 text-[11px] font-medium text-white backdrop-blur">
+            {[packVideos > 0 && t("pack.videos", { n: packVideos }), packPhotos > 0 && t("pack.photos", { n: packPhotos })].filter(Boolean).join(" · ")}
+          </span>
+        )}
+        {m.type === "compare" && (
+          <span className="pointer-events-none absolute bottom-3 left-3 inline-flex items-center gap-1 rounded-full bg-night/75 px-3 py-1 text-[11px] font-medium text-white backdrop-blur">
+            <GripVertical className="size-3" aria-hidden /> {t("compare.before")} / {t("compare.after")}
+          </span>
+        )}
         <span className="pointer-events-none absolute right-3 bottom-3 grid size-10 place-items-center rounded-full bg-white/90 text-ink opacity-0 shadow-[var(--shadow-soft)] backdrop-blur transition-opacity duration-300 group-focus-within:opacity-100 group-hover:opacity-100 max-md:opacity-100">
           {isVideo ? <Play className="size-4 translate-x-px fill-current" aria-hidden /> : <Maximize2 className="size-4" aria-hidden />}
         </span>
