@@ -386,7 +386,7 @@ export function thumbOf(p: PortfolioItem): string | undefined {
 
 /**
  * Referenzen aus der bisherigen Event-, Artist- und Brand-Arbeit (EDGE Eventmarketing, Spots KL).
- * Nur Namen – keine Logos oder Pressefotos (Marken- und Bildrechte liegen bei den Inhabern).
+ * Marken mit Eintrag in `referenceLogos` erscheinen als Logo, der Rest als Name.
  * Gruppen-Labels: home.references.groups.<id>
  */
 export const referenceGroups = [
@@ -396,6 +396,48 @@ export const referenceGroups = [
   { id: "automotive", names: ["Audi", "Volvo", "NIO", "Ford", "Emil Frey"] },
   { id: "brands", names: ["Lufthansa", "adidas", "IQOS", "Taylor's"] },
 ] as const;
+
+/**
+ * Logos der Marken-Reihe: getrimmte WebPs in /public/logos/references (Höhe 180 px), w/h = Pixelmaße.
+ * `tone: "gray"` für Logos mit Aussparungen (Schrift im Kreis/Kasten), die als Silhouette unlesbar würden.
+ * `scale` gleicht optisch leichte (dünne) oder schwere (fette) Logos aus.
+ */
+export type ReferenceLogo = { src: string; w: number; h: number; tone?: "gray"; scale?: number };
+
+const logo = (slug: string, w: number, h: number, extra?: Partial<ReferenceLogo>): ReferenceLogo => ({
+  src: `/logos/references/${slug}.webp`, w, h, ...extra,
+});
+
+export const referenceLogos: Record<string, ReferenceLogo> = {
+  "Hyatt Centric": logo("hyatt", 742, 180, { scale: 0.95 }),
+  "One World Hotel": logo("one-world-hotel", 729, 180, { scale: 1.15 }),
+  "Radisson Blu": logo("radisson-blu", 603, 180, { tone: "gray" }),
+  Hilton: logo("hilton", 236, 180, { scale: 1.1 }),
+  Marriott: logo("marriott", 365, 180, { scale: 1.1 }),
+  "Hard Rock Hotel": logo("hard-rock-hotel", 297, 180, { scale: 1.15 }),
+  "Club Med": logo("club-med", 900, 168),
+  Tomorrowland: logo("tomorrowland", 339, 180, { scale: 1.3 }),
+  "DWP Bali": logo("dwp", 335, 180),
+  "Afro Nation": logo("afro-nation", 589, 180, { scale: 1.05 }),
+  "splash!": logo("splash", 288, 180, { scale: 0.95 }),
+  "O Beach Ibiza": logo("o-beach", 120, 180, { scale: 1.05 }),
+  "La Louve": logo("la-louve", 188, 180, { scale: 1.25 }),
+  "Shôko": logo("shoko", 431, 180, { scale: 1.1 }),
+  "Vanity Cologne": logo("vanity", 435, 180, { scale: 1.1 }),
+  "Grey Goose": logo("grey-goose", 252, 180, { scale: 1.3 }),
+  "Don Julio": logo("don-julio", 596, 180),
+  "Patrón": logo("patron", 298, 180, { scale: 1.25 }),
+  "Bacardí": logo("bacardi", 645, 180, { scale: 0.9 }),
+  Audi: logo("audi", 509, 180, { scale: 0.95 }),
+  Volvo: logo("volvo", 900, 124, { scale: 0.85 }),
+  NIO: logo("nio", 517, 180, { scale: 0.95 }),
+  Ford: logo("ford", 476, 180),
+  "Emil Frey": logo("emil-frey", 510, 180, { scale: 1.1 }),
+  Lufthansa: logo("lufthansa", 900, 155),
+  adidas: logo("adidas", 267, 180),
+  IQOS: logo("iqos", 706, 180),
+  "Taylor's": logo("taylors", 900, 109, { scale: 0.95 }),
+};
 
 export const referenceArtists = [
   "Chris Brown", "Bryson Tiller", "Central Cee", "Burna Boy", "Lil Yachty", "Uncle Waffles", "DJ Hamida", "Dystinct",
