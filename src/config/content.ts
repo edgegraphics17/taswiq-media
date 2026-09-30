@@ -54,7 +54,7 @@ export type PortfolioId =
   | "la-louve-fotos"
   | "ki-shootings"
   | "festivals"
-  | "artists";
+  | "dj-presskits";
 
 export type PortfolioCat = "software" | "web" | "gastro" | "immobilien" | "events" | "media";
 
@@ -68,7 +68,9 @@ export type PortfolioMedia =
   /** Projekt-Paket: mehrere Videos und Fotos in einem Dialog · Karte zeigt den Vorschau-Loop */
   | { type: "pack"; poster: string; preview: string; clips: PackClip[] }
   /** Vorher/Nachher-Regler mit mehreren Beispielen */
-  | { type: "compare"; poster: string; pairs: ComparePair[] };
+  | { type: "compare"; poster: string; pairs: ComparePair[] }
+  /** DJ-Presse-Kits: alle Kits aus src/config/kits.ts, Seite für Seite zum Durchklicken */
+  | { type: "kits"; poster: string };
 
 /** Ein Clip oder Foto innerhalb eines Projekt-Pakets */
 export type PackClip =
@@ -363,7 +365,7 @@ export const portfolioItems: PortfolioItem[] = [
   },
   /* Events & Artists */
   { id: "festivals", cats: ["events", "media"], kind: "case", media: { type: "mock", mock: "lineup" } },
-  { id: "artists", cats: ["events", "media"], kind: "case", media: { type: "mock", mock: "mediakit" } },
+  { id: "dj-presskits", cats: ["events", "media"], kind: "case", media: { type: "kits", poster: "/images/portfolio/dj-presskits.jpg" } },
 ];
 
 export const getPortfolioItem = (id: PortfolioId) => portfolioItems.find((p) => p.id === id)!;
@@ -371,7 +373,7 @@ export const getPortfolioItem = (id: PortfolioId) => portfolioItems.find((p) => 
 /** Vorschaubild eines Projekts (für Avatare, Teaser) */
 export function thumbOf(p: PortfolioItem): string | undefined {
   if (p.media.type === "site") return p.media.image;
-  if (p.media.type === "video" || p.media.type === "pack" || p.media.type === "compare") return p.media.poster;
+  if (p.media.type === "video" || p.media.type === "pack" || p.media.type === "compare" || p.media.type === "kits") return p.media.poster;
   return undefined;
 }
 

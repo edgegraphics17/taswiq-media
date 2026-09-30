@@ -860,15 +860,16 @@
           "Ads"
         ]
       },
-      "artists": {
-        "tag": "Artist-Branding",
-        "title": "Media-Kits für Artists",
-        "text": "Press-Kits, KI-Shootings und Booking-Kalender – u. a. für Pierce Merrill und DJ Yuna.",
-        "result": "Professioneller Auftritt für Booker und Presse – digital und sofort teilbar.",
+      "dj-presskits": {
+        "tag": "DJ-Presse-Kits",
+        "title": "DJ-Presse-Kits",
+        "text": "22 komplette Media-Kits für DJs und Artists: Bio, Bilder, Zahlen, Referenzen und Booking-Kontakt auf wenigen Seiten. Kit auswählen und Seite für Seite durchblättern – u. a. für Pierce Merrill und DJ Yuna.",
+        "result": "Ein Auftritt, den Booker und Presse in Minuten verstehen – als PDF sofort teilbar.",
         "services": [
           "Press-Kit",
-          "KI-Shooting",
-          "Booking-Kalender"
+          "Layout & Design",
+          "Booking-Unterlagen",
+          "Bildauswahl"
         ]
       }
     },
@@ -892,6 +893,17 @@
       "showPair": "Beispiel {n} ansehen",
       "beforeAlt": "{title} – Beispiel {n}, vorher",
       "afterAlt": "{title} – Beispiel {n}, nachher"
+    },
+    "kits": {
+      "pageAlt": "{kit} – Seite {n} von {total}",
+      "prevPage": "Vorherige Seite",
+      "nextPage": "Nächste Seite",
+      "pageCounter": "Seite {n} von {total}",
+      "pagesAria": "Seiten des Kits",
+      "goToPage": "Zu Seite {n}",
+      "chooseKit": "{n} Kits – auswählen",
+      "chooserAria": "Kit auswählen",
+      "openKit": "Kit {name} öffnen"
     }
   },
   "blog": {

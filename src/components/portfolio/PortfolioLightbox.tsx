@@ -11,6 +11,7 @@ import type { PortfolioItem } from "@/config/content";
 import { contactHref } from "@/config/site";
 import { hostOf, PortfolioVisual } from "@/components/portfolio/PortfolioCard";
 import { CompareViewer, PackViewer } from "@/components/portfolio/PortfolioPack";
+import { KitsViewer } from "@/components/portfolio/KitsViewer";
 import { cn } from "@/lib/format";
 
 /**
@@ -136,6 +137,7 @@ function Media({ item }: { item: PortfolioItem }) {
   const m = item.media;
 
   if (m.type === "pack") return <PackViewer key={item.id} clips={m.clips} title={title} />;
+  if (m.type === "kits") return <KitsViewer key={item.id} title={title} />;
   if (m.type === "compare") return <CompareViewer key={item.id} pairs={m.pairs} title={title} />;
   if (m.type === "video" && m.full) {
     const vertical = m.orientation === "v";

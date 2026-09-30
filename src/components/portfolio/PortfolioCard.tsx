@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Globe, GripVertical, MapPin, Maximize2, Play } from "lucide-react";
 import type { PortfolioItem } from "@/config/content";
+import { djKits } from "@/config/kits";
 import { CaseVideo } from "@/components/portfolio/CaseVideo";
 import { PortfolioMock } from "@/components/portfolio/PortfolioMock";
 import { cn } from "@/lib/format";
@@ -41,7 +42,7 @@ export function PortfolioVisual({ item, alt, sizes }: { item: PortfolioItem; alt
   if (m.type === "video" || m.type === "pack") {
     return <CaseVideo src={m.preview} poster={m.poster} alt={alt} />;
   }
-  if (m.type === "compare") {
+  if (m.type === "compare" || m.type === "kits") {
     return <Image src={m.poster} alt={alt} fill sizes={sizes ?? "(min-width:1024px) 33vw, (min-width:768px) 50vw, 100vw"} className="object-cover object-top" />;
   }
   return (
@@ -75,6 +76,9 @@ export function PortfolioCard({ item, onOpen }: { item: PortfolioItem; onOpen: (
           <span className="num pointer-events-none absolute bottom-3 left-3 rounded-full bg-night/75 px-3 py-1 text-[11px] font-medium text-white backdrop-blur">
             {[packVideos > 0 && t("pack.videos", { n: packVideos }), packPhotos > 0 && t("pack.photos", { n: packPhotos })].filter(Boolean).join(" · ")}
           </span>
+        )}
+        {m.type === "kits" && (
+          <span className="num pointer-events-none absolute bottom-3 left-3 rounded-full bg-night/75 px-3 py-1 text-[11px] font-medium text-white backdrop-blur">{t("kits.chooseKit", { n: djKits.length }).split(" – ")[0]}</span>
         )}
         {m.type === "compare" && (
           <span className="pointer-events-none absolute bottom-3 left-3 inline-flex items-center gap-1 rounded-full bg-night/75 px-3 py-1 text-[11px] font-medium text-white backdrop-blur">

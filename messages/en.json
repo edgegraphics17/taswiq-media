@@ -860,15 +860,16 @@
           "Ads"
         ]
       },
-      "artists": {
-        "tag": "Artist branding",
-        "title": "Media kits for artists",
-        "text": "Press kits, AI shoots and booking calendars – for Pierce Merrill and DJ Yuna, among others.",
-        "result": "A professional presence for bookers and press – digital and instantly shareable.",
+      "dj-presskits": {
+        "tag": "DJ press kits",
+        "title": "DJ press kits",
+        "text": "22 complete media kits for DJs and artists: bio, images, numbers, references and booking contact on a few pages. Pick a kit and flip through it page by page – incl. Pierce Merrill and DJ Yuna.",
+        "result": "An appearance bookers and press understand in minutes – shareable as a PDF right away.",
         "services": [
           "Press kit",
-          "AI shoot",
-          "Booking calendar"
+          "Layout & design",
+          "Booking documents",
+          "Image selection"
         ]
       }
     },
@@ -892,6 +893,17 @@
       "showPair": "Show example {n}",
       "beforeAlt": "{title} – example {n}, before",
       "afterAlt": "{title} – example {n}, after"
+    },
+    "kits": {
+      "pageAlt": "{kit} – page {n} of {total}",
+      "prevPage": "Previous page",
+      "nextPage": "Next page",
+      "pageCounter": "Page {n} of {total}",
+      "pagesAria": "Pages of this kit",
+      "goToPage": "Go to page {n}",
+      "chooseKit": "{n} kits – choose one",
+      "chooserAria": "Choose a kit",
+      "openKit": "Open kit {name}"
     }
   },
   "blog": {

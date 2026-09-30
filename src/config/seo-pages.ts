@@ -237,7 +237,7 @@ export const seoPages: SeoPage[] = [
     packages: "media",
     highlightPackage: "festival",
     featureIcons: ["clapperboard", "camera", "split", "languages", "sparkles", "zap"],
-    portfolio: ["festivals", "artists", "agile", "zuan-yuan"],
+    portfolio: ["festivals", "dj-presskits", "agile", "zuan-yuan"],
     blog: ["aftermovie-premium-festivalfilm"],
     hero: { image: "/images/showreel-poster.jpg", frame: "photo" },
   },
