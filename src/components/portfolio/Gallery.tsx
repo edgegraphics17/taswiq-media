@@ -159,7 +159,7 @@ function FlyerLightbox({ items, index, kind, onClose, onIndex }: { items: Galler
 }
 
 /** Flyer-Slider mit Reihen-Filter und Lightbox. `dense` = kleinere Karten für kompakte Streifen. */
-export function FlyerRail({ items, dense = false, filter = true, kind = "flyer", wide = false }: { items: GalleryFlyer[]; dense?: boolean; filter?: boolean; kind?: "flyer" | "photo"; wide?: boolean }) {
+export function FlyerRail({ items, dense = false, filter = true, kind = "flyer", wide = false, contain = false }: { items: GalleryFlyer[]; dense?: boolean; filter?: boolean; kind?: "flyer" | "photo"; wide?: boolean; contain?: boolean }) {
   const t = useTranslations("portfolio");
   const [series, setSeries] = useState<GallerySeries | "all">("all");
   const [open, setOpen] = useState<number | null>(null);
@@ -189,7 +189,7 @@ export function FlyerRail({ items, dense = false, filter = true, kind = "flyer",
               sizes={wide ? "280px" : dense ? "150px" : "180px"}
               placeholder="blur"
               blurDataURL={f.blur}
-              className="object-cover transition-transform duration-700 ease-[var(--ease-soft)] group-hover:scale-[1.04]"
+              className={cn(contain ? "object-contain p-2" : "object-cover", "transition-transform duration-700 ease-[var(--ease-soft)] group-hover:scale-[1.04]")}
             />
             <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-night/85 to-transparent px-3 pt-8 pb-2.5 text-left text-[11px] leading-tight font-medium text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 max-md:opacity-100">
               {f.title}
