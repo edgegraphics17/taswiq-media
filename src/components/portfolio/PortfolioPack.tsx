@@ -3,111 +3,132 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { ChevronLeft, ChevronRight, Play } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
 import type { PackClip, ComparePair } from "@/config/content";
 import { cn } from "@/lib/format";
 
 /**
- * Projekt-Paket: mehrere Videos und Fotos eines Kunden in einem Dialog.
- * Große Bühne oben, Vorschau-Leiste darunter. Pfeiltasten wechseln den Clip
- * (statt das Projekt) – solange das Paket offen ist.
+ * Projekt-Paket: alle Videos und Fotos eines Kunden untereinander in voller Spaltenbreite –
+ * man scrollt einfach durch (wie bei den Presse-Kits), ohne Vorschau-Leiste und dunkle Ränder.
+ * Ab Desktop scrollt nur die Medien-Spalte, der Text rechts bleibt stehen; am Handy scrollt der
+ * ganze Dialog. Pfeil hoch/runter bzw. die schwebende Anzeige springen zum vorherigen/nächsten Beitrag.
  */
 export function PackViewer({ clips, title }: { clips: PackClip[]; title: string }) {
   const t = useTranslations("portfolio");
-  const [index, setIndex] = useState(0);
-  const thumbsRef = useRef<HTMLDivElement>(null);
-  const clip = clips[index];
+  const [current, setCurrent] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
+  const videos = clips.filter((c) => c.kind === "video").length;
 
-  const go = useCallback((d: number) => setIndex((i) => (i + d + clips.length) % clips.length), [clips.length]);
+  const goTo = useCallback(
+    (i: number) => itemRefs.current[Math.min(clips.length - 1, Math.max(0, i))]?.scrollIntoView({ behavior: "smooth", block: "start" }),
+    [clips.length],
+  );
+
+  // Aktueller Beitrag = der letzte, dessen Oberkante im oberen Drittel des Sichtfensters liegt
+  const syncCurrent = useCallback(() => {
+    const root = scrollRef.current;
+    if (!root) return;
+    const line = root.getBoundingClientRect().top + root.clientHeight * 0.35;
+    let best = 0;
+    itemRefs.current.forEach((el, i) => {
+      if (el && el.getBoundingClientRect().top <= line) best = i;
+    });
+    setCurrent(best);
+  }, []);
+
+  useEffect(() => {
+    const root = scrollRef.current;
+    if (!root) return;
+    root.addEventListener("scroll", syncCurrent, { passive: true });
+    return () => root.removeEventListener("scroll", syncCurrent);
+  }, [syncCurrent]);
 
   useEffect(() => {
     if (clips.length < 2) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+      if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+      e.preventDefault();
       e.stopPropagation();
-      go(e.key === "ArrowRight" ? 1 : -1);
+      goTo(current + (e.key === "ArrowDown" ? 1 : -1));
     };
     window.addEventListener("keydown", onKey, true);
     return () => window.removeEventListener("keydown", onKey, true);
-  }, [clips.length, go]);
+  }, [clips.length, current, goTo]);
 
-  // Aktive Vorschau ins Bild scrollen
-  useEffect(() => {
-    const el = thumbsRef.current?.querySelector<HTMLElement>('[aria-current="true"]');
-    el?.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
-  }, [index]);
-
-  const nav = "absolute top-1/2 z-[1] grid size-11 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ink shadow-[var(--shadow-soft)] backdrop-blur transition hover:bg-white";
-  const videos = clips.filter((c) => c.kind === "video").length;
+  const step = "grid size-9 place-items-center rounded-full text-white transition hover:bg-white/15 disabled:pointer-events-none disabled:opacity-30";
 
   return (
-    <div className="flex min-h-0 flex-col bg-night">
-      <div className="relative grid min-h-[46dvh] flex-1 place-items-center p-3 pt-16 sm:p-5 sm:pt-16 lg:pt-5">
-        {clip.kind === "video" ? (
-          <video
-            key={clip.src}
-            src={clip.src}
-            poster={clip.poster}
-            controls
-            autoPlay
-            playsInline
-            preload="metadata"
-            aria-label={t("pack.clipLabel", { title, n: index + 1, total: clips.length })}
-            className={cn(clip.orientation === "v" ? "max-h-[54dvh] w-auto rounded-2xl lg:max-h-[62dvh]" : "aspect-video w-full rounded-2xl")}
-          />
-        ) : (
-          <Image
-            key={clip.src}
-            src={clip.src}
-            alt={t("pack.clipLabel", { title, n: index + 1, total: clips.length })}
-            width={clip.width}
-            height={clip.height}
-            sizes="(min-width:1024px) 600px, 100vw"
-            className="max-h-[54dvh] w-auto rounded-2xl object-contain lg:max-h-[62dvh]"
-          />
-        )}
-        {clips.length > 1 && (
-          <>
-            <button type="button" onClick={() => go(-1)} aria-label={t("pack.prev")} className={cn(nav, "left-2 sm:left-4")}>
-              <ChevronLeft className="size-5" aria-hidden />
-            </button>
-            <button type="button" onClick={() => go(1)} aria-label={t("pack.next")} className={cn(nav, "right-2 sm:right-4")}>
-              <ChevronRight className="size-5" aria-hidden />
-            </button>
-          </>
-        )}
+    <div className="relative min-h-0 min-w-0 bg-night lg:h-[92dvh]">
+      <div
+        ref={scrollRef}
+        role="region"
+        tabIndex={0}
+        aria-label={t("pack.scrollAria", { title, total: clips.length })}
+        className="px-3 pt-16 pb-3 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-400 sm:px-4 lg:h-full lg:overflow-y-auto lg:scroll-smooth lg:pt-4 lg:pb-24 lg:[scrollbar-color:rgb(255_255_255/0.25)_transparent] lg:[scrollbar-width:thin] motion-reduce:scroll-auto"
+      >
+        <ol className="space-y-3">
+          {clips.map((c, i) => {
+            const label = t("pack.clipLabel", { title, n: i + 1, total: clips.length });
+            return (
+              <li
+                key={c.src}
+                ref={(el) => {
+                  itemRefs.current[i] = el;
+                }}
+                className="scroll-mt-3"
+              >
+                {c.kind === "video" ? (
+                  <video
+                    src={c.src}
+                    poster={c.poster}
+                    controls
+                    playsInline
+                    preload="metadata"
+                    aria-label={label}
+                    className={cn(
+                      "rounded-xl bg-night-soft",
+                      c.orientation === "v" ? "mx-auto max-h-[80dvh] w-auto max-w-full" : "aspect-video w-full",
+                    )}
+                  />
+                ) : (
+                  <Image
+                    src={c.src}
+                    alt={label}
+                    width={c.width}
+                    height={c.height}
+                    sizes="(min-width:1024px) 640px, 100vw"
+                    loading={i < 2 ? "eager" : "lazy"}
+                    className="h-auto w-full rounded-xl bg-night-soft"
+                  />
+                )}
+              </li>
+            );
+          })}
+        </ol>
       </div>
 
+      {/* Schwebende Orientierung (Desktop): Zähler, Auf/Ab */}
       {clips.length > 1 && (
-        <div className="px-3 pb-3 sm:px-5 sm:pb-5">
-          <p className="num mb-2 text-xs text-white/60" aria-live="polite">
-            {t("pack.counter", { n: index + 1, total: clips.length })} · {t("pack.videos", { n: videos })}
-            {clips.length - videos > 0 && ` · ${t("pack.photos", { n: clips.length - videos })}`}
-          </p>
-          <div ref={thumbsRef} role="group" aria-label={t("pack.thumbsAria")} className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {clips.map((c, i) => {
-              const active = i === index;
-              return (
-                <button
-                  key={c.src}
-                  type="button"
-                  onClick={() => setIndex(i)}
-                  aria-current={active}
-                  aria-label={c.kind === "video" ? t("pack.showVideo", { n: i + 1 }) : t("pack.showPhoto", { n: i + 1 })}
-                  className={cn(
-                    "relative aspect-[9/16] h-20 shrink-0 overflow-hidden rounded-xl bg-night-soft outline-offset-2 transition focus-visible:outline-2 focus-visible:outline-brand-400",
-                    active ? "ring-2 ring-brand-400" : "opacity-60 hover:opacity-100",
-                  )}
-                >
-                  <Image src={c.kind === "video" ? c.poster : c.src} alt="" fill sizes="64px" className="object-cover" />
-                  {c.kind === "video" && (
-                    <span className="absolute inset-0 grid place-items-center bg-night/25">
-                      <Play className="size-4 fill-white text-white" aria-hidden />
-                    </span>
-                  )}
-                </button>
-              );
-            })}
+        <div className="pointer-events-none absolute inset-x-0 bottom-4 hidden justify-center px-3 lg:flex">
+          <div className="pointer-events-auto flex items-center gap-1 rounded-full bg-night-soft/90 p-1 pr-4 text-white shadow-[var(--shadow-float)] ring-1 ring-white/15 backdrop-blur">
+            <button type="button" onClick={() => goTo(current - 1)} disabled={current === 0} aria-label={t("pack.prev")} className={step}>
+              <ChevronUp className="size-5" aria-hidden />
+            </button>
+            <button
+              type="button"
+              onClick={() => goTo(current + 1)}
+              disabled={current === clips.length - 1}
+              aria-label={t("pack.next")}
+              className={cn(step, current === 0 && "bg-brand-500 hover:bg-brand-600")}
+            >
+              <ChevronDown className={cn("size-5", current === 0 && "motion-safe:animate-bounce")} aria-hidden />
+            </button>
+            <p className="num ml-1.5 text-sm" aria-live="polite">
+              {current === 0
+                ? [videos > 0 && t("pack.videos", { n: videos }), clips.length > videos && t("pack.photos", { n: clips.length - videos })].filter(Boolean).join(" · ")
+                : t("pack.counter", { n: current + 1, total: clips.length })}
+            </p>
           </div>
         </div>
       )}

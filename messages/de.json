@@ -733,7 +733,7 @@
       "infinity-cut": {
         "tag": "Kundenpaket",
         "title": "Infinity Cut – Grand Opening",
-        "text": "Alles zu einem Barbershop in Frankfurt in einem Paket: Eröffnungs-Trailer, animierte Preisliste und Aktions-Flyer mit Buchungs-QR – durchklicken statt suchen.",
+        "text": "Alles zu einem Barbershop in Frankfurt in einem Paket: Eröffnungs-Trailer, animierte Preisliste und Aktions-Flyer mit Buchungs-QR – einfach durchscrollen.",
         "result": "Eröffnung, Preisliste und Angebote aus einem Guss – mit QR-Code direkt zur Online-Buchung.",
         "services": [
           "Motion Design",
@@ -835,7 +835,7 @@
       "la-louve-fotos": {
         "tag": "Fotopaket",
         "title": "La Louve – Rooftop-Fotos",
-        "text": "19 Fotos von einem Rooftop-Sommerevent: Golden Hour, Gäste, Bar und Stimmung. Durchklicken und in der Vorschau-Leiste springen.",
+        "text": "19 Fotos von einem Rooftop-Sommerevent: Golden Hour, Gäste, Bar und Stimmung – einfach durchscrollen.",
         "result": "Foto-Material für Recap, Social Media und den nächsten Vorverkauf.",
         "services": [
           "Eventfotografie",
@@ -883,6 +883,7 @@
       "videos": "{n, plural, one {# Video} other {# Videos}}",
       "photos": "{n, plural, one {# Foto} other {# Fotos}}",
       "counter": "{n} von {total}",
+      "scrollAria": "{title}: {total} Beiträge, zum Durchscrollen",
       "clipLabel": "{title} – Beitrag {n} von {total}",
       "prev": "Vorheriger Beitrag",
       "next": "Nächster Beitrag",

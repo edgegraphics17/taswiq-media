@@ -733,7 +733,7 @@
       "infinity-cut": {
         "tag": "Client pack",
         "title": "Infinity Cut – grand opening",
-        "text": "Everything for a barbershop in Frankfurt in one pack: opening trailer, animated price list and promo flyers with booking QR – click through instead of searching.",
+        "text": "Everything for a barbershop in Frankfurt in one pack: opening trailer, animated price list and promo flyers with booking QR – just scroll through.",
         "result": "Opening, price list and offers from one source – with a QR code straight to online booking.",
         "services": [
           "Motion design",
@@ -835,7 +835,7 @@
       "la-louve-fotos": {
         "tag": "Photo pack",
         "title": "La Louve – rooftop photos",
-        "text": "19 photos from a rooftop summer event: golden hour, guests, bar and atmosphere. Click through and jump via the thumbnail strip.",
+        "text": "19 photos from a rooftop summer event: golden hour, guests, bar and atmosphere – just scroll through.",
         "result": "Photo material for the recap, social media and the next presale.",
         "services": [
           "Event photography",
@@ -883,6 +883,7 @@
       "videos": "{n, plural, one {# video} other {# videos}}",
       "photos": "{n, plural, one {# photo} other {# photos}}",
       "counter": "{n} of {total}",
+      "scrollAria": "{title}: {total} items, scroll to browse",
       "clipLabel": "{title} – item {n} of {total}",
       "prev": "Previous item",
       "next": "Next item",

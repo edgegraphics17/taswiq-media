@@ -104,7 +104,7 @@ export function PortfolioLightbox({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: reduced ? 0 : 16, transition: { duration: 0.18 } }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="relative grid max-h-[92dvh] w-full max-w-6xl overflow-y-auto rounded-t-[2rem] bg-white shadow-[var(--shadow-float)] sm:rounded-[2rem] lg:grid-cols-[1.35fr_1fr] lg:overflow-hidden"
+            className="relative grid max-h-[92dvh] w-full max-w-6xl overflow-y-auto rounded-t-[2rem] bg-white shadow-[var(--shadow-float)] sm:rounded-[2rem] lg:grid-cols-[minmax(0,1.35fr)_minmax(22rem,1fr)] lg:overflow-hidden"
           >
             <Media item={item} />
             <Details item={item} onClose={onClose} />
