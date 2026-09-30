@@ -444,6 +444,12 @@
       "motionAlt": "Animierter Flyer: {title}",
       "stats": "{flyers} Flyer · {motion} Animationen · {series} Reihen",
       "cta": "Mehr Events ansehen",
+      "artistTitle": "Artists",
+      "artistText": "Künstler, mit denen wir bei Events und Shows zusammengearbeitet haben.",
+      "artistAria": "Artists, horizontal scrollbar",
+      "artistAlt": "{name} live",
+      "photoCredit": "Foto: {credit} · {license}",
+      "artistNote": "Fotos: Wikimedia Commons unter den genannten Creative-Commons-Lizenzen, für die Darstellung zugeschnitten.",
       "stripTitle": "Aus dem Nachtleben"
     },
     "gridAria": "Projekte",

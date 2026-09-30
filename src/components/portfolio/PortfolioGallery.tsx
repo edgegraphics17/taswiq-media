@@ -1,8 +1,8 @@
 import { getTranslations } from "next-intl/server";
 import { Music2 } from "lucide-react";
-import { FlyerRail, MotionRail } from "@/components/portfolio/Gallery";
+import { ArtistRail, FlyerRail, MotionRail } from "@/components/portfolio/Gallery";
 import { Eyebrow } from "@/components/ui/SectionHeading";
-import { galleryFlyers, galleryMotion } from "@/config/gallery";
+import { galleryArtists, galleryFlyers, galleryMotion } from "@/config/gallery";
 
 /**
  * Events & Partys – bewusst kompakt: schmale Slider statt großer Karten.
@@ -31,6 +31,11 @@ export async function PortfolioGallery() {
 
         <h3 className="mt-6 mb-3 text-sm font-semibold tracking-wide text-ink">{t("gallery.motionTitle")}</h3>
         <MotionRail items={galleryMotion} dense />
+
+        <h3 className="mt-6 mb-1 text-sm font-semibold tracking-wide text-ink">{t("gallery.artistTitle")}</h3>
+        <p className="mb-3 text-[13px] text-muted">{t("gallery.artistText")}</p>
+        <ArtistRail items={galleryArtists} />
+        <p className="text-[11px] text-muted/80">{t("gallery.artistNote")}</p>
       </div>
     </section>
   );

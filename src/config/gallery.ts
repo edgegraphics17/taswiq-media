@@ -94,3 +94,36 @@ export const galleryMotion: GalleryMotion[] = [
   { id: "louve-zirkus", series: "louve", title: "La Louve · Zirkus-Teaser", video: "/portfolio/motion/louve-zirkus.mp4", poster: "/portfolio/motion/louve-zirkus.webp", blur: "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAACwAwCdASoMABUAPxFysFCsJqSisAgBgCIJaACdMoADQsRrb3jliAD9+UPFaBL+ABb5rmo05uaCTbpJjTIEGM9UxE9q7CEdXRHXtU2Q8jIyp8fDMoGOQ59sAAA=" },
   { id: "culture", series: "culture", title: "Culture · Aftermovie", video: "/portfolio/motion/culture.mp4", poster: "/portfolio/motion/culture.webp", blur: "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAAAQBACdASoMABUAPxFysFAsJqSisAgBgCIJZACdMoADTOGnSJCAO8FEQAD+7ohJUHH7GgwRGrAj6jbC2JChU0oFMhpa01aGIkMXaW+q1JNFhwu1RCVd4BhqhfO1Rbf0ckx8zxgA" },
 ];
+
+/**
+ * Artists aus der Event-Arbeit: Live-Fotos von Wikimedia Commons (freie Lizenzen, Fotograf wird am Bild genannt).
+ * Bilder: public/portfolio/artists/<slug>.webp, 720×900 (Hochformat 4:5) bzw. 1080×720 bei `wide`.
+ */
+export interface GalleryArtist {
+  slug: string;
+  name: string;
+  credit: string;
+  license: string;
+  source: string;
+  wide?: boolean;
+}
+
+export const galleryArtists: GalleryArtist[] = [
+  { slug: "chris-brown", name: "Chris Brown", credit: "Joel Telling", license: "CC BY 2.0", source: "https://commons.wikimedia.org/wiki/File:Chris_Brown_2.jpg" },
+  { slug: "burna-boy", name: "Burna Boy", credit: "Nuță Lucian", license: "CC BY-SA 2.0", source: "https://commons.wikimedia.org/wiki/File:Untold_2024_-Burna_Boy_(53926047977)_(cropped).jpg" },
+  { slug: "central-cee", name: "Central Cee", credit: "200izo", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:Central_cee-5.jpg" },
+  { slug: "lil-yachty", name: "Lil Yachty", credit: "Nicolas Padovani", license: "CC BY 2.0", source: "https://commons.wikimedia.org/wiki/File:FEQ_July_2018_Lil_Yachty_(44779183032).jpg" },
+  { slug: "bryson-tiller", name: "Bryson Tiller", credit: "AtlantaFX", license: "CC BY 3.0", source: "https://commons.wikimedia.org/wiki/File:Bryson_Tiller_August_2018.jpg" },
+  { slug: "uncle-waffles", name: "Uncle Waffles", credit: "Musiclaborotry", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:Uncle_Waffles_01.jpg" },
+  { slug: "haftbefehl", name: "Haftbefehl", credit: "Moritz Kosinsky", license: "CC BY-SA 3.0 de", source: "https://commons.wikimedia.org/wiki/File:Haftbefehl_Place2Be_Schwerin_2015_by_Moritz_Kosinsky-22.jpg" },
+  { slug: "ufo361", name: "Ufo361", credit: "Nicolas Völcker", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:Ufo361_at_Sputnik_Spring_Break_2018_(1).jpg" },
+  { slug: "summer-cem", name: "Summer Cem", credit: "Stefan Brending", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:2018_RiP_-_Summer_Cem_-_by_2eight_-_DSC2743.jpg" },
+  { slug: "kalim", name: "Kalim", credit: "Nicolas Völcker", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:Kalim_(4)_%E2%80%93_splash!_Festival_20_(2017).jpg" },
+  { slug: "celo-abdi", name: "Celo & Abdi", credit: "Gripweed", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:Celo_%26_Abdi_(cropped).JPG", wide: true },
+  { slug: "luciano", name: "Luciano", credit: "Justin Gray", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:Luciano_2022_crop.jpg" },
+  { slug: "reezy", name: "Reezy", credit: "Frank Schwichtenberg", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:Reezy_-_Openair_Frauenfeld_2019_02.jpg" },
+  { slug: "dystinct", name: "Dystinct", credit: "J24N", license: "CC BY 4.0", source: "https://commons.wikimedia.org/wiki/File:Dystinct.jpg" },
+  { slug: "ardian-bujupi", name: "Ardian Bujupi", credit: "CHR!S", license: "CC BY-SA 3.0", source: "https://commons.wikimedia.org/wiki/File:Ardian_Bujupi1.jpg" },
+  { slug: "dhurata-dora", name: "Dhurata Dora", credit: "Club Summer Garden Alanya", license: "CC BY 3.0", source: "https://commons.wikimedia.org/wiki/File:Dhurata_Dora_(Aug_2024).png" },
+  { slug: "noizy", name: "Noizy", credit: "Noizy", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:Noizy.jpg" },
+];

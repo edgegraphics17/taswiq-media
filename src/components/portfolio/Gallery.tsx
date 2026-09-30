@@ -6,7 +6,7 @@ import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { CaseVideo } from "@/components/portfolio/CaseVideo";
-import { gallerySeries, type GalleryFlyer, type GalleryMotion, type GallerySeries } from "@/config/gallery";
+import { gallerySeries, type GalleryArtist, type GalleryFlyer, type GalleryMotion, type GallerySeries } from "@/config/gallery";
 import { cn } from "@/lib/format";
 
 /**
@@ -217,6 +217,43 @@ export function MotionRail({ items, dense = false }: { items: GalleryMotion[]; d
           <CaseVideo src={m.video} poster={m.poster} alt={t("gallery.motionAlt", { title: m.title })} />
           <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-night/85 to-transparent px-3 pt-8 pb-2.5 text-[11px] leading-tight font-medium text-white">{m.title}</span>
         </article>
+      ))}
+    </Rail>
+  );
+}
+
+/** Artists: Live-Fotos zum Durchwischen, Name groß im Bild, Fotografen-Nennung klein (Lizenzpflicht). */
+export function ArtistRail({ items }: { items: GalleryArtist[] }) {
+  const t = useTranslations("portfolio");
+  return (
+    <Rail label={t("gallery.artistAria")} itemCount={items.length}>
+      {items.map((a) => (
+        <figure
+          key={a.slug}
+          className={cn(
+            "group relative h-80 shrink-0 snap-start overflow-hidden rounded-2xl bg-night shadow-[var(--shadow-soft)] transition-[transform,box-shadow] duration-500 ease-[var(--ease-soft)] hover:-translate-y-1 hover:shadow-[var(--shadow-float)] sm:h-96",
+            a.wide ? "aspect-[3/2]" : "aspect-[4/5]",
+          )}
+        >
+          <Image
+            src={`/portfolio/artists/${a.slug}.webp`}
+            alt={t("gallery.artistAlt", { name: a.name })}
+            fill
+            sizes={a.wide ? "(min-width: 640px) 576px, 480px" : "(min-width: 640px) 307px, 256px"}
+            className="object-cover transition-transform duration-700 ease-[var(--ease-soft)] group-hover:scale-[1.04]"
+          />
+          <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-night/90 via-night/40 to-transparent px-4 pt-16 pb-3 text-white">
+            <span className="block text-lg leading-tight font-medium tracking-tight">{a.name}</span>
+            <a
+              href={a.source}
+              target="_blank"
+              rel="noopener noreferrer license"
+              className="mt-1 block text-[10px] text-white/55 transition-colors hover:text-white focus-visible:text-white"
+            >
+              {t("gallery.photoCredit", { credit: a.credit, license: a.license })}
+            </a>
+          </figcaption>
+        </figure>
       ))}
     </Rail>
   );
