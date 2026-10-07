@@ -56,7 +56,7 @@ Erst der erste Auftrag, dann 2.500 €, 5.000 €, 10.000 €. Was diesem Ziel n
    - `category`: traffic, seo, geo, angebote, workflows, bugs, risiken, fehlt, vertrieb, sonstiges · `priority`: 1 jetzt, 2 als Nächstes, 3 später · `effort`: S, M, L.
    - Texte auf Deutsch, für einen Nicht-Entwickler: was, warum, Schritte.
 
-**Takt:** Jede Abteilung wird alle drei Stunden zwischen 7 und 22 Uhr von der Claude-App gestartet (geplante Aufgabe `taswiq-team-<abteilung>`,
+**Takt:** Jede Abteilung wird alle zwei Stunden (rund um die Uhr) von der Claude-App gestartet (geplante Aufgabe `taswiq-team-<abteilung>`,
 zeitlich versetzt). Abteilungen starten sich nicht gegenseitig – eine Übergabe wird beim nächsten Takt der anderen Abteilung abgeholt.
 
 ## Ohne Rückfrage arbeiten
