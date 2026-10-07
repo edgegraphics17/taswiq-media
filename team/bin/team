@@ -1,0 +1,47 @@
+#!/bin/bash
+# Werkzeug der Team-Abteilungen: spricht mit dem TasWiq-Backend (Sprite "taswiq-media").
+# Alles, was eine Abteilung tut, läuft hierüber – so sieht Karim es live im Dashboard (/admin/team).
+#
+#   team next                               Taktgeber: welche Abteilung ist dran?
+#   team state                              Schalter, Warteschlangen, letzte Meldungen
+#   team tasks                              alle Aufgaben (JSON)
+#   team claim <abteilung>                  nächste Aufgabe abholen (oder Grund, warum es keine gibt)
+#   team say <abteilung> <text> [task-id]   Zwischenstand melden (ein Satz, was gerade passiert)
+#   team plan <abteilung> <text>            Planungsrunde protokollieren
+#   team finish <abteilung> <task-id> <fertig|rueckfrage|fehler> <text>
+#   team propose <abteilung> <datei.json>   bis zu 3 Aufgaben vorschlagen / an andere Abteilungen übergeben
+#
+# Lokal testen: TEAM_LOCAL_URL=http://localhost:8099 TEAM_LOCAL_TOKEN=… team state
+set -euo pipefail
+
+json() { python3 -c 'import json,sys; a=sys.argv[1:]; print(json.dumps(dict(zip(a[::2], a[1::2])), ensure_ascii=False))' "$@"; }
+
+call() { # methode pfad [json]
+  local method="$1" path="$2" data="${3:-}"
+  if [ -n "${TEAM_LOCAL_URL:-}" ]; then
+    if [ -n "$data" ]; then curl -sS -X "$method" -H "x-taswiq-token: $TEAM_LOCAL_TOKEN" -H "content-type: application/json" "$TEAM_LOCAL_URL$path" -d "$data"
+    else curl -sS -X "$method" -H "x-taswiq-token: $TEAM_LOCAL_TOKEN" "$TEAM_LOCAL_URL$path"; fi
+  elif [ -n "$data" ]; then
+    # JSON als Datei mitschicken – die Sprite-CLI zerlegt sonst Anführungszeichen.
+    local tmp remote="/tmp/team-$$-$RANDOM.json"
+    tmp="$(mktemp)"; printf '%s' "$data" > "$tmp"
+    sprite exec -s taswiq-media --no-stdin --file "$tmp:$remote" -- /home/sprite/taswiq/api.sh -X "$method" "localhost:8080$path" -d "@$remote" | grep -v '^Uploaded ' || true
+    rm -f "$tmp"
+  else
+    sprite exec -s taswiq-media --no-stdin -- /home/sprite/taswiq/api.sh -X "$method" "localhost:8080$path"
+  fi
+  echo
+}
+
+cmd="${1:-}"; shift || true
+case "$cmd" in
+  next)    call GET /team/next ;;
+  state)   call GET /team/state ;;
+  tasks)   call GET /tasks ;;
+  claim)   call POST /team/claim "$(json agent "$1")" ;;
+  say)     if [ -n "${3:-}" ]; then call POST /team/events "$(json agent "$1" kind schritt text "$2" task_id "$3")"; else call POST /team/events "$(json agent "$1" kind info text "$2")"; fi ;;
+  plan)    call POST /team/events "$(json agent "$1" kind planung text "$2")" ;;
+  finish)  call POST /team/finish "$(json agent "$1" task_id "$2" result "$3" note "$4")" ;;
+  propose) call POST /team/propose "$(python3 -c 'import json,sys; print(json.dumps({"agent": sys.argv[1], "tasks": json.load(open(sys.argv[2]))}, ensure_ascii=False))' "$1" "$2")" ;;
+  *) sed -n '2,15p' "$0"; exit 1 ;;
+esac

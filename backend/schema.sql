@@ -148,3 +148,21 @@ create table if not exists site_hits (
   device      text
 );
 create index if not exists site_hits_day_idx on site_hits (day, type);
+
+-- ─── Team (Command Center) ───
+-- Protokoll: Jede Abteilung meldet, was sie tut – daraus entsteht die Live-Ansicht im Dashboard.
+create table if not exists agent_events (
+  id          integer primary key autoincrement,
+  created_at  text not null default (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
+  agent       text not null,
+  kind        text not null check (kind in ('start','schritt','fertig','rueckfrage','fehler','vorschlag','uebergabe','planung','info')),
+  task_id     text,
+  text        text not null
+);
+create index if not exists agent_events_created_idx on agent_events (created_at desc);
+
+-- Schalter des Teams (team_active, autonomy, max_tasks_per_day) – Standardwerte setzt server.mjs.
+create table if not exists settings (
+  key    text primary key,
+  value  text not null
+);

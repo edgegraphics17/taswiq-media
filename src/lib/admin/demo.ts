@@ -1,4 +1,5 @@
-import type { AnalyticsData, CalculatorRequest, LeadEventRow, LeadRow, TaskRow } from "@/types/database";
+import type { AnalyticsData, CalculatorRequest, LeadEventRow, LeadRow, TaskRow, TeamState } from "@/types/database";
+import { DEPARTMENT_IDS } from "@/config/team";
 
 /**
  * Demo-Daten fürs Dashboard, solange das Backend lokal nicht verbunden ist.
@@ -87,6 +88,10 @@ const task = (i: number, t: Partial<TaskRow> & Pick<TaskRow, "title" | "category
   run_input: null,
   run_note: null,
   run_requested_at: null,
+  department: "entwicklung",
+  proposed_by: null,
+  requested_by: null,
+  risk: "niedrig",
   ...t,
 });
 export const demoTasks: TaskRow[] = [
@@ -120,3 +125,13 @@ export function demoAnalytics(days: number): AnalyticsData {
     calculations: demoCalcRequests.length,
   };
 }
+
+export const demoTeam: TeamState = {
+  settings: { team_active: "0", autonomy: "freigabe", max_tasks_per_day: "3" },
+  running: null,
+  departments: DEPARTMENT_IDS.map((id, i) => ({ id, queued: i === 1 ? 2 : 0, starts_today: i === 2 ? 1 : 0, last_plan_at: null, last_event: null })),
+  events: [
+    { id: 2, created_at: ago(1), agent: "wachstum", kind: "fertig", task_id: null, text: "Erledigt: Ratgeber „Bestellsystem für Bäckereien“ veröffentlicht", task_title: null },
+    { id: 1, created_at: ago(2), agent: "wachstum", kind: "start", task_id: null, text: "Beginnt: Ratgeber „Bestellsystem für Bäckereien“", task_title: null },
+  ],
+};

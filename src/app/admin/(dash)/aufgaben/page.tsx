@@ -4,6 +4,7 @@ import { Bot, Check, Play, Plus, RotateCcw, Sparkles, Trash2, UserRound } from "
 import { createTask, removeTask, requestRun, setTask } from "@/app/admin/actions";
 import { getAnalyticsData, getLeads, getTasks, wonThisMonth } from "@/lib/admin/data";
 import { goal, goalNeeds } from "@/config/goal";
+import { departmentById } from "@/config/team";
 import { EFFORT_LABEL, PRIORITY_LABEL, TASK_CATEGORY_LABEL } from "@/lib/admin/labels";
 import { isDemoMode } from "@/lib/env";
 import { cn, formatDate, formatEUR, formatNumber } from "@/lib/format";
@@ -69,6 +70,7 @@ function Task({ t, focus = false }: { t: TaskRow; focus?: boolean }) {
                 </span>
               )}
               <span className="rounded-full bg-canvas px-2.5 py-0.5 font-medium text-body">{TASK_CATEGORY_LABEL[t.category]}</span>
+              <span className="text-muted">{departmentById[t.department]?.name}</span>
               <span className="text-muted">{EFFORT_LABEL[t.effort]}</span>
               <span className="inline-flex items-center gap-1 text-muted">
                 {t.source === "claude" ? <Sparkles className="size-3" aria-hidden /> : <UserRound className="size-3" aria-hidden />}

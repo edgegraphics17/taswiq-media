@@ -246,6 +246,18 @@ Login           ──► Magic Link: Backend erzeugt Einmal-Token (nur für ADM
   Aufgaben lassen sich im Dashboard an Claude übergeben (`run_state`, siehe `backend/README.md`).
   Neue Aufgaben kommen aus dem Dashboard-Formular oder als JSON über `POST /tasks/bulk` (siehe `backend/README.md` → „Aufgaben einspielen“).
 
+**Team / Command Center (`/admin/team`, seit 08.10.2026):** sechs Abteilungen (Leitung, Entwicklung, Wachstum, Angebot & Vertrieb, Qualität & Sicherheit, Analyse),
+jede eine eigene Claude-Sitzung auf Karims Rechner mit Stellenbeschreibung in `team/<abteilung>.md`; gemeinsame Arbeitsordnung und Grenzen in `team/README.md`.
+```
+Taktgeber (geplante Aufgabe, alle 2 Std. 8–20 Uhr) ──► team next ──► startet genau eine Abteilung (geplante Aufgabe „taswiq-team-<abteilung>“)
+Abteilung ──► team claim ──► Aufgabe umsetzen, Schritte melden (team say) ──► team finish
+          └─► nichts in der Warteschlange + Planung fällig (1×/Woche) ──► Bereich prüfen ──► team propose (für sich oder als Übergabe an andere)
+Dashboard ──► Hauptschalter, Freigabe-Modus, Tageslimit, Freigeben/Ablehnen, Live-Protokoll (SSE)
+```
+Durchgesetzt wird im Backend, nicht im Prompt: pausiert = niemand bekommt Arbeit · immer nur eine Abteilung gleichzeitig (ein Arbeitsverzeichnis) ·
+Tageslimit je Abteilung · Vorschläge laufen nur im Modus „Selbstständig“ und nur bei `risk: niedrig` ohne Freigabe · hängende Durchläufe verfallen nach 2 Std.
+Tabellen `agent_events` (Protokoll) und `settings`; Endpunkte `/team/state|next|claim|events|finish|propose|settings`; Werkzeug `team/bin/team`.
+
 **Login:** E-Mail + Passwort (`/admin/login`, Link im Footer). Passwort liegt als scrypt-Hash in `admin_credentials`; 5 Fehlversuche sperren das Konto 15 Minuten.
 Ändern unter `/admin/konto`. Der Magic-Link-Weg (`/admin/auth/callback`) bleibt als Reserve im Code.
 

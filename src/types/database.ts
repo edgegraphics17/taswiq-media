@@ -129,6 +129,8 @@ export type CalculatorRequest = CalculatorRequestRow;
 export type LeadStatusEnum = LeadStatus;
 export const LEAD_STATUSES: LeadStatus[] = ["neu", "kontaktiert", "angebot", "verhandlung", "gewonnen", "verloren", "archiviert"];
 
+import type { DepartmentId } from "@/config/team";
+
 /* ─── Arbeits-Dashboard ─── */
 export const TASK_CATEGORIES = ["traffic", "seo", "geo", "angebote", "workflows", "bugs", "risiken", "fehlt", "vertrieb", "sonstiges"] as const;
 export type TaskCategory = (typeof TASK_CATEGORIES)[number];
@@ -155,9 +157,17 @@ export type TaskRow = {
   run_input: string | null;
   run_note: string | null;
   run_requested_at: string | null;
+  /** zuständige Abteilung des Teams (src/config/team.ts) */
+  department: DepartmentId;
+  /** Abteilung, die die Aufgabe vorgeschlagen hat (null = du oder Claude in einer Sitzung) */
+  proposed_by: DepartmentId | null;
+  /** Abteilung, die sie bei einer anderen angefragt hat */
+  requested_by: DepartmentId | null;
+  /** hoch = läuft nie ohne deine Freigabe */
+  risk: "niedrig" | "hoch";
 };
 export type TaskInsert = Pick<TaskRow, "title"> &
-  Partial<Pick<TaskRow, "key" | "why" | "steps" | "category" | "priority" | "effort" | "status" | "source" | "executor" | "run_state" | "run_input" | "run_note">>;
+  Partial<Pick<TaskRow, "key" | "why" | "steps" | "category" | "priority" | "effort" | "status" | "source" | "executor" | "run_state" | "run_input" | "run_note" | "department" | "risk">>;
 
 /* ─── Besucherstatistik ─── */
 export type SiteHit = {
@@ -188,4 +198,15 @@ export type AnalyticsData = {
   events: { name: string; n: number; visitors: number }[];
   leads: number;
   calculations: number;
+};
+
+/* ─── Team (Command Center) ─── */
+export type AgentEventKind = "start" | "schritt" | "fertig" | "rueckfrage" | "fehler" | "vorschlag" | "uebergabe" | "planung" | "info";
+export type AgentEvent = { id: number; created_at: string; agent: DepartmentId; kind: AgentEventKind; task_id: string | null; text: string; task_title: string | null };
+export type TeamSettings = { team_active: "0" | "1"; autonomy: "freigabe" | "selbststaendig"; max_tasks_per_day: string };
+export type TeamState = {
+  settings: TeamSettings;
+  running: { department: DepartmentId; task_id: string; title: string; since: string } | null;
+  departments: { id: DepartmentId; queued: number; starts_today: number; last_plan_at: string | null; last_event: Pick<AgentEvent, "kind" | "text" | "created_at"> | null }[];
+  events: AgentEvent[];
 };

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BarChart3, Calculator, Inbox, ListChecks, Tags, type LucideIcon } from "lucide-react";
+import { BarChart3, Calculator, Inbox, ListChecks, Tags, UsersRound, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/format";
 
 interface Item {
@@ -16,7 +16,7 @@ interface Item {
  * Zwei Bereiche: „Kunden & Website“ (was reinkommt, wie die Seite läuft) und „Arbeit“ (was als Nächstes zu tun ist).
  * Aktive Seite ist markiert; Zähler zeigen, wo etwas wartet.
  */
-export function AdminNav({ newLeads, openTasks }: { newLeads: number; openTasks: number }) {
+export function AdminNav({ newLeads, openTasks, waiting }: { newLeads: number; openTasks: number; waiting: number }) {
   const pathname = usePathname();
   const groups: { title: string; items: Item[] }[] = [
     {
@@ -28,7 +28,13 @@ export function AdminNav({ newLeads, openTasks }: { newLeads: number; openTasks:
         { href: "/admin/preise", label: "Preise", icon: Tags },
       ],
     },
-    { title: "Arbeit", items: [{ href: "/admin/aufgaben", label: "Fokus & Aufgaben", icon: ListChecks, badge: openTasks }] },
+    {
+      title: "Arbeit",
+      items: [
+        { href: "/admin/aufgaben", label: "Fokus & Aufgaben", icon: ListChecks, badge: openTasks },
+        { href: "/admin/team", label: "Team", icon: UsersRound, badge: waiting },
+      ],
+    },
   ];
   const isActive = (href: string) => (href === "/admin" ? pathname === "/admin" || pathname.startsWith("/admin/leads") : pathname.startsWith(href));
 

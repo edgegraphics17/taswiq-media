@@ -55,6 +55,10 @@ for (const [table, col, def] of [
   ["tasks", "run_input", "text"], // Angaben von Karim für die Umsetzung
   ["tasks", "run_note", "text"], // Rückmeldung von Claude
   ["tasks", "run_requested_at", "text"],
+  ["tasks", "department", "text not null default 'leitung'"], // zuständige Abteilung des Teams
+  ["tasks", "proposed_by", "text"], // Abteilung, die die Aufgabe vorgeschlagen hat (null = Karim / Claude-Sitzung)
+  ["tasks", "requested_by", "text"], // Abteilung, die sie bei einer anderen angefragt hat
+  ["tasks", "risk", "text not null default 'niedrig'"], // hoch = nie ohne Freigabe von Karim
 ]) {
   if (!db.prepare(`select 1 from pragma_table_info('${table}') where name = ?`).get(col)) db.exec(`alter table ${table} add column ${col} ${def}`);
 }
@@ -353,7 +357,9 @@ route("POST", "/auth/set-password", ({ body }) => {
 });
 
 // ─── Aufgaben (Arbeits-Dashboard) ───────────────────────────────────
-const TASK_FIELDS = ["title", "why", "steps", "category", "priority", "effort", "status", "source", "executor", "run_state", "run_input", "run_note"];
+const TASK_FIELDS = ["title", "why", "steps", "category", "priority", "effort", "status", "source", "executor", "run_state", "run_input", "run_note", "department", "proposed_by", "requested_by", "risk"];
+const DEPARTMENTS = ["leitung", "entwicklung", "wachstum", "vertrieb", "qualitaet", "analyse"];
+const DEPARTMENT_NAME = { leitung: "Leitung", entwicklung: "Entwicklung", wachstum: "Wachstum", vertrieb: "Angebot & Vertrieb", qualitaet: "Qualität & Sicherheit", analyse: "Analyse" };
 const RUN_STATES = [null, "beauftragt", "laeuft", "fertig", "rueckfrage"];
 const taskValues = (body) => {
   const v = {};
@@ -362,6 +368,9 @@ const taskValues = (body) => {
   for (const k of ["why", "steps", "run_input", "run_note"]) if (v[k] != null) v[k] = String(v[k]).trim().slice(0, 4000) || null;
   if (v.executor !== undefined) need(["karim", "claude", "beide"].includes(v.executor), "executor");
   if (v.run_state !== undefined) need(RUN_STATES.includes(v.run_state), "run_state");
+  if (v.department !== undefined) need(DEPARTMENTS.includes(v.department), "department");
+  if (v.risk !== undefined) need(["niedrig", "hoch"].includes(v.risk), "risk");
+  for (const k of ["proposed_by", "requested_by"]) if (v[k] != null) need(DEPARTMENTS.includes(v[k]), k);
   return v;
 };
 const insertTask = (body) => {
@@ -433,6 +442,154 @@ route("DELETE", "/tasks/:id", ({ params }) => {
   if (!r.changes) throw new HttpError(404, "notFound");
   broadcast("task", params.id);
   return { ok: true };
+});
+
+// ─── Team (Command Center) ──────────────────────────────────────────
+// Abteilungen sind Claude-Sitzungen auf Karims Rechner. Sie holen Arbeit ausschließlich über diese Endpunkte ab –
+// Hauptschalter, Tageslimit und „immer nur eine Abteilung gleichzeitig“ werden deshalb hier durchgesetzt, nicht im Prompt.
+const SETTING_DEFAULTS = { team_active: "0", autonomy: "freigabe", max_tasks_per_day: "3" };
+const settings = () => ({ ...SETTING_DEFAULTS, ...Object.fromEntries(db.prepare("select key, value from settings").all().map((r) => [r.key, r.value])) });
+const logEvent = (agent, kind, text, taskId = null) => {
+  db.prepare("insert into agent_events (agent, kind, task_id, text, created_at) values (?, ?, ?, ?, ?)").run(agent, kind, taskId, String(text).trim().slice(0, 1000), now());
+  broadcast("team", agent);
+};
+const today = () => now().slice(0, 10);
+const STALE_MS = 2 * 3_600_000; // eine Aufgabe „läuft“ höchstens 2 Stunden – danach gilt der Durchlauf als abgebrochen
+const PLAN_EVERY_DAYS = 7;
+
+/** Hängengebliebene Durchläufe freigeben und die gerade arbeitende Abteilung liefern (oder null). */
+const runningTask = () => {
+  for (const t of db.prepare("select * from tasks where run_state = 'laeuft'").all()) {
+    if (Date.now() - Date.parse(t.updated_at) < STALE_MS) return t;
+    db.prepare("update tasks set run_state = 'rueckfrage', status = 'offen', run_note = ?, updated_at = ? where id = ?")
+      .run("Der Durchlauf wurde nicht abgeschlossen (abgebrochen oder Zeit überschritten). Bitte erneut übergeben.", now(), t.id);
+    logEvent(t.department, "fehler", `Durchlauf abgebrochen: ${t.title}`, t.id);
+  }
+  return null;
+};
+const startsToday = (agent) => db.prepare("select count(*) as n from agent_events where agent = ? and kind = 'start' and substr(created_at, 1, 10) = ?").get(agent, today()).n;
+const queueOf = (agent) =>
+  db.prepare("select * from tasks where department = ? and run_state = 'beauftragt' and status != 'erledigt' and executor != 'karim' order by priority, run_requested_at").all(agent);
+const lastPlan = (agent) => db.prepare("select max(created_at) as at from agent_events where agent = ? and kind = 'planung'").get(agent).at;
+const planDue = (agent) => {
+  const at = lastPlan(agent);
+  return !at || Date.now() - Date.parse(at) > PLAN_EVERY_DAYS * 86_400_000;
+};
+
+route("GET", "/team/state", () => {
+  const s = settings();
+  const running = runningTask();
+  return {
+    settings: s,
+    running: running ? { department: running.department, task_id: running.id, title: running.title, since: running.updated_at } : null,
+    departments: DEPARTMENTS.map((id) => ({
+      id,
+      queued: queueOf(id).length,
+      starts_today: startsToday(id),
+      last_plan_at: lastPlan(id),
+      last_event: db.prepare("select kind, text, created_at from agent_events where agent = ? order by id desc limit 1").get(id) ?? null,
+    })),
+    events: db.prepare("select e.*, t.title as task_title from agent_events e left join tasks t on t.id = e.task_id order by e.id desc limit 80").all(),
+  };
+});
+
+route("POST", "/team/settings", ({ body }) => {
+  need(body && typeof body === "object");
+  const set = {};
+  if (body.team_active !== undefined) set.team_active = body.team_active ? "1" : "0";
+  if (body.autonomy !== undefined) {
+    need(["freigabe", "selbststaendig"].includes(body.autonomy), "autonomy");
+    set.autonomy = body.autonomy;
+  }
+  if (body.max_tasks_per_day !== undefined) set.max_tasks_per_day = String(Math.min(10, Math.max(1, Math.round(Number(body.max_tasks_per_day)) || 3)));
+  for (const [k, v] of Object.entries(set)) db.prepare("insert into settings (key, value) values (?, ?) on conflict (key) do update set value = excluded.value").run(k, v);
+  if (set.team_active) logEvent("leitung", "info", set.team_active === "1" ? "Team eingeschaltet" : "Team pausiert");
+  return settings();
+});
+
+/** Taktgeber: Welche Abteilung soll als Nächstes loslaufen? Höchstens eine – und nur, wenn es wirklich etwas zu tun gibt. */
+route("GET", "/team/next", () => {
+  const s = settings();
+  if (s.team_active !== "1") return { agent: null, reason: "pausiert" };
+  const busy = runningTask();
+  if (busy) return { agent: null, reason: "besetzt", by: busy.department };
+  const max = Number(s.max_tasks_per_day);
+  const ready = DEPARTMENTS.filter((d) => startsToday(d) < max);
+  const work = ready.map((d) => ({ d, q: queueOf(d) })).filter((x) => x.q.length).sort((a, b) => a.q[0].priority - b.q[0].priority || a.q[0].run_requested_at.localeCompare(b.q[0].run_requested_at))[0];
+  if (work) return { agent: work.d, mode: "arbeit", task: work.q[0].title };
+  // Nichts in der Warteschlange → höchstens eine Planungsrunde pro Tag, reihum.
+  const plannedToday = db.prepare("select 1 from agent_events where kind = 'planung' and substr(created_at, 1, 10) = ?").get(today());
+  const due = plannedToday ? null : ready.filter(planDue).sort((a, b) => (lastPlan(a) ?? "").localeCompare(lastPlan(b) ?? ""))[0];
+  return due ? { agent: due, mode: "planung" } : { agent: null, reason: "nichts zu tun" };
+});
+
+/** Abteilung holt ihre nächste Aufgabe ab. Ohne Aufgabe: `plan` sagt, ob stattdessen eine Planungsrunde dran ist. */
+route("POST", "/team/claim", ({ body }) => {
+  const agent = String(body?.agent ?? "");
+  need(DEPARTMENTS.includes(agent), "agent");
+  const s = settings();
+  if (s.team_active !== "1") return { task: null, reason: "pausiert", plan: false };
+  const busy = runningTask();
+  if (busy) return { task: null, reason: "besetzt", plan: false };
+  if (startsToday(agent) >= Number(s.max_tasks_per_day)) return { task: null, reason: "tageslimit", plan: false };
+  const task = queueOf(agent)[0];
+  if (!task) {
+    const plannedToday = db.prepare("select 1 from agent_events where kind = 'planung' and substr(created_at, 1, 10) = ?").get(today());
+    return { task: null, reason: "leer", plan: !plannedToday && planDue(agent) };
+  }
+  const t = now();
+  db.prepare("update tasks set run_state = 'laeuft', status = 'in_arbeit', updated_at = ? where id = ?").run(t, task.id);
+  logEvent(agent, "start", `Beginnt: ${task.title}`, task.id);
+  return { task: { ...task, run_state: "laeuft", status: "in_arbeit" }, reason: null, plan: false };
+});
+
+route("POST", "/team/events", ({ body }) => {
+  need(body && DEPARTMENTS.includes(body.agent) && ["schritt", "info", "planung"].includes(body.kind) && typeof body.text === "string" && body.text.trim(), "event");
+  if (body.task_id) db.prepare("update tasks set updated_at = ? where id = ? and run_state = 'laeuft'").run(now(), String(body.task_id)); // hält den Durchlauf „lebendig“
+  logEvent(body.agent, body.kind, body.text, body.task_id ? String(body.task_id) : null);
+  return { ok: true };
+});
+
+route("POST", "/team/finish", ({ body }) => {
+  need(body && DEPARTMENTS.includes(body.agent) && ["fertig", "rueckfrage", "fehler"].includes(body.result) && typeof body.note === "string" && body.note.trim(), "finish");
+  const task = db.prepare("select * from tasks where id = ? or key = ?").get(String(body.task_id), String(body.task_id));
+  if (!task) throw new HttpError(404, "notFound");
+  const t = now();
+  const note = body.note.trim().slice(0, 4000);
+  if (body.result === "fertig") db.prepare("update tasks set run_state = 'fertig', status = 'erledigt', done_at = ?, run_note = ?, updated_at = ? where id = ?").run(t, note, t, task.id);
+  else db.prepare("update tasks set run_state = 'rueckfrage', status = 'offen', run_note = ?, updated_at = ? where id = ?").run(note, t, task.id);
+  logEvent(body.agent, body.result, `${body.result === "fertig" ? "Erledigt" : body.result === "rueckfrage" ? "Rückfrage" : "Fehler"}: ${task.title} – ${note.slice(0, 300)}`, task.id);
+  broadcast("task", task.id);
+  return { ok: true };
+});
+
+/**
+ * Abteilung schlägt Aufgaben vor – für sich selbst oder für eine andere Abteilung (Übergabe).
+ * Ob sie ohne Karims Freigabe in die Warteschlange dürfen, entscheidet der Schalter „autonomy“; riskante Aufgaben nie.
+ */
+route("POST", "/team/propose", ({ body }) => {
+  const agent = String(body?.agent ?? "");
+  need(DEPARTMENTS.includes(agent) && Array.isArray(body.tasks) && body.tasks.length > 0 && body.tasks.length <= 3, "propose");
+  const s = settings();
+  const waiting = db.prepare("select count(*) as n from tasks where proposed_by = ? and run_state is null and status = 'offen'").get(agent).n;
+  if (waiting + body.tasks.length > 6) throw new HttpError(429, "tooManyOpenProposals");
+  const out = [];
+  tx(() => {
+    for (const t of body.tasks) {
+      if (t.key && db.prepare("select 1 from tasks where key = ?").get(String(t.key))) {
+        out.push({ key: t.key, skipped: "exists" });
+        continue;
+      }
+      const department = t.department ?? agent;
+      const auto = s.autonomy === "selbststaendig" && (t.risk ?? "niedrig") === "niedrig" && t.executor === "claude";
+      const id = insertTask({ ...t, department, source: "claude", status: "offen", proposed_by: agent, requested_by: department !== agent ? agent : null, run_state: auto ? "beauftragt" : null });
+      if (auto) db.prepare("update tasks set run_requested_at = ? where id = ?").run(now(), id);
+      logEvent(agent, department !== agent ? "uebergabe" : "vorschlag", `${department !== agent ? `An ${DEPARTMENT_NAME[department]}` : "Vorschlag"}: ${String(t.title).slice(0, 200)}${auto ? "" : " (wartet auf Freigabe)"}`, id);
+      out.push({ id, queued: auto });
+    }
+  });
+  broadcast("task", "bulk");
+  return { tasks: out };
 });
 
 // ─── Besucherstatistik ──────────────────────────────────────────────

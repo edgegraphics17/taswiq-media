@@ -4,9 +4,9 @@ import { redirect } from "next/navigation";
 import { isDemoMode } from "@/lib/env";
 import { isAdminEmail } from "@/lib/auth";
 import { SESSION_COOKIE, verifySession } from "@/lib/session";
-import { getAnalytics, getLeadWithEvents, listCalculatorRequests, listLeads, listTasks, type LeadFilters } from "@/lib/db";
-import { demoAnalytics, demoCalcRequests, demoEvents, demoLeads, demoTasks } from "@/lib/admin/demo";
-import type { AnalyticsData, CalculatorRequest, LeadEventRow, LeadRow, TaskRow } from "@/types/database";
+import { getAnalytics, getTeamState, getLeadWithEvents, listCalculatorRequests, listLeads, listTasks, type LeadFilters } from "@/lib/db";
+import { demoAnalytics, demoCalcRequests, demoEvents, demoLeads, demoTasks, demoTeam } from "@/lib/admin/demo";
+import type { AnalyticsData, CalculatorRequest, LeadEventRow, LeadRow, TaskRow, TeamState } from "@/types/database";
 
 /**
  * Datenschicht des Admin-Dashboards (nur Server Components / Server Actions).
@@ -57,6 +57,14 @@ export async function getCalculatorRequests(): Promise<CalculatorRequest[]> {
 export async function getTasks(): Promise<TaskRow[]> {
   if (isDemoMode()) return demoTasks;
   return listTasks();
+}
+
+/** Wartet auf Karim: Vorschlag einer Abteilung ohne Freigabe oder eine Rückfrage. */
+export const needsYou = (t: TaskRow) => t.status !== "erledigt" && ((t.proposed_by !== null && t.run_state === null) || t.run_state === "rueckfrage");
+
+export async function getTeam(): Promise<TeamState> {
+  if (isDemoMode()) return demoTeam;
+  return getTeamState();
 }
 
 export async function getAnalyticsData(days: number): Promise<AnalyticsData> {

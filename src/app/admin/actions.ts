@@ -9,8 +9,9 @@ import { SESSION_COOKIE, SESSION_MAX_AGE, signSession } from "@/lib/session";
 import { isAdminEmail } from "@/lib/auth";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
 import { getAdminUser } from "@/lib/admin/data";
-import { addLeadNote, deleteTask, insertTask, setPassword, updateLead as updateLeadInBackend, updateTask, upsertServices, verifyPassword } from "@/lib/db";
+import { addLeadNote, deleteTask, insertTask, setPassword, setTeamSettings, updateLead as updateLeadInBackend, updateTask, upsertServices, verifyPassword } from "@/lib/db";
 import { LEAD_STATUSES, TASK_CATEGORIES, TASK_STATUSES } from "@/types/database";
+import { departmentFor } from "@/config/team";
 
 /** Jede Mutation prüft die Admin-Berechtigung erneut – Server Actions sind öffentliche Endpunkte. */
 async function requireAdminUser() {
@@ -158,7 +159,7 @@ export async function createTask(formData: FormData) {
   if (!parsed.success) redirect("/admin/aufgaben?error=1");
   const { priority, why, steps, ...rest } = parsed.data;
   try {
-    await insertTask({ ...rest, priority: priority as 1 | 2 | 3, why: why || null, steps: steps || null, source: "karim" });
+    await insertTask({ ...rest, priority: priority as 1 | 2 | 3, why: why || null, steps: steps || null, source: "karim", department: departmentFor(rest.category) });
   } catch (e) {
     console.error("[admin] createTask", e);
     redirect("/admin/aufgaben?error=1");
@@ -197,6 +198,7 @@ export async function removeTask(formData: FormData) {
     redirect("/admin/aufgaben?error=1");
   }
   revalidatePath("/admin/aufgaben");
+  revalidatePath("/admin/team");
 }
 
 /** Aufgabe an Claude übergeben (oder den Auftrag zurückziehen). Claude holt beauftragte Aufgaben ab und meldet das Ergebnis zurück. */
@@ -215,4 +217,23 @@ export async function requestRun(formData: FormData) {
     redirect("/admin/aufgaben?error=1");
   }
   revalidatePath("/admin/aufgaben");
+  revalidatePath("/admin/team");
+}
+
+/** Schalter des Teams: ein/aus, Freigabe-Modus, Tageslimit je Abteilung. */
+export async function setTeam(formData: FormData) {
+  if (isDemoMode()) redirect("/admin/team?demo=1");
+  await requireAdminUser();
+  const parsed = z
+    .object({ active: z.enum(["0", "1"]).optional(), autonomy: z.enum(["freigabe", "selbststaendig"]).optional(), max: z.coerce.number().int().min(1).max(10).optional() })
+    .safeParse(Object.fromEntries(formData));
+  if (!parsed.success) redirect("/admin/team?error=1");
+  const { active, autonomy, max } = parsed.data;
+  try {
+    await setTeamSettings({ ...(active ? { team_active: active === "1" } : {}), ...(autonomy ? { autonomy } : {}), ...(max ? { max_tasks_per_day: max } : {}) });
+  } catch (e) {
+    console.error("[admin] setTeam", e);
+    redirect("/admin/team?error=1");
+  }
+  revalidatePath("/admin/team");
 }

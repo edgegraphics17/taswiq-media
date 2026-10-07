@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ExternalLink, LogOut, UserRound } from "lucide-react";
-import { getLeads, getTasks, requireAdmin } from "@/lib/admin/data";
+import { getLeads, getTasks, needsYou, requireAdmin } from "@/lib/admin/data";
 import { signOut } from "@/app/admin/actions";
 import { LogoMark } from "@/components/ui/Logo";
 import { AdminNav } from "@/components/admin/AdminNav";
@@ -23,7 +23,7 @@ export default async function DashLayout({ children }: { children: React.ReactNo
           <LogoMark className="h-7" />
           <span className="font-bold tracking-tight max-lg:sr-only">TasWiq Admin</span>
         </Link>
-        <AdminNav newLeads={leads.filter((l) => l.status === "neu").length} openTasks={tasks.filter((t) => t.status !== "erledigt").length} />
+        <AdminNav newLeads={leads.filter((l) => l.status === "neu").length} openTasks={tasks.filter((t) => t.status !== "erledigt").length} waiting={tasks.filter(needsYou).length} />
         <div className="flex shrink-0 lg:flex-col lg:border-t lg:border-night-line lg:pt-4">
           <Link href="/" className={`${quiet} max-lg:hidden`}>
             <ExternalLink className="size-4" aria-hidden /> Website ansehen

@@ -12,6 +12,8 @@ import type {
   SiteHit,
   TaskInsert,
   TaskRow,
+  TeamSettings,
+  TeamState,
 } from "@/types/database";
 
 /**
@@ -173,6 +175,15 @@ export async function updateTask(id: string, patch: Partial<TaskInsert>): Promis
 
 export async function deleteTask(id: string): Promise<void> {
   await call(`/tasks/${encodeURIComponent(id)}`, { method: "DELETE" });
+}
+
+// ─── Team (Command Center) ──────────────────────────────────────────
+export function getTeamState(): Promise<TeamState> {
+  return call<TeamState>("/team/state");
+}
+
+export async function setTeamSettings(patch: { team_active?: boolean; autonomy?: TeamSettings["autonomy"]; max_tasks_per_day?: number }): Promise<void> {
+  await call("/team/settings", { method: "POST", body: patch });
 }
 
 // ─── Besucherstatistik ──────────────────────────────────────────────
