@@ -14,7 +14,7 @@ export const post: BlogPost = {
     "Fünf bis acht Kennzahlen reichen. Mehr liest niemand.",
     "Jede Kennzahl braucht eine Frage, die sie beantwortet.",
     "Automatische Wochen-Reports sind oft wertvoller als ein Live-Dashboard.",
-    "Ein eigenes Dashboard startet bei ca. 6.900 €.",
+    "Ein eigenes Dashboard startet bei ca. 4.900 €.",
   ],
   sections: [
     {
@@ -84,8 +84,8 @@ export const post: BlogPost = {
             head: ["Paket", "Richtpreis einmalig", "Enthalten"],
             rows: [
               ["Wochen-Report", "ab 890 €", "Zahlen aus allen Tools, einmal pro Woche per Mail"],
-              ["Dashboard", "ab 6.900 €", "Kennzahlen aus 2–3 Quellen, täglich aktuell"],
-              ["Dashboard Pro", "ab 11.900 €", "Echtzeit, Rollen, Alarme, Prognosen"],
+              ["Dashboard", "ab 4.900 €", "Kennzahlen aus 2–3 Quellen, täglich aktuell"],
+              ["Dashboard Pro", "ab 8.900 €", "Echtzeit, Rollen, Alarme, Prognosen"],
             ],
           },
         },

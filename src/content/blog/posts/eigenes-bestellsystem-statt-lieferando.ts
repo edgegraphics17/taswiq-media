@@ -12,7 +12,7 @@ export const post: BlogPost = {
     "Lieferplattformen bringen Reichweite, aber sie verdienen an jeder Bestellung mit – auch an Stammkunden, die dich ohnehin kennen. Ein eigenes Bestellsystem dreht das um: Die Bestellung läuft über deine Website, das Geld landet direkt bei dir, und die Kundendaten gehören dir. In diesem Ratgeber rechnen wir durch, was ein eigenes System kostet, was es können muss und ab welchem Umsatz es sich lohnt.",
   takeaways: [
     "Plattformen sind gut für Neukunden – für Stammkunden sind sie teuer.",
-    "Ein eigenes Bestellsystem kostet einmalig ab ca. 3.900 € plus Betrieb ab 49 €/Monat.",
+    "Ein eigenes Bestellsystem kostet einmalig ab ca. 2.900 € plus Betrieb ab 49 €/Monat.",
     "Die Rechnung ist einfach: gesparte Provision pro Monat gegen Betriebskosten.",
     "Am besten fährst du zweigleisig: Plattform für die Reichweite, eigenes System für alle, die wiederkommen.",
   ],
@@ -59,9 +59,9 @@ export const post: BlogPost = {
           table: {
             head: ["Paket", "Einmalig", "Enthalten"],
             rows: [
-              ["Bestellsystem Start", "ab 3.900 €", "Speisekarte, Warenkorb, Abholung & Lieferung, Bestell-Dashboard"],
-              ["Bestellsystem Pro", "ab 6.900 €", "+ Online-Zahlung, Küchen-Display, Liefergebiete, Gutscheine"],
-              ["Mehrere Standorte", "ab 10.900 €", "Filialen, Rollen, zentrales Reporting"],
+              ["Bestellsystem Start", "ab 2.900 €", "Speisekarte, Warenkorb, Abholung & Lieferung, Bestell-Dashboard"],
+              ["Bestellsystem Pro", "ab 4.900 €", "+ Online-Zahlung, Küchen-Display, Liefergebiete, Gutscheine"],
+              ["Mehrere Standorte", "ab 7.900 €", "Filialen, Rollen, zentrales Reporting"],
             ],
             caption: "Endpreise nach § 19 UStG. Hosting & Wartung ab 49 €, Betrieb & Support ab 149 € im Monat.",
           },
@@ -82,7 +82,7 @@ export const post: BlogPost = {
           ],
         },
         {
-          tip: "Beispiel: 6.000 € Stammkunden-Umsatz im Monat über die Plattform, davon wandern die Hälfte zum eigenen System. Bei einer angenommenen Provision von 15 % sparst du 450 € im Monat. Ein System für 6.900 € plus 149 € Betrieb hat sich dann nach rund 23 Monaten bezahlt – und spart danach jeden Monat weiter.",
+          tip: "Beispiel: 6.000 € Stammkunden-Umsatz im Monat über die Plattform, davon wandern die Hälfte zum eigenen System. Bei einer angenommenen Provision von 15 % sparst du 450 € im Monat. Ein System für 4.900 € plus 149 € Betrieb hat sich dann nach rund 16 Monaten bezahlt – und spart danach jeden Monat weiter.",
         },
       ],
     },

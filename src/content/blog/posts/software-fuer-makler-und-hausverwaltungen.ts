@@ -118,7 +118,7 @@ export const post: BlogPost = {
     },
     {
       q: "Was kostet ein Mieterportal?",
-      a: "Ein Kundenportal mit Login, Dokumenten, Status und Nachrichten startet bei rund 9.900 €. Mit Workflows, Rollen und Freigaben liegt es bei rund 16.900 €.",
+      a: "Ein Kundenportal mit Login, Dokumenten, Status und Nachrichten startet bei rund 7.400 €. Mit Workflows, Rollen und Freigaben liegt es bei rund 12.900 €.",
     },
   ],
 };

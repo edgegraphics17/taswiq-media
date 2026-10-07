@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import { useLocale, useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Calculator as CalcIcon, Check, ChevronDown, Copy, Printer } from "lucide-react";
-import { isIndustry, LEISTUNG_INTEREST, type CalcState } from "@/config/pricing";
+import { isIndustry, leistungenFuer, LEISTUNG_INTEREST, type CalcState } from "@/config/pricing";
 import { computeEstimate, initialState, stepError, summaryRows, summaryText, visibleSteps, type PricingData } from "@/lib/pricing-engine";
 import type { FunnelIndustry, InterestId, LeadTier } from "@/config/funnel";
 import { getAttribution, getSessionId } from "@/lib/attribution";
@@ -24,7 +24,8 @@ import { LeadResult } from "@/components/funnel/LeadResult";
  * Preisrechner – Soft UI.
  *  - Schritte als Pillen-Leiste (erledigte anklickbar), verzweigt nach gewählten Leistungen
  *  - große Auswahlkarten mit violettem Ring
- *  - Desktop: sticky schwarze Kontrast-Karte mit Live-Richtwert; Mobil: schwebende Preis-Pille unten
+ *  - eine zentrierte Spalte: Branche zuerst (Klick führt weiter), danach nur die passenden Leistungen
+ *  - schwarze Richtwert-Leiste über der Frage – ein Betrag erscheint erst mit dem ersten Paket; Mobil: schwebende Pille unten
  *  - Ergebnis: Aufstellung als Angebotsblatt, Kopieren, PDF, Anfrage
  *  - Pfeiltasten ← → navigieren
  */
@@ -49,6 +50,8 @@ export function Calculator({ data: rawData }: { data: PricingData }) {
   const [mounted, setMounted] = useState(false);
   const topRef = useRef<HTMLDivElement>(null);
   const loggedState = useRef<string>("");
+  // Auswahl per Maus/Touch (nicht per Pfeiltaste im Radio-Feld) – nur dann springt die Branche direkt weiter
+  const viaPointer = useRef(false);
 
   useEffect(() => setMounted(true), []);
 
@@ -68,17 +71,12 @@ export function Calculator({ data: rawData }: { data: PricingData }) {
     industry: tr(`industries.${industry}`),
   });
 
-  const update = (id: string, value: CalcState[string]) => {
-    setError(null);
-    setS((prev) => ({ ...prev, [id]: value }));
-  };
-
   const go = useCallback(
-    (target: number) => {
-      const list = visibleSteps(s);
+    (target: number, state: CalcState = s) => {
+      const list = visibleSteps(state);
       const t = Math.max(0, Math.min(target, list.length - 1));
       if (t > idx) {
-        const err = stepError(list[idx], s, i18n);
+        const err = stepError(list[idx], state, i18n);
         if (err) return setError(err);
       }
       setError(null);
@@ -93,6 +91,20 @@ export function Calculator({ data: rawData }: { data: PricingData }) {
     },
     [s, idx, i18n],
   );
+
+  const update = (id: string, value: CalcState[string]) => {
+    setError(null);
+    if (id === "branche") {
+      // Leistungen, die zur neuen Branche nicht passen, fallen weg
+      const erlaubt = leistungenFuer(value);
+      const next = { ...s, branche: value, leistungen: (s.leistungen as string[]).filter((l) => erlaubt.includes(l)) };
+      setS(next);
+      if (viaPointer.current) go(idx + 1, next);
+      viaPointer.current = false;
+      return;
+    }
+    setS((prev) => ({ ...prev, [id]: value }));
+  };
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -160,7 +172,8 @@ export function Calculator({ data: rawData }: { data: PricingData }) {
   };
 
   const nextLabel = idx === steps.length - 2 ? tr("showResult") : tc("next");
-  const priceLabel = idx === 0 ? tr("entryPrice") : tr("estimateOneTime");
+  // Kein Betrag, bevor das erste Paket gewählt ist – erst orientieren, dann rechnen
+  const showPrice = live.summeEin > 0;
   const money = (n: number) => (
     <>
       {eur.pre}
@@ -168,18 +181,15 @@ export function Calculator({ data: rawData }: { data: PricingData }) {
       {eur.post}
     </>
   );
-  const price = (className?: string) =>
-    idx === 0 ? (
-      <span className={cn("num", className)}>{tr.rich("from", { amount: () => money(live.ab) })}</span>
-    ) : (
-      <span className={cn("num", className)}>
-        {eur.pre}
-        <AnimatedNumber value={live.von} locale={locale} /> – {money(live.bis)}
-      </span>
-    );
+  const price = (className?: string) => (
+    <span className={cn("num", className)}>
+      {eur.pre}
+      <AnimatedNumber value={live.von} locale={locale} /> – {money(live.bis)}
+    </span>
+  );
 
   return (
-    <div className="container-x pt-28 pb-32 sm:pt-32 lg:pb-20">
+    <div className="container-x pt-28 pb-32 sm:pt-32 sm:pb-20">
       {/* Kopf */}
       <div ref={topRef} className="mx-auto max-w-2xl text-center">
         <div className="flex justify-center">
@@ -219,9 +229,27 @@ export function Calculator({ data: rawData }: { data: PricingData }) {
         </ol>
       </nav>
 
-      <div className="mt-8 grid items-start gap-4 lg:grid-cols-[1fr_360px]">
+      <div className="mx-auto mt-6 max-w-[52rem]">
+        {/* ─── Richtwert-Leiste: flach über der Frage statt Kasten daneben ─── */}
+        {!isResult && (
+          <div className="card-night relative mb-3 hidden min-h-[4.5rem] items-center justify-between gap-6 overflow-hidden px-7 py-3.5 sm:flex" aria-live="polite">
+            <div className="pointer-events-none absolute -top-24 right-10 size-56 rounded-full bg-[radial-gradient(closest-side,rgb(120_64_254/0.4),transparent)]" aria-hidden />
+            <div className="relative min-w-0">
+              <p className="text-xs text-night-muted">{showPrice ? tr("estimateOneTime") : tr("estimateLabel")}</p>
+              {showPrice ? price("block text-2xl leading-tight font-medium tracking-tight text-white") : <p className="text-[15px] text-white">{tr("estimatePending")}</p>}
+            </div>
+            {showPrice && live.summeMtl > 0 ? (
+              <p className="relative inline-flex shrink-0 items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 text-[13px]">
+                <span className="size-1.5 rounded-full bg-mint-400" aria-hidden /> {tr("plusMonthly", { amount: formatEUR(live.summeMtl, locale) })}
+              </p>
+            ) : (
+              <p className="relative shrink-0 text-[13px] text-night-muted">{tr("estimateNote")}</p>
+            )}
+          </div>
+        )}
+
         {/* ─── Frage-Bereich ─── */}
-        <div className="card min-w-0 overflow-hidden p-5 sm:p-8">
+        <div className="card min-w-0 overflow-hidden p-5 sm:p-8" onPointerDownCapture={() => (viaPointer.current = true)} onKeyDownCapture={() => (viaPointer.current = false)}>
           <AnimatePresence mode="wait" custom={dir} initial={false}>
             <motion.section
               key={step.id}
@@ -312,57 +340,37 @@ export function Calculator({ data: rawData }: { data: PricingData }) {
               {error}
             </p>
           )}
+
+          {/* Navigation (ab Tablet) – mobil übernimmt die schwebende Pille */}
+          {(idx > 0 || !isResult) && (
+            <div className="mt-8 hidden items-center justify-between gap-3 border-t border-line pt-6 sm:flex">
+              {idx > 0 ? (
+                <button type="button" onClick={() => go(idx - 1)} className="inline-flex min-h-12 items-center gap-2 rounded-full bg-canvas px-5 text-sm font-medium text-ink transition hover:bg-brand-50 hover:text-brand-600">
+                  <ArrowLeft className="size-4" aria-hidden /> {tc("back")}
+                </button>
+              ) : (
+                <span className="hidden text-xs text-muted lg:block">{tr("keyboardTip")}</span>
+              )}
+              {!isResult && (
+                <button type="button" onClick={() => go(idx + 1)} className="ml-auto inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-brand-500 px-7 text-sm font-medium text-white shadow-[var(--shadow-brand)] transition hover:bg-brand-600">
+                  {nextLabel} <ArrowRight className="size-4" aria-hidden />
+                </button>
+              )}
+            </div>
+          )}
         </div>
 
-        {/* ─── Desktop: sticky schwarze Preis-Karte ─── */}
-        <aside className="card-night sticky top-28 hidden overflow-hidden p-6 lg:block" aria-live="polite">
-          <div className="pointer-events-none absolute -top-20 -right-20 size-56 rounded-full bg-[radial-gradient(closest-side,rgb(120_64_254/0.4),transparent)]" aria-hidden />
-          <p className="relative text-sm text-night-muted">{priceLabel}</p>
-          {price("relative mt-1 block text-[2.1rem] leading-tight font-medium tracking-tight text-white")}
-          {idx > 0 && live.summeMtl > 0 && (
-            <p className="relative mt-2 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs">
-              <span className="size-1.5 rounded-full bg-mint-400" aria-hidden /> {tr("plusMonthly", { amount: formatEUR(live.summeMtl, locale) })}
-            </p>
-          )}
-          {live.einmalig.length > 0 && idx > 0 && (
-            <ul className="relative mt-5 max-h-64 space-y-1.5 overflow-y-auto pr-1">
-              {live.einmalig.map((l) => (
-                <li key={l.key} className="flex justify-between gap-3 rounded-full bg-white/[0.06] px-3.5 py-2 text-[13px]">
-                  <span className="truncate text-night-muted">{l.label}</span>
-                  <span className="num shrink-0 text-white">{formatEUR(l.betrag, locale)}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-          <div className="relative mt-6 flex gap-2">
-            {idx > 0 && (
-              <button type="button" onClick={() => go(idx - 1)} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/20 px-5 text-sm font-medium text-white hover:bg-white/10">
-                <ArrowLeft className="size-4" aria-hidden /> {tc("back")}
-              </button>
-            )}
-            {isResult ? (
-              <a href="#angebot" className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-brand-500 px-5 text-sm font-medium text-white shadow-[var(--shadow-brand)]">
-                {tr("requestTitle")}
-              </a>
-            ) : (
-              <button type="button" onClick={() => go(idx + 1)} className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-brand-500 px-5 text-sm font-medium text-white shadow-[var(--shadow-brand)] transition hover:bg-brand-600">
-                {nextLabel} <ArrowRight className="size-4" aria-hidden />
-              </button>
-            )}
-          </div>
-          <p className="relative mt-4 text-center text-xs text-night-muted">{tr("keyboardTip")}</p>
-        </aside>
       </div>
 
       {/* ─── Mobil: schwebende Preis-Pille ─── */}
-      <div className="fixed inset-x-3 bottom-3 z-30 lg:hidden">
+      <div className="fixed inset-x-3 bottom-3 z-30 sm:hidden">
         <div className="flex items-center gap-2 rounded-full bg-night p-1.5 pl-5 text-white shadow-[var(--shadow-float)]" aria-live="polite">
           <div className="min-w-0 flex-1 leading-tight">
             <p className="text-[11px] text-night-muted">
-              {priceLabel}
-              {idx > 0 && live.summeMtl > 0 && <> · {tr("plusMonthlyShort", { amount: formatEUR(live.summeMtl, locale) })}</>}
+              {showPrice ? tr("estimateOneTime") : tr("stepOf", { current: idx + 1, total: steps.length })}
+              {showPrice && live.summeMtl > 0 && <> · {tr("plusMonthlyShort", { amount: formatEUR(live.summeMtl, locale) })}</>}
             </p>
-            {price("block truncate text-base font-medium")}
+            {showPrice ? price("block truncate text-base font-medium") : <span className="block truncate text-base font-medium">{copy.kurz}</span>}
           </div>
           {idx > 0 && (
             <button type="button" onClick={() => go(idx - 1)} aria-label={tc("back")} className="grid size-11 shrink-0 place-items-center rounded-full bg-white/10">

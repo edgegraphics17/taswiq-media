@@ -74,10 +74,10 @@ export const post: BlogPost = {
           table: {
             head: ["Lösung", "Richtpreis einmalig", "Geeignet für"],
             rows: [
-              ["Buchungssystem Start", "ab 2.900 €", "Werkstatt-Termine, Probefahrten"],
-              ["Buchung Team & Standorte", "ab 8.900 €", "Mehrere Fahrlehrer, Bühnen oder Filialen"],
-              ["Web-App für den Homescreen", "ab 4.900 €", "Schüler-App, Kunden-App"],
-              ["Native App", "ab 12.900 €", "App Store & Google Play, Offline"],
+              ["Buchungssystem Start", "ab 2.200 €", "Werkstatt-Termine, Probefahrten"],
+              ["Buchung Team & Standorte", "ab 6.400 €", "Mehrere Fahrlehrer, Bühnen oder Filialen"],
+              ["Web-App für den Homescreen", "ab 3.900 €", "Schüler-App, Kunden-App"],
+              ["Native App", "ab 9.900 €", "App Store & Google Play, Offline"],
             ],
           },
         },

@@ -80,9 +80,9 @@ export const post: BlogPost = {
           table: {
             head: ["Umfang", "Richtpreis einmalig"],
             rows: [
-              ["Anfrage-Funnel + Angebotsgenerator", "ab 6.900 €"],
-              ["Ein Kernprozess (Anfrage bis Rechnung)", "ab 14.900 €"],
-              ["Mehrere Prozesse mit Rollen & Schnittstellen", "ab 24.900 €"],
+              ["Anfrage-Funnel + Angebotsgenerator", "ab 4.900 €"],
+              ["Ein Kernprozess (Anfrage bis Rechnung)", "ab 10.900 €"],
+              ["Mehrere Prozesse mit Rollen & Schnittstellen", "ab 18.900 €"],
             ],
           },
         },

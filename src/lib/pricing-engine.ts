@@ -1,4 +1,4 @@
-import { KONFIG, LEISTUNG_QUELLE, OPTIONEN, SCHRITTE, type CalcState, type Field, type Option, type Step } from "@/config/pricing";
+import { KONFIG, OPTIONEN, SCHRITTE, type CalcState, type Field, type Option, type Step } from "@/config/pricing";
 import { fieldCopy, stepCopy, type CalcI18n } from "@/lib/pricing-i18n";
 import { formatEUR } from "@/lib/format";
 
@@ -8,7 +8,7 @@ import { formatEUR } from "@/lib/format";
  * damit gespeicherte Kalkulationen nie vom Client manipuliert werden können.
  *
  * Kernidee: Es zählt nur, was schon beantwortet ist. Der Richtwert wächst mit
- * jedem Schritt – Schritt 1 zeigt "ab X €", danach eine Spanne.
+ * jedem Schritt – Branche und Leistungen kosten nichts, die Spanne beginnt beim ersten Paket.
  *
  * Mehrsprachig: Alle lesbaren Texte (Posten, Zuschläge, Fehler) kommen über `i18n`
  * aus messages → calculator. Optionslabels übersetzt vorher `localizeOptions()`.
@@ -29,8 +29,6 @@ export interface Estimate {
   /** Untere/obere Grenze der Richtwert-Spanne (gerundet) */
   von: number;
   bis: number;
-  /** Einstiegspreis der aktuellen Auswahl – für Schritt 1 */
-  ab: number;
 }
 
 export interface PricingData {
@@ -65,6 +63,7 @@ export function initialState(): CalcState {
 export function stepError(step: Step, s: CalcState, { t }: CalcI18n): string | null {
   for (const f of step.felder) {
     if (!fieldVisible(f, s)) continue;
+    if (f.typ === "radio" && !s[f.id]) return t("engine.minOption");
     if (f.typ === "check" && f.min && (s[f.id] as string[]).length < f.min) {
       return f.id === "leistungen" ? t("engine.minService") : t("engine.minOption");
     }
@@ -83,7 +82,11 @@ export function sanitizeState(input: unknown, data: PricingData = DEFAULT_DATA):
     for (const f of st.felder) {
       const v = raw[f.id];
       if (f.typ === "radio" && typeof v === "string" && opt(f.quelle, v, data)) s[f.id] = v;
-      if (f.typ === "check" && Array.isArray(v)) s[f.id] = v.filter((x) => typeof x === "string" && opt(f.quelle, x, data));
+      if (f.typ === "check" && Array.isArray(v)) {
+        // SCHRITTE-Reihenfolge: die Branche ist hier schon gesetzt
+        const erlaubt = f.erlaubt?.(s);
+        s[f.id] = v.filter((x) => typeof x === "string" && opt(f.quelle, x, data) && (!erlaubt || erlaubt.includes(x)));
+      }
       if (f.typ === "zahl" && typeof v === "number" && Number.isFinite(v)) s[f.id] = Math.min(f.max, Math.max(f.min, Math.round(v)));
       if (f.typ === "schalter" && typeof v === "boolean") s[f.id] = v;
     }
@@ -171,22 +174,7 @@ export function computeEstimate(s: CalcState, answeredUpTo: number, data: Pricin
     summeMtl,
     von: runde(summeEin * (1 - konfig.spanneUnten), konfig.rundenAuf),
     bis: runde(summeEin * (1 + konfig.spanneOben), konfig.rundenAuf),
-    ab: einstiegspreis(s, data),
   };
-}
-
-/** Günstigste Hauptoption je gewählter Leistung – "ab"-Preis in Schritt 1. */
-function einstiegspreis(s: CalcState, data: PricingData): number {
-  const leistungen = (s.leistungen as string[]) ?? [];
-  const f = s.branche === "musik" ? data.konfig.festivalFaktor : 1;
-  let sum = 0;
-  for (const id of leistungen) {
-    const ref = LEISTUNG_QUELLE[id];
-    if (!ref) continue;
-    const min = Math.min(...(data.optionen[ref.quelle] ?? []).map((o) => o.preis ?? Infinity));
-    if (Number.isFinite(min)) sum += min * (ref.dreh ? f : 1);
-  }
-  return Math.round(sum);
 }
 
 /** "490 €", "49 €/Monat", "inklusive" – Preishinweis auf jeder Karte */
@@ -215,7 +203,7 @@ export function summaryRows(s: CalcState, data: PricingData, i18n: CalcI18n): { 
       else wert = Number(s[f.id]) === 0 ? t("engine.none") : String(s[f.id]);
       // Leistungs-Schritte bekommen ein Präfix, sonst gäbe es "Umfang" für Video UND Foto
       const fieldLabel = fieldCopy(i18n, f).label;
-      const generic = ["start", "extras", "laufend", "funktionen"].includes(st.id);
+      const generic = ["branche", "start", "extras", "laufend", "funktionen"].includes(st.id);
       const label = generic ? (fieldLabel ?? kurz) : `${kurz} · ${fieldLabel ?? t("engine.selection")}`;
       rows.push({ id: f.id, label, wert });
     }

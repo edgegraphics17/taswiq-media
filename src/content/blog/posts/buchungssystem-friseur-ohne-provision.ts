@@ -12,7 +12,7 @@ export const post: BlogPost = {
     "Online-Terminbuchung ist im Salon längst Standard. Die Frage ist nur, über wen. Buchungsplattformen sind schnell eingerichtet, kosten aber jeden Monat – pro Mitarbeiter, pro Buchung oder beides. Und deine Kundinnen buchen in einer App, in der auch die Konkurrenz um die Ecke steht. Ein eigenes Buchungssystem kostet einmal, läuft unter deinem Namen und gehört dir.",
   takeaways: [
     "Plattformen: schnell, aber laufende Gebühren und fremde Marke.",
-    "Eigenes System: einmalige Investition ab 2.900 €, Betrieb ab 49 €/Monat.",
+    "Eigenes System: einmalige Investition ab 2.200 €, Betrieb ab 49 €/Monat.",
     "Doppelbuchungen lassen sich technisch auf Datenbank-Ebene ausschließen.",
     "Erinnerungen per WhatsApp oder Mail senken die No-Show-Quote.",
   ],
@@ -52,7 +52,7 @@ export const post: BlogPost = {
             head: ["", "Buchungsplattform", "Eigenes Buchungssystem"],
             rows: [
               ["Start", "sofort", "3–4 Wochen"],
-              ["Kosten", "laufend, oft pro Mitarbeiter oder Buchung", "einmalig ab 2.900 € + Betrieb ab 49 €/Monat"],
+              ["Kosten", "laufend, oft pro Mitarbeiter oder Buchung", "einmalig ab 2.200 € + Betrieb ab 49 €/Monat"],
               ["Marke", "Plattform-App, Konkurrenz sichtbar", "deine Website, dein Design"],
               ["Kundendaten", "beim Anbieter", "bei dir, in der EU"],
               ["Anpassungen", "was der Anbieter vorsieht", "was dein Salon braucht"],
@@ -86,9 +86,9 @@ export const post: BlogPost = {
           table: {
             head: ["Paket", "Einmalig", "Enthalten"],
             rows: [
-              ["Buchung Start", "ab 2.900 €", "Leistungen, Kalender, Bestätigung per Mail & WhatsApp"],
-              ["Buchung Pro", "ab 5.400 €", "+ Kundenkonto, Anzahlung, Erinnerungen, Warteliste"],
-              ["Team & Standorte", "ab 8.900 €", "Mehrere Mitarbeiter, Räume oder Filialen, Schichtplan"],
+              ["Buchung Start", "ab 2.200 €", "Leistungen, Kalender, Bestätigung per Mail & WhatsApp"],
+              ["Buchung Pro", "ab 3.900 €", "+ Kundenkonto, Anzahlung, Erinnerungen, Warteliste"],
+              ["Team & Standorte", "ab 6.400 €", "Mehrere Mitarbeiter, Räume oder Filialen, Schichtplan"],
             ],
           },
         },

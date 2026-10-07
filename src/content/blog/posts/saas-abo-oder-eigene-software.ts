@@ -21,23 +21,23 @@ export const post: BlogPost = {
       h2: "Ein Rechenbeispiel",
       blocks: [
         {
-          p: "Angenommen, ein Betrieb mit zwölf Mitarbeitern nutzt ein Abo-Tool für Terminplanung und Kundenverwaltung für 39 € pro Nutzer im Monat. Das sind 468 € im Monat oder rund 28.000 € in fünf Jahren – ohne Preiserhöhungen. Eine eigene Lösung mit ähnlichem Funktionsumfang liegt bei rund 14.900 € einmalig plus 149 € Betrieb im Monat.",
+          p: "Angenommen, ein Betrieb mit zwölf Mitarbeitern nutzt ein Abo-Tool für Terminplanung und Kundenverwaltung für 39 € pro Nutzer im Monat. Das sind 468 € im Monat oder rund 28.000 € in fünf Jahren – ohne Preiserhöhungen. Eine eigene Lösung mit ähnlichem Funktionsumfang liegt bei rund 10.900 € einmalig plus 149 € Betrieb im Monat.",
         },
         {
           table: {
             head: ["", "Abo (12 Nutzer à 39 €)", "Eigene Software"],
             rows: [
-              ["Einmalig", "0 €", "14.900 €"],
+              ["Einmalig", "0 €", "10.900 €"],
               ["Pro Monat", "468 €", "149 €"],
-              ["Nach 1 Jahr", "5.616 €", "16.688 €"],
-              ["Nach 3 Jahren", "16.848 €", "20.264 €"],
-              ["Nach 5 Jahren", "28.080 €", "23.840 €"],
+              ["Nach 1 Jahr", "5.616 €", "12.688 €"],
+              ["Nach 3 Jahren", "16.848 €", "16.264 €"],
+              ["Nach 5 Jahren", "28.080 €", "19.840 €"],
             ],
             caption: "Vereinfachtes Beispiel ohne Preiserhöhungen, Zinsen oder Weiterentwicklung.",
           },
         },
         {
-          p: "In diesem Beispiel liegt der Break-even bei rund vier Jahren. Mit mehr Nutzern, Provisionen pro Buchung oder jährlichen Preiserhöhungen verschiebt er sich deutlich nach vorn. Mit weniger Nutzern gewinnt das Abo.",
+          p: "In diesem Beispiel liegt der Break-even bei knapp drei Jahren. Mit mehr Nutzern, Provisionen pro Buchung oder jährlichen Preiserhöhungen verschiebt er sich deutlich nach vorn. Mit weniger Nutzern gewinnt das Abo.",
         },
       ],
     },

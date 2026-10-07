@@ -77,7 +77,7 @@ export const post: BlogPost = {
       h2: "Kosten und Ablauf",
       blocks: [
         {
-          p: "Ein Kundenportal mit Login, Dokumenten, Status und Nachrichten startet bei rund 9.900 €, mit Workflows, Freigaben und Rollen bei rund 16.900 €. KI-Belegerkennung kommt als Modul hinzu. Der Betrieb inklusive Updates und Support liegt ab 149 € im Monat.",
+          p: "Ein Kundenportal mit Login, Dokumenten, Status und Nachrichten startet bei rund 7.400 €, mit Workflows, Freigaben und Rollen bei rund 12.900 €. KI-Belegerkennung kommt als Modul hinzu. Der Betrieb inklusive Updates und Support liegt ab 149 € im Monat.",
         },
         {
           ol: [

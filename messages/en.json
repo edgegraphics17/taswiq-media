@@ -1020,7 +1020,7 @@
     "website": {
       "name": "Website",
       "audience": "For businesses that want to be found online and get enquiries",
-      "meta": "Business website from €2,490 · hosting & maintenance from €49/month",
+      "meta": "Business website from €1,990 · hosting & maintenance from €49/month",
       "features": [
         "Mobile first & fast",
         "SEO & GEO for AI search",
@@ -1032,7 +1032,7 @@
     "system": {
       "name": "Ordering or booking system",
       "audience": "For restaurants, salons, practices, garages & services",
-      "meta": "Ordering system from €3,900 · operations & support from €149/month",
+      "meta": "Ordering system from €2,900 · operations & support from €149/month",
       "features": [
         "Your own platform, no commission",
         "Online payment",
@@ -1044,7 +1044,7 @@
     "custom": {
       "name": "Custom software",
       "audience": "For businesses with their own processes – portals, dashboards, systems",
-      "meta": "Dashboard from €6,900 · portal from €9,900 · core process from €14,900",
+      "meta": "Dashboard from €4,900 · portal from €7,400 · core process from €10,900",
       "features": [
         "Workshop & process analysis",
         "Roles & permissions",
@@ -1117,7 +1117,7 @@
       "navLabel": "Restaurant software",
       "keyword": "Software for restaurants & food businesses",
       "metaTitle": "Restaurant Software – Your Own Ordering System, Zero Commission",
-      "metaDescription": "Your own ordering system, reservations and kitchen dashboard for restaurants, takeaways, bakeries and delivery services. No platform commission, from €3,900.",
+      "metaDescription": "Your own ordering system, reservations and kitchen dashboard for restaurants, takeaways, bakeries and delivery services. No platform commission, from €2,900.",
       "keywords": [
         "restaurant software",
         "restaurant ordering system",
@@ -1186,7 +1186,7 @@
         },
         {
           "q": "How much does an ordering system cost?",
-          "a": "From €3,900 one-off to start, with online payment and kitchen display from €6,900. Operations from €49 per month."
+          "a": "From €2,900 one-off to start, with online payment and kitchen display from €4,900. Operations from €49 per month."
         },
         {
           "q": "How fast can it go live?",
@@ -1275,7 +1275,7 @@
         },
         {
           "q": "How much does a tenant portal cost?",
-          "a": "A customer portal starts at around €9,900; with workflows, roles and approvals around €16,900."
+          "a": "A customer portal starts at around €7,400; with workflows, roles and approvals around €12,900."
         },
         {
           "q": "Where is the data stored?",
@@ -1364,7 +1364,7 @@
         },
         {
           "q": "How much does a student app cost?",
-          "a": "As a web app from around €4,900; with booking for several instructors from around €8,900."
+          "a": "As a web app from around €3,900; with booking for several instructors from around €6,400."
         },
         {
           "q": "Do you also make vehicle videos?",
@@ -1445,7 +1445,7 @@
         },
         {
           "q": "How much does a client portal cost?",
-          "a": "From around €9,900 for login, documents, status and messages; with workflows and approvals from around €16,900."
+          "a": "From around €7,400 for login, documents, status and messages; with workflows and approvals from around €12,900."
         },
         {
           "q": "Is client data used to train AI?",
@@ -1461,7 +1461,7 @@
       "navLabel": "Booking system for salons",
       "keyword": "Booking system for hair & beauty salons",
       "metaTitle": "Booking System for Hair Salons, Beauty & Studios – No Commission",
-      "metaDescription": "Your own online booking for hairdressers, barbers, beauty, physio and studios – with double-booking protection, reminders and deposits. From €2,900.",
+      "metaDescription": "Your own online booking for hairdressers, barbers, beauty, physio and studios – with double-booking protection, reminders and deposits. From €2,200.",
       "keywords": [
         "salon booking system",
         "hairdresser online booking",
@@ -1481,7 +1481,7 @@
             "label": "double bookings – enforced in the database"
           },
           {
-            "value": "from €2,900",
+            "value": "from €2,200",
             "label": "one-off instead of monthly per calendar"
           }
         ]
@@ -1534,7 +1534,7 @@
         },
         {
           "q": "How much does it cost?",
-          "a": "Booking Start from €2,900; with client accounts, deposits and waiting list from €5,400. Operations from €49 per month."
+          "a": "Booking Start from €2,200; with client accounts, deposits and waiting list from €3,900. Operations from €49 per month."
         },
         {
           "q": "Does it work for physio and studios?",
@@ -1619,7 +1619,7 @@
         },
         {
           "q": "How much does it cost?",
-          "a": "Enquiry funnel with quote generator from around €6,900; a complete core process from around €14,900."
+          "a": "Enquiry funnel with quote generator from around €4,900; a complete core process from around €10,900."
         },
         {
           "q": "Can we keep our accounting software?",
@@ -1631,7 +1631,7 @@
       "navLabel": "Custom software",
       "keyword": "Custom software for SMEs",
       "metaTitle": "Custom Software for SMEs – Built with AI in Weeks",
-      "metaDescription": "Software for your processes: workshop, clickable prototype in 7 days, fixed price, delivery in stages. You own the code. From €14,900.",
+      "metaDescription": "Software for your processes: workshop, clickable prototype in 7 days, fixed price, delivery in stages. You own the code. From €10,900.",
       "keywords": [
         "custom software development",
         "bespoke software SME",
@@ -1696,7 +1696,7 @@
       "faq": [
         {
           "q": "How much does custom software cost?",
-          "a": "A core process from around €14,900; several processes with roles and integrations from around €24,900. We give a fixed price after the prototype."
+          "a": "A core process from around €10,900; several processes with roles and integrations from around €18,900. We give a fixed price after the prototype."
         },
         {
           "q": "How long does it take?",
@@ -1716,7 +1716,7 @@
       "navLabel": "Commission-free ordering system",
       "keyword": "Commission-free ordering system",
       "metaTitle": "Your Own Online Ordering System – Zero Commission",
-      "metaDescription": "Online ordering under your name: menu, cart, payment, kitchen display, delivery zones. No commission per order. From €3,900.",
+      "metaDescription": "Online ordering under your name: menu, cart, payment, kitchen display, delivery zones. No commission per order. From €2,900.",
       "keywords": [
         "commission-free ordering system",
         "own ordering system",
@@ -1736,7 +1736,7 @@
             "label": "commission per order"
           },
           {
-            "value": "from €3,900",
+            "value": "from €2,900",
             "label": "one-off, operations from €49/month"
           }
         ]
@@ -1801,7 +1801,7 @@
       "navLabel": "Online booking system",
       "keyword": "Online booking system",
       "metaTitle": "Your Own Online Booking System – Appointments, Reservations, Classes",
-      "metaDescription": "Online booking under your name: calendar, staff, reminders, deposits, double-booking protection. For salons, practices, garages. From €2,900.",
+      "metaDescription": "Online booking under your name: calendar, staff, reminders, deposits, double-booking protection. For salons, practices, garages. From €2,200.",
       "keywords": [
         "online booking system",
         "appointment booking software",
@@ -1821,7 +1821,7 @@
             "label": "bookable – even after hours"
           },
           {
-            "value": "from €2,900",
+            "value": "from €2,200",
             "label": "one-off instead of a subscription"
           }
         ]
@@ -1874,7 +1874,7 @@
         },
         {
           "q": "How much does it cost?",
-          "a": "Booking Start from €2,900, Pro with client accounts, deposits and waiting list from €5,400, Team & locations from €8,900."
+          "a": "Booking Start from €2,200, Pro with client accounts, deposits and waiting list from €3,900, Team & locations from €6,400."
         },
         {
           "q": "How fast is it live?",
@@ -1886,7 +1886,7 @@
       "navLabel": "Web apps & client portals",
       "keyword": "Web app development",
       "metaTitle": "Web App & Client Portal Development for SMEs",
-      "metaDescription": "Client portals, internal tools and apps for iOS & Android – as home-screen web app or native app. Login, documents, status, push. From €4,900.",
+      "metaDescription": "Client portals, internal tools and apps for iOS & Android – as home-screen web app or native app. Login, documents, status, push. From €3,900.",
       "keywords": [
         "web app development",
         "client portal development",
@@ -1906,7 +1906,7 @@
             "label": "in the Antragsbruder web app"
           },
           {
-            "value": "from €4,900",
+            "value": "from €3,900",
             "label": "as a home-screen web app"
           }
         ]
@@ -1955,7 +1955,7 @@
         },
         {
           "q": "How much does a client portal cost?",
-          "a": "From around €9,900 for login, documents, status and messages; with workflows and approvals from around €16,900."
+          "a": "From around €7,400 for login, documents, status and messages; with workflows and approvals from around €12,900."
         },
         {
           "q": "Can it become a native app later?",
@@ -1971,7 +1971,7 @@
       "navLabel": "Dashboards & reporting",
       "keyword": "Dashboard development",
       "metaTitle": "Business Dashboard Development – All Your Numbers in One Place",
-      "metaDescription": "Dashboards for SMEs: revenue, enquiries, utilisation, open invoices from POS, CRM and accounting – in real time or as a weekly report. From €6,900.",
+      "metaDescription": "Dashboards for SMEs: revenue, enquiries, utilisation, open invoices from POS, CRM and accounting – in real time or as a weekly report. From €4,900.",
       "keywords": [
         "business dashboard development",
         "KPI dashboard",
@@ -2040,7 +2040,7 @@
         },
         {
           "q": "How much does a dashboard cost?",
-          "a": "Weekly report from €890, dashboard from around €6,900, Dashboard Pro with real time, roles and alerts from around €11,900."
+          "a": "Weekly report from €890, dashboard from around €4,900, Dashboard Pro with real time, roles and alerts from around €8,900."
         },
         {
           "q": "How current is the data?",
@@ -2141,7 +2141,7 @@
       "navLabel": "Websites that sell",
       "keyword": "Website development",
       "metaTitle": "Website Development – Fast, SEO & AI-Search Optimised",
-      "metaDescription": "Websites for SMEs that bring enquiries: fast, mobile, SEO and GEO for AI search, enquiry funnel, booking or ordering. From €1,490.",
+      "metaDescription": "Websites for SMEs that bring enquiries: fast, mobile, SEO and GEO for AI search, enquiry funnel, booking or ordering. From €1,190.",
       "keywords": [
         "website development",
         "web design agency",
@@ -2162,7 +2162,7 @@
           },
           {
             "value": "from €1,490",
-            "label": "one-pager, business from €2,490"
+            "label": "one-pager, business from €1,990"
           }
         ]
       },
@@ -2206,7 +2206,7 @@
       "faq": [
         {
           "q": "How much does a website cost?",
-          "a": "One-pager from €1,490, business website from €2,490, Website Pro from €4,490. Hosting & maintenance from €49 per month."
+          "a": "One-pager from €1,190, business website from €1,990, Website Pro from €3,490. Hosting & maintenance from €49 per month."
         },
         {
           "q": "Can I edit content myself?",
@@ -2490,9 +2490,7 @@
     "request": "Enquire",
     "showResult": "Show result",
     "resultShort": "Result",
-    "entryPrice": "Starting price",
     "estimateOneTime": "One-time estimate",
-    "from": "from <amount></amount>",
     "plusMonthly": "plus {amount}/month",
     "plusMonthlyShort": "+{amount}/mo",
     "keyboardTip": "Tip: use ← → to move between steps",
@@ -2511,10 +2509,15 @@
     "increase": "Increase {label}",
     "perUnit": "{amount} each",
     "steps": {
+      "branche": {
+        "kurz": "Industry",
+        "titel": "Which industry are you in?",
+        "hint": "After that we only show what fits your business."
+      },
       "start": {
         "kurz": "Project",
-        "titel": "What should we build for you?",
-        "hint": "This choice decides which questions follow. Multiple choice – you can change everything at any time."
+        "titel": "What do you need?",
+        "hint": "Pre-sorted for your industry. Multiple choice – you can change everything at any time."
       },
       "website": {
         "kurz": "Website",
@@ -2548,7 +2551,8 @@
       },
       "extras": {
         "kurz": "Speed",
-        "titel": "How fast should it go?"
+        "titel": "Does it need to be extra fast?",
+        "hint": "Optional extra service. Without express we start at the next free slot."
       },
       "laufend": {
         "kurz": "Operations",
@@ -2561,11 +2565,8 @@
       }
     },
     "fields": {
-      "branche": {
-        "label": "Your industry"
-      },
       "leistungen": {
-        "label": "What do you need? – multiple choice"
+        "label": "Multiple choice"
       },
       "websiteUmfang": {
         "label": "Scope",
@@ -2971,7 +2972,10 @@
       "nextStepText": "Workshop & clickable prototype – then we give you a fixed price. Reply within 24 hours.",
       "rights": "Rights & code",
       "rightsText": "Source code, data and usage rights are yours – after payment, without limits in time or territory."
-    }
+    },
+    "estimateLabel": "Your estimate",
+    "estimatePending": "Builds up with your answers – take your time choosing first.",
+    "estimateNote": "Non-binding · not a quote"
   },
   "legal": {
     "tag": "Legal",

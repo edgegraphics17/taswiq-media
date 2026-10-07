@@ -21,7 +21,7 @@ import type { FunnelIndustry, InterestId } from "@/config/funnel";
  */
 
 export const KONFIG = {
-  version: "2026-09-software",
+  version: "2026-10-einstieg",
   /** Richtwert-Spanne um die Summe: −10 % / +18 % */
   spanneUnten: 0.1,
   spanneOben: 0.18,
@@ -59,7 +59,7 @@ interface FieldBase {
 }
 export type Field =
   | (FieldBase & { typ: "radio"; quelle: string; spalten?: 1 | 2 | 3; standard: string })
-  | (FieldBase & { typ: "check"; quelle: string; spalten?: 1 | 2 | 3; standard: string[]; min?: number })
+  | (FieldBase & { typ: "check"; quelle: string; spalten?: 1 | 2 | 3; standard: string[]; min?: number; erlaubt?: (s: CalcState) => string[] })
   | (FieldBase & { typ: "zahl"; min: number; max: number; standard: number; preisProEinheit: number; dreh?: boolean })
   | (FieldBase & { typ: "schalter" });
 
@@ -101,9 +101,9 @@ export const OPTIONEN: Record<string, Option[]> = {
 
   /* Website */
   websiteUmfang: [
-    { id: "onepager", label: "One-Pager", hint: "Eine starke Seite mit Kontakt, Karte & WhatsApp", preis: 1490 },
-    { id: "business", label: "Business-Website", hint: "Bis 8 Seiten · CMS · Anfrage-Funnel · SEO-Basis", preis: 2490, badge: "Beliebt" },
-    { id: "pro", label: "Website Pro", hint: "Mehrsprachig · Blog · Landingpages · Tracking", preis: 4490 },
+    { id: "onepager", label: "One-Pager", hint: "Eine starke Seite mit Kontakt, Karte & WhatsApp", preis: 1190 },
+    { id: "business", label: "Business-Website", hint: "Bis 8 Seiten · CMS · Anfrage-Funnel · SEO-Basis", preis: 1990, badge: "Beliebt" },
+    { id: "pro", label: "Website Pro", hint: "Mehrsprachig · Blog · Landingpages · Tracking", preis: 3490 },
   ],
   websiteExtras: [
     { id: "seo", label: "Lokales SEO-Paket", hint: "Gefunden werden bei „… in der Nähe“", preis: 490 },
@@ -114,33 +114,33 @@ export const OPTIONEN: Record<string, Option[]> = {
 
   /* Bestell- & Buchungssysteme */
   bestellUmfang: [
-    { id: "start", label: "Bestellsystem Start", hint: "Speisekarte · Warenkorb · Abholung & Lieferung · Bestell-Dashboard", preis: 3900 },
-    { id: "pro", label: "Bestellsystem Pro", hint: "+ Online-Zahlung · Küchen-Display · Liefergebiete · Gutscheine", preis: 6900, badge: "Empfehlung" },
-    { id: "filialen", label: "Mehrere Standorte", hint: "Filialen · Rollen · zentrales Reporting", preis: 10900 },
+    { id: "start", label: "Bestellsystem Start", hint: "Speisekarte · Warenkorb · Abholung & Lieferung · Bestell-Dashboard", preis: 2900 },
+    { id: "pro", label: "Bestellsystem Pro", hint: "+ Online-Zahlung · Küchen-Display · Liefergebiete · Gutscheine", preis: 4900, badge: "Empfehlung" },
+    { id: "filialen", label: "Mehrere Standorte", hint: "Filialen · Rollen · zentrales Reporting", preis: 7900 },
   ],
   buchungUmfang: [
-    { id: "start", label: "Buchung Start", hint: "Leistungen · Kalender · Bestätigung per Mail & WhatsApp", preis: 2900 },
-    { id: "pro", label: "Buchung Pro", hint: "+ Kundenkonto · Anzahlung · Erinnerungen · Warteliste", preis: 5400, badge: "Beliebt" },
-    { id: "team", label: "Team & Standorte", hint: "Mehrere Mitarbeiter, Räume oder Filialen · Schichtplan", preis: 8900 },
+    { id: "start", label: "Buchung Start", hint: "Leistungen · Kalender · Bestätigung per Mail & WhatsApp", preis: 2200 },
+    { id: "pro", label: "Buchung Pro", hint: "+ Kundenkonto · Anzahlung · Erinnerungen · Warteliste", preis: 3900, badge: "Beliebt" },
+    { id: "team", label: "Team & Standorte", hint: "Mehrere Mitarbeiter, Räume oder Filialen · Schichtplan", preis: 6400 },
   ],
 
   /* Web-App, Dashboard, Individualsoftware, App */
   portalUmfang: [
-    { id: "basis", label: "Kundenportal", hint: "Login · Dokumente · Status · Nachrichten", preis: 9900 },
-    { id: "erweitert", label: "Portal mit Workflows", hint: "+ Rollen · Formulare · Freigaben · Automationen", preis: 16900, badge: "Beliebt" },
+    { id: "basis", label: "Kundenportal", hint: "Login · Dokumente · Status · Nachrichten", preis: 7400 },
+    { id: "erweitert", label: "Portal mit Workflows", hint: "+ Rollen · Formulare · Freigaben · Automationen", preis: 12900, badge: "Beliebt" },
   ],
   dashboardUmfang: [
-    { id: "basis", label: "Dashboard", hint: "Kennzahlen aus 2–3 Quellen, täglich aktuell", preis: 6900 },
-    { id: "pro", label: "Dashboard Pro", hint: "Echtzeit · Rollen · Alarme · Prognosen", preis: 11900 },
+    { id: "basis", label: "Dashboard", hint: "Kennzahlen aus 2–3 Quellen, täglich aktuell", preis: 4900 },
+    { id: "pro", label: "Dashboard Pro", hint: "Echtzeit · Rollen · Alarme · Prognosen", preis: 8900 },
   ],
   softwareUmfang: [
-    { id: "s", label: "Ein Kernprozess", hint: "z. B. Auftrag → Einsatz → Rechnung als eigenes System", preis: 14900 },
-    { id: "m", label: "Mehrere Prozesse", hint: "Rollen & Rechte · Schnittstellen · Admin-Bereich", preis: 24900, badge: "Beliebt" },
-    { id: "l", label: "Plattform", hint: "Mehrere Abteilungen oder Standorte, individuelle Module", preis: 39900 },
+    { id: "s", label: "Ein Kernprozess", hint: "z. B. Auftrag → Einsatz → Rechnung als eigenes System", preis: 10900 },
+    { id: "m", label: "Mehrere Prozesse", hint: "Rollen & Rechte · Schnittstellen · Admin-Bereich", preis: 18900, badge: "Beliebt" },
+    { id: "l", label: "Plattform", hint: "Mehrere Abteilungen oder Standorte, individuelle Module", preis: 29900 },
   ],
   appUmfang: [
-    { id: "pwa", label: "Web-App für den Homescreen", hint: "iOS & Android ohne App Store · Push", preis: 4900, badge: "Günstig" },
-    { id: "native", label: "Native App", hint: "App Store & Google Play · Offline · Push", preis: 12900 },
+    { id: "pwa", label: "Web-App für den Homescreen", hint: "iOS & Android ohne App Store · Push", preis: 3900, badge: "Günstig" },
+    { id: "native", label: "Native App", hint: "App Store & Google Play · Offline · Push", preis: 9900 },
   ],
   funktionen: [
     { id: "zahlung", label: "Online-Zahlung", hint: "Stripe, PayPal, Apple Pay, Google Pay", preis: 890 },
@@ -189,16 +189,34 @@ export const OPTIONEN: Record<string, Option[]> = {
 
 /* ─────────────────────────── SCHRITTE ─────────────────────────── */
 
+/**
+ * Welche Leistungen je Branche zur Auswahl stehen – weniger Karten, nur was passt
+ * (kein Bestellsystem für die Kanzlei). "andere" sieht alles.
+ */
+export const LEISTUNGEN_JE_BRANCHE: Record<string, string[]> = {
+  gastro: ["bestellung", "buchung", "website", "app", "dashboard", "ki"],
+  immobilien: ["website", "portal", "buchung", "dashboard", "software", "ki"],
+  automotive: ["website", "buchung", "portal", "app", "dashboard", "ki"],
+  kanzlei: ["website", "portal", "buchung", "dashboard", "software", "ki"],
+  beauty: ["buchung", "website", "app", "ki"],
+  handwerk: ["website", "buchung", "portal", "software", "dashboard", "ki"],
+  musik: ["media", "website", "app", "ki"],
+};
+export const leistungenFuer = (branche: unknown): string[] =>
+  (typeof branche === "string" && LEISTUNGEN_JE_BRANCHE[branche]) || OPTIONEN.leistungen.map((o) => o.id);
+
 const hat = (s: CalcState, ...ids: string[]) => Array.isArray(s.leistungen) && ids.some((id) => (s.leistungen as string[]).includes(id));
 const SOFTWARE = ["bestellung", "buchung", "portal", "dashboard", "software", "app"];
 
 export const SCHRITTE: Step[] = [
   {
+    // Ohne Vorauswahl: ein Klick auf die Branche führt direkt weiter
+    id: "branche",
+    felder: [{ id: "branche", typ: "radio", quelle: "branche", spalten: 2, standard: "" }],
+  },
+  {
     id: "start",
-    felder: [
-      { id: "branche", typ: "radio", quelle: "branche", spalten: 2, standard: "gastro" },
-      { id: "leistungen", typ: "check", quelle: "leistungen", spalten: 3, standard: ["bestellung"], min: 1 },
-    ],
+    felder: [{ id: "leistungen", typ: "check", quelle: "leistungen", spalten: 2, standard: [], min: 1, erlaubt: (s) => leistungenFuer(s.branche) }],
   },
   {
     id: "website",
@@ -246,29 +264,17 @@ export const SCHRITTE: Step[] = [
     ],
   },
   {
-    id: "extras",
-    felder: [{ id: "express", typ: "schalter" }],
-  },
-  {
     id: "laufend",
     wenn: (s) => hat(s, "website", "ki", ...SOFTWARE),
     felder: [{ id: "betrieb", typ: "radio", quelle: "betrieb", spalten: 2, standard: "betrieb" }],
   },
+  {
+    // Tempo ganz am Ende – als Extra-Service auf das fertige Paket
+    id: "extras",
+    felder: [{ id: "express", typ: "schalter" }],
+  },
   { id: "ende", felder: [], ergebnis: true },
 ];
-
-/** Hauptoption je Leistung – für den "ab"-Preis in Schritt 1 */
-export const LEISTUNG_QUELLE: Record<string, { quelle: string; dreh?: boolean }> = {
-  website: { quelle: "websiteUmfang" },
-  bestellung: { quelle: "bestellUmfang" },
-  buchung: { quelle: "buchungUmfang" },
-  portal: { quelle: "portalUmfang" },
-  dashboard: { quelle: "dashboardUmfang" },
-  software: { quelle: "softwareUmfang" },
-  app: { quelle: "appUmfang" },
-  ki: { quelle: "kiWorkflows" },
-  media: { quelle: "mediaPaket", dreh: true },
-};
 
 /** Rechner-Leistung → Funnel-Interesse (Lead-Payload & Scoring) */
 export const LEISTUNG_INTEREST: Record<string, InterestId> = {

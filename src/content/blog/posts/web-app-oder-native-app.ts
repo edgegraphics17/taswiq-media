@@ -14,7 +14,7 @@ export const post: BlogPost = {
     "Eine Web-App läuft im Browser und lässt sich auf den Homescreen legen – ohne Store.",
     "Für Buchung, Bestellung, Portale und interne Tools reicht sie in den meisten Fällen.",
     "Native Apps lohnen sich bei Offline-Pflicht, tiefer Geräteintegration oder Store-Präsenz.",
-    "Web-App ab 4.900 €, native App ab 12.900 € (Richtwerte).",
+    "Web-App ab 3.900 €, native App ab 9.900 € (Richtwerte).",
   ],
   sections: [
     {
@@ -36,7 +36,7 @@ export const post: BlogPost = {
           table: {
             head: ["Kriterium", "Web-App / PWA", "Native App"],
             rows: [
-              ["Kosten (Richtwert)", "ab 4.900 €", "ab 12.900 €"],
+              ["Kosten (Richtwert)", "ab 3.900 €", "ab 9.900 €"],
               ["Zeit bis zum Start", "Wochen", "Wochen plus Store-Freigabe"],
               ["Updates", "sofort für alle", "über Store-Update"],
               ["Push-Nachrichten", "ja", "ja"],

@@ -11,7 +11,7 @@ export const post: BlogPost = {
   intro:
     "Zwischen 500 € und 50.000 € ist alles möglich – und genau das macht die Frage so schwer. Der Preis einer Website hängt weniger von der Anzahl der Seiten ab als davon, was sie für dein Geschäft leisten soll: informieren, Anfragen bringen, Termine verkaufen oder Bestellungen abwickeln. Hier bekommst du realistische Richtwerte und eine Checkliste für Angebote.",
   takeaways: [
-    "One-Pager ab ca. 1.490 €, Business-Website ab ca. 2.490 €, Website Pro ab ca. 4.490 €.",
+    "One-Pager ab ca. 1.190 €, Business-Website ab ca. 1.990 €, Website Pro ab ca. 3.490 €.",
     "Buchung oder Bestellung machen aus der Website ein System – und aus Besuchern Umsatz.",
     "Laufende Kosten: Hosting, Wartung, Updates – ab ca. 49 € im Monat.",
     "SEO und Sichtbarkeit in KI-Suchen sind 2026 Pflicht, nicht Extra.",
@@ -24,11 +24,11 @@ export const post: BlogPost = {
           table: {
             head: ["Typ", "Richtpreis einmalig", "Geeignet für"],
             rows: [
-              ["One-Pager", "ab 1.490 €", "Kleine Betriebe, Launch, Events"],
-              ["Business-Website", "ab 2.490 €", "Bis 8 Seiten, CMS, Anfrage-Funnel, SEO-Basis"],
-              ["Website Pro", "ab 4.490 €", "Mehrsprachig, Blog, Landingpages, Tracking"],
-              ["Website + Buchungssystem", "ab 5.390 €", "Salons, Praxen, Werkstätten, Coaches"],
-              ["Website + Bestellsystem", "ab 6.390 €", "Restaurants, Bäckereien, Lieferdienste"],
+              ["One-Pager", "ab 1.190 €", "Kleine Betriebe, Launch, Events"],
+              ["Business-Website", "ab 1.990 €", "Bis 8 Seiten, CMS, Anfrage-Funnel, SEO-Basis"],
+              ["Website Pro", "ab 3.490 €", "Mehrsprachig, Blog, Landingpages, Tracking"],
+              ["Website + Buchungssystem", "ab 4.190 €", "Salons, Praxen, Werkstätten, Coaches"],
+              ["Website + Bestellsystem", "ab 4.890 €", "Restaurants, Bäckereien, Lieferdienste"],
             ],
             caption: "Richtwerte, Endpreise nach § 19 UStG. Den genauen Rahmen zeigt der Preisrechner.",
           },

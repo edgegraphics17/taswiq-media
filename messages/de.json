@@ -1020,7 +1020,7 @@
     "website": {
       "name": "Website",
       "audience": "Für Betriebe, die online gefunden werden und Anfragen bekommen wollen",
-      "meta": "Business-Website ab 2.490 € · Hosting & Wartung ab 49 €/Monat",
+      "meta": "Business-Website ab 1.990 € · Hosting & Wartung ab 49 €/Monat",
       "features": [
         "Mobil zuerst & schnell",
         "SEO & GEO für KI-Suchen",
@@ -1032,7 +1032,7 @@
     "system": {
       "name": "Bestell- oder Buchungssystem",
       "audience": "Für Gastro, Salons, Praxen, Werkstätten & Services",
-      "meta": "Bestellsystem ab 3.900 € · Betrieb & Support ab 149 €/Monat",
+      "meta": "Bestellsystem ab 2.900 € · Betrieb & Support ab 149 €/Monat",
       "features": [
         "Eigene Plattform ohne Provision",
         "Online-Zahlung",
@@ -1044,7 +1044,7 @@
     "custom": {
       "name": "Individuelle Software",
       "audience": "Für Betriebe mit eigenen Abläufen – Portale, Dashboards, Systeme",
-      "meta": "Dashboard ab 6.900 € · Portal ab 9.900 € · Kernprozess ab 14.900 €",
+      "meta": "Dashboard ab 4.900 € · Portal ab 7.400 € · Kernprozess ab 10.900 €",
       "features": [
         "Workshop & Prozessanalyse",
         "Rollen & Rechte",
@@ -1117,7 +1117,7 @@
       "navLabel": "Software für Gastronomie",
       "keyword": "Software für Gastronomie",
       "metaTitle": "Software für Restaurants & Gastronomie – Bestellsystem ohne Provision",
-      "metaDescription": "Eigenes Bestellsystem, Reservierung und Küchen-Dashboard für Restaurants, Imbisse, Bäckereien und Lieferdienste. Ohne Plattform-Provision, ab 3.900 €.",
+      "metaDescription": "Eigenes Bestellsystem, Reservierung und Küchen-Dashboard für Restaurants, Imbisse, Bäckereien und Lieferdienste. Ohne Plattform-Provision, ab 2.900 €.",
       "keywords": [
         "Software Gastronomie",
         "Bestellsystem Restaurant",
@@ -1186,7 +1186,7 @@
         },
         {
           "q": "Was kostet ein eigenes Bestellsystem?",
-          "a": "Ab 3.900 € einmalig für den Start, mit Online-Zahlung und Küchen-Display ab 6.900 €. Betrieb ab 49 € im Monat."
+          "a": "Ab 2.900 € einmalig für den Start, mit Online-Zahlung und Küchen-Display ab 4.900 €. Betrieb ab 49 € im Monat."
         },
         {
           "q": "Wie schnell ist das System live?",
@@ -1275,7 +1275,7 @@
         },
         {
           "q": "Was kostet ein Mieterportal?",
-          "a": "Ein Kundenportal startet bei rund 9.900 €, mit Workflows, Rollen und Freigaben bei rund 16.900 €."
+          "a": "Ein Kundenportal startet bei rund 7.400 €, mit Workflows, Rollen und Freigaben bei rund 12.900 €."
         },
         {
           "q": "Wo liegen die Daten?",
@@ -1364,7 +1364,7 @@
         },
         {
           "q": "Was kostet eine Schüler-App?",
-          "a": "Als Web-App ab rund 4.900 €, mit Buchung für mehrere Fahrlehrer ab rund 8.900 €."
+          "a": "Als Web-App ab rund 3.900 €, mit Buchung für mehrere Fahrlehrer ab rund 6.400 €."
         },
         {
           "q": "Macht ihr auch Fahrzeugvideos?",
@@ -1445,7 +1445,7 @@
         },
         {
           "q": "Was kostet ein Mandantenportal?",
-          "a": "Ab rund 9.900 € für Login, Dokumente, Status und Nachrichten, mit Workflows und Freigaben ab rund 16.900 €."
+          "a": "Ab rund 7.400 € für Login, Dokumente, Status und Nachrichten, mit Workflows und Freigaben ab rund 12.900 €."
         },
         {
           "q": "Werden Mandantendaten für KI-Training verwendet?",
@@ -1461,7 +1461,7 @@
       "navLabel": "Buchungssystem für Friseure & Beauty",
       "keyword": "Buchungssystem für Friseure & Beauty",
       "metaTitle": "Buchungssystem für Friseure, Beauty & Studios – ohne Provision",
-      "metaDescription": "Eigene Online-Terminbuchung für Friseure, Barber, Kosmetik, Physio und Studios – mit Doppelbuchungs-Schutz, Erinnerungen und Anzahlung. Ab 2.900 €.",
+      "metaDescription": "Eigene Online-Terminbuchung für Friseure, Barber, Kosmetik, Physio und Studios – mit Doppelbuchungs-Schutz, Erinnerungen und Anzahlung. Ab 2.200 €.",
       "keywords": [
         "Buchungssystem Friseur",
         "Online Terminbuchung Friseur",
@@ -1481,7 +1481,7 @@
             "label": "Doppelbuchungen – auf Datenbank-Ebene"
           },
           {
-            "value": "ab 2.900 €",
+            "value": "ab 2.200 €",
             "label": "einmalig statt monatlich pro Kalender"
           }
         ]
@@ -1534,7 +1534,7 @@
         },
         {
           "q": "Was kostet das Buchungssystem?",
-          "a": "Buchung Start ab 2.900 €, mit Kundenkonto, Anzahlung und Warteliste ab 5.400 €. Betrieb ab 49 € im Monat."
+          "a": "Buchung Start ab 2.200 €, mit Kundenkonto, Anzahlung und Warteliste ab 3.900 €. Betrieb ab 49 € im Monat."
         },
         {
           "q": "Eignet sich das auch für Physio und Studios?",
@@ -1619,7 +1619,7 @@
         },
         {
           "q": "Was kostet das?",
-          "a": "Anfrage-Funnel mit Angebotsgenerator ab rund 6.900 €, ein kompletter Kernprozess ab rund 14.900 €."
+          "a": "Anfrage-Funnel mit Angebotsgenerator ab rund 4.900 €, ein kompletter Kernprozess ab rund 10.900 €."
         },
         {
           "q": "Bleibt unsere Buchhaltung?",
@@ -1631,7 +1631,7 @@
       "navLabel": "Individualsoftware",
       "keyword": "Individualsoftware für KMU & Mittelstand",
       "metaTitle": "Individualsoftware für KMU & Mittelstand – mit KI in Wochen gebaut",
-      "metaDescription": "Eigene Software für deine Prozesse: Workshop, klickbarer Prototyp in 7 Tagen, Festpreis, Entwicklung in Etappen. Code gehört dir. Ab 14.900 €.",
+      "metaDescription": "Eigene Software für deine Prozesse: Workshop, klickbarer Prototyp in 7 Tagen, Festpreis, Entwicklung in Etappen. Code gehört dir. Ab 10.900 €.",
       "keywords": [
         "Individualsoftware",
         "Software entwickeln lassen",
@@ -1696,7 +1696,7 @@
       "faq": [
         {
           "q": "Was kostet Individualsoftware?",
-          "a": "Ein Kernprozess ab rund 14.900 €, mehrere Prozesse mit Rollen und Schnittstellen ab rund 24.900 €. Den Festpreis nennen wir nach dem Prototyp."
+          "a": "Ein Kernprozess ab rund 10.900 €, mehrere Prozesse mit Rollen und Schnittstellen ab rund 18.900 €. Den Festpreis nennen wir nach dem Prototyp."
         },
         {
           "q": "Wie lange dauert es?",
@@ -1716,7 +1716,7 @@
       "navLabel": "Bestellsystem ohne Provision",
       "keyword": "Bestellsystem ohne Provision",
       "metaTitle": "Eigenes Bestellsystem ohne Provision – für Restaurants & Lieferdienste",
-      "metaDescription": "Online-Bestellsystem unter deinem Namen: Speisekarte, Warenkorb, Zahlung, Küchen-Display, Liefergebiete. Keine Provision pro Bestellung. Ab 3.900 €.",
+      "metaDescription": "Online-Bestellsystem unter deinem Namen: Speisekarte, Warenkorb, Zahlung, Küchen-Display, Liefergebiete. Keine Provision pro Bestellung. Ab 2.900 €.",
       "keywords": [
         "Bestellsystem ohne Provision",
         "eigenes Bestellsystem",
@@ -1736,7 +1736,7 @@
             "label": "Provision pro Bestellung"
           },
           {
-            "value": "ab 3.900 €",
+            "value": "ab 2.900 €",
             "label": "einmalig, Betrieb ab 49 €/Monat"
           }
         ]
@@ -1801,7 +1801,7 @@
       "navLabel": "Online-Buchungssystem",
       "keyword": "Online-Buchungssystem",
       "metaTitle": "Eigenes Online-Buchungssystem – Termine, Reservierungen, Kurse",
-      "metaDescription": "Online-Terminbuchung unter deinem Namen: Kalender, Mitarbeiter, Erinnerungen, Anzahlung, Doppelbuchungs-Schutz. Für Salons, Praxen, Werkstätten. Ab 2.900 €.",
+      "metaDescription": "Online-Terminbuchung unter deinem Namen: Kalender, Mitarbeiter, Erinnerungen, Anzahlung, Doppelbuchungs-Schutz. Für Salons, Praxen, Werkstätten. Ab 2.200 €.",
       "keywords": [
         "Online Buchungssystem",
         "Terminbuchung Software",
@@ -1821,7 +1821,7 @@
             "label": "buchbar – auch nach Feierabend"
           },
           {
-            "value": "ab 2.900 €",
+            "value": "ab 2.200 €",
             "label": "einmalig statt Abo pro Kalender"
           }
         ]
@@ -1874,7 +1874,7 @@
         },
         {
           "q": "Was kostet das?",
-          "a": "Buchung Start ab 2.900 €, Pro mit Kundenkonto, Anzahlung und Warteliste ab 5.400 €, Team & Standorte ab 8.900 €."
+          "a": "Buchung Start ab 2.200 €, Pro mit Kundenkonto, Anzahlung und Warteliste ab 3.900 €, Team & Standorte ab 6.400 €."
         },
         {
           "q": "Wie schnell ist es live?",
@@ -1886,7 +1886,7 @@
       "navLabel": "Web-Apps & Kundenportale",
       "keyword": "Web-App-Entwicklung",
       "metaTitle": "Web-App & Kundenportal entwickeln lassen – für KMU",
-      "metaDescription": "Kundenportale, interne Tools und Apps für iOS & Android – als Web-App für den Homescreen oder native App. Login, Dokumente, Status, Push. Ab 4.900 €.",
+      "metaDescription": "Kundenportale, interne Tools und Apps für iOS & Android – als Web-App für den Homescreen oder native App. Login, Dokumente, Status, Push. Ab 3.900 €.",
       "keywords": [
         "Web App entwickeln lassen",
         "Kundenportal erstellen",
@@ -1906,7 +1906,7 @@
             "label": "in der Antragsbruder-Web-App"
           },
           {
-            "value": "ab 4.900 €",
+            "value": "ab 3.900 €",
             "label": "als Web-App für den Homescreen"
           }
         ]
@@ -1955,7 +1955,7 @@
         },
         {
           "q": "Was kostet ein Kundenportal?",
-          "a": "Ab rund 9.900 € für Login, Dokumente, Status und Nachrichten, mit Workflows und Freigaben ab rund 16.900 €."
+          "a": "Ab rund 7.400 € für Login, Dokumente, Status und Nachrichten, mit Workflows und Freigaben ab rund 12.900 €."
         },
         {
           "q": "Kann daraus später eine native App werden?",
@@ -1971,7 +1971,7 @@
       "navLabel": "Dashboards & Reporting",
       "keyword": "Dashboard-Entwicklung",
       "metaTitle": "Unternehmens-Dashboard entwickeln lassen – alle Zahlen an einem Ort",
-      "metaDescription": "Dashboards für KMU: Umsatz, Anfragen, Auslastung, offene Posten aus Kasse, CRM und Buchhaltung – in Echtzeit oder als Wochen-Report. Ab 6.900 €.",
+      "metaDescription": "Dashboards für KMU: Umsatz, Anfragen, Auslastung, offene Posten aus Kasse, CRM und Buchhaltung – in Echtzeit oder als Wochen-Report. Ab 4.900 €.",
       "keywords": [
         "Dashboard erstellen lassen",
         "KPI Dashboard",
@@ -2040,7 +2040,7 @@
         },
         {
           "q": "Was kostet ein Dashboard?",
-          "a": "Wochen-Report ab 890 €, Dashboard ab rund 6.900 €, Dashboard Pro mit Echtzeit, Rollen und Alarmen ab rund 11.900 €."
+          "a": "Wochen-Report ab 890 €, Dashboard ab rund 4.900 €, Dashboard Pro mit Echtzeit, Rollen und Alarmen ab rund 8.900 €."
         },
         {
           "q": "Wie aktuell sind die Daten?",
@@ -2141,7 +2141,7 @@
       "navLabel": "Websites, die verkaufen",
       "keyword": "Website erstellen lassen",
       "metaTitle": "Website erstellen lassen – schnell, SEO- & KI-Suche-optimiert",
-      "metaDescription": "Websites für KMU, die Anfragen bringen: schnell, mobil, SEO und GEO für KI-Suchen, Anfrage-Funnel, Buchung oder Bestellung. Ab 1.490 €.",
+      "metaDescription": "Websites für KMU, die Anfragen bringen: schnell, mobil, SEO und GEO für KI-Suchen, Anfrage-Funnel, Buchung oder Bestellung. Ab 1.190 €.",
       "keywords": [
         "Website erstellen lassen",
         "Webdesign Agentur",
@@ -2162,7 +2162,7 @@
           },
           {
             "value": "ab 1.490 €",
-            "label": "One-Pager, Business ab 2.490 €"
+            "label": "One-Pager, Business ab 1.990 €"
           }
         ]
       },
@@ -2206,7 +2206,7 @@
       "faq": [
         {
           "q": "Was kostet eine Website?",
-          "a": "One-Pager ab 1.490 €, Business-Website ab 2.490 €, Website Pro ab 4.490 €. Hosting & Wartung ab 49 € im Monat."
+          "a": "One-Pager ab 1.190 €, Business-Website ab 1.990 €, Website Pro ab 3.490 €. Hosting & Wartung ab 49 € im Monat."
         },
         {
           "q": "Kann ich Inhalte selbst ändern?",
@@ -2490,9 +2490,7 @@
     "request": "Anfragen",
     "showResult": "Ergebnis anzeigen",
     "resultShort": "Ergebnis",
-    "entryPrice": "Einstiegspreis",
     "estimateOneTime": "Richtwert einmalig",
-    "from": "ab <amount></amount>",
     "plusMonthly": "dazu {amount}/Monat",
     "plusMonthlyShort": "+{amount}/Mon.",
     "keyboardTip": "Tipp: Mit ← → durch die Schritte",
@@ -2511,10 +2509,15 @@
     "increase": "{label} erhöhen",
     "perUnit": "je {amount}",
     "steps": {
+      "branche": {
+        "kurz": "Branche",
+        "titel": "In welcher Branche bist du?",
+        "hint": "Danach zeigen wir dir nur, was für deinen Betrieb infrage kommt."
+      },
       "start": {
         "kurz": "Projekt",
-        "titel": "Was sollen wir für dich bauen?",
-        "hint": "Diese Auswahl bestimmt, welche Fragen danach kommen. Mehrfachauswahl – ändern kannst du alles jederzeit."
+        "titel": "Was brauchst du?",
+        "hint": "Passend zu deiner Branche vorsortiert. Mehrfachauswahl – ändern kannst du alles jederzeit."
       },
       "website": {
         "kurz": "Website",
@@ -2548,7 +2551,8 @@
       },
       "extras": {
         "kurz": "Tempo",
-        "titel": "Wie schnell soll es gehen?"
+        "titel": "Soll es besonders schnell gehen?",
+        "hint": "Optionaler Extra-Service. Ohne Express starten wir zum nächsten freien Termin."
       },
       "laufend": {
         "kurz": "Betrieb",
@@ -2561,11 +2565,8 @@
       }
     },
     "fields": {
-      "branche": {
-        "label": "Deine Branche"
-      },
       "leistungen": {
-        "label": "Was brauchst du? – Mehrfachauswahl"
+        "label": "Mehrfachauswahl möglich"
       },
       "websiteUmfang": {
         "label": "Umfang",
@@ -2971,7 +2972,10 @@
       "nextStepText": "Workshop & klickbarer Prototyp – danach nennen wir einen festen Preis. Antwort innerhalb von 24 Stunden.",
       "rights": "Rechte & Code",
       "rightsText": "Quellcode, Daten und Nutzungsrechte gehören dir – nach Zahlungseingang, ohne zeitliche oder räumliche Grenze."
-    }
+    },
+    "estimateLabel": "Dein Richtwert",
+    "estimatePending": "Baut sich mit deinen Antworten auf – wähl erst mal in Ruhe aus.",
+    "estimateNote": "Unverbindlich · kein Angebot"
   },
   "legal": {
     "tag": "Rechtliches",

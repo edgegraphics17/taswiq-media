@@ -22,9 +22,9 @@ export interface PackageDef {
 }
 
 export const softwarePackages: PackageDef[] = [
-  { id: "website", price: 1490, billing: "once", from: true, interest: "web" },
-  { id: "system", price: 2900, billing: "once", from: true, interest: "bestellsystem", featured: true },
-  { id: "custom", price: 6900, billing: "once", from: true, interest: "software" },
+  { id: "website", price: 1190, billing: "once", from: true, interest: "web" },
+  { id: "system", price: 2200, billing: "once", from: true, interest: "bestellsystem", featured: true },
+  { id: "custom", price: 4900, billing: "once", from: true, interest: "software" },
 ];
 
 export const mediaPackages: PackageDef[] = [

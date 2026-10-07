@@ -11,7 +11,7 @@ export const post: BlogPost = {
   intro:
     "„Gibt es dafür nicht schon eine Software?“ – meistens ja. Und trotzdem arbeiten viele mittelständische Betriebe mit fünf Tools, drei Excel-Listen und einem Kollegen, der als einziger weiß, wie alles zusammenhängt. Individuelle Software ist dann sinnvoll, wenn dein Ablauf dein Wettbewerbsvorteil ist – oder wenn Standard-Tools mehr Arbeit machen, als sie sparen.",
   takeaways: [
-    "Richtwerte: ein Kernprozess ab ca. 14.900 €, mehrere Prozesse ab ca. 24.900 €.",
+    "Richtwerte: ein Kernprozess ab ca. 10.900 €, mehrere Prozesse ab ca. 18.900 €.",
     "Die größten Kostentreiber sind Schnittstellen, Rollen und unklare Anforderungen.",
     "Ein klickbarer Prototyp vor der Entwicklung spart das meiste Geld.",
     "Mit KI-gestützter Entwicklung sind Projekte heute deutlich schneller fertig als noch vor wenigen Jahren.",
@@ -41,11 +41,11 @@ export const post: BlogPost = {
           table: {
             head: ["Umfang", "Richtpreis einmalig", "Beispiel"],
             rows: [
-              ["Dashboard", "ab 6.900 €", "Kennzahlen aus 2–3 Quellen an einem Ort"],
-              ["Kundenportal", "ab 9.900 €", "Login, Dokumente, Status, Nachrichten"],
-              ["Ein Kernprozess", "ab 14.900 €", "Auftrag → Einsatz → Rechnung"],
-              ["Mehrere Prozesse", "ab 24.900 €", "Rollen & Rechte, Schnittstellen, Admin"],
-              ["Plattform", "ab 39.900 €", "Mehrere Abteilungen oder Standorte"],
+              ["Dashboard", "ab 4.900 €", "Kennzahlen aus 2–3 Quellen an einem Ort"],
+              ["Kundenportal", "ab 7.400 €", "Login, Dokumente, Status, Nachrichten"],
+              ["Ein Kernprozess", "ab 10.900 €", "Auftrag → Einsatz → Rechnung"],
+              ["Mehrere Prozesse", "ab 18.900 €", "Rollen & Rechte, Schnittstellen, Admin"],
+              ["Plattform", "ab 29.900 €", "Mehrere Abteilungen oder Standorte"],
             ],
             caption: "Endpreise nach § 19 UStG. Hosting & Wartung ab 49 €, Betrieb & Support ab 149 € im Monat.",
           },

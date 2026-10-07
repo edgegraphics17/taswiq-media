@@ -118,8 +118,11 @@ export function CalcField({
     );
   }
 
-  const list = options[field.quelle] ?? [];
   const multi = field.typ === "check";
+  const erlaubt = field.typ === "check" ? field.erlaubt?.(state) : undefined;
+  const all = options[field.quelle] ?? [];
+  // Mit Filter: Reihenfolge der Branche (wichtigste Leistung zuerst)
+  const list = erlaubt ? erlaubt.flatMap((id) => all.find((o) => o.id === id) ?? []) : all;
   const value = state[field.id];
   return (
     <fieldset>
