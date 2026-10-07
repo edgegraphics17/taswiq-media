@@ -4,6 +4,7 @@ export const post: BlogPost = {
   slug: "aftermovie-premium-festivalfilm",
   category: "media",
   title: "Aftermovie und Event-Video: Was ein Premium-Festivalfilm leisten muss",
+  seoTitle: "Aftermovie & Event-Video: Was ein Festivalfilm leistet",
   description: "Was ein Premium-Aftermovie ausmacht, wie Crew und Ablauf aussehen, was es kostet – und wie aus einem Dreh Content für den nächsten Vorverkauf wird.",
   keywords: ["Aftermovie erstellen lassen", "Festival Aftermovie Kosten", "Eventvideo Premium", "Festival Videograf", "Aftermovie Produktion"],
   date: "2026-09-27",

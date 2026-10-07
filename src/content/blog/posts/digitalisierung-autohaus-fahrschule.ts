@@ -4,6 +4,7 @@ export const post: BlogPost = {
   slug: "digitalisierung-autohaus-fahrschule",
   category: "branchen",
   title: "Digitalisierung in Autohaus, Werkstatt und Fahrschule: Online-Termine, Fahrzeugbörse und Schüler-App",
+  seoTitle: "Digitalisierung Autohaus, Werkstatt & Fahrschule",
   description: "Werkstatttermine online, Fahrzeuganfragen ohne Portal-Gebühr, Fahrstunden per App buchen: So digitalisieren Autohäuser und Fahrschulen ihre Abläufe.",
   keywords: ["Software Fahrschule", "Fahrschul App", "Werkstatt Termin online buchen", "Autohaus Digitalisierung", "Software Autohaus"],
   date: "2026-09-27",

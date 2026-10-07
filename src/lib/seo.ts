@@ -39,6 +39,18 @@ export function languageAlternates(hrefFor: (l: Locale) => PathHref, locale: Loc
   return { canonical: absoluteUrl(hrefFor(locale), locale), languages };
 }
 
+/**
+ * Google zeigt rund 60 Zeichen eines Titels. Lange Titel bekommen deshalb keinen Marken-Zusatz („| TasWiq Media.“),
+ * damit das Suchwort vorn vollständig sichtbar bleibt; kurze Titel behalten ihn.
+ */
+export const BRAND_SUFFIX_MAX = 44;
+export function seoTitle(title: string): Metadata["title"] {
+  return title.length > BRAND_SUFFIX_MAX ? { absolute: title } : title;
+}
+
+/** Vorschaubild für geteilte Links (WhatsApp, LinkedIn, Slack) – das generierte OG-Bild der jeweiligen Sprache. */
+export const defaultOgImage = (locale: Locale) => `${site.url}/${locale}/opengraph-image/default`;
+
 export async function pageMetadata({
   locale,
   href,
@@ -60,8 +72,9 @@ export async function pageMetadata({
   const hrefFor = typeof href === "function" ? href : () => href;
   const alternates = languageAlternates(hrefFor, locale);
   const url = alternates.canonical as string;
+  const ogImage = image ?? defaultOgImage(locale);
   return {
-    title,
+    title: seoTitle(title),
     description,
     keywords: [...keywords, ...(t.raw("keywords") as string[])].slice(0, 14),
     alternates,
@@ -73,9 +86,9 @@ export async function pageMetadata({
       siteName: site.name,
       title,
       description,
-      ...(image ? { images: [{ url: image, width: 1200, height: 630 }] } : {}),
+      images: [{ url: ogImage, width: 1200, height: 630 }],
     },
-    twitter: { card: "summary_large_image", title, description },
+    twitter: { card: "summary_large_image", title, description, images: [ogImage] },
     ...(noindex ? { robots: { index: false, follow: true } } : {}),
   };
 }

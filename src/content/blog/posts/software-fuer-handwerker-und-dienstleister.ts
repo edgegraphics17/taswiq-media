@@ -4,6 +4,7 @@ export const post: BlogPost = {
   slug: "software-fuer-handwerker-und-dienstleister",
   category: "branchen",
   title: "Software für Handwerker und Dienstleister: Angebot, Einsatz und Abnahme digital",
+  seoTitle: "Handwerkersoftware: Angebot, Einsatz & Abnahme digital",
   description: "Vom Anfrage-Chaos zum sauberen Ablauf: Angebotsgenerator, Einsatzplanung, Monteur-App und digitale Abnahme für Handwerk, Reinigung und Services.",
   keywords: ["Software Handwerker", "Handwerker App", "Einsatzplanung Software", "digitale Abnahme", "Software Dienstleister"],
   date: "2026-09-27",

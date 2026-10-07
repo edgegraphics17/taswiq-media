@@ -24,6 +24,9 @@ const nextConfig: NextConfig = {
     });
     const media = seoPages.find((p) => p.kind === "media")!;
     return [
+      // Die Vercel-Adresse liefert dieselbe Website aus → dauerhaft auf die eigene Domain, damit Google nur eine Fassung kennt.
+      // Vorschau-Deployments (taswiq-media-<hash>-….vercel.app) sind nicht betroffen.
+      { source: "/:path*", has: [{ type: "host", value: "taswiq-media.vercel.app" }], destination: "https://www.taswiq-media.de/:path*", permanent: true },
       ...seo,
       { source: "/content-pipeline", destination: `/leistungen/${media.slugs.de}`, permanent: true },
       { source: "/en/content-pipeline", destination: `/en/services/${media.slugs.en}`, permanent: true },

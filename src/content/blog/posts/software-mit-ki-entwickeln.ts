@@ -4,6 +4,7 @@ export const post: BlogPost = {
   slug: "software-mit-ki-entwickeln",
   category: "ki",
   title: "Software mit KI entwickeln: Warum Projekte heute in Wochen statt Monaten fertig sind",
+  seoTitle: "Software mit KI entwickeln lassen: Wochen statt Monate",
   description: "Wie KI-gestützte Softwareentwicklung funktioniert, was sie für Kosten und Tempo bedeutet – und warum erfahrene Entwickler wichtiger sind als je zuvor.",
   keywords: ["Software mit KI entwickeln", "KI Softwareentwicklung", "KI Programmierung Agentur", "schnelle Softwareentwicklung", "AI Software Development"],
   date: "2026-09-27",

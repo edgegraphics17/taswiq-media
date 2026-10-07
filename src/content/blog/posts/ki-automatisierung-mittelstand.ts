@@ -4,6 +4,7 @@ export const post: BlogPost = {
   slug: "ki-automatisierung-mittelstand",
   category: "ki",
   title: "KI-Automatisierung im Mittelstand: 10 Anwendungsfälle mit schnellem Nutzen",
+  seoTitle: "KI-Automatisierung im Mittelstand: 10 Anwendungsfälle",
   description: "Zehn konkrete KI-Automatisierungen für KMU – von Anfragen und Belegen bis Telefonassistent – mit Aufwand, Nutzen und den häufigsten Fehlern.",
   keywords: ["KI Automatisierung Unternehmen", "KI im Mittelstand", "KI für KMU", "Prozessautomatisierung KI", "n8n Automatisierung"],
   date: "2026-09-27",

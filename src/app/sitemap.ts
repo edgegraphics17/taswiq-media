@@ -21,8 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: p.kind === "media" ? 0.6 : 0.85,
     })),
-    { hrefFor: () => "/impressum", changeFrequency: "yearly", priority: 0.2 },
-    { hrefFor: () => "/datenschutz", changeFrequency: "yearly", priority: 0.2 },
+    // Impressum und Datenschutz stehen bewusst nicht hier: Sie sind noindex – eine Sitemap soll nur Seiten nennen, die ranken sollen.
   ];
 
   const localized = entries.flatMap((e) =>

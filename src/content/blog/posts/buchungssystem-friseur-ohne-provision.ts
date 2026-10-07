@@ -4,6 +4,7 @@ export const post: BlogPost = {
   slug: "buchungssystem-friseur-ohne-provision",
   category: "branchen",
   title: "Buchungssystem für Friseure und Beauty-Salons: Plattform oder eigene Lösung?",
+  seoTitle: "Buchungssystem Friseur: Plattform oder eigene Lösung?",
   description: "Buchungsplattform oder eigenes Buchungssystem? Kosten, Kundendaten und Funktionen im Vergleich – für Friseure, Barber, Kosmetik und Studios.",
   keywords: ["Buchungssystem Friseur", "Online Terminbuchung Friseur", "Buchungssystem ohne Provision", "Planity Alternative", "Terminbuchung Kosmetikstudio"],
   date: "2026-09-27",

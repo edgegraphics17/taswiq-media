@@ -4,6 +4,7 @@ export const post: BlogPost = {
   slug: "unternehmens-dashboard-kennzahlen",
   category: "software",
   title: "Unternehmens-Dashboard: Welche Kennzahlen KMU wirklich brauchen",
+  seoTitle: "Unternehmens-Dashboard: Kennzahlen, die KMU brauchen",
   description: "Welche KPIs gehören in ein Dashboard für kleine und mittlere Unternehmen? Beispiele je Branche, Datenquellen und was ein eigenes Dashboard kostet.",
   keywords: ["Dashboard für Unternehmen", "KPI Dashboard KMU", "Dashboard erstellen lassen", "Kennzahlen Dashboard", "Business Dashboard"],
   date: "2026-09-27",

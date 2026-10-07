@@ -4,6 +4,7 @@ export const post: BlogPost = {
   slug: "mandantenportal-steuerberater",
   category: "branchen",
   title: "Mandantenportal für Steuerberater und Kanzleien: Belege digital statt Pendelordner",
+  seoTitle: "Mandantenportal für Steuerberater: Belege digital",
   description: "Wie ein eigenes Mandantenportal Belege, Fristen und Rückfragen bündelt – als Ergänzung zu DATEV, DSGVO-konform und mit KI-Belegerkennung.",
   keywords: ["Mandantenportal Steuerberater", "Software Steuerberater", "Kanzlei Digitalisierung", "Belege digital einreichen", "Mandantenportal Kanzlei"],
   date: "2026-09-27",

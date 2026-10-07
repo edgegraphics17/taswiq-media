@@ -4,6 +4,7 @@ export const post: BlogPost = {
   slug: "was-kostet-eine-website",
   category: "ratgeber",
   title: "Was kostet eine Website 2026? Preise, Leistungen und versteckte Kosten",
+  seoTitle: "Was kostet eine Website 2026? Preise & versteckte Kosten",
   description: "Website-Kosten 2026 realistisch: One-Pager, Business-Website, Website mit Buchung oder Shop – mit Richtpreisen, laufenden Kosten und Checkliste.",
   keywords: ["Was kostet eine Website", "Website Kosten 2026", "Website erstellen lassen Kosten", "Homepage Kosten", "Website für kleine Unternehmen"],
   date: "2026-09-27",

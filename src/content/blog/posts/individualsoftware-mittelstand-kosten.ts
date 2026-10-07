@@ -4,6 +4,7 @@ export const post: BlogPost = {
   slug: "individualsoftware-mittelstand-kosten",
   category: "software",
   title: "Individualsoftware für den Mittelstand: Kosten, Ablauf und wann sie sich lohnt",
+  seoTitle: "Individualsoftware: Kosten, Ablauf & wann sie sich lohnt",
   description: "Was kostet individuelle Software 2026? Richtpreise, Kostentreiber, Ablauf vom Workshop bis zum Betrieb und eine Checkliste, ob sich eigene Software lohnt.",
   keywords: ["Individualsoftware Kosten", "Individualsoftware Mittelstand", "Software entwickeln lassen", "Softwareentwicklung KMU", "eigene Software Unternehmen"],
   date: "2026-09-27",

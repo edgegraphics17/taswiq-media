@@ -4,6 +4,7 @@ export const post: BlogPost = {
   slug: "saas-abo-oder-eigene-software",
   category: "ratgeber",
   title: "SaaS-Abo oder eigene Software? Die Rechnung über fünf Jahre",
+  seoTitle: "SaaS-Abo oder eigene Software? Rechnung über 5 Jahre",
   description: "Monatliche Abo-Software oder einmalig eigene Software? Eine transparente Fünf-Jahres-Rechnung mit Beispielzahlen – und wann welches Modell gewinnt.",
   keywords: ["SaaS oder eigene Software", "eigene Software statt Abo", "Softwarekosten vergleichen", "Lizenzkosten sparen", "Software kaufen oder mieten"],
   date: "2026-09-27",

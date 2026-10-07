@@ -4,6 +4,7 @@ export const post: BlogPost = {
   slug: "software-fuer-makler-und-hausverwaltungen",
   category: "branchen",
   title: "Software für Makler und Hausverwaltungen: 7 Prozesse, die du jetzt digitalisieren solltest",
+  seoTitle: "Software für Makler & Hausverwaltung: 7 Prozesse",
   description: "Interessenten-Portal, Mieterportal, Schadensmeldung, Exposés: Diese sieben Prozesse sparen Maklern und Hausverwaltungen jede Woche Stunden.",
   keywords: ["Software Hausverwaltung", "Software für Makler", "Mieterportal", "Immobilien Software individuell", "Schadensmeldung digital"],
   date: "2026-09-27",

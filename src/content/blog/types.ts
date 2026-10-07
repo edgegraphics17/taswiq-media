@@ -27,6 +27,8 @@ export interface BlogPost {
   slug: string;
   category: BlogCategory;
   title: string;
+  /** Titel für Google (≤ 60 Zeichen, Suchwort vorn). Fehlt er, wird `title` genutzt. */
+  seoTitle?: string;
   /** Meta-Description (≤ 160 Zeichen) */
   description: string;
   /** Primäres Keyword + Varianten */

@@ -4,6 +4,7 @@ export const post: BlogPost = {
   slug: "eigenes-bestellsystem-statt-lieferando",
   category: "branchen",
   title: "Eigenes Bestellsystem statt Lieferando & Co.: Was es kostet und ab wann es sich rechnet",
+  seoTitle: "Lieferando-Alternative: eigenes Bestellsystem & Kosten",
   description: "Provision oder eigenes Bestellsystem? Kosten, Funktionen und eine einfache Break-even-Rechnung für Restaurants, Imbisse und Bäckereien.",
   keywords: ["eigenes Bestellsystem Restaurant", "Bestellsystem ohne Provision", "Alternative zu Lieferando", "Online-Bestellsystem Gastronomie", "Wolt Alternative"],
   date: "2026-09-27",

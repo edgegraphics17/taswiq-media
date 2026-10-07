@@ -14,7 +14,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Icon } from "@/components/ui/Icon";
 import type { Locale } from "@/i18n/routing";
 import { LOCALE_META } from "@/i18n/routing";
-import { absoluteUrl, breadcrumbJsonLd, faqJsonLd, ORG_ID } from "@/lib/seo";
+import { absoluteUrl, breadcrumbJsonLd, faqJsonLd, ORG_ID, seoTitle } from "@/lib/seo";
 
 /** Artikel gibt es nur auf Deutsch – /en/blog/<slug> leitet next.config.ts auf die deutsche URL um. */
 export const dynamicParams = false;
@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!post) return {};
   const url = absoluteUrl({ pathname: "/blog/[slug]", params: { slug } }, "de");
   return {
-    title: post.title,
+    title: seoTitle(post.seoTitle ?? post.title),
     description: post.description,
     keywords: post.keywords,
     alternates: { canonical: url, languages: { "de-DE": url, "x-default": url } },

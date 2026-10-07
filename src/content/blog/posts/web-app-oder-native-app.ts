@@ -4,6 +4,7 @@ export const post: BlogPost = {
   slug: "web-app-oder-native-app",
   category: "software",
   title: "Web-App oder native App? Der Entscheidungsleitfaden für KMU",
+  seoTitle: "Web-App oder native App? Leitfaden für KMU",
   description: "Web-App, Progressive Web App oder App Store? Kosten, Funktionen und Grenzen im Vergleich – mit klarer Empfehlung für kleine und mittlere Unternehmen.",
   keywords: ["Web-App oder App", "Progressive Web App Kosten", "App entwickeln lassen Kosten", "Web-App Entwicklung", "App für Unternehmen"],
   date: "2026-09-27",

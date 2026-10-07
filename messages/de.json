@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "siteTitle": "TasWiq Media. – Software, Web-Apps & Systeme für KMU und Mittelstand",
+    "siteTitle": "Software, Web-Apps & Systeme für KMU | TasWiq Media.",
     "titleTemplate": "%s | TasWiq Media.",
     "description": "Eigene Bestellsysteme, Buchungssysteme, Kundenportale, Dashboards und Websites für kleine und mittlere Unternehmen – mit KI in Wochen gebaut, zum Festpreis. Backed by winsym.ai.",
     "ogTitle": "TasWiq Media. – Eigene Software statt fremder Plattformen",
@@ -19,7 +19,7 @@
       "Website erstellen lassen"
     ],
     "calculator": {
-      "title": "Preisrechner – Was kostet Software, Website oder Bestellsystem?",
+      "title": "Preisrechner: Was kostet Software oder eine Website?",
       "description": "Stell dein Projekt in zwei Minuten zusammen: Bestellsystem, Buchungssystem, Kundenportal, Dashboard, Website oder KI-Workflows. Du siehst sofort den Kostenrahmen – unverbindlich.",
       "keywords": [
         "Software Kosten",
@@ -1388,8 +1388,8 @@
     "gastro": {
       "navLabel": "Software für Gastronomie",
       "keyword": "Software für Gastronomie",
-      "metaTitle": "Software für Restaurants & Gastronomie – Bestellsystem ohne Provision",
-      "metaDescription": "Eigenes Bestellsystem, Reservierung, Küchen-Board und Stammgast-Aktionen für Restaurants, Lieferdienste, Bäckereien, Imbisse und Caterer. Sechs Anwendungsfälle mit Kostenrahmen, ab 2.900 €.",
+      "metaTitle": "Software für Gastronomie: Bestellsystem ohne Provision",
+      "metaDescription": "Eigenes Bestellsystem, Reservierung und Küchen-Board für Restaurants, Lieferdienste, Bäckereien und Imbisse. Ohne Provision, ab 2.900 € oder zur Miete.",
       "keywords": [
         "Software Gastronomie",
         "Bestellsystem Restaurant",
@@ -2166,8 +2166,8 @@
     "immobilien": {
       "navLabel": "Software für Immobilien",
       "keyword": "Software für Makler, Hausverwaltungen & Vermieter",
-      "metaTitle": "Software für Makler, Hausverwaltung & Vermieter – Portal, Funnel, Dashboard",
-      "metaDescription": "Individuelle Immobilien-Software: Interessenten-Funnel, Besichtigungsbuchung, Mieterportal mit Schadensmeldung, Eigentümer-Reporting und Bestands-Dashboard. Sechs Anwendungsfälle mit Kostenrahmen.",
+      "metaTitle": "Software für Makler & Hausverwaltung nach Maß",
+      "metaDescription": "Software für Makler, Hausverwaltung und Vermieter: Interessenten-Funnel, Besichtigungsbuchung, Mieterportal und Eigentümer-Reporting. Mit Kostenrahmen.",
       "keywords": [
         "Software Hausverwaltung",
         "Software Makler",
@@ -2948,8 +2948,8 @@
     "automotive": {
       "navLabel": "Software für Autohaus & Fahrschule",
       "keyword": "Software für Autohäuser, Werkstätten & Fahrschulen",
-      "metaTitle": "Software für Autohaus, Werkstatt & Fahrschule – Online-Termine & App",
-      "metaDescription": "Werkstatt-Termine online, Fahrzeugbestand mit Probefahrt-Buchung, Schüler-App, Vermietung mit Übergabeprotokoll – individuelle Software für Automotive-Betriebe. Sechs Anwendungsfälle mit Kostenrahmen.",
+      "metaTitle": "Software für Autohaus, Werkstatt & Fahrschule",
+      "metaDescription": "Werkstatt-Termine online, Fahrzeugbestand mit Probefahrt-Buchung, Schüler-App für Fahrschulen und Vermietung mit Übergabeprotokoll. Mit Kostenrahmen.",
       "keywords": [
         "Software Fahrschule",
         "Fahrschul App",
@@ -3726,8 +3726,8 @@
     "kanzlei": {
       "navLabel": "Software für Kanzleien & Berater",
       "keyword": "Software für Steuerberater & Kanzleien",
-      "metaTitle": "Mandantenportal & Software für Steuerberater, Anwälte & Berater",
-      "metaDescription": "Eigenes Mandantenportal mit Beleg-Upload, Checklisten, KI-Belegerkennung, Fristen und Mandats-Onboarding – für Steuerberater, Anwälte, Lohnbüros, Makler und Berater. Sechs Anwendungsfälle mit Kostenrahmen.",
+      "metaTitle": "Mandantenportal für Steuerberater & Kanzleien",
+      "metaDescription": "Eigenes Mandantenportal mit Beleg-Upload, Checklisten, Fristen und KI-Belegerkennung – für Steuerberater, Anwälte und Lohnbüros. Mit Kostenrahmen.",
       "keywords": [
         "Mandantenportal Steuerberater",
         "Software Kanzlei",
@@ -4500,8 +4500,8 @@
     "beauty": {
       "navLabel": "Buchungssystem für Friseure & Beauty",
       "keyword": "Buchungssystem für Friseure & Beauty",
-      "metaTitle": "Buchungssystem für Friseure, Beauty, Physio & Studios – ohne Provision",
-      "metaDescription": "Eigene Online-Terminbuchung für Friseure, Barber, Kosmetik, Physio, Studios und Spas – mit Erinnerungen, Anzahlung, Warteliste und Kundenkartei. Sechs Anwendungsfälle mit Kostenrahmen, ab 2.200 €.",
+      "metaTitle": "Buchungssystem für Friseur & Beauty ohne Provision",
+      "metaDescription": "Online-Terminbuchung für Friseure, Barber, Kosmetik, Physio und Studios – mit Erinnerung, Anzahlung und Warteliste. Ohne Provision, ab 2.200 €.",
       "keywords": [
         "Buchungssystem Friseur",
         "Online Terminbuchung Friseur",
@@ -5278,8 +5278,8 @@
     "handwerk": {
       "navLabel": "Software für Handwerk & Services",
       "keyword": "Software für Handwerker & Dienstleister",
-      "metaTitle": "Software für Handwerker & Dienstleister – Angebot bis Rechnung",
-      "metaDescription": "Anfrage-Funnel mit Fotos, Angebotsgenerator, Einsatzplanung, Monteur-App und digitale Abnahme – individuelle Software für Handwerk, Reinigung, Umzug, GaLaBau und Kundendienst. Sechs Anwendungsfälle mit Kostenrahmen.",
+      "metaTitle": "Handwerkersoftware nach Maß: Angebot bis Rechnung",
+      "metaDescription": "Anfrage mit Fotos, Angebotsgenerator, Einsatzplanung, Monteur-App und digitale Abnahme – Software für Handwerk, Reinigung, Umzug und GaLaBau.",
       "keywords": [
         "Software Handwerker",
         "Handwerker App",
@@ -6047,7 +6047,7 @@
     "individualsoftware": {
       "navLabel": "Individualsoftware",
       "keyword": "Individualsoftware für KMU & Mittelstand",
-      "metaTitle": "Individualsoftware für KMU & Mittelstand – mit KI in Wochen gebaut",
+      "metaTitle": "Individualsoftware entwickeln lassen – Festpreis für KMU",
       "metaDescription": "Eigene Software für deine Prozesse: Workshop, klickbarer Prototyp in 7 Tagen, Festpreis, Entwicklung in Etappen. Code gehört dir. Ab 10.900 €.",
       "keywords": [
         "Individualsoftware",
@@ -6338,7 +6338,7 @@
     "bestellsystem": {
       "navLabel": "Bestellsystem ohne Provision",
       "keyword": "Bestellsystem ohne Provision",
-      "metaTitle": "Eigenes Bestellsystem ohne Provision – für Restaurants & Lieferdienste",
+      "metaTitle": "Bestellsystem für Restaurants: die Lieferando-Alternative",
       "metaDescription": "Online-Bestellsystem unter deinem Namen: Speisekarte, Warenkorb, Zahlung, Küchen-Display, Liefergebiete. Keine Provision pro Bestellung. Ab 2.900 €.",
       "keywords": [
         "Bestellsystem ohne Provision",
@@ -6609,7 +6609,7 @@
     "buchungssystem": {
       "navLabel": "Online-Buchungssystem",
       "keyword": "Online-Buchungssystem",
-      "metaTitle": "Eigenes Online-Buchungssystem – Termine, Reservierungen, Kurse",
+      "metaTitle": "Online-Buchungssystem für Termine, Kurse & Reservierung",
       "metaDescription": "Online-Terminbuchung unter deinem Namen: Kalender, Mitarbeiter, Erinnerungen, Anzahlung, Doppelbuchungs-Schutz. Für Salons, Praxen, Werkstätten. Ab 2.200 €.",
       "keywords": [
         "Online Buchungssystem",
@@ -6892,7 +6892,7 @@
     "webapp": {
       "navLabel": "Web-Apps & Kundenportale",
       "keyword": "Web-App-Entwicklung",
-      "metaTitle": "Web-App & Kundenportal entwickeln lassen – für KMU",
+      "metaTitle": "Web-App & Kundenportal entwickeln lassen",
       "metaDescription": "Kundenportale, interne Tools und Apps für iOS & Android – als Web-App für den Homescreen oder native App. Login, Dokumente, Status, Push. Ab 3.900 €.",
       "keywords": [
         "Web App entwickeln lassen",
@@ -7167,8 +7167,8 @@
     "dashboard": {
       "navLabel": "Dashboards & Reporting",
       "keyword": "Dashboard-Entwicklung",
-      "metaTitle": "Unternehmens-Dashboard entwickeln lassen – alle Zahlen an einem Ort",
-      "metaDescription": "Dashboards für KMU: Umsatz, Anfragen, Auslastung, offene Posten aus Kasse, CRM und Buchhaltung – in Echtzeit oder als Wochen-Report. Wochen-Report ab 890 €, Dashboard ab 4.900 €.",
+      "metaTitle": "Dashboard erstellen lassen: alle Kennzahlen an einem Ort",
+      "metaDescription": "Dashboards für KMU: Umsatz, Anfragen, Auslastung und offene Posten aus Kasse, CRM und Buchhaltung. Wochen-Report ab 890 €, Dashboard ab 4.900 €.",
       "keywords": [
         "Dashboard erstellen lassen",
         "KPI Dashboard",
@@ -7479,7 +7479,7 @@
     "ki": {
       "navLabel": "KI-Automatisierung",
       "keyword": "KI-Automatisierung für Unternehmen",
-      "metaTitle": "KI-Automatisierung für KMU – Anfragen, Dokumente, Telefon",
+      "metaTitle": "KI-Automatisierung für Unternehmen & KMU",
       "metaDescription": "KI-Workflows mit schnellem Nutzen: Anfragen beantworten, Belege auslesen, Telefonassistent, Website-Chat, Bewertungen. Mit menschlicher Freigabe. Ab 590 €.",
       "keywords": [
         "KI Automatisierung Unternehmen",
@@ -7779,7 +7779,7 @@
     "website": {
       "navLabel": "Websites, die verkaufen",
       "keyword": "Website erstellen lassen",
-      "metaTitle": "Website erstellen lassen – schnell, SEO- & KI-Suche-optimiert",
+      "metaTitle": "Website erstellen lassen: Kosten ab 1.190 € für KMU",
       "metaDescription": "Websites für KMU, die Anfragen bringen: schnell, mobil, SEO und GEO für KI-Suchen, Anfrage-Funnel, Buchung oder Bestellung. Ab 1.190 €.",
       "keywords": [
         "Website erstellen lassen",
@@ -8070,8 +8070,8 @@
     "media": {
       "navLabel": "Premium-Media für Events",
       "keyword": "Premium-Eventvideo & Festival-Aftermovie",
-      "metaTitle": "Premium-Aftermovie & Eventvideo – Festivals, Artists, Brands",
-      "metaDescription": "Premium-Aftermovies, Artist-Kampagnen und Brand-Filme von dem Team hinter Projekten für Tomorrowland, Afro Nation, Hyatt und Audi. Wenige Projekte, volle Hingabe.",
+      "metaTitle": "Aftermovie & Eventvideo: Premium-Filme für Festivals",
+      "metaDescription": "Premium-Aftermovies, Artist-Kampagnen und Brand-Filme vom Team hinter Projekten für Tomorrowland, Afro Nation, Hyatt und Audi.",
       "keywords": [
         "Aftermovie erstellen lassen",
         "Festival Videograf",
