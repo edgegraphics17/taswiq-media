@@ -12,7 +12,7 @@ import { PortfolioTeaser } from "@/components/home/PortfolioTeaser";
 import { Process } from "@/components/home/Process";
 import { BlogTeaser } from "@/components/home/BlogTeaser";
 import { References } from "@/components/home/References";
-import { RealEstatePage } from "@/components/realestate/RealEstatePage";
+import { IndustryPage } from "@/components/industry/IndustryPage";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getSeoPageBySlug, seoPages, type SeoPage } from "@/config/seo-pages";
 import { routing, type Locale } from "@/i18n/routing";
@@ -22,7 +22,7 @@ import { breadcrumbJsonLd, pageMetadata, serviceJsonLd } from "@/lib/seo";
 /**
  * SEO-Landingpages (Branchen, Leistungen, Premium-Media) – statisch gebaut, je Sprache eigener Slug.
  * Aufbau: Hero → Problem → Funktionen → Projekte → Ablauf → Pakete → Ratgeber → FAQ → Funnel.
- * Die Immobilien-Seite hat einen eigenen, branchenspezifischen Aufbau (RealEstatePage).
+ * Branchenseiten haben einen eigenen, branchenspezifischen Aufbau (IndustryPage).
  */
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -77,10 +77,10 @@ export default async function SeoLandingPage({ params }: Props) {
     </>
   );
 
-  if (page.id === "immobilien") {
+  if (page.kind === "branche") {
     return (
       <>
-        <RealEstatePage page={page} locale={locale} />
+        <IndustryPage page={page} locale={locale} />
         {schema}
       </>
     );
@@ -98,7 +98,7 @@ export default async function SeoLandingPage({ params }: Props) {
         stats={t.raw("hero.stats") as { value: string; label: string }[]}
         image={page.hero.image}
         imageAlt={t("hero.imageAlt")}
-        frame={page.hero.frame}
+        frame={page.hero.frame === "photo" ? "photo" : "browser"}
         url={page.hero.url}
       />
       {media && <References className="pb-6" />}
@@ -126,7 +126,7 @@ export default async function SeoLandingPage({ params }: Props) {
         title={tp("seoFunnel.title")}
         accent={tp("seoFunnel.accent")}
         text={tp("seoFunnel.text")}
-        source={page.kind === "branche" ? "branchen_seite" : "ki_seite"}
+        source="ki_seite"
         industry={page.industry}
         interests={page.interests}
       />

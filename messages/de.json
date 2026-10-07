@@ -1117,68 +1117,740 @@
       "navLabel": "Software für Gastronomie",
       "keyword": "Software für Gastronomie",
       "metaTitle": "Software für Restaurants & Gastronomie – Bestellsystem ohne Provision",
-      "metaDescription": "Eigenes Bestellsystem, Reservierung und Küchen-Dashboard für Restaurants, Imbisse, Bäckereien und Lieferdienste. Ohne Plattform-Provision, ab 2.900 €.",
+      "metaDescription": "Eigenes Bestellsystem, Reservierung, Küchen-Board und Stammgast-Aktionen für Restaurants, Lieferdienste, Bäckereien, Imbisse und Caterer. Sechs Anwendungsfälle mit Kostenrahmen, ab 2.900 €.",
       "keywords": [
         "Software Gastronomie",
         "Bestellsystem Restaurant",
         "Restaurant Software",
         "Online Bestellsystem ohne Provision",
-        "Lieferando Alternative"
+        "Lieferando Alternative",
+        "Reservierungssystem Restaurant",
+        "Bestellsystem Bäckerei"
       ],
       "hero": {
-        "badge": "Gastronomie & Food",
-        "titleStart": "Deine Gäste bestellen bei dir.",
-        "titleHighlight": "Nicht bei der Plattform.",
-        "text": "Eigenes Bestellsystem, Reservierung und Küchen-Board – unter deinem Namen, ohne Provision pro Bestellung. Für Restaurants, Imbisse, Bäckereien, Cafés und Lieferdienste.",
+        "badge": "Software für Gastronomie & Food",
+        "titleStart": "Weniger Provision. Mehr",
+        "rotating": [
+          "Direktbestellungen.",
+          "Stammgäste.",
+          "Marge pro Bestellung.",
+          "Ruhe im Service.",
+          "volle Tische."
+        ],
+        "text": "Eigenes Bestellsystem, Reservierung und Küchen-Board unter deinem Namen – für Restaurants, Lieferdienste, Bäckereien, Imbisse und Caterer. Deine Gäste bestellen bei dir, nicht bei der Plattform.",
         "imageAlt": "Bestellsystem der Bäckerei Daron Brot II in Aachen",
-        "stats": [
+        "cards": {
+          "alert": {
+            "label": "Neue Bestellung · Abholung",
+            "value": "2× Lahmacun, 1× Ayran",
+            "text": "18,50 € · online bezahlt"
+          },
+          "confirm": {
+            "icon": "card",
+            "title": "0 % Provision",
+            "text": "Die Bestellung gehört dir"
+          },
+          "note": {
+            "icon": "chef",
+            "title": "Küchen-Board",
+            "text": "Der Bon erscheint mit Signalton auf dem Tablet."
+          }
+        }
+      },
+      "audiences": {
+        "title": "Jede Küche läuft anders.",
+        "accent": "Dein System richtet sich danach.",
+        "text": "Lieferdienst, Restaurant, Bäckerei oder Caterer – die Engpässe sind verschieden. Wähle deinen Betrieb und sieh, wo ein eigenes System ansetzt.",
+        "items": [
           {
-            "value": "0 %",
-            "label": "Provision auf Direktbestellungen"
+            "icon": "utensils",
+            "label": "Restaurant",
+            "title": "Volle Tische ohne Telefon am Ohr.",
+            "text": "Reservierungen kommen genau dann, wenn der Service läuft. Ein eigenes Reservierungssystem nimmt sie rund um die Uhr an, erinnert die Gäste und schützt dich vor leeren Tischen.",
+            "pains": [
+              "Reservierungen per Telefon mitten im Service",
+              "Gruppen, die nicht erscheinen",
+              "Reservierungsportale mit Gebühr je Gast"
+            ],
+            "builds": [
+              "Online-Reservierung mit Tischplan",
+              "Erinnerung und Anzahlung für Gruppen",
+              "Gästekartei mit Allergien und Vorlieben"
+            ]
           },
           {
-            "value": "3 Sprachen",
-            "label": "DE · EN · AR im Live-Projekt"
+            "icon": "cart",
+            "label": "Lieferdienst & Pizzeria",
+            "title": "Stammgäste bestellen direkt bei dir.",
+            "text": "Plattformen bringen neue Gäste – und kassieren bei jeder weiteren Bestellung wieder mit. Mit eigenem Bestellsystem holst du die Wiederbesteller auf deine Seite.",
+            "pains": [
+              "Provision auf jede Plattform-Bestellung",
+              "Kundendaten liegen bei der Plattform",
+              "Mehrere Tablets und das Telefon gleichzeitig"
+            ],
+            "builds": [
+              "Eigenes Bestellsystem mit Online-Zahlung",
+              "Liefergebiete, Mindestbestellwert, Fahrerübersicht",
+              "Flyer-QR und Gutscheine für die erste Direktbestellung"
+            ]
+          },
+          {
+            "icon": "chef",
+            "label": "Bäckerei & Café",
+            "title": "Vorbestellt, bezahlt, abholbereit.",
+            "text": "Brötchen fürs Wochenende, Torten, belegte Platten: Vorbestellungen laufen heute über Telefon und Zettel. Online bestellen deine Kunden abends vom Sofa – und du weißt morgens genau, was du backst.",
+            "pains": [
+              "Vorbestellungen auf Zetteln hinter der Theke",
+              "Torten-Anfragen mit vielen Rückfragen",
+              "Schlange am Samstag, obwohl alles vorbestellt ist"
+            ],
+            "builds": [
+              "Vorbestellung mit Abholzeit und Filiale",
+              "Tortenkonfigurator mit Vorlaufzeit",
+              "Backliste für den nächsten Morgen"
+            ]
+          },
+          {
+            "icon": "zap",
+            "label": "Imbiss & Foodtruck",
+            "title": "Die Mittagsschlange wird kürzer.",
+            "text": "Zwischen zwölf und eins entscheidet sich dein Umsatz. Wer vorbestellt und eine Abholzeit bekommt, wartet nicht – und du verkaufst in derselben Stunde mehr.",
+            "pains": [
+              "Gäste gehen wieder, wenn die Schlange zu lang ist",
+              "Bestellungen per Zuruf, Fehler inklusive",
+              "Standort und Zeiten ändern sich täglich"
+            ],
+            "builds": [
+              "Vorbestellung per QR-Code mit Abholzeit",
+              "Küchen-Board mit Reihenfolge und Signalton",
+              "Tagesstandort und Öffnungszeiten selbst pflegen"
+            ]
+          },
+          {
+            "icon": "calendar",
+            "label": "Catering & Events",
+            "title": "Vom Anfrageformular zum Angebot in Minuten.",
+            "text": "Catering-Anfragen kosten Zeit, bevor ein Euro verdient ist. Ein Konfigurator sammelt Personenzahl, Menü und Termin – das Angebot entsteht aus deinen Bausteinen.",
+            "pains": [
+              "Anfragen per Mail mit fehlenden Angaben",
+              "Angebote von Hand in Word",
+              "Anzahlungen und Termine in Excel"
+            ],
+            "builds": [
+              "Catering-Konfigurator mit Preislogik",
+              "Angebot als PDF, Annahme per Klick",
+              "Anzahlung online, Produktionsliste für die Küche"
+            ]
+          },
+          {
+            "icon": "building",
+            "label": "Mehrere Standorte",
+            "title": "Eine Karte, viele Filialen, ein Überblick.",
+            "text": "Ab der zweiten Filiale wird es unübersichtlich: Preise, Aktionen und Zahlen laufen auseinander. Ein Filialsystem hält alles zentral – und jede Filiale sieht nur ihren Teil.",
+            "pains": [
+              "Preise und Artikel in jeder Filiale einzeln pflegen",
+              "Zahlen kommen als Fotos per WhatsApp",
+              "Jede Filiale mit anderem Tool"
+            ],
+            "builds": [
+              "Zentrale Karte mit Filialpreisen",
+              "Rollen für Inhaber, Filialleitung und Theke",
+              "Umsatz und Bestseller je Standort"
+            ]
           }
         ]
       },
-      "problem": {
-        "title": "Jede Stammkunden-Bestellung kostet dich Provision.",
-        "text": "Lieferplattformen bringen neue Gäste – und verdienen danach an jeder weiteren Bestellung mit. Die Kundendaten bleiben bei ihnen, deine Marke verschwindet zwischen hundert anderen. Ein eigenes System holt dir Marge, Daten und Beziehung zurück.",
-        "points": [
-          "Provision auch auf Stammgäste, die dich längst kennen",
-          "Keine Kundendaten für Aktionen, Treuevorteile oder Mittagskarte",
-          "Bestellungen auf drei Tablets, Reservierungen am Telefon",
-          "Speisekarte auf der Website veraltet, Preise nirgends zentral"
+      "modules": {
+        "title": "Sechs Bausteine.",
+        "accent": "Du startest mit dem, der sich zuerst rechnet.",
+        "text": "Jedes Modul löst einen konkreten Engpass im Betrieb. Klick dich durch – so sieht das im Alltag aus.",
+        "items": [
+          {
+            "icon": "cart",
+            "title": "Online-Bestellung",
+            "short": "Unter deinem Namen, ohne Provision",
+            "benefit": "Deine Gäste bestellen auf deiner Seite – und der ganze Umsatz bleibt bei dir.",
+            "text": "Speisekarte mit Varianten, Extras und Allergenen, Warenkorb, Abholung oder Lieferung. Schnell auf dem Handy, ohne App und ohne Registrierungszwang.",
+            "bullets": [
+              "Varianten, Extras und Menüs wie in deiner Kasse",
+              "Abholzeit oder Lieferung mit Gebiet und Mindestwert",
+              "Mehrsprachig, zum Beispiel Deutsch, Englisch, Arabisch, Türkisch"
+            ],
+            "before": "Jede Plattform-Bestellung kostet Provision",
+            "after": "Direktbestellungen ohne Abzug",
+            "mock": {
+              "title": "Bestellungen · heute",
+              "rows": [
+                {
+                  "label": "#214 · Abholung 12:30",
+                  "meta": "2× Lahmacun, 1× Ayran",
+                  "status": "Neu",
+                  "tone": "brand"
+                },
+                {
+                  "label": "#213 · Lieferung",
+                  "meta": "Familienpizza, Salat · 31,40 €",
+                  "status": "In Arbeit",
+                  "tone": "warn"
+                },
+                {
+                  "label": "#212 · Abholung",
+                  "meta": "online bezahlt",
+                  "status": "Abgeholt",
+                  "tone": "good"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "chef",
+            "title": "Küchen-Board",
+            "short": "Ein Bildschirm statt vier Tablets",
+            "benefit": "Jede Bestellung erscheint sofort in der Küche – mit Ton, in der richtigen Reihenfolge.",
+            "text": "Das Board läuft auf einem Tablet an der Pass. Neue Bons klingeln, Zeiten laufen mit, ein Tipp setzt den Status. Der Gast sieht per Link, wann es fertig ist.",
+            "bullets": [
+              "Signalton und Farbwechsel bei Wartezeit",
+              "Status für den Gast: angenommen, in Arbeit, fertig",
+              "Artikel mit einem Tipp auf ausverkauft setzen"
+            ],
+            "before": "Bons vom Drucker, Zurufe, Nachfragen am Telefon",
+            "after": "Ein Board, das Küche und Gast auf Stand hält",
+            "mock": {
+              "title": "Küche · 12:24 Uhr",
+              "rows": [
+                {
+                  "label": "#214 · 2× Lahmacun",
+                  "meta": "seit 2 Min. · Abholung 12:30",
+                  "status": "Zubereiten",
+                  "tone": "brand"
+                },
+                {
+                  "label": "#213 · Familienpizza",
+                  "meta": "seit 9 Min. · Fahrer wartet",
+                  "status": "Eilt",
+                  "tone": "warn"
+                },
+                {
+                  "label": "#211 · Falafel-Teller",
+                  "meta": "ohne Zwiebeln",
+                  "status": "Fertig",
+                  "tone": "good"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "card",
+            "title": "Zahlung & Gutscheine",
+            "short": "Bezahlt, bevor du kochst",
+            "benefit": "Online bezahlt heißt: kein Wechselgeld, keine Fake-Bestellung, kein Risiko.",
+            "text": "Karte, PayPal, Apple Pay und Google Pay laufen über deinen eigenen Zahlungsanbieter – das Geld geht direkt auf dein Konto. Gutscheine und Aktionscodes legst du selbst an.",
+            "bullets": [
+              "Auszahlung direkt an dich, nicht über eine Plattform",
+              "Gutscheine für die erste Direktbestellung",
+              "Trinkgeld-Option im Checkout"
+            ],
+            "before": "Barzahlung an der Tür, Spaßbestellungen",
+            "after": "Vorab bezahlt, mit Beleg für den Gast",
+            "mock": {
+              "title": "Zahlungen · diese Woche",
+              "rows": [
+                {
+                  "label": "Online bezahlt",
+                  "meta": "142 Bestellungen",
+                  "status": "3.486 €",
+                  "tone": "good"
+                },
+                {
+                  "label": "Gutschein DIREKT10",
+                  "meta": "38× eingelöst",
+                  "status": "aktiv",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Barzahlung bei Abholung",
+                  "meta": "21 Bestellungen",
+                  "status": "offen",
+                  "tone": "muted"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "calendar",
+            "title": "Reservierung & Tische",
+            "short": "Reservieren ohne Anruf",
+            "benefit": "Tische füllen sich online – auch wenn gerade niemand ans Telefon gehen kann.",
+            "text": "Gäste wählen Personenzahl und Uhrzeit, dein Tischplan prüft die Verfügbarkeit. Erinnerungen senken die Zahl der Nichterscheiner, für Gruppen kannst du eine Anzahlung verlangen.",
+            "bullets": [
+              "Tischplan mit Zeitfenstern und Bereichen",
+              "Erinnerung per Mail oder WhatsApp",
+              "Anzahlung oder Kreditkartengarantie für Gruppen"
+            ],
+            "before": "Das Telefon klingelt mitten im Abendgeschäft",
+            "after": "Der Tisch ist gebucht, bevor du davon hörst",
+            "mock": {
+              "title": "Reservierungen · Samstag",
+              "rows": [
+                {
+                  "label": "19:00 · Tisch 7 · 4 Pers.",
+                  "meta": "Familie Demir · erinnert",
+                  "status": "Bestätigt",
+                  "tone": "good"
+                },
+                {
+                  "label": "19:30 · Terrasse · 8 Pers.",
+                  "meta": "Anzahlung 80 € bezahlt",
+                  "status": "Bestätigt",
+                  "tone": "good"
+                },
+                {
+                  "label": "20:00 · Tisch 3 · 2 Pers.",
+                  "meta": "Anfrage vor 4 Min.",
+                  "status": "Neu",
+                  "tone": "brand"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "star",
+            "title": "Stammgäste & Aktionen",
+            "short": "Die Kundendaten gehören dir",
+            "benefit": "Wer einmal direkt bestellt hat, kommt wieder – weil du ihn erreichen kannst.",
+            "text": "Jede Direktbestellung baut deine eigene Gästeliste auf. Du siehst, wer regelmäßig bestellt, und holst ruhige Tage mit einer Aktion zurück – per Mail oder WhatsApp, mit Einwilligung.",
+            "bullets": [
+              "Gästeliste mit Bestellhistorie",
+              "Treuepunkte oder die zehnte Bestellung gratis",
+              "Aktionen für ruhige Tage, gezielt statt Gießkanne"
+            ],
+            "before": "Die Plattform kennt deine Gäste, du nicht",
+            "after": "Eigene Gästeliste, eigene Aktionen",
+            "mock": {
+              "title": "Stammgäste",
+              "rows": [
+                {
+                  "label": "312 Gäste mit Einwilligung",
+                  "meta": "+ 27 diesen Monat",
+                  "status": "wächst",
+                  "tone": "good"
+                },
+                {
+                  "label": "Aktion »Dienstag ist Dönertag«",
+                  "meta": "an 312 Gäste gesendet",
+                  "status": "41 Bestellungen",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Lange nicht bestellt",
+                  "meta": "58 Gäste seit 60 Tagen",
+                  "status": "Erinnerung bereit",
+                  "tone": "warn"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "chart",
+            "title": "Dashboard & Zahlen",
+            "short": "Preise ändern, Zahlen sehen",
+            "benefit": "Du änderst Preise selbst – und siehst abends, was der Tag gebracht hat.",
+            "text": "Artikel, Preise, Öffnungszeiten und Lieferzeiten pflegst du im Dashboard. Dazu Umsatz, Bestseller und Stoßzeiten – auf Wunsch mit Übergabe an Kasse oder Buchhaltung.",
+            "bullets": [
+              "Artikel und Preise in Sekunden geändert",
+              "Bestseller, Stoßzeiten, Warenkorbwert",
+              "Export oder Schnittstelle zu Kasse und Buchhaltung"
+            ],
+            "before": "Für jede Preisänderung den Anbieter anschreiben",
+            "after": "Selbst ändern, sofort online",
+            "mock": {
+              "title": "Heute im Überblick",
+              "rows": [
+                {
+                  "label": "Umsatz Direktbestellungen",
+                  "meta": "64 Bestellungen · Ø 23,80 €",
+                  "status": "1.523 €",
+                  "tone": "good"
+                },
+                {
+                  "label": "Bestseller",
+                  "meta": "Lahmacun mit Salat",
+                  "status": "38×",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Stoßzeit",
+                  "meta": "12:10 – 13:00 Uhr",
+                  "status": "27 Bestellungen",
+                  "tone": "brand"
+                }
+              ]
+            }
+          }
         ]
       },
-      "featuresTitle": "Was dein Gastro-System kann.",
-      "features": [
-        {
-          "title": "Online-Bestellung",
-          "text": "Speisekarte mit Varianten, Extras und Allergenen. Abholung und Lieferung mit Liefergebieten und Mindestbestellwert."
-        },
-        {
-          "title": "Küchen-Board",
-          "text": "Neue Bestellungen mit Signalton auf dem Tablet, Status per Fingertipp, Stornos mit Grund."
-        },
-        {
-          "title": "Online-Zahlung",
-          "text": "Karte, PayPal, Apple Pay und Google Pay – das Geld geht direkt an dich."
-        },
-        {
-          "title": "Reservierung",
-          "text": "Tische online buchen lassen, mit Bestätigung und Erinnerung per Mail oder WhatsApp."
-        },
-        {
-          "title": "Dashboard & Zahlen",
-          "text": "Umsatz pro Stunde, Top-Artikel, Anteil Direktbestellungen – alles auf einen Blick."
-        },
-        {
-          "title": "Mehrsprachig",
-          "text": "Karte und Bestellung auf Deutsch, Englisch, Arabisch oder Türkisch – für alle Gäste."
+      "cases": {
+        "title": "Sechs Betriebe, sechs Engpässe.",
+        "accent": "So sieht die Lösung aus.",
+        "text": "Typische Szenarien aus Lieferdienst, Restaurant, Bäckerei, Imbiss, Catering und Filialbetrieb – mit Vorher-Nachher, Umfang und Kostenrahmen.",
+        "items": [
+          {
+            "icon": "cart",
+            "segment": "Lieferdienst & Pizzeria",
+            "profile": "Pizzeria mit eigenen Fahrern · rund 900 Plattform-Bestellungen im Monat",
+            "title": "Wiederbesteller von der Plattform holen",
+            "situation": "Sieben von zehn Bestellungen kommen über eine Lieferplattform – auch von Gästen, die seit Jahren bestellen. Bei rund 14 % Provision sind das jeden Monat etwa 3.000 €.",
+            "rows": [
+              {
+                "label": "Provision",
+                "before": "rund 14 % je Bestellung",
+                "after": "0 % bei Direktbestellung"
+              },
+              {
+                "label": "Kundendaten",
+                "before": "bei der Plattform",
+                "after": "bei dir, mit Einwilligung"
+              },
+              {
+                "label": "Bestellannahme",
+                "before": "Telefon und Plattform-Tablet",
+                "after": "ein Küchen-Board"
+              }
+            ],
+            "built": [
+              "Bestellsystem",
+              "Online-Zahlung",
+              "Küchen-Board",
+              "Gutscheine"
+            ],
+            "integrated": [
+              "Zahlungsanbieter",
+              "Flyer-QR in jeder Lieferung",
+              "WhatsApp-Status"
+            ],
+            "classic": "15.000 – 22.000 €",
+            "ours": 4900,
+            "duration": "3–4 Wochen"
+          },
+          {
+            "icon": "chef",
+            "segment": "Bäckerei & Café",
+            "profile": "Bäckerei mit Café · 2 Verkaufsstellen · viele Vorbestellungen am Wochenende",
+            "title": "Vorbestellungen ohne Zettelwirtschaft",
+            "situation": "Brötchen, Kuchen und Platten werden telefonisch bestellt und auf Zetteln notiert. Samstags stehen Vorbesteller trotzdem in der Schlange, und manchmal fehlt eine Bestellung.",
+            "rows": [
+              {
+                "label": "Vorbestellung",
+                "before": "Telefon und Zettel",
+                "after": "online mit Abholzeit"
+              },
+              {
+                "label": "Backplanung",
+                "before": "nach Gefühl",
+                "after": "Liste am Vorabend"
+              },
+              {
+                "label": "Abholung",
+                "before": "in der Schlange",
+                "after": "bezahlt, eigene Ausgabe"
+              }
+            ],
+            "built": [
+              "Vorbestell-Shop",
+              "Abholzeiten",
+              "Backliste",
+              "Online-Zahlung"
+            ],
+            "integrated": [
+              "Zahlungsanbieter",
+              "Bon-Drucker oder Tablet",
+              "E-Mail-Bestätigung"
+            ],
+            "classic": "10.000 – 15.000 €",
+            "ours": 2900,
+            "duration": "3 Wochen"
+          },
+          {
+            "icon": "utensils",
+            "segment": "Restaurant",
+            "profile": "Restaurant mit 70 Plätzen · stark am Wochenende · viele Gruppen",
+            "title": "Reservierungen, die auch erscheinen",
+            "situation": "Reserviert wird per Telefon, Instagram und Mail. Am Wochenende bleiben regelmäßig Tische leer, weil Gruppen nicht kommen – und unter der Woche fehlt der Überblick.",
+            "rows": [
+              {
+                "label": "Reservierung",
+                "before": "drei Kanäle, ein Buch",
+                "after": "ein System mit Tischplan"
+              },
+              {
+                "label": "Nicht erschienen",
+                "before": "regelmäßig am Wochenende",
+                "after": "selten, dank Erinnerung"
+              },
+              {
+                "label": "Gruppen",
+                "before": "auf Zuruf",
+                "after": "mit Anzahlung"
+              }
+            ],
+            "built": [
+              "Online-Reservierung",
+              "Tischplan",
+              "Erinnerungen",
+              "Anzahlung"
+            ],
+            "integrated": [
+              "Google-Profil mit Reservieren-Button",
+              "Instagram-Link",
+              "Zahlungsanbieter"
+            ],
+            "classic": "12.000 – 18.000 €",
+            "ours": 3900,
+            "duration": "3–4 Wochen"
+          },
+          {
+            "icon": "zap",
+            "segment": "Imbiss & Foodtruck",
+            "profile": "Imbiss in Bürolage · Stoßzeit 12 bis 13 Uhr",
+            "title": "Mehr Umsatz in der Mittagsstunde",
+            "situation": "In der Mittagspause stehen zwanzig Leute an, einige gehen wieder. Bestellt wird per Zuruf, die Reihenfolge gerät durcheinander.",
+            "rows": [
+              {
+                "label": "Wartezeit",
+                "before": "bis zu 15 Minuten",
+                "after": "vorbestellt, abholbereit"
+              },
+              {
+                "label": "Bestellannahme",
+                "before": "Zuruf an der Theke",
+                "after": "QR-Code und Board"
+              },
+              {
+                "label": "Fehlbestellungen",
+                "before": "mehrmals täglich",
+                "after": "selten, alles schriftlich"
+              }
+            ],
+            "built": [
+              "Vorbestellung",
+              "Abholzeiten",
+              "Küchen-Board"
+            ],
+            "integrated": [
+              "QR-Code an Theke und Tür",
+              "Zahlungsanbieter",
+              "Google-Profil"
+            ],
+            "classic": "9.000 – 14.000 €",
+            "ours": 2900,
+            "duration": "2–3 Wochen"
+          },
+          {
+            "icon": "calendar",
+            "segment": "Catering & Events",
+            "profile": "Caterer · 4 bis 6 Aufträge pro Woche · Firmen- und Privatkunden",
+            "title": "Angebote in Minuten statt am Abend",
+            "situation": "Anfragen kommen per Mail, oft ohne Personenzahl oder Budget. Jedes Angebot entsteht von Hand in Word, die Anzahlungen stehen in einer Excel-Liste.",
+            "rows": [
+              {
+                "label": "Anfrage",
+                "before": "Mail mit Rückfragen",
+                "after": "Konfigurator mit allen Angaben"
+              },
+              {
+                "label": "Angebot",
+                "before": "ca. 45 Minuten in Word",
+                "after": "wenige Minuten aus Bausteinen"
+              },
+              {
+                "label": "Anzahlung",
+                "before": "Überweisung, Liste in Excel",
+                "after": "online, Status im Auftrag"
+              }
+            ],
+            "built": [
+              "Catering-Konfigurator",
+              "Angebots-PDF",
+              "Auftragsübersicht",
+              "Produktionsliste"
+            ],
+            "integrated": [
+              "Zahlungsanbieter",
+              "Kalender",
+              "Export für die Buchhaltung"
+            ],
+            "classic": "16.000 – 24.000 €",
+            "ours": 4900,
+            "duration": "4 Wochen"
+          },
+          {
+            "icon": "building",
+            "segment": "Mehrere Standorte",
+            "profile": "Gastro-Betrieb mit 4 Filialen · gleiche Karte, unterschiedliche Preise",
+            "title": "Vier Filialen, ein System",
+            "situation": "Jede Filiale pflegt Karte und Preise selbst, Aktionen laufen unterschiedlich. Die Zahlen kommen abends als Foto vom Kassenbon.",
+            "rows": [
+              {
+                "label": "Karte und Preise",
+                "before": "viermal pflegen",
+                "after": "zentral mit Filialpreisen"
+              },
+              {
+                "label": "Zahlen",
+                "before": "Fotos per WhatsApp",
+                "after": "Dashboard je Standort"
+              },
+              {
+                "label": "Aktionen",
+                "before": "jede Filiale für sich",
+                "after": "zentral gesteuert"
+              }
+            ],
+            "built": [
+              "Filial-Bestellsystem",
+              "Rollen & Rechte",
+              "Zentrales Reporting",
+              "Küchen-Boards"
+            ],
+            "integrated": [
+              "Zahlungsanbieter je Filiale",
+              "Kassen-Export",
+              "Buchhaltung"
+            ],
+            "classic": "28.000 – 40.000 €",
+            "ours": 7900,
+            "duration": "5–6 Wochen"
+          }
+        ]
+      },
+      "process": {
+        "title": "Vom ersten Gespräch zur",
+        "accent": "ersten Direktbestellung.",
+        "text": "Wir starten mit dem, was sich am schnellsten rechnet – meist der Bestellung – und bauen aus, wenn es im Betrieb läuft.",
+        "steps": [
+          {
+            "title": "Betriebs-Check",
+            "text": "Wir schauen uns Karte, Bestellwege und Stoßzeiten an – am liebsten vor Ort, außerhalb des Service. Was kostet dich heute Provision, Zeit und Nerven? Kostenlos und unverbindlich."
+          },
+          {
+            "title": "Prototyp in 7 Tagen",
+            "text": "Du klickst dich durch dein Bestellsystem – mit deiner Karte, deinen Preisen, deinem Logo. Erst danach steht der Festpreis."
+          },
+          {
+            "title": "Start im laufenden Betrieb",
+            "text": "Wir richten Board und Zahlung ein, schulen dein Team in einer halben Stunde und gehen an einem ruhigen Tag live. Flyer und QR-Codes gibt es dazu."
+          },
+          {
+            "title": "Betrieb & Ausbau",
+            "text": "Hosting, Updates und Support laufen im Hintergrund. Reservierung, Gutscheine oder eine zweite Filiale kommen dazu, wenn du so weit bist."
+          }
+        ]
+      },
+      "packages": {
+        "tag": "Pakete für die Gastronomie",
+        "title": "Drei Einstiege.",
+        "accent": "Fester Preis nach dem Prototyp.",
+        "text": "Such dir den Einstieg, der zu deinem Betrieb passt. Den genauen Umfang legen wir im Betriebs-Check fest – danach gilt ein Festpreis.",
+        "items": {
+          "start": {
+            "name": "Direktbestellung",
+            "audience": "Für Imbisse, Bäckereien, Cafés und Abholer",
+            "meta": "Live in 2–3 Wochen · Betrieb ab 49 €/Monat",
+            "features": [
+              "Speisekarte mit Varianten & Extras",
+              "Abholung mit Abholzeit",
+              "Bestell-Dashboard für die Theke",
+              "Artikel & Preise selbst ändern",
+              "QR-Codes für Theke und Flyer"
+            ]
+          },
+          "pro": {
+            "name": "Bestellung & Lieferung",
+            "audience": "Für Lieferdienste, Pizzerien und Restaurants",
+            "meta": "Live in 3–4 Wochen · Reservierung als Modul ab 2.200 €",
+            "features": [
+              "Online-Zahlung mit Auszahlung an dich",
+              "Küchen-Board mit Signalton",
+              "Liefergebiete & Mindestbestellwert",
+              "Gutscheine & Aktionscodes",
+              "Bestellstatus für den Gast"
+            ]
+          },
+          "standorte": {
+            "name": "Filialsystem",
+            "audience": "Für Betriebe mit mehreren Standorten",
+            "meta": "Live in 5–6 Wochen · jede weitere Filiale im Festpreis",
+            "features": [
+              "Zentrale Karte mit Filialpreisen",
+              "Rollen für Inhaber, Leitung & Theke",
+              "Reporting je Standort",
+              "Küchen-Board in jeder Filiale",
+              "Quellcode & Daten gehören dir"
+            ]
+          }
         }
-      ],
+      },
+      "spotlight": {
+        "tag": "Dazu passend",
+        "title": "Food-Film & Reels, die Hunger machen",
+        "text": "Daher kommen wir: Wir haben unter anderem den Launch-Film für das IL Forno im Hyatt Centric gedreht. Damit deine Karte nicht nur funktioniert, sondern verkauft – für Website, Instagram und Google-Profil.",
+        "badge": "ab 2.990 €",
+        "cta": "Food-Filme im Portfolio ansehen",
+        "imageAlt": "Standbild aus dem Restaurant-Film für das IL Forno: Pizza aus dem Steinofen"
+      },
+      "compare": {
+        "title": "Lieferplattform, Bestell-Abo",
+        "accent": "oder eigenes System?",
+        "text": "Die ehrliche Antwort ist oft: beides. So ordnest du die drei Wege ein.",
+        "columns": [
+          "Lieferplattform",
+          "Bestellsystem im Abo",
+          "Eigenes System"
+        ],
+        "rows": [
+          {
+            "label": "Stark bei",
+            "cells": [
+              "Reichweite und neuen Gästen",
+              "Schnellem Start mit Standardfunktionen",
+              "Stammgästen, eigener Marke, eigenen Regeln"
+            ]
+          },
+          {
+            "label": "Schwach bei",
+            "cells": [
+              "Marge und Kundendaten",
+              "Anpassungen und Sonderfällen deiner Karte",
+              "Neukunden-Reichweite – die holst du über Google, Flyer und Plattform"
+            ]
+          },
+          {
+            "label": "Kosten",
+            "cells": [
+              "Rund 14 bis 30 % je Bestellung",
+              "Monatliche Gebühr, teils plus Anteil je Bestellung",
+              "Einmalig ab 2.900 €, Betrieb ab 49 €/Monat"
+            ]
+          },
+          {
+            "label": "Gästedaten",
+            "cells": [
+              "Bei der Plattform",
+              "Beim Anbieter",
+              "Bei dir"
+            ]
+          },
+          {
+            "label": "Passt, wenn",
+            "cells": [
+              "du vor allem neue Gäste suchst",
+              "du klein startest und Standard reicht",
+              "viele deiner Gäste wiederkommen"
+            ]
+          }
+        ],
+        "advice": "Behalte die Plattform für neue Gäste und hol alle, die wiederkommen, auf dein eigenes System – mit einem Flyer in jeder Lieferung und einem Gutschein für die erste Direktbestellung. Ob sich das für dich rechnet, überschlagen wir im Erstgespräch mit deinen Zahlen."
+      },
       "faq": [
         {
           "q": "Muss ich Lieferando oder Wolt kündigen?",
@@ -1186,7 +1858,11 @@
         },
         {
           "q": "Was kostet ein eigenes Bestellsystem?",
-          "a": "Ab 2.900 € einmalig für den Start, mit Online-Zahlung und Küchen-Display ab 4.900 €. Betrieb ab 49 € im Monat."
+          "a": "Ab 2.900 € einmalig für den Start, mit Online-Zahlung, Küchen-Board und Liefergebieten ab 4.900 €. Der Betrieb kostet ab 49 € im Monat. Den Festpreis bekommst du nach dem Prototyp."
+        },
+        {
+          "q": "Ab wann rechnet sich das?",
+          "a": "Als Faustregel: Wenn du im Monat mehr als etwa 150 bis 200 Bestellungen von Wiederbestellern über eine Plattform bekommst, ist das eigene System meist innerhalb weniger Monate bezahlt. Wir rechnen das im Erstgespräch mit deinen Zahlen durch."
         },
         {
           "q": "Wie schnell ist das System live?",
@@ -1194,13 +1870,26 @@
         },
         {
           "q": "Kann ich Preise und Artikel selbst ändern?",
-          "a": "Ja. Preise, Artikel, Öffnungszeiten und Ausverkauft-Status änderst du im Dashboard selbst."
+          "a": "Ja. Preise, Artikel, Öffnungszeiten und Ausverkauft-Status änderst du im Dashboard selbst – auch vom Handy."
+        },
+        {
+          "q": "Lässt sich meine Kasse anbinden?",
+          "a": "Wenn dein Kassensystem eine Schnittstelle bietet, ja. Sonst läuft die Übergabe über einen Bon-Drucker oder einen Export. Das klären wir im Betriebs-Check, bevor du etwas beauftragst."
+        },
+        {
+          "q": "Wie kommt das Geld zu mir?",
+          "a": "Über deinen eigenen Zahlungsanbieter direkt auf dein Konto. Es fallen nur dessen Transaktionsgebühren an, wir verdienen an keiner Bestellung mit."
         },
         {
           "q": "Macht ihr auch Fotos und Reels fürs Essen?",
           "a": "Ja – daher kommen wir. Food-Reels und Fotos gibt es als Ergänzung zum System, damit die Karte auch verkauft."
         }
-      ]
+      ],
+      "contact": {
+        "title": "Lass uns über",
+        "accent": "deinen Betrieb sprechen.",
+        "text": "Schreib uns kurz, wie heute bei dir bestellt oder reserviert wird. Wir melden uns innerhalb von 24 Stunden mit einer ehrlichen Einschätzung – auch wenn die lautet: Bleib erst mal bei der Plattform."
+      }
     },
     "immobilien": {
       "navLabel": "Software für Immobilien",
@@ -1227,36 +1916,30 @@
           "erledigte Vorgänge."
         ],
         "text": "Individuelle Software für Makler, Hausverwaltungen, Vermieter und Bauträger. Interessenten vorqualifizieren, Besichtigungen online buchen, Schäden digital abwickeln, Eigentümer automatisch informieren – gebaut um deine Abläufe, nicht umgekehrt.",
-        "primary": "Kostenloses Erstgespräch",
-        "secondary": "Anwendungsfälle ansehen",
-        "audienceLabel": "Gebaut für",
         "imageAlt": "Standbild aus dem Immobilienfilm AGILE: Wohnbereich mit Blick ins Grüne",
         "videoCaption": "Objektfilm AGILE · von uns produziert",
-        "cardsNote": "Beispielhafte Meldungen aus einem Immobilien-System",
         "cards": {
-          "lead": {
+          "alert": {
             "label": "Neue Anfrage · vorqualifiziert",
             "value": "3-Zi.-Altbau, 82 m²",
             "text": "Einzug & Einkommen passen"
           },
-          "viewing": {
+          "confirm": {
+            "icon": "calendar",
             "title": "Besichtigung gebucht",
             "text": "Sa, 11:00 · online bestätigt"
           },
-          "ticket": {
+          "note": {
+            "icon": "wrench",
             "title": "Schaden gemeldet",
             "text": "Handwerker beauftragt – ohne ein Telefonat."
           }
         }
       },
       "audiences": {
-        "tag": "Für wen",
         "title": "Immobilien ist nicht gleich Immobilien.",
         "accent": "Deine Software auch nicht.",
         "text": "Makler, Verwalter, Bestandshalter, Bauträger – jeder hat andere Engpässe. Wähle deinen Bereich und sieh, wo eigene Software ansetzt.",
-        "painsLabel": "Was heute Zeit kostet",
-        "buildsLabel": "Was wir dafür bauen",
-        "tabsAria": "Bereich der Immobilienbranche",
         "items": [
           {
             "icon": "handshake",
@@ -1357,14 +2040,9 @@
         ]
       },
       "modules": {
-        "tag": "Funktionen",
         "title": "Sechs Bausteine.",
         "accent": "Du nimmst nur, was du brauchst.",
         "text": "Jedes Modul löst einen konkreten Engpass. Klick dich durch – so sieht das im Alltag aus.",
-        "listAria": "Module des Immobilien-Systems",
-        "beforeLabel": "Vorher",
-        "afterLabel": "Nachher",
-        "mockNote": "Beispielansicht",
         "items": [
           {
             "icon": "users",
@@ -1591,25 +2269,9 @@
         ]
       },
       "cases": {
-        "tag": "Anwendungsfälle",
         "title": "Sechs Betriebe, sechs Engpässe.",
         "accent": "So sieht die Lösung aus.",
         "text": "Typische Szenarien aus Vermittlung, Verwaltung, Bestand und Projektentwicklung – mit Vorher-Nachher, Umfang und Kostenrahmen.",
-        "disclaimer": "Die Szenarien sind Beispielrechnungen für die genannte Betriebsgröße, keine Kundenprojekte. Die Vergleichswerte sind Richtwerte für klassische Agenturentwicklung nach Aufwand; dein Festpreis steht nach dem Prototyp.",
-        "situationLabel": "Ausgangslage",
-        "beforeLabel": "Vorher",
-        "afterLabel": "Nachher",
-        "builtLabel": "Umgesetzt",
-        "integratedLabel": "Angebunden",
-        "classicLabel": "Klassische Agentur",
-        "oursLabel": "Mit TasWiq",
-        "from": "ab",
-        "durationLabel": "Live in",
-        "why": {
-          "title": "Warum der Unterschied so groß ist",
-          "text": "Wir entwickeln KI-gestützt und setzen auf erprobte Bausteine für Login, Rollen, Uploads und Benachrichtigungen. Du zahlst für deine Abläufe – nicht dafür, dass jemand das Rad neu erfindet.",
-          "cta": "Deinen Fall besprechen"
-        },
         "items": [
           {
             "icon": "handshake",
@@ -1840,7 +2502,6 @@
         ]
       },
       "process": {
-        "tag": "Ablauf",
         "title": "Vom Engpass zum",
         "accent": "laufenden System.",
         "text": "Wir starten klein – mit einem Objekt oder einem Ablauf – und bauen aus, sobald es im Alltag trägt.",
@@ -1905,27 +2566,17 @@
               "Quellcode & Daten gehören dir"
             ]
           }
-        },
-        "film": {
-          "tag": "Dazu passend",
-          "title": "Objektfilm im Kino-Look",
-          "text": "Für Objekte, die mehr verdienen als Handyfotos: Wir drehen und schneiden selbst – wie den AGILE-Film oben auf dieser Seite. Für Exposé, Website und Social Ads.",
-          "price": "ab 2.990 €",
-          "cta": "Film im Portfolio ansehen"
         }
       },
       "compare": {
-        "tag": "Gut zu wissen",
         "title": "Standardsoftware, Portal-Abo",
         "accent": "oder eigene Lösung?",
         "text": "Nicht jeder Betrieb braucht individuelle Software. So ordnest du die drei Wege ein.",
-        "rowHeader": "Kriterium",
         "columns": [
           "Verwaltungs- oder Maklersoftware",
           "Portal im Abo",
           "Eigene Software"
         ],
-        "ownBadge": "Unser Feld",
         "rows": [
           {
             "label": "Stark bei",
@@ -1968,9 +2619,7 @@
             ]
           }
         ],
-        "adviceTitle": "Unsere Empfehlung",
-        "advice": "Behalte deine Verwaltungssoftware für Buchhaltung und Abrechnung. Wir bauen die Schicht davor und danach: alles, was heute über Telefon, Mail und Excel läuft. Und wenn ein Standard-Tool für dich reicht, sagen wir dir das im Erstgespräch.",
-        "guidesLabel": "Zum Weiterlesen"
+        "advice": "Behalte deine Verwaltungssoftware für Buchhaltung und Abrechnung. Wir bauen die Schicht davor und danach: alles, was heute über Telefon, Mail und Excel läuft. Und wenn ein Standard-Tool für dich reicht, sagen wir dir das im Erstgespräch."
       },
       "faq": [
         {
@@ -2011,359 +2660,3117 @@
         }
       ],
       "contact": {
-        "tag": "Anfrage",
         "title": "Lass uns über",
         "accent": "deine Abläufe sprechen.",
-        "text": "Schreib uns kurz, was dich im Alltag am meisten Zeit kostet. Wir melden uns innerhalb von 24 Stunden mit einer ehrlichen Einschätzung – auch wenn die lautet: Dafür reicht ein Standard-Tool.",
-        "formTitle": "Kurze Nachricht genügt.",
-        "formText": "Kein Fragebogen, kein Verkaufsgespräch. Zwei Sätze zu deinem Betrieb reichen.",
-        "submit": "Anfrage senden",
-        "points": [
-          "Antwort innerhalb von 24 Stunden",
-          "Ablauf-Check kostenlos",
-          "Festpreis nach dem Prototyp"
-        ]
+        "text": "Schreib uns kurz, was dich im Alltag am meisten Zeit kostet. Wir melden uns innerhalb von 24 Stunden mit einer ehrlichen Einschätzung – auch wenn die lautet: Dafür reicht ein Standard-Tool."
+      },
+      "spotlight": {
+        "tag": "Dazu passend",
+        "title": "Objektfilm im Kino-Look",
+        "text": "Für Objekte, die mehr verdienen als Handyfotos: Wir drehen und schneiden selbst – wie den AGILE-Film oben auf dieser Seite. Für Exposé, Website und Social Ads.",
+        "badge": "ab 2.990 €",
+        "cta": "Film im Portfolio ansehen",
+        "imageAlt": "Standbild aus dem Immobilienfilm AGILE: Wohnbereich mit Blick ins Grüne"
       }
     },
     "automotive": {
       "navLabel": "Software für Autohaus & Fahrschule",
       "keyword": "Software für Autohäuser, Werkstätten & Fahrschulen",
       "metaTitle": "Software für Autohaus, Werkstatt & Fahrschule – Online-Termine & App",
-      "metaDescription": "Werkstatt-Termine online, Fahrzeugbestand auf der eigenen Website, Schüler-App für Fahrschulen – individuelle Software für Automotive & Mobilität.",
+      "metaDescription": "Werkstatt-Termine online, Fahrzeugbestand mit Probefahrt-Buchung, Schüler-App, Vermietung mit Übergabeprotokoll – individuelle Software für Automotive-Betriebe. Sechs Anwendungsfälle mit Kostenrahmen.",
       "keywords": [
         "Software Fahrschule",
         "Fahrschul App",
         "Werkstatt Termin online",
         "Autohaus Software",
-        "Software Autovermietung"
+        "Software Autovermietung",
+        "Werkstatt Software individuell",
+        "Reifeneinlagerung Software"
       ],
       "hero": {
-        "badge": "Automotive & Mobilität",
-        "titleStart": "Termine, Fahrzeuge, Fahrstunden.",
-        "titleHighlight": "In einem System.",
-        "text": "Werkstatt-Termine online, Fahrzeugbestand mit Probefahrt-Buchung, Schüler-App für Fahrschulen – für Autohäuser, Werkstätten, Vermietungen und Fahrschulen. Wir haben für Audi, Volvo und NIO produziert.",
-        "imageAlt": "Beispiel für ein eigenes Online-Buchungssystem",
-        "stats": [
+        "badge": "Software für Autohaus, Werkstatt & Fahrschule",
+        "titleStart": "Weniger Rückrufe. Mehr",
+        "rotating": [
+          "gebuchte Termine.",
+          "Probefahrten.",
+          "ausgelastete Bühnen.",
+          "Fahrstunden nach Plan.",
+          "vermietete Tage."
+        ],
+        "text": "Individuelle Software für Autohäuser, Werkstätten, Fahrschulen und Vermieter. Termine buchen sich online, Fahrzeuge und Fahrlehrer sind sauber geplant, Kunden und Schüler sehen ihren Stand selbst – statt anzurufen.",
+        "imageAlt": "Beispielansicht eines Termin- und Kundensystems für einen Automotive-Betrieb",
+        "mockUrl": "dein-betrieb.de/termine",
+        "cards": {
+          "alert": {
+            "label": "Neuer Termin · online gebucht",
+            "value": "Inspektion + HU",
+            "text": "Do, 8:00 · mit Ersatzwagen"
+          },
+          "confirm": {
+            "icon": "car",
+            "title": "Probefahrt bestätigt",
+            "text": "Sa, 10:30 · Führerschein geprüft"
+          },
+          "note": {
+            "icon": "smartphone",
+            "title": "Fahrstunde erinnert",
+            "text": "Der Schüler bestätigt mit einem Tipp in der App."
+          }
+        }
+      },
+      "audiences": {
+        "title": "Werkstatt ist nicht Fahrschule.",
+        "accent": "Dein System kennt den Unterschied.",
+        "text": "Bühnen, Fahrlehrer, Mietwagen, Lagerplätze – jeder Betrieb plant andere Ressourcen. Wähle deinen Bereich und sieh, wo eigene Software ansetzt.",
+        "items": [
           {
-            "value": "24/7",
-            "label": "Termine online buchbar"
+            "icon": "car",
+            "label": "Autohaus",
+            "title": "Aus Börsen-Anfragen werden Probefahrten.",
+            "text": "Anfragen aus Fahrzeugbörsen, Website und Telefon landen in verschiedenen Postfächern. Ein gemeinsamer Eingang mit Probefahrt-Buchung sorgt dafür, dass kein Interessent liegen bleibt.",
+            "pains": [
+              "Leads aus mehreren Börsen, keiner hat den Überblick",
+              "Probefahrten per Rückruf abstimmen",
+              "Bestand doppelt pflegen: Börse und Website"
+            ],
+            "builds": [
+              "Fahrzeugbestand auf der eigenen Website",
+              "Probefahrt-Buchung mit Führerschein-Check",
+              "Lead-Eingang mit Zuständigkeit und Wiedervorlage"
+            ]
           },
           {
-            "value": "iOS & Android",
-            "label": "als Web-App oder native App"
+            "icon": "wrench",
+            "label": "Freie Werkstatt",
+            "title": "Die Bühnen sind voll, das Telefon bleibt ruhig.",
+            "text": "Terminanfragen kommen, wenn alle unter dem Auto liegen. Online wählen Kunden Leistung und Zeitfenster selbst – dein System kennt Bühnen, Dauer und Ersatzwagen.",
+            "pains": [
+              "Terminvergabe am Telefon während der Arbeit",
+              "Reifensaison mit Zettelchaos",
+              "Kunden fragen nach, ob das Auto fertig ist"
+            ],
+            "builds": [
+              "Online-Termine nach Leistung und Bühne",
+              "Status per Link: angenommen, in Arbeit, abholbereit",
+              "Freigabe von Zusatzarbeiten mit Foto und Preis"
+            ]
+          },
+          {
+            "icon": "users",
+            "label": "Fahrschule",
+            "title": "Fahrstunden planen sich fast von selbst.",
+            "text": "Fahrstunden werden per WhatsApp vereinbart, abgesagt und verschoben. Mit einer Schüler-App buchen Schüler freie Zeiten selbst, sehen ihren Ausbildungsstand und zahlen online.",
+            "pains": [
+              "Fahrstunden-Absprachen in hunderten WhatsApp-Chats",
+              "Kurzfristige Absagen ohne Nachrücker",
+              "Offene Zahlungen und Ausbildungsstand in Papierkarten"
+            ],
+            "builds": [
+              "Schüler-App mit Fahrstunden-Buchung",
+              "Ausbildungsstand und Theorie-Termine",
+              "Online-Zahlung und Guthaben je Schüler"
+            ]
+          },
+          {
+            "icon": "calendar",
+            "label": "Autovermietung",
+            "title": "Verfügbar, gebucht, übergeben – alles belegt.",
+            "text": "Wer Transporter, Anhänger oder Fahrzeuge vermietet, braucht Verfügbarkeit in Echtzeit und saubere Übergaben. Buchung, Kaution und Protokoll laufen in einem System.",
+            "pains": [
+              "Verfügbarkeit im Wandkalender oder in Excel",
+              "Kaution und Führerschein-Kopie auf Papier",
+              "Streit über Schäden ohne Fotobeleg"
+            ],
+            "builds": [
+              "Online-Buchung mit Live-Verfügbarkeit",
+              "Kaution und Zahlung vorab online",
+              "Übergabeprotokoll mit Fotos und Unterschrift"
+            ]
+          },
+          {
+            "icon": "refresh",
+            "label": "Reifen & Aufbereitung",
+            "title": "Die Saison läuft, ohne dass das Telefon glüht.",
+            "text": "Im Oktober und zu Ostern wollen alle gleichzeitig. Kunden mit eingelagerten Reifen bekommen eine Einladung mit Terminlink – und du weißt, welcher Satz wann aus dem Lager muss.",
+            "pains": [
+              "Saisonspitzen mit Dauer-Telefon",
+              "Einlagerung in Listen, Sätze werden gesucht",
+              "Aufbereitungspakete jedes Mal neu erklären"
+            ],
+            "builds": [
+              "Saison-Einladung mit Terminlink",
+              "Einlagerungsverwaltung mit Lagerplatz und Profiltiefe",
+              "Paketbuchung mit Festpreis und Dauer"
+            ]
+          },
+          {
+            "icon": "search",
+            "label": "Gebrauchtwagenhandel",
+            "title": "Ankauf und Verkauf über die eigene Seite.",
+            "text": "Wer nur über Börsen verkauft, zahlt je Inserat und bleibt austauschbar. Eine eigene Bestandsseite mit Ankauf-Formular bringt Anfragen direkt – ohne Umweg.",
+            "pains": [
+              "Abhängigkeit von Inseratspaketen",
+              "Ankauf-Anfragen ohne Fotos und Daten",
+              "Interessenten ohne Wiedervorlage"
+            ],
+            "builds": [
+              "Bestandsseite mit Suche und Finanzierungsanfrage",
+              "Ankauf-Formular mit Fotos und Eckdaten",
+              "Interessenten-Liste mit Erinnerung"
+            ]
           }
         ]
       },
-      "problem": {
-        "title": "Der Tag läuft übers Telefon und die WhatsApp-Gruppe.",
-        "text": "Termine werden am Telefon vergeben, Fahrlehrer planen in Excel, Fahrzeuganfragen kommen über drei Portale. Jeder Anruf unterbricht die Arbeit – und am Ende fehlt der Überblick über Auslastung und offene Posten.",
-        "points": [
-          "Terminvergabe blockiert Annahme und Büro",
-          "No-Shows ohne Erinnerung",
-          "Fahrzeuganfragen nur über fremde Börsen",
-          "Keine Übersicht über Auslastung und Zahlungen"
+      "modules": {
+        "title": "Sechs Bausteine.",
+        "accent": "Du nimmst nur, was zu deinem Betrieb passt.",
+        "text": "Jedes Modul löst einen konkreten Engpass. Klick dich durch – so sieht das im Alltag aus.",
+        "items": [
+          {
+            "icon": "calendar",
+            "title": "Online-Termine",
+            "short": "Buchen ohne Anruf",
+            "benefit": "Kunden buchen selbst – passend zu Leistung, Bühne und Dauer.",
+            "text": "Der Kunde wählt Leistung und Fahrzeug, dein System zeigt nur Zeitfenster, die wirklich passen. Bestätigung und Erinnerung gehen automatisch raus.",
+            "bullets": [
+              "Leistungen mit Dauer, Bühne und Mitarbeiter",
+              "Ersatzwagen und Hol-und-Bring-Service als Option",
+              "Erinnerung per SMS, E-Mail oder WhatsApp"
+            ],
+            "before": "Terminvergabe am Telefon, mitten in der Arbeit",
+            "after": "Der Kalender füllt sich von selbst",
+            "mock": {
+              "title": "Termine · Donnerstag",
+              "rows": [
+                {
+                  "label": "8:00 · Inspektion + HU",
+                  "meta": "Golf VII · Ersatzwagen",
+                  "status": "Bestätigt",
+                  "tone": "good"
+                },
+                {
+                  "label": "10:30 · Reifenwechsel",
+                  "meta": "Satz aus Lager R-14",
+                  "status": "Bestätigt",
+                  "tone": "good"
+                },
+                {
+                  "label": "13:00 · Bremsen vorn",
+                  "meta": "Anfrage vor 6 Min.",
+                  "status": "Neu",
+                  "tone": "brand"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "car",
+            "title": "Fahrzeugbestand & Probefahrt",
+            "short": "Bestand einmal pflegen",
+            "benefit": "Dein Bestand steht auf deiner Seite – und Interessenten buchen die Probefahrt direkt.",
+            "text": "Fahrzeuge mit Fotos, Ausstattung und Preis, Suche und Filter. Zu jedem Fahrzeug gibt es Probefahrt-Buchung und Anfrage – alles landet in einem Eingang.",
+            "bullets": [
+              "Bestand mit Suche, Filter und Finanzierungsanfrage",
+              "Probefahrt-Buchung mit Führerschein-Upload",
+              "Abgleich mit Fahrzeugbörsen per Schnittstelle oder Export"
+            ],
+            "before": "Anfragen aus fünf Kanälen, keiner fasst nach",
+            "after": "Ein Eingang mit Zuständigkeit",
+            "mock": {
+              "title": "Anfragen · diese Woche",
+              "rows": [
+                {
+                  "label": "Kombi Diesel, 2021",
+                  "meta": "Probefahrt Sa 10:30",
+                  "status": "Bestätigt",
+                  "tone": "good"
+                },
+                {
+                  "label": "Kompakt-SUV, 2022",
+                  "meta": "Finanzierungsanfrage",
+                  "status": "Rückruf heute",
+                  "tone": "warn"
+                },
+                {
+                  "label": "Kleinwagen, 2019",
+                  "meta": "Anfrage über Börse",
+                  "status": "Neu",
+                  "tone": "brand"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "smartphone",
+            "title": "Schüler- & Kunden-App",
+            "short": "Alles auf dem Handy",
+            "benefit": "Schüler und Kunden sehen selbst, was ansteht – und rufen nicht mehr an.",
+            "text": "Als Web-App für den Homescreen, ohne App Store: Termine, Status, Dokumente und Nachrichten. Fahrschüler buchen Fahrstunden und sehen ihren Ausbildungsstand.",
+            "bullets": [
+              "Fahrstunden buchen, absagen, nachrücken",
+              "Ausbildungsstand, Theorie und Prüfungstermine",
+              "Push-Nachrichten statt WhatsApp-Gruppen"
+            ],
+            "before": "Absprachen in hunderten Chats",
+            "after": "Eine App, in der alles steht",
+            "mock": {
+              "title": "Schüler · Lena M.",
+              "rows": [
+                {
+                  "label": "Nächste Fahrstunde",
+                  "meta": "Di, 16:00 · Herr Kaya",
+                  "status": "Bestätigt",
+                  "tone": "good"
+                },
+                {
+                  "label": "Ausbildungsstand",
+                  "meta": "Sonderfahrten 8 von 12",
+                  "status": "67 %",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Guthaben",
+                  "meta": "2 Fahrstunden bezahlt",
+                  "status": "Aufladen",
+                  "tone": "warn"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "users",
+            "title": "Team & Ressourcen",
+            "short": "Bühnen, Fahrlehrer, Fahrzeuge",
+            "benefit": "Jeder sieht morgens, was heute dran ist – ohne Plantafel.",
+            "text": "Bühnen, Mitarbeiter, Fahrlehrer, Fahrschul- und Mietfahrzeuge werden als Ressourcen geplant. Urlaub, Werkstattzeiten und Ausfälle sind berücksichtigt.",
+            "bullets": [
+              "Wochenplan je Mitarbeiter und Ressource",
+              "Abwesenheiten und Fahrzeug-Ausfälle",
+              "Tagesliste aufs Handy"
+            ],
+            "before": "Plantafel, Excel und Zurufe",
+            "after": "Ein Plan, der für alle gilt",
+            "mock": {
+              "title": "Auslastung · KW 12",
+              "rows": [
+                {
+                  "label": "Bühne 1 – 3",
+                  "meta": "32 von 36 Slots",
+                  "status": "89 %",
+                  "tone": "good"
+                },
+                {
+                  "label": "Herr Kaya",
+                  "meta": "Urlaub ab Fr",
+                  "status": "28 Stunden",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Transporter 2",
+                  "meta": "Werkstatt bis Mi",
+                  "status": "Gesperrt",
+                  "tone": "warn"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "card",
+            "title": "Zahlung & Dokumente",
+            "short": "Bezahlt und unterschrieben",
+            "benefit": "Anzahlung, Kaution und Unterschrift sind erledigt, bevor der Kunde da ist.",
+            "text": "Online-Zahlung für Anzahlungen, Fahrstunden-Pakete und Kautionen. Aufträge, Freigaben und Übergabeprotokolle werden digital unterschrieben und abgelegt.",
+            "bullets": [
+              "Anzahlung, Kaution und Pakete online",
+              "Auftragsfreigabe mit Foto und Preis per Link",
+              "Übergabeprotokoll mit Fotos und Unterschrift"
+            ],
+            "before": "Papierformulare, Barkautionen, Diskussionen",
+            "after": "Alles belegt, alles auffindbar",
+            "mock": {
+              "title": "Vorgänge · heute",
+              "rows": [
+                {
+                  "label": "Zusatzarbeit Bremsscheiben",
+                  "meta": "+ 186 € · Foto gesendet",
+                  "status": "Freigegeben",
+                  "tone": "good"
+                },
+                {
+                  "label": "Übergabe Transporter 2",
+                  "meta": "14 Fotos · unterschrieben",
+                  "status": "Abgeschlossen",
+                  "tone": "good"
+                },
+                {
+                  "label": "Kaution Anhänger",
+                  "meta": "150 € · wartet auf Zahlung",
+                  "status": "Offen",
+                  "tone": "warn"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "chart",
+            "title": "Auslastung & Zahlen",
+            "short": "Der Betrieb auf einen Blick",
+            "benefit": "Du siehst, was ausgelastet ist – und wo Umsatz liegen bleibt.",
+            "text": "Auslastung, Umsatz je Leistung, Standzeiten, offene Zahlungen. Auf Wunsch mit Anbindung an dein DMS oder deine Buchhaltung, wenn eine Schnittstelle vorhanden ist.",
+            "bullets": [
+              "Auslastung je Bühne, Fahrlehrer oder Fahrzeug",
+              "Standzeiten und offene Posten",
+              "Anbindung an DMS oder Buchhaltung per Schnittstelle oder Export"
+            ],
+            "before": "Zahlen am Monatsende aus drei Programmen",
+            "after": "Tagesaktuell auf einem Bildschirm",
+            "mock": {
+              "title": "Diese Woche",
+              "rows": [
+                {
+                  "label": "Auslastung Werkstatt",
+                  "meta": "Vorwoche 81 %",
+                  "status": "89 %",
+                  "tone": "good"
+                },
+                {
+                  "label": "Online gebucht",
+                  "meta": "von 74 Terminen",
+                  "status": "52",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Offene Zahlungen",
+                  "meta": "3 Schüler",
+                  "status": "420 €",
+                  "tone": "warn"
+                }
+              ]
+            }
+          }
         ]
       },
-      "featuresTitle": "Was dein Automotive-System kann.",
-      "features": [
-        {
-          "title": "Fahrzeugbestand",
-          "text": "Eigene Fahrzeugbörse auf deiner Website mit Filtern, Finanzierungsrechner und Anfrage-Funnel."
-        },
-        {
-          "title": "Online-Termine",
-          "text": "Werkstatt, HU, Reifenwechsel oder Probefahrt – mit Kapazitätsplanung und ohne Überbuchung."
-        },
-        {
-          "title": "Schüler- & Kunden-App",
-          "text": "Fahrstunden buchen, Fortschritt sehen, Erinnerungen bekommen – als App auf dem Homescreen."
-        },
-        {
-          "title": "Team-Planung",
-          "text": "Fahrlehrer, Mechaniker und Bühnen im Wochenplan, Tagesübersicht auf dem Handy."
-        },
-        {
-          "title": "Online-Zahlung",
-          "text": "Fahrstunden, Pakete und Anzahlungen online bezahlen – weniger offene Posten."
-        },
-        {
-          "title": "Auslastung & Zahlen",
-          "text": "Auslastung pro Tag, Umsatz pro Leistung, No-Show-Quote im Dashboard."
+      "cases": {
+        "title": "Sechs Betriebe, sechs Engpässe.",
+        "accent": "So sieht die Lösung aus.",
+        "text": "Typische Szenarien aus Werkstatt, Fahrschule, Handel und Vermietung – mit Vorher-Nachher, Umfang und Kostenrahmen.",
+        "items": [
+          {
+            "icon": "wrench",
+            "segment": "Freie Werkstatt",
+            "profile": "Kfz-Meisterbetrieb · 5 Bühnen · 7 Mitarbeitende",
+            "title": "Termine ohne Telefonkette",
+            "situation": "Rund 40 Anrufe am Tag drehen sich um Termine und die Frage, ob das Auto fertig ist. In der Reifensaison bricht die Planung zusammen.",
+            "rows": [
+              {
+                "label": "Terminvergabe",
+                "before": "Telefon, mitten in der Arbeit",
+                "after": "online, passend zur Bühne"
+              },
+              {
+                "label": "Statusfragen",
+                "before": "mehrmals täglich",
+                "after": "Kunde sieht es per Link"
+              },
+              {
+                "label": "Zusatzarbeiten",
+                "before": "Rückruf abwarten",
+                "after": "Freigabe mit Foto per Klick"
+              }
+            ],
+            "built": [
+              "Online-Termine",
+              "Status-Link",
+              "Freigaben",
+              "Erinnerungen"
+            ],
+            "integrated": [
+              "Kalender",
+              "SMS & WhatsApp",
+              "Export für die Werkstattsoftware"
+            ],
+            "classic": "12.000 – 18.000 €",
+            "ours": 3900,
+            "duration": "3–4 Wochen"
+          },
+          {
+            "icon": "users",
+            "segment": "Fahrschule",
+            "profile": "Fahrschule · 6 Fahrlehrer · rund 180 aktive Schüler",
+            "title": "Fahrstunden ohne WhatsApp-Chaos",
+            "situation": "Jeder Fahrlehrer plant in seinem eigenen Chat. Kurzfristig abgesagte Stunden bleiben leer, und offene Zahlungen fallen erst vor der Prüfung auf.",
+            "rows": [
+              {
+                "label": "Fahrstunden planen",
+                "before": "WhatsApp je Fahrlehrer",
+                "after": "Selbstbuchung in der App"
+              },
+              {
+                "label": "Abgesagte Stunden",
+                "before": "bleiben leer",
+                "after": "Nachrücker werden benachrichtigt"
+              },
+              {
+                "label": "Zahlungen",
+                "before": "bar, Listen im Büro",
+                "after": "online, Guthaben je Schüler"
+              }
+            ],
+            "built": [
+              "Schüler-App",
+              "Fahrstunden-Buchung",
+              "Ausbildungsstand",
+              "Online-Zahlung"
+            ],
+            "integrated": [
+              "Zahlungsanbieter",
+              "Push-Nachrichten",
+              "Export für die Verwaltungssoftware"
+            ],
+            "classic": "22.000 – 32.000 €",
+            "ours": 6400,
+            "duration": "5–6 Wochen"
+          },
+          {
+            "icon": "car",
+            "segment": "Autohaus",
+            "profile": "Mehrmarkenhändler · rund 120 Fahrzeuge im Bestand · 4 Verkäufer",
+            "title": "Kein Lead bleibt liegen",
+            "situation": "Anfragen kommen aus drei Börsen, über die Website und per Telefon. Wer zuständig ist, klärt sich oft erst nach Tagen – dann hat der Interessent schon gekauft.",
+            "rows": [
+              {
+                "label": "Lead-Eingang",
+                "before": "fünf Postfächer",
+                "after": "eine Liste mit Zuständigkeit"
+              },
+              {
+                "label": "Probefahrt",
+                "before": "Rückruf und Abstimmung",
+                "after": "Selbstbuchung am Fahrzeug"
+              },
+              {
+                "label": "Nachfassen",
+                "before": "nach Gefühl",
+                "after": "Wiedervorlage mit Erinnerung"
+              }
+            ],
+            "built": [
+              "Bestandsseite",
+              "Probefahrt-Buchung",
+              "Lead-Eingang",
+              "Wiedervorlagen"
+            ],
+            "integrated": [
+              "Fahrzeugbörsen (Schnittstelle oder Export)",
+              "Kalender",
+              "E-Mail"
+            ],
+            "classic": "20.000 – 30.000 €",
+            "ours": 6400,
+            "duration": "5 Wochen"
+          },
+          {
+            "icon": "calendar",
+            "segment": "Autovermietung",
+            "profile": "Transporter- und Anhängervermietung · 25 Fahrzeuge · 2 Standorte",
+            "title": "Vermietung mit belegter Übergabe",
+            "situation": "Die Verfügbarkeit steht im Wandkalender, Kautionen werden bar hinterlegt. Bei Schäden steht Aussage gegen Aussage, weil Fotos fehlen.",
+            "rows": [
+              {
+                "label": "Verfügbarkeit",
+                "before": "Wandkalender",
+                "after": "live, online buchbar"
+              },
+              {
+                "label": "Kaution",
+                "before": "bar am Tresen",
+                "after": "online vorab"
+              },
+              {
+                "label": "Übergabe",
+                "before": "Papierformular",
+                "after": "Protokoll mit Fotos und Unterschrift"
+              }
+            ],
+            "built": [
+              "Online-Buchung",
+              "Kaution & Zahlung",
+              "Übergabeprotokoll",
+              "Fahrzeugkalender"
+            ],
+            "integrated": [
+              "Zahlungsanbieter",
+              "Führerschein-Upload",
+              "Export für die Buchhaltung"
+            ],
+            "classic": "35.000 – 50.000 €",
+            "ours": 10900,
+            "duration": "6–8 Wochen"
+          },
+          {
+            "icon": "refresh",
+            "segment": "Reifen & Aufbereitung",
+            "profile": "Reifenservice · rund 900 eingelagerte Sätze",
+            "title": "Saisonwechsel ohne Dauer-Telefon",
+            "situation": "Zweimal im Jahr rufen alle gleichzeitig an. Die Einlagerung steht in einer Liste, einzelne Sätze werden im Lager gesucht.",
+            "rows": [
+              {
+                "label": "Terminvergabe in der Saison",
+                "before": "Telefon im Dauerbetrieb",
+                "after": "Einladung mit Terminlink"
+              },
+              {
+                "label": "Einlagerung",
+                "before": "Liste, Suchen im Lager",
+                "after": "Lagerplatz je Satz"
+              },
+              {
+                "label": "Reifenzustand",
+                "before": "wird am Tag bemerkt",
+                "after": "Hinweis mit der Einladung"
+              }
+            ],
+            "built": [
+              "Saison-Einladungen",
+              "Online-Termine",
+              "Einlagerungsverwaltung"
+            ],
+            "integrated": [
+              "SMS & E-Mail",
+              "Etiketten mit QR-Code",
+              "Kalender"
+            ],
+            "classic": "12.000 – 17.000 €",
+            "ours": 3900,
+            "duration": "3–4 Wochen"
+          },
+          {
+            "icon": "search",
+            "segment": "Gebrauchtwagenhandel",
+            "profile": "Händler · rund 40 Fahrzeuge · Inhaber und ein Verkäufer",
+            "title": "Ankauf und Verkauf über die eigene Seite",
+            "situation": "Verkauft wird fast nur über Börsen. Ankauf-Anfragen kommen per Anruf, ohne Fotos und Daten – die meisten Besichtigungen lohnen sich nicht.",
+            "rows": [
+              {
+                "label": "Ankauf-Anfragen",
+                "before": "Anruf ohne Daten",
+                "after": "Formular mit Fotos und Eckdaten"
+              },
+              {
+                "label": "Bestand",
+                "before": "nur in den Börsen",
+                "after": "eigene Seite mit Suche"
+              },
+              {
+                "label": "Interessenten",
+                "before": "Zettel und Erinnerung",
+                "after": "Liste mit Wiedervorlage"
+              }
+            ],
+            "built": [
+              "Bestandsseite",
+              "Ankauf-Formular",
+              "Interessenten-Liste"
+            ],
+            "integrated": [
+              "Fahrzeugbörsen (Export)",
+              "Google-Profil",
+              "WhatsApp"
+            ],
+            "classic": "10.000 – 15.000 €",
+            "ours": 3490,
+            "duration": "3 Wochen"
+          }
+        ]
+      },
+      "process": {
+        "title": "Vom Engpass zum",
+        "accent": "laufenden System.",
+        "text": "Wir starten mit einem Ablauf – meist den Terminen – und bauen aus, sobald es im Alltag trägt.",
+        "steps": [
+          {
+            "title": "Betriebs-Check",
+            "text": "Wir gehen einen Werkstattauftrag, eine Probefahrt oder eine Ausbildung Schritt für Schritt mit dir durch. Wo wird telefoniert, doppelt getippt, nachgefragt? Kostenlos und unverbindlich."
+          },
+          {
+            "title": "Prototyp in 7 Tagen",
+            "text": "Du klickst dich durch dein System – mit deinen Leistungen, deinen Ressourcen, deinem Logo. Erst danach steht der Festpreis."
+          },
+          {
+            "title": "Start mit einem Ablauf",
+            "text": "Wir gehen mit den Online-Terminen oder einer Fahrlehrer-Gruppe live, binden deine bestehende Software an und holen das Team ab. Dann folgt der Rest."
+          },
+          {
+            "title": "Betrieb & Ausbau",
+            "text": "Hosting in der EU, Updates, Support. App, Zahlung oder Reporting kommen dazu, wenn du sie brauchst."
+          }
+        ]
+      },
+      "packages": {
+        "tag": "Pakete für Automotive-Betriebe",
+        "title": "Drei Einstiege.",
+        "accent": "Fester Preis nach dem Prototyp.",
+        "text": "Such dir den Einstieg, der zu deinem Betrieb passt. Den genauen Umfang legen wir im Betriebs-Check fest – danach gilt ein Festpreis.",
+        "items": {
+          "termine": {
+            "name": "Online-Termine",
+            "audience": "Für Werkstätten, Reifenservice und Aufbereiter",
+            "meta": "Live in 2–3 Wochen · mit Erinnerungen & Anzahlung ab 3.900 €",
+            "features": [
+              "Leistungen mit Dauer und Bühne",
+              "Kalender mit freien Zeitfenstern",
+              "Bestätigung per Mail & WhatsApp",
+              "Status-Link für den Kunden",
+              "Termin-Dashboard fürs Team"
+            ]
+          },
+          "app": {
+            "name": "Kunden- & Schüler-App",
+            "audience": "Für Fahrschulen, Autohäuser und Vermieter",
+            "meta": "Live in 4–6 Wochen · mehrere Fahrlehrer ab 6.400 €",
+            "features": [
+              "Web-App für iPhone & Android",
+              "Buchung, Absage und Nachrücker",
+              "Ausbildungsstand oder Auftragsstatus",
+              "Push-Nachrichten",
+              "Online-Zahlung und Guthaben"
+            ]
+          },
+          "plattform": {
+            "name": "Betriebs-Plattform",
+            "audience": "Für Vermietung, Handel und Betriebe mit eigenen Abläufen",
+            "meta": "Ein Kernprozess ab 10.900 € · mehrere ab 18.900 €",
+            "features": [
+              "Workshop & Prozessanalyse",
+              "Module nach Maß: Bestand, Vermietung, Lager",
+              "Schnittstellen zu DMS und Börsen",
+              "Übergabeprotokolle mit Unterschrift",
+              "Quellcode & Daten gehören dir"
+            ]
+          }
         }
-      ],
+      },
+      "spotlight": {
+        "tag": "Live im Einsatz",
+        "title": "Dieselbe Buchungstechnik, schon im Alltag erprobt",
+        "text": "Die Terminbuchung, auf der unsere Automotive-Systeme aufbauen, läuft beim OMED Friseursalon in Aachen: Leistungen mit Dauer, freie Zeitfenster, Bestätigung und Kundenbereich. Doppelbuchungen sind auf Datenbank-Ebene ausgeschlossen – bei Bühnen genauso wie bei Stühlen.",
+        "badge": "Referenz Buchungssystem",
+        "cta": "Projekt im Portfolio ansehen",
+        "imageAlt": "Website des OMED Friseursalons mit eigener Terminbuchung"
+      },
+      "compare": {
+        "title": "Branchensoftware, Buchungs-Abo",
+        "accent": "oder eigenes System?",
+        "text": "Nicht jeder Betrieb braucht individuelle Software. So ordnest du die drei Wege ein.",
+        "columns": [
+          "DMS, Werkstatt- oder Fahrschulsoftware",
+          "Buchungs-Tool im Abo",
+          "Eigenes System"
+        ],
+        "rows": [
+          {
+            "label": "Stark bei",
+            "cells": [
+              "Aufträgen, Abrechnung, Herstellervorgaben, Ausbildungsnachweisen",
+              "Schnellem Start mit Standard-Terminen",
+              "Genau deinen Abläufen und Ressourcen"
+            ]
+          },
+          {
+            "label": "Schwach bei",
+            "cells": [
+              "Allem, was der Kunde selbst erledigen könnte",
+              "Bühnen, Fahrzeugen und Sonderfällen",
+              "Dingen, die deine Branchensoftware schon gut löst – die bauen wir nicht nach"
+            ]
+          },
+          {
+            "label": "Kosten",
+            "cells": [
+              "Lizenz je Arbeitsplatz oder Modul",
+              "Monatlich je Kalender oder Mitarbeiter",
+              "Einmalig ab 2.200 €, Betrieb ab 49 €/Monat"
+            ]
+          },
+          {
+            "label": "Daten & Code",
+            "cells": [
+              "Beim Anbieter",
+              "Beim Anbieter",
+              "Gehören dir, Hosting in der EU"
+            ]
+          },
+          {
+            "label": "Passt, wenn",
+            "cells": [
+              "du vor allem abrechnest und dokumentierst",
+              "ein einfacher Kalender reicht",
+              "dich Anrufe und Abstimmungen Zeit kosten"
+            ]
+          }
+        ],
+        "advice": "Behalte dein DMS oder deine Verwaltungssoftware für Aufträge und Abrechnung. Wir bauen die Schicht davor: alles, was Kunden und Schüler selbst erledigen können, statt anzurufen. Und wenn ein Standard-Kalender für dich reicht, sagen wir dir das im Erstgespräch."
+      },
       "faq": [
         {
           "q": "Brauchen wir eine App aus dem App Store?",
           "a": "Meist nicht. Eine Web-App für den Homescreen funktioniert auf iPhone und Android, mit Push-Nachrichten und ohne Store-Freigabe."
         },
         {
-          "q": "Lässt sich unser DMS anbinden?",
-          "a": "Wenn es eine Schnittstelle bietet, ja. Das prüfen wir im Workshop vor dem Angebot."
+          "q": "Lässt sich unser DMS oder unsere Werkstattsoftware anbinden?",
+          "a": "Wenn es eine Schnittstelle bietet, ja. Sonst arbeiten wir mit Exporten. Was genau geht, prüfen wir im Betriebs-Check vor dem Angebot."
+        },
+        {
+          "q": "Was kostet eine Online-Terminbuchung für die Werkstatt?",
+          "a": "Ab 2.200 € einmalig, mit Erinnerungen, Anzahlung und Kundenkonto ab 3.900 €. Der Betrieb kostet ab 49 € im Monat."
         },
         {
           "q": "Was kostet eine Schüler-App?",
           "a": "Als Web-App ab rund 3.900 €, mit Buchung für mehrere Fahrlehrer ab rund 6.400 €."
         },
         {
+          "q": "Können Fahrzeugbörsen angebunden werden?",
+          "a": "Der Bestand lässt sich per Schnittstelle oder Export abgleichen, soweit die jeweilige Börse das anbietet. Anfragen aus den Börsen laufen in denselben Eingang wie die von deiner Website."
+        },
+        {
+          "q": "Wie lange dauert die Umsetzung?",
+          "a": "Den klickbaren Prototyp bekommst du nach 7 Tagen. Online-Termine stehen in zwei bis vier Wochen, eine App in vier bis sechs Wochen."
+        },
+        {
+          "q": "Wo liegen die Daten?",
+          "a": "In einer Datenbank in der EU, verschlüsselt, mit Rollen und Rechten. Führerschein-Uploads werden nach der Prüfung automatisch gelöscht."
+        },
+        {
           "q": "Macht ihr auch Fahrzeugvideos?",
           "a": "Ja. Für Premium-Fahrzeuge und Launches produzieren wir Filme und Reels – unter anderem haben wir für Audi, Volvo und NIO gearbeitet."
         }
-      ]
+      ],
+      "contact": {
+        "title": "Lass uns über",
+        "accent": "deinen Betrieb sprechen.",
+        "text": "Schreib uns kurz, was dich im Alltag am meisten Zeit kostet – Termine, Planung oder Nachfragen. Wir melden uns innerhalb von 24 Stunden mit einer ehrlichen Einschätzung."
+      }
     },
     "kanzlei": {
       "navLabel": "Software für Kanzleien & Berater",
       "keyword": "Software für Steuerberater & Kanzleien",
       "metaTitle": "Mandantenportal & Software für Steuerberater, Anwälte & Berater",
-      "metaDescription": "Eigenes Mandantenportal mit Beleg-Upload, KI-Belegerkennung, Fristen und Terminbuchung – für Steuerberater, Anwälte, Versicherungsmakler und Coaches.",
+      "metaDescription": "Eigenes Mandantenportal mit Beleg-Upload, Checklisten, KI-Belegerkennung, Fristen und Mandats-Onboarding – für Steuerberater, Anwälte, Lohnbüros, Makler und Berater. Sechs Anwendungsfälle mit Kostenrahmen.",
       "keywords": [
         "Mandantenportal Steuerberater",
         "Software Kanzlei",
         "Software Steuerberater",
         "Kanzlei Digitalisierung",
-        "Beleg Upload Portal"
+        "Beleg Upload Portal",
+        "Mandantenportal Anwalt",
+        "Kundenportal Versicherungsmakler"
       ],
       "hero": {
-        "badge": "Kanzleien & Beratung",
-        "titleStart": "Unterlagen kommen vollständig.",
-        "titleHighlight": "Und zwar pünktlich.",
-        "text": "Mandantenportal mit Checklisten, Beleg-Upload und KI-Belegerkennung – als Ergänzung zu deiner Fachsoftware. Für Steuerberater, Anwälte, Versicherungsmakler, Berater und Coaches.",
-        "imageAlt": "Web-App Antragsbruder: Dokumente hochladen und verständlich erklärt bekommen",
-        "stats": [
+        "badge": "Software für Kanzleien & Beratung",
+        "titleStart": "Weniger Nachfassen. Mehr",
+        "rotating": [
+          "vollständige Akten.",
+          "gehaltene Fristen.",
+          "Zeit für Beratung.",
+          "zufriedene Mandanten.",
+          "abrechenbare Stunden."
+        ],
+        "text": "Individuelle Software für Steuerberater, Anwälte, Lohnbüros, Makler und Berater. Unterlagen kommen vollständig über Checklisten, Rückfragen hängen am Vorgang, Fristen laufen mit – als Ergänzung zu deiner Fachsoftware, nicht als Ersatz.",
+        "imageAlt": "Web-App Antragsbruder: Dokumente hochladen und per Checkliste sehen, was fehlt",
+        "cards": {
+          "alert": {
+            "label": "Belege eingegangen · vollständig",
+            "value": "Müller GmbH · März",
+            "text": "14 Belege erkannt und zugeordnet"
+          },
+          "confirm": {
+            "icon": "shield",
+            "title": "Frist im Blick",
+            "text": "USt-Voranmeldung · 10.04."
+          },
+          "note": {
+            "icon": "calendar",
+            "title": "Erstgespräch gebucht",
+            "text": "Mandatsanfrage mit ausgefülltem Vorab-Fragebogen."
+          }
+        }
+      },
+      "audiences": {
+        "title": "Jede Kanzlei arbeitet anders.",
+        "accent": "Dein Portal auch.",
+        "text": "Belege, Akten, Lohndaten, Verträge – was Mandanten liefern müssen, ist überall verschieden. Wähle deinen Bereich und sieh, wo ein eigenes Portal ansetzt.",
+        "items": [
           {
-            "value": "EU-Hosting",
-            "label": "verschlüsselt, mit Rollen & Protokoll"
+            "icon": "scale",
+            "label": "Steuerkanzlei",
+            "title": "Belege kommen vollständig. Und pünktlich.",
+            "text": "Vor jeder Frist beginnt das Nachfassen: fehlende Belege, unleserliche Fotos, Unterlagen in fünf Mails. Ein Portal mit Checkliste zeigt dem Mandanten, was fehlt – und dir, wer liefern muss.",
+            "pains": [
+              "Belege per Mail, WhatsApp und im Schuhkarton",
+              "Nachfassen kurz vor der Frist",
+              "Rückfragen gehen im Postfach unter"
+            ],
+            "builds": [
+              "Mandantenportal mit Monats-Checkliste",
+              "KI-Belegerkennung mit Vorkontierung als Vorschlag",
+              "Fristen-Übersicht mit automatischer Erinnerung"
+            ]
           },
           {
-            "value": "9 Sprachen",
-            "label": "in unserer Antrags-Web-App"
+            "icon": "file",
+            "label": "Anwaltskanzlei",
+            "title": "Mandatsanfragen kommen sortiert an.",
+            "text": "Viele Erstanfragen passen nicht zum Rechtsgebiet oder kommen ohne Unterlagen. Ein Vorab-Fragebogen klärt Sachverhalt, Fristen und Rechtsschutz – bevor ein Anwalt Zeit investiert.",
+            "pains": [
+              "Erstanfragen ohne Sachverhalt und Unterlagen",
+              "Vollmacht und Mandatsvereinbarung per Post",
+              "Mandanten fragen nach dem Stand der Sache"
+            ],
+            "builds": [
+              "Mandatsanfrage mit Vorab-Fragebogen",
+              "Vollmacht und Vereinbarung digital unterschreiben",
+              "Mandantenakte mit Stand und Dokumenten"
+            ]
+          },
+          {
+            "icon": "users",
+            "label": "Lohn- & Buchhaltungsbüro",
+            "title": "Lohndaten kommen einmal – und richtig.",
+            "text": "Stunden, Krankmeldungen und Neueinstellungen treffen als Excel, Foto und Sprachnachricht ein. Über Formulare im Portal liefern Arbeitgeber alles strukturiert und pünktlich.",
+            "pains": [
+              "Monatsdaten in zehn verschiedenen Formaten",
+              "Rückfragen kurz vor dem Lohnlauf",
+              "Personalfragebögen auf Papier"
+            ],
+            "builds": [
+              "Monatsmeldung als Formular je Arbeitgeber",
+              "Digitaler Personalfragebogen für Neueinstellungen",
+              "Auswertungen und Lohnunterlagen zum Abruf"
+            ]
+          },
+          {
+            "icon": "chart",
+            "label": "Unternehmensberatung",
+            "title": "Dein Kunde sieht den Projektstand selbst.",
+            "text": "Berichte, Aufgaben und Dokumente liegen verteilt in Mails und Ordnern. Ein Kundenbereich zeigt Projektstand, nächste Schritte und Ergebnisse – in deinem Design, nicht in dem eines Tools.",
+            "pains": [
+              "Statusberichte von Hand zusammenstellen",
+              "Dokumente in Mail-Anhängen und Cloud-Ordnern",
+              "Kunden fragen, was als Nächstes kommt"
+            ],
+            "builds": [
+              "Kundenbereich mit Projektstand und Aufgaben",
+              "Dokumente und Ergebnisse an einem Ort",
+              "Terminbuchung und Zeitnachweis für Kontingente"
+            ]
+          },
+          {
+            "icon": "shield",
+            "label": "Finanz- & Versicherungsmakler",
+            "title": "Verträge, Schäden, Termine – in einem Kundenbereich.",
+            "text": "Kunden suchen ihre Policen, melden Schäden per Anruf und vergessen das Jahresgespräch. Ein eigener Kundenbereich macht dich zum ersten Ansprechpartner – nicht den Versicherer.",
+            "pains": [
+              "Schadenmeldungen per Telefon mit Rückfragen",
+              "Kunden finden ihre Unterlagen nicht",
+              "Jahresgespräche geraten in Vergessenheit"
+            ],
+            "builds": [
+              "Kundenbereich mit Vertragsübersicht",
+              "Schadenmeldung mit Fotos und Status",
+              "Einladung zum Jahresgespräch mit Terminbuchung"
+            ]
+          },
+          {
+            "icon": "message",
+            "label": "Coaching & Training",
+            "title": "Vom Erstgespräch bis zur Teilnahmebescheinigung.",
+            "text": "Erstgespräche werden per Mail vereinbart, Unterlagen einzeln verschickt. Mit Buchung, Teilnehmerbereich und Dokumenten läuft das Drumherum von allein – und du coachst.",
+            "pains": [
+              "Terminabstimmung für Erstgespräche per Mail",
+              "Unterlagen und Aufgaben einzeln versenden",
+              "Nachweise für Kostenträger von Hand erstellen"
+            ],
+            "builds": [
+              "Erstgespräch-Buchung mit Vorab-Fragen",
+              "Teilnehmerbereich mit Unterlagen und Aufgaben",
+              "Anwesenheit und Bescheinigungen auf Knopfdruck"
+            ]
           }
         ]
       },
-      "problem": {
-        "title": "Die Fachsoftware ist digital. Der Weg dorthin nicht.",
-        "text": "Belege kommen als WhatsApp-Foto, als Mail-Anhang oder im Pendelordner. Rückfragen laufen über drei Kanäle, und am Monatsende fehlt die Hälfte. Ein Mandantenportal räumt genau diese Strecke auf.",
-        "points": [
-          "Belege über fünf Kanäle verteilt",
-          "Hinterherlaufen bei fehlenden Unterlagen",
-          "Rückfragen in endlosen Mail-Verläufen",
-          "Fristen hängen am Gedächtnis einzelner Mitarbeiter"
+      "modules": {
+        "title": "Sechs Bausteine.",
+        "accent": "Du nimmst nur, was die Kanzlei entlastet.",
+        "text": "Jedes Modul löst einen konkreten Engpass. Klick dich durch – so sieht das im Alltag aus.",
+        "items": [
+          {
+            "icon": "lock",
+            "title": "Mandantenportal",
+            "short": "Ein sicherer Ort für alles",
+            "benefit": "Mandanten finden dort alles – und du musst nichts mehr hinterherschicken.",
+            "text": "Login mit Zwei-Faktor-Anmeldung, Dokumente, Vorgänge, Nachrichten. Jeder Mandant sieht nur seine Daten, jede Mitarbeiterin nur ihre Mandate.",
+            "bullets": [
+              "Zwei-Faktor-Login, Rollen und Protokoll",
+              "Auswertungen, Bescheide und Verträge zum Abruf",
+              "Im Design deiner Kanzlei, unter deiner Adresse"
+            ],
+            "before": "Dokumente als Mail-Anhang, immer wieder neu",
+            "after": "Ein Portal, in dem alles liegt",
+            "mock": {
+              "title": "Mandant · Müller GmbH",
+              "rows": [
+                {
+                  "label": "BWA Februar",
+                  "meta": "bereitgestellt am 14.03.",
+                  "status": "Abgerufen",
+                  "tone": "good"
+                },
+                {
+                  "label": "Jahresabschluss 2025",
+                  "meta": "3 Unterlagen fehlen",
+                  "status": "In Arbeit",
+                  "tone": "warn"
+                },
+                {
+                  "label": "USt-Voranmeldung März",
+                  "meta": "fällig am 10.04.",
+                  "status": "Geplant",
+                  "tone": "brand"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "file",
+            "title": "Unterlagen & Checklisten",
+            "short": "Vollständig, bevor du nachfragst",
+            "benefit": "Der Mandant sieht selbst, was fehlt – und du fasst nicht mehr nach.",
+            "text": "Für jeden Vorgang gibt es eine Checkliste: Monatsbelege, Jahresabschluss, Mandatsannahme. Upload per Handyfoto, Erinnerungen laufen automatisch.",
+            "bullets": [
+              "Checklisten je Vorgang und Mandantentyp",
+              "Upload per Foto, Scan oder Weiterleitung",
+              "Automatische Erinnerung vor der Frist"
+            ],
+            "before": "Fünf Mails und drei Anrufe pro fehlender Unterlage",
+            "after": "Eine Checkliste, die sich selbst abarbeitet",
+            "mock": {
+              "title": "Checkliste · Jahresabschluss",
+              "rows": [
+                {
+                  "label": "Kontoauszüge 12/2025",
+                  "meta": "hochgeladen am 08.01.",
+                  "status": "Vollständig",
+                  "tone": "good"
+                },
+                {
+                  "label": "Inventurliste",
+                  "meta": "hochgeladen am 12.01.",
+                  "status": "Vollständig",
+                  "tone": "good"
+                },
+                {
+                  "label": "Darlehensverträge",
+                  "meta": "Erinnerung gesendet",
+                  "status": "Fehlt noch",
+                  "tone": "warn"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "sparkles",
+            "title": "KI-Belegerkennung",
+            "short": "Lesen, zuordnen, vorschlagen",
+            "benefit": "Belege sind erkannt und zugeordnet, bevor jemand sie öffnet.",
+            "text": "Die KI liest Datum, Betrag, Steuersatz und Aussteller aus und schlägt eine Zuordnung vor. Entschieden wird in der Kanzlei – die KI bereitet nur vor. Mandantendaten werden nicht für Training verwendet.",
+            "bullets": [
+              "Betrag, Datum, Steuersatz und Aussteller erkannt",
+              "Dubletten und unleserliche Belege markiert",
+              "Übergabe an die Fachsoftware per Schnittstelle oder Export"
+            ],
+            "before": "Jeden Beleg öffnen, lesen, abtippen",
+            "after": "Vorschlag prüfen, bestätigen, fertig",
+            "mock": {
+              "title": "Belege · März",
+              "rows": [
+                {
+                  "label": "Tankquittung 64,20 €",
+                  "meta": "19 % · Kfz-Kosten vorgeschlagen",
+                  "status": "Erkannt",
+                  "tone": "good"
+                },
+                {
+                  "label": "Rechnung Büromöbel",
+                  "meta": "1.190,00 € · Anlagegut?",
+                  "status": "Prüfen",
+                  "tone": "warn"
+                },
+                {
+                  "label": "Foto unleserlich",
+                  "meta": "Mandant wurde informiert",
+                  "status": "Neu angefordert",
+                  "tone": "muted"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "calendar",
+            "title": "Termine & Fristen",
+            "short": "Nichts läuft unbemerkt ab",
+            "benefit": "Fristen sind sichtbar – für die Kanzlei und für den Mandanten.",
+            "text": "Erstgespräche und Beratungstermine buchen Mandanten online. Fristen stehen im Vorgang, erinnern rechtzeitig und zeigen, wer gerade am Zug ist.",
+            "bullets": [
+              "Online-Terminbuchung mit Vorab-Fragen",
+              "Fristen je Vorgang mit Vorlauf",
+              "Wer ist am Zug: Kanzlei oder Mandant"
+            ],
+            "before": "Fristenliste in Excel, Erinnerung per Hand",
+            "after": "Erinnerungen, die von allein rausgehen",
+            "mock": {
+              "title": "Fristen · nächste 14 Tage",
+              "rows": [
+                {
+                  "label": "USt-Voranmeldung · 12 Mandanten",
+                  "meta": "fällig 10.04.",
+                  "status": "9 bereit",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Einspruchsfrist Bescheid",
+                  "meta": "Schmidt · fällig 15.04.",
+                  "status": "Wartet auf Mandant",
+                  "tone": "warn"
+                },
+                {
+                  "label": "Lohnlauf April",
+                  "meta": "Meldungen bis 20.04.",
+                  "status": "Geplant",
+                  "tone": "muted"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "message",
+            "title": "Rückfragen am Vorgang",
+            "short": "Schluss mit Mail-Ping-Pong",
+            "benefit": "Jede Rückfrage hängt am Beleg oder Vorgang – nicht in einem Postfach.",
+            "text": "Statt Mails mit Betreff »Rückfrage« stellst du die Frage direkt am Dokument. Der Mandant antwortet im Portal, alle im Team sehen den Verlauf.",
+            "bullets": [
+              "Fragen direkt am Beleg oder Dokument",
+              "Benachrichtigung per Mail, Antwort im Portal",
+              "Verlauf für Vertretung und Übergabe"
+            ],
+            "before": "Antworten suchen in drei Postfächern",
+            "after": "Frage, Antwort und Beleg an einer Stelle",
+            "mock": {
+              "title": "Offene Rückfragen",
+              "rows": [
+                {
+                  "label": "Bewirtungsbeleg 12.03.",
+                  "meta": "Wer hat teilgenommen?",
+                  "status": "Beantwortet",
+                  "tone": "good"
+                },
+                {
+                  "label": "Überweisung 4.800 €",
+                  "meta": "Privat oder betrieblich?",
+                  "status": "Offen seit 2 Tagen",
+                  "tone": "warn"
+                },
+                {
+                  "label": "Neuer Leasingvertrag",
+                  "meta": "Bitte Vertrag hochladen",
+                  "status": "Erinnert",
+                  "tone": "brand"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "handshake",
+            "title": "Mandats-Onboarding",
+            "short": "Vom Erstkontakt zur Akte",
+            "benefit": "Neue Mandate starten vollständig – ohne Papier und ohne Porto.",
+            "text": "Anfrage mit Vorab-Fragebogen, Terminbuchung, Vollmacht und Vereinbarung zur digitalen Unterschrift, Stammdaten per Formular. Am Ende steht eine saubere Akte.",
+            "bullets": [
+              "Vorab-Fragebogen sortiert passende Anfragen vor",
+              "Vollmacht und Vereinbarung digital unterschreiben",
+              "Stammdaten und Unterlagen per Formular"
+            ],
+            "before": "Formulare per Post, Stammdaten abtippen",
+            "after": "Ein Link, eine vollständige Akte",
+            "mock": {
+              "title": "Neue Mandate",
+              "rows": [
+                {
+                  "label": "Bäckerei Aydin",
+                  "meta": "Vollmacht unterschrieben",
+                  "status": "Akte vollständig",
+                  "tone": "good"
+                },
+                {
+                  "label": "Praxis Dr. Lehmann",
+                  "meta": "Erstgespräch Do 14:00",
+                  "status": "Gebucht",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Anfrage Erbrecht",
+                  "meta": "nicht unser Fachgebiet",
+                  "status": "Weiterempfohlen",
+                  "tone": "muted"
+                }
+              ]
+            }
+          }
         ]
       },
-      "featuresTitle": "Was dein Mandantenportal kann.",
-      "features": [
-        {
-          "title": "Sicherer Login",
-          "text": "Zwei-Faktor-Anmeldung, Rollen für Mandant, Sachbearbeiter und Berufsträger, vollständiges Protokoll."
-        },
-        {
-          "title": "Beleg-Upload & Checklisten",
-          "text": "Mandanten sehen, was fehlt – per Handy-Foto, PDF oder weitergeleiteter Mail."
-        },
-        {
-          "title": "KI-Belegerkennung",
-          "text": "Datum, Betrag, Steuersatz und Lieferant ausgelesen – der Mensch prüft und bestätigt."
-        },
-        {
-          "title": "Termine & Fristen",
-          "text": "Beratungstermine online buchen, Fristen-Übersicht mit automatischen Erinnerungen."
-        },
-        {
-          "title": "Rückfragen am Vorgang",
-          "text": "Fragen direkt am Beleg oder Dokument statt in langen Mail-Verläufen."
-        },
-        {
-          "title": "Datenschutz by Design",
-          "text": "EU-Hosting, Verschlüsselung, Auftragsverarbeitung, Löschkonzept."
+      "cases": {
+        "title": "Sechs Kanzleien, sechs Engpässe.",
+        "accent": "So sieht die Lösung aus.",
+        "text": "Typische Szenarien aus Steuerberatung, Rechtsberatung, Lohn, Beratung und Vermittlung – mit Vorher-Nachher, Umfang und Kostenrahmen.",
+        "items": [
+          {
+            "icon": "scale",
+            "segment": "Steuerkanzlei",
+            "profile": "Steuerberatung · 8 Mitarbeitende · rund 350 Mandate",
+            "title": "Belege ohne Nachfassen",
+            "situation": "Belege kommen per Mail, WhatsApp und Post. In den Tagen vor jeder Frist verbringt das Team Stunden mit Nachfassen und dem Zuordnen von Anhängen.",
+            "rows": [
+              {
+                "label": "Belegeingang",
+                "before": "Mail, WhatsApp, Post",
+                "after": "Portal mit Checkliste"
+              },
+              {
+                "label": "Nachfassen",
+                "before": "von Hand, vor jeder Frist",
+                "after": "automatische Erinnerung"
+              },
+              {
+                "label": "Erfassung",
+                "before": "öffnen und abtippen",
+                "after": "KI-Vorschlag prüfen"
+              }
+            ],
+            "built": [
+              "Mandantenportal",
+              "Checklisten",
+              "KI-Belegerkennung",
+              "Fristen"
+            ],
+            "integrated": [
+              "Fachsoftware (Schnittstelle oder Export)",
+              "E-Mail-Weiterleitung",
+              "Zwei-Faktor-Login"
+            ],
+            "classic": "40.000 – 55.000 €",
+            "ours": 12900,
+            "duration": "6–8 Wochen"
+          },
+          {
+            "icon": "file",
+            "segment": "Anwaltskanzlei",
+            "profile": "Kanzlei für Arbeits- und Verkehrsrecht · 4 Anwälte",
+            "title": "Mandatsanfragen, die passen",
+            "situation": "Über Website und Telefon kommen täglich Anfragen – viele ohne Unterlagen, manche außerhalb der Rechtsgebiete. Das Sekretariat telefoniert Sachverhalte ab.",
+            "rows": [
+              {
+                "label": "Erstanfrage",
+                "before": "Anruf, Rückruf, Nachfragen",
+                "after": "Vorab-Fragebogen mit Upload"
+              },
+              {
+                "label": "Vollmacht",
+                "before": "per Post",
+                "after": "digital unterschrieben"
+              },
+              {
+                "label": "Erstgespräch",
+                "before": "Abstimmung per Telefon",
+                "after": "online gebucht"
+              }
+            ],
+            "built": [
+              "Mandatsanfrage",
+              "Terminbuchung",
+              "Digitale Unterschrift"
+            ],
+            "integrated": [
+              "Kanzleisoftware (Export)",
+              "Kalender",
+              "E-Mail"
+            ],
+            "classic": "14.000 – 20.000 €",
+            "ours": 3900,
+            "duration": "3–4 Wochen"
+          },
+          {
+            "icon": "users",
+            "segment": "Lohn- & Buchhaltungsbüro",
+            "profile": "Lohnbüro · 5 Mitarbeitende · rund 120 Arbeitgeber",
+            "title": "Lohndaten strukturiert und pünktlich",
+            "situation": "Stunden, Fehlzeiten und Neueinstellungen kommen als Excel, Foto oder Sprachnachricht. Kurz vor dem Lohnlauf beginnt die Jagd nach fehlenden Angaben.",
+            "rows": [
+              {
+                "label": "Monatsmeldung",
+                "before": "zehn Formate",
+                "after": "ein Formular je Arbeitgeber"
+              },
+              {
+                "label": "Neueinstellung",
+                "before": "Fragebogen auf Papier",
+                "after": "digital, mit Pflichtfeldern"
+              },
+              {
+                "label": "Lohnunterlagen",
+                "before": "Versand per Mail",
+                "after": "Abruf im Portal"
+              }
+            ],
+            "built": [
+              "Arbeitgeber-Portal",
+              "Monatsformulare",
+              "Personalfragebogen"
+            ],
+            "integrated": [
+              "Lohnsoftware (Export)",
+              "E-Mail-Erinnerungen",
+              "Dokumentenablage"
+            ],
+            "classic": "28.000 – 38.000 €",
+            "ours": 7400,
+            "duration": "5–6 Wochen"
+          },
+          {
+            "icon": "chart",
+            "segment": "Unternehmensberatung",
+            "profile": "Beratung für den Mittelstand · 5 Berater · 15 laufende Projekte",
+            "title": "Projektstand ohne Statusbericht",
+            "situation": "Jeden Monat entstehen Statusberichte von Hand. Dokumente liegen in Mail-Anhängen, Kunden fragen zwischen den Terminen nach dem Stand.",
+            "rows": [
+              {
+                "label": "Statusbericht",
+                "before": "von Hand, monatlich",
+                "after": "live im Kundenbereich"
+              },
+              {
+                "label": "Dokumente",
+                "before": "Mail und Cloud-Ordner",
+                "after": "ein Ort je Projekt"
+              },
+              {
+                "label": "Kontingente",
+                "before": "Excel",
+                "after": "Zeitnachweis für den Kunden"
+              }
+            ],
+            "built": [
+              "Kunden-Dashboard",
+              "Aufgaben & Meilensteine",
+              "Dokumente"
+            ],
+            "integrated": [
+              "Kalender",
+              "Zeiterfassung (Import)",
+              "E-Mail"
+            ],
+            "classic": "16.000 – 24.000 €",
+            "ours": 4900,
+            "duration": "3–4 Wochen"
+          },
+          {
+            "icon": "shield",
+            "segment": "Finanz- & Versicherungsmakler",
+            "profile": "Maklerbüro · 3 Mitarbeitende · rund 1.800 Kunden",
+            "title": "Der Kundenbereich, den sonst der Versicherer hat",
+            "situation": "Schäden werden telefonisch gemeldet, Policen per Mail gesucht. Für Jahresgespräche fehlt die Zeit – also melden sich Kunden erst, wenn etwas passiert.",
+            "rows": [
+              {
+                "label": "Schadenmeldung",
+                "before": "Anruf mit Rückfragen",
+                "after": "Formular mit Fotos und Status"
+              },
+              {
+                "label": "Vertragsübersicht",
+                "before": "auf Anfrage per Mail",
+                "after": "jederzeit im Kundenbereich"
+              },
+              {
+                "label": "Jahresgespräch",
+                "before": "selten",
+                "after": "Einladung mit Terminlink"
+              }
+            ],
+            "built": [
+              "Kundenbereich",
+              "Schadenmeldung",
+              "Terminbuchung"
+            ],
+            "integrated": [
+              "Maklerverwaltung (Import)",
+              "E-Mail & SMS",
+              "Kalender"
+            ],
+            "classic": "28.000 – 38.000 €",
+            "ours": 7400,
+            "duration": "5–6 Wochen"
+          },
+          {
+            "icon": "message",
+            "segment": "Coaching & Training",
+            "profile": "Coaching-Anbieter · 3 Trainer · Einzel- und Gruppenformate",
+            "title": "Buchung, Unterlagen, Nachweise – ohne Büroarbeit",
+            "situation": "Erstgespräche werden per Mail abgestimmt, Unterlagen einzeln versendet. Anwesenheitslisten und Bescheinigungen entstehen am Wochenende.",
+            "rows": [
+              {
+                "label": "Erstgespräch",
+                "before": "Mail-Abstimmung",
+                "after": "Buchung mit Vorab-Fragen"
+              },
+              {
+                "label": "Unterlagen",
+                "before": "einzeln per Mail",
+                "after": "Teilnehmerbereich"
+              },
+              {
+                "label": "Nachweise",
+                "before": "von Hand am Wochenende",
+                "after": "auf Knopfdruck"
+              }
+            ],
+            "built": [
+              "Terminbuchung",
+              "Teilnehmerbereich",
+              "Bescheinigungen"
+            ],
+            "integrated": [
+              "Kalender",
+              "Videokonferenz-Link",
+              "E-Mail"
+            ],
+            "classic": "12.000 – 17.000 €",
+            "ours": 3900,
+            "duration": "3–4 Wochen"
+          }
+        ]
+      },
+      "process": {
+        "title": "Vom Nachfassen zum",
+        "accent": "laufenden Portal.",
+        "text": "Wir starten mit einem Vorgang und einer kleinen Gruppe von Mandanten – und rollen aus, sobald es im Alltag trägt.",
+        "steps": [
+          {
+            "title": "Kanzlei-Check",
+            "text": "Wir gehen einen Monatsabschluss, eine Mandatsannahme oder einen Lohnlauf Schritt für Schritt mit dir durch. Wo wird nachgefasst, abgetippt, gesucht? Kostenlos und unverbindlich."
+          },
+          {
+            "title": "Prototyp in 7 Tagen",
+            "text": "Du klickst dich durch dein Portal – mit deinen Checklisten, deinen Vorgängen, deinem Logo. Erst danach steht der Festpreis."
+          },
+          {
+            "title": "Pilot mit 10 Mandanten",
+            "text": "Wir starten mit einer Pilotgruppe, binden deine Fachsoftware an und schulen das Team. Dann folgen die übrigen Mandate in Wellen."
+          },
+          {
+            "title": "Betrieb & Ausbau",
+            "text": "Hosting in der EU, Updates, Support. KI-Belegerkennung, Onboarding oder weitere Vorgänge kommen dazu, wenn du sie brauchst."
+          }
+        ]
+      },
+      "packages": {
+        "tag": "Pakete für Kanzleien & Berater",
+        "title": "Drei Einstiege.",
+        "accent": "Fester Preis nach dem Prototyp.",
+        "text": "Such dir den Einstieg, der zu deiner Kanzlei passt. Den genauen Umfang legen wir im Kanzlei-Check fest – danach gilt ein Festpreis.",
+        "items": {
+          "onboarding": {
+            "name": "Mandats-Onboarding",
+            "audience": "Für Anwälte, Berater, Coaches und Makler",
+            "meta": "Live in 3–4 Wochen · Betrieb ab 49 €/Monat",
+            "features": [
+              "Anfrage mit Vorab-Fragebogen",
+              "Online-Terminbuchung",
+              "Unterlagen-Upload mit Checkliste",
+              "Vollmacht digital unterschreiben",
+              "Anfragen-Übersicht fürs Team"
+            ]
+          },
+          "portal": {
+            "name": "Mandantenportal",
+            "audience": "Für Steuerkanzleien, Lohnbüros und Makler",
+            "meta": "Live in 5–6 Wochen · Betrieb ab 149 €/Monat",
+            "features": [
+              "Login mit Zwei-Faktor-Anmeldung",
+              "Checklisten & Beleg-Upload",
+              "Dokumente zum Abruf",
+              "Rückfragen am Vorgang",
+              "Rollen, Rechte & Protokoll"
+            ]
+          },
+          "plattform": {
+            "name": "Kanzlei-Plattform",
+            "audience": "Für Kanzleien mit vielen Mandaten und eigenen Abläufen",
+            "meta": "Live in 6–8 Wochen · KI-Belegerkennung inklusive",
+            "features": [
+              "Workflows mit Freigaben",
+              "KI-Belegerkennung mit Vorschlägen",
+              "Fristen-Übersicht & Erinnerungen",
+              "Schnittstelle zur Fachsoftware",
+              "Quellcode & Daten gehören dir"
+            ]
+          }
         }
-      ],
+      },
+      "spotlight": {
+        "tag": "Dazu passend",
+        "title": "Website, die Erstgespräche bringt",
+        "text": "Für KlarVoran, ein Job- und Bewerbungscoaching im Rhein-Main-Gebiet, haben wir Website und Erstgespräch-Funnel gebaut: klare Struktur für zwei Zielgruppen und lokales SEO. Dieselbe Grundlage passt für Kanzleien und Berater.",
+        "badge": "Website ab 1.190 €",
+        "cta": "Projekt im Portfolio ansehen",
+        "imageAlt": "Website von KlarVoran, Job- und Bewerbungscoaching"
+      },
+      "compare": {
+        "title": "Fachsoftware, Anbieter-Portal",
+        "accent": "oder eigenes Portal?",
+        "text": "Nicht jede Kanzlei braucht individuelle Software. So ordnest du die drei Wege ein.",
+        "columns": [
+          "Kanzlei- oder Fachsoftware",
+          "Portal des Software-Anbieters",
+          "Eigenes Portal"
+        ],
+        "rows": [
+          {
+            "label": "Stark bei",
+            "cells": [
+              "Buchführung, Erklärungen, Akten, Abrechnung",
+              "Nahtloser Übergabe in die Fachsoftware",
+              "Genau deinen Vorgängen und deiner Mandantenansprache"
+            ]
+          },
+          {
+            "label": "Schwach bei",
+            "cells": [
+              "Allem, was der Mandant zuliefern muss",
+              "Eigenen Checklisten, Onboarding, Sonderfällen",
+              "Dingen, die deine Fachsoftware schon gut löst – die bauen wir nicht nach"
+            ]
+          },
+          {
+            "label": "Kosten",
+            "cells": [
+              "Lizenz je Arbeitsplatz und Modul",
+              "Monatlich je Mandant oder Nutzer",
+              "Einmalig ab 3.900 €, Betrieb ab 49 €/Monat"
+            ]
+          },
+          {
+            "label": "Daten & Code",
+            "cells": [
+              "Beim Anbieter",
+              "Beim Anbieter",
+              "Gehören dir, Hosting in der EU"
+            ]
+          },
+          {
+            "label": "Passt, wenn",
+            "cells": [
+              "deine Mandanten zuverlässig liefern",
+              "du im Standard des Anbieters bleibst",
+              "Nachfassen und Abtippen dich Stunden kosten"
+            ]
+          }
+        ],
+        "advice": "Behalte deine Fachsoftware für Buchführung, Akten und Abrechnung. Wir bauen die Schicht davor: alles, was Mandanten zuliefern, unterschreiben oder nachsehen. Und wenn das Portal deines Software-Anbieters für dich reicht, sagen wir dir das im Erstgespräch."
+      },
       "faq": [
         {
           "q": "Ersetzt das DATEV oder unsere Kanzleisoftware?",
-          "a": "Nein. Das Portal ergänzt sie und übergibt Daten per Schnittstelle oder bereitet sie für die Übernahme vor."
+          "a": "Nein. Das Portal ergänzt sie und übergibt Daten per Schnittstelle oder bereitet sie für die Übernahme vor. Buchführung, Akten und Abrechnung bleiben, wo sie sind."
         },
         {
           "q": "Was kostet ein Mandantenportal?",
-          "a": "Ab rund 7.400 € für Login, Dokumente, Status und Nachrichten, mit Workflows und Freigaben ab rund 12.900 €."
+          "a": "Ab rund 7.400 € für Login, Dokumente, Status und Nachrichten, mit Workflows, Freigaben und KI-Belegerkennung ab rund 12.900 €. Den Festpreis bekommst du nach dem Prototyp."
+        },
+        {
+          "q": "Wie wird die Verschwiegenheit gewahrt?",
+          "a": "Die Daten liegen verschlüsselt in der EU, mit Rollen, Rechten und Protokoll. Wir schließen einen Vertrag zur Auftragsverarbeitung; die für Berufsgeheimnisträger nötige Verpflichtung zur Verschwiegenheit klären wir vor Projektstart mit dir."
         },
         {
           "q": "Werden Mandantendaten für KI-Training verwendet?",
-          "a": "Nein. Wir nutzen Dienste mit Auftragsverarbeitung und ohne Training auf deinen Daten, gehostet in der EU."
+          "a": "Nein. Wir nutzen Dienste mit Auftragsverarbeitung und ohne Training auf deinen Daten. Die KI macht Vorschläge, entschieden wird in der Kanzlei."
+        },
+        {
+          "q": "Machen die Mandanten da überhaupt mit?",
+          "a": "Erfahrungsgemäß dann, wenn es einfacher ist als eine Mail: Foto mit dem Handy, fertig. Deshalb starten wir mit einer Pilotgruppe und passen die Checklisten an, bevor alle umziehen."
+        },
+        {
+          "q": "Wie lange dauert die Umsetzung?",
+          "a": "Den klickbaren Prototyp bekommst du nach 7 Tagen. Ein Onboarding steht in drei bis vier Wochen, ein Portal in fünf bis acht Wochen."
+        },
+        {
+          "q": "Müssen Mandanten eine App installieren?",
+          "a": "Nein. Das Portal läuft im Browser auf jedem Gerät. Wer mag, legt es wie eine App auf dem Startbildschirm ab."
         },
         {
           "q": "Passt das auch für Coaches und Bildungsträger?",
           "a": "Ja. Für KlarVoran, ein Job- und Bewerbungscoaching in Rhein-Main, haben wir Website und Erstgespräch-Funnel gebaut."
         }
-      ]
+      ],
+      "contact": {
+        "title": "Lass uns über",
+        "accent": "deine Kanzlei sprechen.",
+        "text": "Schreib uns kurz, wo du heute am meisten nachfassen musst. Wir melden uns innerhalb von 24 Stunden mit einer ehrlichen Einschätzung – auch wenn die lautet: Das Portal deines Anbieters reicht."
+      }
     },
     "beauty": {
       "navLabel": "Buchungssystem für Friseure & Beauty",
       "keyword": "Buchungssystem für Friseure & Beauty",
-      "metaTitle": "Buchungssystem für Friseure, Beauty & Studios – ohne Provision",
-      "metaDescription": "Eigene Online-Terminbuchung für Friseure, Barber, Kosmetik, Physio und Studios – mit Doppelbuchungs-Schutz, Erinnerungen und Anzahlung. Ab 2.200 €.",
+      "metaTitle": "Buchungssystem für Friseure, Beauty, Physio & Studios – ohne Provision",
+      "metaDescription": "Eigene Online-Terminbuchung für Friseure, Barber, Kosmetik, Physio, Studios und Spas – mit Erinnerungen, Anzahlung, Warteliste und Kundenkartei. Sechs Anwendungsfälle mit Kostenrahmen, ab 2.200 €.",
       "keywords": [
         "Buchungssystem Friseur",
         "Online Terminbuchung Friseur",
         "Buchungssystem ohne Provision",
         "Terminbuchung Kosmetik",
-        "Salon Software"
+        "Salon Software",
+        "Terminbuchung Physiotherapie",
+        "Kursbuchung Yogastudio"
       ],
       "hero": {
-        "badge": "Beauty, Gesundheit & Wellness",
-        "titleStart": "Termine buchen bei dir.",
-        "titleHighlight": "Nicht in fremden Apps.",
-        "text": "Eigenes Buchungssystem mit Kalender, Mitarbeiter-Auswahl, Erinnerungen und Anzahlung – für Friseure, Barber, Kosmetik, Physio, Praxen und Studios. Einmal bauen, dir gehört es.",
+        "badge": "Buchungssysteme für Beauty, Gesundheit & Studios",
+        "titleStart": "Weniger Ausfälle. Mehr",
+        "rotating": [
+          "gebuchte Termine.",
+          "Stammkunden.",
+          "volle Kalender.",
+          "Zeit am Kunden.",
+          "Umsatz pro Stuhl."
+        ],
+        "text": "Eigenes Buchungssystem für Friseure, Barber, Kosmetik, Physio, Studios und Spas. Kunden buchen rund um die Uhr bei dir, Erinnerungen und Anzahlung senken die Ausfälle – ohne Provision und ohne fremde App zwischen dir und deinen Kunden.",
         "imageAlt": "Website des OMED Friseursalons mit eigener Terminbuchung",
-        "stats": [
+        "cards": {
+          "alert": {
+            "label": "Neuer Termin · gebucht um 23:14",
+            "value": "Schnitt + Bart · 45 Min.",
+            "text": "Sa, 10:30 · bei Emre"
+          },
+          "confirm": {
+            "icon": "card",
+            "title": "Anzahlung bezahlt",
+            "text": "20 € · Termin gesichert"
+          },
+          "note": {
+            "icon": "star",
+            "title": "Bewertung angefragt",
+            "text": "Zwei Stunden nach dem Termin, ganz automatisch."
+          }
+        }
+      },
+      "audiences": {
+        "title": "Salon, Praxis oder Studio.",
+        "accent": "Dein Kalender, deine Regeln.",
+        "text": "Ein Haarschnitt dauert 30 Minuten, eine Tattoo-Session einen Tag, ein Yogakurs hat 14 Plätze. Wähle deinen Bereich und sieh, wie dein System das abbildet.",
+        "items": [
           {
-            "value": "0",
-            "label": "Doppelbuchungen – auf Datenbank-Ebene"
+            "icon": "scissors",
+            "label": "Friseur & Barber",
+            "title": "Der Kalender füllt sich, während du schneidest.",
+            "text": "Das Telefon klingelt, wenn du die Schere in der Hand hast – und abends, wenn der Laden zu ist. Online buchen deine Kunden dann, wann es ihnen passt, direkt beim richtigen Mitarbeiter.",
+            "pains": [
+              "Anrufe und Nachrichten mitten im Schnitt",
+              "Plattform-Gebühren je Kalender oder Neukunde",
+              "Samstags-Termine, die nicht erscheinen"
+            ],
+            "builds": [
+              "Online-Buchung mit Mitarbeiter-Auswahl",
+              "Erinnerung per SMS oder WhatsApp",
+              "Google-Profil mit Buchen-Button"
+            ]
           },
           {
-            "value": "ab 2.200 €",
-            "label": "einmalig statt monatlich pro Kalender"
+            "icon": "sparkles",
+            "label": "Kosmetik & Nails",
+            "title": "Lange Behandlungen, sicher gebucht.",
+            "text": "Eine ausgefallene Wimpern- oder Nagelbehandlung kostet zwei Stunden Umsatz. Mit Anzahlung und klaren Stornoregeln erscheinen Kunden – oder der Platz geht rechtzeitig an die Warteliste.",
+            "pains": [
+              "Ausfälle bei langen, teuren Terminen",
+              "Auffüll-Termine werden vergessen",
+              "Kundennotizen auf Karteikarten"
+            ],
+            "builds": [
+              "Buchung mit Anzahlung und Stornofrist",
+              "Automatische Einladung zum Folgetermin",
+              "Kundenkartei mit Notizen und Fotos"
+            ]
+          },
+          {
+            "icon": "shield",
+            "label": "Physio & Praxis",
+            "title": "Rezept-Serien statt Einzeltermin-Chaos.",
+            "text": "Sechs Termine pro Rezept, mehrere Therapeuten, begrenzte Räume: Am Empfang wird mehr geplant als begrüßt. Dein System vergibt Serien, erinnert und füllt Lücken über die Warteliste.",
+            "pains": [
+              "Terminserien am Telefon vergeben",
+              "Kurzfristige Absagen bleiben leer",
+              "Ausfallgebühren von Hand nachhalten"
+            ],
+            "builds": [
+              "Serienbuchung je Rezept und Therapeut",
+              "Warteliste füllt abgesagte Termine",
+              "Räume und Geräte als Ressourcen"
+            ]
+          },
+          {
+            "icon": "users",
+            "label": "Fitness- & Yogastudio",
+            "title": "Kurse, Karten, Warteliste – ohne Listen.",
+            "text": "Kurse haben Plätze, Mitglieder haben Karten, und fünf Minuten vor Beginn sagt jemand ab. Dein System verwaltet Plätze, bucht Guthaben ab und lässt Nachrücker automatisch rein.",
+            "pains": [
+              "Anmeldelisten per WhatsApp und Zuruf",
+              "10er-Karten auf Papier",
+              "Volle Kurse mit leeren Matten"
+            ],
+            "builds": [
+              "Kursplan mit Plätzen und Warteliste",
+              "Karten, Abos und Probestunden online",
+              "Check-in per QR-Code"
+            ]
+          },
+          {
+            "icon": "camera",
+            "label": "Tattoo & Piercing",
+            "title": "Aus Anfragen werden feste Termine.",
+            "text": "Tattoo-Anfragen kommen als Instagram-Nachricht, ohne Größe, Stelle oder Budget. Ein Anfrageformular sammelt alles, die Anzahlung sichert den Termin, die Einverständniserklärung ist vorher unterschrieben.",
+            "pains": [
+              "Anfragen per Instagram ohne Details",
+              "Termine ohne Anzahlung platzen",
+              "Einverständniserklärungen auf Papier"
+            ],
+            "builds": [
+              "Anfrageformular mit Motiv, Größe und Bildern",
+              "Anzahlung online, Termin je Artist",
+              "Einverständnis digital unterschreiben"
+            ]
+          },
+          {
+            "icon": "star",
+            "label": "Massage & Spa",
+            "title": "Gutscheine verkaufen, Räume auslasten.",
+            "text": "Gutscheine werden an der Theke ausgestellt und per Hand nachgehalten. Online gekauft, sofort verschickt und direkt bei der Buchung eingelöst – auch nachts vor Weihnachten.",
+            "pains": [
+              "Gutscheine nur vor Ort, Liste im Ordner",
+              "Räume und Therapeuten doppelt belegt",
+              "Paarbehandlungen am Telefon abstimmen"
+            ],
+            "builds": [
+              "Gutschein-Shop mit Sofortversand",
+              "Buchung mit Raum und Therapeut",
+              "Pakete und Paarbehandlungen online"
+            ]
           }
         ]
       },
-      "problem": {
-        "title": "Du zahlst jeden Monat für Buchungen in einer fremden App.",
-        "text": "Buchungsplattformen sind schnell eingerichtet – aber sie kosten laufend, pro Mitarbeiter oder pro Buchung. Deine Kundinnen buchen in einer App, in der auch die Konkurrenz steht, und die Daten liegen beim Anbieter.",
-        "points": [
-          "Laufende Gebühren pro Kalender oder Buchung",
-          "Deine Kundinnen sehen dort auch andere Salons",
-          "Keine Hoheit über Kundendaten und Notizen",
-          "No-Shows ohne Anzahlung oder Ausfallregel"
+      "modules": {
+        "title": "Sechs Bausteine.",
+        "accent": "Du nimmst nur, was deinen Kalender füllt.",
+        "text": "Jedes Modul löst einen konkreten Engpass. Klick dich durch – so sieht das im Alltag aus.",
+        "items": [
+          {
+            "icon": "calendar",
+            "title": "Online-Buchung",
+            "short": "Rund um die Uhr buchbar",
+            "benefit": "Kunden buchen bei dir – auch nachts, auch sonntags, ohne Anruf.",
+            "text": "Leistung wählen, Mitarbeiter wählen, Zeit wählen. In drei Schritten gebucht, auf dem Handy, ohne Konto-Zwang. Doppelbuchungen sind technisch ausgeschlossen.",
+            "bullets": [
+              "Leistungen mit Dauer, Preis und Pausenzeiten",
+              "Buchen-Button für Google, Instagram und Website",
+              "Doppelbuchungen auf Datenbank-Ebene ausgeschlossen"
+            ],
+            "before": "Jeder zweite Termin kommt per Anruf oder Nachricht",
+            "after": "Der Kalender füllt sich von selbst",
+            "mock": {
+              "title": "Samstag · Emre",
+              "rows": [
+                {
+                  "label": "10:30 · Schnitt + Bart",
+                  "meta": "Kerem A. · online gebucht",
+                  "status": "Bestätigt",
+                  "tone": "good"
+                },
+                {
+                  "label": "11:15 · Kinderschnitt",
+                  "meta": "Familie Hoffmann",
+                  "status": "Bestätigt",
+                  "tone": "good"
+                },
+                {
+                  "label": "12:00",
+                  "meta": "Noch buchbar",
+                  "status": "Frei",
+                  "tone": "muted"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "users",
+            "title": "Team, Räume & Geräte",
+            "short": "Jeder sieht seinen Tag",
+            "benefit": "Das System kennt dein Team – und plant Räume und Geräte gleich mit.",
+            "text": "Arbeitszeiten, Pausen, Urlaub und Können je Mitarbeiter. Behandlungsräume, Liegen oder Geräte werden als Ressourcen geplant, damit nichts doppelt belegt ist.",
+            "bullets": [
+              "Arbeitszeiten, Pausen und Urlaub je Mitarbeiter",
+              "Wer kann welche Leistung",
+              "Räume, Liegen und Geräte als Ressourcen"
+            ],
+            "before": "Papierkalender, den nur eine Person versteht",
+            "after": "Ein Plan, den jeder am Handy hat",
+            "mock": {
+              "title": "Team · heute",
+              "rows": [
+                {
+                  "label": "Emre",
+                  "meta": "9 Termine · Pause 13:00",
+                  "status": "ausgebucht",
+                  "tone": "good"
+                },
+                {
+                  "label": "Selin",
+                  "meta": "6 Termine · 2 Lücken",
+                  "status": "buchbar",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Raum 2 · Kosmetik",
+                  "meta": "belegt bis 16:30",
+                  "status": "ab 16:30 frei",
+                  "tone": "muted"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "message",
+            "title": "Erinnerungen & Warteliste",
+            "short": "Weniger leere Stühle",
+            "benefit": "Wer erinnert wird, kommt. Und wer absagt, macht Platz für den Nächsten.",
+            "text": "Erinnerung am Vortag, Absage mit einem Tipp. Wird ein Termin frei, bekommt die Warteliste automatisch ein Angebot – der Erste, der zusagt, hat ihn.",
+            "bullets": [
+              "Erinnerung per SMS, WhatsApp oder E-Mail",
+              "Absagen und Verschieben per Link",
+              "Warteliste füllt frei gewordene Termine"
+            ],
+            "before": "Vergessene Termine, Lücken im Tag",
+            "after": "Erinnert, bestätigt, nachbesetzt",
+            "mock": {
+              "title": "Heute automatisch",
+              "rows": [
+                {
+                  "label": "14 Erinnerungen gesendet",
+                  "meta": "für morgen",
+                  "status": "12 bestätigt",
+                  "tone": "good"
+                },
+                {
+                  "label": "Absage 15:00",
+                  "meta": "Warteliste benachrichtigt",
+                  "status": "Nachbesetzt",
+                  "tone": "good"
+                },
+                {
+                  "label": "Folgetermin fällig",
+                  "meta": "23 Kunden nach 5 Wochen",
+                  "status": "Eingeladen",
+                  "tone": "brand"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "card",
+            "title": "Anzahlung & Ausfallgebühr",
+            "short": "Termine mit Verbindlichkeit",
+            "benefit": "Wer anzahlt, erscheint. Und wenn nicht, ist der Ausfall bezahlt.",
+            "text": "Für lange oder teure Leistungen verlangst du eine Anzahlung oder hinterlegst eine Karte. Stornofristen sind klar geregelt, die Abrechnung läuft automatisch.",
+            "bullets": [
+              "Anzahlung je Leistung oder ab einer Dauer",
+              "Stornofrist und Ausfallgebühr nach deinen Regeln",
+              "Gutscheine und Pakete online verkaufen"
+            ],
+            "before": "Zwei Stunden geblockt, niemand kommt",
+            "after": "Anzahlung bezahlt, Termin gesichert",
+            "mock": {
+              "title": "Zahlungen · diese Woche",
+              "rows": [
+                {
+                  "label": "Anzahlungen",
+                  "meta": "18 Termine",
+                  "status": "360 €",
+                  "tone": "good"
+                },
+                {
+                  "label": "Gutscheine verkauft",
+                  "meta": "7 Stück",
+                  "status": "420 €",
+                  "tone": "good"
+                },
+                {
+                  "label": "Ausfallgebühr",
+                  "meta": "Termin Di 14:00",
+                  "status": "25 € berechnet",
+                  "tone": "warn"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "file",
+            "title": "Kundenkartei",
+            "short": "Alles über den Kunden, sofort da",
+            "benefit": "Du weißt beim Hinsetzen, was beim letzten Mal gemacht wurde.",
+            "text": "Terminhistorie, Notizen, Farbrezeptur, Fotos, Einverständniserklärungen. Sicher in der EU gespeichert, nur für dein Team sichtbar – und sie gehört dir, nicht einer Plattform.",
+            "bullets": [
+              "Notizen, Rezepturen und Vorher-Nachher-Fotos",
+              "Einverständnis und Anamnese digital",
+              "Export jederzeit möglich"
+            ],
+            "before": "Karteikarten und das Gedächtnis der Kollegin",
+            "after": "Die Kartei öffnet sich mit dem Termin",
+            "mock": {
+              "title": "Kundin · Aylin K.",
+              "rows": [
+                {
+                  "label": "Letzter Termin",
+                  "meta": "Balayage · vor 6 Wochen",
+                  "status": "Rezeptur gespeichert",
+                  "tone": "good"
+                },
+                {
+                  "label": "Notiz",
+                  "meta": "empfindliche Kopfhaut",
+                  "status": "Hinweis",
+                  "tone": "warn"
+                },
+                {
+                  "label": "Nächster Termin",
+                  "meta": "Fr, 16:00 · Ansatz",
+                  "status": "Gebucht",
+                  "tone": "brand"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "chart",
+            "title": "Bewertungen & Auslastung",
+            "short": "Sehen, was läuft",
+            "benefit": "Zufriedene Kunden bewerten – und du siehst, welche Stunden noch frei sind.",
+            "text": "Nach dem Termin geht automatisch eine Bitte um Bewertung raus. Das Dashboard zeigt Auslastung, Umsatz je Mitarbeiter und die Zeiten, die sich schlecht verkaufen.",
+            "bullets": [
+              "Bewertungsanfrage nach dem Termin",
+              "Auslastung je Mitarbeiter und Wochentag",
+              "Aktionen für schwache Zeiten"
+            ],
+            "before": "Bauchgefühl und der Blick in den Kalender",
+            "after": "Zahlen, mit denen du planen kannst",
+            "mock": {
+              "title": "Diese Woche",
+              "rows": [
+                {
+                  "label": "Auslastung",
+                  "meta": "Vorwoche 74 %",
+                  "status": "83 %",
+                  "tone": "good"
+                },
+                {
+                  "label": "Neue Google-Bewertungen",
+                  "meta": "Ø 4,9 Sterne",
+                  "status": "+ 6",
+                  "tone": "good"
+                },
+                {
+                  "label": "Schwache Zeit",
+                  "meta": "Di 10 – 13 Uhr",
+                  "status": "Aktion vorschlagen",
+                  "tone": "warn"
+                }
+              ]
+            }
+          }
         ]
       },
-      "featuresTitle": "Was dein Buchungssystem kann.",
-      "features": [
-        {
-          "title": "Online-Buchung",
-          "text": "Leistungen mit Dauer und Preis, freie Zeiten in Echtzeit, abgeglichen mit Öffnungszeiten und Pausen."
-        },
-        {
-          "title": "Mitarbeiter & Räume",
-          "text": "Wunsch-Mitarbeiter oder „egal wer“, Räume und Geräte, mehrere Standorte."
-        },
-        {
-          "title": "Erinnerungen",
-          "text": "Bestätigung und Erinnerung per Mail oder WhatsApp – weniger No-Shows."
-        },
-        {
-          "title": "Anzahlung & Ausfallgebühr",
-          "text": "Für lange Termine wie Farbe oder Extensions: Anzahlung online, klare Regeln."
-        },
-        {
-          "title": "Bewertungen",
-          "text": "Nach dem Termin automatisch um eine Google-Bewertung bitten."
-        },
-        {
-          "title": "Auslastung",
-          "text": "Auslastung pro Mitarbeiter, Wiederkehrrate und Umsatz pro Termin im Dashboard."
+      "cases": {
+        "title": "Sechs Betriebe, sechs Engpässe.",
+        "accent": "So sieht die Lösung aus.",
+        "text": "Typische Szenarien aus Salon, Studio und Praxis – mit Vorher-Nachher, Umfang und Kostenrahmen.",
+        "items": [
+          {
+            "icon": "scissors",
+            "segment": "Friseur & Barber",
+            "profile": "Barbershop · 3 Barber · bisher Termine per WhatsApp und Telefon",
+            "title": "Buchen ohne Anruf",
+            "situation": "Termine werden per WhatsApp vereinbart – beantwortet wird zwischen zwei Kunden. Samstags erscheinen regelmäßig zwei oder drei Termine nicht.",
+            "rows": [
+              {
+                "label": "Terminvergabe",
+                "before": "WhatsApp zwischen zwei Schnitten",
+                "after": "online, rund um die Uhr"
+              },
+              {
+                "label": "Nicht erschienen",
+                "before": "zwei bis drei pro Samstag",
+                "after": "selten, dank Erinnerung"
+              },
+              {
+                "label": "Neukunden",
+                "before": "rufen an oder gehen weiter",
+                "after": "buchen über Google"
+              }
+            ],
+            "built": [
+              "Online-Buchung",
+              "Mitarbeiter-Auswahl",
+              "Erinnerungen"
+            ],
+            "integrated": [
+              "Google-Profil",
+              "Instagram-Link",
+              "SMS & WhatsApp"
+            ],
+            "classic": "8.000 – 12.000 €",
+            "ours": 2200,
+            "duration": "2–3 Wochen"
+          },
+          {
+            "icon": "sparkles",
+            "segment": "Kosmetik & Nails",
+            "profile": "Kosmetik- und Nagelstudio · 4 Mitarbeitende · viele Zwei-Stunden-Termine",
+            "title": "Lange Termine, die erscheinen",
+            "situation": "Wimpern- und Nagelbehandlungen blockieren bis zu zwei Stunden. Jeder Ausfall ist verlorener Umsatz, und Auffüll-Termine werden oft zu spät gebucht.",
+            "rows": [
+              {
+                "label": "Ausfälle",
+                "before": "mehrmals pro Woche",
+                "after": "selten, dank Anzahlung"
+              },
+              {
+                "label": "Auffüll-Termine",
+                "before": "Kundin denkt selbst dran",
+                "after": "Einladung nach drei Wochen"
+              },
+              {
+                "label": "Kundennotizen",
+                "before": "Karteikarten",
+                "after": "Kartei am Termin"
+              }
+            ],
+            "built": [
+              "Buchung mit Anzahlung",
+              "Folgetermin-Einladung",
+              "Kundenkartei",
+              "Warteliste"
+            ],
+            "integrated": [
+              "Zahlungsanbieter",
+              "WhatsApp-Erinnerung",
+              "Google-Profil"
+            ],
+            "classic": "12.000 – 17.000 €",
+            "ours": 3900,
+            "duration": "3–4 Wochen"
+          },
+          {
+            "icon": "shield",
+            "segment": "Physio & Praxis",
+            "profile": "Physiotherapie-Praxis · 5 Therapeuten · 4 Behandlungsräume",
+            "title": "Rezept-Serien ohne Telefonmarathon",
+            "situation": "Der Empfang vergibt den ganzen Tag Terminserien am Telefon. Kurzfristig abgesagte Termine bleiben leer, Ausfallgebühren werden selten berechnet.",
+            "rows": [
+              {
+                "label": "Terminserien",
+                "before": "am Telefon, Termin für Termin",
+                "after": "online, sechs auf einmal"
+              },
+              {
+                "label": "Abgesagte Termine",
+                "before": "bleiben leer",
+                "after": "Warteliste rückt nach"
+              },
+              {
+                "label": "Ausfallgebühr",
+                "before": "selten nachgehalten",
+                "after": "automatisch nach deinen Regeln"
+              }
+            ],
+            "built": [
+              "Serienbuchung",
+              "Raumplanung",
+              "Warteliste",
+              "Ausfallregeln"
+            ],
+            "integrated": [
+              "Praxissoftware (Export)",
+              "SMS-Erinnerung",
+              "Kalender"
+            ],
+            "classic": "22.000 – 30.000 €",
+            "ours": 6400,
+            "duration": "5–6 Wochen"
+          },
+          {
+            "icon": "users",
+            "segment": "Fitness- & Yogastudio",
+            "profile": "Yogastudio · 22 Kurse pro Woche · 10er-Karten und Abos",
+            "title": "Kurse ohne Anmeldelisten",
+            "situation": "Anmeldungen laufen über eine WhatsApp-Gruppe, Karten werden auf Papier gestempelt. Beliebte Kurse sind voll, obwohl am Ende Matten frei bleiben.",
+            "rows": [
+              {
+                "label": "Kursanmeldung",
+                "before": "WhatsApp-Gruppe",
+                "after": "Kursplan mit Plätzen"
+              },
+              {
+                "label": "10er-Karten",
+                "before": "Stempelkarte",
+                "after": "Guthaben im Kundenkonto"
+              },
+              {
+                "label": "Kurzfristige Absagen",
+                "before": "Platz bleibt leer",
+                "after": "Warteliste rückt nach"
+              }
+            ],
+            "built": [
+              "Kursbuchung",
+              "Karten & Abos",
+              "Warteliste",
+              "QR-Check-in"
+            ],
+            "integrated": [
+              "Zahlungsanbieter",
+              "Kalender-Abo für Mitglieder",
+              "E-Mail"
+            ],
+            "classic": "14.000 – 20.000 €",
+            "ours": 3900,
+            "duration": "3–4 Wochen"
+          },
+          {
+            "icon": "camera",
+            "segment": "Tattoo & Piercing",
+            "profile": "Tattoo-Studio · 4 Artists · Anfragen fast nur über Instagram",
+            "title": "Anfragen mit allen Angaben",
+            "situation": "Anfragen kommen als Direktnachricht – ohne Größe, Körperstelle oder Budget. Viele Gespräche führen zu nichts, und Termine ohne Anzahlung platzen.",
+            "rows": [
+              {
+                "label": "Anfrage",
+                "before": "Instagram-Nachricht, viele Rückfragen",
+                "after": "Formular mit Motiv und Bildern"
+              },
+              {
+                "label": "Terminsicherheit",
+                "before": "Zusage per Chat",
+                "after": "Anzahlung online"
+              },
+              {
+                "label": "Einverständnis",
+                "before": "Papier am Termin",
+                "after": "vorab digital unterschrieben"
+              }
+            ],
+            "built": [
+              "Anfrageformular",
+              "Anzahlung",
+              "Digitale Unterschrift",
+              "Artist-Kalender"
+            ],
+            "integrated": [
+              "Zahlungsanbieter",
+              "Instagram-Link",
+              "E-Mail"
+            ],
+            "classic": "12.000 – 18.000 €",
+            "ours": 3900,
+            "duration": "3–4 Wochen"
+          },
+          {
+            "icon": "star",
+            "segment": "Massage & Spa",
+            "profile": "Day Spa · 6 Therapeuten · 5 Räume · viele Gutscheine",
+            "title": "Gutscheine und Räume im Griff",
+            "situation": "Gutscheine werden an der Theke verkauft und in einem Ordner abgehakt. Paarbehandlungen müssen telefonisch abgestimmt werden, weil zwei Räume und zwei Therapeuten gleichzeitig frei sein müssen.",
+            "rows": [
+              {
+                "label": "Gutscheine",
+                "before": "nur vor Ort, Liste im Ordner",
+                "after": "Online-Shop, Einlösung bei der Buchung"
+              },
+              {
+                "label": "Paarbehandlung",
+                "before": "Abstimmung am Telefon",
+                "after": "online buchbar"
+              },
+              {
+                "label": "Raumbelegung",
+                "before": "Papierplan",
+                "after": "automatisch geprüft"
+              }
+            ],
+            "built": [
+              "Gutschein-Shop",
+              "Buchung mit Räumen",
+              "Pakete",
+              "Team-Plan"
+            ],
+            "integrated": [
+              "Zahlungsanbieter",
+              "PDF-Gutschein per Mail",
+              "Kalender"
+            ],
+            "classic": "22.000 – 30.000 €",
+            "ours": 6400,
+            "duration": "5–6 Wochen"
+          }
+        ]
+      },
+      "process": {
+        "title": "Vom Papierkalender zum",
+        "accent": "vollen Buchungsplan.",
+        "text": "Wir bilden deine Leistungen und dein Team ab, übernehmen bestehende Termine und gehen an einem ruhigen Tag live.",
+        "steps": [
+          {
+            "title": "Kalender-Check",
+            "text": "Wir schauen uns Leistungen, Zeiten, Team und Ausfälle an. Wie wird heute gebucht, wo bleiben Stühle leer? Kostenlos und unverbindlich."
+          },
+          {
+            "title": "Prototyp in 7 Tagen",
+            "text": "Du buchst testweise einen Termin in deinem eigenen System – mit deinen Leistungen, deinen Preisen, deinem Logo. Erst danach steht der Festpreis."
+          },
+          {
+            "title": "Umzug ohne Lücke",
+            "text": "Wir übernehmen bestehende Termine und Kundendaten, soweit dein alter Anbieter das erlaubt, und schulen das Team in einer halben Stunde."
+          },
+          {
+            "title": "Betrieb & Ausbau",
+            "text": "Hosting in der EU, Updates, Support. Anzahlung, Gutscheine, Kurse oder ein zweiter Standort kommen dazu, wenn du sie brauchst."
+          }
+        ]
+      },
+      "packages": {
+        "tag": "Pakete für Beauty, Praxis & Studio",
+        "title": "Drei Einstiege.",
+        "accent": "Fester Preis nach dem Prototyp.",
+        "text": "Such dir den Einstieg, der zu deinem Betrieb passt. Einmal bauen, dir gehört es – statt monatlich pro Kalender zu zahlen.",
+        "items": {
+          "start": {
+            "name": "Buchung Start",
+            "audience": "Für Barber, Friseure und Solo-Selbstständige",
+            "meta": "Live in 2–3 Wochen · Betrieb ab 49 €/Monat",
+            "features": [
+              "Leistungen mit Dauer & Preis",
+              "Kalender mit Mitarbeiter-Auswahl",
+              "Bestätigung per Mail & WhatsApp",
+              "Buchen-Button für Google & Instagram",
+              "Termin-Übersicht fürs Team"
+            ]
+          },
+          "pro": {
+            "name": "Buchung Pro",
+            "audience": "Für Kosmetik, Nails, Tattoo und Studios",
+            "meta": "Live in 3–4 Wochen · Kurse & Karten inklusive",
+            "features": [
+              "Anzahlung & Stornoregeln",
+              "Erinnerungen & Warteliste",
+              "Kundenkonto & Kundenkartei",
+              "Gutscheine, Karten & Pakete",
+              "Bewertungsanfrage nach dem Termin"
+            ]
+          },
+          "team": {
+            "name": "Team & Standorte",
+            "audience": "Für Praxen, Spas und Betriebe mit mehreren Standorten",
+            "meta": "Live in 5–6 Wochen · Betrieb ab 149 €/Monat",
+            "features": [
+              "Räume, Liegen & Geräte als Ressourcen",
+              "Serien- und Paarbuchungen",
+              "Schichtplan & Urlaub",
+              "Auswertung je Mitarbeiter & Standort",
+              "Quellcode & Daten gehören dir"
+            ]
+          }
         }
-      ],
+      },
+      "spotlight": {
+        "tag": "Live im Einsatz",
+        "title": "OMED Friseursalon bucht über das eigene System",
+        "text": "Für den OMED Friseursalon in Aachen-Burtscheid haben wir Website und mehrstufige Terminbuchung gebaut: Leistungen mit Dauer und Preis, freie Zeitfenster, Bestätigung und Kundenbereich. Doppelbuchungen sind auf Datenbank-Ebene ausgeschlossen.",
+        "badge": "Echte Referenz",
+        "cta": "Projekt im Portfolio ansehen",
+        "imageAlt": "Terminbuchung des OMED Friseursalons auf dem Handy"
+      },
+      "compare": {
+        "title": "Buchungsplattform, Salon-Abo",
+        "accent": "oder eigenes System?",
+        "text": "Nicht jeder Betrieb braucht ein eigenes System. So ordnest du die drei Wege ein.",
+        "columns": [
+          "Buchungsplattform mit Marktplatz",
+          "Salon-Software im Abo",
+          "Eigenes Buchungssystem"
+        ],
+        "rows": [
+          {
+            "label": "Stark bei",
+            "cells": [
+              "Sichtbarkeit bei Kunden, die dort suchen",
+              "Schnellem Start, Kasse und Kalender in einem",
+              "Deinen Leistungen, deinen Regeln, deiner Marke"
+            ]
+          },
+          {
+            "label": "Schwach bei",
+            "cells": [
+              "Marge, eigener Marke, Kundendaten",
+              "Sonderfällen wie Serien, Räumen oder Anfragen",
+              "Marktplatz-Reichweite – Neukunden holst du über Google und Instagram"
+            ]
+          },
+          {
+            "label": "Kosten",
+            "cells": [
+              "Monatsgebühr, teils plus Provision je Neukunde",
+              "Monatlich je Kalender oder Mitarbeiter",
+              "Einmalig ab 2.200 €, Betrieb ab 49 €/Monat"
+            ]
+          },
+          {
+            "label": "Kundendaten",
+            "cells": [
+              "Bei der Plattform",
+              "Beim Anbieter",
+              "Bei dir"
+            ]
+          },
+          {
+            "label": "Passt, wenn",
+            "cells": [
+              "du neu bist und Reichweite brauchst",
+              "Standard reicht und du Kasse mit willst",
+              "du Stammkunden hast und wachsen willst"
+            ]
+          }
+        ],
+        "advice": "Wenn die meisten deiner Kunden ohnehin wiederkommen, zahlst du auf einer Plattform für Kunden, die du schon hast. Ein eigenes System lohnt sich meist ab zwei bis drei Mitarbeitenden. Für einen Solo-Betrieb mit wenigen Terminen am Tag reicht oft ein günstiges Abo – das sagen wir dir im Erstgespräch."
+      },
       "faq": [
         {
+          "q": "Was kostet das Buchungssystem?",
+          "a": "Buchung Start ab 2.200 € einmalig, mit Kundenkonto, Anzahlung und Warteliste ab 3.900 €, für Teams mit Räumen oder mehreren Standorten ab 6.400 €. Der Betrieb kostet ab 49 € im Monat."
+        },
+        {
           "q": "Kann ich meine bestehenden Termine übernehmen?",
-          "a": "Ja, per Export aus dem alten System, soweit der Anbieter das erlaubt."
+          "a": "Ja, per Export aus dem alten System, soweit der Anbieter das erlaubt. Den Umzug planen wir so, dass kein Tag ohne Buchungsmöglichkeit entsteht."
         },
         {
           "q": "Wie finden Neukunden mich ohne Marktplatz?",
-          "a": "Über Google Maps, lokales SEO und Instagram – dafür sorgen Google-Profil mit Buchungs-Button und eine schnelle Website."
+          "a": "Über Google Maps, lokales SEO und Instagram – dafür sorgen ein Google-Profil mit Buchen-Button und eine schnelle Website."
         },
         {
-          "q": "Was kostet das Buchungssystem?",
-          "a": "Buchung Start ab 2.200 €, mit Kundenkonto, Anzahlung und Warteliste ab 3.900 €. Betrieb ab 49 € im Monat."
+          "q": "Sind Anzahlungen rechtlich in Ordnung?",
+          "a": "Anzahlungen und Ausfallgebühren sind üblich, müssen aber vor der Buchung klar kommuniziert werden. Das System zeigt deine Bedingungen im Buchungsablauf an; die Formulierung stimmst du mit deiner Rechtsberatung ab."
         },
         {
           "q": "Eignet sich das auch für Physio und Studios?",
-          "a": "Ja. Leistungen, Räume, Geräte und Kurse mit mehreren Teilnehmern lassen sich frei kombinieren."
+          "a": "Ja. Leistungen, Räume, Geräte, Terminserien und Kurse mit mehreren Teilnehmern lassen sich frei kombinieren."
+        },
+        {
+          "q": "Müssen Kunden eine App installieren oder ein Konto anlegen?",
+          "a": "Nein. Gebucht wird im Browser, ohne Konto-Zwang. Wer ein Kundenkonto möchte, sieht dort Termine, Guthaben und Gutscheine."
+        },
+        {
+          "q": "Wo liegen die Kundendaten?",
+          "a": "In einer Datenbank in der EU, verschlüsselt und nur für dein Team sichtbar. Die Daten gehören dir und lassen sich jederzeit exportieren."
+        },
+        {
+          "q": "Wie lange dauert die Umsetzung?",
+          "a": "Den klickbaren Prototyp bekommst du nach 7 Tagen, live gehst du meist nach zwei bis vier Wochen."
         }
-      ]
+      ],
+      "contact": {
+        "title": "Lass uns über",
+        "accent": "deinen Kalender sprechen.",
+        "text": "Schreib uns kurz, wie heute bei dir gebucht wird und wo Termine ausfallen. Wir melden uns innerhalb von 24 Stunden mit einer ehrlichen Einschätzung – auch wenn die lautet: Ein Abo reicht dir."
+      }
     },
     "handwerk": {
       "navLabel": "Software für Handwerk & Services",
       "keyword": "Software für Handwerker & Dienstleister",
       "metaTitle": "Software für Handwerker & Dienstleister – Angebot bis Rechnung",
-      "metaDescription": "Anfrage-Funnel, Angebotsgenerator, Einsatzplanung, Monteur-App und digitale Abnahme – individuelle Software für Handwerk, Reinigung, Umzug und Services.",
+      "metaDescription": "Anfrage-Funnel mit Fotos, Angebotsgenerator, Einsatzplanung, Monteur-App und digitale Abnahme – individuelle Software für Handwerk, Reinigung, Umzug, GaLaBau und Kundendienst. Sechs Anwendungsfälle mit Kostenrahmen.",
       "keywords": [
         "Software Handwerker",
         "Handwerker App",
         "Einsatzplanung Software",
         "Software Dienstleister",
-        "Angebot Software Handwerk"
+        "Angebot Software Handwerk",
+        "Software Gebäudereinigung",
+        "Umzugsrechner Website"
       ],
       "hero": {
-        "badge": "Handwerk & Dienstleistungen",
-        "titleStart": "Von der Anfrage bis zur Rechnung.",
-        "titleHighlight": "Ohne Zettelwirtschaft.",
-        "text": "Anfragen mit Fotos, Angebote aus Bausteinen, Einsatzplanung, Monteur-App und digitale Abnahme – für Handwerksbetriebe, Reinigung, Umzug, Gebäudeservice und andere Dienstleister.",
-        "imageAlt": "Beispiel einer Web-App mit Dokumenten-Upload und Checkliste",
-        "stats": [
+        "badge": "Software für Handwerk & Dienstleistungen",
+        "titleStart": "Weniger Zettel. Mehr",
+        "rotating": [
+          "bezahlte Aufträge.",
+          "schnelle Angebote.",
+          "Zeit beim Kunden.",
+          "planbare Wochen.",
+          "saubere Abnahmen."
+        ],
+        "text": "Individuelle Software für Handwerksbetriebe, Reinigung, Umzug, GaLaBau und Kundendienst. Anfragen kommen mit Fotos, Angebote entstehen aus Bausteinen, das Team sieht seine Einsätze auf dem Handy – und nach der Abnahme steht die Rechnung.",
+        "imageAlt": "Beispielansicht eines Auftragssystems für einen Handwerksbetrieb",
+        "mockUrl": "dein-betrieb.de/auftraege",
+        "cards": {
+          "alert": {
+            "label": "Neue Anfrage · mit 4 Fotos",
+            "value": "Badsanierung, 8 m²",
+            "text": "Angebot in 12 Minuten erstellt"
+          },
+          "confirm": {
+            "icon": "file",
+            "title": "Abnahme unterschrieben",
+            "text": "Rechnung ist vorbereitet"
+          },
+          "note": {
+            "icon": "map",
+            "title": "Einsatz für morgen",
+            "text": "Team 2 · 7:30 Uhr · Material ist bestellt."
+          }
+        }
+      },
+      "audiences": {
+        "title": "Jedes Gewerk hat seinen Ablauf.",
+        "accent": "Deine Software folgt ihm.",
+        "text": "Ein Heizungsbauer plant anders als eine Reinigungsfirma. Wähle deinen Bereich und sieh, wo eigene Software Büro und Baustelle entlastet.",
+        "items": [
           {
-            "value": "Minuten",
-            "label": "statt Stunden für ein Angebot"
+            "icon": "wrench",
+            "label": "SHK & Elektro",
+            "title": "Das Angebot ist raus, bevor der Kunde woanders fragt.",
+            "text": "Anfragen kommen per Anruf, das Aufmaß per Zettel, das Angebot am Wochenende. Mit Anfrage-Formular und Bausteinen steht ein Angebot in Minuten – auf Basis von Fotos und Maßen des Kunden.",
+            "pains": [
+              "Angebote entstehen abends und am Wochenende",
+              "Vor-Ort-Termine für Aufträge, die nie kommen",
+              "Material und Stunden werden nachträglich zusammengesucht"
+            ],
+            "builds": [
+              "Anfrage-Formular mit Fotos und Eckdaten",
+              "Angebotsgenerator mit Leistungsbausteinen",
+              "Monteur-App mit Material- und Zeiterfassung"
+            ]
           },
           {
-            "value": "1 System",
-            "label": "für Büro und Baustelle"
+            "icon": "frame",
+            "label": "Maler, Bau & Ausbau",
+            "title": "Jeder weiß morgens, wohin – und was fehlt.",
+            "text": "Mehrere Baustellen, wechselnde Kolonnen, Material von drei Händlern: Geplant wird am Telefon. Eine Einsatzplanung zeigt Team, Baustelle und Stand – und die Doku entsteht nebenbei.",
+            "pains": [
+              "Einsatzplanung per Telefon und WhatsApp",
+              "Stundenzettel kommen spät und unvollständig",
+              "Nachträge ohne Beleg, Streit bei der Abrechnung"
+            ],
+            "builds": [
+              "Wochenplan je Kolonne und Baustelle",
+              "Zeiterfassung und Fotodoku am Handy",
+              "Nachträge mit Foto und Freigabe des Kunden"
+            ]
+          },
+          {
+            "icon": "sparkles",
+            "label": "Gebäudereinigung",
+            "title": "Qualität, die du belegen kannst.",
+            "text": "Viele Objekte, viele Kräfte, wenig Sichtbarkeit: Reklamationen kommen, bevor du sie bemerkst. Checklisten je Objekt, Zeitnachweis per QR-Code und ein Kundenzugang schaffen Klarheit.",
+            "pains": [
+              "Keine Sicht darauf, was im Objekt erledigt wurde",
+              "Zeitnachweise auf Papier",
+              "Reklamationen per Mail an die Objektleitung"
+            ],
+            "builds": [
+              "Objekt-Checklisten mit Foto-Nachweis",
+              "Zeiterfassung per QR-Code im Objekt",
+              "Kundenzugang für Meldungen und Nachweise"
+            ]
+          },
+          {
+            "icon": "map",
+            "label": "Umzug & Transport",
+            "title": "Der Kunde rechnet selbst – du bekommst den Auftrag.",
+            "text": "Jede Anfrage braucht eine Besichtigung oder ein langes Telefonat. Ein Umzugsrechner erfasst Inventar, Etagen und Strecke und liefert sofort einen Preisrahmen – passende Anfragen landen fertig bei dir.",
+            "pains": [
+              "Besichtigungen für Anfragen ohne Abschluss",
+              "Angebote nach Bauchgefühl",
+              "LKW und Teams in Excel geplant"
+            ],
+            "builds": [
+              "Umzugsrechner mit Inventarliste",
+              "Angebot als PDF, Annahme per Klick",
+              "Einsatzplan für Fahrzeuge und Teams"
+            ]
+          },
+          {
+            "icon": "refresh",
+            "label": "Garten- & Landschaftsbau",
+            "title": "Pflegeverträge laufen wie von selbst.",
+            "text": "Wiederkehrende Pflege, Saisonspitzen, Wetter: Touren werden jede Woche neu gebaut. Ein Planer legt Pflegeintervalle an, bündelt Touren und dokumentiert jede Leistung mit Foto.",
+            "pains": [
+              "Pflegeintervalle im Kopf und im Kalender",
+              "Touren jede Woche neu zusammenstellen",
+              "Leistungsnachweis für Hausverwaltungen von Hand"
+            ],
+            "builds": [
+              "Pflegeverträge mit Intervallen und Leistungen",
+              "Tourenplanung je Team und Woche",
+              "Leistungsnachweis mit Foto per Klick"
+            ]
+          },
+          {
+            "icon": "calendar",
+            "label": "Wartung & Kundendienst",
+            "title": "Wartungstermine vereinbaren sich selbst.",
+            "text": "Hunderte Wartungsverträge, und jeder Termin wird einzeln telefonisch vereinbart. Kunden bekommen einen Terminlink, der Techniker das Protokoll aufs Handy – und der Folgetermin ist gleich angelegt.",
+            "pains": [
+              "Wartungstermine einzeln abtelefonieren",
+              "Protokolle auf Durchschlagpapier",
+              "Fällige Wartungen werden übersehen"
+            ],
+            "builds": [
+              "Wartungsplaner mit Fälligkeiten",
+              "Terminvereinbarung per Link",
+              "Digitales Protokoll mit Unterschrift"
+            ]
           }
         ]
       },
-      "problem": {
-        "title": "Die Arbeit ist nicht das Problem. Der Papierkram schon.",
-        "text": "Anfragen kommen ohne Fotos und Maße, Angebote entstehen abends am Küchentisch, Fotos liegen auf privaten Handys, und die Rechnung wartet auf den Zettel vom Monteur.",
-        "points": [
-          "Besichtigungen nur zum Informationen-Einsammeln",
-          "Angebote in Word, Preise aus dem Kopf",
-          "Einsatzplanung per Whiteboard und Gruppenchat",
-          "Verzögerte Rechnung durch fehlende Abnahme"
+      "modules": {
+        "title": "Sechs Bausteine.",
+        "accent": "Von der Anfrage bis zur Rechnung.",
+        "text": "Jedes Modul löst einen konkreten Engpass zwischen Büro und Baustelle. Klick dich durch – so sieht das im Alltag aus.",
+        "items": [
+          {
+            "icon": "message",
+            "title": "Anfrage mit Fotos",
+            "short": "Vollständig beim ersten Kontakt",
+            "benefit": "Du weißt, worum es geht, bevor du zurückrufst.",
+            "text": "Kunden beschreiben ihr Anliegen in wenigen Schritten, laden Fotos hoch und geben Maße an. Du siehst sofort, ob sich ein Termin lohnt – und kannst oft direkt anbieten.",
+            "bullets": [
+              "Geführte Fragen je Leistung",
+              "Fotos, Maße und Wunschtermin",
+              "Automatische Einschätzung: passt, Rückfrage, Absage"
+            ],
+            "before": "Anruf, Rückruf, Besichtigung – für jede Anfrage",
+            "after": "Anfragen, die du sofort beurteilen kannst",
+            "mock": {
+              "title": "Anfragen · diese Woche",
+              "rows": [
+                {
+                  "label": "Badsanierung, 8 m²",
+                  "meta": "4 Fotos · Wunschtermin Mai",
+                  "status": "Angebot erstellt",
+                  "tone": "good"
+                },
+                {
+                  "label": "Heizungstausch, Altbau",
+                  "meta": "Öl auf Wärmepumpe · 140 m²",
+                  "status": "Vor-Ort-Termin",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Wasserhahn tropft",
+                  "meta": "außerhalb des Einsatzgebiets",
+                  "status": "Abgesagt",
+                  "tone": "muted"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "file",
+            "title": "Angebotsgenerator",
+            "short": "Angebote aus Bausteinen",
+            "benefit": "Aus Minuten statt Stunden – und trotzdem sauber kalkuliert.",
+            "text": "Leistungen, Material und Stundensätze liegen als Bausteine vor. Du wählst aus, passt Mengen an, das Angebot geht als PDF raus – mit Annahme per Klick.",
+            "bullets": [
+              "Leistungsbausteine mit Material und Zeit",
+              "Varianten und Optionen im selben Angebot",
+              "Annahme online, Erinnerung bei offenen Angeboten"
+            ],
+            "before": "Angebote am Wochenende in Word",
+            "after": "Angebot noch am Tag der Anfrage",
+            "mock": {
+              "title": "Angebote",
+              "rows": [
+                {
+                  "label": "A-2031 · Badsanierung",
+                  "meta": "12.480 € · gesendet heute",
+                  "status": "Offen",
+                  "tone": "brand"
+                },
+                {
+                  "label": "A-2029 · Wallbox",
+                  "meta": "1.890 € · angenommen",
+                  "status": "Auftrag",
+                  "tone": "good"
+                },
+                {
+                  "label": "A-2024 · Fassade",
+                  "meta": "seit 9 Tagen offen",
+                  "status": "Nachfassen",
+                  "tone": "warn"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "calendar",
+            "title": "Einsatzplanung",
+            "short": "Wer, wo, wann, womit",
+            "benefit": "Ein Plan für die Woche – und jeder hat ihn auf dem Handy.",
+            "text": "Aufträge werden per Ziehen auf Teams und Tage verteilt. Urlaub, Fahrzeuge und Materialstand sind sichtbar, Änderungen kommen sofort bei den Monteuren an.",
+            "bullets": [
+              "Wochenplan je Team, Fahrzeug und Baustelle",
+              "Abwesenheiten und Materialstatus im Blick",
+              "Änderungen als Push-Nachricht"
+            ],
+            "before": "Plantafel im Büro, Änderungen per Anruf",
+            "after": "Ein Plan, der für alle gilt",
+            "mock": {
+              "title": "Einsätze · morgen",
+              "rows": [
+                {
+                  "label": "Team 1 · Badsanierung Lenz",
+                  "meta": "7:00 · Tag 3 von 6",
+                  "status": "Geplant",
+                  "tone": "good"
+                },
+                {
+                  "label": "Team 2 · Wallbox Aydin",
+                  "meta": "7:30 · Material bestellt",
+                  "status": "Geplant",
+                  "tone": "good"
+                },
+                {
+                  "label": "Team 3 · Notdienst",
+                  "meta": "Fahrzeug in der Werkstatt",
+                  "status": "Umplanen",
+                  "tone": "warn"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "smartphone",
+            "title": "Monteur-App",
+            "short": "Die Baustelle in der Hosentasche",
+            "benefit": "Auftrag, Adresse, Material und Zeiten – alles in einer App, auch ohne Netz.",
+            "text": "Die App zeigt den Tagesplan mit Kundendaten und Unterlagen. Zeiten und Material werden vor Ort erfasst, im Keller ohne Empfang gespeichert und später synchronisiert.",
+            "bullets": [
+              "Tagesplan mit Navigation und Ansprechpartner",
+              "Zeit- und Materialerfassung am Auftrag",
+              "Funktioniert offline, synchronisiert später"
+            ],
+            "before": "Stundenzettel, die am Freitag eintrudeln",
+            "after": "Zeiten und Material am selben Tag im Büro",
+            "mock": {
+              "title": "Heute · Team 2",
+              "rows": [
+                {
+                  "label": "Wallbox Aydin",
+                  "meta": "7:30 – 11:10 · 3 Positionen Material",
+                  "status": "Erfasst",
+                  "tone": "good"
+                },
+                {
+                  "label": "Zählerschrank Brandt",
+                  "meta": "ab 12:00 · Unterlagen dabei",
+                  "status": "Als Nächstes",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Offline gespeichert",
+                  "meta": "2 Fotos warten auf Netz",
+                  "status": "Synchronisiert später",
+                  "tone": "muted"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "camera",
+            "title": "Doku & Abnahme",
+            "short": "Belegt statt behauptet",
+            "benefit": "Vorher, nachher, unterschrieben – Diskussionen erledigen sich.",
+            "text": "Fotos werden dem Auftrag zugeordnet, Nachträge mit Preis vom Kunden freigegeben. Die Abnahme wird auf dem Handy unterschrieben und als PDF an beide Seiten geschickt.",
+            "bullets": [
+              "Fotodoku je Auftrag und Arbeitsschritt",
+              "Nachträge mit Preis und Freigabe",
+              "Abnahmeprotokoll mit Unterschrift"
+            ],
+            "before": "Fotos in privaten Handy-Galerien",
+            "after": "Jedes Foto am richtigen Auftrag",
+            "mock": {
+              "title": "Auftrag · Badsanierung Lenz",
+              "rows": [
+                {
+                  "label": "Fotodoku",
+                  "meta": "23 Fotos · 6 Arbeitsschritte",
+                  "status": "Vollständig",
+                  "tone": "good"
+                },
+                {
+                  "label": "Nachtrag Rohrleitung",
+                  "meta": "+ 420 € · Foto beigefügt",
+                  "status": "Freigegeben",
+                  "tone": "good"
+                },
+                {
+                  "label": "Abnahme",
+                  "meta": "Termin Fr 14:00",
+                  "status": "Steht aus",
+                  "tone": "brand"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "chart",
+            "title": "Rechnung & Zahlen",
+            "short": "Nach der Abnahme ist vor der Zahlung",
+            "benefit": "Die Rechnung steht, wenn der Kunde unterschrieben hat.",
+            "text": "Aus Angebot, Zeiten, Material und Nachträgen entsteht die Rechnungsgrundlage – übergeben an deine Buchhaltung per Schnittstelle oder Export. Dazu Nachkalkulation je Auftrag.",
+            "bullets": [
+              "Rechnungsgrundlage aus erfassten Daten",
+              "Übergabe an die Buchhaltung per Schnittstelle oder Export",
+              "Nachkalkulation: geplant gegen tatsächlich"
+            ],
+            "before": "Rechnungen Wochen nach dem Auftrag",
+            "after": "Abnahme heute, Rechnung morgen",
+            "mock": {
+              "title": "Diesen Monat",
+              "rows": [
+                {
+                  "label": "Abgerechnet",
+                  "meta": "18 Aufträge",
+                  "status": "64.300 €",
+                  "tone": "good"
+                },
+                {
+                  "label": "Abgenommen, nicht berechnet",
+                  "meta": "2 Aufträge",
+                  "status": "5.900 €",
+                  "tone": "warn"
+                },
+                {
+                  "label": "Nachkalkulation Lenz",
+                  "meta": "geplant 62 Std. · ist 58 Std.",
+                  "status": "im Plan",
+                  "tone": "good"
+                }
+              ]
+            }
+          }
         ]
       },
-      "featuresTitle": "Was dein Betriebs-System kann.",
-      "features": [
-        {
-          "title": "Angebotsgenerator",
-          "text": "Leistungen, Material und Stundensätze als Bausteine – Angebot per Klick, Annahme online."
-        },
-        {
-          "title": "Einsatzplanung",
-          "text": "Wochenplan für alle Teams per Drag & Drop, Konflikte sofort sichtbar."
-        },
-        {
-          "title": "Monteur-App",
-          "text": "Einsätze, Adresse, Ansprechpartner und Material auf dem Handy – auch offline."
-        },
-        {
-          "title": "Fotos & Doku",
-          "text": "Fotos und Notizen landen direkt am Auftrag, nicht auf privaten Handys."
-        },
-        {
-          "title": "Digitale Abnahme",
-          "text": "Unterschrift auf dem Tablet, Protokoll automatisch an Kunde und Büro."
-        },
-        {
-          "title": "Zahlen im Blick",
-          "text": "Angebote vs. Aufträge, Deckungsbeitrag pro Auftrag, Tage bis zur Rechnung."
+      "cases": {
+        "title": "Sechs Betriebe, sechs Engpässe.",
+        "accent": "So sieht die Lösung aus.",
+        "text": "Typische Szenarien aus Handwerk und Dienstleistung – mit Vorher-Nachher, Umfang und Kostenrahmen.",
+        "items": [
+          {
+            "icon": "wrench",
+            "segment": "SHK & Elektro",
+            "profile": "SHK-Betrieb · 12 Mitarbeitende · rund 25 Anfragen pro Woche",
+            "title": "Angebote am selben Tag",
+            "situation": "Der Meister fährt zu jeder Anfrage raus und schreibt Angebote am Wochenende. Bis das Angebot kommt, hat der Kunde oft schon woanders zugesagt.",
+            "rows": [
+              {
+                "label": "Erstkontakt",
+                "before": "Anruf und Vor-Ort-Termin",
+                "after": "Formular mit Fotos und Maßen"
+              },
+              {
+                "label": "Angebot",
+                "before": "nach 5 bis 10 Tagen",
+                "after": "am selben oder nächsten Tag"
+              },
+              {
+                "label": "Nachfassen",
+                "before": "selten",
+                "after": "automatische Erinnerung"
+              }
+            ],
+            "built": [
+              "Anfrage-Formular",
+              "Angebotsgenerator",
+              "Angebotsübersicht"
+            ],
+            "integrated": [
+              "Buchhaltung (Export)",
+              "Großhandels-Preisliste (Import)",
+              "E-Mail & WhatsApp"
+            ],
+            "classic": "16.000 – 24.000 €",
+            "ours": 4900,
+            "duration": "4 Wochen"
+          },
+          {
+            "icon": "frame",
+            "segment": "Maler, Bau & Ausbau",
+            "profile": "Malerbetrieb · 8 Gesellen · 4 bis 6 Baustellen gleichzeitig",
+            "title": "Von der Plantafel zur Abrechnung",
+            "situation": "Geplant wird morgens am Telefon, Stundenzettel kommen freitags. Nachträge werden mündlich vereinbart und bei der Schlussrechnung bestritten.",
+            "rows": [
+              {
+                "label": "Einsatzplanung",
+                "before": "Telefon am Morgen",
+                "after": "Wochenplan auf dem Handy"
+              },
+              {
+                "label": "Stunden",
+                "before": "Zettel am Freitag",
+                "after": "täglich am Auftrag erfasst"
+              },
+              {
+                "label": "Nachträge",
+                "before": "mündlich",
+                "after": "mit Foto und Freigabe"
+              }
+            ],
+            "built": [
+              "Einsatzplanung",
+              "Monteur-App",
+              "Fotodoku",
+              "Abnahme"
+            ],
+            "integrated": [
+              "Buchhaltung (Export)",
+              "Lohnbüro (Stundenexport)",
+              "Push-Nachrichten"
+            ],
+            "classic": "35.000 – 50.000 €",
+            "ours": 10900,
+            "duration": "6–8 Wochen"
+          },
+          {
+            "icon": "sparkles",
+            "segment": "Gebäudereinigung",
+            "profile": "Reinigungsfirma · rund 60 Kräfte · 45 Objekte",
+            "title": "Nachweisbare Qualität in jedem Objekt",
+            "situation": "Die Objektleitung erfährt von Problemen erst durch Reklamationen. Zeiten werden auf Papier notiert, Nachweise für Kunden von Hand erstellt.",
+            "rows": [
+              {
+                "label": "Leistungskontrolle",
+                "before": "Stichproben vor Ort",
+                "after": "Checkliste mit Foto je Einsatz"
+              },
+              {
+                "label": "Zeitnachweis",
+                "before": "Papierliste",
+                "after": "QR-Code im Objekt"
+              },
+              {
+                "label": "Reklamation",
+                "before": "Mail an die Objektleitung",
+                "after": "Meldung im Kundenzugang mit Status"
+              }
+            ],
+            "built": [
+              "Objekt-Checklisten",
+              "Zeiterfassung",
+              "Kundenzugang",
+              "Einsatzplanung"
+            ],
+            "integrated": [
+              "Lohnabrechnung (Export)",
+              "QR-Codes je Objekt",
+              "E-Mail-Berichte"
+            ],
+            "classic": "55.000 – 80.000 €",
+            "ours": 18900,
+            "duration": "8–10 Wochen"
+          },
+          {
+            "icon": "map",
+            "segment": "Umzug & Transport",
+            "profile": "Umzugsunternehmen · 4 LKW · rund 30 Anfragen pro Woche",
+            "title": "Preisrahmen sofort, Besichtigung nur wenn nötig",
+            "situation": "Fast jede Anfrage führt zu einem langen Telefonat oder einer Besichtigung. Nur jede vierte wird ein Auftrag.",
+            "rows": [
+              {
+                "label": "Anfrage",
+                "before": "Telefonat oder Besichtigung",
+                "after": "Rechner mit Inventarliste"
+              },
+              {
+                "label": "Preis",
+                "before": "nach Gefühl, Tage später",
+                "after": "Preisrahmen sofort"
+              },
+              {
+                "label": "Planung",
+                "before": "Excel",
+                "after": "Einsatzplan je LKW"
+              }
+            ],
+            "built": [
+              "Umzugsrechner",
+              "Angebots-PDF",
+              "Einsatzplan"
+            ],
+            "integrated": [
+              "Kalender",
+              "Routenberechnung",
+              "E-Mail & WhatsApp"
+            ],
+            "classic": "15.000 – 22.000 €",
+            "ours": 4900,
+            "duration": "3–4 Wochen"
+          },
+          {
+            "icon": "refresh",
+            "segment": "Garten- & Landschaftsbau",
+            "profile": "GaLaBau-Betrieb · 3 Pflegeteams · rund 140 Pflegeverträge",
+            "title": "Pflegetouren, die sich selbst planen",
+            "situation": "Wer wann welches Objekt pflegt, steht in einer Excel-Liste und im Kopf des Chefs. Hausverwaltungen verlangen Nachweise, die abends geschrieben werden.",
+            "rows": [
+              {
+                "label": "Pflegeintervalle",
+                "before": "Excel und Gedächtnis",
+                "after": "Planer mit Fälligkeiten"
+              },
+              {
+                "label": "Touren",
+                "before": "jede Woche neu gebaut",
+                "after": "Vorschlag je Team"
+              },
+              {
+                "label": "Leistungsnachweis",
+                "before": "abends von Hand",
+                "after": "Foto und Protokoll per Klick"
+              }
+            ],
+            "built": [
+              "Pflegeplaner",
+              "Tourenplanung",
+              "Leistungsnachweise",
+              "Monteur-App"
+            ],
+            "integrated": [
+              "Buchhaltung (Export)",
+              "Kartenansicht",
+              "E-Mail an Verwaltungen"
+            ],
+            "classic": "32.000 – 45.000 €",
+            "ours": 10900,
+            "duration": "6–8 Wochen"
+          },
+          {
+            "icon": "calendar",
+            "segment": "Wartung & Kundendienst",
+            "profile": "Heizungs-Kundendienst · 4 Techniker · rund 1.400 Wartungsverträge",
+            "title": "Wartungstermine ohne Telefonliste",
+            "situation": "Eine Mitarbeiterin telefoniert das ganze Jahr Wartungstermine ab. Protokolle werden auf Durchschlagpapier geschrieben und später abgetippt.",
+            "rows": [
+              {
+                "label": "Terminvereinbarung",
+                "before": "einzeln am Telefon",
+                "after": "Einladung mit Terminlink"
+              },
+              {
+                "label": "Protokoll",
+                "before": "Durchschlagpapier",
+                "after": "digital mit Unterschrift"
+              },
+              {
+                "label": "Fälligkeiten",
+                "before": "Liste im Büro",
+                "after": "automatisch im Planer"
+              }
+            ],
+            "built": [
+              "Wartungsplaner",
+              "Terminbuchung",
+              "Digitales Protokoll"
+            ],
+            "integrated": [
+              "SMS & E-Mail",
+              "Kalender der Techniker",
+              "Buchhaltung (Export)"
+            ],
+            "classic": "20.000 – 28.000 €",
+            "ours": 6400,
+            "duration": "5 Wochen"
+          }
+        ]
+      },
+      "process": {
+        "title": "Vom Zettel zum",
+        "accent": "laufenden System.",
+        "text": "Wir starten mit dem Ablauf, der am meisten Zeit frisst – oft dem Angebot – und bauen aus, sobald es im Betrieb trägt.",
+        "steps": [
+          {
+            "title": "Betriebs-Check",
+            "text": "Wir gehen einen Auftrag von der Anfrage bis zur Rechnung mit dir durch. Wo wird doppelt geschrieben, gesucht, hinterhertelefoniert? Kostenlos und unverbindlich."
+          },
+          {
+            "title": "Prototyp in 7 Tagen",
+            "text": "Du klickst dich durch dein System – mit deinen Leistungen, deinen Preisen, deinem Logo. Erst danach steht der Festpreis."
+          },
+          {
+            "title": "Start mit einem Team",
+            "text": "Wir gehen mit einer Kolonne oder einer Leistung live, schulen direkt am Handy und passen an, was auf der Baustelle hakt. Dann folgt der Rest."
+          },
+          {
+            "title": "Betrieb & Ausbau",
+            "text": "Hosting in der EU, Updates, Support. Einsatzplanung, Wartung oder ein Kundenzugang kommen dazu, wenn du sie brauchst."
+          }
+        ]
+      },
+      "packages": {
+        "tag": "Pakete für Handwerk & Dienstleister",
+        "title": "Drei Einstiege.",
+        "accent": "Fester Preis nach dem Prototyp.",
+        "text": "Such dir den Einstieg, der zu deinem Betrieb passt. Den genauen Umfang legen wir im Betriebs-Check fest – danach gilt ein Festpreis.",
+        "items": {
+          "angebot": {
+            "name": "Anfrage & Angebot",
+            "audience": "Für Betriebe, die schneller anbieten wollen",
+            "meta": "Live in 3–4 Wochen · Betrieb ab 149 €/Monat",
+            "features": [
+              "Anfrage-Formular mit Fotos & Maßen",
+              "Angebotsgenerator mit Bausteinen",
+              "Angebot als PDF, Annahme per Klick",
+              "Erinnerung bei offenen Angeboten",
+              "Angebotsübersicht mit Quote"
+            ]
+          },
+          "auftrag": {
+            "name": "Auftrag bis Rechnung",
+            "audience": "Für Betriebe mit mehreren Teams und Baustellen",
+            "meta": "Live in 6–8 Wochen · ein Kernprozess komplett",
+            "features": [
+              "Einsatzplanung je Team & Fahrzeug",
+              "Monteur-App, auch offline",
+              "Zeit- und Materialerfassung",
+              "Fotodoku, Nachträge & Abnahme",
+              "Übergabe an die Buchhaltung"
+            ]
+          },
+          "plattform": {
+            "name": "Betriebs-Plattform",
+            "audience": "Für Reinigung, Wartung und Betriebe mit vielen Objekten",
+            "meta": "Live in 8–10 Wochen · mehrere Prozesse",
+            "features": [
+              "Workshop & Prozessanalyse",
+              "Objekte, Verträge & Intervalle",
+              "Kundenzugang mit Nachweisen",
+              "Rollen, Rechte & Auswertungen",
+              "Quellcode & Daten gehören dir"
+            ]
+          }
         }
-      ],
+      },
+      "compare": {
+        "title": "Handwerker-Software, Einzel-Tools",
+        "accent": "oder eigenes System?",
+        "text": "Wenn fertige Software zu deinem Ablauf passt, nimm sie. So ordnest du die drei Wege ein.",
+        "columns": [
+          "Handwerker-Software von der Stange",
+          "Einzel-Tools & Excel",
+          "Eigenes System"
+        ],
+        "rows": [
+          {
+            "label": "Stark bei",
+            "cells": [
+              "Angebot, Rechnung, Stammdaten nach Standard",
+              "Schnellem Start ohne Einführung",
+              "Genau deinem Ablauf, vom Erstkontakt bis zur Abnahme"
+            ]
+          },
+          {
+            "label": "Schwach bei",
+            "cells": [
+              "Abläufen, die anders sind als der Standard",
+              "Doppelter Eingabe und fehlendem Überblick",
+              "Dingen, die Standard schon gut löst – die bauen wir nicht nach"
+            ]
+          },
+          {
+            "label": "Kosten",
+            "cells": [
+              "Lizenz je Nutzer und Monat",
+              "Viele kleine Abos, viel Handarbeit",
+              "Einmalig ab 4.900 €, Betrieb ab 149 €/Monat"
+            ]
+          },
+          {
+            "label": "Daten & Code",
+            "cells": [
+              "Beim Anbieter",
+              "Verteilt über viele Tools",
+              "Gehören dir, Hosting in der EU"
+            ]
+          },
+          {
+            "label": "Passt, wenn",
+            "cells": [
+              "dein Ablauf dem Standard entspricht",
+              "du allein oder zu zweit arbeitest",
+              "du viele Nutzer hast oder dein Ablauf besonders ist"
+            ]
+          }
+        ],
+        "advice": "Behalte deine Buchhaltung und, wenn sie passt, deine Handwerker-Software. Individuell lohnt sich dort, wo dein Ablauf anders ist: bei der Anfrage, der Planung oder dem Nachweis vor Ort. Ob das bei dir so ist, klären wir im Erstgespräch – ehrlich, auch wenn die Antwort Nein lautet."
+      },
       "faq": [
         {
           "q": "Gibt es dafür nicht fertige Handwerker-Software?",
           "a": "Ja, und wenn sie passt, nutze sie. Individuell lohnt sich, wenn dein Ablauf anders ist oder du Lizenzen für viele Nutzer sparen willst."
         },
         {
-          "q": "Funktioniert die App ohne Netz?",
-          "a": "Ja, mit Offline-Speicher. Daten werden synchronisiert, sobald wieder Empfang da ist."
+          "q": "Was kostet das?",
+          "a": "Anfrage-Funnel mit Angebotsgenerator ab rund 4.900 €, ein kompletter Kernprozess von der Planung bis zur Abnahme ab rund 10.900 €. Den Festpreis bekommst du nach dem Prototyp."
         },
         {
-          "q": "Was kostet das?",
-          "a": "Anfrage-Funnel mit Angebotsgenerator ab rund 4.900 €, ein kompletter Kernprozess ab rund 10.900 €."
+          "q": "Funktioniert die App ohne Netz?",
+          "a": "Ja, mit Offline-Speicher. Zeiten, Material und Fotos werden gespeichert und synchronisiert, sobald wieder Empfang da ist."
+        },
+        {
+          "q": "Kommen meine Leute damit klar?",
+          "a": "Die App zeigt nur, was auf der Baustelle gebraucht wird: Auftrag, Zeiten, Material, Fotos. Wir schulen direkt am Handy und starten mit einem Team, bevor alle umsteigen."
         },
         {
           "q": "Bleibt unsere Buchhaltung?",
-          "a": "Ja. Rechnungen übergeben wir per Schnittstelle oder Export an deine bestehende Buchhaltung."
+          "a": "Ja. Rechnungsdaten übergeben wir per Schnittstelle oder Export an deine bestehende Buchhaltung."
+        },
+        {
+          "q": "Können wir unsere Preise und Leistungen selbst pflegen?",
+          "a": "Ja. Leistungsbausteine, Stundensätze und Materialpreise änderst du selbst – oder importierst sie aus einer Preisliste."
+        },
+        {
+          "q": "Wie lange dauert die Umsetzung?",
+          "a": "Den klickbaren Prototyp bekommst du nach 7 Tagen. Anfrage und Angebot stehen in drei bis vier Wochen, ein Kernprozess in sechs bis acht Wochen."
+        },
+        {
+          "q": "Wo liegen die Daten?",
+          "a": "In einer Datenbank in der EU, verschlüsselt, mit Rollen und Rechten. Code und Daten gehören dir."
         }
-      ]
+      ],
+      "contact": {
+        "title": "Lass uns über",
+        "accent": "deinen Betrieb sprechen.",
+        "text": "Schreib uns kurz, wo zwischen Anfrage und Rechnung am meisten Zeit verloren geht. Wir melden uns innerhalb von 24 Stunden mit einer ehrlichen Einschätzung – auch wenn die lautet: Nimm fertige Software."
+      }
     },
     "individualsoftware": {
       "navLabel": "Individualsoftware",
@@ -3750,5 +7157,66 @@
     "text": "Vielleicht findest du hier, was du suchst:",
     "home": "Zur Startseite",
     "calculator": "Zum Preisrechner"
+  },
+  "industryPage": {
+    "hero": {
+      "primary": "Kostenloses Erstgespräch",
+      "secondary": "Anwendungsfälle ansehen",
+      "audienceLabel": "Gebaut für",
+      "cardsNote": "Beispielhafte Meldungen aus dem System",
+      "mockNote": "Beispielansicht"
+    },
+    "audiences": {
+      "tag": "Für wen",
+      "painsLabel": "Was heute Zeit kostet",
+      "buildsLabel": "Was wir dafür bauen",
+      "tabsAria": "Bereich der Branche"
+    },
+    "modules": {
+      "tag": "Funktionen",
+      "listAria": "Module des Systems",
+      "beforeLabel": "Vorher",
+      "afterLabel": "Nachher",
+      "mockNote": "Beispielansicht"
+    },
+    "cases": {
+      "tag": "Anwendungsfälle",
+      "disclaimer": "Die Szenarien sind Beispielrechnungen für die genannte Betriebsgröße, keine Kundenprojekte. Die Vergleichswerte sind Richtwerte für klassische Agenturentwicklung nach Aufwand; dein Festpreis steht nach dem Prototyp.",
+      "situationLabel": "Ausgangslage",
+      "beforeLabel": "Vorher",
+      "afterLabel": "Nachher",
+      "builtLabel": "Umgesetzt",
+      "integratedLabel": "Angebunden",
+      "classicLabel": "Klassische Agentur",
+      "oursLabel": "Mit TasWiq",
+      "from": "ab",
+      "durationLabel": "Live in",
+      "why": {
+        "title": "Warum der Unterschied so groß ist",
+        "text": "Wir entwickeln KI-gestützt und setzen auf erprobte Bausteine für Login, Rollen, Uploads und Benachrichtigungen. Du zahlst für deine Abläufe – nicht dafür, dass jemand das Rad neu erfindet.",
+        "cta": "Deinen Fall besprechen"
+      }
+    },
+    "process": {
+      "tag": "Ablauf"
+    },
+    "compare": {
+      "tag": "Gut zu wissen",
+      "rowHeader": "Kriterium",
+      "ownBadge": "Unser Feld",
+      "adviceTitle": "Unsere Empfehlung",
+      "guidesLabel": "Zum Weiterlesen"
+    },
+    "contact": {
+      "tag": "Anfrage",
+      "formTitle": "Kurze Nachricht genügt.",
+      "formText": "Kein Fragebogen, kein Verkaufsgespräch. Zwei Sätze zu deinem Betrieb reichen.",
+      "submit": "Anfrage senden",
+      "points": [
+        "Antwort innerhalb von 24 Stunden",
+        "Ablauf-Check kostenlos",
+        "Festpreis nach dem Prototyp"
+      ]
+    }
   }
 }

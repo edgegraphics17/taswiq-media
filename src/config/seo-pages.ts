@@ -9,7 +9,7 @@ import type { Locale } from "@/i18n/routing";
  *  - kind "leistung": Leistung ("Bestellsystem ohne Provision") → Suchende mit konkretem Bedarf
  *  - kind "media":    Premium-Media für Events, Festivals & Artists (bewusst nur eine Seite)
  * Aufbau: Hero → Problem → Funktionen → Referenzen → Pakete → Ratgeber → FAQ → Funnel.
- * Ausnahme: "immobilien" hat einen eigenen Aufbau (components/realestate/RealEstatePage.tsx).
+ * Branchenseiten (kind "branche") haben einen eigenen Aufbau: components/industry/IndustryPage.tsx.
  * Texte: messages → seoPages.<id>. Slugs sind pro Sprache auf das Such-Keyword optimiert.
  *
  * Städte-Seiten später: Eintrag mit `city` duplizieren, z. B. slug "software-steuerberater-koeln".
@@ -35,8 +35,10 @@ export interface SeoPage {
   portfolio: PortfolioId[];
   /** Passende Ratgeber-Artikel (Blog-Slugs) */
   blog: string[];
-  /** Hero-Bild: Screenshot im Browser-Rahmen (Software) oder Foto (Media/Immobilien) */
-  hero: { image: string; frame: "browser" | "photo"; url?: string; video?: string };
+  /** Hero: Screenshot im Browser-Rahmen, Foto/Film oder – ohne passende Referenz – Beispielansicht aus den Modulen ("mock") */
+  hero: { image: string; frame: "browser" | "photo" | "mock"; url?: string; video?: string };
+  /** Branchenseiten: echte Referenz oder passende Ergänzung unter den Paketen (Texte: seoPages.<id>.spotlight) */
+  spotlight?: { image: string; href: "/portfolio" };
   city?: string;
 }
 
@@ -55,6 +57,7 @@ export const seoPages: SeoPage[] = [
     portfolio: ["daron", "cinnamon", "il-forno", "mangal"],
     blog: ["eigenes-bestellsystem-statt-lieferando", "saas-abo-oder-eigene-software"],
     hero: { image: "/images/portfolio/site-daron.jpg", frame: "browser", url: "daron-brot-ii.vercel.app" },
+    spotlight: { image: "/images/cases/il-forno.jpg", href: "/portfolio" },
   },
   {
     id: "immobilien",
@@ -69,6 +72,7 @@ export const seoPages: SeoPage[] = [
     portfolio: ["agile"],
     blog: ["software-fuer-makler-und-hausverwaltungen", "individualsoftware-mittelstand-kosten"],
     hero: { image: "/images/portfolio/agile.jpg", frame: "photo", video: "/videos/portfolio/agile-hero.mp4" },
+    spotlight: { image: "/images/portfolio/agile.jpg", href: "/portfolio" },
   },
   {
     id: "automotive",
@@ -82,7 +86,8 @@ export const seoPages: SeoPage[] = [
     featureIcons: ["car", "calendar", "smartphone", "users", "card", "chart"],
     portfolio: ["omed", "taswiq-system", "daron"],
     blog: ["digitalisierung-autohaus-fahrschule", "web-app-oder-native-app"],
-    hero: { image: "/images/portfolio/site-omed.jpg", frame: "browser", url: "omed-friseursalon.vercel.app" },
+    hero: { image: "/images/portfolio/site-omed.jpg", frame: "mock" },
+    spotlight: { image: "/images/portfolio/site-omed.jpg", href: "/portfolio" },
   },
   {
     id: "kanzlei",
@@ -97,6 +102,7 @@ export const seoPages: SeoPage[] = [
     portfolio: ["antragsbruder", "klarvoran", "taswiq-system"],
     blog: ["mandantenportal-steuerberater", "ki-automatisierung-mittelstand"],
     hero: { image: "/images/portfolio/site-antragsbruder.jpg", frame: "browser", url: "antragsbruder.de" },
+    spotlight: { image: "/images/portfolio/site-klarvoran.jpg", href: "/portfolio" },
   },
   {
     id: "beauty",
@@ -111,6 +117,7 @@ export const seoPages: SeoPage[] = [
     portfolio: ["omed", "klarvoran", "daron"],
     blog: ["buchungssystem-friseur-ohne-provision", "was-kostet-eine-website"],
     hero: { image: "/images/portfolio/site-omed.jpg", frame: "browser", url: "omed-friseursalon.vercel.app" },
+    spotlight: { image: "/images/portfolio/mobile-omed.jpg", href: "/portfolio" },
   },
   {
     id: "handwerk",
@@ -124,7 +131,7 @@ export const seoPages: SeoPage[] = [
     featureIcons: ["file", "calendar", "smartphone", "camera", "card", "chart"],
     portfolio: ["taswiq-system", "antragsbruder", "omed"],
     blog: ["software-fuer-handwerker-und-dienstleister", "unternehmens-dashboard-kennzahlen"],
-    hero: { image: "/images/portfolio/site-antragsbruder.jpg", frame: "browser", url: "antragsbruder.de" },
+    hero: { image: "/images/portfolio/site-antragsbruder.jpg", frame: "mock" },
   },
 
   /* ─── Leistungen ─── */

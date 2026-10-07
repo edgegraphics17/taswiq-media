@@ -1116,91 +1116,779 @@
     "gastro": {
       "navLabel": "Restaurant software",
       "keyword": "Software for restaurants & food businesses",
-      "metaTitle": "Restaurant Software – Your Own Ordering System, Zero Commission",
-      "metaDescription": "Your own ordering system, reservations and kitchen dashboard for restaurants, takeaways, bakeries and delivery services. No platform commission, from €2,900.",
+      "metaTitle": "Software for restaurants & food businesses – ordering system without commission",
+      "metaDescription": "Your own ordering system, reservations, kitchen board and regulars campaigns for restaurants, delivery services, bakeries, takeaways and caterers. Six use cases with cost ranges, from €2,900.",
       "keywords": [
         "restaurant software",
-        "restaurant ordering system",
-        "commission-free online ordering",
         "online ordering system restaurant",
-        "food delivery platform alternative"
+        "ordering system without commission",
+        "delivery platform alternative",
+        "restaurant reservation system",
+        "bakery pre-order system"
       ],
       "hero": {
-        "badge": "Restaurants & food",
-        "titleStart": "Your guests order from you.",
-        "titleHighlight": "Not from the platform.",
-        "text": "Your own ordering system, reservations and kitchen board – under your name, with no commission per order. For restaurants, takeaways, bakeries, cafés and delivery services.",
-        "imageAlt": "Ordering system of Daron Brot II bakery in Aachen",
-        "stats": [
+        "badge": "Software for restaurants & food",
+        "titleStart": "Less commission. More",
+        "rotating": [
+          "direct orders.",
+          "regulars.",
+          "margin per order.",
+          "calm in service.",
+          "full tables."
+        ],
+        "text": "Your own ordering system, reservations and kitchen board under your name – for restaurants, delivery services, bakeries, takeaways and caterers. Your guests order from you, not from the platform.",
+        "imageAlt": "Ordering system of the bakery Daron Brot II in Aachen",
+        "cards": {
+          "alert": {
+            "label": "New order · pickup",
+            "value": "2× lahmacun, 1× ayran",
+            "text": "€18.50 · paid online"
+          },
+          "confirm": {
+            "icon": "card",
+            "title": "0% commission",
+            "text": "The order is yours"
+          },
+          "note": {
+            "icon": "chef",
+            "title": "Kitchen board",
+            "text": "The ticket pops up on the tablet with a chime."
+          }
+        }
+      },
+      "audiences": {
+        "title": "Every kitchen runs differently.",
+        "accent": "Your system follows suit.",
+        "text": "Delivery, restaurant, bakery or caterer – the bottlenecks differ. Pick your business and see where your own system helps.",
+        "items": [
           {
-            "value": "0%",
-            "label": "commission on direct orders"
+            "icon": "utensils",
+            "label": "Restaurant",
+            "title": "Full tables without a phone at your ear.",
+            "text": "Reservations come in exactly when service is in full swing. Your own reservation system takes them around the clock, reminds guests and protects you from empty tables.",
+            "pains": [
+              "Reservations by phone in the middle of service",
+              "Groups that don't show up",
+              "Reservation portals charging per guest"
+            ],
+            "builds": [
+              "Online reservations with table plan",
+              "Reminders and deposits for groups",
+              "Guest file with allergies and preferences"
+            ]
           },
           {
-            "value": "3 languages",
-            "label": "DE · EN · AR in the live project"
+            "icon": "cart",
+            "label": "Delivery & pizzeria",
+            "title": "Regulars order directly from you.",
+            "text": "Platforms bring new guests – and take a cut of every repeat order too. With your own ordering system you bring repeat customers over to your side.",
+            "pains": [
+              "Commission on every platform order",
+              "Customer data sits with the platform",
+              "Several tablets and the phone at once"
+            ],
+            "builds": [
+              "Your own ordering system with online payment",
+              "Delivery zones, minimum order, driver overview",
+              "Flyer QR and vouchers for the first direct order"
+            ]
+          },
+          {
+            "icon": "chef",
+            "label": "Bakery & café",
+            "title": "Pre-ordered, paid, ready for pickup.",
+            "text": "Weekend rolls, cakes, platters: pre-orders currently run via phone and paper slips. Online, customers order from the sofa in the evening – and you know exactly what to bake in the morning.",
+            "pains": [
+              "Pre-orders on slips behind the counter",
+              "Cake enquiries with lots of back and forth",
+              "A Saturday queue even though everything is pre-ordered"
+            ],
+            "builds": [
+              "Pre-ordering with pickup time and branch",
+              "Cake configurator with lead time",
+              "Baking list for the next morning"
+            ]
+          },
+          {
+            "icon": "zap",
+            "label": "Takeaway & food truck",
+            "title": "The lunch queue gets shorter.",
+            "text": "Your revenue is decided between twelve and one. Anyone who pre-orders and gets a pickup time doesn't wait – and you sell more in the same hour.",
+            "pains": [
+              "Guests leave when the queue is too long",
+              "Orders shouted across the counter, mistakes included",
+              "Location and hours change daily"
+            ],
+            "builds": [
+              "Pre-ordering by QR code with pickup time",
+              "Kitchen board with order sequence and chime",
+              "Maintain daily location and opening hours yourself"
+            ]
+          },
+          {
+            "icon": "calendar",
+            "label": "Catering & events",
+            "title": "From enquiry form to quote in minutes.",
+            "text": "Catering enquiries cost time before a single euro is earned. A configurator collects headcount, menu and date – the quote is built from your building blocks.",
+            "pains": [
+              "Enquiries by email with details missing",
+              "Quotes written by hand in Word",
+              "Deposits and dates in Excel"
+            ],
+            "builds": [
+              "Catering configurator with pricing logic",
+              "Quote as PDF, accepted with one click",
+              "Deposit online, production list for the kitchen"
+            ]
+          },
+          {
+            "icon": "building",
+            "label": "Multiple locations",
+            "title": "One menu, many branches, one overview.",
+            "text": "From the second branch on, things get messy: prices, promotions and figures drift apart. A multi-branch system keeps everything central – and each branch sees only its part.",
+            "pains": [
+              "Maintaining prices and items separately in each branch",
+              "Figures arrive as photos via WhatsApp",
+              "Each branch on a different tool"
+            ],
+            "builds": [
+              "Central menu with branch prices",
+              "Roles for owner, branch manager and counter",
+              "Revenue and bestsellers per location"
+            ]
           }
         ]
       },
-      "problem": {
-        "title": "Every regular's order costs you commission.",
-        "text": "Delivery platforms bring new guests – and then take a cut of every order after that. They keep the customer data, and your brand disappears among a hundred others. Your own system brings back margin, data and the relationship.",
-        "points": [
-          "Commission even on regulars who already know you",
-          "No customer data for offers, loyalty rewards or lunch menus",
-          "Orders on three tablets, reservations on the phone",
-          "Menu on the website out of date, prices nowhere in one place"
+      "modules": {
+        "title": "Six building blocks.",
+        "accent": "Start with the one that pays off first.",
+        "text": "Each module solves one specific bottleneck in your business. Click through – this is what it looks like day to day.",
+        "items": [
+          {
+            "icon": "cart",
+            "title": "Online ordering",
+            "short": "Under your name, no commission",
+            "benefit": "Your guests order on your site – and all the revenue stays with you.",
+            "text": "Menu with variants, extras and allergens, basket, pickup or delivery. Fast on a phone, no app and no forced registration.",
+            "bullets": [
+              "Variants, extras and set menus just like in your till",
+              "Pickup time or delivery with zone and minimum order",
+              "Multilingual, for example German, English, Arabic, Turkish"
+            ],
+            "before": "Every platform order costs commission",
+            "after": "Direct orders with nothing deducted",
+            "mock": {
+              "title": "Orders · today",
+              "rows": [
+                {
+                  "label": "#214 · pickup 12:30",
+                  "meta": "2× lahmacun, 1× ayran",
+                  "status": "New",
+                  "tone": "brand"
+                },
+                {
+                  "label": "#213 · delivery",
+                  "meta": "Family pizza, salad · €31.40",
+                  "status": "In progress",
+                  "tone": "warn"
+                },
+                {
+                  "label": "#212 · pickup",
+                  "meta": "paid online",
+                  "status": "Collected",
+                  "tone": "good"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "chef",
+            "title": "Kitchen board",
+            "short": "One screen instead of four tablets",
+            "benefit": "Every order appears in the kitchen instantly – with a chime, in the right sequence.",
+            "text": "The board runs on a tablet at the pass. New tickets chime, timers run, one tap sets the status. The guest sees via link when the order is ready.",
+            "bullets": [
+              "Chime and colour change when waiting too long",
+              "Status for the guest: accepted, in progress, ready",
+              "Mark items as sold out with one tap"
+            ],
+            "before": "Printer tickets, shouting, follow-up calls",
+            "after": "One board that keeps kitchen and guest up to date",
+            "mock": {
+              "title": "Kitchen · 12:24",
+              "rows": [
+                {
+                  "label": "#214 · 2× lahmacun",
+                  "meta": "for 2 min · pickup 12:30",
+                  "status": "Prepare",
+                  "tone": "brand"
+                },
+                {
+                  "label": "#213 · family pizza",
+                  "meta": "for 9 min · driver waiting",
+                  "status": "Urgent",
+                  "tone": "warn"
+                },
+                {
+                  "label": "#211 · falafel plate",
+                  "meta": "no onions",
+                  "status": "Ready",
+                  "tone": "good"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "card",
+            "title": "Payment & vouchers",
+            "short": "Paid before you cook",
+            "benefit": "Paid online means: no change, no fake orders, no risk.",
+            "text": "Card, PayPal, Apple Pay and Google Pay run through your own payment provider – the money goes straight to your account. You create vouchers and promo codes yourself.",
+            "bullets": [
+              "Payout directly to you, not via a platform",
+              "Vouchers for the first direct order",
+              "Tip option at checkout"
+            ],
+            "before": "Cash at the door, prank orders",
+            "after": "Paid in advance, with a receipt for the guest",
+            "mock": {
+              "title": "Payments · this week",
+              "rows": [
+                {
+                  "label": "Paid online",
+                  "meta": "142 orders",
+                  "status": "€3,486",
+                  "tone": "good"
+                },
+                {
+                  "label": "Voucher DIRECT10",
+                  "meta": "redeemed 38×",
+                  "status": "active",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Cash on pickup",
+                  "meta": "21 orders",
+                  "status": "open",
+                  "tone": "muted"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "calendar",
+            "title": "Reservations & tables",
+            "short": "Booking without calling",
+            "benefit": "Tables fill up online – even when nobody can pick up the phone.",
+            "text": "Guests choose party size and time, your table plan checks availability. Reminders reduce no-shows, and you can require a deposit for groups.",
+            "bullets": [
+              "Table plan with time slots and areas",
+              "Reminders by email or WhatsApp",
+              "Deposit or card guarantee for groups"
+            ],
+            "before": "The phone rings in the middle of dinner service",
+            "after": "The table is booked before you hear about it",
+            "mock": {
+              "title": "Reservations · Saturday",
+              "rows": [
+                {
+                  "label": "19:00 · table 7 · 4 guests",
+                  "meta": "Demir family · reminded",
+                  "status": "Confirmed",
+                  "tone": "good"
+                },
+                {
+                  "label": "19:30 · terrace · 8 guests",
+                  "meta": "€80 deposit paid",
+                  "status": "Confirmed",
+                  "tone": "good"
+                },
+                {
+                  "label": "20:00 · table 3 · 2 guests",
+                  "meta": "requested 4 min ago",
+                  "status": "New",
+                  "tone": "brand"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "star",
+            "title": "Regulars & promotions",
+            "short": "The customer data is yours",
+            "benefit": "Anyone who has ordered direct once comes back – because you can reach them.",
+            "text": "Every direct order builds your own guest list. You see who orders regularly and win back quiet days with a promotion – by email or WhatsApp, with consent.",
+            "bullets": [
+              "Guest list with order history",
+              "Loyalty points or every tenth order free",
+              "Promotions for quiet days, targeted instead of scattergun"
+            ],
+            "before": "The platform knows your guests, you don't",
+            "after": "Your own guest list, your own promotions",
+            "mock": {
+              "title": "Regulars",
+              "rows": [
+                {
+                  "label": "312 guests with consent",
+                  "meta": "+ 27 this month",
+                  "status": "growing",
+                  "tone": "good"
+                },
+                {
+                  "label": "Promotion »Kebab Tuesday«",
+                  "meta": "sent to 312 guests",
+                  "status": "41 orders",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Haven't ordered lately",
+                  "meta": "58 guests for 60 days",
+                  "status": "Reminder ready",
+                  "tone": "warn"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "chart",
+            "title": "Dashboard & figures",
+            "short": "Change prices, see figures",
+            "benefit": "You change prices yourself – and see in the evening what the day brought in.",
+            "text": "You maintain items, prices, opening hours and delivery times in the dashboard. Plus revenue, bestsellers and peak times – with a handover to till or accounting if you like.",
+            "bullets": [
+              "Items and prices changed in seconds",
+              "Bestsellers, peak times, basket value",
+              "Export or interface to till and accounting"
+            ],
+            "before": "Emailing the provider for every price change",
+            "after": "Change it yourself, live immediately",
+            "mock": {
+              "title": "Today at a glance",
+              "rows": [
+                {
+                  "label": "Direct order revenue",
+                  "meta": "64 orders · avg. €23.80",
+                  "status": "€1,523",
+                  "tone": "good"
+                },
+                {
+                  "label": "Bestseller",
+                  "meta": "Lahmacun with salad",
+                  "status": "38×",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Peak time",
+                  "meta": "12:10 – 13:00",
+                  "status": "27 orders",
+                  "tone": "brand"
+                }
+              ]
+            }
+          }
         ]
       },
-      "featuresTitle": "What your restaurant system does.",
-      "features": [
-        {
-          "title": "Online ordering",
-          "text": "Menu with variants, extras and allergens. Pickup and delivery with zones and minimum order value."
-        },
-        {
-          "title": "Kitchen board",
-          "text": "New orders with a chime on the tablet, status with one tap, cancellations with a reason."
-        },
-        {
-          "title": "Online payment",
-          "text": "Card, PayPal, Apple Pay and Google Pay – the money goes straight to you."
-        },
-        {
-          "title": "Reservations",
-          "text": "Let guests book tables online, with confirmation and reminders by email or WhatsApp."
-        },
-        {
-          "title": "Dashboard & numbers",
-          "text": "Revenue per hour, top items, share of direct orders – at a glance."
-        },
-        {
-          "title": "Multilingual",
-          "text": "Menu and ordering in German, English, Arabic or Turkish – for every guest."
+      "cases": {
+        "title": "Six businesses, six bottlenecks.",
+        "accent": "Here is the solution.",
+        "text": "Typical scenarios from delivery, restaurant, bakery, takeaway, catering and multi-branch operations – with before and after, scope and cost range.",
+        "items": [
+          {
+            "icon": "cart",
+            "segment": "Delivery & pizzeria",
+            "profile": "Pizzeria with its own drivers · around 900 platform orders a month",
+            "title": "Winning repeat customers back from the platform",
+            "situation": "Seven out of ten orders come through a delivery platform – including from guests who have ordered for years. At around 14% commission, that is roughly €3,000 every month.",
+            "rows": [
+              {
+                "label": "Commission",
+                "before": "around 14% per order",
+                "after": "0% on direct orders"
+              },
+              {
+                "label": "Customer data",
+                "before": "with the platform",
+                "after": "with you, with consent"
+              },
+              {
+                "label": "Taking orders",
+                "before": "phone and platform tablet",
+                "after": "one kitchen board"
+              }
+            ],
+            "built": [
+              "Ordering system",
+              "Online payment",
+              "Kitchen board",
+              "Vouchers"
+            ],
+            "integrated": [
+              "Payment provider",
+              "Flyer QR in every delivery",
+              "WhatsApp status"
+            ],
+            "classic": "€15,000 – €22,000",
+            "ours": 4900,
+            "duration": "3–4 weeks"
+          },
+          {
+            "icon": "chef",
+            "segment": "Bakery & café",
+            "profile": "Bakery with café · 2 outlets · many weekend pre-orders",
+            "title": "Pre-orders without paper slips",
+            "situation": "Rolls, cakes and platters are ordered by phone and noted on slips. On Saturdays, pre-order customers still stand in the queue, and sometimes an order goes missing.",
+            "rows": [
+              {
+                "label": "Pre-ordering",
+                "before": "phone and paper slips",
+                "after": "online with pickup time"
+              },
+              {
+                "label": "Baking plan",
+                "before": "by gut feeling",
+                "after": "list the evening before"
+              },
+              {
+                "label": "Pickup",
+                "before": "in the queue",
+                "after": "paid, separate counter"
+              }
+            ],
+            "built": [
+              "Pre-order shop",
+              "Pickup times",
+              "Baking list",
+              "Online payment"
+            ],
+            "integrated": [
+              "Payment provider",
+              "Ticket printer or tablet",
+              "Email confirmation"
+            ],
+            "classic": "€10,000 – €15,000",
+            "ours": 2900,
+            "duration": "3 weeks"
+          },
+          {
+            "icon": "utensils",
+            "segment": "Restaurant",
+            "profile": "Restaurant with 70 seats · busy at weekends · many groups",
+            "title": "Reservations that actually show up",
+            "situation": "Reservations come by phone, Instagram and email. At weekends tables regularly stay empty because groups don't come – and during the week there is no overview.",
+            "rows": [
+              {
+                "label": "Reservations",
+                "before": "three channels, one book",
+                "after": "one system with table plan"
+              },
+              {
+                "label": "No-shows",
+                "before": "regular at weekends",
+                "after": "rare, thanks to reminders"
+              },
+              {
+                "label": "Groups",
+                "before": "on a handshake",
+                "after": "with deposit"
+              }
+            ],
+            "built": [
+              "Online reservations",
+              "Table plan",
+              "Reminders",
+              "Deposits"
+            ],
+            "integrated": [
+              "Google profile with reserve button",
+              "Instagram link",
+              "Payment provider"
+            ],
+            "classic": "€12,000 – €18,000",
+            "ours": 3900,
+            "duration": "3–4 weeks"
+          },
+          {
+            "icon": "zap",
+            "segment": "Takeaway & food truck",
+            "profile": "Takeaway in an office district · peak from 12 to 1",
+            "title": "More revenue in the lunch hour",
+            "situation": "At lunchtime twenty people queue up and some leave again. Orders are shouted across the counter and the sequence gets mixed up.",
+            "rows": [
+              {
+                "label": "Waiting time",
+                "before": "up to 15 minutes",
+                "after": "pre-ordered, ready for pickup"
+              },
+              {
+                "label": "Taking orders",
+                "before": "shouted at the counter",
+                "after": "QR code and board"
+              },
+              {
+                "label": "Wrong orders",
+                "before": "several times a day",
+                "after": "rare, everything in writing"
+              }
+            ],
+            "built": [
+              "Pre-ordering",
+              "Pickup times",
+              "Kitchen board"
+            ],
+            "integrated": [
+              "QR code at counter and door",
+              "Payment provider",
+              "Google profile"
+            ],
+            "classic": "€9,000 – €14,000",
+            "ours": 2900,
+            "duration": "2–3 weeks"
+          },
+          {
+            "icon": "calendar",
+            "segment": "Catering & events",
+            "profile": "Caterer · 4 to 6 jobs a week · corporate and private clients",
+            "title": "Quotes in minutes instead of in the evening",
+            "situation": "Enquiries arrive by email, often without headcount or budget. Every quote is written by hand in Word, and deposits are tracked in an Excel list.",
+            "rows": [
+              {
+                "label": "Enquiry",
+                "before": "email with follow-up questions",
+                "after": "configurator with all details"
+              },
+              {
+                "label": "Quote",
+                "before": "approx. 45 minutes in Word",
+                "after": "a few minutes from building blocks"
+              },
+              {
+                "label": "Deposit",
+                "before": "bank transfer, list in Excel",
+                "after": "online, status in the job"
+              }
+            ],
+            "built": [
+              "Catering configurator",
+              "Quote PDF",
+              "Job overview",
+              "Production list"
+            ],
+            "integrated": [
+              "Payment provider",
+              "Calendar",
+              "Export for accounting"
+            ],
+            "classic": "€16,000 – €24,000",
+            "ours": 4900,
+            "duration": "4 weeks"
+          },
+          {
+            "icon": "building",
+            "segment": "Multiple locations",
+            "profile": "Food business with 4 branches · same menu, different prices",
+            "title": "Four branches, one system",
+            "situation": "Each branch maintains menu and prices itself, promotions run differently. Figures arrive in the evening as a photo of the till receipt.",
+            "rows": [
+              {
+                "label": "Menu and prices",
+                "before": "maintained four times",
+                "after": "central with branch prices"
+              },
+              {
+                "label": "Figures",
+                "before": "photos via WhatsApp",
+                "after": "dashboard per location"
+              },
+              {
+                "label": "Promotions",
+                "before": "each branch on its own",
+                "after": "controlled centrally"
+              }
+            ],
+            "built": [
+              "Multi-branch ordering",
+              "Roles & permissions",
+              "Central reporting",
+              "Kitchen boards"
+            ],
+            "integrated": [
+              "Payment provider per branch",
+              "Till export",
+              "Accounting"
+            ],
+            "classic": "€28,000 – €40,000",
+            "ours": 7900,
+            "duration": "5–6 weeks"
+          }
+        ]
+      },
+      "process": {
+        "title": "From the first call to",
+        "accent": "the first direct order.",
+        "text": "We start with what pays off fastest – usually ordering – and expand once it runs smoothly in your business.",
+        "steps": [
+          {
+            "title": "Business check",
+            "text": "We look at your menu, order channels and peak times – ideally on site, outside service. What is costing you commission, time and nerves today? Free and without obligation."
+          },
+          {
+            "title": "Prototype in 7 days",
+            "text": "You click through your ordering system – with your menu, your prices, your logo. Only then is the fixed price set."
+          },
+          {
+            "title": "Launch during operations",
+            "text": "We set up board and payment, train your team in half an hour and go live on a quiet day. Flyers and QR codes are included."
+          },
+          {
+            "title": "Operation & expansion",
+            "text": "Hosting, updates and support run in the background. Reservations, vouchers or a second branch are added when you are ready."
+          }
+        ]
+      },
+      "packages": {
+        "tag": "Packages for food businesses",
+        "title": "Three ways in.",
+        "accent": "Fixed price after the prototype.",
+        "text": "Pick the entry point that fits your business. We define the exact scope in the business check – after that a fixed price applies.",
+        "items": {
+          "start": {
+            "name": "Direct ordering",
+            "audience": "For takeaways, bakeries, cafés and pickup",
+            "meta": "Live in 2–3 weeks · operation from €49/month",
+            "features": [
+              "Menu with variants & extras",
+              "Pickup with pickup time",
+              "Order dashboard for the counter",
+              "Change items & prices yourself",
+              "QR codes for counter and flyers"
+            ]
+          },
+          "pro": {
+            "name": "Ordering & delivery",
+            "audience": "For delivery services, pizzerias and restaurants",
+            "meta": "Live in 3–4 weeks · reservations as a module from €2,200",
+            "features": [
+              "Online payment paid out to you",
+              "Kitchen board with chime",
+              "Delivery zones & minimum order",
+              "Vouchers & promo codes",
+              "Order status for the guest"
+            ]
+          },
+          "standorte": {
+            "name": "Multi-branch system",
+            "audience": "For businesses with several locations",
+            "meta": "Live in 5–6 weeks · every further branch at a fixed price",
+            "features": [
+              "Central menu with branch prices",
+              "Roles for owner, manager & counter",
+              "Reporting per location",
+              "Kitchen board in every branch",
+              "You own source code & data"
+            ]
+          }
         }
-      ],
+      },
+      "spotlight": {
+        "tag": "Goes well with it",
+        "title": "Food films & reels that make people hungry",
+        "text": "This is where we come from: among others, we shot the launch film for IL Forno at the Hyatt Centric. So your menu doesn't just work but sells – for your website, Instagram and Google profile.",
+        "badge": "from €2,990",
+        "cta": "See food films in the portfolio",
+        "imageAlt": "Still from the restaurant film for IL Forno: pizza from the stone oven"
+      },
+      "compare": {
+        "title": "Delivery platform, ordering subscription",
+        "accent": "or your own system?",
+        "text": "The honest answer is often: both. Here is how the three routes compare.",
+        "columns": [
+          "Delivery platform",
+          "Ordering system by subscription",
+          "Your own system"
+        ],
+        "rows": [
+          {
+            "label": "Strong at",
+            "cells": [
+              "Reach and new guests",
+              "A quick start with standard features",
+              "Regulars, your own brand, your own rules"
+            ]
+          },
+          {
+            "label": "Weak at",
+            "cells": [
+              "Margin and customer data",
+              "Customisation and the special cases of your menu",
+              "Reaching new customers – you get those via Google, flyers and the platform"
+            ]
+          },
+          {
+            "label": "Costs",
+            "cells": [
+              "Around 14 to 30% per order",
+              "Monthly fee, sometimes plus a share per order",
+              "One-off from €2,900, operation from €49/month"
+            ]
+          },
+          {
+            "label": "Guest data",
+            "cells": [
+              "With the platform",
+              "With the provider",
+              "With you"
+            ]
+          },
+          {
+            "label": "Fits when",
+            "cells": [
+              "you are mainly looking for new guests",
+              "you are starting small and standard is enough",
+              "many of your guests come back"
+            ]
+          }
+        ],
+        "advice": "Keep the platform for new guests and bring everyone who comes back onto your own system – with a flyer in every delivery and a voucher for the first direct order. Whether it pays off for you is something we estimate in the first call using your numbers."
+      },
       "faq": [
         {
-          "q": "Do I have to cancel Lieferando or Wolt?",
-          "a": "No. Most businesses run both: the platform for new guests, your own system for everyone who comes back."
+          "q": "Do I have to cancel my delivery platform?",
+          "a": "No. Most businesses run both: the platform for new guests, their own system for everyone who comes back."
         },
         {
-          "q": "How much does an ordering system cost?",
-          "a": "From €2,900 one-off to start, with online payment and kitchen display from €4,900. Operations from €49 per month."
+          "q": "What does your own ordering system cost?",
+          "a": "From €2,900 one-off to get started, with online payment, kitchen board and delivery zones from €4,900. Operation costs from €49 per month. You get the fixed price after the prototype."
         },
         {
-          "q": "How fast can it go live?",
-          "a": "You'll see the clickable prototype after about seven days; most systems go live after three to four weeks."
+          "q": "When does it pay off?",
+          "a": "As a rule of thumb: if you get more than around 150 to 200 orders a month from repeat customers through a platform, your own system usually pays for itself within a few months. We run the numbers with you in the first call."
+        },
+        {
+          "q": "How quickly is the system live?",
+          "a": "You see the clickable prototype after about seven days, and you usually go live after three to four weeks."
         },
         {
           "q": "Can I change prices and items myself?",
-          "a": "Yes. You change prices, items, opening hours and sold-out status in the dashboard."
+          "a": "Yes. You change prices, items, opening hours and sold-out status yourself in the dashboard – from your phone too."
         },
         {
-          "q": "Do you also shoot food photos and reels?",
-          "a": "Yes – that's where we come from. Food reels and photos are available on top of the system, so the menu actually sells."
+          "q": "Can my till be connected?",
+          "a": "If your till system offers an interface, yes. Otherwise the handover runs via a ticket printer or an export. We clarify this in the business check before you commission anything."
+        },
+        {
+          "q": "How does the money reach me?",
+          "a": "Through your own payment provider, straight to your account. Only their transaction fees apply – we don't earn anything on your orders."
+        },
+        {
+          "q": "Do you also do food photos and reels?",
+          "a": "Yes – that's where we come from. Food reels and photos are available as an add-on to the system, so the menu actually sells."
         }
-      ]
+      ],
+      "contact": {
+        "title": "Let's talk about",
+        "accent": "your business.",
+        "text": "Tell us briefly how people order or reserve with you today. We will get back to you within 24 hours with an honest assessment – even if it is: stick with the platform for now."
+      }
     },
     "immobilien": {
       "navLabel": "Real estate software",
@@ -1227,36 +1915,30 @@
           "cases closed."
         ],
         "text": "Custom software for estate agents, property managers, landlords and developers. Pre-qualify prospects, let them book viewings online, handle repairs digitally, keep owners informed automatically – built around your processes, not the other way round.",
-        "primary": "Free initial call",
-        "secondary": "See the use cases",
-        "audienceLabel": "Built for",
         "imageAlt": "Still from the AGILE property film: living area with a view of the greenery",
         "videoCaption": "AGILE property film · produced by us",
-        "cardsNote": "Sample notifications from a real estate system",
         "cards": {
-          "lead": {
+          "alert": {
             "label": "New enquiry · pre-qualified",
             "value": "2-bed period flat, 82 m²",
             "text": "Move-in date & income fit"
           },
-          "viewing": {
+          "confirm": {
+            "icon": "calendar",
             "title": "Viewing booked",
             "text": "Sat, 11:00 · confirmed online"
           },
-          "ticket": {
+          "note": {
+            "icon": "wrench",
             "title": "Repair reported",
             "text": "Contractor assigned – without a single call."
           }
         }
       },
       "audiences": {
-        "tag": "Who it's for",
         "title": "No two property businesses are alike.",
         "accent": "Your software shouldn't be either.",
         "text": "Agents, managers, landlords, developers – each has different bottlenecks. Pick your field and see where custom software helps.",
-        "painsLabel": "What costs you time today",
-        "buildsLabel": "What we build for it",
-        "tabsAria": "Segment of the real estate industry",
         "items": [
           {
             "icon": "handshake",
@@ -1357,14 +2039,9 @@
         ]
       },
       "modules": {
-        "tag": "Features",
         "title": "Six building blocks.",
         "accent": "Take only what you need.",
         "text": "Each module solves one specific bottleneck. Click through – this is what it looks like day to day.",
-        "listAria": "Modules of the real estate system",
-        "beforeLabel": "Before",
-        "afterLabel": "After",
-        "mockNote": "Sample view",
         "items": [
           {
             "icon": "users",
@@ -1591,25 +2268,9 @@
         ]
       },
       "cases": {
-        "tag": "Use cases",
         "title": "Six businesses, six bottlenecks.",
         "accent": "Here is the solution.",
         "text": "Typical scenarios from lettings, management, portfolios and development – with before and after, scope and cost range.",
-        "disclaimer": "The scenarios are sample calculations for the stated business size, not client projects. Comparison figures are guide values for conventional agency development billed by effort; your fixed price is set after the prototype.",
-        "situationLabel": "Starting point",
-        "beforeLabel": "Before",
-        "afterLabel": "After",
-        "builtLabel": "Built",
-        "integratedLabel": "Connected",
-        "classicLabel": "Conventional agency",
-        "oursLabel": "With TasWiq",
-        "from": "from",
-        "durationLabel": "Live in",
-        "why": {
-          "title": "Why the gap is so large",
-          "text": "We develop with AI assistance and rely on proven building blocks for login, roles, uploads and notifications. You pay for your processes – not for someone reinventing the wheel.",
-          "cta": "Discuss your case"
-        },
         "items": [
           {
             "icon": "handshake",
@@ -1840,7 +2501,6 @@
         ]
       },
       "process": {
-        "tag": "Process",
         "title": "From bottleneck to",
         "accent": "a running system.",
         "text": "We start small – with one property or one process – and expand as soon as it holds up in daily use.",
@@ -1905,27 +2565,17 @@
               "You own source code & data"
             ]
           }
-        },
-        "film": {
-          "tag": "Goes well with it",
-          "title": "Cinematic property film",
-          "text": "For properties that deserve more than phone photos: we shoot and edit ourselves – like the AGILE film at the top of this page. For brochures, websites and social ads.",
-          "price": "from €2,990",
-          "cta": "Watch the film in the portfolio"
         }
       },
       "compare": {
-        "tag": "Good to know",
         "title": "Off-the-shelf software, portal subscription",
         "accent": "or your own solution?",
         "text": "Not every business needs custom software. Here is how the three routes compare.",
-        "rowHeader": "Criterion",
         "columns": [
           "Management or agency software",
           "Portal subscription",
           "Your own software"
         ],
-        "ownBadge": "Our field",
         "rows": [
           {
             "label": "Strong at",
@@ -1968,9 +2618,7 @@
             ]
           }
         ],
-        "adviceTitle": "Our recommendation",
-        "advice": "Keep your management software for accounting and billing. We build the layer before and after it: everything that currently runs on phone, email and Excel. And if a standard tool is enough for you, we will tell you so in the first call.",
-        "guidesLabel": "Further reading (in German)"
+        "advice": "Keep your management software for accounting and billing. We build the layer before and after it: everything that currently runs on phone, email and Excel. And if a standard tool is enough for you, we will tell you so in the first call."
       },
       "faq": [
         {
@@ -2011,359 +2659,3117 @@
         }
       ],
       "contact": {
-        "tag": "Enquiry",
         "title": "Let's talk about",
         "accent": "your processes.",
-        "text": "Tell us briefly what costs you the most time day to day. We will get back to you within 24 hours with an honest assessment – even if it is: a standard tool will do.",
-        "formTitle": "A short message is enough.",
-        "formText": "No questionnaire, no sales pitch. Two sentences about your business will do.",
-        "submit": "Send enquiry",
-        "points": [
-          "Reply within 24 hours",
-          "Process check free of charge",
-          "Fixed price after the prototype"
-        ]
+        "text": "Tell us briefly what costs you the most time day to day. We will get back to you within 24 hours with an honest assessment – even if it is: a standard tool will do."
+      },
+      "spotlight": {
+        "tag": "Goes well with it",
+        "title": "Cinematic property film",
+        "text": "For properties that deserve more than phone photos: we shoot and edit ourselves – like the AGILE film at the top of this page. For brochures, websites and social ads.",
+        "badge": "from €2,990",
+        "cta": "Watch the film in the portfolio",
+        "imageAlt": "Still from the AGILE property film: living area with a view of the greenery"
       }
     },
     "automotive": {
-      "navLabel": "Car dealer & driving school software",
+      "navLabel": "Software for car dealers & driving schools",
       "keyword": "Software for car dealers, garages & driving schools",
-      "metaTitle": "Software for Car Dealers, Garages & Driving Schools – Bookings & App",
-      "metaDescription": "Online garage bookings, vehicle stock on your own website, a student app for driving schools – custom software for automotive & mobility businesses.",
+      "metaTitle": "Software for car dealers, garages & driving schools – online booking & app",
+      "metaDescription": "Garage appointments online, vehicle stock with test drive booking, student app, rentals with handover report – custom software for automotive businesses. Six use cases with cost ranges.",
       "keywords": [
         "driving school software",
         "driving school app",
         "garage online booking",
         "car dealer software",
-        "car rental software"
+        "car rental software",
+        "custom garage software",
+        "tyre storage software"
       ],
       "hero": {
-        "badge": "Automotive & mobility",
-        "titleStart": "Appointments, vehicles, lessons.",
-        "titleHighlight": "One system.",
-        "text": "Online garage bookings, vehicle stock with test-drive booking, a student app for driving schools – for car dealers, garages, rentals and driving schools. We've produced content for Audi, Volvo and NIO.",
-        "imageAlt": "Example of an own online booking system",
-        "stats": [
+        "badge": "Software for dealers, garages & driving schools",
+        "titleStart": "Fewer callbacks. More",
+        "rotating": [
+          "booked appointments.",
+          "test drives.",
+          "busy ramps.",
+          "lessons on schedule.",
+          "days rented."
+        ],
+        "text": "Custom software for car dealers, garages, driving schools and rental companies. Appointments book themselves online, vehicles and instructors are properly scheduled, customers and students see their status themselves – instead of calling.",
+        "imageAlt": "Sample view of a booking and customer system for an automotive business",
+        "mockUrl": "your-business.com/appointments",
+        "cards": {
+          "alert": {
+            "label": "New appointment · booked online",
+            "value": "Service + MOT",
+            "text": "Thu, 8:00 · with courtesy car"
+          },
+          "confirm": {
+            "icon": "car",
+            "title": "Test drive confirmed",
+            "text": "Sat, 10:30 · licence checked"
+          },
+          "note": {
+            "icon": "smartphone",
+            "title": "Lesson reminder sent",
+            "text": "The student confirms with one tap in the app."
+          }
+        }
+      },
+      "audiences": {
+        "title": "A garage is not a driving school.",
+        "accent": "Your system knows the difference.",
+        "text": "Ramps, instructors, rental vehicles, storage slots – every business schedules different resources. Pick your field and see where custom software helps.",
+        "items": [
           {
-            "value": "24/7",
-            "label": "online bookings"
+            "icon": "car",
+            "label": "Car dealers",
+            "title": "Marketplace enquiries become test drives.",
+            "text": "Enquiries from car marketplaces, your website and the phone land in different inboxes. A shared inbox with test drive booking makes sure no prospect is left hanging.",
+            "pains": [
+              "Leads from several marketplaces, nobody has the overview",
+              "Arranging test drives by callback",
+              "Maintaining stock twice: marketplace and website"
+            ],
+            "builds": [
+              "Vehicle stock on your own website",
+              "Test drive booking with licence check",
+              "Lead inbox with ownership and follow-ups"
+            ]
           },
           {
-            "value": "iOS & Android",
-            "label": "as web app or native app"
+            "icon": "wrench",
+            "label": "Independent garages",
+            "title": "The ramps are full, the phone stays quiet.",
+            "text": "Appointment requests come in when everyone is under a car. Online, customers choose service and time slot themselves – your system knows ramps, duration and courtesy cars.",
+            "pains": [
+              "Booking appointments by phone during work",
+              "Tyre season with paper chaos",
+              "Customers call to ask whether the car is ready"
+            ],
+            "builds": [
+              "Online appointments by service and ramp",
+              "Status by link: accepted, in progress, ready",
+              "Approval of extra work with photo and price"
+            ]
+          },
+          {
+            "icon": "users",
+            "label": "Driving schools",
+            "title": "Lessons almost schedule themselves.",
+            "text": "Lessons are arranged, cancelled and moved via WhatsApp. With a student app, students book free slots themselves, see their training progress and pay online.",
+            "pains": [
+              "Lesson arrangements in hundreds of WhatsApp chats",
+              "Last-minute cancellations with nobody to fill the slot",
+              "Open payments and progress on paper cards"
+            ],
+            "builds": [
+              "Student app with lesson booking",
+              "Training progress and theory dates",
+              "Online payment and credit per student"
+            ]
+          },
+          {
+            "icon": "calendar",
+            "label": "Vehicle rental",
+            "title": "Available, booked, handed over – all documented.",
+            "text": "If you rent out vans, trailers or cars, you need real-time availability and clean handovers. Booking, deposit and report run in one system.",
+            "pains": [
+              "Availability on a wall calendar or in Excel",
+              "Deposit and licence copy on paper",
+              "Disputes over damage without photo evidence"
+            ],
+            "builds": [
+              "Online booking with live availability",
+              "Deposit and payment online in advance",
+              "Handover report with photos and signature"
+            ]
+          },
+          {
+            "icon": "refresh",
+            "label": "Tyres & detailing",
+            "title": "The season runs without the phone melting.",
+            "text": "In October and at Easter everyone wants an appointment at once. Customers with stored tyres get an invitation with a booking link – and you know which set has to leave storage when.",
+            "pains": [
+              "Seasonal peaks with a constantly ringing phone",
+              "Storage in lists, sets have to be searched for",
+              "Explaining detailing packages again every time"
+            ],
+            "builds": [
+              "Seasonal invitation with booking link",
+              "Storage management with slot and tread depth",
+              "Package booking with fixed price and duration"
+            ]
+          },
+          {
+            "icon": "search",
+            "label": "Used car traders",
+            "title": "Buying and selling through your own site.",
+            "text": "If you only sell through marketplaces, you pay per listing and stay interchangeable. Your own stock page with a purchase form brings enquiries directly – no detour.",
+            "pains": [
+              "Dependence on listing packages",
+              "Purchase enquiries without photos or details",
+              "Prospects without follow-up"
+            ],
+            "builds": [
+              "Stock page with search and finance enquiry",
+              "Purchase form with photos and key data",
+              "Prospect list with reminders"
+            ]
           }
         ]
       },
-      "problem": {
-        "title": "The day runs on the phone and the WhatsApp group.",
-        "text": "Appointments are given out by phone, instructors plan in Excel, vehicle enquiries come through three portals. Every call interrupts the work – and in the end nobody sees utilisation or open payments.",
-        "points": [
-          "Booking by phone blocks reception and office",
-          "No-shows without reminders",
-          "Vehicle enquiries only via third-party marketplaces",
-          "No overview of utilisation and payments"
+      "modules": {
+        "title": "Six building blocks.",
+        "accent": "Take only what fits your business.",
+        "text": "Each module solves one specific bottleneck. Click through – this is what it looks like day to day.",
+        "items": [
+          {
+            "icon": "calendar",
+            "title": "Online appointments",
+            "short": "Booking without calling",
+            "benefit": "Customers book themselves – matched to service, ramp and duration.",
+            "text": "The customer picks service and vehicle, your system only shows slots that really fit. Confirmation and reminder go out automatically.",
+            "bullets": [
+              "Services with duration, ramp and staff member",
+              "Courtesy car and collection service as options",
+              "Reminders by SMS, email or WhatsApp"
+            ],
+            "before": "Booking by phone, in the middle of work",
+            "after": "The calendar fills itself",
+            "mock": {
+              "title": "Appointments · Thursday",
+              "rows": [
+                {
+                  "label": "8:00 · service + MOT",
+                  "meta": "Golf VII · courtesy car",
+                  "status": "Confirmed",
+                  "tone": "good"
+                },
+                {
+                  "label": "10:30 · tyre change",
+                  "meta": "set from storage R-14",
+                  "status": "Confirmed",
+                  "tone": "good"
+                },
+                {
+                  "label": "13:00 · front brakes",
+                  "meta": "requested 6 min ago",
+                  "status": "New",
+                  "tone": "brand"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "car",
+            "title": "Vehicle stock & test drives",
+            "short": "Maintain stock once",
+            "benefit": "Your stock is on your site – and prospects book the test drive directly.",
+            "text": "Vehicles with photos, equipment and price, search and filters. Every vehicle has test drive booking and an enquiry form – everything lands in one inbox.",
+            "bullets": [
+              "Stock with search, filters and finance enquiry",
+              "Test drive booking with licence upload",
+              "Sync with car marketplaces via interface or export"
+            ],
+            "before": "Enquiries from five channels, nobody follows up",
+            "after": "One inbox with clear ownership",
+            "mock": {
+              "title": "Enquiries · this week",
+              "rows": [
+                {
+                  "label": "Diesel estate, 2021",
+                  "meta": "test drive Sat 10:30",
+                  "status": "Confirmed",
+                  "tone": "good"
+                },
+                {
+                  "label": "Compact SUV, 2022",
+                  "meta": "finance enquiry",
+                  "status": "Call back today",
+                  "tone": "warn"
+                },
+                {
+                  "label": "Small car, 2019",
+                  "meta": "enquiry via marketplace",
+                  "status": "New",
+                  "tone": "brand"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "smartphone",
+            "title": "Student & customer app",
+            "short": "Everything on the phone",
+            "benefit": "Students and customers see what's coming up themselves – and stop calling.",
+            "text": "As a web app for the home screen, no app store: appointments, status, documents and messages. Learner drivers book lessons and see their training progress.",
+            "bullets": [
+              "Book, cancel and fill lessons",
+              "Training progress, theory and test dates",
+              "Push notifications instead of WhatsApp groups"
+            ],
+            "before": "Arrangements in hundreds of chats",
+            "after": "One app that has it all",
+            "mock": {
+              "title": "Student · Lena M.",
+              "rows": [
+                {
+                  "label": "Next lesson",
+                  "meta": "Tue, 16:00 · Mr Kaya",
+                  "status": "Confirmed",
+                  "tone": "good"
+                },
+                {
+                  "label": "Training progress",
+                  "meta": "special drives 8 of 12",
+                  "status": "67%",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Credit",
+                  "meta": "2 lessons paid",
+                  "status": "Top up",
+                  "tone": "warn"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "users",
+            "title": "Team & resources",
+            "short": "Ramps, instructors, vehicles",
+            "benefit": "Everyone sees in the morning what's on today – without a planning board.",
+            "text": "Ramps, staff, instructors, training and rental vehicles are scheduled as resources. Holidays, workshop time and breakdowns are taken into account.",
+            "bullets": [
+              "Weekly plan per staff member and resource",
+              "Absences and vehicle downtime",
+              "Daily list on the phone"
+            ],
+            "before": "Planning board, Excel and shouting",
+            "after": "One plan that applies to everyone",
+            "mock": {
+              "title": "Utilisation · week 12",
+              "rows": [
+                {
+                  "label": "Ramps 1 – 3",
+                  "meta": "32 of 36 slots",
+                  "status": "89%",
+                  "tone": "good"
+                },
+                {
+                  "label": "Mr Kaya",
+                  "meta": "on leave from Fri",
+                  "status": "28 hours",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Van 2",
+                  "meta": "in workshop until Wed",
+                  "status": "Blocked",
+                  "tone": "warn"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "card",
+            "title": "Payment & documents",
+            "short": "Paid and signed",
+            "benefit": "Deposit, security and signature are done before the customer arrives.",
+            "text": "Online payment for deposits, lesson packages and security deposits. Jobs, approvals and handover reports are signed digitally and filed.",
+            "bullets": [
+              "Deposits, security and packages online",
+              "Job approval with photo and price by link",
+              "Handover report with photos and signature"
+            ],
+            "before": "Paper forms, cash deposits, arguments",
+            "after": "Everything documented, everything findable",
+            "mock": {
+              "title": "Cases · today",
+              "rows": [
+                {
+                  "label": "Extra work: brake discs",
+                  "meta": "+ €186 · photo sent",
+                  "status": "Approved",
+                  "tone": "good"
+                },
+                {
+                  "label": "Handover van 2",
+                  "meta": "14 photos · signed",
+                  "status": "Completed",
+                  "tone": "good"
+                },
+                {
+                  "label": "Trailer deposit",
+                  "meta": "€150 · awaiting payment",
+                  "status": "Open",
+                  "tone": "warn"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "chart",
+            "title": "Utilisation & figures",
+            "short": "The business at a glance",
+            "benefit": "You see what is fully booked – and where revenue is left on the table.",
+            "text": "Utilisation, revenue per service, idle time, open payments. Connected to your DMS or accounting if you like, where an interface exists.",
+            "bullets": [
+              "Utilisation per ramp, instructor or vehicle",
+              "Idle time and open items",
+              "Connected to DMS or accounting via interface or export"
+            ],
+            "before": "Month-end figures from three programs",
+            "after": "Up to date on one screen",
+            "mock": {
+              "title": "This week",
+              "rows": [
+                {
+                  "label": "Workshop utilisation",
+                  "meta": "previous week 81%",
+                  "status": "89%",
+                  "tone": "good"
+                },
+                {
+                  "label": "Booked online",
+                  "meta": "of 74 appointments",
+                  "status": "52",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Open payments",
+                  "meta": "3 students",
+                  "status": "€420",
+                  "tone": "warn"
+                }
+              ]
+            }
+          }
         ]
       },
-      "featuresTitle": "What your automotive system does.",
-      "features": [
-        {
-          "title": "Vehicle stock",
-          "text": "Your own vehicle marketplace on your website with filters, finance calculator and enquiry funnel."
-        },
-        {
-          "title": "Online bookings",
-          "text": "Service, inspection, tyre change or test drive – with capacity planning and no overbooking."
-        },
-        {
-          "title": "Student & customer app",
-          "text": "Book lessons, track progress, get reminders – as an app on the home screen."
-        },
-        {
-          "title": "Team planning",
-          "text": "Instructors, mechanics and lifts in a weekly plan, daily overview on the phone."
-        },
-        {
-          "title": "Online payment",
-          "text": "Pay for lessons, packages and deposits online – fewer open invoices."
-        },
-        {
-          "title": "Utilisation & numbers",
-          "text": "Utilisation per day, revenue per service, no-show rate in the dashboard."
+      "cases": {
+        "title": "Six businesses, six bottlenecks.",
+        "accent": "Here is the solution.",
+        "text": "Typical scenarios from garages, driving schools, dealers and rental – with before and after, scope and cost range.",
+        "items": [
+          {
+            "icon": "wrench",
+            "segment": "Independent garages",
+            "profile": "Master garage · 5 ramps · 7 staff",
+            "title": "Appointments without the phone chain",
+            "situation": "Around 40 calls a day are about appointments and whether the car is ready. In tyre season, planning breaks down.",
+            "rows": [
+              {
+                "label": "Booking",
+                "before": "phone, in the middle of work",
+                "after": "online, matched to the ramp"
+              },
+              {
+                "label": "Status questions",
+                "before": "several times a day",
+                "after": "customer sees it by link"
+              },
+              {
+                "label": "Extra work",
+                "before": "waiting for a callback",
+                "after": "approved with photo in one click"
+              }
+            ],
+            "built": [
+              "Online appointments",
+              "Status link",
+              "Approvals",
+              "Reminders"
+            ],
+            "integrated": [
+              "Calendar",
+              "SMS & WhatsApp",
+              "Export for garage software"
+            ],
+            "classic": "€12,000 – €18,000",
+            "ours": 3900,
+            "duration": "3–4 weeks"
+          },
+          {
+            "icon": "users",
+            "segment": "Driving schools",
+            "profile": "Driving school · 6 instructors · around 180 active students",
+            "title": "Lessons without WhatsApp chaos",
+            "situation": "Each instructor plans in their own chat. Lessons cancelled at short notice stay empty, and open payments only surface before the test.",
+            "rows": [
+              {
+                "label": "Scheduling lessons",
+                "before": "WhatsApp per instructor",
+                "after": "self-booking in the app"
+              },
+              {
+                "label": "Cancelled lessons",
+                "before": "stay empty",
+                "after": "waitlisted students are notified"
+              },
+              {
+                "label": "Payments",
+                "before": "cash, lists in the office",
+                "after": "online, credit per student"
+              }
+            ],
+            "built": [
+              "Student app",
+              "Lesson booking",
+              "Training progress",
+              "Online payment"
+            ],
+            "integrated": [
+              "Payment provider",
+              "Push notifications",
+              "Export for admin software"
+            ],
+            "classic": "€22,000 – €32,000",
+            "ours": 6400,
+            "duration": "5–6 weeks"
+          },
+          {
+            "icon": "car",
+            "segment": "Car dealers",
+            "profile": "Multi-brand dealer · around 120 vehicles in stock · 4 salespeople",
+            "title": "No lead left behind",
+            "situation": "Enquiries come from three marketplaces, the website and by phone. Who is responsible often only becomes clear after days – by then the prospect has bought elsewhere.",
+            "rows": [
+              {
+                "label": "Lead inbox",
+                "before": "five mailboxes",
+                "after": "one list with ownership"
+              },
+              {
+                "label": "Test drive",
+                "before": "callback and coordination",
+                "after": "self-booking on the vehicle"
+              },
+              {
+                "label": "Follow-up",
+                "before": "by gut feeling",
+                "after": "follow-up with reminder"
+              }
+            ],
+            "built": [
+              "Stock page",
+              "Test drive booking",
+              "Lead inbox",
+              "Follow-ups"
+            ],
+            "integrated": [
+              "Car marketplaces (interface or export)",
+              "Calendar",
+              "Email"
+            ],
+            "classic": "€20,000 – €30,000",
+            "ours": 6400,
+            "duration": "5 weeks"
+          },
+          {
+            "icon": "calendar",
+            "segment": "Vehicle rental",
+            "profile": "Van and trailer rental · 25 vehicles · 2 locations",
+            "title": "Rentals with a documented handover",
+            "situation": "Availability is on a wall calendar, deposits are left in cash. In case of damage it is one word against another because photos are missing.",
+            "rows": [
+              {
+                "label": "Availability",
+                "before": "wall calendar",
+                "after": "live, bookable online"
+              },
+              {
+                "label": "Deposit",
+                "before": "cash at the counter",
+                "after": "online in advance"
+              },
+              {
+                "label": "Handover",
+                "before": "paper form",
+                "after": "report with photos and signature"
+              }
+            ],
+            "built": [
+              "Online booking",
+              "Deposit & payment",
+              "Handover report",
+              "Vehicle calendar"
+            ],
+            "integrated": [
+              "Payment provider",
+              "Licence upload",
+              "Export for accounting"
+            ],
+            "classic": "€35,000 – €50,000",
+            "ours": 10900,
+            "duration": "6–8 weeks"
+          },
+          {
+            "icon": "refresh",
+            "segment": "Tyres & detailing",
+            "profile": "Tyre service · around 900 stored sets",
+            "title": "Seasonal changeover without the constant phone",
+            "situation": "Twice a year everyone calls at once. Storage is kept in a list, and individual sets have to be searched for in the warehouse.",
+            "rows": [
+              {
+                "label": "Booking in season",
+                "before": "phone non-stop",
+                "after": "invitation with booking link"
+              },
+              {
+                "label": "Storage",
+                "before": "list, searching the warehouse",
+                "after": "slot per set"
+              },
+              {
+                "label": "Tyre condition",
+                "before": "noticed on the day",
+                "after": "flagged with the invitation"
+              }
+            ],
+            "built": [
+              "Seasonal invitations",
+              "Online appointments",
+              "Storage management"
+            ],
+            "integrated": [
+              "SMS & email",
+              "Labels with QR code",
+              "Calendar"
+            ],
+            "classic": "€12,000 – €17,000",
+            "ours": 3900,
+            "duration": "3–4 weeks"
+          },
+          {
+            "icon": "search",
+            "segment": "Used car traders",
+            "profile": "Trader · around 40 vehicles · owner and one salesperson",
+            "title": "Buying and selling through your own site",
+            "situation": "Sales happen almost exclusively through marketplaces. Purchase enquiries come by phone, without photos or details – most viewings aren't worth it.",
+            "rows": [
+              {
+                "label": "Purchase enquiries",
+                "before": "call without details",
+                "after": "form with photos and key data"
+              },
+              {
+                "label": "Stock",
+                "before": "only on marketplaces",
+                "after": "own page with search"
+              },
+              {
+                "label": "Prospects",
+                "before": "notes and memory",
+                "after": "list with follow-ups"
+              }
+            ],
+            "built": [
+              "Stock page",
+              "Purchase form",
+              "Prospect list"
+            ],
+            "integrated": [
+              "Car marketplaces (export)",
+              "Google profile",
+              "WhatsApp"
+            ],
+            "classic": "€10,000 – €15,000",
+            "ours": 3490,
+            "duration": "3 weeks"
+          }
+        ]
+      },
+      "process": {
+        "title": "From bottleneck to",
+        "accent": "a running system.",
+        "text": "We start with one process – usually appointments – and expand as soon as it holds up in daily use.",
+        "steps": [
+          {
+            "title": "Business check",
+            "text": "We walk through a garage job, a test drive or a training course with you step by step. Where do people phone, type twice, chase? Free and without obligation."
+          },
+          {
+            "title": "Prototype in 7 days",
+            "text": "You click through your system – with your services, your resources, your logo. Only then is the fixed price set."
+          },
+          {
+            "title": "Start with one process",
+            "text": "We go live with online appointments or one group of instructors, connect your existing software and onboard the team. The rest follows."
+          },
+          {
+            "title": "Operation & expansion",
+            "text": "Hosting in the EU, updates, support. App, payment or reporting are added when you need them."
+          }
+        ]
+      },
+      "packages": {
+        "tag": "Packages for automotive businesses",
+        "title": "Three ways in.",
+        "accent": "Fixed price after the prototype.",
+        "text": "Pick the entry point that fits your business. We define the exact scope in the business check – after that a fixed price applies.",
+        "items": {
+          "termine": {
+            "name": "Online appointments",
+            "audience": "For garages, tyre services and detailers",
+            "meta": "Live in 2–3 weeks · with reminders & deposits from €3,900",
+            "features": [
+              "Services with duration and ramp",
+              "Calendar with free time slots",
+              "Confirmation by email & WhatsApp",
+              "Status link for the customer",
+              "Appointment dashboard for the team"
+            ]
+          },
+          "app": {
+            "name": "Customer & student app",
+            "audience": "For driving schools, dealers and rental companies",
+            "meta": "Live in 4–6 weeks · several instructors from €6,400",
+            "features": [
+              "Web app for iPhone & Android",
+              "Booking, cancellation and waitlist",
+              "Training progress or job status",
+              "Push notifications",
+              "Online payment and credit"
+            ]
+          },
+          "plattform": {
+            "name": "Operations platform",
+            "audience": "For rental, trade and businesses with their own processes",
+            "meta": "One core process from €10,900 · several from €18,900",
+            "features": [
+              "Workshop & process analysis",
+              "Bespoke modules: stock, rental, storage",
+              "Interfaces to DMS and marketplaces",
+              "Handover reports with signature",
+              "You own source code & data"
+            ]
+          }
         }
-      ],
+      },
+      "spotlight": {
+        "tag": "Live in use",
+        "title": "The same booking technology, already proven day to day",
+        "text": "The booking engine our automotive systems build on runs at the OMED hair salon in Aachen: services with duration, free time slots, confirmation and customer area. Double bookings are ruled out at database level – for ramps just as for chairs.",
+        "badge": "Booking system reference",
+        "cta": "View the project in the portfolio",
+        "imageAlt": "Website of the OMED hair salon with its own appointment booking"
+      },
+      "compare": {
+        "title": "Industry software, booking subscription",
+        "accent": "or your own system?",
+        "text": "Not every business needs custom software. Here is how the three routes compare.",
+        "columns": [
+          "DMS, garage or driving school software",
+          "Booking tool by subscription",
+          "Your own system"
+        ],
+        "rows": [
+          {
+            "label": "Strong at",
+            "cells": [
+              "Jobs, invoicing, manufacturer requirements, training records",
+              "A quick start with standard appointments",
+              "Exactly your processes and resources"
+            ]
+          },
+          {
+            "label": "Weak at",
+            "cells": [
+              "Everything the customer could do themselves",
+              "Ramps, vehicles and special cases",
+              "Things your industry software already does well – we don't rebuild those"
+            ]
+          },
+          {
+            "label": "Costs",
+            "cells": [
+              "Licence per workstation or module",
+              "Monthly per calendar or staff member",
+              "One-off from €2,200, operation from €49/month"
+            ]
+          },
+          {
+            "label": "Data & code",
+            "cells": [
+              "With the provider",
+              "With the provider",
+              "Yours, hosted in the EU"
+            ]
+          },
+          {
+            "label": "Fits when",
+            "cells": [
+              "you mainly invoice and document",
+              "a simple calendar is enough",
+              "calls and coordination cost you time"
+            ]
+          }
+        ],
+        "advice": "Keep your DMS or admin software for jobs and invoicing. We build the layer in front of it: everything customers and students can do themselves instead of calling. And if a standard calendar is enough for you, we will tell you so in the first call."
+      },
       "faq": [
         {
-          "q": "Do we need an app in the App Store?",
-          "a": "Usually not. A home-screen web app works on iPhone and Android, with push notifications and no store approval."
+          "q": "Do we need an app from the app store?",
+          "a": "Usually not. A web app for the home screen works on iPhone and Android, with push notifications and without store approval."
         },
         {
-          "q": "Can you connect our dealer management system?",
-          "a": "If it offers an API, yes. We check this in the workshop before quoting."
+          "q": "Can our DMS or garage software be connected?",
+          "a": "If it offers an interface, yes. Otherwise we work with exports. We check exactly what is possible in the business check before the quote."
         },
         {
-          "q": "How much does a student app cost?",
-          "a": "As a web app from around €3,900; with booking for several instructors from around €6,400."
+          "q": "What does online booking for a garage cost?",
+          "a": "From €2,200 one-off, with reminders, deposits and customer accounts from €3,900. Operation costs from €49 per month."
+        },
+        {
+          "q": "What does a student app cost?",
+          "a": "As a web app from around €3,900, with booking for several instructors from around €6,400."
+        },
+        {
+          "q": "Can car marketplaces be connected?",
+          "a": "Stock can be synced via interface or export, as far as the marketplace in question offers it. Enquiries from marketplaces land in the same inbox as those from your website."
+        },
+        {
+          "q": "How long does implementation take?",
+          "a": "You get the clickable prototype after 7 days. Online appointments are ready in two to four weeks, an app in four to six weeks."
+        },
+        {
+          "q": "Where is the data stored?",
+          "a": "In a database in the EU, encrypted, with roles and permissions. Licence uploads are deleted automatically after checking."
         },
         {
           "q": "Do you also make vehicle videos?",
-          "a": "Yes. For premium vehicles and launches we produce films and reels – we've worked for Audi, Volvo and NIO, among others."
+          "a": "Yes. For premium vehicles and launches we produce films and reels – we have worked for Audi, Volvo and NIO, among others."
         }
-      ]
+      ],
+      "contact": {
+        "title": "Let's talk about",
+        "accent": "your business.",
+        "text": "Tell us briefly what costs you the most time day to day – appointments, scheduling or follow-up calls. We will get back to you within 24 hours with an honest assessment."
+      }
     },
     "kanzlei": {
       "navLabel": "Software for firms & advisors",
       "keyword": "Software for tax advisors & law firms",
-      "metaTitle": "Client Portal & Software for Tax Advisors, Law Firms & Consultants",
-      "metaDescription": "Your own client portal with document upload, AI receipt recognition, deadlines and appointment booking – for tax advisors, lawyers, brokers and coaches.",
+      "metaTitle": "Client portal & software for tax advisors, lawyers & consultants",
+      "metaDescription": "Your own client portal with receipt upload, checklists, AI document recognition, deadlines and client onboarding – for tax advisors, lawyers, payroll offices, brokers and consultants. Six use cases with cost ranges.",
       "keywords": [
         "client portal tax advisor",
         "law firm software",
         "tax advisor software",
-        "accounting firm digitalisation",
-        "document upload portal"
+        "firm digitalisation",
+        "receipt upload portal",
+        "client portal lawyer",
+        "customer portal insurance broker"
       ],
       "hero": {
-        "badge": "Firms & advisory",
-        "titleStart": "Documents arrive complete.",
-        "titleHighlight": "And on time.",
-        "text": "A client portal with checklists, document upload and AI receipt recognition – alongside your practice software. For tax advisors, lawyers, insurance brokers, consultants and coaches.",
-        "imageAlt": "Antragsbruder web app: upload documents and get them explained",
-        "stats": [
+        "badge": "Software for firms & consulting",
+        "titleStart": "Less chasing. More",
+        "rotating": [
+          "complete files.",
+          "deadlines met.",
+          "time for advice.",
+          "happy clients.",
+          "billable hours."
+        ],
+        "text": "Custom software for tax advisors, lawyers, payroll offices, brokers and consultants. Documents arrive complete via checklists, queries stay attached to the case, deadlines are tracked – as an addition to your specialist software, not a replacement.",
+        "imageAlt": "Web app Antragsbruder: upload documents and see on a checklist what is missing",
+        "cards": {
+          "alert": {
+            "label": "Receipts received · complete",
+            "value": "Müller GmbH · March",
+            "text": "14 receipts recognised and assigned"
+          },
+          "confirm": {
+            "icon": "shield",
+            "title": "Deadline in view",
+            "text": "VAT return · 10 April"
+          },
+          "note": {
+            "icon": "calendar",
+            "title": "Initial call booked",
+            "text": "Client enquiry with completed pre-questionnaire."
+          }
+        }
+      },
+      "audiences": {
+        "title": "Every firm works differently.",
+        "accent": "So does your portal.",
+        "text": "Receipts, files, payroll data, contracts – what clients have to deliver differs everywhere. Pick your field and see where your own portal helps.",
+        "items": [
           {
-            "value": "EU hosting",
-            "label": "encrypted, with roles & audit log"
+            "icon": "scale",
+            "label": "Tax advisors",
+            "title": "Receipts arrive complete. And on time.",
+            "text": "Before every deadline the chasing begins: missing receipts, unreadable photos, documents across five emails. A portal with a checklist shows the client what is missing – and shows you who has to deliver.",
+            "pains": [
+              "Receipts by email, WhatsApp and in a shoebox",
+              "Chasing just before the deadline",
+              "Queries get lost in the inbox"
+            ],
+            "builds": [
+              "Client portal with monthly checklist",
+              "AI receipt recognition with suggested coding",
+              "Deadline overview with automatic reminders"
+            ]
           },
           {
-            "value": "9 languages",
-            "label": "in our application web app"
+            "icon": "file",
+            "label": "Law firms",
+            "title": "Client enquiries arrive sorted.",
+            "text": "Many initial enquiries don't match your practice area or come without documents. A pre-questionnaire clarifies facts, deadlines and legal expenses cover – before a lawyer invests time.",
+            "pains": [
+              "Initial enquiries without facts or documents",
+              "Power of attorney and engagement letter by post",
+              "Clients ask about the status of their matter"
+            ],
+            "builds": [
+              "Client enquiry with pre-questionnaire",
+              "Sign power of attorney and agreement digitally",
+              "Client file with status and documents"
+            ]
+          },
+          {
+            "icon": "users",
+            "label": "Payroll & bookkeeping",
+            "title": "Payroll data arrives once – and correct.",
+            "text": "Hours, sick notes and new hires arrive as Excel, photo and voice message. Through forms in the portal, employers deliver everything structured and on time.",
+            "pains": [
+              "Monthly data in ten different formats",
+              "Queries just before the payroll run",
+              "New-starter forms on paper"
+            ],
+            "builds": [
+              "Monthly report as a form per employer",
+              "Digital new-starter questionnaire",
+              "Reports and payroll documents on demand"
+            ]
+          },
+          {
+            "icon": "chart",
+            "label": "Management consulting",
+            "title": "Your client sees project status themselves.",
+            "text": "Reports, tasks and documents are scattered across emails and folders. A client area shows project status, next steps and results – in your design, not a tool's.",
+            "pains": [
+              "Compiling status reports by hand",
+              "Documents in email attachments and cloud folders",
+              "Clients ask what happens next"
+            ],
+            "builds": [
+              "Client area with project status and tasks",
+              "Documents and results in one place",
+              "Appointment booking and time records for retainers"
+            ]
+          },
+          {
+            "icon": "shield",
+            "label": "Financial & insurance brokers",
+            "title": "Policies, claims, appointments – in one client area.",
+            "text": "Clients search for their policies, report claims by phone and forget the annual review. Your own client area makes you the first point of contact – not the insurer.",
+            "pains": [
+              "Claims reported by phone with follow-up questions",
+              "Clients can't find their documents",
+              "Annual reviews are forgotten"
+            ],
+            "builds": [
+              "Client area with policy overview",
+              "Claim report with photos and status",
+              "Annual review invitation with booking"
+            ]
+          },
+          {
+            "icon": "message",
+            "label": "Coaching & training",
+            "title": "From the initial call to the certificate.",
+            "text": "Initial calls are arranged by email, materials sent one by one. With booking, a participant area and documents, everything around it runs by itself – and you coach.",
+            "pains": [
+              "Scheduling initial calls by email",
+              "Sending materials and tasks one by one",
+              "Creating records for funding bodies by hand"
+            ],
+            "builds": [
+              "Initial call booking with pre-questions",
+              "Participant area with materials and tasks",
+              "Attendance and certificates at the push of a button"
+            ]
           }
         ]
       },
-      "problem": {
-        "title": "Your practice software is digital. The way there isn't.",
-        "text": "Receipts arrive as WhatsApp photos, email attachments or in a folder. Questions run through three channels, and at month-end half is missing. A client portal cleans up exactly that stretch.",
-        "points": [
-          "Receipts spread across five channels",
-          "Chasing missing documents",
-          "Questions buried in endless email threads",
-          "Deadlines depend on individual memory"
+      "modules": {
+        "title": "Six building blocks.",
+        "accent": "Take only what relieves the firm.",
+        "text": "Each module solves one specific bottleneck. Click through – this is what it looks like day to day.",
+        "items": [
+          {
+            "icon": "lock",
+            "title": "Client portal",
+            "short": "One secure place for everything",
+            "benefit": "Clients find everything there – and you no longer have to send things after them.",
+            "text": "Login with two-factor authentication, documents, cases, messages. Each client sees only their data, each staff member only their clients.",
+            "bullets": [
+              "Two-factor login, roles and audit log",
+              "Reports, notices and contracts on demand",
+              "In your firm's design, under your address"
+            ],
+            "before": "Documents as email attachments, again and again",
+            "after": "One portal that holds everything",
+            "mock": {
+              "title": "Client · Müller GmbH",
+              "rows": [
+                {
+                  "label": "Management report February",
+                  "meta": "provided on 14 March",
+                  "status": "Retrieved",
+                  "tone": "good"
+                },
+                {
+                  "label": "Annual accounts 2025",
+                  "meta": "3 documents missing",
+                  "status": "In progress",
+                  "tone": "warn"
+                },
+                {
+                  "label": "VAT return March",
+                  "meta": "due 10 April",
+                  "status": "Planned",
+                  "tone": "brand"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "file",
+            "title": "Documents & checklists",
+            "short": "Complete before you ask",
+            "benefit": "The client sees what is missing themselves – and you stop chasing.",
+            "text": "Every case has a checklist: monthly receipts, annual accounts, client intake. Upload by phone photo, reminders run automatically.",
+            "bullets": [
+              "Checklists per case and client type",
+              "Upload by photo, scan or forwarding",
+              "Automatic reminder before the deadline"
+            ],
+            "before": "Five emails and three calls per missing document",
+            "after": "A checklist that works through itself",
+            "mock": {
+              "title": "Checklist · annual accounts",
+              "rows": [
+                {
+                  "label": "Bank statements 12/2025",
+                  "meta": "uploaded 8 Jan",
+                  "status": "Complete",
+                  "tone": "good"
+                },
+                {
+                  "label": "Inventory list",
+                  "meta": "uploaded 12 Jan",
+                  "status": "Complete",
+                  "tone": "good"
+                },
+                {
+                  "label": "Loan agreements",
+                  "meta": "reminder sent",
+                  "status": "Missing",
+                  "tone": "warn"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "sparkles",
+            "title": "AI receipt recognition",
+            "short": "Read, assign, suggest",
+            "benefit": "Receipts are recognised and assigned before anyone opens them.",
+            "text": "The AI reads date, amount, tax rate and issuer and suggests an assignment. The firm decides – the AI only prepares. Client data is not used for training.",
+            "bullets": [
+              "Amount, date, tax rate and issuer recognised",
+              "Duplicates and unreadable receipts flagged",
+              "Handover to specialist software via interface or export"
+            ],
+            "before": "Opening, reading and typing up every receipt",
+            "after": "Check the suggestion, confirm, done",
+            "mock": {
+              "title": "Receipts · March",
+              "rows": [
+                {
+                  "label": "Fuel receipt €64.20",
+                  "meta": "19% · vehicle costs suggested",
+                  "status": "Recognised",
+                  "tone": "good"
+                },
+                {
+                  "label": "Invoice office furniture",
+                  "meta": "€1,190.00 · fixed asset?",
+                  "status": "Check",
+                  "tone": "warn"
+                },
+                {
+                  "label": "Photo unreadable",
+                  "meta": "client has been informed",
+                  "status": "Requested again",
+                  "tone": "muted"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "calendar",
+            "title": "Appointments & deadlines",
+            "short": "Nothing expires unnoticed",
+            "benefit": "Deadlines are visible – for the firm and for the client.",
+            "text": "Clients book initial calls and consultations online. Deadlines sit in the case, remind in good time and show whose turn it is.",
+            "bullets": [
+              "Online booking with pre-questions",
+              "Deadlines per case with lead time",
+              "Whose turn: firm or client"
+            ],
+            "before": "Deadline list in Excel, reminders by hand",
+            "after": "Reminders that go out by themselves",
+            "mock": {
+              "title": "Deadlines · next 14 days",
+              "rows": [
+                {
+                  "label": "VAT return · 12 clients",
+                  "meta": "due 10 April",
+                  "status": "9 ready",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Objection deadline",
+                  "meta": "Schmidt · due 15 April",
+                  "status": "Waiting for client",
+                  "tone": "warn"
+                },
+                {
+                  "label": "Payroll run April",
+                  "meta": "reports by 20 April",
+                  "status": "Planned",
+                  "tone": "muted"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "message",
+            "title": "Queries on the case",
+            "short": "No more email ping-pong",
+            "benefit": "Every query is attached to the receipt or case – not sitting in an inbox.",
+            "text": "Instead of emails titled »Query« you ask the question right on the document. The client answers in the portal and everyone on the team sees the thread.",
+            "bullets": [
+              "Questions directly on the receipt or document",
+              "Notification by email, answer in the portal",
+              "History for cover and handover"
+            ],
+            "before": "Searching for answers in three inboxes",
+            "after": "Question, answer and receipt in one place",
+            "mock": {
+              "title": "Open queries",
+              "rows": [
+                {
+                  "label": "Hospitality receipt 12 March",
+                  "meta": "Who attended?",
+                  "status": "Answered",
+                  "tone": "good"
+                },
+                {
+                  "label": "Transfer €4,800",
+                  "meta": "Private or business?",
+                  "status": "Open for 2 days",
+                  "tone": "warn"
+                },
+                {
+                  "label": "New lease agreement",
+                  "meta": "Please upload the contract",
+                  "status": "Reminded",
+                  "tone": "brand"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "handshake",
+            "title": "Client onboarding",
+            "short": "From first contact to file",
+            "benefit": "New clients start complete – without paper and without postage.",
+            "text": "Enquiry with pre-questionnaire, appointment booking, power of attorney and agreement for digital signature, master data via form. The result is a clean file.",
+            "bullets": [
+              "Pre-questionnaire pre-sorts suitable enquiries",
+              "Sign power of attorney and agreement digitally",
+              "Master data and documents via form"
+            ],
+            "before": "Forms by post, typing up master data",
+            "after": "One link, one complete file",
+            "mock": {
+              "title": "New clients",
+              "rows": [
+                {
+                  "label": "Aydin Bakery",
+                  "meta": "power of attorney signed",
+                  "status": "File complete",
+                  "tone": "good"
+                },
+                {
+                  "label": "Dr Lehmann's practice",
+                  "meta": "initial call Thu 14:00",
+                  "status": "Booked",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Inheritance law enquiry",
+                  "meta": "not our practice area",
+                  "status": "Referred on",
+                  "tone": "muted"
+                }
+              ]
+            }
+          }
         ]
       },
-      "featuresTitle": "What your client portal does.",
-      "features": [
-        {
-          "title": "Secure login",
-          "text": "Two-factor sign-in, roles for client, clerk and partner, full audit log."
-        },
-        {
-          "title": "Upload & checklists",
-          "text": "Clients see what's missing – via phone photo, PDF or forwarded email."
-        },
-        {
-          "title": "AI receipt recognition",
-          "text": "Date, amount, tax rate and supplier extracted – a person reviews and confirms."
-        },
-        {
-          "title": "Appointments & deadlines",
-          "text": "Book consultations online, deadline overview with automatic reminders."
-        },
-        {
-          "title": "Questions in context",
-          "text": "Ask directly on the receipt or document instead of long email threads."
-        },
-        {
-          "title": "Privacy by design",
-          "text": "EU hosting, encryption, data processing agreements, deletion policy."
+      "cases": {
+        "title": "Six firms, six bottlenecks.",
+        "accent": "Here is the solution.",
+        "text": "Typical scenarios from tax, legal, payroll, consulting and brokerage – with before and after, scope and cost range.",
+        "items": [
+          {
+            "icon": "scale",
+            "segment": "Tax advisors",
+            "profile": "Tax firm · 8 staff · around 350 clients",
+            "title": "Receipts without chasing",
+            "situation": "Receipts arrive by email, WhatsApp and post. In the days before every deadline the team spends hours chasing and sorting attachments.",
+            "rows": [
+              {
+                "label": "Receipt intake",
+                "before": "email, WhatsApp, post",
+                "after": "portal with checklist"
+              },
+              {
+                "label": "Chasing",
+                "before": "by hand, before every deadline",
+                "after": "automatic reminders"
+              },
+              {
+                "label": "Data entry",
+                "before": "open and type up",
+                "after": "check the AI suggestion"
+              }
+            ],
+            "built": [
+              "Client portal",
+              "Checklists",
+              "AI receipt recognition",
+              "Deadlines"
+            ],
+            "integrated": [
+              "Specialist software (interface or export)",
+              "Email forwarding",
+              "Two-factor login"
+            ],
+            "classic": "€40,000 – €55,000",
+            "ours": 12900,
+            "duration": "6–8 weeks"
+          },
+          {
+            "icon": "file",
+            "segment": "Law firms",
+            "profile": "Employment and traffic law firm · 4 lawyers",
+            "title": "Client enquiries that fit",
+            "situation": "Enquiries arrive daily via website and phone – many without documents, some outside the practice areas. The office phones around to establish the facts.",
+            "rows": [
+              {
+                "label": "Initial enquiry",
+                "before": "call, callback, questions",
+                "after": "pre-questionnaire with upload"
+              },
+              {
+                "label": "Power of attorney",
+                "before": "by post",
+                "after": "signed digitally"
+              },
+              {
+                "label": "Initial consultation",
+                "before": "arranged by phone",
+                "after": "booked online"
+              }
+            ],
+            "built": [
+              "Client enquiry",
+              "Appointment booking",
+              "E-signature"
+            ],
+            "integrated": [
+              "Practice software (export)",
+              "Calendar",
+              "Email"
+            ],
+            "classic": "€14,000 – €20,000",
+            "ours": 3900,
+            "duration": "3–4 weeks"
+          },
+          {
+            "icon": "users",
+            "segment": "Payroll & bookkeeping",
+            "profile": "Payroll office · 5 staff · around 120 employers",
+            "title": "Payroll data structured and on time",
+            "situation": "Hours, absences and new hires arrive as Excel, photo or voice message. Shortly before the payroll run the hunt for missing details begins.",
+            "rows": [
+              {
+                "label": "Monthly report",
+                "before": "ten formats",
+                "after": "one form per employer"
+              },
+              {
+                "label": "New hire",
+                "before": "paper questionnaire",
+                "after": "digital, with required fields"
+              },
+              {
+                "label": "Payroll documents",
+                "before": "sent by email",
+                "after": "retrieved in the portal"
+              }
+            ],
+            "built": [
+              "Employer portal",
+              "Monthly forms",
+              "New-starter questionnaire"
+            ],
+            "integrated": [
+              "Payroll software (export)",
+              "Email reminders",
+              "Document storage"
+            ],
+            "classic": "€28,000 – €38,000",
+            "ours": 7400,
+            "duration": "5–6 weeks"
+          },
+          {
+            "icon": "chart",
+            "segment": "Management consulting",
+            "profile": "SME consultancy · 5 consultants · 15 ongoing projects",
+            "title": "Project status without the status report",
+            "situation": "Status reports are compiled by hand every month. Documents sit in email attachments, and clients ask about progress between meetings.",
+            "rows": [
+              {
+                "label": "Status report",
+                "before": "by hand, monthly",
+                "after": "live in the client area"
+              },
+              {
+                "label": "Documents",
+                "before": "email and cloud folders",
+                "after": "one place per project"
+              },
+              {
+                "label": "Retainers",
+                "before": "Excel",
+                "after": "time record for the client"
+              }
+            ],
+            "built": [
+              "Client dashboard",
+              "Tasks & milestones",
+              "Documents"
+            ],
+            "integrated": [
+              "Calendar",
+              "Time tracking (import)",
+              "Email"
+            ],
+            "classic": "€16,000 – €24,000",
+            "ours": 4900,
+            "duration": "3–4 weeks"
+          },
+          {
+            "icon": "shield",
+            "segment": "Financial & insurance brokers",
+            "profile": "Brokerage · 3 staff · around 1,800 clients",
+            "title": "The client area the insurer usually owns",
+            "situation": "Claims are reported by phone, policies searched for by email. There is no time for annual reviews – so clients only get in touch when something happens.",
+            "rows": [
+              {
+                "label": "Claim report",
+                "before": "call with follow-up questions",
+                "after": "form with photos and status"
+              },
+              {
+                "label": "Policy overview",
+                "before": "by email on request",
+                "after": "always in the client area"
+              },
+              {
+                "label": "Annual review",
+                "before": "rare",
+                "after": "invitation with booking link"
+              }
+            ],
+            "built": [
+              "Client area",
+              "Claim report",
+              "Appointment booking"
+            ],
+            "integrated": [
+              "Broker management software (import)",
+              "Email & SMS",
+              "Calendar"
+            ],
+            "classic": "€28,000 – €38,000",
+            "ours": 7400,
+            "duration": "5–6 weeks"
+          },
+          {
+            "icon": "message",
+            "segment": "Coaching & training",
+            "profile": "Coaching provider · 3 trainers · one-to-one and group formats",
+            "title": "Booking, materials, records – without office work",
+            "situation": "Initial calls are arranged by email, materials sent individually. Attendance lists and certificates get done at the weekend.",
+            "rows": [
+              {
+                "label": "Initial call",
+                "before": "arranged by email",
+                "after": "booking with pre-questions"
+              },
+              {
+                "label": "Materials",
+                "before": "one by one by email",
+                "after": "participant area"
+              },
+              {
+                "label": "Records",
+                "before": "by hand at the weekend",
+                "after": "at the push of a button"
+              }
+            ],
+            "built": [
+              "Appointment booking",
+              "Participant area",
+              "Certificates"
+            ],
+            "integrated": [
+              "Calendar",
+              "Video call link",
+              "Email"
+            ],
+            "classic": "€12,000 – €17,000",
+            "ours": 3900,
+            "duration": "3–4 weeks"
+          }
+        ]
+      },
+      "process": {
+        "title": "From chasing to",
+        "accent": "a running portal.",
+        "text": "We start with one type of case and a small group of clients – and roll out as soon as it holds up in daily use.",
+        "steps": [
+          {
+            "title": "Firm check",
+            "text": "We walk through a month-end close, a client intake or a payroll run with you step by step. Where do people chase, type up, search? Free and without obligation."
+          },
+          {
+            "title": "Prototype in 7 days",
+            "text": "You click through your portal – with your checklists, your cases, your logo. Only then is the fixed price set."
+          },
+          {
+            "title": "Pilot with 10 clients",
+            "text": "We start with a pilot group, connect your specialist software and train the team. The remaining clients follow in waves."
+          },
+          {
+            "title": "Operation & expansion",
+            "text": "Hosting in the EU, updates, support. AI receipt recognition, onboarding or further case types are added when you need them."
+          }
+        ]
+      },
+      "packages": {
+        "tag": "Packages for firms & advisors",
+        "title": "Three ways in.",
+        "accent": "Fixed price after the prototype.",
+        "text": "Pick the entry point that fits your firm. We define the exact scope in the firm check – after that a fixed price applies.",
+        "items": {
+          "onboarding": {
+            "name": "Client onboarding",
+            "audience": "For lawyers, consultants, coaches and brokers",
+            "meta": "Live in 3–4 weeks · operation from €49/month",
+            "features": [
+              "Enquiry with pre-questionnaire",
+              "Online appointment booking",
+              "Document upload with checklist",
+              "Sign power of attorney digitally",
+              "Enquiry overview for the team"
+            ]
+          },
+          "portal": {
+            "name": "Client portal",
+            "audience": "For tax firms, payroll offices and brokers",
+            "meta": "Live in 5–6 weeks · operation from €149/month",
+            "features": [
+              "Login with two-factor authentication",
+              "Checklists & receipt upload",
+              "Documents on demand",
+              "Queries on the case",
+              "Roles, permissions & audit log"
+            ]
+          },
+          "plattform": {
+            "name": "Firm platform",
+            "audience": "For firms with many clients and their own processes",
+            "meta": "Live in 6–8 weeks · AI receipt recognition included",
+            "features": [
+              "Workflows with approvals",
+              "AI receipt recognition with suggestions",
+              "Deadline overview & reminders",
+              "Interface to specialist software",
+              "You own source code & data"
+            ]
+          }
         }
-      ],
+      },
+      "spotlight": {
+        "tag": "Goes well with it",
+        "title": "A website that brings initial calls",
+        "text": "For KlarVoran, a job and application coaching provider in the Rhine-Main area, we built the website and initial-call funnel: a clear structure for two audiences and local SEO. The same foundation works for firms and advisors.",
+        "badge": "Website from €1,190",
+        "cta": "View the project in the portfolio",
+        "imageAlt": "Website of KlarVoran, job and application coaching"
+      },
+      "compare": {
+        "title": "Specialist software, vendor portal",
+        "accent": "or your own portal?",
+        "text": "Not every firm needs custom software. Here is how the three routes compare.",
+        "columns": [
+          "Practice or specialist software",
+          "Portal from the software vendor",
+          "Your own portal"
+        ],
+        "rows": [
+          {
+            "label": "Strong at",
+            "cells": [
+              "Bookkeeping, returns, files, billing",
+              "Seamless handover into the specialist software",
+              "Exactly your cases and the way you address clients"
+            ]
+          },
+          {
+            "label": "Weak at",
+            "cells": [
+              "Everything the client has to deliver",
+              "Your own checklists, onboarding, special cases",
+              "Things your specialist software already does well – we don't rebuild those"
+            ]
+          },
+          {
+            "label": "Costs",
+            "cells": [
+              "Licence per workstation and module",
+              "Monthly per client or user",
+              "One-off from €3,900, operation from €49/month"
+            ]
+          },
+          {
+            "label": "Data & code",
+            "cells": [
+              "With the provider",
+              "With the provider",
+              "Yours, hosted in the EU"
+            ]
+          },
+          {
+            "label": "Fits when",
+            "cells": [
+              "your clients deliver reliably",
+              "you stay within the vendor's standard",
+              "chasing and typing up cost you hours"
+            ]
+          }
+        ],
+        "advice": "Keep your specialist software for bookkeeping, files and billing. We build the layer in front of it: everything clients deliver, sign or look up. And if your software vendor's portal is enough for you, we will tell you so in the first call."
+      },
       "faq": [
         {
-          "q": "Does it replace DATEV or our practice software?",
-          "a": "No. The portal complements it and hands over data via API or prepares it for import."
+          "q": "Does this replace DATEV or our practice software?",
+          "a": "No. The portal complements it and hands data over via an interface or prepares it for import. Bookkeeping, files and billing stay where they are."
         },
         {
-          "q": "How much does a client portal cost?",
-          "a": "From around €7,400 for login, documents, status and messages; with workflows and approvals from around €12,900."
+          "q": "What does a client portal cost?",
+          "a": "From around €7,400 for login, documents, status and messages, with workflows, approvals and AI receipt recognition from around €12,900. You get the fixed price after the prototype."
         },
         {
-          "q": "Is client data used to train AI?",
-          "a": "No. We use services with data processing agreements and no training on your data, hosted in the EU."
+          "q": "How is confidentiality protected?",
+          "a": "Data is stored encrypted in the EU, with roles, permissions and an audit log. We sign a data processing agreement; the confidentiality undertaking required for holders of professional secrets is settled with you before the project starts."
+        },
+        {
+          "q": "Is client data used for AI training?",
+          "a": "No. We use services with data processing agreements and no training on your data. The AI makes suggestions, the firm decides."
+        },
+        {
+          "q": "Will clients actually use it?",
+          "a": "In our experience, yes – when it is easier than an email: a photo with the phone, done. That is why we start with a pilot group and adjust the checklists before everyone moves over."
+        },
+        {
+          "q": "How long does implementation take?",
+          "a": "You get the clickable prototype after 7 days. Onboarding is ready in three to four weeks, a portal in five to eight weeks."
+        },
+        {
+          "q": "Do clients have to install an app?",
+          "a": "No. The portal runs in the browser on any device. Anyone who likes can add it to their home screen like an app."
         },
         {
           "q": "Does this also work for coaches and training providers?",
-          "a": "Yes. For KlarVoran, a job and application coaching provider in Rhine-Main, we built the website and first-consultation funnel."
+          "a": "Yes. For KlarVoran, a job and application coaching provider in Rhine-Main, we built the website and initial-call funnel."
         }
-      ]
+      ],
+      "contact": {
+        "title": "Let's talk about",
+        "accent": "your firm.",
+        "text": "Tell us briefly where you have to chase the most today. We will get back to you within 24 hours with an honest assessment – even if it is: your vendor's portal is enough."
+      }
     },
     "beauty": {
-      "navLabel": "Booking system for salons",
-      "keyword": "Booking system for hair & beauty salons",
-      "metaTitle": "Booking System for Hair Salons, Beauty & Studios – No Commission",
-      "metaDescription": "Your own online booking for hairdressers, barbers, beauty, physio and studios – with double-booking protection, reminders and deposits. From €2,200.",
+      "navLabel": "Booking system for salons & beauty",
+      "keyword": "Booking system for hair salons & beauty",
+      "metaTitle": "Booking system for salons, beauty, physio & studios – without commission",
+      "metaDescription": "Your own online booking for hairdressers, barbers, beauty, physio, studios and spas – with reminders, deposits, waitlist and client records. Six use cases with cost ranges, from €2,200.",
       "keywords": [
         "salon booking system",
-        "hairdresser online booking",
-        "commission-free booking system",
-        "beauty salon booking",
-        "salon software"
+        "online booking hairdresser",
+        "booking system without commission",
+        "beauty appointment booking",
+        "salon software",
+        "physiotherapy booking",
+        "yoga studio class booking"
       ],
       "hero": {
-        "badge": "Beauty, health & wellness",
-        "titleStart": "Clients book with you.",
-        "titleHighlight": "Not in someone else's app.",
-        "text": "Your own booking system with calendar, staff selection, reminders and deposits – for hairdressers, barbers, beauty, physio, practices and studios. Build it once, own it.",
-        "imageAlt": "Website of OMED hair salon with its own appointment booking",
-        "stats": [
+        "badge": "Booking systems for beauty, health & studios",
+        "titleStart": "Fewer no-shows. More",
+        "rotating": [
+          "booked appointments.",
+          "regular clients.",
+          "full calendars.",
+          "time with clients.",
+          "revenue per chair."
+        ],
+        "text": "Your own booking system for hairdressers, barbers, beauty, physio, studios and spas. Clients book with you around the clock, reminders and deposits cut no-shows – without commission and without someone else's app between you and your clients.",
+        "imageAlt": "Website of the OMED hair salon with its own appointment booking",
+        "cards": {
+          "alert": {
+            "label": "New appointment · booked at 23:14",
+            "value": "Cut + beard · 45 min",
+            "text": "Sat, 10:30 · with Emre"
+          },
+          "confirm": {
+            "icon": "card",
+            "title": "Deposit paid",
+            "text": "€20 · appointment secured"
+          },
+          "note": {
+            "icon": "star",
+            "title": "Review requested",
+            "text": "Two hours after the appointment, automatically."
+          }
+        }
+      },
+      "audiences": {
+        "title": "Salon, practice or studio.",
+        "accent": "Your calendar, your rules.",
+        "text": "A haircut takes 30 minutes, a tattoo session a day, a yoga class has 14 places. Pick your field and see how your system maps that.",
+        "items": [
           {
-            "value": "0",
-            "label": "double bookings – enforced in the database"
+            "icon": "scissors",
+            "label": "Hairdressers & barbers",
+            "title": "The calendar fills while you cut.",
+            "text": "The phone rings when you have scissors in your hand – and in the evening when the shop is closed. Online, clients book when it suits them, directly with the right team member.",
+            "pains": [
+              "Calls and messages in the middle of a cut",
+              "Platform fees per calendar or new client",
+              "Saturday appointments that don't show"
+            ],
+            "builds": [
+              "Online booking with choice of stylist",
+              "Reminders by SMS or WhatsApp",
+              "Google profile with booking button"
+            ]
           },
           {
-            "value": "from €2,200",
-            "label": "one-off instead of monthly per calendar"
+            "icon": "sparkles",
+            "label": "Beauty & nails",
+            "title": "Long treatments, safely booked.",
+            "text": "A missed lash or nail treatment costs two hours of revenue. With deposits and clear cancellation rules, clients turn up – or the slot goes to the waitlist in time.",
+            "pains": [
+              "No-shows on long, expensive appointments",
+              "Infill appointments get forgotten",
+              "Client notes on index cards"
+            ],
+            "builds": [
+              "Booking with deposit and cancellation deadline",
+              "Automatic invitation to the follow-up",
+              "Client record with notes and photos"
+            ]
+          },
+          {
+            "icon": "shield",
+            "label": "Physio & practices",
+            "title": "Prescription series instead of single-appointment chaos.",
+            "text": "Six appointments per prescription, several therapists, limited rooms: reception plans more than it welcomes. Your system assigns series, sends reminders and fills gaps from the waitlist.",
+            "pains": [
+              "Assigning appointment series by phone",
+              "Late cancellations stay empty",
+              "Tracking cancellation fees by hand"
+            ],
+            "builds": [
+              "Series booking per prescription and therapist",
+              "Waitlist fills cancelled appointments",
+              "Rooms and equipment as resources"
+            ]
+          },
+          {
+            "icon": "users",
+            "label": "Fitness & yoga studios",
+            "title": "Classes, passes, waitlist – without lists.",
+            "text": "Classes have places, members have passes, and five minutes before the start someone cancels. Your system manages places, deducts credit and lets waitlisted members in automatically.",
+            "pains": [
+              "Sign-up lists via WhatsApp and word of mouth",
+              "10-class passes on paper",
+              "Full classes with empty mats"
+            ],
+            "builds": [
+              "Timetable with places and waitlist",
+              "Passes, memberships and trial classes online",
+              "Check-in by QR code"
+            ]
+          },
+          {
+            "icon": "camera",
+            "label": "Tattoo & piercing",
+            "title": "Enquiries become firm appointments.",
+            "text": "Tattoo enquiries arrive as Instagram messages, without size, placement or budget. An enquiry form collects everything, the deposit secures the appointment, and the consent form is signed beforehand.",
+            "pains": [
+              "Enquiries via Instagram without details",
+              "Appointments without deposit fall through",
+              "Consent forms on paper"
+            ],
+            "builds": [
+              "Enquiry form with design, size and images",
+              "Deposit online, appointment per artist",
+              "Sign consent digitally"
+            ]
+          },
+          {
+            "icon": "star",
+            "label": "Massage & spa",
+            "title": "Sell vouchers, fill rooms.",
+            "text": "Vouchers are issued at the counter and tracked by hand. Bought online, sent instantly and redeemed right at booking – even on the night before Christmas.",
+            "pains": [
+              "Vouchers only on site, list in a folder",
+              "Rooms and therapists double-booked",
+              "Arranging couples' treatments by phone"
+            ],
+            "builds": [
+              "Voucher shop with instant delivery",
+              "Booking with room and therapist",
+              "Packages and couples' treatments online"
+            ]
           }
         ]
       },
-      "problem": {
-        "title": "You pay every month for bookings in someone else's app.",
-        "text": "Booking platforms are quick to set up – but they keep costing, per staff member or per booking. Your clients book in an app where your competitors sit right next to you, and the data stays with the provider.",
-        "points": [
-          "Ongoing fees per calendar or booking",
-          "Your clients see other salons there too",
-          "No control over client data and notes",
-          "No-shows without deposit or cancellation rule"
+      "modules": {
+        "title": "Six building blocks.",
+        "accent": "Take only what fills your calendar.",
+        "text": "Each module solves one specific bottleneck. Click through – this is what it looks like day to day.",
+        "items": [
+          {
+            "icon": "calendar",
+            "title": "Online booking",
+            "short": "Bookable around the clock",
+            "benefit": "Clients book with you – at night, on Sundays, without calling.",
+            "text": "Choose service, choose team member, choose time. Booked in three steps, on a phone, no forced account. Double bookings are technically ruled out.",
+            "bullets": [
+              "Services with duration, price and buffer times",
+              "Booking button for Google, Instagram and website",
+              "Double bookings ruled out at database level"
+            ],
+            "before": "Every second appointment comes by call or message",
+            "after": "The calendar fills itself",
+            "mock": {
+              "title": "Saturday · Emre",
+              "rows": [
+                {
+                  "label": "10:30 · cut + beard",
+                  "meta": "Kerem A. · booked online",
+                  "status": "Confirmed",
+                  "tone": "good"
+                },
+                {
+                  "label": "11:15 · kids' cut",
+                  "meta": "Hoffmann family",
+                  "status": "Confirmed",
+                  "tone": "good"
+                },
+                {
+                  "label": "12:00",
+                  "meta": "Still bookable",
+                  "status": "Free",
+                  "tone": "muted"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "users",
+            "title": "Team, rooms & equipment",
+            "short": "Everyone sees their day",
+            "benefit": "The system knows your team – and schedules rooms and equipment along with it.",
+            "text": "Working hours, breaks, holidays and skills per team member. Treatment rooms, couches or equipment are scheduled as resources so nothing is double-booked.",
+            "bullets": [
+              "Working hours, breaks and holidays per person",
+              "Who can do which service",
+              "Rooms, couches and equipment as resources"
+            ],
+            "before": "A paper diary only one person understands",
+            "after": "One plan everyone has on their phone",
+            "mock": {
+              "title": "Team · today",
+              "rows": [
+                {
+                  "label": "Emre",
+                  "meta": "9 appointments · break 13:00",
+                  "status": "fully booked",
+                  "tone": "good"
+                },
+                {
+                  "label": "Selin",
+                  "meta": "6 appointments · 2 gaps",
+                  "status": "bookable",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Room 2 · beauty",
+                  "meta": "occupied until 16:30",
+                  "status": "free from 16:30",
+                  "tone": "muted"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "message",
+            "title": "Reminders & waitlist",
+            "short": "Fewer empty chairs",
+            "benefit": "People who are reminded turn up. And those who cancel make room for the next.",
+            "text": "Reminder the day before, cancel with one tap. When a slot frees up, the waitlist automatically gets an offer – the first to accept has it.",
+            "bullets": [
+              "Reminders by SMS, WhatsApp or email",
+              "Cancel and reschedule by link",
+              "Waitlist fills freed-up appointments"
+            ],
+            "before": "Forgotten appointments, gaps in the day",
+            "after": "Reminded, confirmed, refilled",
+            "mock": {
+              "title": "Automatically today",
+              "rows": [
+                {
+                  "label": "14 reminders sent",
+                  "meta": "for tomorrow",
+                  "status": "12 confirmed",
+                  "tone": "good"
+                },
+                {
+                  "label": "Cancellation 15:00",
+                  "meta": "waitlist notified",
+                  "status": "Refilled",
+                  "tone": "good"
+                },
+                {
+                  "label": "Follow-up due",
+                  "meta": "23 clients after 5 weeks",
+                  "status": "Invited",
+                  "tone": "brand"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "card",
+            "title": "Deposits & no-show fees",
+            "short": "Appointments that are binding",
+            "benefit": "People who pay a deposit turn up. And if not, the no-show is paid for.",
+            "text": "For long or expensive services you require a deposit or a card on file. Cancellation deadlines are clearly set and billing runs automatically.",
+            "bullets": [
+              "Deposit per service or above a certain duration",
+              "Cancellation deadline and fee by your rules",
+              "Sell vouchers and packages online"
+            ],
+            "before": "Two hours blocked, nobody comes",
+            "after": "Deposit paid, appointment secured",
+            "mock": {
+              "title": "Payments · this week",
+              "rows": [
+                {
+                  "label": "Deposits",
+                  "meta": "18 appointments",
+                  "status": "€360",
+                  "tone": "good"
+                },
+                {
+                  "label": "Vouchers sold",
+                  "meta": "7",
+                  "status": "€420",
+                  "tone": "good"
+                },
+                {
+                  "label": "No-show fee",
+                  "meta": "appointment Tue 14:00",
+                  "status": "€25 charged",
+                  "tone": "warn"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "file",
+            "title": "Client records",
+            "short": "Everything about the client, instantly",
+            "benefit": "You know as they sit down what was done last time.",
+            "text": "Appointment history, notes, colour formula, photos, consent forms. Stored securely in the EU, visible only to your team – and it belongs to you, not a platform.",
+            "bullets": [
+              "Notes, formulas and before-and-after photos",
+              "Consent and medical history digital",
+              "Export possible at any time"
+            ],
+            "before": "Index cards and a colleague's memory",
+            "after": "The record opens with the appointment",
+            "mock": {
+              "title": "Client · Aylin K.",
+              "rows": [
+                {
+                  "label": "Last appointment",
+                  "meta": "balayage · 6 weeks ago",
+                  "status": "Formula saved",
+                  "tone": "good"
+                },
+                {
+                  "label": "Note",
+                  "meta": "sensitive scalp",
+                  "status": "Heads-up",
+                  "tone": "warn"
+                },
+                {
+                  "label": "Next appointment",
+                  "meta": "Fri, 16:00 · roots",
+                  "status": "Booked",
+                  "tone": "brand"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "chart",
+            "title": "Reviews & utilisation",
+            "short": "See what's working",
+            "benefit": "Happy clients leave reviews – and you see which hours are still free.",
+            "text": "After the appointment a review request goes out automatically. The dashboard shows utilisation, revenue per team member and the times that sell poorly.",
+            "bullets": [
+              "Review request after the appointment",
+              "Utilisation per team member and weekday",
+              "Promotions for weak times"
+            ],
+            "before": "Gut feeling and a glance at the diary",
+            "after": "Figures you can plan with",
+            "mock": {
+              "title": "This week",
+              "rows": [
+                {
+                  "label": "Utilisation",
+                  "meta": "previous week 74%",
+                  "status": "83%",
+                  "tone": "good"
+                },
+                {
+                  "label": "New Google reviews",
+                  "meta": "avg. 4.9 stars",
+                  "status": "+ 6",
+                  "tone": "good"
+                },
+                {
+                  "label": "Weak slot",
+                  "meta": "Tue 10 – 13",
+                  "status": "Suggest promotion",
+                  "tone": "warn"
+                }
+              ]
+            }
+          }
         ]
       },
-      "featuresTitle": "What your booking system does.",
-      "features": [
-        {
-          "title": "Online booking",
-          "text": "Services with duration and price, real-time availability matched to opening hours and breaks."
-        },
-        {
-          "title": "Staff & rooms",
-          "text": "Preferred stylist or \"anyone\", rooms and equipment, multiple locations."
-        },
-        {
-          "title": "Reminders",
-          "text": "Confirmation and reminder by email or WhatsApp – fewer no-shows."
-        },
-        {
-          "title": "Deposits & fees",
-          "text": "For long appointments like colour or extensions: online deposit, clear rules."
-        },
-        {
-          "title": "Reviews",
-          "text": "Automatically ask for a Google review after the appointment."
-        },
-        {
-          "title": "Utilisation",
-          "text": "Utilisation per stylist, return rate and revenue per appointment in the dashboard."
+      "cases": {
+        "title": "Six businesses, six bottlenecks.",
+        "accent": "Here is the solution.",
+        "text": "Typical scenarios from salon, studio and practice – with before and after, scope and cost range.",
+        "items": [
+          {
+            "icon": "scissors",
+            "segment": "Hairdressers & barbers",
+            "profile": "Barbershop · 3 barbers · appointments so far via WhatsApp and phone",
+            "title": "Booking without calling",
+            "situation": "Appointments are arranged via WhatsApp – answered between two clients. On Saturdays two or three appointments regularly don't show.",
+            "rows": [
+              {
+                "label": "Booking",
+                "before": "WhatsApp between two cuts",
+                "after": "online, around the clock"
+              },
+              {
+                "label": "No-shows",
+                "before": "two to three per Saturday",
+                "after": "rare, thanks to reminders"
+              },
+              {
+                "label": "New clients",
+                "before": "call or walk on",
+                "after": "book via Google"
+              }
+            ],
+            "built": [
+              "Online booking",
+              "Choice of barber",
+              "Reminders"
+            ],
+            "integrated": [
+              "Google profile",
+              "Instagram link",
+              "SMS & WhatsApp"
+            ],
+            "classic": "€8,000 – €12,000",
+            "ours": 2200,
+            "duration": "2–3 weeks"
+          },
+          {
+            "icon": "sparkles",
+            "segment": "Beauty & nails",
+            "profile": "Beauty and nail studio · 4 staff · many two-hour appointments",
+            "title": "Long appointments that show up",
+            "situation": "Lash and nail treatments block up to two hours. Every no-show is lost revenue, and infill appointments are often booked too late.",
+            "rows": [
+              {
+                "label": "No-shows",
+                "before": "several per week",
+                "after": "rare, thanks to deposits"
+              },
+              {
+                "label": "Infill appointments",
+                "before": "client has to remember",
+                "after": "invitation after three weeks"
+              },
+              {
+                "label": "Client notes",
+                "before": "index cards",
+                "after": "record at the appointment"
+              }
+            ],
+            "built": [
+              "Booking with deposit",
+              "Follow-up invitation",
+              "Client records",
+              "Waitlist"
+            ],
+            "integrated": [
+              "Payment provider",
+              "WhatsApp reminder",
+              "Google profile"
+            ],
+            "classic": "€12,000 – €17,000",
+            "ours": 3900,
+            "duration": "3–4 weeks"
+          },
+          {
+            "icon": "shield",
+            "segment": "Physio & practices",
+            "profile": "Physiotherapy practice · 5 therapists · 4 treatment rooms",
+            "title": "Prescription series without the phone marathon",
+            "situation": "Reception assigns appointment series by phone all day. Late cancellations stay empty, and cancellation fees are rarely charged.",
+            "rows": [
+              {
+                "label": "Appointment series",
+                "before": "by phone, one by one",
+                "after": "online, six at once"
+              },
+              {
+                "label": "Cancelled appointments",
+                "before": "stay empty",
+                "after": "waitlist moves up"
+              },
+              {
+                "label": "Cancellation fee",
+                "before": "rarely tracked",
+                "after": "automatic, by your rules"
+              }
+            ],
+            "built": [
+              "Series booking",
+              "Room planning",
+              "Waitlist",
+              "Cancellation rules"
+            ],
+            "integrated": [
+              "Practice software (export)",
+              "SMS reminder",
+              "Calendar"
+            ],
+            "classic": "€22,000 – €30,000",
+            "ours": 6400,
+            "duration": "5–6 weeks"
+          },
+          {
+            "icon": "users",
+            "segment": "Fitness & yoga studios",
+            "profile": "Yoga studio · 22 classes a week · 10-class passes and memberships",
+            "title": "Classes without sign-up lists",
+            "situation": "Sign-ups run through a WhatsApp group, passes are stamped on paper. Popular classes are full even though mats stay empty in the end.",
+            "rows": [
+              {
+                "label": "Class sign-up",
+                "before": "WhatsApp group",
+                "after": "timetable with places"
+              },
+              {
+                "label": "10-class passes",
+                "before": "stamp card",
+                "after": "credit in the client account"
+              },
+              {
+                "label": "Late cancellations",
+                "before": "place stays empty",
+                "after": "waitlist moves up"
+              }
+            ],
+            "built": [
+              "Class booking",
+              "Passes & memberships",
+              "Waitlist",
+              "QR check-in"
+            ],
+            "integrated": [
+              "Payment provider",
+              "Calendar feed for members",
+              "Email"
+            ],
+            "classic": "€14,000 – €20,000",
+            "ours": 3900,
+            "duration": "3–4 weeks"
+          },
+          {
+            "icon": "camera",
+            "segment": "Tattoo & piercing",
+            "profile": "Tattoo studio · 4 artists · enquiries almost only via Instagram",
+            "title": "Enquiries with all the details",
+            "situation": "Enquiries arrive as direct messages – without size, placement or budget. Many conversations lead nowhere, and appointments without a deposit fall through.",
+            "rows": [
+              {
+                "label": "Enquiry",
+                "before": "Instagram message, lots of questions",
+                "after": "form with design and images"
+              },
+              {
+                "label": "Appointment security",
+                "before": "agreed by chat",
+                "after": "deposit online"
+              },
+              {
+                "label": "Consent",
+                "before": "paper at the appointment",
+                "after": "signed digitally in advance"
+              }
+            ],
+            "built": [
+              "Enquiry form",
+              "Deposit",
+              "E-signature",
+              "Artist calendar"
+            ],
+            "integrated": [
+              "Payment provider",
+              "Instagram link",
+              "Email"
+            ],
+            "classic": "€12,000 – €18,000",
+            "ours": 3900,
+            "duration": "3–4 weeks"
+          },
+          {
+            "icon": "star",
+            "segment": "Massage & spa",
+            "profile": "Day spa · 6 therapists · 5 rooms · many vouchers",
+            "title": "Vouchers and rooms under control",
+            "situation": "Vouchers are sold at the counter and ticked off in a folder. Couples' treatments have to be arranged by phone because two rooms and two therapists must be free at the same time.",
+            "rows": [
+              {
+                "label": "Vouchers",
+                "before": "on site only, list in a folder",
+                "after": "online shop, redeemed at booking"
+              },
+              {
+                "label": "Couples' treatment",
+                "before": "arranged by phone",
+                "after": "bookable online"
+              },
+              {
+                "label": "Room allocation",
+                "before": "paper plan",
+                "after": "checked automatically"
+              }
+            ],
+            "built": [
+              "Voucher shop",
+              "Booking with rooms",
+              "Packages",
+              "Team plan"
+            ],
+            "integrated": [
+              "Payment provider",
+              "PDF voucher by email",
+              "Calendar"
+            ],
+            "classic": "€22,000 – €30,000",
+            "ours": 6400,
+            "duration": "5–6 weeks"
+          }
+        ]
+      },
+      "process": {
+        "title": "From paper diary to",
+        "accent": "a full booking plan.",
+        "text": "We map your services and your team, migrate existing appointments and go live on a quiet day.",
+        "steps": [
+          {
+            "title": "Calendar check",
+            "text": "We look at services, times, team and no-shows. How do people book today, where do chairs stay empty? Free and without obligation."
+          },
+          {
+            "title": "Prototype in 7 days",
+            "text": "You book a test appointment in your own system – with your services, your prices, your logo. Only then is the fixed price set."
+          },
+          {
+            "title": "Migration without a gap",
+            "text": "We migrate existing appointments and client data as far as your old provider allows, and train the team in half an hour."
+          },
+          {
+            "title": "Operation & expansion",
+            "text": "Hosting in the EU, updates, support. Deposits, vouchers, classes or a second location are added when you need them."
+          }
+        ]
+      },
+      "packages": {
+        "tag": "Packages for beauty, practice & studio",
+        "title": "Three ways in.",
+        "accent": "Fixed price after the prototype.",
+        "text": "Pick the entry point that fits your business. Build once, own it – instead of paying monthly per calendar.",
+        "items": {
+          "start": {
+            "name": "Booking Start",
+            "audience": "For barbers, hairdressers and solo professionals",
+            "meta": "Live in 2–3 weeks · operation from €49/month",
+            "features": [
+              "Services with duration & price",
+              "Calendar with choice of team member",
+              "Confirmation by email & WhatsApp",
+              "Booking button for Google & Instagram",
+              "Appointment overview for the team"
+            ]
+          },
+          "pro": {
+            "name": "Booking Pro",
+            "audience": "For beauty, nails, tattoo and studios",
+            "meta": "Live in 3–4 weeks · classes & passes included",
+            "features": [
+              "Deposits & cancellation rules",
+              "Reminders & waitlist",
+              "Client account & client records",
+              "Vouchers, passes & packages",
+              "Review request after the appointment"
+            ]
+          },
+          "team": {
+            "name": "Team & locations",
+            "audience": "For practices, spas and businesses with several locations",
+            "meta": "Live in 5–6 weeks · operation from €149/month",
+            "features": [
+              "Rooms, couches & equipment as resources",
+              "Series and couples' bookings",
+              "Rota & holidays",
+              "Reports per team member & location",
+              "You own source code & data"
+            ]
+          }
         }
-      ],
+      },
+      "spotlight": {
+        "tag": "Live in use",
+        "title": "OMED hair salon books through its own system",
+        "text": "For the OMED hair salon in Aachen-Burtscheid we built the website and multi-step appointment booking: services with duration and price, free time slots, confirmation and customer area. Double bookings are ruled out at database level.",
+        "badge": "Real reference",
+        "cta": "View the project in the portfolio",
+        "imageAlt": "Appointment booking of the OMED hair salon on a phone"
+      },
+      "compare": {
+        "title": "Booking platform, salon subscription",
+        "accent": "or your own system?",
+        "text": "Not every business needs its own system. Here is how the three routes compare.",
+        "columns": [
+          "Booking platform with marketplace",
+          "Salon software by subscription",
+          "Your own booking system"
+        ],
+        "rows": [
+          {
+            "label": "Strong at",
+            "cells": [
+              "Visibility with clients who search there",
+              "A quick start, till and calendar in one",
+              "Your services, your rules, your brand"
+            ]
+          },
+          {
+            "label": "Weak at",
+            "cells": [
+              "Margin, your own brand, client data",
+              "Special cases such as series, rooms or enquiries",
+              "Marketplace reach – you win new clients via Google and Instagram"
+            ]
+          },
+          {
+            "label": "Costs",
+            "cells": [
+              "Monthly fee, sometimes plus commission per new client",
+              "Monthly per calendar or team member",
+              "One-off from €2,200, operation from €49/month"
+            ]
+          },
+          {
+            "label": "Client data",
+            "cells": [
+              "With the platform",
+              "With the provider",
+              "With you"
+            ]
+          },
+          {
+            "label": "Fits when",
+            "cells": [
+              "you are new and need reach",
+              "standard is enough and you want a till included",
+              "you have regulars and want to grow"
+            ]
+          }
+        ],
+        "advice": "If most of your clients come back anyway, on a platform you are paying for clients you already have. Your own system usually pays off from two to three team members. For a solo business with few appointments a day, a cheap subscription is often enough – we will tell you so in the first call."
+      },
       "faq": [
         {
-          "q": "Can I import my existing appointments?",
-          "a": "Yes, via export from your old system, as far as the provider allows it."
+          "q": "What does the booking system cost?",
+          "a": "Booking Start from €2,200 one-off, with client account, deposits and waitlist from €3,900, for teams with rooms or several locations from €6,400. Operation costs from €49 per month."
+        },
+        {
+          "q": "Can I migrate my existing appointments?",
+          "a": "Yes, via export from the old system, as far as the provider allows. We plan the move so that there is no day without a way to book."
         },
         {
           "q": "How do new clients find me without a marketplace?",
-          "a": "Through Google Maps, local SEO and Instagram – with a booking button in your Google profile and a fast website."
+          "a": "Via Google Maps, local SEO and Instagram – a Google profile with a booking button and a fast website take care of that."
         },
         {
-          "q": "How much does it cost?",
-          "a": "Booking Start from €2,200; with client accounts, deposits and waiting list from €3,900. Operations from €49 per month."
+          "q": "Are deposits legally OK?",
+          "a": "Deposits and no-show fees are common but must be clearly communicated before booking. The system shows your terms in the booking flow; you agree the wording with your legal adviser."
         },
         {
-          "q": "Does it work for physio and studios?",
-          "a": "Yes. Services, rooms, equipment and group classes can be freely combined."
+          "q": "Does this also work for physio and studios?",
+          "a": "Yes. Services, rooms, equipment, appointment series and classes with several participants can be combined freely."
+        },
+        {
+          "q": "Do clients have to install an app or create an account?",
+          "a": "No. Booking happens in the browser, no forced account. Those who want a client account see their appointments, credit and vouchers there."
+        },
+        {
+          "q": "Where is client data stored?",
+          "a": "In a database in the EU, encrypted and visible only to your team. The data belongs to you and can be exported at any time."
+        },
+        {
+          "q": "How long does implementation take?",
+          "a": "You get the clickable prototype after 7 days, and you usually go live after two to four weeks."
         }
-      ]
+      ],
+      "contact": {
+        "title": "Let's talk about",
+        "accent": "your calendar.",
+        "text": "Tell us briefly how people book with you today and where appointments fall through. We will get back to you within 24 hours with an honest assessment – even if it is: a subscription is enough for you."
+      }
     },
     "handwerk": {
       "navLabel": "Software for trades & services",
-      "keyword": "Software for tradespeople & service businesses",
-      "metaTitle": "Software for Tradespeople & Service Businesses – Quote to Invoice",
-      "metaDescription": "Enquiry funnel, quote generator, job scheduling, field app and digital sign-off – custom software for trades, cleaning, removals and services.",
+      "keyword": "Software for trades & service businesses",
+      "metaTitle": "Software for trades & service businesses – from quote to invoice",
+      "metaDescription": "Enquiry funnel with photos, quote generator, job scheduling, field app and digital sign-off – custom software for trades, cleaning, removals, landscaping and field service. Six use cases with cost ranges.",
       "keywords": [
         "software for tradespeople",
         "field service app",
         "job scheduling software",
         "service business software",
-        "quote software"
+        "quote software trades",
+        "cleaning company software",
+        "removals calculator website"
       ],
       "hero": {
-        "badge": "Trades & services",
-        "titleStart": "From enquiry to invoice.",
-        "titleHighlight": "Without the paperwork.",
-        "text": "Enquiries with photos, quotes from building blocks, job scheduling, field app and digital sign-off – for trade businesses, cleaning, removals, facility services and other service providers.",
-        "imageAlt": "Example of a web app with document upload and checklist",
-        "stats": [
+        "badge": "Software for trades & services",
+        "titleStart": "Less paperwork. More",
+        "rotating": [
+          "paid jobs.",
+          "fast quotes.",
+          "time with customers.",
+          "plannable weeks.",
+          "clean sign-offs."
+        ],
+        "text": "Custom software for trades, cleaning, removals, landscaping and field service. Enquiries arrive with photos, quotes are built from building blocks, the team sees its jobs on the phone – and after sign-off the invoice is ready.",
+        "imageAlt": "Sample view of a job management system for a trade business",
+        "mockUrl": "your-business.com/jobs",
+        "cards": {
+          "alert": {
+            "label": "New enquiry · with 4 photos",
+            "value": "Bathroom refit, 8 m²",
+            "text": "Quote created in 12 minutes"
+          },
+          "confirm": {
+            "icon": "file",
+            "title": "Sign-off signed",
+            "text": "Invoice is prepared"
+          },
+          "note": {
+            "icon": "map",
+            "title": "Job for tomorrow",
+            "text": "Team 2 · 7:30 · materials are ordered."
+          }
+        }
+      },
+      "audiences": {
+        "title": "Every trade has its own process.",
+        "accent": "Your software follows it.",
+        "text": "A heating engineer plans differently from a cleaning company. Pick your field and see where custom software relieves office and site.",
+        "items": [
           {
-            "value": "Minutes",
-            "label": "instead of hours per quote"
+            "icon": "wrench",
+            "label": "Plumbing, heating & electrical",
+            "title": "The quote is out before the customer asks elsewhere.",
+            "text": "Enquiries come by phone, measurements on paper, the quote at the weekend. With an enquiry form and building blocks, a quote is ready in minutes – based on the customer's photos and measurements.",
+            "pains": [
+              "Quotes get written in the evening and at weekends",
+              "Site visits for jobs that never come",
+              "Materials and hours pieced together afterwards"
+            ],
+            "builds": [
+              "Enquiry form with photos and key data",
+              "Quote generator with service building blocks",
+              "Field app with material and time tracking"
+            ]
           },
           {
-            "value": "1 system",
-            "label": "for office and site"
+            "icon": "frame",
+            "label": "Painting, building & fit-out",
+            "title": "Everyone knows in the morning where to go – and what's missing.",
+            "text": "Several sites, changing crews, materials from three suppliers: planning happens on the phone. Job scheduling shows team, site and status – and documentation happens along the way.",
+            "pains": [
+              "Scheduling by phone and WhatsApp",
+              "Timesheets arrive late and incomplete",
+              "Variations without evidence, disputes at invoicing"
+            ],
+            "builds": [
+              "Weekly plan per crew and site",
+              "Time tracking and photo documentation on the phone",
+              "Variations with photo and customer approval"
+            ]
+          },
+          {
+            "icon": "sparkles",
+            "label": "Commercial cleaning",
+            "title": "Quality you can prove.",
+            "text": "Many sites, many staff, little visibility: complaints arrive before you notice. Checklists per site, time records by QR code and customer access create clarity.",
+            "pains": [
+              "No view of what was done on site",
+              "Time records on paper",
+              "Complaints by email to the site manager"
+            ],
+            "builds": [
+              "Site checklists with photo evidence",
+              "Time tracking by QR code on site",
+              "Customer access for reports and records"
+            ]
+          },
+          {
+            "icon": "map",
+            "label": "Removals & transport",
+            "title": "The customer does the maths – you get the job.",
+            "text": "Every enquiry needs a viewing or a long phone call. A removals calculator records inventory, floors and distance and gives a price range instantly – suitable enquiries land with you ready to go.",
+            "pains": [
+              "Viewings for enquiries that don't convert",
+              "Quotes by gut feeling",
+              "Lorries and teams planned in Excel"
+            ],
+            "builds": [
+              "Removals calculator with inventory list",
+              "Quote as PDF, accepted with one click",
+              "Schedule for vehicles and teams"
+            ]
+          },
+          {
+            "icon": "refresh",
+            "label": "Gardening & landscaping",
+            "title": "Maintenance contracts run by themselves.",
+            "text": "Recurring maintenance, seasonal peaks, weather: routes are rebuilt every week. A planner sets maintenance intervals, bundles routes and documents every job with a photo.",
+            "pains": [
+              "Maintenance intervals in your head and the calendar",
+              "Rebuilding routes every week",
+              "Service records for property managers by hand"
+            ],
+            "builds": [
+              "Maintenance contracts with intervals and services",
+              "Route planning per team and week",
+              "Service record with photo at a click"
+            ]
+          },
+          {
+            "icon": "calendar",
+            "label": "Maintenance & field service",
+            "title": "Service appointments arrange themselves.",
+            "text": "Hundreds of maintenance contracts, and every appointment is arranged individually by phone. Customers get a booking link, the engineer gets the report on their phone – and the next visit is already scheduled.",
+            "pains": [
+              "Phoning around for each service appointment",
+              "Reports on carbon-copy paper",
+              "Due services get overlooked"
+            ],
+            "builds": [
+              "Maintenance planner with due dates",
+              "Appointments arranged by link",
+              "Digital report with signature"
+            ]
           }
         ]
       },
-      "problem": {
-        "title": "The work isn't the problem. The paperwork is.",
-        "text": "Enquiries come without photos or measurements, quotes get written at the kitchen table at night, photos live on personal phones, and the invoice waits for a note from the technician.",
-        "points": [
-          "Site visits just to collect information",
-          "Quotes in Word, prices from memory",
-          "Scheduling on a whiteboard and in group chats",
-          "Invoices delayed by missing sign-offs"
+      "modules": {
+        "title": "Six building blocks.",
+        "accent": "From enquiry to invoice.",
+        "text": "Each module solves one specific bottleneck between office and site. Click through – this is what it looks like day to day.",
+        "items": [
+          {
+            "icon": "message",
+            "title": "Enquiry with photos",
+            "short": "Complete at first contact",
+            "benefit": "You know what it's about before you call back.",
+            "text": "Customers describe their request in a few steps, upload photos and give measurements. You see straight away whether a visit is worthwhile – and can often quote directly.",
+            "bullets": [
+              "Guided questions per service",
+              "Photos, measurements and preferred date",
+              "Automatic assessment: fits, query, decline"
+            ],
+            "before": "Call, callback, site visit – for every enquiry",
+            "after": "Enquiries you can assess immediately",
+            "mock": {
+              "title": "Enquiries · this week",
+              "rows": [
+                {
+                  "label": "Bathroom refit, 8 m²",
+                  "meta": "4 photos · preferred date May",
+                  "status": "Quote created",
+                  "tone": "good"
+                },
+                {
+                  "label": "Heating replacement, period house",
+                  "meta": "oil to heat pump · 140 m²",
+                  "status": "Site visit",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Dripping tap",
+                  "meta": "outside service area",
+                  "status": "Declined",
+                  "tone": "muted"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "file",
+            "title": "Quote generator",
+            "short": "Quotes from building blocks",
+            "benefit": "Minutes instead of hours – and still properly calculated.",
+            "text": "Services, materials and hourly rates are available as building blocks. You select, adjust quantities, and the quote goes out as a PDF – accepted with one click.",
+            "bullets": [
+              "Service blocks with materials and time",
+              "Variants and options in the same quote",
+              "Online acceptance, reminders for open quotes"
+            ],
+            "before": "Quotes written in Word at the weekend",
+            "after": "Quote on the day of the enquiry",
+            "mock": {
+              "title": "Quotes",
+              "rows": [
+                {
+                  "label": "Q-2031 · bathroom refit",
+                  "meta": "€12,480 · sent today",
+                  "status": "Open",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Q-2029 · wallbox",
+                  "meta": "€1,890 · accepted",
+                  "status": "Job",
+                  "tone": "good"
+                },
+                {
+                  "label": "Q-2024 · façade",
+                  "meta": "open for 9 days",
+                  "status": "Follow up",
+                  "tone": "warn"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "calendar",
+            "title": "Job scheduling",
+            "short": "Who, where, when, with what",
+            "benefit": "One plan for the week – and everyone has it on their phone.",
+            "text": "Jobs are dragged onto teams and days. Holidays, vehicles and material status are visible, and changes reach the engineers immediately.",
+            "bullets": [
+              "Weekly plan per team, vehicle and site",
+              "Absences and material status in view",
+              "Changes as push notifications"
+            ],
+            "before": "Planning board in the office, changes by phone",
+            "after": "One plan that applies to everyone",
+            "mock": {
+              "title": "Jobs · tomorrow",
+              "rows": [
+                {
+                  "label": "Team 1 · bathroom Lenz",
+                  "meta": "7:00 · day 3 of 6",
+                  "status": "Scheduled",
+                  "tone": "good"
+                },
+                {
+                  "label": "Team 2 · wallbox Aydin",
+                  "meta": "7:30 · materials ordered",
+                  "status": "Scheduled",
+                  "tone": "good"
+                },
+                {
+                  "label": "Team 3 · emergency cover",
+                  "meta": "vehicle in the garage",
+                  "status": "Reschedule",
+                  "tone": "warn"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "smartphone",
+            "title": "Field app",
+            "short": "The site in your pocket",
+            "benefit": "Job, address, materials and times – all in one app, even without signal.",
+            "text": "The app shows the daily plan with customer details and documents. Times and materials are recorded on site, stored in a basement without reception and synced later.",
+            "bullets": [
+              "Daily plan with navigation and contact",
+              "Time and material tracking on the job",
+              "Works offline, syncs later"
+            ],
+            "before": "Timesheets trickling in on Friday",
+            "after": "Times and materials in the office the same day",
+            "mock": {
+              "title": "Today · team 2",
+              "rows": [
+                {
+                  "label": "Wallbox Aydin",
+                  "meta": "7:30 – 11:10 · 3 material items",
+                  "status": "Recorded",
+                  "tone": "good"
+                },
+                {
+                  "label": "Meter cabinet Brandt",
+                  "meta": "from 12:00 · documents attached",
+                  "status": "Up next",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Stored offline",
+                  "meta": "2 photos waiting for signal",
+                  "status": "Syncs later",
+                  "tone": "muted"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "camera",
+            "title": "Documentation & sign-off",
+            "short": "Documented instead of claimed",
+            "benefit": "Before, after, signed – arguments resolve themselves.",
+            "text": "Photos are assigned to the job, variations with price approved by the customer. Sign-off is signed on the phone and sent to both sides as a PDF.",
+            "bullets": [
+              "Photo documentation per job and work step",
+              "Variations with price and approval",
+              "Sign-off report with signature"
+            ],
+            "before": "Photos in private phone galleries",
+            "after": "Every photo on the right job",
+            "mock": {
+              "title": "Job · bathroom Lenz",
+              "rows": [
+                {
+                  "label": "Photo documentation",
+                  "meta": "23 photos · 6 work steps",
+                  "status": "Complete",
+                  "tone": "good"
+                },
+                {
+                  "label": "Variation: pipework",
+                  "meta": "+ €420 · photo attached",
+                  "status": "Approved",
+                  "tone": "good"
+                },
+                {
+                  "label": "Sign-off",
+                  "meta": "appointment Fri 14:00",
+                  "status": "Pending",
+                  "tone": "brand"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "chart",
+            "title": "Invoice & figures",
+            "short": "After sign-off comes payment",
+            "benefit": "The invoice is ready when the customer has signed.",
+            "text": "Quote, times, materials and variations form the basis for the invoice – handed to your accounting via interface or export. Plus post-calculation per job.",
+            "bullets": [
+              "Invoice basis from recorded data",
+              "Handover to accounting via interface or export",
+              "Post-calculation: planned versus actual"
+            ],
+            "before": "Invoices weeks after the job",
+            "after": "Sign-off today, invoice tomorrow",
+            "mock": {
+              "title": "This month",
+              "rows": [
+                {
+                  "label": "Invoiced",
+                  "meta": "18 jobs",
+                  "status": "€64,300",
+                  "tone": "good"
+                },
+                {
+                  "label": "Signed off, not invoiced",
+                  "meta": "2 jobs",
+                  "status": "€5,900",
+                  "tone": "warn"
+                },
+                {
+                  "label": "Post-calculation Lenz",
+                  "meta": "planned 62 hrs · actual 58 hrs",
+                  "status": "on plan",
+                  "tone": "good"
+                }
+              ]
+            }
+          }
         ]
       },
-      "featuresTitle": "What your business system does.",
-      "features": [
-        {
-          "title": "Quote generator",
-          "text": "Services, materials and rates as building blocks – quote in one click, accepted online."
-        },
-        {
-          "title": "Job scheduling",
-          "text": "Weekly plan for all teams via drag & drop, conflicts visible instantly."
-        },
-        {
-          "title": "Field app",
-          "text": "Jobs, address, contact and materials on the phone – even offline."
-        },
-        {
-          "title": "Photos & documentation",
-          "text": "Photos and notes go straight to the job, not to personal phones."
-        },
-        {
-          "title": "Digital sign-off",
-          "text": "Signature on the tablet, report sent automatically to customer and office."
-        },
-        {
-          "title": "Numbers at a glance",
-          "text": "Quotes vs. orders, margin per job, days to invoice."
+      "cases": {
+        "title": "Six businesses, six bottlenecks.",
+        "accent": "Here is the solution.",
+        "text": "Typical scenarios from trades and services – with before and after, scope and cost range.",
+        "items": [
+          {
+            "icon": "wrench",
+            "segment": "Plumbing, heating & electrical",
+            "profile": "Plumbing and heating firm · 12 staff · around 25 enquiries a week",
+            "title": "Quotes on the same day",
+            "situation": "The master tradesman drives out to every enquiry and writes quotes at the weekend. By the time the quote arrives, the customer has often said yes elsewhere.",
+            "rows": [
+              {
+                "label": "First contact",
+                "before": "call and site visit",
+                "after": "form with photos and measurements"
+              },
+              {
+                "label": "Quote",
+                "before": "after 5 to 10 days",
+                "after": "the same or next day"
+              },
+              {
+                "label": "Follow-up",
+                "before": "rarely",
+                "after": "automatic reminder"
+              }
+            ],
+            "built": [
+              "Enquiry form",
+              "Quote generator",
+              "Quote overview"
+            ],
+            "integrated": [
+              "Accounting (export)",
+              "Wholesale price list (import)",
+              "Email & WhatsApp"
+            ],
+            "classic": "€16,000 – €24,000",
+            "ours": 4900,
+            "duration": "4 weeks"
+          },
+          {
+            "icon": "frame",
+            "segment": "Painting, building & fit-out",
+            "profile": "Painting firm · 8 painters · 4 to 6 sites at once",
+            "title": "From planning board to invoice",
+            "situation": "Planning happens by phone in the morning, timesheets arrive on Fridays. Variations are agreed verbally and disputed at the final invoice.",
+            "rows": [
+              {
+                "label": "Scheduling",
+                "before": "phone in the morning",
+                "after": "weekly plan on the phone"
+              },
+              {
+                "label": "Hours",
+                "before": "paper on Friday",
+                "after": "recorded daily on the job"
+              },
+              {
+                "label": "Variations",
+                "before": "verbal",
+                "after": "with photo and approval"
+              }
+            ],
+            "built": [
+              "Job scheduling",
+              "Field app",
+              "Photo documentation",
+              "Sign-off"
+            ],
+            "integrated": [
+              "Accounting (export)",
+              "Payroll (hours export)",
+              "Push notifications"
+            ],
+            "classic": "€35,000 – €50,000",
+            "ours": 10900,
+            "duration": "6–8 weeks"
+          },
+          {
+            "icon": "sparkles",
+            "segment": "Commercial cleaning",
+            "profile": "Cleaning company · around 60 staff · 45 sites",
+            "title": "Provable quality on every site",
+            "situation": "The site manager only learns of problems through complaints. Times are noted on paper, and records for customers are created by hand.",
+            "rows": [
+              {
+                "label": "Quality control",
+                "before": "spot checks on site",
+                "after": "checklist with photo per visit"
+              },
+              {
+                "label": "Time record",
+                "before": "paper list",
+                "after": "QR code on site"
+              },
+              {
+                "label": "Complaint",
+                "before": "email to the site manager",
+                "after": "report in customer access with status"
+              }
+            ],
+            "built": [
+              "Site checklists",
+              "Time tracking",
+              "Customer access",
+              "Scheduling"
+            ],
+            "integrated": [
+              "Payroll (export)",
+              "QR codes per site",
+              "Email reports"
+            ],
+            "classic": "€55,000 – €80,000",
+            "ours": 18900,
+            "duration": "8–10 weeks"
+          },
+          {
+            "icon": "map",
+            "segment": "Removals & transport",
+            "profile": "Removals company · 4 lorries · around 30 enquiries a week",
+            "title": "Price range instantly, viewing only when needed",
+            "situation": "Almost every enquiry leads to a long phone call or a viewing. Only one in four becomes a job.",
+            "rows": [
+              {
+                "label": "Enquiry",
+                "before": "phone call or viewing",
+                "after": "calculator with inventory list"
+              },
+              {
+                "label": "Price",
+                "before": "by gut feeling, days later",
+                "after": "price range instantly"
+              },
+              {
+                "label": "Planning",
+                "before": "Excel",
+                "after": "schedule per lorry"
+              }
+            ],
+            "built": [
+              "Removals calculator",
+              "Quote PDF",
+              "Schedule"
+            ],
+            "integrated": [
+              "Calendar",
+              "Route calculation",
+              "Email & WhatsApp"
+            ],
+            "classic": "€15,000 – €22,000",
+            "ours": 4900,
+            "duration": "3–4 weeks"
+          },
+          {
+            "icon": "refresh",
+            "segment": "Gardening & landscaping",
+            "profile": "Landscaping firm · 3 maintenance teams · around 140 maintenance contracts",
+            "title": "Maintenance routes that plan themselves",
+            "situation": "Who maintains which site when is kept in an Excel list and in the boss's head. Property managers demand records that get written in the evening.",
+            "rows": [
+              {
+                "label": "Maintenance intervals",
+                "before": "Excel and memory",
+                "after": "planner with due dates"
+              },
+              {
+                "label": "Routes",
+                "before": "rebuilt every week",
+                "after": "suggestion per team"
+              },
+              {
+                "label": "Service record",
+                "before": "by hand in the evening",
+                "after": "photo and report at a click"
+              }
+            ],
+            "built": [
+              "Maintenance planner",
+              "Route planning",
+              "Service records",
+              "Field app"
+            ],
+            "integrated": [
+              "Accounting (export)",
+              "Map view",
+              "Email to property managers"
+            ],
+            "classic": "€32,000 – €45,000",
+            "ours": 10900,
+            "duration": "6–8 weeks"
+          },
+          {
+            "icon": "calendar",
+            "segment": "Maintenance & field service",
+            "profile": "Heating service · 4 engineers · around 1,400 maintenance contracts",
+            "title": "Service appointments without a call list",
+            "situation": "One employee spends the whole year phoning around for service appointments. Reports are written on carbon-copy paper and typed up later.",
+            "rows": [
+              {
+                "label": "Arranging appointments",
+                "before": "one by one by phone",
+                "after": "invitation with booking link"
+              },
+              {
+                "label": "Report",
+                "before": "carbon-copy paper",
+                "after": "digital with signature"
+              },
+              {
+                "label": "Due dates",
+                "before": "list in the office",
+                "after": "automatic in the planner"
+              }
+            ],
+            "built": [
+              "Maintenance planner",
+              "Appointment booking",
+              "Digital report"
+            ],
+            "integrated": [
+              "SMS & email",
+              "Engineers' calendars",
+              "Accounting (export)"
+            ],
+            "classic": "€20,000 – €28,000",
+            "ours": 6400,
+            "duration": "5 weeks"
+          }
+        ]
+      },
+      "process": {
+        "title": "From paper to",
+        "accent": "a running system.",
+        "text": "We start with the process that eats the most time – often quoting – and expand as soon as it holds up in the business.",
+        "steps": [
+          {
+            "title": "Business check",
+            "text": "We walk through a job from enquiry to invoice with you. Where do people write things twice, search, chase by phone? Free and without obligation."
+          },
+          {
+            "title": "Prototype in 7 days",
+            "text": "You click through your system – with your services, your prices, your logo. Only then is the fixed price set."
+          },
+          {
+            "title": "Start with one team",
+            "text": "We go live with one crew or one service, train right on the phone and adjust whatever snags on site. The rest follows."
+          },
+          {
+            "title": "Operation & expansion",
+            "text": "Hosting in the EU, updates, support. Scheduling, maintenance or customer access are added when you need them."
+          }
+        ]
+      },
+      "packages": {
+        "tag": "Packages for trades & services",
+        "title": "Three ways in.",
+        "accent": "Fixed price after the prototype.",
+        "text": "Pick the entry point that fits your business. We define the exact scope in the business check – after that a fixed price applies.",
+        "items": {
+          "angebot": {
+            "name": "Enquiry & quote",
+            "audience": "For businesses that want to quote faster",
+            "meta": "Live in 3–4 weeks · operation from €149/month",
+            "features": [
+              "Enquiry form with photos & measurements",
+              "Quote generator with building blocks",
+              "Quote as PDF, accepted with one click",
+              "Reminders for open quotes",
+              "Quote overview with conversion rate"
+            ]
+          },
+          "auftrag": {
+            "name": "Job to invoice",
+            "audience": "For businesses with several teams and sites",
+            "meta": "Live in 6–8 weeks · one complete core process",
+            "features": [
+              "Scheduling per team & vehicle",
+              "Field app, works offline",
+              "Time and material tracking",
+              "Photo documentation, variations & sign-off",
+              "Handover to accounting"
+            ]
+          },
+          "plattform": {
+            "name": "Operations platform",
+            "audience": "For cleaning, maintenance and businesses with many sites",
+            "meta": "Live in 8–10 weeks · several processes",
+            "features": [
+              "Workshop & process analysis",
+              "Sites, contracts & intervals",
+              "Customer access with records",
+              "Roles, permissions & reports",
+              "You own source code & data"
+            ]
+          }
         }
-      ],
+      },
+      "compare": {
+        "title": "Trade software, single tools",
+        "accent": "or your own system?",
+        "text": "If off-the-shelf software fits your process, use it. Here is how the three routes compare.",
+        "columns": [
+          "Off-the-shelf trade software",
+          "Single tools & Excel",
+          "Your own system"
+        ],
+        "rows": [
+          {
+            "label": "Strong at",
+            "cells": [
+              "Quotes, invoices, master data by the standard",
+              "A quick start with no roll-out",
+              "Exactly your process, from first contact to sign-off"
+            ]
+          },
+          {
+            "label": "Weak at",
+            "cells": [
+              "Processes that differ from the standard",
+              "Double entry and lack of overview",
+              "Things standard tools already do well – we don't rebuild those"
+            ]
+          },
+          {
+            "label": "Costs",
+            "cells": [
+              "Licence per user and month",
+              "Many small subscriptions, lots of manual work",
+              "One-off from €4,900, operation from €149/month"
+            ]
+          },
+          {
+            "label": "Data & code",
+            "cells": [
+              "With the provider",
+              "Spread across many tools",
+              "Yours, hosted in the EU"
+            ]
+          },
+          {
+            "label": "Fits when",
+            "cells": [
+              "your process matches the standard",
+              "you work alone or as a pair",
+              "you have many users or a special process"
+            ]
+          }
+        ],
+        "advice": "Keep your accounting and, if it fits, your trade software. Custom pays off where your process is different: at the enquiry, in scheduling or in on-site records. Whether that applies to you is something we clarify in the first call – honestly, even if the answer is no."
+      },
       "faq": [
         {
-          "q": "Isn't there off-the-shelf software for this?",
+          "q": "Isn't there off-the-shelf software for tradespeople?",
           "a": "Yes, and if it fits, use it. Custom pays off when your process is different or you want to save licences for many users."
         },
         {
+          "q": "What does it cost?",
+          "a": "Enquiry funnel with quote generator from around €4,900, a complete core process from scheduling to sign-off from around €10,900. You get the fixed price after the prototype."
+        },
+        {
           "q": "Does the app work without signal?",
-          "a": "Yes, with offline storage. Data syncs as soon as there's reception again."
+          "a": "Yes, with offline storage. Times, materials and photos are stored and synced as soon as there is reception again."
         },
         {
-          "q": "How much does it cost?",
-          "a": "Enquiry funnel with quote generator from around €4,900; a complete core process from around €10,900."
+          "q": "Will my people cope with it?",
+          "a": "The app only shows what is needed on site: job, times, materials, photos. We train right on the phone and start with one team before everyone switches."
         },
         {
-          "q": "Can we keep our accounting software?",
-          "a": "Yes. We hand invoices over to your existing accounting via API or export."
+          "q": "Do we keep our accounting?",
+          "a": "Yes. We hand invoice data to your existing accounting via interface or export."
+        },
+        {
+          "q": "Can we maintain our prices and services ourselves?",
+          "a": "Yes. You change service blocks, hourly rates and material prices yourself – or import them from a price list."
+        },
+        {
+          "q": "How long does implementation take?",
+          "a": "You get the clickable prototype after 7 days. Enquiry and quote are ready in three to four weeks, a core process in six to eight weeks."
+        },
+        {
+          "q": "Where is the data stored?",
+          "a": "In a database in the EU, encrypted, with roles and permissions. Code and data belong to you."
         }
-      ]
+      ],
+      "contact": {
+        "title": "Let's talk about",
+        "accent": "your business.",
+        "text": "Tell us briefly where the most time is lost between enquiry and invoice. We will get back to you within 24 hours with an honest assessment – even if it is: use off-the-shelf software."
+      }
     },
     "individualsoftware": {
       "navLabel": "Custom software",
@@ -3750,5 +7156,66 @@
     "text": "Maybe you'll find what you're looking for here:",
     "home": "Back to home",
     "calculator": "To the pricing calculator"
+  },
+  "industryPage": {
+    "hero": {
+      "primary": "Free initial call",
+      "secondary": "See the use cases",
+      "audienceLabel": "Built for",
+      "cardsNote": "Sample notifications from the system",
+      "mockNote": "Sample view"
+    },
+    "audiences": {
+      "tag": "Who it's for",
+      "painsLabel": "What costs you time today",
+      "buildsLabel": "What we build for it",
+      "tabsAria": "Segment of the industry"
+    },
+    "modules": {
+      "tag": "Features",
+      "listAria": "Modules of the system",
+      "beforeLabel": "Before",
+      "afterLabel": "After",
+      "mockNote": "Sample view"
+    },
+    "cases": {
+      "tag": "Use cases",
+      "disclaimer": "The scenarios are sample calculations for the stated business size, not client projects. Comparison figures are guide values for conventional agency development billed by effort; your fixed price is set after the prototype.",
+      "situationLabel": "Starting point",
+      "beforeLabel": "Before",
+      "afterLabel": "After",
+      "builtLabel": "Built",
+      "integratedLabel": "Connected",
+      "classicLabel": "Conventional agency",
+      "oursLabel": "With TasWiq",
+      "from": "from",
+      "durationLabel": "Live in",
+      "why": {
+        "title": "Why the gap is so large",
+        "text": "We develop with AI assistance and rely on proven building blocks for login, roles, uploads and notifications. You pay for your processes – not for someone reinventing the wheel.",
+        "cta": "Discuss your case"
+      }
+    },
+    "process": {
+      "tag": "Process"
+    },
+    "compare": {
+      "tag": "Good to know",
+      "rowHeader": "Criterion",
+      "ownBadge": "Our field",
+      "adviceTitle": "Our recommendation",
+      "guidesLabel": "Further reading (in German)"
+    },
+    "contact": {
+      "tag": "Enquiry",
+      "formTitle": "A short message is enough.",
+      "formText": "No questionnaire, no sales pitch. Two sentences about your business will do.",
+      "submit": "Send enquiry",
+      "points": [
+        "Reply within 24 hours",
+        "Process check free of charge",
+        "Fixed price after the prototype"
+      ]
+    }
   }
 }

@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { ArrowRight, Check } from "lucide-react";
 import { Icon } from "@/components/ui/Icon";
+import { TONES, type Tone } from "@/components/industry/tones";
 import { cn } from "@/lib/format";
 
-type Tone = "good" | "brand" | "warn" | "muted";
 export type Module = {
   icon: string;
   title: string;
@@ -16,13 +16,6 @@ export type Module = {
   before: string;
   after: string;
   mock: { title: string; rows: { label: string; meta: string; status: string; tone: Tone }[] };
-};
-
-const TONES: Record<Tone, string> = {
-  good: "bg-mint-500/12 text-[#157a40]",
-  brand: "bg-brand-50 text-brand-700",
-  warn: "bg-amber-100 text-amber-800",
-  muted: "bg-canvas text-muted",
 };
 
 /**

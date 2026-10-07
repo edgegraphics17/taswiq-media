@@ -34,14 +34,61 @@ export const mediaPackages: PackageDef[] = [
 ];
 
 /**
- * Einstiege der Immobilien-Seite (Texte: messages → seoPages.immobilien.packages.items.<id>).
- * Preise folgen der Preis-Matrix: Buchung Pro · Kundenportal · ein Kernprozess.
+ * Einstiege der Branchenseiten (Texte: messages → seoPages.<branche>.packages.items.<id>).
+ * Preise folgen der Preis-Matrix in config/pricing.ts; `icon` = ID aus components/ui/Icon.tsx,
+ * `highlight` = empfohlenes Paket.
  */
-export const realEstatePackages = [
-  { id: "vermarktung", price: 3900 },
-  { id: "portal", price: 7400 },
-  { id: "plattform", price: 10900 },
-] as const;
+type IndustryPack = { id: string; price: number; icon: string };
+export const industryPackages: Record<"gastro" | "immobilien" | "automotive" | "kanzlei" | "beauty" | "handwerk", { highlight: string; items: IndustryPack[] }> = {
+  gastro: {
+    highlight: "pro",
+    items: [
+      { id: "start", price: 2900, icon: "cart" },
+      { id: "pro", price: 4900, icon: "chef" },
+      { id: "standorte", price: 7900, icon: "building" },
+    ],
+  },
+  immobilien: {
+    highlight: "portal",
+    items: [
+      { id: "vermarktung", price: 3900, icon: "target" },
+      { id: "portal", price: 7400, icon: "lock" },
+      { id: "plattform", price: 10900, icon: "layers" },
+    ],
+  },
+  automotive: {
+    highlight: "app",
+    items: [
+      { id: "termine", price: 2200, icon: "calendar" },
+      { id: "app", price: 3900, icon: "smartphone" },
+      { id: "plattform", price: 10900, icon: "layers" },
+    ],
+  },
+  kanzlei: {
+    highlight: "portal",
+    items: [
+      { id: "onboarding", price: 3900, icon: "calendar" },
+      { id: "portal", price: 7400, icon: "lock" },
+      { id: "plattform", price: 12900, icon: "workflow" },
+    ],
+  },
+  beauty: {
+    highlight: "pro",
+    items: [
+      { id: "start", price: 2200, icon: "calendar" },
+      { id: "pro", price: 3900, icon: "star" },
+      { id: "team", price: 6400, icon: "users" },
+    ],
+  },
+  handwerk: {
+    highlight: "auftrag",
+    items: [
+      { id: "angebot", price: 4900, icon: "file" },
+      { id: "auftrag", price: 10900, icon: "wrench" },
+      { id: "plattform", price: 18900, icon: "layers" },
+    ],
+  },
+};
 
 export const allPackages = [...softwarePackages, ...mediaPackages];
 
