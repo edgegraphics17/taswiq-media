@@ -1250,7 +1250,9 @@
       "title": "Lass uns über",
       "accent": "dein System sprechen.",
       "text": "Vier kurze Fragen, dann melden wir uns innerhalb von 24 Stunden mit einer Einschätzung und dem nächsten Schritt."
-    }
+    },
+    "showFeatures": "Leistungen anzeigen",
+    "hideFeatures": "Leistungen ausblenden"
   },
   "packages": {
     "from": "ab",
@@ -1351,6 +1353,33 @@
         "Festpreis vor dem Dreh",
         "Endpreise nach § 19 UStG"
       ]
+    },
+    "rent": {
+      "or": "oder mieten ab",
+      "perMonth": "/ Monat",
+      "tag": "Kaufen oder mieten",
+      "title": "Kein Budget für den Einmalpreis? Dann miete dein System.",
+      "text": "Dieselbe Software, zwei Wege: einmal zahlen und besitzen – oder monatlich mieten und sofort starten.",
+      "buy": {
+        "title": "Kaufen",
+        "lead": "Einmal zahlen, für immer besitzen.",
+        "points": [
+          "Festpreis nach dem Prototyp",
+          "Code & Daten gehören dir",
+          "Betrieb & Support ab {ops} / Monat"
+        ]
+      },
+      "rent": {
+        "title": "Mieten",
+        "badge": "0 € Anzahlung",
+        "lead": "Monatliche Rate statt Einmalpreis.",
+        "points": [
+          "Hosting, Wartung, Support & Updates inklusive",
+          "{trial} Monate Testzeit – in dieser Zeit monatlich kündbar",
+          "Danach {term} Monate Mindestlaufzeit",
+          "Deine Daten gehören dir – Kauf später möglich"
+        ]
+      }
     }
   },
   "seoPages": {
@@ -8850,7 +8879,7 @@
     },
     "cases": {
       "tag": "Anwendungsfälle",
-      "disclaimer": "Die Szenarien sind Beispielrechnungen für die genannte Betriebsgröße, keine Kundenprojekte. Die Vergleichswerte sind Richtwerte für klassische Agenturentwicklung nach Aufwand; dein Festpreis steht nach dem Prototyp.",
+      "disclaimer": "Die Szenarien sind Beispielrechnungen für die genannte Betriebsgröße, keine Kundenprojekte. Die Vergleichswerte sind Richtwerte für klassische Agenturentwicklung nach Aufwand; dein Festpreis steht nach dem Prototyp. Mietpreise enthalten Hosting, Wartung und Support.",
       "situationLabel": "Ausgangslage",
       "beforeLabel": "Vorher",
       "afterLabel": "Nachher",
@@ -8864,7 +8893,14 @@
         "title": "Warum der Unterschied so groß ist",
         "text": "Wir entwickeln KI-gestützt und setzen auf erprobte Bausteine für Login, Rollen, Uploads und Benachrichtigungen. Du zahlst für deine Abläufe – nicht dafür, dass jemand das Rad neu erfindet.",
         "cta": "Deinen Fall besprechen"
-      }
+      },
+      "expand": "Lösung & Kosten ansehen",
+      "collapse": "Weniger anzeigen",
+      "buyLabel": "Kaufen",
+      "rentLabel": "Mieten",
+      "perMonth": "/ Monat",
+      "once": "einmalig",
+      "rentNote": "0 € Anzahlung · Betrieb inklusive · {trial} Monate Testzeit, danach {term} Monate Mindestlaufzeit"
     },
     "process": {
       "tag": "Ablauf"

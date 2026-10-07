@@ -137,3 +137,17 @@ export const allPackages = [...softwarePackages, ...mediaPackages];
 
 /** Laufender Betrieb (monatlich) – auf allen Software-Seiten als Hinweis */
 export const runningCosts = { hosting: 49, betrieb: 149, wachstum: 490 } as const;
+
+/**
+ * Miet-Modell: jede Software gibt es statt zum Einmalpreis auch im Abo.
+ *  - Rate = Einmalpreis verteilt auf `spreadMonths` + laufender Betrieb (Hosting, Wartung, Support, Updates inklusive)
+ *  - `trialMonths` Testzeit (monatlich kündbar), danach `minTermMonths` Mindestlaufzeit
+ * Kleine Projekte (< 2.000 €) und Websites rechnen mit Hosting statt vollem Betrieb.
+ * Die Zahlen hier steuern alle Mietpreise der Seite – Texte: messages → packages.rent.
+ */
+export const rental = { trialMonths: 3, minTermMonths: 12, spreadMonths: 24, setupFee: 0 } as const;
+
+/** Monatliche Miete zu einem Einmalpreis, auf "…9" gerundet (3.900 € → 309 €/Monat). */
+export function rentPerMonth(price: number, ops: number = price < 2000 ? runningCosts.hosting : runningCosts.betrieb) {
+  return Math.round((price / rental.spreadMonths + ops) / 10) * 10 - 1;
+}

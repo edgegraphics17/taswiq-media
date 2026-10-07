@@ -2,7 +2,7 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { ArrowRight, BadgeCheck, Check, Globe, Mail, MessageCircle, Phone, Send } from "lucide-react";
 import { getSeoPageById, type IndustryPageId, type SeoPage, type ServicePageId } from "@/config/seo-pages";
-import { serviceOffers } from "@/config/packages";
+import { rentPerMonth, runningCosts, serviceOffers } from "@/config/packages";
 import { site } from "@/config/site";
 import type { Locale } from "@/i18n/routing";
 import { FaqSection } from "@/components/product/FaqSection";
@@ -50,6 +50,7 @@ export async function ServicePage({ page, locale }: { page: SeoPage; locale: Loc
   const ts = await getTranslations("servicePage");
   const tSeo = await getTranslations("seoPages");
   const tc = await getTranslations("common");
+  const tpk = await getTranslations("packages");
   const raw = (fn: unknown, key: string) => (fn as (k: string) => Dict)(key);
   const merged = <T,>(key: string) => ({ ...raw(ts.raw, key), ...raw(t.raw, key) }) as T;
 
@@ -155,7 +156,8 @@ export async function ServicePage({ page, locale }: { page: SeoPage; locale: Loc
 
       <TierMatrix
         content={merged<TiersContent>("tiers")}
-        tiers={offer.tiers.map((x) => ({ ...x, ...tierTexts[x.id] }))}
+        tiers={offer.tiers.map((x) => ({ ...x, rent: rentPerMonth(x.price, id === "website" ? runningCosts.hosting : undefined), ...tierTexts[x.id] }))}
+        rentLabels={{ or: tpk("rent.or"), perMonth: tpk("rent.perMonth") }}
         highlight={offer.highlight}
         extras={offer.extras.map((x) => ({ ...x, ...extraLabels[x.id] }))}
         extrasLabel={ts("extras.tag")}

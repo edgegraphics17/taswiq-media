@@ -2,7 +2,7 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { ArrowRight, BadgeCheck, Check, Mail, MessageCircle, Phone, Send, Sparkles, Users } from "lucide-react";
 import type { IndustryPageId, SeoPage } from "@/config/seo-pages";
-import { industryPackages } from "@/config/packages";
+import { industryPackages, rentPerMonth } from "@/config/packages";
 import { site } from "@/config/site";
 import type { Locale } from "@/i18n/routing";
 import { Process, type ProcessContent } from "@/components/home/Process";
@@ -43,7 +43,7 @@ export async function IndustryPage({ page, locale }: { page: SeoPage; locale: Lo
   const modules = t.raw("modules.items") as Module[];
   const def = industryPackages[id];
   const packTexts = t.raw("packages.items") as Record<string, PackText>;
-  const packs: Pack[] = def.items.map((p) => ({ id: p.id, price: p.price, unit: tpk("units.once"), from: tpk("from"), ...packTexts[p.id] }));
+  const packs: Pack[] = def.items.map((p) => ({ id: p.id, price: p.price, unit: tpk("units.once"), from: tpk("from"), rent: rentPerMonth(p.price), ...packTexts[p.id] }));
   const points = ts.raw("contact.points") as string[];
   const contacts = [
     { href: site.phoneHref, icon: Phone, label: tc("phone"), value: site.phone },

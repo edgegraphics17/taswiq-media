@@ -1250,7 +1250,9 @@
       "title": "Let's talk about",
       "accent": "your system.",
       "text": "Four short questions, then we'll get back to you within 24 hours with an assessment and the next step."
-    }
+    },
+    "showFeatures": "Show what's included",
+    "hideFeatures": "Hide details"
   },
   "packages": {
     "from": "from",
@@ -1351,6 +1353,33 @@
         "Fixed price before the shoot",
         "Final prices under § 19 UStG"
       ]
+    },
+    "rent": {
+      "or": "or rent from",
+      "perMonth": "/ month",
+      "tag": "Buy or rent",
+      "title": "No budget for the one-off price? Rent your system.",
+      "text": "The same software, two ways: pay once and own it – or rent monthly and start right away.",
+      "buy": {
+        "title": "Buy",
+        "lead": "Pay once, own it for good.",
+        "points": [
+          "Fixed price after the prototype",
+          "Code & data belong to you",
+          "Operations & support from {ops} / month"
+        ]
+      },
+      "rent": {
+        "title": "Rent",
+        "badge": "€0 upfront",
+        "lead": "A monthly rate instead of a one-off price.",
+        "points": [
+          "Hosting, maintenance, support & updates included",
+          "{trial}-month trial – cancel monthly during that time",
+          "Then a {term}-month minimum term",
+          "Your data belongs to you – buy later any time"
+        ]
+      }
     }
   },
   "seoPages": {
@@ -8849,7 +8878,7 @@
     },
     "cases": {
       "tag": "Use cases",
-      "disclaimer": "The scenarios are sample calculations for the stated business size, not client projects. Comparison figures are guide values for conventional agency development billed by effort; your fixed price is set after the prototype.",
+      "disclaimer": "The scenarios are sample calculations for the stated business size, not client projects. Comparison figures are guide values for conventional agency development billed by effort; your fixed price is set after the prototype. Rental prices include hosting, maintenance and support.",
       "situationLabel": "Starting point",
       "beforeLabel": "Before",
       "afterLabel": "After",
@@ -8863,7 +8892,14 @@
         "title": "Why the gap is so large",
         "text": "We develop with AI assistance and rely on proven building blocks for login, roles, uploads and notifications. You pay for your processes – not for someone reinventing the wheel.",
         "cta": "Discuss your case"
-      }
+      },
+      "expand": "See solution & costs",
+      "collapse": "Show less",
+      "buyLabel": "Buy",
+      "rentLabel": "Rent",
+      "perMonth": "/ month",
+      "once": "one-off",
+      "rentNote": "€0 upfront · operations included · {trial}-month trial, then {term}-month minimum term"
     },
     "process": {
       "tag": "Process"

@@ -5,6 +5,7 @@ import { getPost } from "@/content/blog";
 import { Link } from "@/i18n/navigation";
 import type { AppHref } from "@/config/site";
 import { ButtonLink } from "@/components/ui/Button";
+import { RentExplainer } from "@/components/product/RentExplainer";
 import { Icon } from "@/components/ui/Icon";
 import { InView } from "@/components/ui/InView";
 import { Reveal } from "@/components/ui/Reveal";
@@ -52,7 +53,7 @@ export function FlowSection({ content: c }: { content: FlowContent }) {
 /* ─── Umfang & Preise: Stufen als Matrix ─── */
 
 type Cell = boolean | string;
-export type Tier = { id: string; name: string; audience: string; price: number };
+export type Tier = { id: string; name: string; audience: string; price: number; rent: number };
 export type TiersContent = {
   tag: string;
   title: string;
@@ -73,7 +74,7 @@ export type Extra = { id: string; price: number; label: string; hint: string };
  * Spalten sind Karten, die Zeilen liegen per Subgrid auf einer Höhe; mobil stehen die Karten untereinander
  * und jede Zelle trägt ihr eigenes Label.
  */
-export function TierMatrix({ content: c, tiers, highlight, extras, extrasLabel, extrasText, locale }: { content: TiersContent; tiers: Tier[]; highlight: string; extras: Extra[]; extrasLabel: string; extrasText: string; locale: Locale }) {
+export function TierMatrix({ content: c, tiers, rentLabels, highlight, extras, extrasLabel, extrasText, locale }: { content: TiersContent; tiers: Tier[]; rentLabels: { or: string; perMonth: string }; highlight: string; extras: Extra[]; extrasLabel: string; extrasText: string; locale: Locale }) {
   const eur = eurAffix(locale);
   const span = { gridRow: `span ${c.rows.length + 2}` };
   return (
@@ -108,6 +109,9 @@ export function TierMatrix({ content: c, tiers, highlight, extras, extrasLabel, 
                     {eur.post && <span className={cn("text-base", dark ? "text-night-muted" : "text-muted")}>€</span>}
                     <span className={cn("text-xs", dark ? "text-night-muted" : "text-muted")}>{c.once}</span>
                   </p>
+                  <p className={cn("num mt-2.5 self-start rounded-full px-3 py-1.5 text-[13px]", dark ? "bg-white/[0.1] text-white" : "bg-brand-50 text-brand-700")}>
+                    {rentLabels.or} <b className="font-semibold">{formatEUR(t.rent, locale)}</b> {rentLabels.perMonth}
+                  </p>
                 </header>
                 {c.rows.map((r) => {
                   const v = r.cells[ti];
@@ -139,6 +143,8 @@ export function TierMatrix({ content: c, tiers, highlight, extras, extrasLabel, 
             );
           })}
         </Reveal>
+
+        <RentExplainer />
 
         {extras.length > 0 && (
           <Reveal className="card mt-4 p-6 sm:p-8">
