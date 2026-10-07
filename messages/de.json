@@ -1204,88 +1204,826 @@
     },
     "immobilien": {
       "navLabel": "Software für Immobilien",
-      "keyword": "Software für Makler & Hausverwaltungen",
-      "metaTitle": "Software für Makler & Hausverwaltungen – Mieterportal & Lead-System",
-      "metaDescription": "Mieterportal mit Schadensmeldung, Interessenten-Funnel, Objekt-Dashboard und Eigentümer-Login – individuelle Software für Makler, Verwalter und Bauträger.",
+      "keyword": "Software für Makler, Hausverwaltungen & Vermieter",
+      "metaTitle": "Software für Makler, Hausverwaltung & Vermieter – Portal, Funnel, Dashboard",
+      "metaDescription": "Individuelle Immobilien-Software: Interessenten-Funnel, Besichtigungsbuchung, Mieterportal mit Schadensmeldung, Eigentümer-Reporting und Bestands-Dashboard. Sechs Anwendungsfälle mit Kostenrahmen.",
       "keywords": [
         "Software Hausverwaltung",
         "Software Makler",
         "Mieterportal",
         "Immobilien Software individuell",
-        "Interessenten Management"
+        "Interessenten Management",
+        "Software Vermieter",
+        "Software Bauträger"
       ],
       "hero": {
-        "badge": "Immobilien & Verwaltung",
-        "titleStart": "Weniger Telefon.",
-        "titleHighlight": "Mehr vermietete Objekte.",
-        "text": "Interessenten vorqualifizieren, Besichtigungen online buchen, Schäden per Portal melden lassen – individuelle Software für Makler, Hausverwaltungen und Bauträger. Auf Wunsch mit Premium-Objektfilm.",
+        "badge": "Software für die Immobilienbranche",
+        "titleStart": "Weniger Telefon. Mehr",
+        "rotating": [
+          "vermietete Objekte.",
+          "verkaufte Einheiten.",
+          "zufriedene Eigentümer.",
+          "Überblick im Bestand.",
+          "erledigte Vorgänge."
+        ],
+        "text": "Individuelle Software für Makler, Hausverwaltungen, Vermieter und Bauträger. Interessenten vorqualifizieren, Besichtigungen online buchen, Schäden digital abwickeln, Eigentümer automatisch informieren – gebaut um deine Abläufe, nicht umgekehrt.",
+        "primary": "Kostenloses Erstgespräch",
+        "secondary": "Anwendungsfälle ansehen",
+        "audienceLabel": "Gebaut für",
         "imageAlt": "Standbild aus dem Immobilienfilm AGILE: Wohnbereich mit Blick ins Grüne",
-        "stats": [
+        "videoCaption": "Objektfilm AGILE · von uns produziert",
+        "cardsNote": "Beispielhafte Meldungen aus einem Immobilien-System",
+        "cards": {
+          "lead": {
+            "label": "Neue Anfrage · vorqualifiziert",
+            "value": "3-Zi.-Altbau, 82 m²",
+            "text": "Einzug & Einkommen passen"
+          },
+          "viewing": {
+            "title": "Besichtigung gebucht",
+            "text": "Sa, 11:00 · online bestätigt"
+          },
+          "ticket": {
+            "title": "Schaden gemeldet",
+            "text": "Handwerker beauftragt – ohne ein Telefonat."
+          }
+        }
+      },
+      "audiences": {
+        "tag": "Für wen",
+        "title": "Immobilien ist nicht gleich Immobilien.",
+        "accent": "Deine Software auch nicht.",
+        "text": "Makler, Verwalter, Bestandshalter, Bauträger – jeder hat andere Engpässe. Wähle deinen Bereich und sieh, wo eigene Software ansetzt.",
+        "painsLabel": "Was heute Zeit kostet",
+        "buildsLabel": "Was wir dafür bauen",
+        "tabsAria": "Bereich der Immobilienbranche",
+        "items": [
           {
-            "value": "1 Portal",
-            "label": "für Mieter, Eigentümer & Handwerker"
+            "icon": "handshake",
+            "label": "Makler",
+            "title": "Aus 80 Anfragen die 8 richtigen machen.",
+            "text": "Ein gutes Inserat bringt mehr Anfragen, als du lesen kannst. Dein System fragt vorab, was du sonst am Telefon klärst – und lädt nur passende Interessenten zur Besichtigung ein.",
+            "pains": [
+              "Dutzende Anfragen pro Inserat, die meisten passen nicht",
+              "Besichtigungstermine als Telefon-Pingpong",
+              "Eigentümer fragen jede Woche nach dem Stand"
+            ],
+            "builds": [
+              "Interessenten-Funnel mit Vorqualifizierung",
+              "Online-Besichtigungsbuchung mit Erinnerung",
+              "Eigentümer-Login mit Vermarktungsreport"
+            ]
           },
           {
-            "value": "7 Tage",
-            "label": "bis zum klickbaren Prototyp"
+            "icon": "building",
+            "label": "Hausverwaltung",
+            "title": "Vorgänge mit Status statt Zettel und WhatsApp.",
+            "text": "Deine Verwaltungssoftware kann Buchhaltung und Abrechnung. Die vielen Abläufe davor und danach – Schäden, Rückfragen, Handwerker, Beschlüsse – laufen über ein Portal, das zu deinem Bestand passt.",
+            "pains": [
+              "Schäden per Telefon, Mail und WhatsApp – ohne Status",
+              "Handwerker koordinieren kostet Stunden pro Woche",
+              "Eigentümer und Beiräte wollen Einblick"
+            ],
+            "builds": [
+              "Mieter- & Eigentümerportal mit Schadensmeldung",
+              "Handwerker-Beauftragung per Link, ohne App",
+              "Dokumentenablage, Beschlüsse & Protokoll"
+            ]
+          },
+          {
+            "icon": "chart",
+            "label": "Vermieter & Bestandshalter",
+            "title": "Dein Bestand auf einem Bildschirm.",
+            "text": "Wer selbst verwaltet, arbeitet oft mit Excel, Ordnern und dem eigenen Gedächtnis. Ein Dashboard zeigt Leerstand, Mieteingänge und Fristen – und die Neuvermietung läuft digital.",
+            "pains": [
+              "Mehrere Excel-Listen, die niemand sonst versteht",
+              "Fristen für Mietanpassung und Wartung im Kopf",
+              "Neuvermietung mit Unterlagen per Mail"
+            ],
+            "builds": [
+              "Bestands-Dashboard mit Leerstand, Mieten & Fristen",
+              "Digitale Bewerbung mit Unterlagen-Check",
+              "Übergabeprotokoll am Handy mit Fotos"
+            ]
+          },
+          {
+            "icon": "layers",
+            "label": "Bauträger",
+            "title": "Vertrieb und Käufer auf demselben Stand.",
+            "text": "Von der Reservierung bis zur Übergabe laufen bei Neubauprojekten hunderte Abstimmungen. Ein Projektportal hält Verfügbarkeit, Sonderwünsche und Mängel an einem Ort.",
+            "pains": [
+              "Verfügbarkeit und Reservierungen in Excel",
+              "Sonderwünsche in endlosen Mail-Verläufen",
+              "Mängellisten nach der Übergabe"
+            ],
+            "builds": [
+              "Einheiten-Übersicht mit Live-Verfügbarkeit",
+              "Käuferportal für Bemusterung & Dokumente",
+              "Mängelmanagement mit Foto, Gewerk & Frist"
+            ]
+          },
+          {
+            "icon": "calendar",
+            "label": "Ferienvermietung",
+            "title": "Direkt gebucht statt Provision gezahlt.",
+            "text": "Buchungsportale bringen Reichweite, kosten aber bei jeder Buchung mit. Mit eigener Buchungsseite holst du Stammgäste direkt – und der Kalender bleibt mit den Portalen synchron.",
+            "pains": [
+              "Rund 15 % Provision je Portal-Buchung",
+              "Doppelbuchungen durch getrennte Kalender",
+              "Reinigung und Schlüsselübergabe per WhatsApp"
+            ],
+            "builds": [
+              "Eigene Buchungsseite mit Online-Zahlung",
+              "Kalender-Sync mit Airbnb & Booking.com",
+              "Reinigungs- & Übergabeplan fürs Team"
+            ]
+          },
+          {
+            "icon": "wrench",
+            "label": "Gewerbe & Facility",
+            "title": "Tickets, Wartung, Nachweise – nachvollziehbar.",
+            "text": "In Gewerbeobjekten zählt, dass Störungen schnell beim Richtigen landen und Wartungen belegt sind. Ein schlankes Ticket-System ersetzt Mail-Verteiler und Ordner.",
+            "pains": [
+              "Störungsmeldungen per Mail an fünf Personen",
+              "Wartungsfristen in Ordnern und Köpfen",
+              "Nachweise müssen zusammengesucht werden"
+            ],
+            "builds": [
+              "Ticket-System mit QR-Code am Objekt",
+              "Wartungsplaner mit Erinnerungen",
+              "Protokolle & Reporting per Klick"
+            ]
           }
         ]
       },
-      "problem": {
-        "title": "Deine Woche verschwindet in Wiederholungen.",
-        "text": "Dieselben Fragen von Interessenten, Schadensmeldungen per Telefon, Unterlagen per Mail. Die Verwaltungssoftware kann die Buchhaltung – aber nicht die vielen Abläufe davor und danach.",
-        "points": [
-          "Dutzende Anfragen pro Inserat, die meisten passen nicht",
-          "Schäden per Telefon, Zettel, WhatsApp – ohne Status",
-          "Sensible Unterlagen im Mail-Postfach",
-          "Eigentümer fragen nach, was mit ihrem Objekt passiert"
+      "modules": {
+        "tag": "Funktionen",
+        "title": "Sechs Bausteine.",
+        "accent": "Du nimmst nur, was du brauchst.",
+        "text": "Jedes Modul löst einen konkreten Engpass. Klick dich durch – so sieht das im Alltag aus.",
+        "listAria": "Module des Immobilien-Systems",
+        "beforeLabel": "Vorher",
+        "afterLabel": "Nachher",
+        "mockNote": "Beispielansicht",
+        "items": [
+          {
+            "icon": "users",
+            "title": "Interessenten-Funnel",
+            "short": "Anfragen sortieren sich selbst",
+            "benefit": "Nur passende Interessenten landen in deinem Kalender.",
+            "text": "Statt 80 Mails pro Inserat zu lesen, beantworten Interessenten fünf kurze Fragen. Dein System sortiert, lädt die Passenden zur Besichtigung ein und sagt dem Rest freundlich ab.",
+            "bullets": [
+              "Fragen zu Einzug, Haushalt und Einkommen – frei einstellbar",
+              "Automatische Einladung mit Terminwahl",
+              "Anfragen aus Portalen und Website in einem Eingang"
+            ],
+            "before": "Jede Anfrage einzeln lesen und beantworten",
+            "after": "Eine sortierte Liste, die Besten zuerst",
+            "mock": {
+              "title": "Anfragen · Altbau Südstadt",
+              "rows": [
+                {
+                  "label": "Familie K.",
+                  "meta": "Einzug 01.03. · 3 Personen",
+                  "status": "Passt",
+                  "tone": "good"
+                },
+                {
+                  "label": "Herr M.",
+                  "meta": "Einzug sofort · 2 Personen",
+                  "status": "Besichtigung Sa 11:00",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Anfrage ohne Angaben",
+                  "meta": "Fragen nicht beantwortet",
+                  "status": "Absage gesendet",
+                  "tone": "muted"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "calendar",
+            "title": "Besichtigungen & Termine",
+            "short": "Termine buchen sich von selbst",
+            "benefit": "Besichtigungen ohne ein einziges Telefonat.",
+            "text": "Du gibst Zeitfenster frei, Interessenten wählen selbst. Bestätigung und Erinnerung gehen automatisch raus, Absagen geben den Platz wieder frei.",
+            "bullets": [
+              "Einzel- und Sammeltermine je Objekt",
+              "Erinnerung per E-Mail und WhatsApp",
+              "Abgleich mit deinem Google- oder Outlook-Kalender"
+            ],
+            "before": "Drei Anrufe, bis ein Termin steht",
+            "after": "Der Termin steht im Kalender, bevor du davon hörst",
+            "mock": {
+              "title": "Samstag · Lindenstraße 8",
+              "rows": [
+                {
+                  "label": "10:00 · Familie Yilmaz",
+                  "meta": "Erinnerung gesendet",
+                  "status": "Bestätigt",
+                  "tone": "good"
+                },
+                {
+                  "label": "10:30 · Herr Weber",
+                  "meta": "Erinnerung gesendet",
+                  "status": "Bestätigt",
+                  "tone": "good"
+                },
+                {
+                  "label": "11:00",
+                  "meta": "Noch buchbar",
+                  "status": "Frei",
+                  "tone": "muted"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "wrench",
+            "title": "Mieterportal & Schadensmeldung",
+            "short": "Jeder Vorgang hat einen Status",
+            "benefit": "Niemand ruft mehr an, um nach dem Stand zu fragen.",
+            "text": "Mieter melden einen Schaden mit Foto in einer Minute – im Browser, ohne App. Der Handwerker bekommt den Auftrag per Link, der Mieter sieht jederzeit, was passiert.",
+            "bullets": [
+              "Meldung mit Foto, Ort und Dringlichkeit",
+              "Handwerker-Auftrag per Link, Rückmeldung mit Foto",
+              "Verlauf und Kosten je Wohnung und Objekt"
+            ],
+            "before": "Telefon, Zettel, WhatsApp – und keiner weiß den Stand",
+            "after": "Ein Vorgang, ein Status, ein Verlauf",
+            "mock": {
+              "title": "Offene Vorgänge",
+              "rows": [
+                {
+                  "label": "Heizung fällt aus",
+                  "meta": "WE 12 · gemeldet heute 7:42",
+                  "status": "Handwerker beauftragt",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Wasserfleck an der Decke",
+                  "meta": "WE 4 · mit 3 Fotos",
+                  "status": "Termin Do 9:00",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Klingel defekt",
+                  "meta": "WE 7",
+                  "status": "Erledigt",
+                  "tone": "good"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "file",
+            "title": "Unterlagen & Dokumente",
+            "short": "Vollständig, bevor du nachfragst",
+            "benefit": "Selbstauskunft, Nachweise, Verträge – vollständig und sicher.",
+            "text": "Bewerber laden ihre Unterlagen über eine Checkliste hoch. Fehlt etwas, erinnert das System. Alles liegt verschlüsselt in der EU und wird nach Abschluss automatisch gelöscht.",
+            "bullets": [
+              "Checkliste mit Upload vom Handy",
+              "Verschlüsselt gespeichert, Löschfristen automatisch",
+              "Digitale Unterschrift lässt sich anbinden"
+            ],
+            "before": "Sensible Unterlagen verteilt im Mail-Postfach",
+            "after": "Eine vollständige Akte je Bewerber",
+            "mock": {
+              "title": "Bewerbung · Familie K.",
+              "rows": [
+                {
+                  "label": "Selbstauskunft",
+                  "meta": "Hochgeladen am 12.02.",
+                  "status": "Vollständig",
+                  "tone": "good"
+                },
+                {
+                  "label": "Einkommensnachweise",
+                  "meta": "3 Dokumente",
+                  "status": "Vollständig",
+                  "tone": "good"
+                },
+                {
+                  "label": "Bonitätsauskunft",
+                  "meta": "Erinnerung gesendet",
+                  "status": "Fehlt noch",
+                  "tone": "warn"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "chart",
+            "title": "Eigentümer-Reporting",
+            "short": "Eigentümer sehen selbst, was läuft",
+            "benefit": "Eigentümer schauen ins Portal, statt dich anzurufen.",
+            "text": "Jeder Eigentümer bekommt einen eigenen Login: Vermietungsstand, offene Vorgänge, Kosten und Dokumente. Auf Wunsch geht einmal im Monat ein Report per E-Mail raus.",
+            "bullets": [
+              "Login je Eigentümer oder Beirat",
+              "Vermietungsstand, Vorgänge und Kosten",
+              "Monatsreport automatisch per E-Mail"
+            ],
+            "before": "Reports von Hand zusammenstellen",
+            "after": "Der Report schreibt sich aus deinen Daten",
+            "mock": {
+              "title": "Report · Lindenstraße 8",
+              "rows": [
+                {
+                  "label": "Vermietungsstand",
+                  "meta": "12 Wohneinheiten",
+                  "status": "11 von 12",
+                  "tone": "good"
+                },
+                {
+                  "label": "Offene Vorgänge",
+                  "meta": "1 in Arbeit, 1 neu",
+                  "status": "2",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Anfragen diese Woche",
+                  "meta": "WE 9 · Neuvermietung",
+                  "status": "34",
+                  "tone": "brand"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "workflow",
+            "title": "Automationen & KI",
+            "short": "Standardfälle laufen von allein",
+            "benefit": "Standardfragen beantwortet dein System – du gibst nur noch frei.",
+            "text": "Die KI schreibt Antwortentwürfe aus deinen Objektdaten, das System erinnert an Fristen und leitet Vorgänge weiter. Nichts geht raus, ohne dass ein Mensch es freigegeben hat – wenn du das so willst.",
+            "bullets": [
+              "Antwortentwürfe für Standardanfragen",
+              "Fristen für Mietanpassung, Wartung und Verträge",
+              "Anbindung an deine Verwaltungssoftware per Schnittstelle oder Export"
+            ],
+            "before": "Dieselbe Antwort zum zwanzigsten Mal tippen",
+            "after": "Entwurf prüfen, freigeben, fertig",
+            "mock": {
+              "title": "Heute automatisch vorbereitet",
+              "rows": [
+                {
+                  "label": "12 Anfragen beantwortet",
+                  "meta": "Entwürfe aus Objektdaten",
+                  "status": "Freigegeben",
+                  "tone": "good"
+                },
+                {
+                  "label": "3 Wartungsfristen",
+                  "meta": "Heizung, Aufzug, Rauchmelder",
+                  "status": "Erinnert",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Rückfrage Nebenkosten",
+                  "meta": "WE 3 · Entwurf liegt bereit",
+                  "status": "Wartet auf dich",
+                  "tone": "warn"
+                }
+              ]
+            }
+          }
         ]
       },
-      "featuresTitle": "Was dein Immobilien-System kann.",
-      "features": [
-        {
-          "title": "Objekt-Dashboard",
-          "text": "Objektdaten, Grundrisse, Energieausweis, Fotos und Status an einem Ort – Exposé per Knopfdruck."
+      "cases": {
+        "tag": "Anwendungsfälle",
+        "title": "Sechs Betriebe, sechs Engpässe.",
+        "accent": "So sieht die Lösung aus.",
+        "text": "Typische Szenarien aus Vermittlung, Verwaltung, Bestand und Projektentwicklung – mit Vorher-Nachher, Umfang und Kostenrahmen.",
+        "disclaimer": "Die Szenarien sind Beispielrechnungen für die genannte Betriebsgröße, keine Kundenprojekte. Die Vergleichswerte sind Richtwerte für klassische Agenturentwicklung nach Aufwand; dein Festpreis steht nach dem Prototyp.",
+        "situationLabel": "Ausgangslage",
+        "beforeLabel": "Vorher",
+        "afterLabel": "Nachher",
+        "builtLabel": "Umgesetzt",
+        "integratedLabel": "Angebunden",
+        "classicLabel": "Klassische Agentur",
+        "oursLabel": "Mit TasWiq",
+        "from": "ab",
+        "durationLabel": "Live in",
+        "why": {
+          "title": "Warum der Unterschied so groß ist",
+          "text": "Wir entwickeln KI-gestützt und setzen auf erprobte Bausteine für Login, Rollen, Uploads und Benachrichtigungen. Du zahlst für deine Abläufe – nicht dafür, dass jemand das Rad neu erfindet.",
+          "cta": "Deinen Fall besprechen"
         },
-        {
-          "title": "Interessenten-Funnel",
-          "text": "Kurze Online-Fragen filtern passende Kandidaten und laden direkt zur Besichtigung ein."
+        "items": [
+          {
+            "icon": "handshake",
+            "segment": "Makler",
+            "profile": "Maklerbüro · 4 Mitarbeitende · rund 60 Vermietungen im Jahr",
+            "title": "Vermietung ohne Anfragen-Flut",
+            "situation": "Jedes Inserat bringt 60 bis 100 Anfragen. Zwei Mitarbeitende lesen, sortieren und telefonieren Termine ab – die eigentliche Beratung kommt zu kurz.",
+            "rows": [
+              {
+                "label": "Anfragen sichten",
+                "before": "ca. 3 Std. je Inserat",
+                "after": "ca. 20 Minuten"
+              },
+              {
+                "label": "Besichtigungen abstimmen",
+                "before": "Telefon und E-Mail",
+                "after": "Selbstbuchung"
+              },
+              {
+                "label": "Nicht erschienen",
+                "before": "regelmäßig",
+                "after": "selten, dank Erinnerung"
+              }
+            ],
+            "built": [
+              "Interessenten-Funnel",
+              "Besichtigungsbuchung",
+              "Anfragen-Dashboard"
+            ],
+            "integrated": [
+              "Portal-Anfragen per Mail-Eingang",
+              "Google-Kalender",
+              "WhatsApp & E-Mail"
+            ],
+            "classic": "18.000 – 25.000 €",
+            "ours": 3900,
+            "duration": "3–4 Wochen"
+          },
+          {
+            "icon": "building",
+            "segment": "Hausverwaltung",
+            "profile": "Miet- und WEG-Verwaltung · 850 Einheiten · 6 Mitarbeitende",
+            "title": "Schadensmeldungen mit Status",
+            "situation": "Schäden kommen über Telefon, Mail und WhatsApp. Niemand sieht auf einen Blick, was offen ist – also rufen Mieter, Eigentümer und Handwerker ständig an.",
+            "rows": [
+              {
+                "label": "Schaden melden",
+                "before": "drei Kanäle, kein Status",
+                "after": "ein Portal mit Foto"
+              },
+              {
+                "label": "Rückfragen zum Stand",
+                "before": "täglich am Telefon",
+                "after": "Mieter sieht es selbst"
+              },
+              {
+                "label": "Handwerker beauftragen",
+                "before": "mehrere Telefonate",
+                "after": "ein Klick, Auftrag per Link"
+              }
+            ],
+            "built": [
+              "Mieterportal",
+              "Schadensmeldung",
+              "Handwerker-Workflow",
+              "Eigentümer-Login"
+            ],
+            "integrated": [
+              "Verwaltungssoftware (Stammdaten-Export)",
+              "E-Mail & SMS",
+              "Dokumentenablage"
+            ],
+            "classic": "45.000 – 60.000 €",
+            "ours": 12900,
+            "duration": "6–8 Wochen"
+          },
+          {
+            "icon": "chart",
+            "segment": "Vermieter & Bestandshalter",
+            "profile": "Privater Bestand · 45 Wohnungen in 5 Häusern · verwaltet selbst",
+            "title": "Der Bestand auf einem Bildschirm",
+            "situation": "Mieten, Kautionen, Zählerstände und Fristen liegen in vier Excel-Listen. Mietanpassungen werden verpasst, weil niemand rechtzeitig daran denkt.",
+            "rows": [
+              {
+                "label": "Überblick",
+                "before": "vier Excel-Listen",
+                "after": "ein Dashboard"
+              },
+              {
+                "label": "Fristen",
+                "before": "im Kopf",
+                "after": "automatische Erinnerung"
+              },
+              {
+                "label": "Neuvermietung",
+                "before": "Unterlagen per Mail",
+                "after": "Checkliste mit Upload"
+              }
+            ],
+            "built": [
+              "Bestands-Dashboard",
+              "Fristen-Kalender",
+              "Digitale Bewerbung"
+            ],
+            "integrated": [
+              "Bank-Export (CSV)",
+              "Kalender",
+              "E-Mail"
+            ],
+            "classic": "15.000 – 22.000 €",
+            "ours": 4900,
+            "duration": "3–4 Wochen"
+          },
+          {
+            "icon": "layers",
+            "segment": "Bauträger",
+            "profile": "Projektentwickler · Neubau mit 64 Wohnungen · Vertrieb über 3 Partner",
+            "title": "Vertrieb, Käufer und Bauleitung an einem Ort",
+            "situation": "Die Verfügbarkeit steht in einer Excel-Datei, die per Mail an den Vertrieb geht. Sonderwünsche laufen über Mail-Verläufe, Mängel nach der Übergabe über Listen.",
+            "rows": [
+              {
+                "label": "Verfügbarkeit",
+                "before": "Excel per Mail",
+                "after": "live für Vertrieb & Website"
+              },
+              {
+                "label": "Sonderwünsche",
+                "before": "Mail-Verläufe",
+                "after": "Katalog mit Preis & Freigabe"
+              },
+              {
+                "label": "Mängel",
+                "before": "Listen und Fotos im Chat",
+                "after": "Tickets mit Gewerk & Frist"
+              }
+            ],
+            "built": [
+              "Einheiten-Übersicht",
+              "Reservierung",
+              "Käuferportal",
+              "Mängelmanagement"
+            ],
+            "integrated": [
+              "Projekt-Website",
+              "Vertriebspartner-Zugänge",
+              "Digitale Unterschrift"
+            ],
+            "classic": "60.000 – 90.000 €",
+            "ours": 18900,
+            "duration": "8–10 Wochen"
+          },
+          {
+            "icon": "calendar",
+            "segment": "Ferienvermietung",
+            "profile": "Betreiber · 12 Apartments an 2 Standorten",
+            "title": "Direktbuchungen statt Provision",
+            "situation": "Fast alle Buchungen kommen über Portale, jede kostet rund 15 % Provision. Stammgäste haben keine Möglichkeit, direkt zu buchen.",
+            "rows": [
+              {
+                "label": "Provision",
+                "before": "rund 15 % je Buchung",
+                "after": "0 % bei Direktbuchung"
+              },
+              {
+                "label": "Kalender",
+                "before": "von Hand abgleichen",
+                "after": "automatisch synchron"
+              },
+              {
+                "label": "Reinigung",
+                "before": "WhatsApp-Gruppe",
+                "after": "Plan mit Checkliste"
+              }
+            ],
+            "built": [
+              "Buchungsseite",
+              "Online-Zahlung",
+              "Reinigungsplan",
+              "Gäste-Infos"
+            ],
+            "integrated": [
+              "Airbnb & Booking.com (iCal)",
+              "Stripe",
+              "Türcode-Versand per Mail"
+            ],
+            "classic": "20.000 – 30.000 €",
+            "ours": 6400,
+            "duration": "4–5 Wochen"
+          },
+          {
+            "icon": "wrench",
+            "segment": "Gewerbe & Facility",
+            "profile": "Gewerbeverwalter · 9 Objekte · eigene Haustechnik",
+            "title": "Störungen und Wartung nachweisbar",
+            "situation": "Störungen gehen per Mail an einen Verteiler, Wartungsfristen stehen in Ordnern. Für Prüfungen müssen Nachweise mühsam zusammengesucht werden.",
+            "rows": [
+              {
+                "label": "Störung melden",
+                "before": "Mail an fünf Personen",
+                "after": "QR-Code scannen, Ticket läuft"
+              },
+              {
+                "label": "Wartungsfristen",
+                "before": "Ordner und Erinnerung",
+                "after": "Planer mit Vorlauf"
+              },
+              {
+                "label": "Nachweise",
+                "before": "zusammensuchen",
+                "after": "Protokoll per Klick"
+              }
+            ],
+            "built": [
+              "Ticket-System",
+              "Wartungsplaner",
+              "Protokolle",
+              "Dienstleister-Zugang"
+            ],
+            "integrated": [
+              "QR-Codes am Objekt",
+              "E-Mail & SMS",
+              "Export für die Buchhaltung"
+            ],
+            "classic": "35.000 – 50.000 €",
+            "ours": 10900,
+            "duration": "6 Wochen"
+          }
+        ]
+      },
+      "process": {
+        "tag": "Ablauf",
+        "title": "Vom Engpass zum",
+        "accent": "laufenden System.",
+        "text": "Wir starten klein – mit einem Objekt oder einem Ablauf – und bauen aus, sobald es im Alltag trägt.",
+        "steps": [
+          {
+            "title": "Ablauf-Check",
+            "text": "Wir gehen eine Vermietung, einen Schadensfall oder einen Verkauf Schritt für Schritt mit dir durch. Wo wird telefoniert, getippt, nachgefragt? Kostenlos und unverbindlich."
+          },
+          {
+            "title": "Prototyp in 7 Tagen",
+            "text": "Du klickst dich durch dein Portal – mit deinen Objekten, deinen Formularen, deinem Logo. Erst danach steht der Festpreis."
+          },
+          {
+            "title": "Start mit einem Objekt",
+            "text": "Wir gehen mit einem Haus oder einem Inserat live, binden deine Verwaltungssoftware an und holen Team und Mieter ab. Dann folgt der Rest."
+          },
+          {
+            "title": "Betrieb & Ausbau",
+            "text": "Hosting in der EU, Updates, Support. Weitere Module – Eigentümer-Login, Reporting, KI-Antworten – kommen dazu, wenn du sie brauchst."
+          }
+        ]
+      },
+      "packages": {
+        "tag": "Pakete für die Immobilienbranche",
+        "title": "Drei Einstiege.",
+        "accent": "Fester Preis nach dem Prototyp.",
+        "text": "Such dir den Einstieg, der zu deinem Betrieb passt. Den genauen Umfang legen wir im Ablauf-Check fest – danach gilt ein Festpreis.",
+        "items": {
+          "vermarktung": {
+            "name": "Vermarktung",
+            "audience": "Für Makler, Vermieter und den Bauträger-Vertrieb",
+            "meta": "Live in 3–4 Wochen · Betrieb ab 149 €/Monat",
+            "features": [
+              "Interessenten-Funnel mit Vorqualifizierung",
+              "Online-Besichtigungsbuchung",
+              "Erinnerungen per Mail & WhatsApp",
+              "Objektseiten mit Exposé-Download",
+              "Anfragen-Dashboard für dein Team"
+            ]
+          },
+          "portal": {
+            "name": "Mieter- & Eigentümerportal",
+            "audience": "Für Hausverwaltungen und Bestandshalter",
+            "meta": "Live in 5–8 Wochen · mit Workflows & Rollen ab 12.900 €",
+            "features": [
+              "Schadensmeldung mit Foto & Status",
+              "Handwerker-Beauftragung per Link",
+              "Unterlagen & Dokumente sicher ablegen",
+              "Eigentümer-Login mit Reporting",
+              "Rollen, Rechte & Protokoll"
+            ]
+          },
+          "plattform": {
+            "name": "Immobilien-Plattform",
+            "audience": "Für Bauträger, Gewerbe und Betriebe mit eigenen Abläufen",
+            "meta": "Ein Kernprozess ab 10.900 € · mehrere ab 18.900 €",
+            "features": [
+              "Workshop & Prozessanalyse",
+              "Module nach Maß: Vertrieb, Tickets, Wartung",
+              "Schnittstellen zu deinen Tools",
+              "KI-Funktionen mit Freigabe",
+              "Quellcode & Daten gehören dir"
+            ]
+          }
         },
-        {
-          "title": "Unterlagen sicher einsammeln",
-          "text": "Upload mit Checkliste, verschlüsselt in der EU gespeichert, automatische Löschung nach Abschluss."
-        },
-        {
-          "title": "Mieterportal & Schadensmeldung",
-          "text": "Schaden mit Foto melden, Status verfolgen, Handwerker per Link beauftragen."
-        },
-        {
-          "title": "Automatisierte Abläufe",
-          "text": "KI-Antwortentwürfe für Standardanfragen, Erinnerungen, Weiterleitungen – mit menschlicher Freigabe."
-        },
-        {
-          "title": "Eigentümer-Reporting",
-          "text": "Login für Eigentümer mit Vermietungsstand, Vorgängen und Dokumenten."
+        "film": {
+          "tag": "Dazu passend",
+          "title": "Objektfilm im Kino-Look",
+          "text": "Für Objekte, die mehr verdienen als Handyfotos: Wir drehen und schneiden selbst – wie den AGILE-Film oben auf dieser Seite. Für Exposé, Website und Social Ads.",
+          "price": "ab 2.990 €",
+          "cta": "Film im Portfolio ansehen"
         }
-      ],
+      },
+      "compare": {
+        "tag": "Gut zu wissen",
+        "title": "Standardsoftware, Portal-Abo",
+        "accent": "oder eigene Lösung?",
+        "text": "Nicht jeder Betrieb braucht individuelle Software. So ordnest du die drei Wege ein.",
+        "rowHeader": "Kriterium",
+        "columns": [
+          "Verwaltungs- oder Maklersoftware",
+          "Portal im Abo",
+          "Eigene Software"
+        ],
+        "ownBadge": "Unser Feld",
+        "rows": [
+          {
+            "label": "Stark bei",
+            "cells": [
+              "Buchhaltung, Abrechnung, Stammdaten",
+              "Schnellem Start mit Standard-Abläufen",
+              "Genau deinen Abläufen, inklusive Sonderfällen"
+            ]
+          },
+          {
+            "label": "Schwach bei",
+            "cells": [
+              "Abläufen davor und danach: Anfragen, Schäden, Kommunikation",
+              "Anpassungen, eigenem Branding, Sonderfällen",
+              "Dingen, die Standard schon gut löst – die bauen wir nicht nach"
+            ]
+          },
+          {
+            "label": "Kosten",
+            "cells": [
+              "Lizenz je Nutzer oder Einheit",
+              "Monatlich je Einheit – wächst mit dem Bestand",
+              "Einmalig ab 3.900 €, Betrieb ab 149 €/Monat"
+            ]
+          },
+          {
+            "label": "Daten & Code",
+            "cells": [
+              "Beim Anbieter",
+              "Beim Anbieter",
+              "Gehören dir, Hosting in der EU"
+            ]
+          },
+          {
+            "label": "Passt, wenn",
+            "cells": [
+              "du vor allem abrechnest",
+              "deine Abläufe dem Standard entsprechen",
+              "Wiederholungen dich Zeit kosten, die kein Tool abdeckt"
+            ]
+          }
+        ],
+        "adviceTitle": "Unsere Empfehlung",
+        "advice": "Behalte deine Verwaltungssoftware für Buchhaltung und Abrechnung. Wir bauen die Schicht davor und danach: alles, was heute über Telefon, Mail und Excel läuft. Und wenn ein Standard-Tool für dich reicht, sagen wir dir das im Erstgespräch.",
+        "guidesLabel": "Zum Weiterlesen"
+      },
       "faq": [
         {
+          "q": "Für wen lohnt sich individuelle Immobilien-Software?",
+          "a": "Sobald sich ein Ablauf jede Woche wiederholt und kein Standard-Tool ihn sauber abdeckt. Das ist typischerweise ab etwa 30 Einheiten im Bestand, ab drei bis vier Mitarbeitenden oder bei laufenden Neubauprojekten der Fall. Darunter reicht oft das Paket Vermarktung."
+        },
+        {
           "q": "Ersetzt das meine Verwaltungssoftware?",
-          "a": "Nein. Wir ergänzen sie um die Abläufe, die dort fehlen, und binden sie per Schnittstelle an, wenn möglich."
+          "a": "Nein. Wir ergänzen sie um die Abläufe, die dort fehlen, und binden sie per Schnittstelle oder Export an, wenn möglich. Buchhaltung und Abrechnung bleiben, wo sie sind."
         },
         {
           "q": "Was kostet ein Mieterportal?",
-          "a": "Ein Kundenportal startet bei rund 7.400 €, mit Workflows, Rollen und Freigaben bei rund 12.900 €."
+          "a": "Ein Portal mit Login, Dokumenten, Status und Nachrichten startet bei rund 7.400 €. Mit Workflows, Rollen und Freigaben liegt es bei rund 12.900 €. Den Festpreis bekommst du nach dem Prototyp."
+        },
+        {
+          "q": "Wie lange dauert die Umsetzung?",
+          "a": "Den klickbaren Prototyp bekommst du nach 7 Tagen. Ein Vermarktungs-System steht in drei bis vier Wochen, ein Portal in fünf bis acht Wochen. Wir gehen zuerst mit einem Objekt live und rollen dann aus."
+        },
+        {
+          "q": "Müssen Mieter eine App installieren?",
+          "a": "Nein. Das Portal läuft im Browser auf jedem Handy, die Anmeldung funktioniert per Link oder Code. Wer mag, legt es wie eine App auf dem Startbildschirm ab."
+        },
+        {
+          "q": "Lässt sich das an Immobilienportale und meine Software anbinden?",
+          "a": "Anfragen aus den Portalen laufen in denselben Eingang wie die von deiner Website. Bei Verwaltungssoftware nutzen wir vorhandene Schnittstellen oder Exporte. Was genau geht, klären wir im Ablauf-Check – bevor du etwas beauftragst."
         },
         {
           "q": "Wo liegen die Daten?",
-          "a": "In einer Datenbank in der EU, verschlüsselt, mit Rollen und Rechten und Protokoll."
+          "a": "In einer Datenbank in der EU, verschlüsselt, mit Rollen, Rechten und Protokoll. Bewerberunterlagen werden nach Abschluss automatisch gelöscht."
+        },
+        {
+          "q": "Was kostet der laufende Betrieb?",
+          "a": "Hosting, Updates und Support gibt es ab 149 € im Monat. Erweiterungen bekommst du jeweils als Festpreis-Angebot."
         },
         {
           "q": "Macht ihr auch Immobilienvideos?",
           "a": "Ja. Für Premium-Objekte produzieren wir Objektfilme im Kino-Look – ein Beispiel ist der AGILE-Film im Portfolio."
         }
-      ]
+      ],
+      "contact": {
+        "tag": "Anfrage",
+        "title": "Lass uns über",
+        "accent": "deine Abläufe sprechen.",
+        "text": "Schreib uns kurz, was dich im Alltag am meisten Zeit kostet. Wir melden uns innerhalb von 24 Stunden mit einer ehrlichen Einschätzung – auch wenn die lautet: Dafür reicht ein Standard-Tool.",
+        "formTitle": "Kurze Nachricht genügt.",
+        "formText": "Kein Fragebogen, kein Verkaufsgespräch. Zwei Sätze zu deinem Betrieb reichen.",
+        "submit": "Anfrage senden",
+        "points": [
+          "Antwort innerhalb von 24 Stunden",
+          "Ablauf-Check kostenlos",
+          "Festpreis nach dem Prototyp"
+        ]
+      }
     },
     "automotive": {
       "navLabel": "Software für Autohaus & Fahrschule",

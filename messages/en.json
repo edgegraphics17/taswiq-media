@@ -1204,88 +1204,826 @@
     },
     "immobilien": {
       "navLabel": "Real estate software",
-      "keyword": "Software for estate agents & property managers",
-      "metaTitle": "Software for Estate Agents & Property Managers – Tenant Portal & Leads",
-      "metaDescription": "Tenant portal with damage reports, prospect funnel, property dashboard and owner login – custom software for agents, property managers and developers.",
+      "keyword": "Software for estate agents, property managers & landlords",
+      "metaTitle": "Software for estate agents, property managers & landlords – portal, funnel, dashboard",
+      "metaDescription": "Custom real estate software: prospect funnel, viewing booking, tenant portal with repair requests, owner reporting and portfolio dashboard. Six use cases with cost ranges.",
       "keywords": [
         "property management software",
         "estate agent software",
         "tenant portal",
         "custom real estate software",
-        "prospect management"
+        "prospect management",
+        "landlord software",
+        "property developer software"
       ],
       "hero": {
-        "badge": "Real estate & property management",
-        "titleStart": "Fewer phone calls.",
-        "titleHighlight": "More properties let.",
-        "text": "Pre-qualify prospects, let them book viewings online, have tenants report damage through a portal – custom software for estate agents, property managers and developers. With a premium property film if you like.",
+        "badge": "Software for the real estate industry",
+        "titleStart": "Fewer phone calls. More",
+        "rotating": [
+          "properties let.",
+          "units sold.",
+          "happy owners.",
+          "portfolio clarity.",
+          "cases closed."
+        ],
+        "text": "Custom software for estate agents, property managers, landlords and developers. Pre-qualify prospects, let them book viewings online, handle repairs digitally, keep owners informed automatically – built around your processes, not the other way round.",
+        "primary": "Free initial call",
+        "secondary": "See the use cases",
+        "audienceLabel": "Built for",
         "imageAlt": "Still from the AGILE property film: living area with a view of the greenery",
-        "stats": [
+        "videoCaption": "AGILE property film · produced by us",
+        "cardsNote": "Sample notifications from a real estate system",
+        "cards": {
+          "lead": {
+            "label": "New enquiry · pre-qualified",
+            "value": "2-bed period flat, 82 m²",
+            "text": "Move-in date & income fit"
+          },
+          "viewing": {
+            "title": "Viewing booked",
+            "text": "Sat, 11:00 · confirmed online"
+          },
+          "ticket": {
+            "title": "Repair reported",
+            "text": "Contractor assigned – without a single call."
+          }
+        }
+      },
+      "audiences": {
+        "tag": "Who it's for",
+        "title": "No two property businesses are alike.",
+        "accent": "Your software shouldn't be either.",
+        "text": "Agents, managers, landlords, developers – each has different bottlenecks. Pick your field and see where custom software helps.",
+        "painsLabel": "What costs you time today",
+        "buildsLabel": "What we build for it",
+        "tabsAria": "Segment of the real estate industry",
+        "items": [
           {
-            "value": "1 portal",
-            "label": "for tenants, owners & contractors"
+            "icon": "handshake",
+            "label": "Estate agents",
+            "title": "Turn 80 enquiries into the 8 that fit.",
+            "text": "A good listing brings more enquiries than you can read. Your system asks up front what you would otherwise clarify by phone – and only invites suitable prospects to a viewing.",
+            "pains": [
+              "Dozens of enquiries per listing, most of them unsuitable",
+              "Viewing appointments as phone ping-pong",
+              "Owners ask for a status update every week"
+            ],
+            "builds": [
+              "Prospect funnel with pre-qualification",
+              "Online viewing booking with reminders",
+              "Owner login with marketing report"
+            ]
           },
           {
-            "value": "7 days",
-            "label": "to a clickable prototype"
+            "icon": "building",
+            "label": "Property management",
+            "title": "Cases with a status instead of notes and WhatsApp.",
+            "text": "Your management software handles accounting and billing. The many steps before and after – repairs, queries, contractors, resolutions – run through a portal that fits your portfolio.",
+            "pains": [
+              "Repairs reported by phone, email and WhatsApp – with no status",
+              "Coordinating contractors takes hours every week",
+              "Owners and boards want visibility"
+            ],
+            "builds": [
+              "Tenant & owner portal with repair requests",
+              "Contractor assignment by link, no app needed",
+              "Document storage, resolutions & audit log"
+            ]
+          },
+          {
+            "icon": "chart",
+            "label": "Landlords & portfolio owners",
+            "title": "Your portfolio on one screen.",
+            "text": "If you manage your own properties, you often work with Excel, folders and your memory. A dashboard shows vacancy, rent received and deadlines – and re-letting runs digitally.",
+            "pains": [
+              "Several spreadsheets nobody else understands",
+              "Rent review and maintenance deadlines kept in your head",
+              "Re-letting with documents sent by email"
+            ],
+            "builds": [
+              "Portfolio dashboard with vacancy, rent & deadlines",
+              "Digital application with document check",
+              "Handover report on your phone with photos"
+            ]
+          },
+          {
+            "icon": "layers",
+            "label": "Developers",
+            "title": "Sales and buyers on the same page.",
+            "text": "From reservation to handover, new-build projects involve hundreds of exchanges. A project portal keeps availability, buyer options and defects in one place.",
+            "pains": [
+              "Availability and reservations in Excel",
+              "Buyer options in endless email threads",
+              "Defect lists after handover"
+            ],
+            "builds": [
+              "Unit overview with live availability",
+              "Buyer portal for finishes & documents",
+              "Defect management with photo, trade & deadline"
+            ]
+          },
+          {
+            "icon": "calendar",
+            "label": "Holiday lets",
+            "title": "Booked direct instead of paying commission.",
+            "text": "Booking platforms bring reach but take a cut of every booking. With your own booking site, returning guests book direct – and the calendar stays in sync with the platforms.",
+            "pains": [
+              "Around 15% commission per platform booking",
+              "Double bookings from separate calendars",
+              "Cleaning and key handover via WhatsApp"
+            ],
+            "builds": [
+              "Your own booking site with online payment",
+              "Calendar sync with Airbnb & Booking.com",
+              "Cleaning & handover schedule for your team"
+            ]
+          },
+          {
+            "icon": "wrench",
+            "label": "Commercial & facility",
+            "title": "Tickets, maintenance, records – traceable.",
+            "text": "In commercial properties, faults need to reach the right person fast and maintenance has to be documented. A lean ticket system replaces mailing lists and folders.",
+            "pains": [
+              "Fault reports emailed to five people",
+              "Maintenance deadlines in folders and heads",
+              "Records have to be pieced together"
+            ],
+            "builds": [
+              "Ticket system with QR code on site",
+              "Maintenance planner with reminders",
+              "Reports & records at a click"
+            ]
           }
         ]
       },
-      "problem": {
-        "title": "Your week disappears into repetition.",
-        "text": "The same questions from prospects, damage reports by phone, documents by email. Your property software handles the accounting – but not the many processes around it.",
-        "points": [
-          "Dozens of enquiries per listing, most don't fit",
-          "Damage reported by phone, notes and WhatsApp – no status",
-          "Sensitive documents sitting in email inboxes",
-          "Owners keep asking what's happening with their property"
+      "modules": {
+        "tag": "Features",
+        "title": "Six building blocks.",
+        "accent": "Take only what you need.",
+        "text": "Each module solves one specific bottleneck. Click through – this is what it looks like day to day.",
+        "listAria": "Modules of the real estate system",
+        "beforeLabel": "Before",
+        "afterLabel": "After",
+        "mockNote": "Sample view",
+        "items": [
+          {
+            "icon": "users",
+            "title": "Prospect funnel",
+            "short": "Enquiries sort themselves",
+            "benefit": "Only suitable prospects end up in your calendar.",
+            "text": "Instead of you reading 80 emails per listing, prospects answer five short questions. Your system sorts them, invites the suitable ones to a viewing and politely declines the rest.",
+            "bullets": [
+              "Questions on move-in date, household and income – fully configurable",
+              "Automatic invitation with a choice of slots",
+              "Enquiries from portals and your website in one inbox"
+            ],
+            "before": "Reading and answering every enquiry one by one",
+            "after": "One sorted list, best matches first",
+            "mock": {
+              "title": "Enquiries · Period flat, city south",
+              "rows": [
+                {
+                  "label": "K. family",
+                  "meta": "Move-in 1 March · 3 people",
+                  "status": "Good fit",
+                  "tone": "good"
+                },
+                {
+                  "label": "Mr M.",
+                  "meta": "Move-in now · 2 people",
+                  "status": "Viewing Sat 11:00",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Enquiry without details",
+                  "meta": "Questions not answered",
+                  "status": "Declined",
+                  "tone": "muted"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "calendar",
+            "title": "Viewings & appointments",
+            "short": "Appointments book themselves",
+            "benefit": "Viewings without a single phone call.",
+            "text": "You release time slots, prospects choose for themselves. Confirmation and reminders go out automatically, and cancellations free the slot again.",
+            "bullets": [
+              "Individual and group viewings per property",
+              "Reminders by email and WhatsApp",
+              "Synced with your Google or Outlook calendar"
+            ],
+            "before": "Three calls until an appointment is fixed",
+            "after": "The appointment is in your calendar before you hear about it",
+            "mock": {
+              "title": "Saturday · 8 Linden Street",
+              "rows": [
+                {
+                  "label": "10:00 · Yilmaz family",
+                  "meta": "Reminder sent",
+                  "status": "Confirmed",
+                  "tone": "good"
+                },
+                {
+                  "label": "10:30 · Mr Weber",
+                  "meta": "Reminder sent",
+                  "status": "Confirmed",
+                  "tone": "good"
+                },
+                {
+                  "label": "11:00",
+                  "meta": "Still bookable",
+                  "status": "Free",
+                  "tone": "muted"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "wrench",
+            "title": "Tenant portal & repair requests",
+            "short": "Every case has a status",
+            "benefit": "Nobody calls to ask where things stand any more.",
+            "text": "Tenants report a repair with a photo in one minute – in the browser, no app. The contractor receives the job by link, and the tenant can see what is happening at any time.",
+            "bullets": [
+              "Report with photo, location and urgency",
+              "Contractor job by link, feedback with photo",
+              "History and costs per flat and property"
+            ],
+            "before": "Phone, notes, WhatsApp – and nobody knows the status",
+            "after": "One case, one status, one history",
+            "mock": {
+              "title": "Open cases",
+              "rows": [
+                {
+                  "label": "Heating failure",
+                  "meta": "Flat 12 · reported today 7:42",
+                  "status": "Contractor assigned",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Water stain on ceiling",
+                  "meta": "Flat 4 · with 3 photos",
+                  "status": "Visit Thu 9:00",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Doorbell broken",
+                  "meta": "Flat 7",
+                  "status": "Done",
+                  "tone": "good"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "file",
+            "title": "Documents & paperwork",
+            "short": "Complete before you have to ask",
+            "benefit": "Applications, proofs, contracts – complete and secure.",
+            "text": "Applicants upload their documents via a checklist. If something is missing, the system sends a reminder. Everything is stored encrypted in the EU and deleted automatically once the case is closed.",
+            "bullets": [
+              "Checklist with upload from a phone",
+              "Encrypted storage, automatic deletion periods",
+              "E-signature can be connected"
+            ],
+            "before": "Sensitive documents scattered across the inbox",
+            "after": "One complete file per applicant",
+            "mock": {
+              "title": "Application · K. family",
+              "rows": [
+                {
+                  "label": "Tenant self-disclosure",
+                  "meta": "Uploaded 12 Feb",
+                  "status": "Complete",
+                  "tone": "good"
+                },
+                {
+                  "label": "Proof of income",
+                  "meta": "3 documents",
+                  "status": "Complete",
+                  "tone": "good"
+                },
+                {
+                  "label": "Credit report",
+                  "meta": "Reminder sent",
+                  "status": "Missing",
+                  "tone": "warn"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "chart",
+            "title": "Owner reporting",
+            "short": "Owners see for themselves",
+            "benefit": "Owners check the portal instead of calling you.",
+            "text": "Every owner gets their own login: letting status, open cases, costs and documents. If you like, a report goes out by email once a month.",
+            "bullets": [
+              "Login per owner or board member",
+              "Letting status, cases and costs",
+              "Monthly report sent automatically"
+            ],
+            "before": "Compiling reports by hand",
+            "after": "The report writes itself from your data",
+            "mock": {
+              "title": "Report · 8 Linden Street",
+              "rows": [
+                {
+                  "label": "Letting status",
+                  "meta": "12 residential units",
+                  "status": "11 of 12",
+                  "tone": "good"
+                },
+                {
+                  "label": "Open cases",
+                  "meta": "1 in progress, 1 new",
+                  "status": "2",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Enquiries this week",
+                  "meta": "Flat 9 · re-letting",
+                  "status": "34",
+                  "tone": "brand"
+                }
+              ]
+            }
+          },
+          {
+            "icon": "workflow",
+            "title": "Automation & AI",
+            "short": "Standard cases run on their own",
+            "benefit": "Your system answers standard questions – you just approve.",
+            "text": "The AI drafts replies from your property data, the system reminds you of deadlines and routes cases onward. Nothing goes out without a person approving it – if that is how you want it.",
+            "bullets": [
+              "Draft replies for standard enquiries",
+              "Deadlines for rent reviews, maintenance and contracts",
+              "Connected to your management software via interface or export"
+            ],
+            "before": "Typing the same answer for the twentieth time",
+            "after": "Check the draft, approve, done",
+            "mock": {
+              "title": "Prepared automatically today",
+              "rows": [
+                {
+                  "label": "12 enquiries answered",
+                  "meta": "Drafts from property data",
+                  "status": "Approved",
+                  "tone": "good"
+                },
+                {
+                  "label": "3 maintenance deadlines",
+                  "meta": "Heating, lift, smoke alarms",
+                  "status": "Reminded",
+                  "tone": "brand"
+                },
+                {
+                  "label": "Service charge query",
+                  "meta": "Flat 3 · draft is ready",
+                  "status": "Waiting for you",
+                  "tone": "warn"
+                }
+              ]
+            }
+          }
         ]
       },
-      "featuresTitle": "What your real estate system does.",
-      "features": [
-        {
-          "title": "Property dashboard",
-          "text": "Property data, floor plans, energy certificate, photos and status in one place – exposé at the push of a button."
+      "cases": {
+        "tag": "Use cases",
+        "title": "Six businesses, six bottlenecks.",
+        "accent": "Here is the solution.",
+        "text": "Typical scenarios from lettings, management, portfolios and development – with before and after, scope and cost range.",
+        "disclaimer": "The scenarios are sample calculations for the stated business size, not client projects. Comparison figures are guide values for conventional agency development billed by effort; your fixed price is set after the prototype.",
+        "situationLabel": "Starting point",
+        "beforeLabel": "Before",
+        "afterLabel": "After",
+        "builtLabel": "Built",
+        "integratedLabel": "Connected",
+        "classicLabel": "Conventional agency",
+        "oursLabel": "With TasWiq",
+        "from": "from",
+        "durationLabel": "Live in",
+        "why": {
+          "title": "Why the gap is so large",
+          "text": "We develop with AI assistance and rely on proven building blocks for login, roles, uploads and notifications. You pay for your processes – not for someone reinventing the wheel.",
+          "cta": "Discuss your case"
         },
-        {
-          "title": "Prospect funnel",
-          "text": "A few online questions filter suitable candidates and invite them straight to a viewing."
+        "items": [
+          {
+            "icon": "handshake",
+            "segment": "Estate agents",
+            "profile": "Agency · 4 staff · around 60 lettings a year",
+            "title": "Lettings without the enquiry flood",
+            "situation": "Every listing brings 60 to 100 enquiries. Two staff members read, sort and phone around for appointments – actual advice gets squeezed out.",
+            "rows": [
+              {
+                "label": "Screening enquiries",
+                "before": "approx. 3 hrs per listing",
+                "after": "approx. 20 minutes"
+              },
+              {
+                "label": "Arranging viewings",
+                "before": "phone and email",
+                "after": "self-booking"
+              },
+              {
+                "label": "No-shows",
+                "before": "regular",
+                "after": "rare, thanks to reminders"
+              }
+            ],
+            "built": [
+              "Prospect funnel",
+              "Viewing booking",
+              "Enquiry dashboard"
+            ],
+            "integrated": [
+              "Portal enquiries via mail inbox",
+              "Google Calendar",
+              "WhatsApp & email"
+            ],
+            "classic": "€18,000 – €25,000",
+            "ours": 3900,
+            "duration": "3–4 weeks"
+          },
+          {
+            "icon": "building",
+            "segment": "Property management",
+            "profile": "Rental and HOA management · 850 units · 6 staff",
+            "title": "Repair requests with a status",
+            "situation": "Repairs come in by phone, email and WhatsApp. Nobody can see at a glance what is open – so tenants, owners and contractors keep calling.",
+            "rows": [
+              {
+                "label": "Reporting a repair",
+                "before": "three channels, no status",
+                "after": "one portal with photo"
+              },
+              {
+                "label": "Status queries",
+                "before": "daily on the phone",
+                "after": "tenants see it themselves"
+              },
+              {
+                "label": "Assigning contractors",
+                "before": "several phone calls",
+                "after": "one click, job by link"
+              }
+            ],
+            "built": [
+              "Tenant portal",
+              "Repair requests",
+              "Contractor workflow",
+              "Owner login"
+            ],
+            "integrated": [
+              "Management software (master data export)",
+              "Email & SMS",
+              "Document storage"
+            ],
+            "classic": "€45,000 – €60,000",
+            "ours": 12900,
+            "duration": "6–8 weeks"
+          },
+          {
+            "icon": "chart",
+            "segment": "Landlords & portfolio owners",
+            "profile": "Private portfolio · 45 flats in 5 buildings · self-managed",
+            "title": "The portfolio on one screen",
+            "situation": "Rents, deposits, meter readings and deadlines sit in four spreadsheets. Rent reviews are missed because nobody thinks of them in time.",
+            "rows": [
+              {
+                "label": "Overview",
+                "before": "four spreadsheets",
+                "after": "one dashboard"
+              },
+              {
+                "label": "Deadlines",
+                "before": "in your head",
+                "after": "automatic reminders"
+              },
+              {
+                "label": "Re-letting",
+                "before": "documents by email",
+                "after": "checklist with upload"
+              }
+            ],
+            "built": [
+              "Portfolio dashboard",
+              "Deadline calendar",
+              "Digital application"
+            ],
+            "integrated": [
+              "Bank export (CSV)",
+              "Calendar",
+              "Email"
+            ],
+            "classic": "€15,000 – €22,000",
+            "ours": 4900,
+            "duration": "3–4 weeks"
+          },
+          {
+            "icon": "layers",
+            "segment": "Developers",
+            "profile": "Developer · new build with 64 flats · sales via 3 partners",
+            "title": "Sales, buyers and site management in one place",
+            "situation": "Availability lives in an Excel file emailed to the sales team. Buyer options run through email threads, post-handover defects through lists.",
+            "rows": [
+              {
+                "label": "Availability",
+                "before": "Excel by email",
+                "after": "live for sales & website"
+              },
+              {
+                "label": "Buyer options",
+                "before": "email threads",
+                "after": "catalogue with price & approval"
+              },
+              {
+                "label": "Defects",
+                "before": "lists and photos in chats",
+                "after": "tickets with trade & deadline"
+              }
+            ],
+            "built": [
+              "Unit overview",
+              "Reservation",
+              "Buyer portal",
+              "Defect management"
+            ],
+            "integrated": [
+              "Project website",
+              "Sales partner access",
+              "E-signature"
+            ],
+            "classic": "€60,000 – €90,000",
+            "ours": 18900,
+            "duration": "8–10 weeks"
+          },
+          {
+            "icon": "calendar",
+            "segment": "Holiday lets",
+            "profile": "Operator · 12 apartments at 2 locations",
+            "title": "Direct bookings instead of commission",
+            "situation": "Almost all bookings come through platforms, each costing around 15% commission. Returning guests have no way to book direct.",
+            "rows": [
+              {
+                "label": "Commission",
+                "before": "around 15% per booking",
+                "after": "0% on direct bookings"
+              },
+              {
+                "label": "Calendar",
+                "before": "reconciled by hand",
+                "after": "synced automatically"
+              },
+              {
+                "label": "Cleaning",
+                "before": "WhatsApp group",
+                "after": "schedule with checklist"
+              }
+            ],
+            "built": [
+              "Booking site",
+              "Online payment",
+              "Cleaning schedule",
+              "Guest info"
+            ],
+            "integrated": [
+              "Airbnb & Booking.com (iCal)",
+              "Stripe",
+              "Door codes sent by email"
+            ],
+            "classic": "€20,000 – €30,000",
+            "ours": 6400,
+            "duration": "4–5 weeks"
+          },
+          {
+            "icon": "wrench",
+            "segment": "Commercial & facility",
+            "profile": "Commercial manager · 9 properties · in-house maintenance",
+            "title": "Faults and maintenance on record",
+            "situation": "Faults are emailed to a distribution list, maintenance deadlines sit in folders. For inspections, records have to be pieced together laboriously.",
+            "rows": [
+              {
+                "label": "Reporting a fault",
+                "before": "email to five people",
+                "after": "scan QR code, ticket runs"
+              },
+              {
+                "label": "Maintenance deadlines",
+                "before": "folders and memory",
+                "after": "planner with lead time"
+              },
+              {
+                "label": "Records",
+                "before": "pieced together",
+                "after": "report at a click"
+              }
+            ],
+            "built": [
+              "Ticket system",
+              "Maintenance planner",
+              "Reports",
+              "Service provider access"
+            ],
+            "integrated": [
+              "QR codes on site",
+              "Email & SMS",
+              "Export for accounting"
+            ],
+            "classic": "€35,000 – €50,000",
+            "ours": 10900,
+            "duration": "6 weeks"
+          }
+        ]
+      },
+      "process": {
+        "tag": "Process",
+        "title": "From bottleneck to",
+        "accent": "a running system.",
+        "text": "We start small – with one property or one process – and expand as soon as it holds up in daily use.",
+        "steps": [
+          {
+            "title": "Process check",
+            "text": "We walk through a letting, a repair case or a sale with you step by step. Where do people phone, type, chase? Free and without obligation."
+          },
+          {
+            "title": "Prototype in 7 days",
+            "text": "You click through your portal – with your properties, your forms, your logo. Only then is the fixed price set."
+          },
+          {
+            "title": "Start with one property",
+            "text": "We go live with one building or one listing, connect your management software and onboard team and tenants. The rest follows."
+          },
+          {
+            "title": "Operation & expansion",
+            "text": "Hosting in the EU, updates, support. More modules – owner login, reporting, AI replies – are added when you need them."
+          }
+        ]
+      },
+      "packages": {
+        "tag": "Packages for real estate",
+        "title": "Three ways in.",
+        "accent": "Fixed price after the prototype.",
+        "text": "Pick the entry point that fits your business. We define the exact scope in the process check – after that a fixed price applies.",
+        "items": {
+          "vermarktung": {
+            "name": "Marketing",
+            "audience": "For agents, landlords and developer sales teams",
+            "meta": "Live in 3–4 weeks · operation from €149/month",
+            "features": [
+              "Prospect funnel with pre-qualification",
+              "Online viewing booking",
+              "Reminders by email & WhatsApp",
+              "Property pages with brochure download",
+              "Enquiry dashboard for your team"
+            ]
+          },
+          "portal": {
+            "name": "Tenant & owner portal",
+            "audience": "For property managers and portfolio owners",
+            "meta": "Live in 5–8 weeks · with workflows & roles from €12,900",
+            "features": [
+              "Repair requests with photo & status",
+              "Contractor assignment by link",
+              "Secure document storage",
+              "Owner login with reporting",
+              "Roles, permissions & audit log"
+            ]
+          },
+          "plattform": {
+            "name": "Real estate platform",
+            "audience": "For developers, commercial and businesses with their own processes",
+            "meta": "One core process from €10,900 · several from €18,900",
+            "features": [
+              "Workshop & process analysis",
+              "Bespoke modules: sales, tickets, maintenance",
+              "Interfaces to your tools",
+              "AI features with approval",
+              "You own source code & data"
+            ]
+          }
         },
-        {
-          "title": "Secure document collection",
-          "text": "Upload with a checklist, encrypted storage in the EU, automatic deletion once done."
-        },
-        {
-          "title": "Tenant portal & damage reports",
-          "text": "Report damage with a photo, track status, commission contractors via link."
-        },
-        {
-          "title": "Automated workflows",
-          "text": "AI reply drafts for standard enquiries, reminders, forwarding – with human approval."
-        },
-        {
-          "title": "Owner reporting",
-          "text": "A login for owners with letting status, open cases and documents."
+        "film": {
+          "tag": "Goes well with it",
+          "title": "Cinematic property film",
+          "text": "For properties that deserve more than phone photos: we shoot and edit ourselves – like the AGILE film at the top of this page. For brochures, websites and social ads.",
+          "price": "from €2,990",
+          "cta": "Watch the film in the portfolio"
         }
-      ],
+      },
+      "compare": {
+        "tag": "Good to know",
+        "title": "Off-the-shelf software, portal subscription",
+        "accent": "or your own solution?",
+        "text": "Not every business needs custom software. Here is how the three routes compare.",
+        "rowHeader": "Criterion",
+        "columns": [
+          "Management or agency software",
+          "Portal subscription",
+          "Your own software"
+        ],
+        "ownBadge": "Our field",
+        "rows": [
+          {
+            "label": "Strong at",
+            "cells": [
+              "Accounting, billing, master data",
+              "A quick start with standard processes",
+              "Exactly your processes, including special cases"
+            ]
+          },
+          {
+            "label": "Weak at",
+            "cells": [
+              "The steps before and after: enquiries, repairs, communication",
+              "Customisation, your own branding, special cases",
+              "Things standard tools already do well – we don't rebuild those"
+            ]
+          },
+          {
+            "label": "Costs",
+            "cells": [
+              "Licence per user or unit",
+              "Monthly per unit – grows with the portfolio",
+              "One-off from €3,900, operation from €149/month"
+            ]
+          },
+          {
+            "label": "Data & code",
+            "cells": [
+              "With the provider",
+              "With the provider",
+              "Yours, hosted in the EU"
+            ]
+          },
+          {
+            "label": "Fits when",
+            "cells": [
+              "you mainly do billing",
+              "your processes match the standard",
+              "repetition costs you time no tool covers"
+            ]
+          }
+        ],
+        "adviceTitle": "Our recommendation",
+        "advice": "Keep your management software for accounting and billing. We build the layer before and after it: everything that currently runs on phone, email and Excel. And if a standard tool is enough for you, we will tell you so in the first call.",
+        "guidesLabel": "Further reading (in German)"
+      },
       "faq": [
         {
-          "q": "Does this replace my property management software?",
-          "a": "No. We add the processes it lacks and connect it via API where possible."
+          "q": "Who is custom real estate software worth it for?",
+          "a": "As soon as a process repeats every week and no standard tool covers it properly. That is typically the case from around 30 units, from three to four staff, or with ongoing new-build projects. Below that, the Marketing package is often enough."
         },
         {
-          "q": "How much does a tenant portal cost?",
-          "a": "A customer portal starts at around €7,400; with workflows, roles and approvals around €12,900."
+          "q": "Does this replace my property management software?",
+          "a": "No. We add the processes that are missing there and connect it via an interface or export where possible. Accounting and billing stay where they are."
+        },
+        {
+          "q": "What does a tenant portal cost?",
+          "a": "A portal with login, documents, status and messages starts at around €7,400. With workflows, roles and approvals it is around €12,900. You get the fixed price after the prototype."
+        },
+        {
+          "q": "How long does implementation take?",
+          "a": "You get the clickable prototype after 7 days. A marketing system is ready in three to four weeks, a portal in five to eight weeks. We go live with one property first and then roll out."
+        },
+        {
+          "q": "Do tenants have to install an app?",
+          "a": "No. The portal runs in the browser on any phone, and sign-in works by link or code. Anyone who likes can add it to their home screen like an app."
+        },
+        {
+          "q": "Can it connect to property portals and my software?",
+          "a": "Enquiries from the portals land in the same inbox as those from your website. For management software we use existing interfaces or exports. We clarify exactly what is possible in the process check – before you commission anything."
         },
         {
           "q": "Where is the data stored?",
-          "a": "In a database in the EU, encrypted, with roles, permissions and an audit log."
+          "a": "In a database in the EU, encrypted, with roles, permissions and an audit log. Applicant documents are deleted automatically once the case is closed."
+        },
+        {
+          "q": "What does ongoing operation cost?",
+          "a": "Hosting, updates and support start at €149 per month. Extensions are quoted at a fixed price each."
         },
         {
           "q": "Do you also make property videos?",
-          "a": "Yes. For premium properties we produce cinematic property films – the AGILE film in our portfolio is one example."
+          "a": "Yes. For premium properties we produce cinematic property films – one example is the AGILE film in the portfolio."
         }
-      ]
+      ],
+      "contact": {
+        "tag": "Enquiry",
+        "title": "Let's talk about",
+        "accent": "your processes.",
+        "text": "Tell us briefly what costs you the most time day to day. We will get back to you within 24 hours with an honest assessment – even if it is: a standard tool will do.",
+        "formTitle": "A short message is enough.",
+        "formText": "No questionnaire, no sales pitch. Two sentences about your business will do.",
+        "submit": "Send enquiry",
+        "points": [
+          "Reply within 24 hours",
+          "Process check free of charge",
+          "Fixed price after the prototype"
+        ]
+      }
     },
     "automotive": {
       "navLabel": "Car dealer & driving school software",

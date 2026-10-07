@@ -12,6 +12,7 @@ import { PortfolioTeaser } from "@/components/home/PortfolioTeaser";
 import { Process } from "@/components/home/Process";
 import { BlogTeaser } from "@/components/home/BlogTeaser";
 import { References } from "@/components/home/References";
+import { RealEstatePage } from "@/components/realestate/RealEstatePage";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getSeoPageBySlug, seoPages, type SeoPage } from "@/config/seo-pages";
 import { routing, type Locale } from "@/i18n/routing";
@@ -21,6 +22,7 @@ import { breadcrumbJsonLd, pageMetadata, serviceJsonLd } from "@/lib/seo";
 /**
  * SEO-Landingpages (Branchen, Leistungen, Premium-Media) – statisch gebaut, je Sprache eigener Slug.
  * Aufbau: Hero → Problem → Funktionen → Projekte → Ablauf → Pakete → Ratgeber → FAQ → Funnel.
+ * Die Immobilien-Seite hat einen eigenen, branchenspezifischen Aufbau (RealEstatePage).
  */
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -59,6 +61,30 @@ export default async function SeoLandingPage({ params }: Props) {
   const href = hrefOf(page)(locale);
   const media = page.packages === "media";
   const section = media ? "mediaSection" : "softwareSection";
+
+  const schema = (
+    <>
+      <JsonLd data={await serviceJsonLd({ locale, name: t("keyword"), serviceType: t("keyword"), description: t("metaDescription"), href, city: page.city })} />
+      <JsonLd
+        data={breadcrumbJsonLd(
+          [
+            { name: ts("breadcrumbHome"), href: "/" },
+            { name: t("navLabel"), href },
+          ],
+          locale,
+        )}
+      />
+    </>
+  );
+
+  if (page.id === "immobilien") {
+    return (
+      <>
+        <RealEstatePage page={page} locale={locale} />
+        {schema}
+      </>
+    );
+  }
 
   return (
     <>
@@ -104,16 +130,7 @@ export default async function SeoLandingPage({ params }: Props) {
         industry={page.industry}
         interests={page.interests}
       />
-      <JsonLd data={await serviceJsonLd({ locale, name: t("keyword"), serviceType: t("keyword"), description: t("metaDescription"), href, city: page.city })} />
-      <JsonLd
-        data={breadcrumbJsonLd(
-          [
-            { name: ts("breadcrumbHome"), href: "/" },
-            { name: t("navLabel"), href },
-          ],
-          locale,
-        )}
-      />
+      {schema}
     </>
   );
 }

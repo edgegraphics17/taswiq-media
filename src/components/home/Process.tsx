@@ -12,14 +12,18 @@ const ICONS: LucideIcon[] = [Search, Frame, Rocket, Handshake];
  * Titel, Text, rosé Icon-Kreis unten links, große blasse Nummer unten rechts –
  * Schritt 2 (Prototyp) als schwarze Kontrast-Karte mit Mint-Icon.
  */
-export async function Process() {
+export type ProcessContent = { tag: string; title: string; accent: string; text: string; steps: { title: string; text: string }[] };
+
+/** Ohne `content` der allgemeine Ablauf der Startseite, mit `content` die Fassung einer Branchenseite. */
+export async function Process({ content }: { content?: ProcessContent }) {
   const t = await getTranslations("home.process");
-  const steps = t.raw("steps") as { title: string; text: string }[];
+  const c = content ?? { tag: t("tag"), title: t("title"), accent: t("accent"), text: t("text"), steps: t.raw("steps") as ProcessContent["steps"] };
+  const steps = c.steps;
   return (
     <section id="ablauf" aria-labelledby="ablauf-title" className="py-16 sm:py-24">
       <div className="container-x">
         <Reveal>
-          <SectionHeading id="ablauf-title" eyebrow={t("tag")} icon={Rocket} title={t("title")} accent={t("accent")} text={t("text")} />
+          <SectionHeading id="ablauf-title" eyebrow={c.tag} icon={Rocket} title={c.title} accent={c.accent} text={c.text} />
         </Reveal>
         <InView role="list" className="stagger mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((s, i) => {

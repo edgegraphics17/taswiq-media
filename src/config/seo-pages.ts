@@ -9,6 +9,7 @@ import type { Locale } from "@/i18n/routing";
  *  - kind "leistung": Leistung ("Bestellsystem ohne Provision") → Suchende mit konkretem Bedarf
  *  - kind "media":    Premium-Media für Events, Festivals & Artists (bewusst nur eine Seite)
  * Aufbau: Hero → Problem → Funktionen → Referenzen → Pakete → Ratgeber → FAQ → Funnel.
+ * Ausnahme: "immobilien" hat einen eigenen Aufbau (components/realestate/RealEstatePage.tsx).
  * Texte: messages → seoPages.<id>. Slugs sind pro Sprache auf das Such-Keyword optimiert.
  *
  * Städte-Seiten später: Eintrag mit `city` duplizieren, z. B. slug "software-steuerberater-koeln".
@@ -35,7 +36,7 @@ export interface SeoPage {
   /** Passende Ratgeber-Artikel (Blog-Slugs) */
   blog: string[];
   /** Hero-Bild: Screenshot im Browser-Rahmen (Software) oder Foto (Media/Immobilien) */
-  hero: { image: string; frame: "browser" | "photo"; url?: string };
+  hero: { image: string; frame: "browser" | "photo"; url?: string; video?: string };
   city?: string;
 }
 
@@ -65,9 +66,9 @@ export const seoPages: SeoPage[] = [
     packages: "software",
     highlightPackage: "custom",
     featureIcons: ["building", "users", "file", "wrench", "workflow", "chart"],
-    portfolio: ["agile", "antragsbruder", "taswiq-system"],
+    portfolio: ["agile"],
     blog: ["software-fuer-makler-und-hausverwaltungen", "individualsoftware-mittelstand-kosten"],
-    hero: { image: "/images/portfolio/agile.jpg", frame: "photo" },
+    hero: { image: "/images/portfolio/agile.jpg", frame: "photo", video: "/videos/portfolio/agile-hero.mp4" },
   },
   {
     id: "automotive",

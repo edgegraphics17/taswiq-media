@@ -33,6 +33,16 @@ export const mediaPackages: PackageDef[] = [
   { id: "festival", price: 4900, billing: "once", from: true, interest: "media", featured: true },
 ];
 
+/**
+ * Einstiege der Immobilien-Seite (Texte: messages → seoPages.immobilien.packages.items.<id>).
+ * Preise folgen der Preis-Matrix: Buchung Pro · Kundenportal · ein Kernprozess.
+ */
+export const realEstatePackages = [
+  { id: "vermarktung", price: 3900 },
+  { id: "portal", price: 7400 },
+  { id: "plattform", price: 10900 },
+] as const;
+
 export const allPackages = [...softwarePackages, ...mediaPackages];
 
 /** Laufender Betrieb (monatlich) – auf allen Software-Seiten als Hinweis */
