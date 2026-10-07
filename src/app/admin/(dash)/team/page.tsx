@@ -169,7 +169,7 @@ export default async function TeamPage({ searchParams }: { searchParams: Promise
                   : "Alles abgearbeitet. Das Team wartet auf neue Aufgaben."}
           </p>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-night-muted">
-            Nach jeder Aufgabe startet die nächste Abteilung von selbst; ist nichts offen, sucht eine Abteilung neue Aufgaben. Zusätzlich stößt ein Taktgeber das Team stündlich zwischen 7 und 22 Uhr an. Das läuft nur, solange die Claude-App auf deinem Mac geöffnet ist.
+            Jede Abteilung schaut alle drei Stunden zwischen 7 und 22 Uhr nach Arbeit, zeitlich versetzt. Ist ihre Warteschlange leer, sucht sie einmal am Tag selbst neue Aufgaben. Das läuft nur, solange die Claude-App auf deinem Mac geöffnet ist.
           </p>
         </div>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">

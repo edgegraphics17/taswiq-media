@@ -246,16 +246,19 @@ Login           ──► Magic Link: Backend erzeugt Einmal-Token (nur für ADM
   Aufgaben lassen sich im Dashboard an Claude übergeben (`run_state`, siehe `backend/README.md`).
   Neue Aufgaben kommen aus dem Dashboard-Formular oder als JSON über `POST /tasks/bulk` (siehe `backend/README.md` → „Aufgaben einspielen“).
 
-**Team / Command Center (`/admin/team`, seit 08.10.2026):** sechs Abteilungen (Leitung, Entwicklung, Wachstum, Angebot & Vertrieb, Qualität & Sicherheit, Analyse),
+**Team / Command Center (`/admin/team`, seit 08.10.2026):** sieben Abteilungen (Leitung, Entwicklung, Wachstum, Marketing, Angebot & Vertrieb, Qualität & Sicherheit, Analyse),
 jede eine eigene Claude-Sitzung auf Karims Rechner mit Stellenbeschreibung in `team/<abteilung>.md`; gemeinsame Arbeitsordnung und Grenzen in `team/README.md`.
 ```
-Taktgeber (geplante Aufgabe, alle 2 Std. 8–20 Uhr) ──► team next ──► startet genau eine Abteilung (geplante Aufgabe „taswiq-team-<abteilung>“)
+Claude-App (geplante Aufgaben „taswiq-team-<abteilung>“, alle 3 Std. 7–22 Uhr, versetzt) ──► Abteilung startet
 Abteilung ──► team claim ──► Aufgabe umsetzen, Schritte melden (team say) ──► team finish
-          └─► nichts in der Warteschlange + Planung fällig (1×/Woche) ──► Bereich prüfen ──► team propose (für sich oder als Übergabe an andere)
+          └─► Warteschlange leer + Planung fällig (1×/Tag) ──► Bereich prüfen ──► team propose (für sich oder als Übergabe an andere)
 Dashboard ──► Hauptschalter, Freigabe-Modus, Tageslimit, Freigeben/Ablehnen, Live-Protokoll (SSE)
 ```
+Abteilungen können sich nicht gegenseitig starten (die App verlangt dafür eine Freigabe, die unbeaufsichtigt niemand gibt) – deshalb hat jede ihren eigenen Takt.
+Die Erlaubnisse für unbeaufsichtigte Durchläufe stehen lokal in `.claude/settings.local.json` (nicht im Repo), die Liste dazu in `team/README.md`.
+Sieben Abteilungen seit Marketing (Anzeigen, Kampagnen, Grafik, Video, Kundenaufträge über das Feld `client`; Ablage lokal unter `kunden/`).
 Durchgesetzt wird im Backend, nicht im Prompt: pausiert = niemand bekommt Arbeit · immer nur eine Abteilung gleichzeitig (ein Arbeitsverzeichnis) ·
-Tageslimit je Abteilung · Vorschläge laufen nur im Modus „Selbstständig“ und nur bei `risk: niedrig` ohne Freigabe · hängende Durchläufe verfallen nach 2 Std.
+Tageslimit je Abteilung · im Modus „Selbstständig“ wandern alle offenen Aufgaben mit `executor: claude` und `risk: niedrig` von selbst in die Warteschlange · hängende Durchläufe verfallen nach 45 Min.
 Tabellen `agent_events` (Protokoll) und `settings`; Endpunkte `/team/state|next|claim|events|finish|propose|settings`; Werkzeug `team/bin/team`.
 
 **Login:** E-Mail + Passwort (`/admin/login`, Link im Footer). Passwort liegt als scrypt-Hash in `admin_credentials`; 5 Fehlversuche sperren das Konto 15 Minuten.
