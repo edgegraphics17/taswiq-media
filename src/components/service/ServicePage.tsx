@@ -16,6 +16,15 @@ import { CalcSection, FlowSection, IndustryLinks, TierMatrix, Timeline, type Cal
 import { cn } from "@/lib/format";
 
 type Dict = Record<string, unknown>;
+/** Repräsentatives Foto je Branche (aus den Zielgruppen-Bildern der Branchenseite) */
+const SECTOR_COVER: Record<IndustryPageId, string> = {
+  gastro: "/images/sectors/gastro-0.webp",
+  immobilien: "/images/sectors/immobilien-1.webp",
+  automotive: "/images/sectors/automotive-1.webp",
+  kanzlei: "/images/sectors/kanzlei-3.webp",
+  beauty: "/images/sectors/beauty-0.webp",
+  handwerk: "/images/sectors/handwerk-0.webp",
+};
 type Hero = {
   badge: string;
   title: string;
@@ -50,7 +59,7 @@ export async function ServicePage({ page, locale }: { page: SeoPage; locale: Loc
   const extraLabels = raw(ts.raw, "extras.labels") as Record<string, { label: string; hint: string }>;
   const industries = (t.raw("industries.items") as { id: IndustryPageId; text: string }[]).map((it) => {
     const p = getSeoPageById(it.id);
-    return { id: it.id, icon: p.icon, name: tSeo(`${it.id}.navLabel`), text: it.text, href: { pathname: "/leistungen/[slug]" as const, params: { slug: p.slugs[locale] } } };
+    return { id: it.id, icon: p.icon, name: tSeo(`${it.id}.navLabel`), text: it.text, image: SECTOR_COVER[it.id], href: { pathname: "/leistungen/[slug]" as const, params: { slug: p.slugs[locale] } } };
   });
   const points = ts.raw("contact.points") as string[];
   const contacts = [

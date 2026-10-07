@@ -1,3 +1,4 @@
+import Image from "next/image";
 import NextLink from "next/link";
 import { ArrowRight, ArrowUpRight, BookOpen, Building2, Calculator, CalendarClock, Check, CircleSlash, Minus, Plus, Route, Table2 } from "lucide-react";
 import { getPost } from "@/content/blog";
@@ -250,7 +251,7 @@ export function CalcSection({ content: c, guides }: { content: CalcContent; guid
 
 /* ─── Branchen: so wird die Leistung dort eingesetzt ─── */
 
-export type IndustryLink = { id: string; icon: string; name: string; text: string; href: AppHref };
+export type IndustryLink = { id: string; icon: string; name: string; text: string; href: AppHref; image: string };
 
 export function IndustryLinks({ tag, title, accent, text, cta, items }: { tag: string; title: string; accent: string; text: string; cta: string; items: IndustryLink[] }) {
   return (
@@ -265,17 +266,20 @@ export function IndustryLinks({ tag, title, accent, text, cta, items }: { tag: s
               key={it.id}
               href={it.href}
               style={{ "--i": i } as React.CSSProperties}
-              className="group flex flex-col rounded-[2rem] border border-line bg-white p-6 shadow-[var(--shadow-soft)] transition-all duration-500 ease-[var(--ease-soft)] hover:-translate-y-1 hover:border-brand-200"
+              className="group flex flex-col rounded-[2rem] border border-line bg-white p-2.5 shadow-[var(--shadow-soft)] transition-all duration-500 ease-[var(--ease-soft)] hover:-translate-y-1 hover:border-brand-200"
             >
-              <span className="flex items-center justify-between">
-                <span className="grid size-11 place-items-center rounded-full bg-blush-100 text-blush-600 transition-colors group-hover:bg-brand-500 group-hover:text-white">
-                  <Icon name={it.icon} className="size-5" />
+              <span className="relative block aspect-[16/10] overflow-hidden rounded-[1.5rem] bg-night">
+                <Image src={it.image} alt="" fill sizes="(min-width:1024px) 400px, (min-width:640px) 50vw, 100vw" className="object-cover transition-transform duration-700 ease-[var(--ease-soft)] group-hover:scale-[1.04]" />
+                <span className="absolute top-3 left-3 grid size-10 place-items-center rounded-full bg-white/90 text-brand-600 shadow-[var(--shadow-soft)] backdrop-blur">
+                  <Icon name={it.icon} className="size-[18px]" />
                 </span>
-                <ArrowUpRight className="size-5 text-ink/25 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-brand-600" aria-hidden />
+                <span className="absolute top-3 right-3 grid size-9 place-items-center rounded-full bg-black/45 text-white backdrop-blur transition-colors group-hover:bg-brand-500">
+                  <ArrowUpRight className="size-4" aria-hidden />
+                </span>
               </span>
-              <span className="mt-5 text-lg leading-tight font-medium text-ink">{it.name}</span>
-              <span className="mt-2 flex-1 text-[15px] leading-relaxed text-muted">{it.text}</span>
-              <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brand-600">
+              <span className="mt-4 px-3.5 text-lg leading-tight font-medium text-ink">{it.name}</span>
+              <span className="mt-2 flex-1 px-3.5 text-[15px] leading-relaxed text-muted">{it.text}</span>
+              <span className="mt-4 inline-flex items-center gap-1.5 px-3.5 pb-3.5 text-sm font-medium text-brand-600">
                 {cta} <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden />
               </span>
             </Link>

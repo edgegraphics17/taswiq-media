@@ -1,11 +1,12 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import { Check, Minus } from "lucide-react";
 import { Icon } from "@/components/ui/Icon";
 import { cn } from "@/lib/format";
 
-export type Audience = { icon: string; label: string; title: string; text: string; pains: string[]; builds: string[] };
+export type Audience = { icon: string; label: string; title: string; text: string; pains: string[]; builds: string[]; /** Foto des Bereichs (public/images/sectors) */ image?: string };
 
 /**
  * "Für wen": Zielgruppen als Pillen-Tabs, darunter eine breite, zentrierte Karte –
@@ -95,6 +96,18 @@ export function AudienceTabs({ items, painsLabel, buildsLabel, ariaLabel }: { it
                   </li>
                 ))}
               </ul>
+              {a.image && (
+                <div className="relative mt-5 min-h-44 flex-1 overflow-hidden rounded-[1.2rem] bg-night-soft">
+                  {/* Nur das Bild des gewählten Bereichs wird sofort geladen, die übrigen erst beim Umschalten */}
+                  <Image src={a.image} alt={a.label} fill sizes="(min-width:1024px) 420px, 100vw" loading={i === 0 ? "eager" : "lazy"} className="object-cover" />
+                  <span className="absolute bottom-3 left-3 inline-flex items-center gap-2 rounded-full bg-black/55 py-1.5 pr-3.5 pl-2 text-xs font-medium text-white backdrop-blur-md">
+                    <span className="grid size-6 place-items-center rounded-full bg-white/15">
+                      <Icon name={a.icon} className="size-3.5" />
+                    </span>
+                    {a.label}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </div>

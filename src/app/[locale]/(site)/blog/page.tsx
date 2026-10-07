@@ -60,7 +60,7 @@ export default async function BlogIndexPage({ params }: Props) {
               all: t("all"),
               filterAria: t("filterAria"),
               categories: Object.fromEntries(blogCategories.map((c) => [c, t(`categories.${c}`)])) as Record<(typeof blogCategories)[number], string>,
-              minutes: t("minutes"),
+              minutes: t.raw("minutes") as string,
               read: t("read"),
               empty: t("empty"),
             }}

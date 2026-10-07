@@ -39,7 +39,7 @@ export async function IndustryPage({ page, locale }: { page: SeoPage; locale: Lo
   const raw = (fn: unknown, key: Section) => (fn as (k: string) => Dict)(key);
   const merged = <T,>(key: Section) => ({ ...raw(ts.raw, key), ...raw(t.raw, key) }) as T;
 
-  const audiences = t.raw("audiences.items") as Audience[];
+  const audiences = (t.raw("audiences.items") as Audience[]).map((a, i) => ({ ...a, image: `/images/sectors/${id}-${i}.webp` }));
   const modules = t.raw("modules.items") as Module[];
   const def = industryPackages[id];
   const packTexts = t.raw("packages.items") as Record<string, PackText>;

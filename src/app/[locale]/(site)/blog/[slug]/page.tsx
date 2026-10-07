@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import NextLink from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -7,7 +8,7 @@ import { getPost, posts, readingMinutes, relatedPosts } from "@/content/blog";
 import { getSeoPageById } from "@/config/seo-pages";
 import { site } from "@/config/site";
 import { Block, Inline } from "@/components/blog/RichText";
-import { BlogCard, CATEGORY_ICON } from "@/components/blog/BlogCard";
+import { BlogCard, blogCover, CATEGORY_ICON } from "@/components/blog/BlogCard";
 import { FunnelSection } from "@/components/product/FunnelSection";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Icon } from "@/components/ui/Icon";
@@ -54,8 +55,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       publishedTime: post.date,
       modifiedTime: post.updated ?? post.date,
       authors: [site.owner],
+      images: [{ url: `${site.url}${blogCover(slug)}`, width: 1600, height: 900 }],
     },
-    twitter: { card: "summary_large_image", title: post.title, description: post.description },
+    twitter: { card: "summary_large_image", title: post.title, description: post.description, images: [`${site.url}${blogCover(slug)}`] },
   };
 }
 
@@ -95,8 +97,11 @@ export default async function BlogPostPage({ params }: Props) {
             <span className="font-medium text-ink">{site.owner}</span>
             <time dateTime={post.date}>{dateFmt.format(new Date(post.date))}</time>
             <span className="inline-flex items-center gap-1.5">
-              <Clock className="size-4" aria-hidden /> {t("minutes").replace("{n}", String(minutes))}
+              <Clock className="size-4" aria-hidden /> {t("minutes", { n: minutes })}
             </span>
+          </div>
+          <div className="relative mt-10 aspect-[16/9] overflow-hidden rounded-[2rem] bg-night shadow-[var(--shadow-float)] sm:aspect-[21/9] sm:rounded-[2.5rem]">
+            <Image src={blogCover(post.slug)} alt="" fill priority sizes="(min-width:1280px) 1150px, 100vw" className="object-cover" />
           </div>
         </header>
 
@@ -197,7 +202,7 @@ export default async function BlogPostPage({ params }: Props) {
                 <BlogCard
                   post={{ slug: r.slug, title: r.title, description: r.description, category: r.category, minutes: readingMinutes(r), date: r.date }}
                   categoryLabel={t(`categories.${r.category}`)}
-                  minutesLabel={t("minutes").replace("{n}", String(readingMinutes(r)))}
+                  minutesLabel={t("minutes", { n: readingMinutes(r) })}
                   dateLabel={dateFmt.format(new Date(r.date))}
                   readLabel={t("read")}
                 />
@@ -213,6 +218,7 @@ export default async function BlogPostPage({ params }: Props) {
         data={{
           "@context": "https://schema.org",
           "@type": "BlogPosting",
+          image: `${site.url}${blogCover(post.slug)}`,
           headline: post.title,
           description: post.description,
           url,

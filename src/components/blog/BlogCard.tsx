@@ -1,3 +1,4 @@
+import Image from "next/image";
 import NextLink from "next/link";
 import { ArrowUpRight, BookOpen, Building2, Clapperboard, CodeXml, Sparkles, type LucideIcon } from "lucide-react";
 import type { BlogCategory } from "@/content/blog";
@@ -13,14 +14,8 @@ export const CATEGORY_ICON: Record<BlogCategory, LucideIcon> = {
   media: Clapperboard,
 };
 
-/** Farbige, generierte "Titelbilder" – kein Stockfoto, sofort erkennbar pro Kategorie */
-export const CATEGORY_TONE: Record<BlogCategory, string> = {
-  branchen: "bg-night text-white",
-  software: "bg-brand-500 text-white",
-  ki: "bg-[linear-gradient(135deg,var(--color-brand-600),#1f1f22)] text-white",
-  ratgeber: "bg-blush-100 text-ink",
-  media: "bg-[linear-gradient(135deg,#1f1f22,var(--color-blush-600))] text-white",
-};
+/** Titelbild eines Artikels: public/images/blog/<slug>.webp (16:9, Nachweise in docs/IMAGE-CREDITS.md) */
+export const blogCover = (slug: string) => `/images/blog/${slug}.webp`;
 
 /**
  * Artikel-Karte. Der Blog ist deutschsprachig → Links zeigen immer auf die deutsche URL /blog/<slug>.
@@ -43,10 +38,17 @@ export function BlogCard({
   const Ico = CATEGORY_ICON[post.category];
   return (
     <article className={cn("card group relative flex w-full flex-col p-2.5 transition-[transform,box-shadow] duration-500 ease-[var(--ease-soft)] hover:-translate-y-1 hover:shadow-[var(--shadow-float)]", large && "lg:flex-row")}>
-      <div className={cn("relative flex overflow-hidden rounded-[1.6rem] p-6", CATEGORY_TONE[post.category], large ? "min-h-56 lg:w-[46%] lg:min-h-80" : "min-h-44")}>
-        <Ico className="absolute -right-6 -bottom-6 size-40 opacity-15 transition-transform duration-700 group-hover:scale-110" strokeWidth={1.25} aria-hidden />
-        <span className="relative inline-flex h-fit items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-medium backdrop-blur">
-          <Ico className="size-3.5" aria-hidden /> {categoryLabel}
+      <div className={cn("relative flex overflow-hidden rounded-[1.6rem] bg-night p-5", large ? "min-h-56 lg:w-[46%] lg:min-h-80" : "aspect-[16/10]")}>
+        <Image
+          src={blogCover(post.slug)}
+          alt=""
+          fill
+          sizes={large ? "(min-width:1024px) 560px, 100vw" : "(min-width:1024px) 400px, (min-width:768px) 50vw, 100vw"}
+          className="object-cover transition-transform duration-700 ease-[var(--ease-soft)] group-hover:scale-[1.04]"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/35 via-transparent to-transparent" aria-hidden />
+        <span className="relative inline-flex h-fit items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-ink shadow-[var(--shadow-soft)] backdrop-blur">
+          <Ico className="size-3.5 text-brand-600" aria-hidden /> {categoryLabel}
         </span>
       </div>
       <div className={cn("flex flex-1 flex-col px-4 pt-5 pb-4", large && "lg:justify-center lg:px-8")}>
