@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { MotionProvider } from "@/components/providers/MotionProvider";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { fontVars } from "@/app/fonts";
@@ -64,6 +65,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           <MotionProvider>{children}</MotionProvider>
         </NextIntlClientProvider>
         <JsonLd data={await organizationJsonLd(locale)} />
+        <SpeedInsights />
       </body>
     </html>
   );
