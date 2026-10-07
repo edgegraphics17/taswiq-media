@@ -57,12 +57,12 @@ export const site = {
 /** Sprachbewusstes Link-Ziel: interne Route (+ optional Hash/Params) – next-intl übersetzt den Pfad. */
 export type AppHref = ComponentProps<typeof Link>["href"];
 
-/** Navigation: Sektionen der Startseite + eigene Unterseiten. Labels: messages → nav.<key> */
+/** Navigation: erst die Sektionen der Startseite (Sprungmarken), dann die eigenen Unterseiten. Labels: messages → nav.<key> */
 export const nav = [
   { key: "services", href: { pathname: "/", hash: "services" } },
   { key: "industries", href: { pathname: "/", hash: "branchen" } },
-  { key: "portfolio", href: "/portfolio" },
   { key: "process", href: { pathname: "/", hash: "ablauf" } },
+  { key: "portfolio", href: "/portfolio" },
   { key: "blog", href: "/blog" },
   { key: "calculator", href: "/preisrechner" },
 ] as const satisfies readonly { key: string; href: AppHref }[];
