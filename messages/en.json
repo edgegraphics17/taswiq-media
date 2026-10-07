@@ -5857,77 +5857,283 @@
         "AI software development"
       ],
       "hero": {
-        "badge": "Custom software & systems",
-        "titleStart": "Software that works",
-        "titleHighlight": "the way your business does.",
-        "text": "We build systems for small and mid-sized businesses – five tools and three spreadsheets become one piece of software. AI-assisted, in weeks instead of months, at a fixed price. You own the code.",
-        "imageAlt": "Antragsbruder web app – custom-built software",
-        "stats": [
+        "badge": "Custom software",
+        "title": "Software that works",
+        "accent": "the way your business does.",
+        "text": "Five tools and three spreadsheets become one system – built around your process. With AI-assisted development in weeks instead of months, at a fixed price. You own the code.",
+        "imageAlt": "Web app Antragsbruder – custom-built software",
+        "facts": [
+          {
+            "value": "from €10,900",
+            "label": "for one core process"
+          },
           {
             "value": "7 days",
             "label": "to a clickable prototype"
           },
           {
             "value": "100%",
-            "label": "code & data are yours"
+            "label": "you own code & data"
+          }
+        ],
+        "refNote": "Example: web app Antragsbruder"
+      },
+      "flow": {
+        "title": "One case, one system.",
+        "accent": "From intake to invoice.",
+        "text": "This is what a core process looks like once it no longer runs across five tools.",
+        "steps": [
+          {
+            "who": "Intake",
+            "title": "The enquiry arrives structured",
+            "text": "Via form, email or interface – with all the details you need. Nothing gets typed up again."
+          },
+          {
+            "who": "System",
+            "title": "Creates the case",
+            "text": "Ownership, deadlines and next steps follow your rules. Everyone sees whose turn it is."
+          },
+          {
+            "who": "Your team",
+            "title": "Works in the same case",
+            "text": "Documents, notes, times and approvals stay attached to the case – in the office and on the road."
+          },
+          {
+            "who": "You",
+            "title": "See status and figures",
+            "text": "Invoice data goes to accounting, key figures to the dashboard. And the knowledge lives in the system, not in one head."
           }
         ]
       },
-      "problem": {
-        "title": "Five tools, three spreadsheets and one colleague who knows everything.",
-        "text": "Off-the-shelf software covers standard processes. But the process that makes you different runs on workarounds: entering data twice, copying between tools, asking around. That costs time every day – and makes you dependent.",
-        "points": [
-          "The same data in several tools",
-          "Knowledge tied to individual people",
-          "Many licences, little real use",
-          "Growth means more admin"
+      "tiers": {
+        "title": "Three sizes.",
+        "accent": "You start with one process.",
+        "text": "We build in usable stages. You get the fixed price per stage after the prototype.",
+        "items": {
+          "s": {
+            "name": "One core process",
+            "audience": "One process, clean from start to finish"
+          },
+          "m": {
+            "name": "Several processes",
+            "audience": "For businesses with a team and interfaces"
+          },
+          "l": {
+            "name": "Platform",
+            "audience": "For several departments or locations"
+          }
+        },
+        "rows": [
+          {
+            "label": "Workshop & process analysis",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Clickable prototype before the fixed price",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Processes covered",
+            "cells": [
+              "1",
+              "2 to 4",
+              "as needed"
+            ]
+          },
+          {
+            "label": "Roles & permissions",
+            "cells": [
+              "basic",
+              "freely definable",
+              "per department"
+            ]
+          },
+          {
+            "label": "Interfaces to your tools",
+            "cells": [
+              "optional",
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Admin area",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Departments & locations",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Bespoke modules",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Source code & documentation",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Productive after",
+            "cells": [
+              "6–10 weeks",
+              "10–14 weeks",
+              "in stages"
+            ]
+          }
         ]
       },
-      "featuresTitle": "How your software gets built.",
-      "features": [
-        {
-          "title": "Workshop, not wish list",
-          "text": "We look at your process and prioritise by time saved, not by features."
-        },
-        {
-          "title": "Prototype in 7 days",
-          "text": "Clickable, with sample data. Changes cost almost nothing at this stage."
-        },
-        {
-          "title": "AI-assisted development",
-          "text": "AI handles routine code; people review architecture, security and UX."
-        },
-        {
-          "title": "Integrations",
-          "text": "Connect POS, accounting, CRM, ERP or inventory – instead of entering data twice."
-        },
-        {
-          "title": "Security & privacy",
-          "text": "EU hosting, roles & permissions, tests and security checks on every change."
-        },
-        {
-          "title": "Operations & growth",
-          "text": "Monitoring, updates and new features every month – predictable, no new big project."
-        }
-      ],
+      "calc": {
+        "title": "What does the workaround cost?",
+        "accent": "Run it with your numbers.",
+        "text": "Custom software costs more than a subscription. It is often still cheaper than the workaround.",
+        "lines": [
+          {
+            "label": "Licences for five tools",
+            "value": "≈ €450 a month"
+          },
+          {
+            "label": "Double data entry and copying",
+            "value": "10 hours per week"
+          },
+          {
+            "label": "Internal hourly rate",
+            "value": "€35"
+          },
+          {
+            "label": "Time cost per month",
+            "value": "≈ €1,400"
+          },
+          {
+            "label": "Total per month",
+            "value": "≈ €1,850"
+          },
+          {
+            "label": "One core process, one-off",
+            "value": "€10,900"
+          }
+        ],
+        "resultLabel": "Paid off after",
+        "result": "around 6 months",
+        "note": "Not included: errors from retyping, knowledge that depends on one person, and growth that becomes possible without new admin roles.",
+        "whenNot": "If standard software covers 90 percent of your process, use it – and at most let us add the missing ten percent. Custom only pays off where your process makes you special or licence costs rise with every user."
+      },
+      "industries": {
+        "title": "Every industry",
+        "accent": "has its own core process.",
+        "text": "Where we start depends on the business. Six industries, six typical entry points:",
+        "items": [
+          {
+            "id": "immobilien",
+            "text": "Tenant portal, prospect funnel, developer platform with buyer portal."
+          },
+          {
+            "id": "handwerk",
+            "text": "From enquiry through scheduling and field app to sign-off."
+          },
+          {
+            "id": "kanzlei",
+            "text": "Client portal with checklists, AI receipt recognition and deadlines."
+          },
+          {
+            "id": "automotive",
+            "text": "Rental with handover report, driving school app, stock with lead inbox."
+          },
+          {
+            "id": "gastro",
+            "text": "Multi-branch system with central menu, catering configurator, reporting per location."
+          },
+          {
+            "id": "beauty",
+            "text": "Booking with rooms, series and vouchers for practices and spas."
+          }
+        ]
+      },
+      "timeline": {
+        "title": "In six to ten weeks",
+        "accent": "to the first productive process.",
+        "text": "Understand first, then show, then build – that is how we avoid expensive surprises.",
+        "phases": [
+          {
+            "when": "Day 1",
+            "title": "Workshop",
+            "text": "We walk through your process step by step and prioritise by time saved, not by wish list."
+          },
+          {
+            "when": "Day 7",
+            "title": "Prototype",
+            "text": "Clickable, with sample data. Changes cost almost nothing here. Then the fixed price is set."
+          },
+          {
+            "when": "Weeks 2–8",
+            "title": "Build in stages",
+            "text": "AI handles routine code, people check architecture and security. You see progress every one to two weeks."
+          },
+          {
+            "when": "From week 8",
+            "title": "Productive & expansion",
+            "text": "Start with one team, then roll out. Hosting, updates and new features continue predictably."
+          }
+        ]
+      },
       "faq": [
         {
-          "q": "How much does custom software cost?",
-          "a": "A core process from around €10,900; several processes with roles and integrations from around €18,900. We give a fixed price after the prototype."
+          "q": "What does custom software cost?",
+          "a": "One core process from around €10,900, several processes with roles and interfaces from around €18,900, a platform for several departments from around €29,900. We quote the fixed price after the prototype."
         },
         {
           "q": "How long does it take?",
-          "a": "A core process is often productive after six to ten weeks. Larger platforms are delivered in usable stages."
+          "a": "A core process is often productive after six to ten weeks. Larger platforms are built in usable stages."
+        },
+        {
+          "q": "Why are you cheaper than conventional agencies?",
+          "a": "We develop with AI assistance and rely on proven building blocks for login, roles, uploads and notifications. You pay for your process, not for the basics."
         },
         {
           "q": "Who owns the software?",
-          "a": "You do. You get source code, access and documentation. We use widely adopted technology like Next.js, TypeScript and PostgreSQL."
+          "a": "You do. You get source code, access and documentation. We use widespread technologies such as Next.js, TypeScript and PostgreSQL."
         },
         {
-          "q": "What does \"backed by winsym.ai\" mean?",
-          "a": "winsym.ai is our technology partner in Kuala Lumpur for AI methodology and models. Consulting, design and development for you happen with us in Germany."
+          "q": "What if we want to switch later?",
+          "a": "Because code and data are yours and the technology is widespread, any capable development team can take over."
+        },
+        {
+          "q": "How secure is AI-assisted software?",
+          "a": "AI writes routine code, people check architecture, security and usability. Tests and security checks run on every change."
+        },
+        {
+          "q": "What does “backed by winsym.ai” mean?",
+          "a": "winsym.ai is our technology partner from Kuala Lumpur for AI methodology and models. Consulting, design and development for you happen with us in Germany."
         }
-      ]
+      ],
+      "contact": {
+        "title": "Let's talk about",
+        "accent": "your process.",
+        "text": "Tell us briefly which process costs you the most time. We will get back to you within 24 hours with an honest assessment – even if it is: there is off-the-shelf software for that."
+      }
     },
     "bestellsystem": {
       "navLabel": "Commission-free ordering system",
@@ -5942,77 +6148,263 @@
         "restaurant ordering software"
       ],
       "hero": {
-        "badge": "Ordering system",
-        "titleStart": "Your own ordering system.",
-        "titleHighlight": "Zero commission.",
-        "text": "Guests order directly on your website – with pickup, delivery, kitchen board and online payment. You keep the margin and the customer data. Live at Daron Brot II bakery in Aachen.",
-        "imageAlt": "Ordering system of Daron Brot II bakery with menu and cart",
-        "stats": [
+        "badge": "Commission-free ordering system",
+        "title": "Your own ordering system.",
+        "accent": "Zero commission.",
+        "text": "Guests order directly on your website – with pickup, delivery, kitchen board and online payment. You keep the margin and the customer data instead of paying a cut on every order.",
+        "imageAlt": "Ordering system of the bakery Daron Brot II with menu and basket",
+        "facts": [
+          {
+            "value": "from €2,900",
+            "label": "one-off, operation from €49/month"
+          },
+          {
+            "value": "3–4 weeks",
+            "label": "to the first order"
+          },
           {
             "value": "0%",
             "label": "commission per order"
+          }
+        ],
+        "refNote": "Live at Daron Brot II, Aachen"
+      },
+      "flow": {
+        "title": "From order to handover.",
+        "accent": "Four steps, one system.",
+        "text": "This is how an order runs through your system – with no platform in between.",
+        "steps": [
+          {
+            "who": "Your guest",
+            "title": "Orders on your site",
+            "text": "Menu with variants and extras, basket, pickup or delivery. On a phone, no app and no registration."
           },
           {
-            "value": "from €2,900",
-            "label": "one-off, operations from €49/month"
+            "who": "Payment",
+            "title": "Pays you directly",
+            "text": "Card, PayPal, Apple Pay or Google Pay through your own payment provider. The money lands in your account."
+          },
+          {
+            "who": "Your kitchen",
+            "title": "Sees the ticket instantly",
+            "text": "The order appears on the kitchen board with a chime. One tap sets the status, and the guest sees it by link."
+          },
+          {
+            "who": "You",
+            "title": "Keep margin and data",
+            "text": "No commission, your own guest list, bestsellers and peak times in the dashboard. You change prices and items yourself."
           }
         ]
       },
-      "problem": {
-        "title": "Platforms profit from your best guests.",
-        "text": "Once someone has ordered through a platform, they usually reorder there – and commission is due every time. Your own system brings those guests to your site.",
-        "points": [
-          "Commission on repeat orders too",
-          "Customer data stays with the platform",
-          "Your brand among a hundred competitors",
-          "No loyalty rewards, no own promotions"
+      "tiers": {
+        "title": "Three tiers.",
+        "accent": "Pay only for what you need.",
+        "text": "Each tier is a finished system. We define the exact scope after the prototype – then a fixed price applies.",
+        "items": {
+          "start": {
+            "name": "Ordering Start",
+            "audience": "For pickup, bakeries, takeaways"
+          },
+          "pro": {
+            "name": "Ordering Pro",
+            "audience": "For delivery services and restaurants"
+          },
+          "filialen": {
+            "name": "Multiple locations",
+            "audience": "For businesses with branches"
+          }
+        },
+        "rows": [
+          {
+            "label": "Menu with variants & extras",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Pickup & delivery",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Order dashboard",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Change items & prices yourself",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Online payment",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Kitchen board with chime",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Delivery zones & minimum order",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Vouchers & promo codes",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Branches, roles & central reporting",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Live in",
+            "cells": [
+              "2–3 weeks",
+              "3–4 weeks",
+              "5–6 weeks"
+            ]
+          }
         ]
       },
-      "featuresTitle": "What your ordering system does.",
-      "features": [
-        {
-          "title": "Menu & cart",
-          "text": "Variants, extras, allergens, sold-out switch – as convenient as the platform app."
-        },
-        {
-          "title": "Online payment",
-          "text": "Card, PayPal, Apple Pay, Google Pay. The money goes straight to you."
-        },
-        {
-          "title": "Kitchen display",
-          "text": "New orders with a chime, status with one tap, cancellations with a reason."
-        },
-        {
-          "title": "Delivery zones",
-          "text": "Minimum order value, delivery fee and times per zone."
-        },
-        {
-          "title": "Status & WhatsApp",
-          "text": "Guests see \"being prepared\" and \"on the way\" – via link or WhatsApp."
-        },
-        {
-          "title": "Numbers & loyalty",
-          "text": "Top items, revenue per hour, vouchers and loyalty rewards."
-        }
-      ],
+      "calc": {
+        "title": "Does it pay off?",
+        "accent": "Run it with your numbers.",
+        "text": "The maths is simple: what are you paying in commission today for guests who already know you?",
+        "lines": [
+          {
+            "label": "Platform orders from regulars",
+            "value": "400 a month"
+          },
+          {
+            "label": "Average order value",
+            "value": "€24"
+          },
+          {
+            "label": "Commission with your own delivery",
+            "value": "around 14%"
+          },
+          {
+            "label": "Commission per month",
+            "value": "≈ €1,340"
+          },
+          {
+            "label": "Ordering Pro, one-off",
+            "value": "€4,900"
+          }
+        ],
+        "resultLabel": "Paid off after",
+        "result": "around 4 months",
+        "note": "If these guests order direct from then on, around €16,000 a year stays with you – less operation from €49 a month and your payment provider's fees.",
+        "whenNot": "If you serve almost only walk-in customers or have just opened, the platform does more for you than your own system: it delivers reach you don't have yet. Start there, build up regulars – and come back when the commission hurts."
+      },
+      "industries": {
+        "title": "Built for businesses",
+        "accent": "that have regulars.",
+        "text": "Where the ordering system is used today – with dedicated use cases on the industry page.",
+        "items": [
+          {
+            "id": "gastro",
+            "text": "Restaurants, delivery services, bakeries, takeaways and caterers: direct ordering, pre-ordering with pickup time, multi-branch system."
+          },
+          {
+            "id": "beauty",
+            "text": "Salons and studios sell vouchers, care products and packages online – for pickup at the next appointment."
+          }
+        ]
+      },
+      "timeline": {
+        "title": "In four weeks",
+        "accent": "to the first direct order.",
+        "text": "This is how a typical project runs – you invest about three to four hours in total.",
+        "phases": [
+          {
+            "when": "Day 1",
+            "title": "Initial call",
+            "text": "We look at menu, order channels and peak times and estimate whether your own system pays off for you."
+          },
+          {
+            "when": "Day 7",
+            "title": "Prototype",
+            "text": "You click through your ordering system – with your menu and your logo. Then the fixed price is set."
+          },
+          {
+            "when": "Weeks 2–3",
+            "title": "Build & set-up",
+            "text": "Payment, kitchen board, delivery zones. You see progress every week and test it yourself."
+          },
+          {
+            "when": "Week 4",
+            "title": "Live",
+            "text": "Launch on a quiet day, training in 30 minutes, QR codes and a flyer template for every bag."
+          }
+        ]
+      },
       "faq": [
         {
-          "q": "When does your own system pay off?",
-          "a": "When a noticeable share of your platform revenue comes from regulars. The calculation is in our guide (German)."
+          "q": "What does your own ordering system cost?",
+          "a": "From €2,900 one-off to get started, with online payment, kitchen board and delivery zones from €4,900, for several locations from €7,900. Operation costs from €49 per month."
         },
         {
-          "q": "How do guests find my system?",
+          "q": "When does your own system pay off?",
+          "a": "When a noticeable share of your platform revenue comes from regulars. The sample calculation above shows the logic; we run it with your numbers in the first call."
+        },
+        {
+          "q": "How do guests get to my system?",
           "a": "Flyers with a QR code in every bag, an order button in your Google profile, a loyalty perk for direct orders."
         },
         {
-          "q": "Does it work for bakeries and takeaways?",
+          "q": "Do I have to cancel the platform?",
+          "a": "No. Most businesses run both: the platform for new guests, their own system for everyone who comes back."
+        },
+        {
+          "q": "Can my till be connected?",
+          "a": "If your till system offers an interface, yes. Otherwise the handover runs via ticket printer or export. We clarify this before the quote."
+        },
+        {
+          "q": "Does this work for bakeries and takeaways too?",
           "a": "Yes. Our live project is a bakery with pickup and delivery in Aachen."
         },
         {
           "q": "Who owns the data?",
-          "a": "You do. The database is in the EU, and you can get the full source code."
+          "a": "You do. The database is in the EU, and you can have the complete source code on request."
         }
-      ]
+      ],
+      "contact": {
+        "title": "Let's talk about",
+        "accent": "your ordering system.",
+        "text": "Tell us briefly how people order from you today and through which platforms. We will get back to you within 24 hours with an honest assessment."
+      }
     },
     "buchungssystem": {
       "navLabel": "Online booking system",
@@ -6027,77 +6419,275 @@
         "commission-free booking"
       ],
       "hero": {
-        "badge": "Booking system",
-        "titleStart": "Appointments now",
-        "titleHighlight": "book themselves.",
-        "text": "Your own online booking with calendar, staff selection, reminders and deposits – for salons, practices, studios, garages, firms and coaches. Live at OMED hair salon in Aachen.",
-        "imageAlt": "Website of OMED hair salon with multi-step online booking",
-        "stats": [
-          {
-            "value": "24/7",
-            "label": "bookable – even after hours"
-          },
+        "badge": "Online booking system",
+        "title": "Appointments now",
+        "accent": "book themselves.",
+        "text": "Your own online booking with calendar, choice of staff, reminders and deposits – for salons, practices, studios, garages, firms and coaches. Build once, own it.",
+        "imageAlt": "Website of the OMED hair salon with multi-step online booking",
+        "facts": [
           {
             "value": "from €2,200",
-            "label": "one-off instead of a subscription"
+            "label": "one-off instead of a subscription per calendar"
+          },
+          {
+            "value": "2–4 weeks",
+            "label": "to the first booking"
+          },
+          {
+            "value": "24/7",
+            "label": "bookable, after hours too"
+          }
+        ],
+        "refNote": "Live at OMED hair salon, Aachen"
+      },
+      "flow": {
+        "title": "From click to firm appointment.",
+        "accent": "Without a single call.",
+        "text": "This is how a booking runs through your system.",
+        "steps": [
+          {
+            "who": "Your client",
+            "title": "Chooses service and time",
+            "text": "Service, team member, time slot – in three steps on a phone, no forced account."
+          },
+          {
+            "who": "System",
+            "title": "Checks calendar and team",
+            "text": "Opening hours, breaks, holidays, rooms and lead time are reconciled. Double bookings are ruled out at database level."
+          },
+          {
+            "who": "Your client",
+            "title": "Gets confirmed and reminded",
+            "text": "Confirmation at once, reminder the day before, cancel or reschedule by link. With a deposit if you like."
+          },
+          {
+            "who": "You",
+            "title": "Work instead of phoning",
+            "text": "The calendar fills itself, no-shows drop, and the client data stays with you – not with a platform."
           }
         ]
       },
-      "problem": {
-        "title": "Every call interrupts the actual work.",
-        "text": "Booking by phone takes time, causes misunderstandings and blocks the flow. Booking platforms solve that – for ongoing fees and with your customer data on someone else's servers.",
-        "points": [
-          "The phone rings during treatments",
-          "No-shows without reminders or deposits",
-          "Ongoing fees per calendar or booking",
-          "Customer data with the platform provider"
+      "tiers": {
+        "title": "Three tiers.",
+        "accent": "From solo business to team.",
+        "text": "Each tier is a finished system. We define the exact scope after the prototype – then a fixed price applies.",
+        "items": {
+          "start": {
+            "name": "Booking Start",
+            "audience": "For solo businesses and small teams"
+          },
+          "pro": {
+            "name": "Booking Pro",
+            "audience": "For businesses with expensive or long appointments"
+          },
+          "team": {
+            "name": "Team & locations",
+            "audience": "For practices, garages, branches"
+          }
+        },
+        "rows": [
+          {
+            "label": "Services with duration & price",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Calendar with choice of staff",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Confirmation by email & WhatsApp",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Double-booking protection",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Client account",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Deposits & cancellation rules",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Reminders & waitlist",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Rooms, equipment & locations",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Rota & holidays",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Live in",
+            "cells": [
+              "2–3 weeks",
+              "3–4 weeks",
+              "5–6 weeks"
+            ]
+          }
         ]
       },
-      "featuresTitle": "What your booking system does.",
-      "features": [
-        {
-          "title": "Real-time calendar",
-          "text": "Availability matched to opening hours, breaks, holidays and lead time."
-        },
-        {
-          "title": "Double-booking protection",
-          "text": "Two appointments at the same time are impossible at database level."
-        },
-        {
-          "title": "Confirmation & reminder",
-          "text": "By email or WhatsApp, with a link to reschedule or cancel."
-        },
-        {
-          "title": "Deposits",
-          "text": "Online for long or expensive appointments, with a clear cancellation rule."
-        },
-        {
-          "title": "Team & rooms",
-          "text": "Several staff, rooms, equipment and locations in one calendar."
-        },
-        {
-          "title": "Reporting",
-          "text": "Utilisation, no-show rate and revenue per appointment in the dashboard."
-        }
-      ],
+      "calc": {
+        "title": "What does an empty slot cost?",
+        "accent": "Run it with your numbers.",
+        "text": "Missed appointments are the most expensive item nobody writes down.",
+        "lines": [
+          {
+            "label": "Missed appointments per week",
+            "value": "6"
+          },
+          {
+            "label": "Average appointment value",
+            "value": "€45"
+          },
+          {
+            "label": "Loss per month",
+            "value": "≈ €1,080"
+          },
+          {
+            "label": "Assumption: reminders & deposits halve the no-shows",
+            "value": "≈ €540 a month"
+          },
+          {
+            "label": "Booking Pro, one-off",
+            "value": "€3,900"
+          }
+        ],
+        "resultLabel": "Paid off after",
+        "result": "around 7 months",
+        "note": "Not included: the time lost on the phone today, and the bookings that come in during evenings and weekends.",
+        "whenNot": "If you work alone, have few appointments a day and hardly anyone misses theirs, a cheap calendar subscription is enough. Your own system pays off once several team members, rooms or deposits are involved – or subscription costs rise with every calendar."
+      },
+      "industries": {
+        "title": "One calendar,",
+        "accent": "many industries.",
+        "text": "Booking adapts: chairs, ramps, rooms or instructors – the logic behind it is the same.",
+        "items": [
+          {
+            "id": "beauty",
+            "text": "Hairdressers, beauty, physio, studios and spas: choice of staff, deposits, series, classes, vouchers."
+          },
+          {
+            "id": "automotive",
+            "text": "Garage appointments by ramp and duration, test drives, driving lessons, seasonal invitations for tyre changes."
+          },
+          {
+            "id": "kanzlei",
+            "text": "Initial calls with a pre-questionnaire for firms, consultants and coaches."
+          },
+          {
+            "id": "gastro",
+            "text": "Table reservations with table plan, reminders and deposits for groups."
+          },
+          {
+            "id": "handwerk",
+            "text": "Arrange maintenance and site appointments by link instead of calling every customer."
+          }
+        ]
+      },
+      "timeline": {
+        "title": "In two to four weeks",
+        "accent": "to a full calendar.",
+        "text": "This is how a typical project runs – including the migration of your existing appointments.",
+        "phases": [
+          {
+            "when": "Day 1",
+            "title": "Initial call",
+            "text": "Services, times, team and no-shows: we clarify which tier fits – or whether a subscription is enough for you."
+          },
+          {
+            "when": "Day 7",
+            "title": "Prototype",
+            "text": "You book a test appointment in your own system. Then the fixed price is set."
+          },
+          {
+            "when": "Weeks 2–3",
+            "title": "Build & migration",
+            "text": "Calendar, reminders, payment. We migrate existing appointments as far as your old provider allows."
+          },
+          {
+            "when": "Weeks 3–4",
+            "title": "Live",
+            "text": "Booking button for website, Google and Instagram, training in 30 minutes."
+          }
+        ]
+      },
       "faq": [
         {
-          "q": "Can it be added to my existing website?",
+          "q": "What does it cost?",
+          "a": "Booking Start from €2,200, Pro with client account, deposits and waitlist from €3,900, Team & locations from €6,400. Operation costs from €49 per month."
+        },
+        {
+          "q": "Can it be built into my existing website?",
           "a": "Yes. Either as part of a new website or as a separate booking page you link to."
         },
         {
-          "q": "Can customers still call?",
-          "a": "Of course. You enter phone bookings in the same calendar – one source of truth."
+          "q": "Can clients still call?",
+          "a": "Of course. You enter phone bookings in the same calendar – so there is only one source of truth."
         },
         {
-          "q": "How much does it cost?",
-          "a": "Booking Start from €2,200, Pro with client accounts, deposits and waiting list from €3,900, Team & locations from €6,400."
+          "q": "How quickly is it live?",
+          "a": "Usually after two to four weeks; you see the prototype after about seven days."
         },
         {
-          "q": "How fast is it live?",
-          "a": "Usually after three to four weeks; you'll see the prototype after about seven days."
+          "q": "What happens to my existing appointments?",
+          "a": "We migrate them via export from the old system, as far as the provider allows, and plan the move without a day without booking."
+        },
+        {
+          "q": "Do clients have to create an account?",
+          "a": "No. Booking works without an account. Those who want one see their appointments, credit and vouchers there."
+        },
+        {
+          "q": "Does it sync with my calendar?",
+          "a": "Yes, with Google and Outlook calendars. Private appointments automatically block the matching times."
         }
-      ]
+      ],
+      "contact": {
+        "title": "Let's talk about",
+        "accent": "your appointments.",
+        "text": "Tell us briefly how people book with you today and how many appointments are missed. We will get back to you within 24 hours with an honest assessment."
+      }
     },
     "webapp": {
       "navLabel": "Web apps & client portals",
@@ -6112,83 +6702,273 @@
         "business web app"
       ],
       "hero": {
-        "badge": "Web apps & portals",
-        "titleStart": "Your service in",
-        "titleHighlight": "your customers' pocket.",
-        "text": "Client portals, internal tools and apps – in the browser, on the home screen or in the App Store. With login, documents, status, push notifications and multiple languages. Example: the Antragsbruder web app.",
-        "imageAlt": "Antragsbruder web app with upload and plain-language explanations of official letters",
-        "stats": [
-          {
-            "value": "9 languages",
-            "label": "in the Antragsbruder web app"
-          },
+        "badge": "Web apps & client portals",
+        "title": "Your service in your",
+        "accent": "clients' pockets.",
+        "text": "Client portals, internal tools and apps – in the browser, on the home screen or in the app store. With login, documents, status and push notifications, so nobody has to call to ask.",
+        "imageAlt": "Web app Antragsbruder with upload and plain-language explanations of official letters",
+        "facts": [
           {
             "value": "from €3,900",
             "label": "as a home-screen web app"
+          },
+          {
+            "value": "4–8 weeks",
+            "label": "to launch"
+          },
+          {
+            "value": "iOS & Android",
+            "label": "without app store approval"
+          }
+        ],
+        "refNote": "Example: Antragsbruder, live in 9 languages"
+      },
+      "flow": {
+        "title": "From login to a closed case.",
+        "accent": "All in one place.",
+        "text": "This is how a client works with your portal – and your team in the background.",
+        "steps": [
+          {
+            "who": "Your client",
+            "title": "Signs in",
+            "text": "By link, code or password – in the browser or as an app on the home screen. Everyone sees only their own data."
+          },
+          {
+            "who": "Your client",
+            "title": "Uploads and sees the status",
+            "text": "Documents by phone photo, a checklist shows what is missing. The status of the case is visible at any time."
+          },
+          {
+            "who": "Your team",
+            "title": "Works in the same case",
+            "text": "Queries, approvals and documents stay attached to the case. The client gets a push notification as soon as something happens."
+          },
+          {
+            "who": "You",
+            "title": "Get quiet on the phone",
+            "text": "Status questions answer themselves, documents arrive complete, and everything is logged and traceable."
           }
         ]
       },
-      "problem": {
-        "title": "Your customers ask about status. Every day.",
-        "text": "Where's my order? Did you get my documents? When's the next appointment? These questions reach your team by email and phone – even though the answer is already in the system.",
-        "points": [
-          "Status questions by phone and email",
-          "Documents going back and forth by email",
-          "Staff on the road without access",
-          "Want an app, but worried about cost and the store"
+      "tiers": {
+        "title": "Three tiers.",
+        "accent": "From app to portal with workflows.",
+        "text": "Each tier builds on the previous one. We define the exact scope after the prototype – then a fixed price applies.",
+        "items": {
+          "pwa": {
+            "name": "Web app",
+            "audience": "For booking, information and simple processes"
+          },
+          "portal": {
+            "name": "Client portal",
+            "audience": "For documents, status and messages"
+          },
+          "workflows": {
+            "name": "Portal with workflows",
+            "audience": "For processes with approvals and roles"
+          }
+        },
+        "rows": [
+          {
+            "label": "Login & client account",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "App on the home screen, iOS & Android",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Push notifications",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Documents & upload with checklist",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Status & messages on the case",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Roles & permissions",
+            "cells": [
+              "Client",
+              "Client & team",
+              "freely definable"
+            ]
+          },
+          {
+            "label": "Forms & approvals",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Automations & reminders",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Live in",
+            "cells": [
+              "3–4 weeks",
+              "5–6 weeks",
+              "6–8 weeks"
+            ]
+          }
         ]
       },
-      "featuresTitle": "What your web app does.",
-      "features": [
-        {
-          "title": "Login & roles",
-          "text": "Customers, staff and partners only see what they should."
-        },
-        {
-          "title": "Documents & upload",
-          "text": "Secure uploads, checklists, versions and approvals."
-        },
-        {
-          "title": "App without the store",
-          "text": "As a progressive web app on the home screen – with push, on iOS and Android."
-        },
-        {
-          "title": "Multilingual",
-          "text": "Interface and content in several languages – key for diverse audiences."
-        },
-        {
-          "title": "Integrations",
-          "text": "Connect CRM, ERP, accounting or existing databases."
-        },
-        {
-          "title": "Fast & secure",
-          "text": "Sub-second load times, EU hosting, tests on every change."
-        }
-      ],
+      "calc": {
+        "title": "What do status queries cost?",
+        "accent": "Run it with your numbers.",
+        "text": "Each query is small. Added up, it is half a job.",
+        "lines": [
+          {
+            "label": "Status queries per day",
+            "value": "15"
+          },
+          {
+            "label": "Minutes per query, including searching",
+            "value": "6"
+          },
+          {
+            "label": "Time per month",
+            "value": "≈ 30 hours"
+          },
+          {
+            "label": "Internal hourly rate",
+            "value": "€35"
+          },
+          {
+            "label": "Cost per month",
+            "value": "≈ €1,050"
+          },
+          {
+            "label": "Client portal, one-off",
+            "value": "€7,400"
+          }
+        ],
+        "resultLabel": "Paid off after",
+        "result": "around 7 months",
+        "note": "Not included: documents that arrive complete, and clients who check for themselves at ten in the evening instead of calling in the morning.",
+        "whenNot": "If you have few clients and every case is different, a portal hardly helps – then the personal conversation is your advantage. And if an app is only wanted because »you ought to have one«, we advise against it."
+      },
+      "industries": {
+        "title": "One portal,",
+        "accent": "many places to use it.",
+        "text": "Wherever clients, tenants or customers ask regularly, a portal pays off fastest.",
+        "items": [
+          {
+            "id": "immobilien",
+            "text": "Tenant and owner portal with repair requests, documents and reporting."
+          },
+          {
+            "id": "kanzlei",
+            "text": "Client portal with receipt upload, checklists, deadlines and queries on the case."
+          },
+          {
+            "id": "automotive",
+            "text": "Student app for driving schools, job status for garages, handover reports for rental companies."
+          },
+          {
+            "id": "handwerk",
+            "text": "Field app with offline storage and customer access for records and reports."
+          }
+        ]
+      },
+      "timeline": {
+        "title": "In four to eight weeks",
+        "accent": "to a running portal.",
+        "text": "We start with a pilot group and roll out as soon as it holds up in daily use.",
+        "phases": [
+          {
+            "when": "Day 1",
+            "title": "Initial call",
+            "text": "We walk through a typical case: who asks what, who delivers what, where does it snag?"
+          },
+          {
+            "when": "Day 7",
+            "title": "Prototype",
+            "text": "You click through your portal as a client and as a staff member. Then the fixed price is set."
+          },
+          {
+            "when": "Weeks 2–6",
+            "title": "Build in stages",
+            "text": "Login, documents, status, then workflows. Each stage is usable, and you see progress every one to two weeks."
+          },
+          {
+            "when": "From week 6",
+            "title": "Pilot & rollout",
+            "text": "Start with ten clients, adjust from daily use, then everyone else."
+          }
+        ]
+      },
       "faq": [
         {
           "q": "Web app or native app?",
           "a": "For portals, booking and internal tools a web app is usually enough. Native apps pay off when offline use or deep device integration is required."
         },
         {
-          "q": "How much does a client portal cost?",
-          "a": "From around €7,400 for login, documents, status and messages; with workflows and approvals from around €12,900."
+          "q": "What does a client portal cost?",
+          "a": "A home-screen web app from around €3,900, a client portal with login, documents, status and messages from around €7,400, with workflows and approvals from around €12,900."
+        },
+        {
+          "q": "What does a native app cost?",
+          "a": "From around €9,900 for App Store and Google Play, with offline function and push. We usually start with the web app and decide later."
         },
         {
           "q": "Can it become a native app later?",
-          "a": "Yes. Database, integrations and logic stay – mainly the interface is new."
+          "a": "Yes. Database, interfaces and logic stay – mainly the interface is rebuilt."
+        },
+        {
+          "q": "Can our existing software be connected?",
+          "a": "If it offers an interface or an export, yes. We check exactly what is possible before the quote."
+        },
+        {
+          "q": "Where is the data stored?",
+          "a": "In a database in the EU, encrypted, with roles, permissions and an audit log."
         },
         {
           "q": "Do I own the app?",
           "a": "Yes, including source code and store accounts."
         }
-      ]
+      ],
+      "contact": {
+        "title": "Let's talk about",
+        "accent": "your portal.",
+        "text": "Tell us briefly what your clients ask about most often. We will get back to you within 24 hours with an honest assessment – even if it is: you don't need an app for that."
+      }
     },
     "dashboard": {
       "navLabel": "Dashboards & reporting",
       "keyword": "Dashboard development",
       "metaTitle": "Business Dashboard Development – All Your Numbers in One Place",
-      "metaDescription": "Dashboards for SMEs: revenue, enquiries, utilisation, open invoices from POS, CRM and accounting – in real time or as a weekly report. From €4,900.",
+      "metaDescription": "Dashboards for SMEs: revenue, enquiries, utilisation, open invoices from POS, CRM and accounting – in real time or as a weekly report. Weekly report from €890, dashboard from €4,900.",
       "keywords": [
         "business dashboard development",
         "KPI dashboard",
@@ -6198,76 +6978,303 @@
       ],
       "hero": {
         "badge": "Dashboards & reporting",
-        "titleStart": "All your numbers in one place.",
-        "titleHighlight": "Finally.",
-        "text": "Revenue, enquiries, utilisation and open invoices from POS, CRM, calendar and accounting – as a live dashboard or a Monday report with an AI summary. For owners who want to decide instead of search.",
-        "imageAlt": "Example of a system with an order dashboard",
-        "stats": [
+        "title": "All your numbers in one place.",
+        "accent": "Finally.",
+        "text": "Revenue, enquiries, utilisation and open invoices from till, CRM, calendar and accounting – as a live dashboard or a Monday report with AI commentary. For owners who want to decide instead of search.",
+        "imageAlt": "Sample view of a weekly overview with revenue, open invoices, enquiries and utilisation",
+        "facts": [
           {
-            "value": "5–8",
-            "label": "KPIs that really matter"
+            "value": "from €890",
+            "label": "as a weekly report"
           },
           {
-            "value": "Mon 7am",
-            "label": "weekly report in your inbox"
+            "value": "3–4 weeks",
+            "label": "to a live dashboard"
+          },
+          {
+            "value": "5–8",
+            "label": "figures that really matter"
+          }
+        ],
+        "mockUrl": "your-business.com/dashboard",
+        "mock": {
+          "title": "Weekly overview · Monday, 7:00",
+          "rows": [
+            {
+              "label": "Revenue week 12",
+              "meta": "previous week €17,900",
+              "status": "€18,420",
+              "tone": "good"
+            },
+            {
+              "label": "Open invoices",
+              "meta": "7 invoices · 2 overdue",
+              "status": "€4,310",
+              "tone": "warn"
+            },
+            {
+              "label": "Enquiries",
+              "meta": "9 of them qualified",
+              "status": "23",
+              "tone": "brand"
+            },
+            {
+              "label": "Utilisation",
+              "meta": "target 80%",
+              "status": "86%",
+              "tone": "good"
+            }
+          ]
+        }
+      },
+      "flow": {
+        "title": "From five tools to one answer.",
+        "accent": "Every morning.",
+        "text": "This is how scattered data becomes decisions.",
+        "steps": [
+          {
+            "who": "Your tools",
+            "title": "Deliver the data",
+            "text": "Till, accounting, CRM, calendar, Google or your own systems – automatically, via interface or export."
+          },
+          {
+            "who": "System",
+            "title": "Reconciles and calculates",
+            "text": "Data is merged, cleaned and condensed into the five to eight figures we define in the workshop."
+          },
+          {
+            "who": "You",
+            "title": "See what matters",
+            "text": "On one screen, on your phone too. On Mondays you get a three-sentence summary, and an alert at once for outliers."
+          },
+          {
+            "who": "Your team",
+            "title": "Decides with numbers",
+            "text": "Each role sees its area and its targets. Meetings start with the same figures – not with the search for them."
           }
         ]
       },
-      "problem": {
-        "title": "You don't have a data problem. You have a collection problem.",
-        "text": "The numbers exist – spread across POS, accounting, calendar, inbox and Google. By the time you've pulled them together, the decision has already been made. On gut feeling.",
-        "points": [
-          "Numbers spread across five tools",
-          "Monthly reporting takes days",
-          "No warning when something tips",
-          "The team doesn't see what matters"
+      "tiers": {
+        "title": "Three tiers.",
+        "accent": "From Monday report to real-time dashboard.",
+        "text": "Start small and expand. We define the exact scope after the metrics workshop – then a fixed price applies.",
+        "items": {
+          "report": {
+            "name": "Weekly report",
+            "audience": "For a quick overview"
+          },
+          "dashboard": {
+            "name": "Dashboard",
+            "audience": "For day-to-day steering"
+          },
+          "pro": {
+            "name": "Dashboard Pro",
+            "audience": "For teams and several areas"
+          }
+        },
+        "rows": [
+          {
+            "label": "Metrics workshop",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Data sources",
+            "cells": [
+              "up to 3",
+              "2–3",
+              "as needed"
+            ]
+          },
+          {
+            "label": "Report by email with AI commentary",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Live dashboard in the browser",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Mobile, as a home-screen app",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Freshness",
+            "cells": [
+              "weekly",
+              "daily",
+              "real time"
+            ]
+          },
+          {
+            "label": "Roles per area",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Alerts for outliers",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Forecasts",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Live in",
+            "cells": [
+              "1–2 weeks",
+              "3–4 weeks",
+              "5–6 weeks"
+            ]
+          }
         ]
       },
-      "featuresTitle": "What your dashboard does.",
-      "features": [
-        {
-          "title": "KPIs with a question",
-          "text": "Every number answers a question that leads to a decision."
-        },
-        {
-          "title": "Connected sources",
-          "text": "POS, accounting, CRM, calendar, Google, your own systems – automatically."
-        },
-        {
-          "title": "Real time & alerts",
-          "text": "Warnings by email, push or WhatsApp when utilisation or payments tip."
-        },
-        {
-          "title": "Roles",
-          "text": "Owners see everything, team leads their area, staff their goals."
-        },
-        {
-          "title": "AI summary",
-          "text": "Three sentences of context every Monday – what went well, where to look."
-        },
-        {
-          "title": "Mobile too",
-          "text": "All numbers on your phone, as an app on the home screen."
-        }
-      ],
+      "calc": {
+        "title": "What does the gathering cost?",
+        "accent": "Run it with your numbers.",
+        "text": "The figures exist. What is expensive is the time until they are on one sheet.",
+        "lines": [
+          {
+            "label": "Monthly report by hand",
+            "value": "2 days"
+          },
+          {
+            "label": "Gathering weekly figures",
+            "value": "2 hours per week"
+          },
+          {
+            "label": "Time per month",
+            "value": "≈ 24 hours"
+          },
+          {
+            "label": "Value of an owner's hour",
+            "value": "€60"
+          },
+          {
+            "label": "Cost per month",
+            "value": "≈ €1,440"
+          },
+          {
+            "label": "Dashboard, one-off",
+            "value": "€4,900"
+          }
+        ],
+        "resultLabel": "Paid off after",
+        "result": "3 to 4 months",
+        "note": "Not included: decisions you make earlier because you see on Tuesday what would otherwise only show up at month end.",
+        "whenNot": "If your figures come from a single source, its built-in reports are enough. And for pure marketing data an off-the-shelf BI tool is often the better choice. Your own dashboard pays off once till, your own software and accounting come together – or roles and permissions are needed."
+      },
+      "industries": {
+        "title": "Every industry",
+        "accent": "has its own key figures.",
+        "text": "Which figures count is something we define together. A few typical examples:",
+        "items": [
+          {
+            "id": "gastro",
+            "text": "Revenue per hour, bestsellers, basket value, share of direct orders – per branch."
+          },
+          {
+            "id": "immobilien",
+            "text": "Vacancy, rent received, open cases, deadlines – per property and owner."
+          },
+          {
+            "id": "handwerk",
+            "text": "Quote conversion, utilisation per team, post-calculation, signed off but not invoiced."
+          },
+          {
+            "id": "beauty",
+            "text": "Utilisation per team member, no-show rate, weak slots, new reviews."
+          }
+        ]
+      },
+      "timeline": {
+        "title": "In three to four weeks",
+        "accent": "to the first dashboard.",
+        "text": "The most important step is the first: the right questions.",
+        "phases": [
+          {
+            "when": "Day 1",
+            "title": "Metrics workshop",
+            "text": "Which decision do you make every week – and which figure do you need for it? We cut it down to five to eight."
+          },
+          {
+            "when": "Day 7",
+            "title": "Prototype",
+            "text": "Your dashboard with sample data, clickable. Then the fixed price is set."
+          },
+          {
+            "when": "Weeks 2–3",
+            "title": "Connect sources",
+            "text": "Till, accounting, calendar. We check every figure against your existing reports."
+          },
+          {
+            "when": "Week 4",
+            "title": "Live",
+            "text": "Dashboard for you and your team, the first Monday report in your inbox."
+          }
+        ]
+      },
       "faq": [
         {
-          "q": "Isn't an off-the-shelf BI tool enough?",
-          "a": "For marketing data, often yes. As soon as POS, your own software and accounting come together or permissions matter, a custom dashboard pays off."
-        },
-        {
-          "q": "How much does a dashboard cost?",
+          "q": "What does a dashboard cost?",
           "a": "Weekly report from €890, dashboard from around €4,900, Dashboard Pro with real time, roles and alerts from around €8,900."
         },
         {
-          "q": "How current is the data?",
-          "a": "Depending on the source: real time, hourly or daily – we define it per KPI."
+          "q": "Isn't an off-the-shelf BI tool enough?",
+          "a": "For marketing data, often yes. Once till, your own software and accounting come together or permissions are needed, your own dashboard pays off."
+        },
+        {
+          "q": "How up to date is the data?",
+          "a": "Depending on the source in real time, hourly or daily – we define that per figure."
+        },
+        {
+          "q": "Which systems can you connect?",
+          "a": "Anything with an interface or export: tills, accounting, CRM, calendars, Google services, your own databases. We check what works for you before the quote."
+        },
+        {
+          "q": "Will the figures be right?",
+          "a": "We check every figure against your existing reports before launch. Where two sources contradict each other, we decide together which one counts."
+        },
+        {
+          "q": "Where is the data stored?",
+          "a": "In a database in the EU, encrypted, with roles and permissions."
         },
         {
           "q": "Do you use this yourselves?",
-          "a": "Yes. Our own lead system shows enquiries, lead score and status in one dashboard."
+          "a": "Yes. Our own lead system shows enquiries, lead score and status in a dashboard."
         }
-      ]
+      ],
+      "contact": {
+        "title": "Let's talk about",
+        "accent": "your numbers.",
+        "text": "Tell us briefly which figure takes you longest to find today. We will get back to you within 24 hours with an honest assessment."
+      }
     },
     "ki": {
       "navLabel": "AI automation",
@@ -6283,76 +7290,291 @@
       ],
       "hero": {
         "badge": "AI automation",
-        "titleStart": "AI that actually",
-        "titleHighlight": "takes work off your plate.",
-        "text": "Sort enquiries, extract receipts, answer calls, reply to reviews – AI workflows that run inside your existing tools. With your approval. Technology backed by winsym.ai.",
-        "imageAlt": "Web app that explains official letters in plain language",
-        "stats": [
+        "title": "AI that actually takes",
+        "accent": "work off your hands.",
+        "text": "Sort enquiries, extract receipts, answer calls, reply to reviews – AI workflows that run in your existing tools. The AI prepares, you approve.",
+        "imageAlt": "Sample view: enquiries, calls, receipts and reviews prepared by the AI",
+        "facts": [
+          {
+            "value": "from €590",
+            "label": "per workflow, one-off"
+          },
           {
             "value": "1–2 weeks",
             "label": "until the first workflow runs"
           },
           {
-            "value": "from €590",
-            "label": "per workflow"
+            "value": "With approval",
+            "label": "nothing goes out unchecked"
+          }
+        ],
+        "mockUrl": "your-business.com/automations",
+        "mock": {
+          "title": "Prepared automatically today",
+          "rows": [
+            {
+              "label": "12 enquiries answered",
+              "meta": "drafts from your data",
+              "status": "Approved",
+              "tone": "good"
+            },
+            {
+              "label": "3 calls after hours",
+              "meta": "2 appointments booked",
+              "status": "Summarised",
+              "tone": "brand"
+            },
+            {
+              "label": "9 receipts extracted",
+              "meta": "amount, date, tax rate",
+              "status": "Filed",
+              "tone": "good"
+            },
+            {
+              "label": "1 review with 2 stars",
+              "meta": "reply draft is ready",
+              "status": "Waiting for you",
+              "tone": "warn"
+            }
+          ]
+        }
+      },
+      "flow": {
+        "title": "Trigger, draft, approval.",
+        "accent": "Done.",
+        "text": "Every workflow follows the same pattern – whether email, call or receipt.",
+        "steps": [
+          {
+            "who": "Trigger",
+            "title": "Something comes in",
+            "text": "An email, a form, a call, a receipt or a new review starts the workflow."
+          },
+          {
+            "who": "AI",
+            "title": "Reads, sorts, drafts",
+            "text": "The AI understands the request, draws on your knowledge and prepares the reply, booking or filing – in your business's tone."
+          },
+          {
+            "who": "You",
+            "title": "Approve",
+            "text": "One look, one click. You decide per workflow what may go out automatically and what you want to see first."
+          },
+          {
+            "who": "Your tools",
+            "title": "The result lands where it belongs",
+            "text": "In the inbox, the calendar, accounting or the CRM. Every step is logged and traceable."
           }
         ]
       },
-      "problem": {
-        "title": "AI as a chat window barely saves time.",
-        "text": "AI only pays off when it's built into your processes: it reads, sorts, drafts and hands over – and a person approves. That's exactly what we build.",
-        "points": [
-          "Writing the same answers from scratch every day",
-          "Typing up receipts and documents by hand",
-          "Calls lost outside opening hours",
-          "Pilot projects that never go live"
+      "tiers": {
+        "title": "Three typical entry points.",
+        "accent": "Bookable individually.",
+        "text": "Each workflow has a fixed price. Start with the one that saves you the most time.",
+        "items": {
+          "bewertungen": {
+            "name": "Review replies",
+            "audience": "For businesses with many Google reviews"
+          },
+          "anfragen": {
+            "name": "Enquiry automation",
+            "audience": "For full inboxes"
+          },
+          "telefon": {
+            "name": "AI phone assistant",
+            "audience": "For businesses that miss calls"
+          }
+        },
+        "rows": [
+          {
+            "label": "Takes over",
+            "cells": [
+              "Reply drafts for reviews",
+              "Sorting and answering emails & forms",
+              "Answering calls, booking appointments"
+            ]
+          },
+          {
+            "label": "Your business's tone and knowledge",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Runs in your existing tools",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Approval by you",
+            "cells": [
+              true,
+              true,
+              "configurable"
+            ]
+          },
+          {
+            "label": "Monitoring & log",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Routing to the right person",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Available around the clock",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Running after",
+            "cells": [
+              "1 week",
+              "1–2 weeks",
+              "2 weeks"
+            ]
+          }
         ]
       },
-      "featuresTitle": "Workflows with fast payback.",
-      "features": [
-        {
-          "title": "Enquiry automation",
-          "text": "Read emails and forms, classify, draft a reply, forward."
-        },
-        {
-          "title": "Documents & receipts",
-          "text": "Extract and file invoices, contracts and forms automatically."
-        },
-        {
-          "title": "AI phone assistant",
-          "text": "Answers calls, handles standard questions, books appointments, summarises."
-        },
-        {
-          "title": "Workflows with n8n",
-          "text": "Reliable automations between your tools – with monitoring."
-        },
-        {
-          "title": "Reviews",
-          "text": "Reply drafts for Google reviews in your house style, you approve."
-        },
-        {
-          "title": "Weekly report",
-          "text": "Numbers from all tools, with AI context, every Monday in your inbox."
-        }
-      ],
+      "calc": {
+        "title": "What does routine cost?",
+        "accent": "Run it with your numbers.",
+        "text": "Five minutes per reply sounds harmless. Twenty times a day it is almost four working days a month.",
+        "lines": [
+          {
+            "label": "Standard enquiries per day",
+            "value": "20"
+          },
+          {
+            "label": "Minutes per reply by hand",
+            "value": "5"
+          },
+          {
+            "label": "Minutes with a ready draft",
+            "value": "1"
+          },
+          {
+            "label": "Saving per month",
+            "value": "≈ 27 hours"
+          },
+          {
+            "label": "Internal hourly rate",
+            "value": "€35"
+          },
+          {
+            "label": "Enquiry automation, one-off",
+            "value": "€990"
+          }
+        ],
+        "resultLabel": "Paid off after",
+        "result": "around 5 weeks",
+        "note": "On top come operation from €49 a month and usually low usage costs for the AI services, which we estimate in advance.",
+        "whenNot": "If a task only comes up twice a week or is different every time, automation isn't worth it. And where a mistake would be expensive – legal advice, price commitments, diagnoses – the AI stays at the draft and a person decides."
+      },
+      "industries": {
+        "title": "One pattern,",
+        "accent": "many processes.",
+        "text": "Which routine pays off first depends on the industry:",
+        "items": [
+          {
+            "id": "kanzlei",
+            "text": "Extract and assign receipts, pre-sort client enquiries, send deadline reminders."
+          },
+          {
+            "id": "immobilien",
+            "text": "Answer standard property enquiries, send viewing invitations, monitor deadlines."
+          },
+          {
+            "id": "handwerk",
+            "text": "Answer calls outside office hours, assess enquiries, follow up on quotes."
+          },
+          {
+            "id": "gastro",
+            "text": "Reply to Google reviews in your house tone, answer reservation calls."
+          },
+          {
+            "id": "beauty",
+            "text": "Answer booking calls, invite clients to follow-ups, request reviews."
+          }
+        ]
+      },
+      "timeline": {
+        "title": "In one to two weeks",
+        "accent": "the first workflow runs.",
+        "text": "We start with one workflow, measure the effect and then expand.",
+        "phases": [
+          {
+            "when": "Day 1",
+            "title": "Routine check",
+            "text": "Which task repeats every day? We pick the one with the biggest time saving and the smallest risk."
+          },
+          {
+            "when": "Days 3–5",
+            "title": "First draft",
+            "text": "The workflow runs in test mode with real examples. You see what the AI suggests – nothing goes out yet."
+          },
+          {
+            "when": "Week 2",
+            "title": "Live with approval",
+            "text": "The workflow runs in your tools and every output waits for your OK. We fine-tune tone and rules."
+          },
+          {
+            "when": "After that",
+            "title": "Expansion",
+            "text": "What runs reliably may go out automatically. The next workflow follows when you are ready."
+          }
+        ]
+      },
       "faq": [
         {
-          "q": "Is our data used to train AI?",
-          "a": "No. We use services with data processing agreements, no training on your data and EU hosting where possible."
+          "q": "What does a workflow cost?",
+          "a": "Between €590 and €1,490 one-off, plus operation from €49 per month and usually low usage costs for the AI services."
         },
         {
-          "q": "Will AI replace our staff?",
-          "a": "In our projects, AI mainly removes routine – so there's more time for customers."
+          "q": "Is our data used for AI training?",
+          "a": "No. We use services with data processing agreements and no training on your data, with EU hosting where possible."
         },
         {
-          "q": "How much does a workflow cost?",
-          "a": "Between €590 and €1,490 one-off, plus operations from €49 per month and usually low AI usage costs."
+          "q": "What if the AI makes a mistake?",
+          "a": "That is why every workflow starts with approval: you see every draft before it goes out. Only what has proven itself runs automatically – and everything is logged."
+        },
+        {
+          "q": "Do we need new software for this?",
+          "a": "No. The workflows run in your existing tools: inbox, calendar, accounting, CRM."
+        },
+        {
+          "q": "Does AI replace our staff?",
+          "a": "In our projects AI mainly takes over routine – leaving more time for customers."
+        },
+        {
+          "q": "What do you build the workflows with?",
+          "a": "With n8n for stable automations between your tools, with monitoring and an alert if something gets stuck."
         },
         {
           "q": "Who is winsym.ai?",
-          "a": "Our technology partner in Kuala Lumpur, specialised in AI transformation for SMEs. We deliver your project from Germany."
+          "a": "Our technology partner from Kuala Lumpur, specialised in AI transformation for SMEs. We do the implementation for you in Germany."
         }
-      ]
+      ],
+      "contact": {
+        "title": "Let's talk about",
+        "accent": "your routine.",
+        "text": "Tell us briefly which task repeats for you every day. We will get back to you within 24 hours with an honest assessment – even if it is: that isn't worth automating."
+      }
     },
     "website": {
       "navLabel": "Websites that sell",
@@ -6367,77 +7589,283 @@
         "SEO website"
       ],
       "hero": {
-        "badge": "Websites",
-        "titleStart": "A website that",
-        "titleHighlight": "brings enquiries.",
-        "text": "Fast, mobile, found on Google and in AI search like ChatGPT – with enquiry funnel, booking or ordering. And ready to grow into a system later. Example: KlarVoran, job coaching in Rhine-Main.",
+        "badge": "Websites that sell",
+        "title": "A website that",
+        "accent": "brings enquiries.",
+        "text": "Fast, mobile and findable – on Google and in AI search such as ChatGPT. With enquiry funnel, booking or ordering. And built so it can grow into a system later.",
         "imageAlt": "Website of KlarVoran, job and application coaching in Rhine-Main",
-        "stats": [
+        "facts": [
           {
-            "value": "< 1 s",
-            "label": "target load time"
+            "value": "from €1,190",
+            "label": "one-pager, business from €1,990"
           },
           {
-            "value": "from €1,490",
-            "label": "one-pager, business from €1,990"
+            "value": "1–4 weeks",
+            "label": "to go online"
+          },
+          {
+            "value": "< 1 s",
+            "label": "load time as the target"
+          }
+        ],
+        "refNote": "Live: KlarVoran, job coaching Rhine-Main"
+      },
+      "flow": {
+        "title": "From search to enquiry.",
+        "accent": "In four steps.",
+        "text": "This is how a visitor becomes a customer – and how we measure every page.",
+        "steps": [
+          {
+            "who": "Search",
+            "title": "Someone looks for what you offer",
+            "text": "On Google, in Google Maps or in an AI search. Structured data and clear answers make sure you get mentioned."
+          },
+          {
+            "who": "Website",
+            "title": "The page is there instantly",
+            "text": "Loaded in under a second, built for the phone. Within five seconds it is clear what you offer and for whom."
+          },
+          {
+            "who": "Visitor",
+            "title": "Enquires or books",
+            "text": "One clear next step instead of a contact form in the footer: enquiry funnel, appointment booking or ordering."
+          },
+          {
+            "who": "You",
+            "title": "Get an enquiry with substance",
+            "text": "With request, budget and urgency. And you see which search it came from."
           }
         ]
       },
-      "problem": {
-        "title": "Pretty isn't enough. It has to sell.",
-        "text": "Many websites look good and still bring no enquiries: too slow, awkward on mobile, invisible on Google, no clear next step.",
-        "points": [
-          "Visitors but no enquiries",
-          "Slow on mobile",
-          "Invisible on Google and AI search",
-          "Changes only via the agency"
+      "tiers": {
+        "title": "Three tiers.",
+        "accent": "From one strong page to a site with a blog.",
+        "text": "All tiers are built mobile first and fast. We define the exact scope in the first call – then a fixed price applies.",
+        "items": {
+          "onepager": {
+            "name": "One-pager",
+            "audience": "For a quick, clean presence"
+          },
+          "business": {
+            "name": "Business website",
+            "audience": "For businesses that want enquiries"
+          },
+          "pro": {
+            "name": "Website Pro",
+            "audience": "For several languages and search terms"
+          }
+        },
+        "rows": [
+          {
+            "label": "Pages",
+            "cells": [
+              "1",
+              "up to 8",
+              "as needed"
+            ]
+          },
+          {
+            "label": "Mobile first & fast",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Contact, map & WhatsApp",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Search engine optimisation",
+            "cells": [
+              "basics",
+              "SEO foundation",
+              "landing pages per search term"
+            ]
+          },
+          {
+            "label": "CMS to edit yourself",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Enquiry funnel with scoring",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Multilingual",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Blog & guides",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Tracking after consent",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Online in",
+            "cells": [
+              "1 week",
+              "2–4 weeks",
+              "4–6 weeks"
+            ]
+          }
         ]
       },
-      "featuresTitle": "What your website does.",
-      "features": [
-        {
-          "title": "Mobile first",
-          "text": "Built for the phone – that's where most visitors come from."
-        },
-        {
-          "title": "SEO & local SEO",
-          "text": "Structured data, Google profile, pages for your key search terms."
-        },
-        {
-          "title": "GEO for AI search",
-          "text": "Clear answers, llms.txt and schema, so ChatGPT, Gemini & co. mention you."
-        },
-        {
-          "title": "Fast",
-          "text": "Modern tech, optimised images – load times Google rewards."
-        },
-        {
-          "title": "Multilingual",
-          "text": "German, English, Arabic or Turkish – with correct language markup."
-        },
-        {
-          "title": "Measured enquiries",
-          "text": "Enquiry funnel with lead scoring and clean, consent-based tracking."
-        }
-      ],
+      "calc": {
+        "title": "What does a better site bring?",
+        "accent": "Run it with your numbers.",
+        "text": "More visitors are expensive. Turning the same visitors into more enquiries is the cheaper lever.",
+        "lines": [
+          {
+            "label": "Visitors per month",
+            "value": "800"
+          },
+          {
+            "label": "Enquiries today, at 0.5%",
+            "value": "4"
+          },
+          {
+            "label": "Assumption: a clear funnel lifts it to 2%",
+            "value": "16"
+          },
+          {
+            "label": "Additional enquiries per month",
+            "value": "+ 12"
+          },
+          {
+            "label": "Assumption: one in four becomes a €600 job",
+            "value": "≈ €1,800 revenue"
+          },
+          {
+            "label": "Business website, one-off",
+            "value": "€1,990"
+          }
+        ],
+        "resultLabel": "Earned back after",
+        "result": "a good month",
+        "note": "The rates are assumptions and depend heavily on industry and offer. That is why we measure after launch what actually happens.",
+        "whenNot": "If your customers come exclusively by recommendation and you are fully booked, a clean one-pager with contact details is enough. More website only helps if you also want to take on more enquiries."
+      },
+      "industries": {
+        "title": "Every industry",
+        "accent": "needs a different next step.",
+        "text": "The website is the entry point – what happens behind it depends on the business:",
+        "items": [
+          {
+            "id": "handwerk",
+            "text": "An enquiry form with photos and measurements instead of »give us a call«."
+          },
+          {
+            "id": "beauty",
+            "text": "A booking button that leads straight into the calendar – from Google and Instagram too."
+          },
+          {
+            "id": "kanzlei",
+            "text": "Initial call booking with pre-questions, as in our KlarVoran project."
+          },
+          {
+            "id": "gastro",
+            "text": "Menu, reservations and direct ordering on your own site."
+          },
+          {
+            "id": "immobilien",
+            "text": "Property pages with prospect funnel and viewing booking."
+          },
+          {
+            "id": "automotive",
+            "text": "Vehicle stock, test drive booking and garage appointments online."
+          }
+        ]
+      },
+      "timeline": {
+        "title": "In one to four weeks",
+        "accent": "online.",
+        "text": "You provide logo, photos and one conversation – we take care of the rest.",
+        "phases": [
+          {
+            "when": "Day 1",
+            "title": "Initial call",
+            "text": "Who do you want to reach, what do they search for, what is the next step? That gives us the structure."
+          },
+          {
+            "when": "Days 3–7",
+            "title": "Draft",
+            "text": "You see the home page with real copy – on the phone first. Then the fixed price is set."
+          },
+          {
+            "when": "Weeks 2–3",
+            "title": "Build & content",
+            "text": "Pages, copy, images, funnel. We write the copy if you like, you approve."
+          },
+          {
+            "when": "Weeks 1–4",
+            "title": "Online",
+            "text": "Domain move, Google profile, search console. After that we measure where enquiries come from."
+          }
+        ]
+      },
       "faq": [
         {
-          "q": "How much does a website cost?",
+          "q": "What does a website cost?",
           "a": "One-pager from €1,190, business website from €1,990, Website Pro from €3,490. Hosting & maintenance from €49 per month."
         },
         {
           "q": "Can I edit content myself?",
-          "a": "Yes, via a simple CMS or dashboard – no coding required."
+          "a": "From the business website up, yes, via a simple CMS or dashboard – no programming skills needed."
         },
         {
           "q": "How long does it take?",
           "a": "A one-pager is often online after a week, a business website after two to four weeks."
         },
         {
+          "q": "What is GEO?",
+          "a": "Optimisation for AI search such as ChatGPT, Gemini and Google AI: clear answers, structured data and an llms.txt so that you get mentioned there."
+        },
+        {
+          "q": "Do you write the copy too?",
+          "a": "Yes, as an add-on. We write based on a conversation with you, and you approve."
+        },
+        {
           "q": "Can I add booking or a shop later?",
-          "a": "Yes. We build so that booking, ordering or customer login can be added seamlessly."
+          "a": "Yes. We build so that systems such as booking, ordering or customer login can be added seamlessly."
+        },
+        {
+          "q": "What happens to my old website and domain?",
+          "a": "The domain stays yours. We move it, redirect old addresses and make sure existing rankings are kept."
         }
-      ]
+      ],
+      "contact": {
+        "title": "Let's talk about",
+        "accent": "your website.",
+        "text": "Tell us briefly what your website fails to do today. We will get back to you within 24 hours with an honest assessment."
+      }
     },
     "media": {
       "navLabel": "Premium media for events",
@@ -7278,6 +8706,118 @@
       "ownBadge": "Our field",
       "adviceTitle": "Our recommendation",
       "guidesLabel": "Further reading (in German)"
+    },
+    "contact": {
+      "tag": "Enquiry",
+      "formTitle": "A short message is enough.",
+      "formText": "No questionnaire, no sales pitch. Two sentences about your business will do.",
+      "submit": "Send enquiry",
+      "points": [
+        "Reply within 24 hours",
+        "Process check free of charge",
+        "Fixed price after the prototype"
+      ]
+    }
+  },
+  "servicePage": {
+    "hero": {
+      "primary": "Free initial call",
+      "secondary": "See scope & prices"
+    },
+    "flow": {
+      "tag": "How it works"
+    },
+    "tiers": {
+      "tag": "Scope & prices",
+      "from": "from",
+      "once": "one-off",
+      "recommended": "Most chosen",
+      "included": "included",
+      "notIncluded": "not included",
+      "request": "Request {name}"
+    },
+    "extras": {
+      "tag": "Optional add-ons",
+      "text": "Can be added to any tier – the fixed price is set after the prototype.",
+      "labels": {
+        "zahlung": {
+          "label": "Online payment",
+          "hint": "Card, PayPal, Apple Pay, Google Pay"
+        },
+        "schnittstellen": {
+          "label": "Interfaces",
+          "hint": "Till, accounting, CRM, ERP, inventory"
+        },
+        "ki": {
+          "label": "AI feature",
+          "hint": "Chat, document extraction, text suggestions"
+        },
+        "whatsapp": {
+          "label": "WhatsApp notifications",
+          "hint": "Confirmations and status automatically"
+        },
+        "mehrsprachig": {
+          "label": "Multilingual",
+          "hint": "e.g. German, English, Arabic, Turkish"
+        },
+        "migration": {
+          "label": "Data migration",
+          "hint": "From Excel, paper lists or the old system"
+        },
+        "seo": {
+          "label": "Local SEO package",
+          "hint": "Be found for “… near me”"
+        },
+        "geo": {
+          "label": "GEO for AI search",
+          "hint": "Visible in ChatGPT, Gemini & Google AI"
+        },
+        "gmb": {
+          "label": "Google Business Profile",
+          "hint": "Set-up and optimisation"
+        },
+        "texte": {
+          "label": "Copy & image preparation",
+          "hint": "We write, you approve"
+        },
+        "anfragen": {
+          "label": "Enquiry automation",
+          "hint": "Sort and answer emails & forms"
+        },
+        "dokumente": {
+          "label": "Documents & receipts",
+          "hint": "Extract, file and check automatically"
+        },
+        "telefon": {
+          "label": "AI phone assistant",
+          "hint": "Answers calls and books appointments"
+        },
+        "chatbot": {
+          "label": "Website chat",
+          "hint": "Answers questions with your knowledge"
+        },
+        "bewertungen": {
+          "label": "Review replies",
+          "hint": "Google reviews in your house tone"
+        },
+        "reporting": {
+          "label": "Weekly report",
+          "hint": "Figures from all tools, once a week"
+        }
+      }
+    },
+    "calc": {
+      "tag": "Sample calculation",
+      "disclaimer": "Sample calculation with assumed values – not a promise. Plug in your own numbers; we run them together in the first call.",
+      "whenNotTitle": "When it isn't worth it",
+      "guidesLabel": "Further reading (in German)"
+    },
+    "industries": {
+      "tag": "In use",
+      "cta": "Go to industry page"
+    },
+    "timeline": {
+      "tag": "Timeline"
     },
     "contact": {
       "tag": "Enquiry",

@@ -9,7 +9,8 @@ import type { Locale } from "@/i18n/routing";
  *  - kind "leistung": Leistung ("Bestellsystem ohne Provision") → Suchende mit konkretem Bedarf
  *  - kind "media":    Premium-Media für Events, Festivals & Artists (bewusst nur eine Seite)
  * Aufbau: Hero → Problem → Funktionen → Referenzen → Pakete → Ratgeber → FAQ → Funnel.
- * Branchenseiten (kind "branche") haben einen eigenen Aufbau: components/industry/IndustryPage.tsx.
+ * Branchenseiten (kind "branche") haben einen eigenen Aufbau: components/industry/IndustryPage.tsx,
+ * Leistungsseiten (kind "leistung"): components/service/ServicePage.tsx. Der Aufbau oben gilt nur noch für "media".
  * Texte: messages → seoPages.<id>. Slugs sind pro Sprache auf das Such-Keyword optimiert.
  *
  * Städte-Seiten später: Eintrag mit `city` duplizieren, z. B. slug "software-steuerberater-koeln".
@@ -203,7 +204,7 @@ export const seoPages: SeoPage[] = [
     featureIcons: ["chart", "plug", "zap", "users", "sparkles", "smartphone"],
     portfolio: ["taswiq-system", "daron", "antragsbruder"],
     blog: ["unternehmens-dashboard-kennzahlen", "ki-automatisierung-mittelstand"],
-    hero: { image: "/images/portfolio/site-daron.jpg", frame: "browser", url: "daron-brot-ii.vercel.app" },
+    hero: { image: "/images/portfolio/site-daron.jpg", frame: "mock" },
   },
   {
     id: "ki",
@@ -217,7 +218,7 @@ export const seoPages: SeoPage[] = [
     featureIcons: ["message", "file", "phone", "workflow", "star", "chart"],
     portfolio: ["reviews", "taswiq-system", "antragsbruder"],
     blog: ["ki-automatisierung-mittelstand", "software-mit-ki-entwickeln"],
-    hero: { image: "/images/portfolio/site-antragsbruder.jpg", frame: "browser", url: "antragsbruder.de" },
+    hero: { image: "/images/portfolio/site-antragsbruder.jpg", frame: "mock" },
   },
   {
     id: "website",

@@ -13,6 +13,7 @@ import { Process } from "@/components/home/Process";
 import { BlogTeaser } from "@/components/home/BlogTeaser";
 import { References } from "@/components/home/References";
 import { IndustryPage } from "@/components/industry/IndustryPage";
+import { ServicePage } from "@/components/service/ServicePage";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getSeoPageBySlug, seoPages, type SeoPage } from "@/config/seo-pages";
 import { routing, type Locale } from "@/i18n/routing";
@@ -81,6 +82,15 @@ export default async function SeoLandingPage({ params }: Props) {
     return (
       <>
         <IndustryPage page={page} locale={locale} />
+        {schema}
+      </>
+    );
+  }
+
+  if (page.kind === "leistung") {
+    return (
+      <>
+        <ServicePage page={page} locale={locale} />
         {schema}
       </>
     );

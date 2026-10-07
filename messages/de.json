@@ -5858,12 +5858,16 @@
         "Custom Software Deutschland"
       ],
       "hero": {
-        "badge": "Custom Software & Systeme",
-        "titleStart": "Software, die so arbeitet",
-        "titleHighlight": "wie dein Betrieb.",
-        "text": "Wir bauen eigene Systeme für kleine und mittlere Unternehmen – aus fünf Tools und drei Excel-Listen wird eine Software. Mit KI-gestützter Entwicklung in Wochen statt Monaten, zum Festpreis. Der Code gehört dir.",
+        "badge": "Individualsoftware",
+        "title": "Software, die so arbeitet",
+        "accent": "wie dein Betrieb.",
+        "text": "Aus fünf Tools und drei Excel-Listen wird ein System – gebaut um deinen Ablauf. Mit KI-gestützter Entwicklung in Wochen statt Monaten, zum Festpreis. Der Code gehört dir.",
         "imageAlt": "Web-App Antragsbruder – individuell entwickelte Software",
-        "stats": [
+        "facts": [
+          {
+            "value": "ab 10.900 €",
+            "label": "für einen Kernprozess"
+          },
           {
             "value": "7 Tage",
             "label": "bis zum klickbaren Prototyp"
@@ -5872,63 +5876,265 @@
             "value": "100 %",
             "label": "Code & Daten gehören dir"
           }
+        ],
+        "refNote": "Beispiel: Web-App Antragsbruder"
+      },
+      "flow": {
+        "title": "Ein Vorgang, ein System.",
+        "accent": "Vom Eingang bis zur Rechnung.",
+        "text": "So sieht ein Kernprozess aus, wenn er nicht mehr über fünf Tools läuft.",
+        "steps": [
+          {
+            "who": "Eingang",
+            "title": "Die Anfrage kommt strukturiert an",
+            "text": "Über Formular, Mail oder Schnittstelle – mit allen Angaben, die du brauchst. Nichts wird mehr abgetippt."
+          },
+          {
+            "who": "System",
+            "title": "Legt den Vorgang an",
+            "text": "Zuständigkeit, Fristen und nächste Schritte entstehen nach deinen Regeln. Jeder sieht, wer am Zug ist."
+          },
+          {
+            "who": "Dein Team",
+            "title": "Arbeitet im selben Vorgang",
+            "text": "Dokumente, Notizen, Zeiten und Freigaben hängen am Vorgang – im Büro wie unterwegs."
+          },
+          {
+            "who": "Du",
+            "title": "Siehst Stand und Zahlen",
+            "text": "Rechnungsdaten gehen an die Buchhaltung, Kennzahlen ins Dashboard. Und das Wissen steckt im System, nicht in einem Kopf."
+          }
         ]
       },
-      "problem": {
-        "title": "Fünf Tools, drei Excel-Listen und ein Kollege, der alles weiß.",
-        "text": "Standard-Software deckt Standard-Prozesse ab. Aber der Ablauf, der dich besonders macht, läuft über Umwege: Daten doppelt pflegen, zwischen Tools kopieren, nachfragen. Das kostet jeden Tag Zeit – und macht dich abhängig.",
-        "points": [
-          "Dieselben Daten in mehreren Tools",
-          "Wissen hängt an einzelnen Personen",
-          "Viele Lizenzen, wenig echte Nutzung",
-          "Wachstum heißt mehr Verwaltung"
+      "tiers": {
+        "title": "Drei Größen.",
+        "accent": "Du startest mit einem Prozess.",
+        "text": "Wir bauen in nutzbaren Etappen. Den Festpreis je Etappe bekommst du nach dem Prototyp.",
+        "items": {
+          "s": {
+            "name": "Ein Kernprozess",
+            "audience": "Ein Ablauf, sauber von Anfang bis Ende"
+          },
+          "m": {
+            "name": "Mehrere Prozesse",
+            "audience": "Für Betriebe mit Team und Schnittstellen"
+          },
+          "l": {
+            "name": "Plattform",
+            "audience": "Für mehrere Abteilungen oder Standorte"
+          }
+        },
+        "rows": [
+          {
+            "label": "Workshop & Prozessanalyse",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Klickbarer Prototyp vor dem Festpreis",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Abgebildete Prozesse",
+            "cells": [
+              "1",
+              "2 bis 4",
+              "nach Bedarf"
+            ]
+          },
+          {
+            "label": "Rollen & Rechte",
+            "cells": [
+              "Basis",
+              "frei definierbar",
+              "je Abteilung"
+            ]
+          },
+          {
+            "label": "Schnittstellen zu deinen Tools",
+            "cells": [
+              "optional",
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Admin-Bereich",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Abteilungen & Standorte",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Individuelle Module",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Quellcode & Dokumentation",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Produktiv nach",
+            "cells": [
+              "6–10 Wochen",
+              "10–14 Wochen",
+              "in Etappen"
+            ]
+          }
         ]
       },
-      "featuresTitle": "So entsteht deine Software.",
-      "features": [
-        {
-          "title": "Workshop statt Wunschliste",
-          "text": "Wir schauen uns deinen Ablauf an und priorisieren nach Zeitgewinn, nicht nach Features."
-        },
-        {
-          "title": "Prototyp in 7 Tagen",
-          "text": "Klickbar, mit Beispieldaten. Änderungen kosten hier fast nichts."
-        },
-        {
-          "title": "KI-gestützte Entwicklung",
-          "text": "KI übernimmt Routine-Code, Menschen prüfen Architektur, Sicherheit und Nutzerführung."
-        },
-        {
-          "title": "Schnittstellen",
-          "text": "Anbindung an Kasse, DATEV, CRM, ERP oder Warenwirtschaft – statt Daten doppelt pflegen."
-        },
-        {
-          "title": "Sicherheit & Datenschutz",
-          "text": "EU-Hosting, Rollen & Rechte, Tests und Sicherheits-Checks bei jeder Änderung."
-        },
-        {
-          "title": "Betrieb & Weiterentwicklung",
-          "text": "Monitoring, Updates und jeden Monat neue Funktionen – planbar, ohne neues Großprojekt."
-        }
-      ],
+      "calc": {
+        "title": "Was kostet der Umweg?",
+        "accent": "Rechne mit deinen Zahlen.",
+        "text": "Individualsoftware ist teurer als ein Abo. Billiger als der Umweg ist sie oft trotzdem.",
+        "lines": [
+          {
+            "label": "Lizenzen für fünf Tools",
+            "value": "≈ 450 € im Monat"
+          },
+          {
+            "label": "Doppelte Datenpflege und Kopieren",
+            "value": "10 Stunden je Woche"
+          },
+          {
+            "label": "Interner Stundensatz",
+            "value": "35 €"
+          },
+          {
+            "label": "Zeitkosten pro Monat",
+            "value": "≈ 1.400 €"
+          },
+          {
+            "label": "Summe pro Monat",
+            "value": "≈ 1.850 €"
+          },
+          {
+            "label": "Ein Kernprozess, einmalig",
+            "value": "10.900 €"
+          }
+        ],
+        "resultLabel": "Bezahlt nach",
+        "result": "rund 6 Monaten",
+        "note": "Nicht eingerechnet: Fehler durch Abtippen, Wissen, das an einer Person hängt, und Wachstum, das ohne neue Verwaltungsstellen möglich wird.",
+        "whenNot": "Wenn Standard-Software deinen Ablauf zu 90 Prozent abdeckt, nimm sie – und lass uns höchstens die fehlenden zehn Prozent ergänzen. Individuell lohnt sich nur dort, wo dein Ablauf dich besonders macht oder die Lizenzkosten mit jedem Nutzer steigen."
+      },
+      "industries": {
+        "title": "Jede Branche",
+        "accent": "hat ihren eigenen Kernprozess.",
+        "text": "Wo wir ansetzen, hängt vom Betrieb ab. Sechs Branchen, sechs typische Einstiege:",
+        "items": [
+          {
+            "id": "immobilien",
+            "text": "Mieterportal, Interessenten-Funnel, Bauträger-Plattform mit Käuferportal."
+          },
+          {
+            "id": "handwerk",
+            "text": "Von der Anfrage über Einsatzplanung und Monteur-App bis zur Abnahme."
+          },
+          {
+            "id": "kanzlei",
+            "text": "Mandantenportal mit Checklisten, KI-Belegerkennung und Fristen."
+          },
+          {
+            "id": "automotive",
+            "text": "Vermietung mit Übergabeprotokoll, Fahrschul-App, Bestand mit Lead-Eingang."
+          },
+          {
+            "id": "gastro",
+            "text": "Filialsystem mit zentraler Karte, Catering-Konfigurator, Reporting je Standort."
+          },
+          {
+            "id": "beauty",
+            "text": "Buchung mit Räumen, Serien und Gutscheinen für Praxen und Spas."
+          }
+        ]
+      },
+      "timeline": {
+        "title": "In sechs bis zehn Wochen",
+        "accent": "zum ersten produktiven Prozess.",
+        "text": "Erst verstehen, dann zeigen, dann bauen – so vermeiden wir teure Überraschungen.",
+        "phases": [
+          {
+            "when": "Tag 1",
+            "title": "Workshop",
+            "text": "Wir gehen deinen Ablauf Schritt für Schritt durch und priorisieren nach Zeitgewinn, nicht nach Wunschliste."
+          },
+          {
+            "when": "Tag 7",
+            "title": "Prototyp",
+            "text": "Klickbar, mit Beispieldaten. Änderungen kosten hier fast nichts. Danach steht der Festpreis."
+          },
+          {
+            "when": "Woche 2–8",
+            "title": "Bau in Etappen",
+            "text": "KI übernimmt Routine-Code, Menschen prüfen Architektur und Sicherheit. Du siehst alle ein bis zwei Wochen den Stand."
+          },
+          {
+            "when": "Ab Woche 8",
+            "title": "Produktiv & Ausbau",
+            "text": "Start mit einem Team, dann Rollout. Hosting, Updates und neue Funktionen laufen planbar weiter."
+          }
+        ]
+      },
       "faq": [
         {
           "q": "Was kostet Individualsoftware?",
-          "a": "Ein Kernprozess ab rund 10.900 €, mehrere Prozesse mit Rollen und Schnittstellen ab rund 18.900 €. Den Festpreis nennen wir nach dem Prototyp."
+          "a": "Ein Kernprozess ab rund 10.900 €, mehrere Prozesse mit Rollen und Schnittstellen ab rund 18.900 €, eine Plattform für mehrere Abteilungen ab rund 29.900 €. Den Festpreis nennen wir nach dem Prototyp."
         },
         {
           "q": "Wie lange dauert es?",
           "a": "Ein Kernprozess ist oft nach sechs bis zehn Wochen produktiv. Größere Plattformen entstehen in nutzbaren Etappen."
         },
         {
+          "q": "Warum seid ihr günstiger als klassische Agenturen?",
+          "a": "Wir entwickeln KI-gestützt und setzen auf erprobte Bausteine für Login, Rollen, Uploads und Benachrichtigungen. Du zahlst für deinen Ablauf, nicht für Grundlagen."
+        },
+        {
           "q": "Wem gehört die Software?",
           "a": "Dir. Du bekommst Quellcode, Zugänge und Dokumentation. Wir setzen auf verbreitete Technologien wie Next.js, TypeScript und PostgreSQL."
+        },
+        {
+          "q": "Was, wenn wir später wechseln wollen?",
+          "a": "Weil Code und Daten dir gehören und die Technik verbreitet ist, kann jedes fähige Entwicklerteam übernehmen."
+        },
+        {
+          "q": "Wie sicher ist KI-gestützt entwickelte Software?",
+          "a": "KI schreibt Routine-Code, Menschen prüfen Architektur, Sicherheit und Nutzerführung. Tests und Sicherheits-Checks laufen bei jeder Änderung."
         },
         {
           "q": "Was bedeutet „backed by winsym.ai“?",
           "a": "winsym.ai ist unser Technologiepartner aus Kuala Lumpur für KI-Methodik und Modelle. Beratung, Design und Entwicklung für dich passieren bei uns in Deutschland."
         }
-      ]
+      ],
+      "contact": {
+        "title": "Lass uns über",
+        "accent": "deinen Ablauf sprechen.",
+        "text": "Schreib uns kurz, welcher Ablauf dich am meisten Zeit kostet. Wir melden uns innerhalb von 24 Stunden mit einer ehrlichen Einschätzung – auch wenn die lautet: Dafür gibt es fertige Software."
+      }
     },
     "bestellsystem": {
       "navLabel": "Bestellsystem ohne Provision",
@@ -5943,67 +6149,248 @@
         "Bestellsoftware Gastronomie"
       ],
       "hero": {
-        "badge": "Bestellsystem",
-        "titleStart": "Dein eigenes Bestellsystem.",
-        "titleHighlight": "Null Provision.",
-        "text": "Gäste bestellen direkt auf deiner Website – mit Abholung, Lieferung, Küchen-Board und Online-Zahlung. Du behältst die Marge und die Kundendaten. Live im Einsatz bei der Bäckerei Daron Brot II in Aachen.",
+        "badge": "Bestellsystem ohne Provision",
+        "title": "Dein eigenes Bestellsystem.",
+        "accent": "Null Provision.",
+        "text": "Gäste bestellen direkt auf deiner Website – mit Abholung, Lieferung, Küchen-Board und Online-Zahlung. Du behältst die Marge und die Kundendaten, statt bei jeder Bestellung mitzuzahlen.",
         "imageAlt": "Bestellsystem der Bäckerei Daron Brot II mit Speisekarte und Warenkorb",
-        "stats": [
-          {
-            "value": "0 %",
-            "label": "Provision pro Bestellung"
-          },
+        "facts": [
           {
             "value": "ab 2.900 €",
             "label": "einmalig, Betrieb ab 49 €/Monat"
+          },
+          {
+            "value": "3–4 Wochen",
+            "label": "bis zur ersten Bestellung"
+          },
+          {
+            "value": "0 %",
+            "label": "Provision je Bestellung"
+          }
+        ],
+        "refNote": "Live bei Daron Brot II, Aachen"
+      },
+      "flow": {
+        "title": "Von der Bestellung bis zur Übergabe.",
+        "accent": "Vier Schritte, ein System.",
+        "text": "So läuft eine Bestellung durch dein System – ohne Plattform dazwischen.",
+        "steps": [
+          {
+            "who": "Dein Gast",
+            "title": "Bestellt auf deiner Seite",
+            "text": "Speisekarte mit Varianten und Extras, Warenkorb, Abholung oder Lieferung. Auf dem Handy, ohne App und ohne Registrierung."
+          },
+          {
+            "who": "Zahlung",
+            "title": "Bezahlt direkt an dich",
+            "text": "Karte, PayPal, Apple Pay oder Google Pay über deinen eigenen Zahlungsanbieter. Das Geld landet auf deinem Konto."
+          },
+          {
+            "who": "Deine Küche",
+            "title": "Sieht den Bon sofort",
+            "text": "Die Bestellung erscheint mit Signalton auf dem Küchen-Board. Ein Tipp setzt den Status, der Gast sieht ihn per Link."
+          },
+          {
+            "who": "Du",
+            "title": "Behältst Marge und Daten",
+            "text": "Keine Provision, eigene Gästeliste, Bestseller und Stoßzeiten im Dashboard. Preise und Artikel änderst du selbst."
           }
         ]
       },
-      "problem": {
-        "title": "Plattformen verdienen an deinen besten Gästen.",
-        "text": "Wer einmal über eine Plattform bestellt hat, bestellt dort meist wieder – und jedes Mal wird Provision fällig. Mit einem eigenen System holst du diese Gäste auf deine Seite.",
-        "points": [
-          "Provision auch auf wiederkehrende Bestellungen",
-          "Kundendaten liegen bei der Plattform",
-          "Deine Marke zwischen hundert Konkurrenten",
-          "Keine Treuevorteile, keine eigenen Aktionen"
+      "tiers": {
+        "title": "Drei Stufen.",
+        "accent": "Du zahlst nur, was du brauchst.",
+        "text": "Jede Stufe ist ein fertiges System. Den genauen Umfang legen wir nach dem Prototyp fest – dann gilt ein Festpreis.",
+        "items": {
+          "start": {
+            "name": "Bestellsystem Start",
+            "audience": "Für Abholer, Bäckereien, Imbisse"
+          },
+          "pro": {
+            "name": "Bestellsystem Pro",
+            "audience": "Für Lieferdienste und Restaurants"
+          },
+          "filialen": {
+            "name": "Mehrere Standorte",
+            "audience": "Für Betriebe mit Filialen"
+          }
+        },
+        "rows": [
+          {
+            "label": "Speisekarte mit Varianten & Extras",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Abholung & Lieferung",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Bestell-Dashboard",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Artikel & Preise selbst ändern",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Online-Zahlung",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Küchen-Board mit Signalton",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Liefergebiete & Mindestbestellwert",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Gutscheine & Aktionscodes",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Filialen, Rollen & zentrales Reporting",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Live in",
+            "cells": [
+              "2–3 Wochen",
+              "3–4 Wochen",
+              "5–6 Wochen"
+            ]
+          }
         ]
       },
-      "featuresTitle": "Was dein Bestellsystem kann.",
-      "features": [
-        {
-          "title": "Speisekarte & Warenkorb",
-          "text": "Varianten, Extras, Allergene, Ausverkauft-Schalter – so bequem wie die Plattform-App."
-        },
-        {
-          "title": "Online-Zahlung",
-          "text": "Karte, PayPal, Apple Pay, Google Pay. Das Geld geht direkt an dich."
-        },
-        {
-          "title": "Küchen-Display",
-          "text": "Neue Bestellungen mit Signalton, Status per Fingertipp, Stornos mit Grund."
-        },
-        {
-          "title": "Liefergebiete",
-          "text": "Mindestbestellwert, Liefergebühr und Zeiten pro Gebiet."
-        },
-        {
-          "title": "Status & WhatsApp",
-          "text": "Gäste sehen „in Zubereitung“ und „unterwegs“ – per Link oder WhatsApp."
-        },
-        {
-          "title": "Zahlen & Treue",
-          "text": "Top-Artikel, Umsatz pro Stunde, Gutscheine und Treuevorteile."
-        }
-      ],
+      "calc": {
+        "title": "Rechnet sich das?",
+        "accent": "Rechne mit deinen Zahlen.",
+        "text": "Die Rechnung ist einfach: Was zahlst du heute an Provision für Gäste, die dich längst kennen?",
+        "lines": [
+          {
+            "label": "Plattform-Bestellungen von Stammgästen",
+            "value": "400 im Monat"
+          },
+          {
+            "label": "Durchschnittlicher Bestellwert",
+            "value": "24 €"
+          },
+          {
+            "label": "Provision bei eigener Lieferung",
+            "value": "rund 14 %"
+          },
+          {
+            "label": "Provision pro Monat",
+            "value": "≈ 1.340 €"
+          },
+          {
+            "label": "Bestellsystem Pro, einmalig",
+            "value": "4.900 €"
+          }
+        ],
+        "resultLabel": "Bezahlt nach",
+        "result": "rund 4 Monaten",
+        "note": "Wenn diese Gäste künftig direkt bestellen, bleiben danach rund 16.000 € im Jahr bei dir – abzüglich Betrieb ab 49 € im Monat und der Gebühren deines Zahlungsanbieters.",
+        "whenNot": "Wenn du fast nur Laufkundschaft hast oder gerade erst eröffnest, bringt dir die Plattform mehr als ein eigenes System: Sie liefert Reichweite, die du noch nicht hast. Starte dort, sammle Stammgäste – und komm wieder, wenn die Provision weh tut."
+      },
+      "industries": {
+        "title": "Gebaut für Betriebe,",
+        "accent": "die Stammgäste haben.",
+        "text": "Wo das Bestellsystem heute eingesetzt wird – mit eigenen Anwendungsfällen auf der Branchenseite.",
+        "items": [
+          {
+            "id": "gastro",
+            "text": "Restaurants, Lieferdienste, Bäckereien, Imbisse und Caterer: Direktbestellung, Vorbestellung mit Abholzeit, Filialsystem."
+          },
+          {
+            "id": "beauty",
+            "text": "Salons und Studios verkaufen Gutscheine, Pflegeprodukte und Pakete online – zur Abholung beim nächsten Termin."
+          }
+        ]
+      },
+      "timeline": {
+        "title": "In vier Wochen",
+        "accent": "zur ersten Direktbestellung.",
+        "text": "So läuft ein typisches Projekt – du investierst insgesamt etwa drei bis vier Stunden.",
+        "phases": [
+          {
+            "when": "Tag 1",
+            "title": "Erstgespräch",
+            "text": "Wir schauen auf Karte, Bestellwege und Stoßzeiten und überschlagen, ob sich ein eigenes System für dich rechnet."
+          },
+          {
+            "when": "Tag 7",
+            "title": "Prototyp",
+            "text": "Du klickst dich durch dein Bestellsystem – mit deiner Karte und deinem Logo. Danach steht der Festpreis."
+          },
+          {
+            "when": "Woche 2–3",
+            "title": "Bau & Einrichtung",
+            "text": "Zahlung, Küchen-Board, Liefergebiete. Du siehst jede Woche den Stand und testest selbst."
+          },
+          {
+            "when": "Woche 4",
+            "title": "Live",
+            "text": "Start an einem ruhigen Tag, Schulung in 30 Minuten, QR-Codes und Flyer-Vorlage für jede Tüte."
+          }
+        ]
+      },
       "faq": [
         {
+          "q": "Was kostet ein eigenes Bestellsystem?",
+          "a": "Ab 2.900 € einmalig für den Start, mit Online-Zahlung, Küchen-Board und Liefergebieten ab 4.900 €, für mehrere Standorte ab 7.900 €. Der Betrieb kostet ab 49 € im Monat."
+        },
+        {
           "q": "Ab wann rechnet sich ein eigenes System?",
-          "a": "Wenn ein spürbarer Teil deines Plattform-Umsatzes von Stammgästen kommt. Die Rechnung dazu steht in unserem Ratgeber."
+          "a": "Wenn ein spürbarer Teil deines Plattform-Umsatzes von Stammgästen kommt. Die Beispielrechnung oben zeigt die Logik; mit deinen Zahlen rechnen wir es im Erstgespräch durch."
         },
         {
           "q": "Wie kommen die Gäste auf mein System?",
           "a": "Flyer mit QR-Code in jeder Tüte, Bestell-Button im Google-Profil, Treuevorteil für Direktbestellungen."
+        },
+        {
+          "q": "Muss ich die Plattform kündigen?",
+          "a": "Nein. Die meisten Betriebe fahren zweigleisig: Plattform für neue Gäste, eigenes System für alle, die wiederkommen."
+        },
+        {
+          "q": "Lässt sich meine Kasse anbinden?",
+          "a": "Wenn dein Kassensystem eine Schnittstelle bietet, ja. Sonst läuft die Übergabe über Bon-Drucker oder Export. Das klären wir vor dem Angebot."
         },
         {
           "q": "Funktioniert das auch für Bäckereien und Imbisse?",
@@ -6013,7 +6400,12 @@
           "q": "Wem gehören die Daten?",
           "a": "Dir. Die Datenbank liegt in der EU, auf Wunsch bekommst du den kompletten Quellcode."
         }
-      ]
+      ],
+      "contact": {
+        "title": "Lass uns über",
+        "accent": "dein Bestellsystem sprechen.",
+        "text": "Schreib uns kurz, wie heute bei dir bestellt wird und über welche Plattformen. Wir melden uns innerhalb von 24 Stunden mit einer ehrlichen Einschätzung."
+      }
     },
     "buchungssystem": {
       "navLabel": "Online-Buchungssystem",
@@ -6028,60 +6420,245 @@
         "Buchungssystem ohne Provision"
       ],
       "hero": {
-        "badge": "Buchungssystem",
-        "titleStart": "Termine buchen sich",
-        "titleHighlight": "jetzt selbst.",
-        "text": "Eigene Online-Terminbuchung mit Kalender, Mitarbeiter-Auswahl, Erinnerungen und Anzahlung – für Salons, Praxen, Studios, Werkstätten, Kanzleien und Coaches. Live im Einsatz beim OMED Friseursalon in Aachen.",
+        "badge": "Online-Buchungssystem",
+        "title": "Termine buchen sich",
+        "accent": "jetzt selbst.",
+        "text": "Eigene Online-Terminbuchung mit Kalender, Mitarbeiter-Auswahl, Erinnerungen und Anzahlung – für Salons, Praxen, Studios, Werkstätten, Kanzleien und Coaches. Einmal bauen, dir gehört es.",
         "imageAlt": "Website des OMED Friseursalons mit mehrstufiger Online-Buchung",
-        "stats": [
-          {
-            "value": "24/7",
-            "label": "buchbar – auch nach Feierabend"
-          },
+        "facts": [
           {
             "value": "ab 2.200 €",
-            "label": "einmalig statt Abo pro Kalender"
+            "label": "einmalig statt Abo je Kalender"
+          },
+          {
+            "value": "2–4 Wochen",
+            "label": "bis zur ersten Buchung"
+          },
+          {
+            "value": "24/7",
+            "label": "buchbar, auch nach Feierabend"
+          }
+        ],
+        "refNote": "Live beim OMED Friseursalon, Aachen"
+      },
+      "flow": {
+        "title": "Vom Klick zum festen Termin.",
+        "accent": "Ohne ein Telefonat.",
+        "text": "So läuft eine Buchung durch dein System.",
+        "steps": [
+          {
+            "who": "Dein Kunde",
+            "title": "Wählt Leistung und Zeit",
+            "text": "Leistung, Mitarbeiter, Zeitfenster – in drei Schritten auf dem Handy, ohne Konto-Zwang."
+          },
+          {
+            "who": "System",
+            "title": "Prüft Kalender und Team",
+            "text": "Öffnungszeiten, Pausen, Urlaub, Räume und Vorlauf werden abgeglichen. Doppelbuchungen sind auf Datenbank-Ebene ausgeschlossen."
+          },
+          {
+            "who": "Dein Kunde",
+            "title": "Wird bestätigt und erinnert",
+            "text": "Bestätigung sofort, Erinnerung am Vortag, Absage oder Verschieben per Link. Auf Wunsch mit Anzahlung."
+          },
+          {
+            "who": "Du",
+            "title": "Arbeitest, statt zu telefonieren",
+            "text": "Der Kalender füllt sich von selbst, Ausfälle sinken, und die Kundendaten liegen bei dir – nicht bei einer Plattform."
           }
         ]
       },
-      "problem": {
-        "title": "Jeder Anruf unterbricht die eigentliche Arbeit.",
-        "text": "Termine per Telefon kosten Zeit, führen zu Missverständnissen und blockieren den Ablauf. Buchungsplattformen lösen das – gegen laufende Gebühren und mit deinen Kundendaten auf fremden Servern.",
-        "points": [
-          "Telefon klingelt während der Behandlung",
-          "No-Shows ohne Erinnerung oder Anzahlung",
-          "Laufende Gebühren pro Kalender oder Buchung",
-          "Kundendaten beim Plattform-Anbieter"
+      "tiers": {
+        "title": "Drei Stufen.",
+        "accent": "Vom Solo-Betrieb bis zum Team.",
+        "text": "Jede Stufe ist ein fertiges System. Den genauen Umfang legen wir nach dem Prototyp fest – dann gilt ein Festpreis.",
+        "items": {
+          "start": {
+            "name": "Buchung Start",
+            "audience": "Für Solo-Betriebe und kleine Teams"
+          },
+          "pro": {
+            "name": "Buchung Pro",
+            "audience": "Für Betriebe mit teuren oder langen Terminen"
+          },
+          "team": {
+            "name": "Team & Standorte",
+            "audience": "Für Praxen, Werkstätten, Filialen"
+          }
+        },
+        "rows": [
+          {
+            "label": "Leistungen mit Dauer & Preis",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Kalender mit Mitarbeiter-Auswahl",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Bestätigung per Mail & WhatsApp",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Doppelbuchungs-Schutz",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Kundenkonto",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Anzahlung & Stornoregeln",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Erinnerungen & Warteliste",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Räume, Geräte & Standorte",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Schichtplan & Urlaub",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Live in",
+            "cells": [
+              "2–3 Wochen",
+              "3–4 Wochen",
+              "5–6 Wochen"
+            ]
+          }
         ]
       },
-      "featuresTitle": "Was dein Buchungssystem kann.",
-      "features": [
-        {
-          "title": "Kalender in Echtzeit",
-          "text": "Freie Zeiten abgeglichen mit Öffnungszeiten, Pausen, Urlaub und Vorlauf."
-        },
-        {
-          "title": "Doppelbuchungs-Schutz",
-          "text": "Zwei Termine zur selben Zeit sind auf Datenbank-Ebene ausgeschlossen."
-        },
-        {
-          "title": "Bestätigung & Erinnerung",
-          "text": "Per Mail oder WhatsApp, mit Link zum Verschieben oder Absagen."
-        },
-        {
-          "title": "Anzahlung",
-          "text": "Für lange oder teure Termine online, mit klarer Ausfallregel."
-        },
-        {
-          "title": "Team & Räume",
-          "text": "Mehrere Mitarbeiter, Räume, Geräte und Standorte in einem Kalender."
-        },
-        {
-          "title": "Auswertung",
-          "text": "Auslastung, No-Show-Quote und Umsatz pro Termin im Dashboard."
-        }
-      ],
+      "calc": {
+        "title": "Was kostet ein leerer Termin?",
+        "accent": "Rechne mit deinen Zahlen.",
+        "text": "Ausgefallene Termine sind der teuerste Posten, den niemand aufschreibt.",
+        "lines": [
+          {
+            "label": "Ausgefallene Termine pro Woche",
+            "value": "6"
+          },
+          {
+            "label": "Durchschnittlicher Terminwert",
+            "value": "45 €"
+          },
+          {
+            "label": "Ausfall pro Monat",
+            "value": "≈ 1.080 €"
+          },
+          {
+            "label": "Annahme: Erinnerung & Anzahlung halbieren die Ausfälle",
+            "value": "≈ 540 € im Monat"
+          },
+          {
+            "label": "Buchung Pro, einmalig",
+            "value": "3.900 €"
+          }
+        ],
+        "resultLabel": "Bezahlt nach",
+        "result": "rund 7 Monaten",
+        "note": "Nicht eingerechnet: die Zeit, die heute am Telefon verloren geht, und Buchungen, die abends und am Wochenende dazukommen.",
+        "whenNot": "Wenn du allein arbeitest, wenige Termine am Tag hast und kaum jemand ausfällt, reicht ein günstiges Kalender-Abo. Ein eigenes System lohnt sich, sobald mehrere Mitarbeitende, Räume oder Anzahlungen im Spiel sind – oder die Abo-Kosten mit jedem Kalender steigen."
+      },
+      "industries": {
+        "title": "Ein Kalender,",
+        "accent": "viele Branchen.",
+        "text": "Die Buchung passt sich an: Stühle, Bühnen, Räume oder Fahrlehrer – die Logik dahinter ist dieselbe.",
+        "items": [
+          {
+            "id": "beauty",
+            "text": "Friseure, Kosmetik, Physio, Studios und Spas: Mitarbeiter-Auswahl, Anzahlung, Serien, Kurse, Gutscheine."
+          },
+          {
+            "id": "automotive",
+            "text": "Werkstatt-Termine nach Bühne und Dauer, Probefahrten, Fahrstunden, Saison-Einladungen für den Reifenwechsel."
+          },
+          {
+            "id": "kanzlei",
+            "text": "Erstgespräche mit Vorab-Fragebogen für Kanzleien, Berater und Coaches."
+          },
+          {
+            "id": "gastro",
+            "text": "Tischreservierung mit Tischplan, Erinnerung und Anzahlung für Gruppen."
+          },
+          {
+            "id": "handwerk",
+            "text": "Wartungs- und Vor-Ort-Termine per Link vereinbaren, statt jeden Kunden anzurufen."
+          }
+        ]
+      },
+      "timeline": {
+        "title": "In zwei bis vier Wochen",
+        "accent": "zum vollen Kalender.",
+        "text": "So läuft ein typisches Projekt – inklusive Umzug deiner bestehenden Termine.",
+        "phases": [
+          {
+            "when": "Tag 1",
+            "title": "Erstgespräch",
+            "text": "Leistungen, Zeiten, Team und Ausfälle: Wir klären, welche Stufe passt – oder ob ein Abo für dich reicht."
+          },
+          {
+            "when": "Tag 7",
+            "title": "Prototyp",
+            "text": "Du buchst testweise einen Termin in deinem eigenen System. Danach steht der Festpreis."
+          },
+          {
+            "when": "Woche 2–3",
+            "title": "Bau & Umzug",
+            "text": "Kalender, Erinnerungen, Zahlung. Bestehende Termine übernehmen wir, soweit dein alter Anbieter das erlaubt."
+          },
+          {
+            "when": "Woche 3–4",
+            "title": "Live",
+            "text": "Buchen-Button für Website, Google und Instagram, Schulung in 30 Minuten."
+          }
+        ]
+      },
       "faq": [
+        {
+          "q": "Was kostet das?",
+          "a": "Buchung Start ab 2.200 €, Pro mit Kundenkonto, Anzahlung und Warteliste ab 3.900 €, Team & Standorte ab 6.400 €. Der Betrieb kostet ab 49 € im Monat."
+        },
         {
           "q": "Lässt sich das in meine bestehende Website einbauen?",
           "a": "Ja. Entweder als Teil einer neuen Website oder als eigene Buchungsseite, die du verlinkst."
@@ -6091,14 +6668,27 @@
           "a": "Natürlich. Telefonbuchungen trägst du im selben Kalender ein – so gibt es nur eine Wahrheit."
         },
         {
-          "q": "Was kostet das?",
-          "a": "Buchung Start ab 2.200 €, Pro mit Kundenkonto, Anzahlung und Warteliste ab 3.900 €, Team & Standorte ab 6.400 €."
+          "q": "Wie schnell ist es live?",
+          "a": "Meist nach zwei bis vier Wochen, den Prototyp siehst du nach etwa sieben Tagen."
         },
         {
-          "q": "Wie schnell ist es live?",
-          "a": "Meist nach drei bis vier Wochen, den Prototyp siehst du nach etwa sieben Tagen."
+          "q": "Was passiert mit meinen bestehenden Terminen?",
+          "a": "Wir übernehmen sie per Export aus dem alten System, soweit der Anbieter das erlaubt, und planen den Umzug ohne Tag ohne Buchungsmöglichkeit."
+        },
+        {
+          "q": "Müssen Kunden ein Konto anlegen?",
+          "a": "Nein. Gebucht wird ohne Konto. Wer eines möchte, sieht dort Termine, Guthaben und Gutscheine."
+        },
+        {
+          "q": "Synchronisiert das mit meinem Kalender?",
+          "a": "Ja, mit Google- und Outlook-Kalender. Private Termine blockieren automatisch die passenden Zeiten."
         }
-      ]
+      ],
+      "contact": {
+        "title": "Lass uns über",
+        "accent": "deine Termine sprechen.",
+        "text": "Schreib uns kurz, wie heute bei dir gebucht wird und wie viele Termine ausfallen. Wir melden uns innerhalb von 24 Stunden mit einer ehrlichen Einschätzung."
+      }
     },
     "webapp": {
       "navLabel": "Web-Apps & Kundenportale",
@@ -6113,59 +6703,232 @@
         "Web-App Entwicklung"
       ],
       "hero": {
-        "badge": "Web-Apps & Portale",
-        "titleStart": "Dein Service in der Hosentasche",
-        "titleHighlight": "deiner Kunden.",
-        "text": "Kundenportale, interne Tools und Apps – im Browser, auf dem Homescreen oder im App Store. Mit Login, Dokumenten, Status, Push-Nachrichten und mehreren Sprachen. Beispiel: die Web-App Antragsbruder.",
+        "badge": "Web-Apps & Kundenportale",
+        "title": "Dein Service in der Hosentasche",
+        "accent": "deiner Kunden.",
+        "text": "Kundenportale, interne Tools und Apps – im Browser, auf dem Homescreen oder im App Store. Mit Login, Dokumenten, Status und Push-Nachrichten, damit niemand mehr anrufen muss, um nachzufragen.",
         "imageAlt": "Web-App Antragsbruder mit Upload und verständlicher Erklärung von Behördenbriefen",
-        "stats": [
-          {
-            "value": "9 Sprachen",
-            "label": "in der Antragsbruder-Web-App"
-          },
+        "facts": [
           {
             "value": "ab 3.900 €",
             "label": "als Web-App für den Homescreen"
+          },
+          {
+            "value": "4–8 Wochen",
+            "label": "bis zum Start"
+          },
+          {
+            "value": "iOS & Android",
+            "label": "ohne App-Store-Freigabe"
+          }
+        ],
+        "refNote": "Beispiel: Antragsbruder, live in 9 Sprachen"
+      },
+      "flow": {
+        "title": "Vom Login bis zum erledigten Vorgang.",
+        "accent": "Alles an einem Ort.",
+        "text": "So arbeitet ein Kunde mit deinem Portal – und dein Team im Hintergrund.",
+        "steps": [
+          {
+            "who": "Dein Kunde",
+            "title": "Meldet sich an",
+            "text": "Per Link, Code oder Passwort – im Browser oder als App auf dem Homescreen. Jeder sieht nur seine eigenen Daten."
+          },
+          {
+            "who": "Dein Kunde",
+            "title": "Lädt hoch und sieht den Stand",
+            "text": "Unterlagen per Handyfoto, Checkliste zeigt, was fehlt. Der Status des Vorgangs ist jederzeit sichtbar."
+          },
+          {
+            "who": "Dein Team",
+            "title": "Bearbeitet im selben Vorgang",
+            "text": "Rückfragen, Freigaben und Dokumente hängen am Vorgang. Der Kunde bekommt eine Push-Nachricht, sobald sich etwas tut."
+          },
+          {
+            "who": "Du",
+            "title": "Hast Ruhe am Telefon",
+            "text": "Statusfragen erledigen sich von selbst, Unterlagen kommen vollständig, und alles ist nachvollziehbar protokolliert."
           }
         ]
       },
-      "problem": {
-        "title": "Deine Kunden fragen nach dem Status. Jeden Tag.",
-        "text": "Wo steht mein Auftrag? Hast du meine Unterlagen? Wann ist der nächste Termin? Solche Fragen landen per Mail und Telefon bei deinem Team – obwohl die Antwort längst im System steht.",
-        "points": [
-          "Status-Nachfragen per Telefon und Mail",
-          "Dokumente per Mail hin und her",
-          "Mitarbeiter unterwegs ohne Zugriff",
-          "App-Wunsch, aber Angst vor Kosten und Store"
+      "tiers": {
+        "title": "Drei Stufen.",
+        "accent": "Von der App bis zum Portal mit Workflows.",
+        "text": "Jede Stufe baut auf der vorigen auf. Den genauen Umfang legen wir nach dem Prototyp fest – dann gilt ein Festpreis.",
+        "items": {
+          "pwa": {
+            "name": "Web-App",
+            "audience": "Für Buchung, Infos und einfache Abläufe"
+          },
+          "portal": {
+            "name": "Kundenportal",
+            "audience": "Für Dokumente, Status und Nachrichten"
+          },
+          "workflows": {
+            "name": "Portal mit Workflows",
+            "audience": "Für Abläufe mit Freigaben und Rollen"
+          }
+        },
+        "rows": [
+          {
+            "label": "Login & Kundenkonto",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "App auf dem Homescreen, iOS & Android",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Push-Nachrichten",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Dokumente & Upload mit Checkliste",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Status & Nachrichten am Vorgang",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Rollen & Rechte",
+            "cells": [
+              "Kunde",
+              "Kunde & Team",
+              "frei definierbar"
+            ]
+          },
+          {
+            "label": "Formulare & Freigaben",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Automationen & Erinnerungen",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Live in",
+            "cells": [
+              "3–4 Wochen",
+              "5–6 Wochen",
+              "6–8 Wochen"
+            ]
+          }
         ]
       },
-      "featuresTitle": "Was deine Web-App kann.",
-      "features": [
-        {
-          "title": "Login & Rollen",
-          "text": "Kunden, Mitarbeiter und Partner sehen nur, was sie sehen sollen."
-        },
-        {
-          "title": "Dokumente & Upload",
-          "text": "Unterlagen sicher hochladen, Checklisten, Versionen und Freigaben."
-        },
-        {
-          "title": "App ohne Store",
-          "text": "Als Progressive Web App auf den Homescreen – mit Push-Nachrichten, iOS und Android."
-        },
-        {
-          "title": "Mehrsprachig",
-          "text": "Oberfläche und Inhalte in mehreren Sprachen – wichtig für diverse Zielgruppen."
-        },
-        {
-          "title": "Schnittstellen",
-          "text": "Anbindung an CRM, ERP, Buchhaltung oder bestehende Datenbanken."
-        },
-        {
-          "title": "Schnell & sicher",
-          "text": "Ladezeiten unter einer Sekunde, EU-Hosting, Tests bei jeder Änderung."
-        }
-      ],
+      "calc": {
+        "title": "Was kosten Status-Nachfragen?",
+        "accent": "Rechne mit deinen Zahlen.",
+        "text": "Jede Nachfrage ist klein. In der Summe ist es ein halber Arbeitsplatz.",
+        "lines": [
+          {
+            "label": "Status-Nachfragen pro Tag",
+            "value": "15"
+          },
+          {
+            "label": "Minuten je Nachfrage, inklusive Suchen",
+            "value": "6"
+          },
+          {
+            "label": "Zeit pro Monat",
+            "value": "≈ 30 Stunden"
+          },
+          {
+            "label": "Interner Stundensatz",
+            "value": "35 €"
+          },
+          {
+            "label": "Kosten pro Monat",
+            "value": "≈ 1.050 €"
+          },
+          {
+            "label": "Kundenportal, einmalig",
+            "value": "7.400 €"
+          }
+        ],
+        "resultLabel": "Bezahlt nach",
+        "result": "rund 7 Monaten",
+        "note": "Nicht eingerechnet: Unterlagen, die vollständig ankommen, und Kunden, die abends um zehn selbst nachsehen statt morgens anzurufen.",
+        "whenNot": "Wenn du wenige Kunden hast und jeder Vorgang anders ist, hilft ein Portal kaum – dann ist das persönliche Gespräch dein Vorteil. Und wenn eine App nur gewünscht wird, weil »man eine haben sollte«, raten wir davon ab."
+      },
+      "industries": {
+        "title": "Ein Portal,",
+        "accent": "viele Einsatzorte.",
+        "text": "Wo Kunden, Mieter oder Mandanten regelmäßig nachfragen, rechnet sich ein Portal am schnellsten.",
+        "items": [
+          {
+            "id": "immobilien",
+            "text": "Mieter- und Eigentümerportal mit Schadensmeldung, Dokumenten und Reporting."
+          },
+          {
+            "id": "kanzlei",
+            "text": "Mandantenportal mit Beleg-Upload, Checklisten, Fristen und Rückfragen am Vorgang."
+          },
+          {
+            "id": "automotive",
+            "text": "Schüler-App für Fahrschulen, Auftragsstatus für Werkstätten, Übergabeprotokolle für Vermieter."
+          },
+          {
+            "id": "handwerk",
+            "text": "Monteur-App mit Offline-Speicher und Kundenzugang für Nachweise und Meldungen."
+          }
+        ]
+      },
+      "timeline": {
+        "title": "In vier bis acht Wochen",
+        "accent": "zum laufenden Portal.",
+        "text": "Wir starten mit einer Pilotgruppe und rollen aus, sobald es im Alltag trägt.",
+        "phases": [
+          {
+            "when": "Tag 1",
+            "title": "Erstgespräch",
+            "text": "Wir gehen einen typischen Vorgang durch: Wer fragt was, wer liefert was, wo hakt es?"
+          },
+          {
+            "when": "Tag 7",
+            "title": "Prototyp",
+            "text": "Du klickst dich als Kunde und als Mitarbeiter durch dein Portal. Danach steht der Festpreis."
+          },
+          {
+            "when": "Woche 2–6",
+            "title": "Bau in Etappen",
+            "text": "Login, Dokumente, Status, dann Workflows. Jede Etappe ist nutzbar, du siehst alle ein bis zwei Wochen den Stand."
+          },
+          {
+            "when": "Ab Woche 6",
+            "title": "Pilot & Rollout",
+            "text": "Start mit zehn Kunden, Anpassungen aus dem Alltag, dann alle übrigen."
+          }
+        ]
+      },
       "faq": [
         {
           "q": "Web-App oder native App?",
@@ -6173,23 +6936,40 @@
         },
         {
           "q": "Was kostet ein Kundenportal?",
-          "a": "Ab rund 7.400 € für Login, Dokumente, Status und Nachrichten, mit Workflows und Freigaben ab rund 12.900 €."
+          "a": "Eine Web-App für den Homescreen ab rund 3.900 €, ein Kundenportal mit Login, Dokumenten, Status und Nachrichten ab rund 7.400 €, mit Workflows und Freigaben ab rund 12.900 €."
+        },
+        {
+          "q": "Was kostet eine native App?",
+          "a": "Ab rund 9.900 € für App Store und Google Play, mit Offline-Funktion und Push. Meist starten wir mit der Web-App und entscheiden später."
         },
         {
           "q": "Kann daraus später eine native App werden?",
           "a": "Ja. Datenbank, Schnittstellen und Logik bleiben – neu entsteht vor allem die Oberfläche."
         },
         {
+          "q": "Lässt sich unsere bestehende Software anbinden?",
+          "a": "Wenn sie eine Schnittstelle oder einen Export bietet, ja. Was genau geht, prüfen wir vor dem Angebot."
+        },
+        {
+          "q": "Wo liegen die Daten?",
+          "a": "In einer Datenbank in der EU, verschlüsselt, mit Rollen, Rechten und Protokoll."
+        },
+        {
           "q": "Gehört die App mir?",
           "a": "Ja, inklusive Quellcode und Store-Konten."
         }
-      ]
+      ],
+      "contact": {
+        "title": "Lass uns über",
+        "accent": "dein Portal sprechen.",
+        "text": "Schreib uns kurz, wonach deine Kunden am häufigsten fragen. Wir melden uns innerhalb von 24 Stunden mit einer ehrlichen Einschätzung – auch wenn die lautet: Dafür braucht es keine App."
+      }
     },
     "dashboard": {
       "navLabel": "Dashboards & Reporting",
       "keyword": "Dashboard-Entwicklung",
       "metaTitle": "Unternehmens-Dashboard entwickeln lassen – alle Zahlen an einem Ort",
-      "metaDescription": "Dashboards für KMU: Umsatz, Anfragen, Auslastung, offene Posten aus Kasse, CRM und Buchhaltung – in Echtzeit oder als Wochen-Report. Ab 4.900 €.",
+      "metaDescription": "Dashboards für KMU: Umsatz, Anfragen, Auslastung, offene Posten aus Kasse, CRM und Buchhaltung – in Echtzeit oder als Wochen-Report. Wochen-Report ab 890 €, Dashboard ab 4.900 €.",
       "keywords": [
         "Dashboard erstellen lassen",
         "KPI Dashboard",
@@ -6199,76 +6979,303 @@
       ],
       "hero": {
         "badge": "Dashboards & Reporting",
-        "titleStart": "Alle Zahlen an einem Ort.",
-        "titleHighlight": "Endlich.",
-        "text": "Umsatz, Anfragen, Auslastung und offene Posten aus Kasse, CRM, Kalender und Buchhaltung – als Live-Dashboard oder Montags-Report mit KI-Zusammenfassung. Für Inhaber:innen, die entscheiden statt suchen wollen.",
-        "imageAlt": "Beispiel eines Systems mit Bestell-Dashboard",
-        "stats": [
+        "title": "Alle Zahlen an einem Ort.",
+        "accent": "Endlich.",
+        "text": "Umsatz, Anfragen, Auslastung und offene Posten aus Kasse, CRM, Kalender und Buchhaltung – als Live-Dashboard oder Montags-Report mit KI-Einordnung. Für Inhaberinnen und Inhaber, die entscheiden wollen, statt zu suchen.",
+        "imageAlt": "Beispielansicht eines Wochen-Überblicks mit Umsatz, offenen Posten, Anfragen und Auslastung",
+        "facts": [
+          {
+            "value": "ab 890 €",
+            "label": "als Wochen-Report"
+          },
+          {
+            "value": "3–4 Wochen",
+            "label": "bis zum Live-Dashboard"
+          },
           {
             "value": "5–8",
             "label": "Kennzahlen, die wirklich zählen"
+          }
+        ],
+        "mockUrl": "dein-betrieb.de/dashboard",
+        "mock": {
+          "title": "Wochen-Überblick · Montag, 7:00",
+          "rows": [
+            {
+              "label": "Umsatz KW 12",
+              "meta": "Vorwoche 17.900 €",
+              "status": "18.420 €",
+              "tone": "good"
+            },
+            {
+              "label": "Offene Posten",
+              "meta": "7 Rechnungen · 2 überfällig",
+              "status": "4.310 €",
+              "tone": "warn"
+            },
+            {
+              "label": "Anfragen",
+              "meta": "davon 9 qualifiziert",
+              "status": "23",
+              "tone": "brand"
+            },
+            {
+              "label": "Auslastung",
+              "meta": "Ziel 80 %",
+              "status": "86 %",
+              "tone": "good"
+            }
+          ]
+        }
+      },
+      "flow": {
+        "title": "Von fünf Tools zu einer Antwort.",
+        "accent": "Jeden Morgen.",
+        "text": "So werden aus verstreuten Daten Entscheidungen.",
+        "steps": [
+          {
+            "who": "Deine Tools",
+            "title": "Liefern die Daten",
+            "text": "Kasse, Buchhaltung, CRM, Kalender, Google oder eigene Systeme – automatisch, per Schnittstelle oder Export."
           },
           {
-            "value": "Mo 7:00",
-            "label": "Wochen-Report im Postfach"
+            "who": "System",
+            "title": "Gleicht ab und rechnet",
+            "text": "Daten werden zusammengeführt, bereinigt und zu den fünf bis acht Kennzahlen verdichtet, die wir im Workshop festlegen."
+          },
+          {
+            "who": "Du",
+            "title": "Siehst, worauf es ankommt",
+            "text": "Auf einem Bildschirm, auch am Handy. Montags kommt eine Einordnung in drei Sätzen, bei Ausreißern sofort ein Alarm."
+          },
+          {
+            "who": "Dein Team",
+            "title": "Entscheidet mit Zahlen",
+            "text": "Jede Rolle sieht ihren Bereich und ihre Ziele. Besprechungen starten mit denselben Zahlen – nicht mit der Suche danach."
           }
         ]
       },
-      "problem": {
-        "title": "Du hast kein Datenproblem. Du hast ein Sammelproblem.",
-        "text": "Die Zahlen sind da – verteilt auf Kasse, Buchhaltung, Kalender, Postfach und Google. Bis du sie zusammen hast, ist die Entscheidung schon gefallen. Aus dem Bauch.",
-        "points": [
-          "Zahlen in fünf Tools verteilt",
-          "Monatsauswertung dauert Tage",
-          "Keine Warnung, wenn etwas kippt",
-          "Team sieht nicht, worauf es ankommt"
+      "tiers": {
+        "title": "Drei Stufen.",
+        "accent": "Vom Montags-Report zum Echtzeit-Dashboard.",
+        "text": "Starte klein und bau aus. Den genauen Umfang legen wir nach dem Kennzahlen-Workshop fest – dann gilt ein Festpreis.",
+        "items": {
+          "report": {
+            "name": "Wochen-Report",
+            "audience": "Für den schnellen Überblick"
+          },
+          "dashboard": {
+            "name": "Dashboard",
+            "audience": "Für tägliche Steuerung"
+          },
+          "pro": {
+            "name": "Dashboard Pro",
+            "audience": "Für Teams und mehrere Bereiche"
+          }
+        },
+        "rows": [
+          {
+            "label": "Kennzahlen-Workshop",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Datenquellen",
+            "cells": [
+              "bis 3",
+              "2–3",
+              "nach Bedarf"
+            ]
+          },
+          {
+            "label": "Report per Mail mit KI-Einordnung",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Live-Dashboard im Browser",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Mobil, als App auf dem Homescreen",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Aktualität",
+            "cells": [
+              "wöchentlich",
+              "täglich",
+              "Echtzeit"
+            ]
+          },
+          {
+            "label": "Rollen je Bereich",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Alarme bei Ausreißern",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Prognosen",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Live in",
+            "cells": [
+              "1–2 Wochen",
+              "3–4 Wochen",
+              "5–6 Wochen"
+            ]
+          }
         ]
       },
-      "featuresTitle": "Was dein Dashboard kann.",
-      "features": [
-        {
-          "title": "Kennzahlen mit Frage",
-          "text": "Jede Zahl beantwortet eine Frage, die zu einer Entscheidung führt."
-        },
-        {
-          "title": "Datenquellen verbinden",
-          "text": "Kasse, Buchhaltung, CRM, Kalender, Google, eigene Systeme – automatisch."
-        },
-        {
-          "title": "Echtzeit & Alarme",
-          "text": "Warnung per Mail, Push oder WhatsApp, wenn Auslastung oder Zahlungen kippen."
-        },
-        {
-          "title": "Rollen",
-          "text": "Inhaber sieht alles, Teamleitung ihren Bereich, Mitarbeiter ihre Ziele."
-        },
-        {
-          "title": "KI-Zusammenfassung",
-          "text": "Drei Sätze Einordnung jeden Montag – was lief gut, wo musst du hinschauen."
-        },
-        {
-          "title": "Auch mobil",
-          "text": "Alle Zahlen auf dem Handy, als App auf dem Homescreen."
-        }
-      ],
+      "calc": {
+        "title": "Was kostet das Zusammensuchen?",
+        "accent": "Rechne mit deinen Zahlen.",
+        "text": "Die Zahlen sind da. Teuer ist die Zeit, bis sie auf einem Blatt stehen.",
+        "lines": [
+          {
+            "label": "Monatsauswertung von Hand",
+            "value": "2 Tage"
+          },
+          {
+            "label": "Wochenzahlen zusammensuchen",
+            "value": "2 Stunden je Woche"
+          },
+          {
+            "label": "Zeit pro Monat",
+            "value": "≈ 24 Stunden"
+          },
+          {
+            "label": "Wert einer Inhaberstunde",
+            "value": "60 €"
+          },
+          {
+            "label": "Kosten pro Monat",
+            "value": "≈ 1.440 €"
+          },
+          {
+            "label": "Dashboard, einmalig",
+            "value": "4.900 €"
+          }
+        ],
+        "resultLabel": "Bezahlt nach",
+        "result": "3 bis 4 Monaten",
+        "note": "Nicht eingerechnet: Entscheidungen, die du früher triffst, weil du am Dienstag siehst, was sonst erst im Monatsabschluss auffällt.",
+        "whenNot": "Wenn deine Zahlen aus einer einzigen Quelle kommen, reicht deren eingebaute Auswertung. Und für reine Marketing-Daten ist ein fertiges BI-Tool oft die bessere Wahl. Ein eigenes Dashboard lohnt sich, sobald Kasse, eigene Software und Buchhaltung zusammenkommen – oder Rollen und Rechte nötig sind."
+      },
+      "industries": {
+        "title": "Jede Branche",
+        "accent": "hat ihre eigenen Kennzahlen.",
+        "text": "Welche Zahlen zählen, legen wir gemeinsam fest. Ein paar typische Beispiele:",
+        "items": [
+          {
+            "id": "gastro",
+            "text": "Umsatz je Stunde, Bestseller, Warenkorbwert, Direktbestell-Anteil – je Filiale."
+          },
+          {
+            "id": "immobilien",
+            "text": "Leerstand, Mieteingänge, offene Vorgänge, Fristen – je Objekt und Eigentümer."
+          },
+          {
+            "id": "handwerk",
+            "text": "Angebotsquote, Auslastung je Team, Nachkalkulation, abgenommen aber nicht berechnet."
+          },
+          {
+            "id": "beauty",
+            "text": "Auslastung je Mitarbeiter, Ausfallquote, schwache Zeiten, neue Bewertungen."
+          }
+        ]
+      },
+      "timeline": {
+        "title": "In drei bis vier Wochen",
+        "accent": "zum ersten Dashboard.",
+        "text": "Der wichtigste Schritt ist der erste: die richtigen Fragen.",
+        "phases": [
+          {
+            "when": "Tag 1",
+            "title": "Kennzahlen-Workshop",
+            "text": "Welche Entscheidung triffst du jede Woche – und welche Zahl brauchst du dafür? Wir kürzen auf fünf bis acht."
+          },
+          {
+            "when": "Tag 7",
+            "title": "Prototyp",
+            "text": "Dein Dashboard mit Beispieldaten, klickbar. Danach steht der Festpreis."
+          },
+          {
+            "when": "Woche 2–3",
+            "title": "Quellen anbinden",
+            "text": "Kasse, Buchhaltung, Kalender. Wir prüfen jede Zahl gegen deine bisherigen Auswertungen."
+          },
+          {
+            "when": "Woche 4",
+            "title": "Live",
+            "text": "Dashboard für dich und dein Team, der erste Montags-Report im Postfach."
+          }
+        ]
+      },
       "faq": [
-        {
-          "q": "Reicht nicht ein fertiges BI-Tool?",
-          "a": "Für Marketing-Daten oft ja. Sobald Kasse, eigene Software und Buchhaltung zusammenkommen oder Rechte nötig sind, lohnt sich ein eigenes Dashboard."
-        },
         {
           "q": "Was kostet ein Dashboard?",
           "a": "Wochen-Report ab 890 €, Dashboard ab rund 4.900 €, Dashboard Pro mit Echtzeit, Rollen und Alarmen ab rund 8.900 €."
+        },
+        {
+          "q": "Reicht nicht ein fertiges BI-Tool?",
+          "a": "Für Marketing-Daten oft ja. Sobald Kasse, eigene Software und Buchhaltung zusammenkommen oder Rechte nötig sind, lohnt sich ein eigenes Dashboard."
         },
         {
           "q": "Wie aktuell sind die Daten?",
           "a": "Je nach Quelle in Echtzeit, stündlich oder täglich – das legen wir pro Kennzahl fest."
         },
         {
+          "q": "Welche Systeme könnt ihr anbinden?",
+          "a": "Alles mit Schnittstelle oder Export: Kassen, Buchhaltung, CRM, Kalender, Google-Dienste, eigene Datenbanken. Was bei dir geht, prüfen wir vor dem Angebot."
+        },
+        {
+          "q": "Stimmen die Zahlen dann auch?",
+          "a": "Wir prüfen jede Kennzahl vor dem Start gegen deine bisherigen Auswertungen. Wo zwei Quellen sich widersprechen, legen wir gemeinsam fest, welche gilt."
+        },
+        {
+          "q": "Wo liegen die Daten?",
+          "a": "In einer Datenbank in der EU, verschlüsselt, mit Rollen und Rechten."
+        },
+        {
           "q": "Nutzt ihr das selbst?",
           "a": "Ja. Unser eigenes Lead-System zeigt Anfragen, Lead-Score und Status in einem Dashboard."
         }
-      ]
+      ],
+      "contact": {
+        "title": "Lass uns über",
+        "accent": "deine Zahlen sprechen.",
+        "text": "Schreib uns kurz, welche Zahl du heute am längsten suchst. Wir melden uns innerhalb von 24 Stunden mit einer ehrlichen Einschätzung."
+      }
     },
     "ki": {
       "navLabel": "KI-Automatisierung",
@@ -6284,76 +7291,291 @@
       ],
       "hero": {
         "badge": "KI-Automatisierung",
-        "titleStart": "KI, die im Alltag",
-        "titleHighlight": "wirklich Arbeit abnimmt.",
-        "text": "Anfragen sortieren, Belege auslesen, Anrufe annehmen, Bewertungen beantworten – KI-Workflows, die in deinen bestehenden Tools laufen. Mit Freigabe durch dich. Technologisch gestützt von winsym.ai.",
-        "imageAlt": "Web-App, die Behördenbriefe verständlich erklärt",
-        "stats": [
+        "title": "KI, die im Alltag",
+        "accent": "wirklich Arbeit abnimmt.",
+        "text": "Anfragen sortieren, Belege auslesen, Anrufe annehmen, Bewertungen beantworten – KI-Workflows, die in deinen bestehenden Tools laufen. Die KI bereitet vor, du gibst frei.",
+        "imageAlt": "Beispielansicht: von der KI vorbereitete Anfragen, Anrufe, Belege und Bewertungen",
+        "facts": [
+          {
+            "value": "ab 590 €",
+            "label": "je Workflow, einmalig"
+          },
           {
             "value": "1–2 Wochen",
             "label": "bis der erste Workflow läuft"
           },
           {
-            "value": "ab 590 €",
-            "label": "pro Workflow"
+            "value": "Mit Freigabe",
+            "label": "nichts geht ungeprüft raus"
+          }
+        ],
+        "mockUrl": "dein-betrieb.de/automationen",
+        "mock": {
+          "title": "Heute automatisch vorbereitet",
+          "rows": [
+            {
+              "label": "12 Anfragen beantwortet",
+              "meta": "Entwürfe aus deinen Daten",
+              "status": "Freigegeben",
+              "tone": "good"
+            },
+            {
+              "label": "3 Anrufe nach Feierabend",
+              "meta": "2 Termine gebucht",
+              "status": "Zusammengefasst",
+              "tone": "brand"
+            },
+            {
+              "label": "9 Belege ausgelesen",
+              "meta": "Betrag, Datum, Steuersatz",
+              "status": "Abgelegt",
+              "tone": "good"
+            },
+            {
+              "label": "1 Bewertung mit 2 Sternen",
+              "meta": "Antwortentwurf liegt bereit",
+              "status": "Wartet auf dich",
+              "tone": "warn"
+            }
+          ]
+        }
+      },
+      "flow": {
+        "title": "Auslöser, Entwurf, Freigabe.",
+        "accent": "Fertig.",
+        "text": "Jeder Workflow folgt demselben Muster – egal ob Mail, Anruf oder Beleg.",
+        "steps": [
+          {
+            "who": "Auslöser",
+            "title": "Etwas kommt rein",
+            "text": "Eine Mail, ein Formular, ein Anruf, ein Beleg oder eine neue Bewertung startet den Workflow."
+          },
+          {
+            "who": "KI",
+            "title": "Liest, sortiert, entwirft",
+            "text": "Die KI versteht das Anliegen, greift auf dein Wissen zu und bereitet Antwort, Buchung oder Ablage vor – im Ton deines Betriebs."
+          },
+          {
+            "who": "Du",
+            "title": "Gibst frei",
+            "text": "Ein Blick, ein Klick. Du entscheidest pro Workflow, was automatisch rausgehen darf und was du vorher sehen willst."
+          },
+          {
+            "who": "Deine Tools",
+            "title": "Das Ergebnis landet, wo es hingehört",
+            "text": "Im Postfach, im Kalender, in der Buchhaltung oder im CRM. Jeder Schritt ist protokolliert und nachvollziehbar."
           }
         ]
       },
-      "problem": {
-        "title": "KI als Chat-Fenster spart kaum Zeit.",
-        "text": "Den echten Nutzen bringt KI erst, wenn sie in Abläufe eingebaut ist: Sie liest, sortiert, entwirft und übergibt – und ein Mensch gibt frei. Genau das bauen wir.",
-        "points": [
-          "Dieselben Antworten jeden Tag neu geschrieben",
-          "Belege und Dokumente von Hand abgetippt",
-          "Anrufe außerhalb der Öffnungszeiten verloren",
-          "Pilotprojekte, die nie produktiv werden"
+      "tiers": {
+        "title": "Drei typische Einstiege.",
+        "accent": "Einzeln buchbar.",
+        "text": "Jeder Workflow hat einen festen Preis. Starte mit dem, der dir am meisten Zeit spart.",
+        "items": {
+          "bewertungen": {
+            "name": "Bewertungs-Antworten",
+            "audience": "Für Betriebe mit vielen Google-Reviews"
+          },
+          "anfragen": {
+            "name": "Anfragen-Automatik",
+            "audience": "Für volle Postfächer"
+          },
+          "telefon": {
+            "name": "KI-Telefonassistent",
+            "audience": "Für Betriebe, die Anrufe verpassen"
+          }
+        },
+        "rows": [
+          {
+            "label": "Übernimmt",
+            "cells": [
+              "Antwortentwürfe auf Bewertungen",
+              "Mails & Formulare sortieren und beantworten",
+              "Anrufe annehmen, Termine buchen"
+            ]
+          },
+          {
+            "label": "Ton und Wissen deines Betriebs",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Läuft in deinen bestehenden Tools",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Freigabe durch dich",
+            "cells": [
+              true,
+              true,
+              "einstellbar"
+            ]
+          },
+          {
+            "label": "Monitoring & Protokoll",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Weiterleitung an die richtige Person",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Rund um die Uhr erreichbar",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Läuft nach",
+            "cells": [
+              "1 Woche",
+              "1–2 Wochen",
+              "2 Wochen"
+            ]
+          }
         ]
       },
-      "featuresTitle": "Workflows mit schnellem Nutzen.",
-      "features": [
-        {
-          "title": "Anfragen-Automatik",
-          "text": "Mails und Formulare lesen, einordnen, Antwort entwerfen, weiterleiten."
-        },
-        {
-          "title": "Dokumente & Belege",
-          "text": "Rechnungen, Verträge, Formulare automatisch auslesen und ablegen."
-        },
-        {
-          "title": "KI-Telefonassistent",
-          "text": "Nimmt Anrufe an, beantwortet Standardfragen, bucht Termine, fasst zusammen."
-        },
-        {
-          "title": "Workflows mit n8n",
-          "text": "Stabile Automatisierungen zwischen deinen Tools – mit Monitoring."
-        },
-        {
-          "title": "Bewertungen",
-          "text": "Antwortentwürfe auf Google-Reviews im Ton des Hauses, du gibst frei."
-        },
-        {
-          "title": "Wochen-Report",
-          "text": "Zahlen aus allen Tools, mit KI-Einordnung, jeden Montag im Postfach."
-        }
-      ],
+      "calc": {
+        "title": "Was kostet die Routine?",
+        "accent": "Rechne mit deinen Zahlen.",
+        "text": "Fünf Minuten je Antwort klingen harmlos. Zwanzigmal am Tag sind es fast vier Arbeitstage im Monat.",
+        "lines": [
+          {
+            "label": "Standardanfragen pro Tag",
+            "value": "20"
+          },
+          {
+            "label": "Minuten je Antwort von Hand",
+            "value": "5"
+          },
+          {
+            "label": "Minuten mit fertigem Entwurf",
+            "value": "1"
+          },
+          {
+            "label": "Ersparnis pro Monat",
+            "value": "≈ 27 Stunden"
+          },
+          {
+            "label": "Interner Stundensatz",
+            "value": "35 €"
+          },
+          {
+            "label": "Anfragen-Automatik, einmalig",
+            "value": "990 €"
+          }
+        ],
+        "resultLabel": "Bezahlt nach",
+        "result": "rund 5 Wochen",
+        "note": "Dazu kommen der Betrieb ab 49 € im Monat und meist geringe Nutzungskosten der KI-Dienste, die wir vorab schätzen.",
+        "whenNot": "Wenn eine Aufgabe nur zweimal pro Woche anfällt oder jedes Mal anders ist, lohnt sich Automatisierung nicht. Und wo ein Fehler teuer wäre – Rechtsauskunft, Preiszusagen, Diagnosen – bleibt die KI beim Entwurf, und ein Mensch entscheidet."
+      },
+      "industries": {
+        "title": "Ein Muster,",
+        "accent": "viele Abläufe.",
+        "text": "Welche Routine sich zuerst lohnt, hängt von der Branche ab:",
+        "items": [
+          {
+            "id": "kanzlei",
+            "text": "Belege auslesen und zuordnen, Mandatsanfragen vorsortieren, Fristen erinnern."
+          },
+          {
+            "id": "immobilien",
+            "text": "Standardanfragen zu Objekten beantworten, Besichtigungen einladen, Fristen überwachen."
+          },
+          {
+            "id": "handwerk",
+            "text": "Anrufe außerhalb der Bürozeiten annehmen, Anfragen einschätzen, Angebote nachfassen."
+          },
+          {
+            "id": "gastro",
+            "text": "Google-Bewertungen im Ton des Hauses beantworten, Reservierungsanrufe annehmen."
+          },
+          {
+            "id": "beauty",
+            "text": "Terminanrufe annehmen, Folgetermine einladen, Bewertungen anfragen."
+          }
+        ]
+      },
+      "timeline": {
+        "title": "In ein bis zwei Wochen",
+        "accent": "läuft der erste Workflow.",
+        "text": "Wir starten mit einem Workflow, messen den Effekt und bauen dann aus.",
+        "phases": [
+          {
+            "when": "Tag 1",
+            "title": "Routine-Check",
+            "text": "Welche Aufgabe wiederholt sich täglich? Wir wählen die mit dem größten Zeitgewinn und dem kleinsten Risiko."
+          },
+          {
+            "when": "Tag 3–5",
+            "title": "Erster Entwurf",
+            "text": "Der Workflow läuft im Testbetrieb mit echten Beispielen. Du siehst, was die KI vorschlägt – noch geht nichts raus."
+          },
+          {
+            "when": "Woche 2",
+            "title": "Live mit Freigabe",
+            "text": "Der Workflow läuft in deinen Tools, jede Ausgabe wartet auf dein Okay. Wir schärfen Ton und Regeln nach."
+          },
+          {
+            "when": "Danach",
+            "title": "Ausbau",
+            "text": "Was zuverlässig läuft, darf automatisch raus. Der nächste Workflow folgt, wenn du so weit bist."
+          }
+        ]
+      },
       "faq": [
+        {
+          "q": "Was kostet ein Workflow?",
+          "a": "Zwischen 590 € und 1.490 € einmalig, dazu Betrieb ab 49 € im Monat und meist geringe Nutzungskosten der KI-Dienste."
+        },
         {
           "q": "Werden unsere Daten zum KI-Training verwendet?",
           "a": "Nein. Wir nutzen Dienste mit Auftragsverarbeitung, ohne Training auf deinen Daten, wo möglich mit EU-Hosting."
+        },
+        {
+          "q": "Was, wenn die KI einen Fehler macht?",
+          "a": "Deshalb startet jeder Workflow mit Freigabe: Du siehst jeden Entwurf, bevor er rausgeht. Automatisch läuft nur, was sich bewährt hat – und alles wird protokolliert."
+        },
+        {
+          "q": "Brauchen wir dafür neue Software?",
+          "a": "Nein. Die Workflows laufen in deinen bestehenden Tools: Postfach, Kalender, Buchhaltung, CRM."
         },
         {
           "q": "Ersetzt KI unsere Mitarbeiter?",
           "a": "In unseren Projekten nimmt KI vor allem Routine ab – damit mehr Zeit für Kunden bleibt."
         },
         {
-          "q": "Was kostet ein Workflow?",
-          "a": "Zwischen 590 € und 1.490 € einmalig, dazu Betrieb ab 49 € im Monat und meist geringe Nutzungskosten der KI-Dienste."
+          "q": "Womit baut ihr die Workflows?",
+          "a": "Mit n8n für stabile Automatisierungen zwischen deinen Tools, mit Monitoring und Alarm, falls etwas hängt."
         },
         {
           "q": "Wer ist winsym.ai?",
           "a": "Unser Technologiepartner aus Kuala Lumpur, spezialisiert auf KI-Transformation für KMU. Die Umsetzung für dich machen wir in Deutschland."
         }
-      ]
+      ],
+      "contact": {
+        "title": "Lass uns über",
+        "accent": "deine Routine sprechen.",
+        "text": "Schreib uns kurz, welche Aufgabe sich bei dir jeden Tag wiederholt. Wir melden uns innerhalb von 24 Stunden mit einer ehrlichen Einschätzung – auch wenn die lautet: Das lohnt sich nicht zu automatisieren."
+      }
     },
     "website": {
       "navLabel": "Websites, die verkaufen",
@@ -6368,59 +7590,248 @@
         "SEO Website"
       ],
       "hero": {
-        "badge": "Websites",
-        "titleStart": "Eine Website, die",
-        "titleHighlight": "Anfragen bringt.",
-        "text": "Schnell, mobil, auffindbar bei Google und in KI-Suchen wie ChatGPT – mit Anfrage-Funnel, Buchung oder Bestellung. Und bereit, später zum System zu wachsen. Beispiel: KlarVoran, Job-Coaching in Rhein-Main.",
+        "badge": "Websites, die verkaufen",
+        "title": "Eine Website, die",
+        "accent": "Anfragen bringt.",
+        "text": "Schnell, mobil und auffindbar – bei Google und in KI-Suchen wie ChatGPT. Mit Anfrage-Funnel, Buchung oder Bestellung. Und so gebaut, dass sie später zum System wachsen kann.",
         "imageAlt": "Website von KlarVoran, Job- und Bewerbungscoaching in Rhein-Main",
-        "stats": [
+        "facts": [
+          {
+            "value": "ab 1.190 €",
+            "label": "One-Pager, Business ab 1.990 €"
+          },
+          {
+            "value": "1–4 Wochen",
+            "label": "bis online"
+          },
           {
             "value": "< 1 s",
             "label": "Ladezeit als Ziel"
+          }
+        ],
+        "refNote": "Live: KlarVoran, Job-Coaching Rhein-Main"
+      },
+      "flow": {
+        "title": "Vom Suchen zur Anfrage.",
+        "accent": "In vier Schritten.",
+        "text": "So wird aus einem Besucher ein Kunde – und daran messen wir jede Seite.",
+        "steps": [
+          {
+            "who": "Suche",
+            "title": "Jemand sucht, was du anbietest",
+            "text": "Bei Google, in Google Maps oder in einer KI-Suche. Strukturierte Daten und klare Antworten sorgen dafür, dass du genannt wirst."
           },
           {
-            "value": "ab 1.490 €",
-            "label": "One-Pager, Business ab 1.990 €"
+            "who": "Website",
+            "title": "Die Seite ist sofort da",
+            "text": "Unter einer Sekunde geladen, auf dem Handy gebaut. In fünf Sekunden ist klar, was du anbietest und für wen."
+          },
+          {
+            "who": "Besucher",
+            "title": "Fragt an oder bucht",
+            "text": "Ein klarer nächster Schritt statt eines Kontaktformulars im Footer: Anfrage-Funnel, Terminbuchung oder Bestellung."
+          },
+          {
+            "who": "Du",
+            "title": "Bekommst eine Anfrage mit Substanz",
+            "text": "Mit Anliegen, Budget und Dringlichkeit. Und du siehst, über welche Suche sie kam."
           }
         ]
       },
-      "problem": {
-        "title": "Schön ist nicht genug. Sie muss verkaufen.",
-        "text": "Viele Websites sehen gut aus und bringen trotzdem keine Anfragen: zu langsam, auf dem Handy umständlich, bei Google unsichtbar, ohne klaren nächsten Schritt.",
-        "points": [
-          "Keine Anfragen trotz Besuchern",
-          "Langsam auf dem Handy",
-          "Unsichtbar bei Google und KI-Suchen",
-          "Änderungen nur über die Agentur"
+      "tiers": {
+        "title": "Drei Stufen.",
+        "accent": "Von der starken Seite bis zum Auftritt mit Blog.",
+        "text": "Alle Stufen sind mobil zuerst gebaut und schnell. Den genauen Umfang legen wir im Erstgespräch fest – dann gilt ein Festpreis.",
+        "items": {
+          "onepager": {
+            "name": "One-Pager",
+            "audience": "Für den schnellen, sauberen Auftritt"
+          },
+          "business": {
+            "name": "Business-Website",
+            "audience": "Für Betriebe, die Anfragen wollen"
+          },
+          "pro": {
+            "name": "Website Pro",
+            "audience": "Für mehrere Sprachen und Suchbegriffe"
+          }
+        },
+        "rows": [
+          {
+            "label": "Seiten",
+            "cells": [
+              "1",
+              "bis 8",
+              "nach Bedarf"
+            ]
+          },
+          {
+            "label": "Mobil zuerst & schnell",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Kontakt, Karte & WhatsApp",
+            "cells": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Suchmaschinen-Optimierung",
+            "cells": [
+              "Grundlagen",
+              "SEO-Basis",
+              "Landingpages je Suchbegriff"
+            ]
+          },
+          {
+            "label": "CMS zum Selbst-Ändern",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Anfrage-Funnel mit Scoring",
+            "cells": [
+              false,
+              true,
+              true
+            ]
+          },
+          {
+            "label": "Mehrsprachig",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Blog & Ratgeber",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Tracking nach Einwilligung",
+            "cells": [
+              false,
+              false,
+              true
+            ]
+          },
+          {
+            "label": "Online in",
+            "cells": [
+              "1 Woche",
+              "2–4 Wochen",
+              "4–6 Wochen"
+            ]
+          }
         ]
       },
-      "featuresTitle": "Was deine Website kann.",
-      "features": [
-        {
-          "title": "Mobil zuerst",
-          "text": "Gebaut für das Handy – dort kommen die meisten Besucher her."
-        },
-        {
-          "title": "SEO & lokales SEO",
-          "text": "Strukturierte Daten, Google-Profil, Seiten für deine wichtigsten Suchbegriffe."
-        },
-        {
-          "title": "GEO für KI-Suchen",
-          "text": "Klare Antworten, llms.txt und Schema, damit ChatGPT, Gemini & Co. dich nennen."
-        },
-        {
-          "title": "Schnell",
-          "text": "Moderne Technik, optimierte Bilder – Ladezeiten, die Google belohnt."
-        },
-        {
-          "title": "Mehrsprachig",
-          "text": "Deutsch, Englisch, Arabisch oder Türkisch – mit korrekter Sprach-Auszeichnung."
-        },
-        {
-          "title": "Anfragen messen",
-          "text": "Anfrage-Funnel mit Lead-Scoring und sauberem Tracking nach Einwilligung."
-        }
-      ],
+      "calc": {
+        "title": "Was bringt eine bessere Seite?",
+        "accent": "Rechne mit deinen Zahlen.",
+        "text": "Mehr Besucher sind teuer. Aus denselben Besuchern mehr Anfragen zu machen, ist der günstigere Hebel.",
+        "lines": [
+          {
+            "label": "Besucher pro Monat",
+            "value": "800"
+          },
+          {
+            "label": "Anfragen heute, bei 0,5 %",
+            "value": "4"
+          },
+          {
+            "label": "Annahme: klarer Funnel hebt auf 2 %",
+            "value": "16"
+          },
+          {
+            "label": "Zusätzliche Anfragen pro Monat",
+            "value": "+ 12"
+          },
+          {
+            "label": "Annahme: jede vierte wird ein Auftrag à 600 €",
+            "value": "≈ 1.800 € Umsatz"
+          },
+          {
+            "label": "Business-Website, einmalig",
+            "value": "1.990 €"
+          }
+        ],
+        "resultLabel": "Verdient nach",
+        "result": "gut einem Monat",
+        "note": "Die Quoten sind Annahmen und hängen stark von Branche und Angebot ab. Deshalb messen wir nach dem Start, was tatsächlich passiert.",
+        "whenNot": "Wenn deine Kunden ausschließlich über Empfehlung kommen und du ausgelastet bist, reicht ein sauberer One-Pager mit Kontakt. Mehr Website bringt nur etwas, wenn du auch mehr Anfragen annehmen willst."
+      },
+      "industries": {
+        "title": "Jede Branche",
+        "accent": "braucht einen anderen nächsten Schritt.",
+        "text": "Die Website ist der Einstieg – was dahinter passiert, hängt vom Betrieb ab:",
+        "items": [
+          {
+            "id": "handwerk",
+            "text": "Anfrage-Formular mit Fotos und Maßen statt »Rufen Sie uns an«."
+          },
+          {
+            "id": "beauty",
+            "text": "Buchen-Button, der direkt in den Kalender führt – auch aus Google und Instagram."
+          },
+          {
+            "id": "kanzlei",
+            "text": "Erstgespräch-Buchung mit Vorab-Fragen, wie bei unserem Projekt KlarVoran."
+          },
+          {
+            "id": "gastro",
+            "text": "Speisekarte, Reservierung und Direktbestellung auf der eigenen Seite."
+          },
+          {
+            "id": "immobilien",
+            "text": "Objektseiten mit Interessenten-Funnel und Besichtigungsbuchung."
+          },
+          {
+            "id": "automotive",
+            "text": "Fahrzeugbestand, Probefahrt-Buchung und Werkstatt-Termine online."
+          }
+        ]
+      },
+      "timeline": {
+        "title": "In ein bis vier Wochen",
+        "accent": "online.",
+        "text": "Du lieferst Logo, Fotos und ein Gespräch – den Rest übernehmen wir.",
+        "phases": [
+          {
+            "when": "Tag 1",
+            "title": "Erstgespräch",
+            "text": "Wen willst du erreichen, wonach suchen diese Menschen, was ist der nächste Schritt? Daraus entsteht die Struktur."
+          },
+          {
+            "when": "Tag 3–7",
+            "title": "Entwurf",
+            "text": "Du siehst die Startseite mit echten Texten – auf dem Handy zuerst. Danach steht der Festpreis."
+          },
+          {
+            "when": "Woche 2–3",
+            "title": "Bau & Inhalte",
+            "text": "Seiten, Texte, Bilder, Funnel. Auf Wunsch schreiben wir die Texte, du gibst frei."
+          },
+          {
+            "when": "Woche 1–4",
+            "title": "Online",
+            "text": "Umzug der Domain, Google-Profil, Suchkonsole. Danach messen wir, woher Anfragen kommen."
+          }
+        ]
+      },
       "faq": [
         {
           "q": "Was kostet eine Website?",
@@ -6428,17 +7839,34 @@
         },
         {
           "q": "Kann ich Inhalte selbst ändern?",
-          "a": "Ja, über ein einfaches CMS oder Dashboard – ohne Programmierkenntnisse."
+          "a": "Ab der Business-Website ja, über ein einfaches CMS oder Dashboard – ohne Programmierkenntnisse."
         },
         {
           "q": "Wie lange dauert es?",
           "a": "Ein One-Pager ist oft nach einer Woche online, eine Business-Website nach zwei bis vier Wochen."
         },
         {
+          "q": "Was ist GEO?",
+          "a": "Optimierung für KI-Suchen wie ChatGPT, Gemini und Google AI: klare Antworten, strukturierte Daten und eine llms.txt, damit du dort genannt wirst."
+        },
+        {
+          "q": "Schreibt ihr auch die Texte?",
+          "a": "Ja, als Zusatzleistung. Wir schreiben auf Basis eines Gesprächs mit dir, du gibst frei."
+        },
+        {
           "q": "Kann ich später Buchung oder Shop ergänzen?",
           "a": "Ja. Wir bauen so, dass Systeme wie Buchung, Bestellung oder Kundenlogin nahtlos dazukommen."
+        },
+        {
+          "q": "Was passiert mit meiner alten Website und Domain?",
+          "a": "Die Domain bleibt deine. Wir ziehen um, leiten alte Adressen weiter und achten darauf, dass bestehende Rankings erhalten bleiben."
         }
-      ]
+      ],
+      "contact": {
+        "title": "Lass uns über",
+        "accent": "deine Website sprechen.",
+        "text": "Schreib uns kurz, was deine Website heute nicht leistet. Wir melden uns innerhalb von 24 Stunden mit einer ehrlichen Einschätzung."
+      }
     },
     "media": {
       "navLabel": "Premium-Media für Events",
@@ -7279,6 +8707,118 @@
       "ownBadge": "Unser Feld",
       "adviceTitle": "Unsere Empfehlung",
       "guidesLabel": "Zum Weiterlesen"
+    },
+    "contact": {
+      "tag": "Anfrage",
+      "formTitle": "Kurze Nachricht genügt.",
+      "formText": "Kein Fragebogen, kein Verkaufsgespräch. Zwei Sätze zu deinem Betrieb reichen.",
+      "submit": "Anfrage senden",
+      "points": [
+        "Antwort innerhalb von 24 Stunden",
+        "Ablauf-Check kostenlos",
+        "Festpreis nach dem Prototyp"
+      ]
+    }
+  },
+  "servicePage": {
+    "hero": {
+      "primary": "Kostenloses Erstgespräch",
+      "secondary": "Umfang & Preise ansehen"
+    },
+    "flow": {
+      "tag": "So funktioniert's"
+    },
+    "tiers": {
+      "tag": "Umfang & Preise",
+      "from": "ab",
+      "once": "einmalig",
+      "recommended": "Meist gewählt",
+      "included": "enthalten",
+      "notIncluded": "nicht enthalten",
+      "request": "{name} anfragen"
+    },
+    "extras": {
+      "tag": "Optional dazu",
+      "text": "Zu jeder Stufe buchbar – der Festpreis steht nach dem Prototyp.",
+      "labels": {
+        "zahlung": {
+          "label": "Online-Zahlung",
+          "hint": "Karte, PayPal, Apple Pay, Google Pay"
+        },
+        "schnittstellen": {
+          "label": "Schnittstellen",
+          "hint": "Kasse, DATEV, CRM, ERP, Warenwirtschaft"
+        },
+        "ki": {
+          "label": "KI-Funktion",
+          "hint": "Chat, Dokumente auslesen, Texte vorschlagen"
+        },
+        "whatsapp": {
+          "label": "WhatsApp-Benachrichtigungen",
+          "hint": "Bestätigungen und Status automatisch"
+        },
+        "mehrsprachig": {
+          "label": "Mehrsprachig",
+          "hint": "z. B. Deutsch, Englisch, Arabisch, Türkisch"
+        },
+        "migration": {
+          "label": "Datenübernahme",
+          "hint": "Aus Excel, Papierlisten oder dem Altsystem"
+        },
+        "seo": {
+          "label": "Lokales SEO-Paket",
+          "hint": "Gefunden werden bei „… in der Nähe“"
+        },
+        "geo": {
+          "label": "GEO für KI-Suchen",
+          "hint": "Sichtbar in ChatGPT, Gemini & Google AI"
+        },
+        "gmb": {
+          "label": "Google-Unternehmensprofil",
+          "hint": "Einrichtung und Optimierung"
+        },
+        "texte": {
+          "label": "Texte & Bildaufbereitung",
+          "hint": "Wir schreiben, du gibst frei"
+        },
+        "anfragen": {
+          "label": "Anfragen-Automatik",
+          "hint": "Mails & Formulare sortieren und beantworten"
+        },
+        "dokumente": {
+          "label": "Dokumente & Belege",
+          "hint": "Automatisch auslesen, ablegen, prüfen"
+        },
+        "telefon": {
+          "label": "KI-Telefonassistent",
+          "hint": "Nimmt Anrufe an und bucht Termine"
+        },
+        "chatbot": {
+          "label": "Website-Chat",
+          "hint": "Beantwortet Fragen mit deinem Wissen"
+        },
+        "bewertungen": {
+          "label": "Bewertungs-Antworten",
+          "hint": "Google-Reviews im Ton des Hauses"
+        },
+        "reporting": {
+          "label": "Wochen-Report",
+          "hint": "Zahlen aus allen Tools, einmal pro Woche"
+        }
+      }
+    },
+    "calc": {
+      "tag": "Beispielrechnung",
+      "disclaimer": "Beispielrechnung mit angenommenen Werten – keine Zusage. Setz deine eigenen Zahlen ein; im Erstgespräch rechnen wir es gemeinsam durch.",
+      "whenNotTitle": "Wann es sich nicht lohnt",
+      "guidesLabel": "Zum Weiterlesen"
+    },
+    "industries": {
+      "tag": "Im Einsatz",
+      "cta": "Zur Branchenseite"
+    },
+    "timeline": {
+      "tag": "Zeitplan"
     },
     "contact": {
       "tag": "Anfrage",

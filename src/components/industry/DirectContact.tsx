@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useLocale } from "next-intl";
-import type { FunnelIndustry, InterestId, LeadTier } from "@/config/funnel";
+import type { FunnelIndustry, InterestId, LeadSource, LeadTier } from "@/config/funnel";
 import { ContactForm, type ContactValues } from "@/components/funnel/ContactForm";
 import { LeadResult } from "@/components/funnel/LeadResult";
 import { submitLead, type ServerErrorCode } from "@/lib/submit-lead";
@@ -13,7 +13,21 @@ import { track } from "@/lib/track";
  * Direkte Anfrage ohne Fragen-Strecke: ein Formular, eine Nachricht.
  * Branche und Interessen sind von der Seite vorbelegt, das Budget bleibt offen.
  */
-export function DirectContact({ title, text, submitLabel, industry, interests }: { title: string; text: string; submitLabel: string; industry: FunnelIndustry; interests: InterestId[] }) {
+export function DirectContact({
+  title,
+  text,
+  submitLabel,
+  industry,
+  interests,
+  source = "branchen_seite",
+}: {
+  title: string;
+  text: string;
+  submitLabel: string;
+  industry: FunnelIndustry;
+  interests: InterestId[];
+  source?: LeadSource;
+}) {
   const locale = useLocale();
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState<ServerErrorCode | null>(null);
@@ -25,7 +39,7 @@ export function DirectContact({ title, text, submitLabel, industry, interests }:
     setSubmitting(true);
     setServerError(null);
     const res = await submitLead({
-      source: "branchen_seite",
+      source,
       industry,
       interests,
       projectStatus: null,
@@ -45,7 +59,7 @@ export function DirectContact({ title, text, submitLabel, industry, interests }:
       setServerFields(res.fields);
       return;
     }
-    track("generate_lead", { tier: res.tier, source: "branchen_seite", currency: "EUR" });
+    track("generate_lead", { tier: res.tier, source, currency: "EUR" });
     setDone({ tier: res.tier, name: v.name, email: v.email });
     cardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };

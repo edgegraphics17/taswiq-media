@@ -26,7 +26,7 @@ export async function BlogTeaser({ slugs, title }: { slugs?: string[]; title?: s
               <BlogCard
                 post={{ slug: p.slug, title: p.title, description: p.description, category: p.category, minutes: readingMinutes(p), date: p.date }}
                 categoryLabel={t(`categories.${p.category}`)}
-                minutesLabel={t("minutes").replace("{n}", String(readingMinutes(p)))}
+                minutesLabel={t("minutes", { n: readingMinutes(p) })}
                 dateLabel={dateFmt.format(new Date(p.date))}
                 readLabel={t("read")}
               />
