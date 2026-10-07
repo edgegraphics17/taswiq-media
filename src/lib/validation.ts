@@ -66,7 +66,7 @@ export const leadSchema = z.object({
   website: z.string().max(500).optional(),
   /** Nur bei source = "rechner": die Konfiguration, serverseitig neu berechnet */
   calculator: z
-    .object({ state: calcStateSchema, requestId: z.string().uuid().nullable().optional() })
+    .object({ state: calcStateSchema, requestId: z.string().uuid().nullable().optional(), model: z.enum(["kauf", "miete"]).default("kauf") })
     .nullable()
     .optional(),
   attribution: attributionSchema.optional(),

@@ -8793,7 +8793,8 @@
       "running": "Laufend: {value}",
       "perMonthLong": "{amount} pro Monat",
       "noRunning": "keine laufenden Kosten",
-      "footer": "Richtwert, kein Angebot. Endpreise gemäß § 19 UStG."
+      "footer": "Richtwert, kein Angebot. Endpreise gemäß § 19 UStG.",
+      "rent": "Alternative Miete: {value} (Betrieb inklusive)"
     },
     "sheet": {
       "asOf": "Stand {date}",
@@ -8816,11 +8817,29 @@
       "nextStep": "Nächster Schritt",
       "nextStepText": "Workshop & klickbarer Prototyp – danach nennen wir einen festen Preis. Antwort innerhalb von 24 Stunden.",
       "rights": "Rechte & Code",
-      "rightsText": "Quellcode, Daten und Nutzungsrechte gehören dir – nach Zahlungseingang, ohne zeitliche oder räumliche Grenze."
+      "rightsText": "Quellcode, Daten und Nutzungsrechte gehören dir – nach Zahlungseingang, ohne zeitliche oder räumliche Grenze.",
+      "rentTitle": "Alternative: mieten statt kaufen",
+      "rentPill": "oder Miete {rate}"
     },
     "estimateLabel": "Dein Richtwert",
     "estimatePending": "Baut sich mit deinen Antworten auf – wähl erst mal in Ruhe aus.",
-    "estimateNote": "Unverbindlich · kein Angebot"
+    "estimateNote": "Unverbindlich · kein Angebot",
+    "rent": {
+      "aria": "Kaufen oder mieten",
+      "buy": "Kaufen",
+      "rent": "Mieten",
+      "label": "Miete pro Monat",
+      "alt": "oder mieten: {rate}",
+      "altBuy": "oder kaufen: {range} einmalig",
+      "included": "Hosting, Wartung, Support & Updates inklusive · 0 € Anzahlung",
+      "terms": "{trial} Monate Testzeit, in dieser Zeit monatlich kündbar – danach {term} Monate Mindestlaufzeit.",
+      "rest": "Media bleibt ein einmaliges Projekt: {rest} einmalig.",
+      "withRest": "{rate} + {rest} einmalig (Media)",
+      "requestNote": "Wir erstellen dein Angebot als Miete – {rate}. Kaufen bleibt jederzeit möglich.",
+      "summaryLabel": "Kauf oder Miete",
+      "summaryBuy": "Kauf (Einmalpreis)",
+      "summaryRent": "Miete – {value}"
+    }
   },
   "legal": {
     "tag": "Rechtliches",

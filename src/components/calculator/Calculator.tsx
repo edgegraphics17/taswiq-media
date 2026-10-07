@@ -4,15 +4,16 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useLocale, useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Calculator as CalcIcon, Check, ChevronDown, Copy, Printer } from "lucide-react";
+import { ArrowLeft, ArrowRight, Calculator as CalcIcon, Check, ChevronDown, Copy, KeyRound, Printer, Repeat } from "lucide-react";
 import { isIndustry, leistungenFuer, LEISTUNG_INTEREST, type CalcState } from "@/config/pricing";
-import { computeEstimate, initialState, stepError, summaryRows, summaryText, visibleSteps, type PricingData } from "@/lib/pricing-engine";
+import { computeEstimate, computeRent, initialState, stepError, summaryRows, summaryText, visibleSteps, type PricingData } from "@/lib/pricing-engine";
+import { rental } from "@/config/packages";
 import type { FunnelIndustry, InterestId, LeadTier } from "@/config/funnel";
 import { getAttribution, getSessionId } from "@/lib/attribution";
 import { submitLead, type ServerErrorCode } from "@/lib/submit-lead";
 import { asTranslator, localizeOptions, stepCopy, type CalcI18n } from "@/lib/pricing-i18n";
 import { track } from "@/lib/track";
-import { eurAffix, formatEUR, formatNumber, cn } from "@/lib/format";
+import { eurAffix, formatEUR, formatNumber, formatRange, cn } from "@/lib/format";
 import { CalcField } from "@/components/calculator/Fields";
 import { QuoteSheet } from "@/components/calculator/QuoteSheet";
 import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
@@ -26,7 +27,7 @@ import { LeadResult } from "@/components/funnel/LeadResult";
  *  - große Auswahlkarten mit violettem Ring
  *  - eine zentrierte Spalte: Branche zuerst (Klick führt weiter), danach nur die passenden Leistungen
  *  - schwarze Richtwert-Leiste über der Frage – ein Betrag erscheint erst mit dem ersten Paket; Mobil: schwebende Pille unten
- *  - Ergebnis: Aufstellung als Angebotsblatt, Kopieren, PDF, Anfrage
+ *  - Ergebnis: Kaufen/Mieten-Umschalter, Aufstellung als Angebotsblatt, Kopieren, PDF, Anfrage
  *  - Pfeiltasten ← → navigieren
  */
 export function Calculator({ data: rawData }: { data: PricingData }) {
@@ -42,6 +43,7 @@ export function Calculator({ data: rawData }: { data: PricingData }) {
   const [maxReached, setMaxReached] = useState(0);
   const [dir, setDir] = useState(1);
   const [error, setError] = useState<string | null>(null);
+  const [model, setModel] = useState<"kauf" | "miete">("kauf");
   const [copied, setCopied] = useState(false);
   const [requestId, setRequestId] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -63,6 +65,10 @@ export function Calculator({ data: rawData }: { data: PricingData }) {
   const live = useMemo(() => computeEstimate(s, idx, data, i18n), [s, idx, data, i18n]);
   const full = useMemo(() => computeEstimate(s, Number.POSITIVE_INFINITY, data, i18n), [s, data, i18n]);
   const rows = useMemo(() => summaryRows(s, data, i18n), [s, data, i18n]);
+  // Miet-Alternative (nur Software) – null bei reinen Media-Projekten
+  const rent = useMemo(() => computeRent(full, s, data.konfig), [full, s, data.konfig]);
+  const renting = model === "miete" && rent !== null;
+  const rentRate = rent ? tr("engine.perMonth", { amount: formatRange(rent.von, rent.bis, locale) }) : "";
 
   const leistungen = (s.leistungen as string[]) ?? [];
   const industry: FunnelIndustry = isIndustry(s.branche) ? s.branche : "andere";
@@ -163,11 +169,11 @@ export function Calculator({ data: rawData }: { data: PricingData }) {
       consent: true,
       website: v.website,
       locale,
-      calculator: { state: s, requestId },
+      calculator: { state: s, requestId, model: renting ? "miete" : "kauf" },
     });
     setSubmitting(false);
     if (!res.ok) return setServerError(res.error);
-    track("rechner_anfrage", { tier: res.tier });
+    track("rechner_anfrage", { tier: res.tier, modell: renting ? "miete" : "kauf" });
     setDone({ tier: res.tier, name: v.name, email: v.email });
   };
 
@@ -283,17 +289,59 @@ export function Calculator({ data: rawData }: { data: PricingData }) {
                   {/* Ergebnis als schwarze Kontrast-Karte */}
                   <div className="card-night relative overflow-hidden p-7 sm:p-9">
                     <div className="pointer-events-none absolute -top-24 -right-24 size-72 rounded-full bg-[radial-gradient(closest-side,rgb(120_64_254/0.45),transparent)]" aria-hidden />
-                    <p className="relative text-sm text-night-muted">{tr("oneTimeCosts")}</p>
-                    <p className="num relative mt-1 text-[clamp(2.2rem,5.4vw,3.4rem)] leading-none font-medium tracking-tight text-white">
+                    {rent && (
+                      <div role="radiogroup" aria-label={tr("rent.aria")} className="relative mb-6 inline-flex rounded-full bg-white/10 p-1">
+                        {(["kauf", "miete"] as const).map((m) => (
+                          <button
+                            key={m}
+                            type="button"
+                            role="radio"
+                            aria-checked={model === m}
+                            onClick={() => {
+                              setModel(m);
+                              track("rechner_modell", { modell: m });
+                            }}
+                            className={cn(
+                              "inline-flex min-h-11 items-center gap-2 rounded-full px-5 text-sm font-medium transition-colors duration-200",
+                              model === m ? "bg-white text-ink" : "text-white/80 hover:text-white",
+                            )}
+                          >
+                            {m === "kauf" ? <KeyRound className="size-4" aria-hidden /> : <Repeat className="size-4" aria-hidden />}
+                            {tr(m === "kauf" ? "rent.buy" : "rent.rent")}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                    <p className="relative text-sm text-night-muted">{renting ? tr("rent.label") : tr("oneTimeCosts")}</p>
+                    <p className="num relative mt-1 text-[clamp(2.2rem,5.4vw,3.4rem)] leading-none font-medium tracking-tight text-white" aria-live="polite">
                       {eur.pre}
-                      {formatNumber(full.von, locale)} – {eur.pre}
-                      {formatNumber(full.bis, locale)}
+                      {formatNumber(renting ? rent.von : full.von, locale)} – {eur.pre}
+                      {formatNumber(renting ? rent.bis : full.bis, locale)}
                       {eur.post}
                     </p>
-                    <div className="relative mt-5 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm">
-                      <span className="size-2 rounded-full bg-mint-400" aria-hidden />
-                      {tr("monthlyLabel")} <b className="num font-medium">{full.summeMtl > 0 ? formatEUR(full.summeMtl, locale) : tr("none")}</b>
+                    <div className="relative mt-5 inline-flex items-center gap-2 rounded-3xl bg-white/10 px-4 py-2 text-sm">
+                      <span className="size-2 shrink-0 rounded-full bg-mint-400" aria-hidden />
+                      {renting ? (
+                        tr("rent.included")
+                      ) : (
+                        <span>
+                          {tr("monthlyLabel")} <b className="num font-medium">{full.summeMtl > 0 ? formatEUR(full.summeMtl, locale) : tr("none")}</b>
+                        </span>
+                      )}
                     </div>
+                    {rent && (
+                      <p className="num relative mt-4 max-w-lg text-sm leading-relaxed text-white/90">
+                        {renting ? (
+                          <>
+                            {tr("rent.terms", { trial: rental.trialMonths, term: rental.minTermMonths })}
+                            {rent.restBis > 0 && <> {tr("rent.rest", { rest: formatRange(rent.restVon, rent.restBis, locale) })}</>}{" "}
+                            <span className="text-night-muted">{tr("rent.altBuy", { range: formatRange(full.von, full.bis, locale) })}</span>
+                          </>
+                        ) : (
+                          tr("rent.alt", { rate: rentRate })
+                        )}
+                      </p>
+                    )}
                     <p className="relative mt-5 max-w-lg text-[13px] leading-relaxed text-night-muted">
                       <b className="font-medium text-white">{tr("disclaimerStrong")}</b> {tr("disclaimer")}
                     </p>
@@ -305,7 +353,7 @@ export function Calculator({ data: rawData }: { data: PricingData }) {
                       <ChevronDown className="size-5 text-muted transition-transform duration-300 group-open:rotate-180" aria-hidden />
                     </summary>
                     <div className="border-t border-line bg-canvas p-3 sm:p-5">
-                      <QuoteSheet estimate={full} rows={rows} title={sheetTitle} className="rounded-3xl shadow-[var(--shadow-soft)]" />
+                      <QuoteSheet estimate={full} rent={rent} rows={rows} title={sheetTitle} className="rounded-3xl shadow-[var(--shadow-soft)]" />
                     </div>
                   </details>
 
@@ -325,7 +373,10 @@ export function Calculator({ data: rawData }: { data: PricingData }) {
                     ) : (
                       <>
                         <h3 className="text-2xl font-medium">{tr("requestTitle")}</h3>
-                        <p className="mt-1.5 mb-6 text-sm text-muted">{tr("requestText")}</p>
+                        <p className="mt-1.5 mb-6 text-sm text-muted">
+                          {tr("requestText")}
+                          {renting && <span className="num mt-1.5 block font-medium text-brand-600">{tr("rent.requestNote", { rate: rentRate })}</span>}
+                        </p>
                         <ContactForm idPrefix="rechner" submitLabel={tr("requestSubmit")} submitting={submitting} serverError={serverError} onSubmit={submit} />
                       </>
                     )}
@@ -393,7 +444,7 @@ export function Calculator({ data: rawData }: { data: PricingData }) {
       {mounted &&
         createPortal(
           <div className="print-root">
-            <QuoteSheet estimate={full} rows={rows} title={sheetTitle} />
+            <QuoteSheet estimate={full} rent={rent} rows={rows} title={sheetTitle} />
           </div>,
           document.body,
         )}

@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { leadSchema, toValidationCode } from "@/lib/validation";
 import { scoreLead } from "@/lib/lead-scoring";
-import { computeEstimate, sanitizeState, summaryRows } from "@/lib/pricing-engine";
+import { computeEstimate, computeRent, rentText, sanitizeState, summaryRows } from "@/lib/pricing-engine";
 import { getPricingData } from "@/lib/pricing-source";
 import { localizeOptions } from "@/lib/pricing-i18n";
 import { getCalcI18n } from "@/lib/pricing-i18n.server";
@@ -47,6 +47,9 @@ export async function POST(req: NextRequest) {
   let calculatorSummary: { label: string; wert: string }[] | null = null;
   /** Zusammenfassung in der Sprache des Leads (für die Bestätigungs-Mail aus n8n) */
   let calculatorSummaryLocalized: { label: string; wert: string }[] | null = null;
+  /** Kauf oder Miete – die Mietrate wird wie der Preis serverseitig neu berechnet */
+  let paymentModel: "kauf" | "miete" | null = null;
+  let rentEstimate: { min: number; max: number } | null = null;
   let budget = data.budget;
   if (data.source === "rechner" && data.calculator) {
     const pricing = await getPricingData();
@@ -61,6 +64,18 @@ export async function POST(req: NextRequest) {
       const i18n = await getCalcI18n(data.locale);
       calculatorSummaryLocalized = summaryRows(state, localizeOptions(pricing, i18n), i18n);
     }
+    const rent = computeRent(e, state, pricing.konfig);
+    paymentModel = data.calculator.model === "miete" && rent ? "miete" : "kauf";
+    if (rent) rentEstimate = { min: rent.von, max: rent.bis };
+    // Wunsch als erste Zeile der Zusammenfassung → erscheint ohne Umbau in Dashboard und Mails
+    const i18n = data.locale === "de" ? de : await getCalcI18n(data.locale);
+    const row = (c: typeof de) => ({
+      id: "modell",
+      label: c.t("rent.summaryLabel"),
+      wert: paymentModel === "miete" && rent ? c.t("rent.summaryRent", { value: rentText(rent, c) }) : c.t("rent.summaryBuy"),
+    });
+    calculatorSummary = [row(de), ...calculatorSummary];
+    calculatorSummaryLocalized = [row(i18n), ...calculatorSummaryLocalized];
     budget = bracketForRange(e.von, e.bis);
   }
 
@@ -80,6 +95,8 @@ export async function POST(req: NextRequest) {
     userAgent: req.headers.get("user-agent")?.slice(0, 300) ?? null,
     locale: data.locale,
     calculatorSummary,
+    paymentModel,
+    rentEstimate,
   };
 
   let leadId: string | null = null;
@@ -133,6 +150,8 @@ export async function POST(req: NextRequest) {
       projectStatus: data.projectStatus ?? null,
       budget,
       estimate,
+      paymentModel,
+      rentEstimate,
       calculatorSummary,
       calculatorSummaryLocalized,
       locale: data.locale,

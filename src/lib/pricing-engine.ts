@@ -1,6 +1,7 @@
 import { KONFIG, OPTIONEN, SCHRITTE, type CalcState, type Field, type Option, type Step } from "@/config/pricing";
 import { fieldCopy, stepCopy, type CalcI18n } from "@/lib/pricing-i18n";
-import { formatEUR } from "@/lib/format";
+import { rentPerMonth, runningCosts } from "@/config/packages";
+import { formatEUR, formatRange } from "@/lib/format";
 
 /**
  * Reine, seiteneffektfreie Rechner-Engine (Logik nach asapmarketing.de/rechner.html).
@@ -177,6 +178,51 @@ export function computeEstimate(s: CalcState, answeredUpTo: number, data: Pricin
   };
 }
 
+export interface RentEstimate {
+  /** Monatliche Miete (Spanne wie beim Einmalpreis), Betrieb inklusive */
+  von: number;
+  bis: number;
+  /** Einmaliger Rest, der nicht gemietet werden kann (Media) – 0, wenn alles mietbar ist */
+  restVon: number;
+  restBis: number;
+}
+
+const MEDIA_FELDER = new Set(SCHRITTE.find((st) => st.id === "media")?.felder.map((f) => f.id));
+
+/**
+ * Miet-Alternative zum Einmalpreis – Formel aus config/packages.ts (rentPerMonth):
+ * Software-Anteil verteilt auf die Laufzeit + laufender Betrieb. Der Betrieb ist in der Miete immer enthalten:
+ * es zählt die gewählte Stufe, mindestens aber die, mit der die Paketseiten rechnen
+ * (Hosting bei Websites und kleinen Projekten, sonst Betrieb & Support).
+ * Media ist ein einmaliges Projekt und bleibt Einmalpreis. `null`, wenn nichts Mietbares gewählt ist.
+ */
+export function computeRent(e: Estimate, s: CalcState, konfig: PricingData["konfig"]): RentEstimate | null {
+  const basis = e.einmalig.filter((l) => l.key !== "express" && l.key !== "festival");
+  const mietbar = basis.filter((l) => !MEDIA_FELDER.has(l.key.split(":")[0])).reduce((a, l) => a + l.betrag, 0);
+  if (mietbar <= 0) return null;
+  // Express-Aufschlag anteilig, Festival-Zuschlag gehört ganz zu Media
+  const express = e.einmalig.find((l) => l.key === "express")?.betrag ?? 0;
+  const ohneExpress = e.summeEin - express;
+  const soft = mietbar * (ohneExpress > 0 ? e.summeEin / ohneExpress : 1);
+  const rest = Math.max(0, e.summeEin - soft);
+
+  const gewaehlt = e.monatlich.find((l) => l.key.startsWith("betrieb:"))?.betrag ?? 0;
+  const leistungen = Array.isArray(s.leistungen) ? (s.leistungen as string[]).filter((l) => l !== "media") : [];
+  const nurWebsite = leistungen.length > 0 && leistungen.every((l) => l === "website");
+  const standard = nurWebsite || soft < 2000 ? runningCosts.hosting : runningCosts.betrieb;
+  const ops = Math.max(gewaehlt, standard) + (e.summeMtl - gewaehlt);
+
+  const unten = (n: number) => runde(n * (1 - konfig.spanneUnten), konfig.rundenAuf);
+  const oben = (n: number) => runde(n * (1 + konfig.spanneOben), konfig.rundenAuf);
+  return { von: rentPerMonth(unten(soft), ops), bis: rentPerMonth(oben(soft), ops), restVon: unten(rest), restBis: oben(rest) };
+}
+
+/** "329 – 389 €/Monat" (+ einmaliger Media-Anteil) – für Zusammenfassung, Lead und Dashboard */
+export function rentText(r: RentEstimate, { t, locale }: CalcI18n): string {
+  const rate = t("engine.perMonth", { amount: formatRange(r.von, r.bis, locale) });
+  return r.restBis > 0 ? t("rent.withRest", { rate, rest: formatRange(r.restVon, r.restBis, locale) }) : rate;
+}
+
 /** "490 €", "49 €/Monat", "inklusive" – Preishinweis auf jeder Karte */
 export function priceHint(o: Option, { t, locale }: CalcI18n): string {
   const parts: string[] = [];
@@ -224,6 +270,8 @@ export function summaryText(s: CalcState, e: Estimate, data: PricingData, i18n: 
   }
   lines.push("", t("summary.range", { from: eur(e.von), to: eur(e.bis) }));
   lines.push(t("summary.running", { value: e.summeMtl > 0 ? t("summary.perMonthLong", { amount: eur(e.summeMtl) }) : t("summary.noRunning") }));
+  const rent = computeRent(e, s, data.konfig);
+  if (rent) lines.push(t("summary.rent", { value: rentText(rent, i18n) }));
   lines.push("", t("summary.footer"));
   return lines.join("\n");
 }

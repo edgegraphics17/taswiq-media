@@ -8792,7 +8792,8 @@
       "running": "Ongoing: {value}",
       "perMonthLong": "{amount} per month",
       "noRunning": "no ongoing costs",
-      "footer": "An estimate, not a quote. Final prices under § 19 UStG (no VAT charged)."
+      "footer": "An estimate, not a quote. Final prices under § 19 UStG (no VAT charged).",
+      "rent": "Rental alternative: {value} (operations included)"
     },
     "sheet": {
       "asOf": "As of {date}",
@@ -8815,11 +8816,29 @@
       "nextStep": "Next step",
       "nextStepText": "Workshop & clickable prototype – then we give you a fixed price. Reply within 24 hours.",
       "rights": "Rights & code",
-      "rightsText": "Source code, data and usage rights are yours – after payment, without limits in time or territory."
+      "rightsText": "Source code, data and usage rights are yours – after payment, without limits in time or territory.",
+      "rentTitle": "Alternative: rent instead of buying",
+      "rentPill": "or rent {rate}"
     },
     "estimateLabel": "Your estimate",
     "estimatePending": "Builds up with your answers – take your time choosing first.",
-    "estimateNote": "Non-binding · not a quote"
+    "estimateNote": "Non-binding · not a quote",
+    "rent": {
+      "aria": "Buy or rent",
+      "buy": "Buy",
+      "rent": "Rent",
+      "label": "Rent per month",
+      "alt": "or rent: {rate}",
+      "altBuy": "or buy: {range} one-time",
+      "included": "Hosting, maintenance, support & updates included · €0 upfront",
+      "terms": "{trial}-month trial, cancel monthly during that time – then a {term}-month minimum term.",
+      "rest": "Media remains a one-time project: {rest} one-time.",
+      "withRest": "{rate} + {rest} one-time (media)",
+      "requestNote": "We'll prepare your quote as a rental – {rate}. Buying stays possible at any time.",
+      "summaryLabel": "Buy or rent",
+      "summaryBuy": "Buy (one-time price)",
+      "summaryRent": "Rent – {value}"
+    }
   },
   "legal": {
     "tag": "Legal",
