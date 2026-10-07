@@ -59,6 +59,7 @@ for (const [table, col, def] of [
   ["tasks", "proposed_by", "text"], // Abteilung, die die Aufgabe vorgeschlagen hat (null = Karim / Claude-Sitzung)
   ["tasks", "requested_by", "text"], // Abteilung, die sie bei einer anderen angefragt hat
   ["tasks", "risk", "text not null default 'niedrig'"], // hoch = nie ohne Freigabe von Karim
+  ["tasks", "client", "text"], // Kundenauftrag (Name des Kunden) – leer = TasWiq selbst
 ]) {
   if (!db.prepare(`select 1 from pragma_table_info('${table}') where name = ?`).get(col)) db.exec(`alter table ${table} add column ${col} ${def}`);
 }
@@ -357,15 +358,16 @@ route("POST", "/auth/set-password", ({ body }) => {
 });
 
 // ─── Aufgaben (Arbeits-Dashboard) ───────────────────────────────────
-const TASK_FIELDS = ["title", "why", "steps", "category", "priority", "effort", "status", "source", "executor", "run_state", "run_input", "run_note", "department", "proposed_by", "requested_by", "risk"];
-const DEPARTMENTS = ["leitung", "entwicklung", "wachstum", "vertrieb", "qualitaet", "analyse"];
-const DEPARTMENT_NAME = { leitung: "Leitung", entwicklung: "Entwicklung", wachstum: "Wachstum", vertrieb: "Angebot & Vertrieb", qualitaet: "Qualität & Sicherheit", analyse: "Analyse" };
+const TASK_FIELDS = ["title", "why", "steps", "category", "priority", "effort", "status", "source", "executor", "run_state", "run_input", "run_note", "department", "proposed_by", "requested_by", "risk", "client"];
+const DEPARTMENTS = ["leitung", "entwicklung", "wachstum", "marketing", "vertrieb", "qualitaet", "analyse"];
+const DEPARTMENT_NAME = { leitung: "Leitung", entwicklung: "Entwicklung", wachstum: "Wachstum", marketing: "Marketing", vertrieb: "Angebot & Vertrieb", qualitaet: "Qualität & Sicherheit", analyse: "Analyse" };
 const RUN_STATES = [null, "beauftragt", "laeuft", "fertig", "rueckfrage"];
 const taskValues = (body) => {
   const v = {};
   for (const k of TASK_FIELDS) if (body[k] !== undefined) v[k] = body[k];
   if (v.title !== undefined) v.title = String(v.title).trim().slice(0, 200);
   for (const k of ["why", "steps", "run_input", "run_note"]) if (v[k] != null) v[k] = String(v[k]).trim().slice(0, 4000) || null;
+  if (v.client != null) v.client = String(v.client).trim().slice(0, 120) || null;
   if (v.executor !== undefined) need(["karim", "claude", "beide"].includes(v.executor), "executor");
   if (v.run_state !== undefined) need(RUN_STATES.includes(v.run_state), "run_state");
   if (v.department !== undefined) need(DEPARTMENTS.includes(v.department), "department");
@@ -454,8 +456,19 @@ const logEvent = (agent, kind, text, taskId = null) => {
   broadcast("team", agent);
 };
 const today = () => now().slice(0, 10);
-const STALE_MS = 2 * 3_600_000; // eine Aufgabe „läuft“ höchstens 2 Stunden – danach gilt der Durchlauf als abgebrochen
-const PLAN_EVERY_DAYS = 7;
+const STALE_MS = 45 * 60_000; // 45 Minuten ohne Meldung → der Durchlauf gilt als abgebrochen (jede Meldung verlängert)
+const PLAN_EVERY_MS = 20 * 3_600_000; // jede Abteilung plant höchstens einmal am Tag – und nur, wenn ihre Warteschlange leer ist
+
+/**
+ * Vollautomatik: Im Modus „selbststaendig“ wandert jede offene Aufgabe, die eine Abteilung allein lösen kann
+ * (executor claude, kleines Risiko), von selbst in die Warteschlange – egal, wer sie angelegt hat.
+ */
+const autoQueue = () => {
+  const s = settings();
+  if (s.team_active !== "1" || s.autonomy !== "selbststaendig") return;
+  const t = now();
+  db.prepare("update tasks set run_state = 'beauftragt', run_requested_at = ?, updated_at = ? where status = 'offen' and run_state is null and executor = 'claude' and risk = 'niedrig'").run(t, t);
+};
 
 /** Hängengebliebene Durchläufe freigeben und die gerade arbeitende Abteilung liefern (oder null). */
 const runningTask = () => {
@@ -473,10 +486,11 @@ const queueOf = (agent) =>
 const lastPlan = (agent) => db.prepare("select max(created_at) as at from agent_events where agent = ? and kind = 'planung'").get(agent).at;
 const planDue = (agent) => {
   const at = lastPlan(agent);
-  return !at || Date.now() - Date.parse(at) > PLAN_EVERY_DAYS * 86_400_000;
+  return !at || Date.now() - Date.parse(at) > PLAN_EVERY_MS;
 };
 
 route("GET", "/team/state", () => {
+  autoQueue();
   const s = settings();
   const running = runningTask();
   return {
@@ -504,6 +518,7 @@ route("POST", "/team/settings", ({ body }) => {
   if (body.max_tasks_per_day !== undefined) set.max_tasks_per_day = String(Math.min(10, Math.max(1, Math.round(Number(body.max_tasks_per_day)) || 3)));
   for (const [k, v] of Object.entries(set)) db.prepare("insert into settings (key, value) values (?, ?) on conflict (key) do update set value = excluded.value").run(k, v);
   if (set.team_active) logEvent("leitung", "info", set.team_active === "1" ? "Team eingeschaltet" : "Team pausiert");
+  autoQueue();
   return settings();
 });
 
@@ -511,15 +526,15 @@ route("POST", "/team/settings", ({ body }) => {
 route("GET", "/team/next", () => {
   const s = settings();
   if (s.team_active !== "1") return { agent: null, reason: "pausiert" };
+  autoQueue();
   const busy = runningTask();
   if (busy) return { agent: null, reason: "besetzt", by: busy.department };
   const max = Number(s.max_tasks_per_day);
   const ready = DEPARTMENTS.filter((d) => startsToday(d) < max);
   const work = ready.map((d) => ({ d, q: queueOf(d) })).filter((x) => x.q.length).sort((a, b) => a.q[0].priority - b.q[0].priority || a.q[0].run_requested_at.localeCompare(b.q[0].run_requested_at))[0];
   if (work) return { agent: work.d, mode: "arbeit", task: work.q[0].title };
-  // Nichts in der Warteschlange → höchstens eine Planungsrunde pro Tag, reihum.
-  const plannedToday = db.prepare("select 1 from agent_events where kind = 'planung' and substr(created_at, 1, 10) = ?").get(today());
-  const due = plannedToday ? null : ready.filter(planDue).sort((a, b) => (lastPlan(a) ?? "").localeCompare(lastPlan(b) ?? ""))[0];
+  // Nichts in der Warteschlange → die Abteilung, deren Planung am längsten her ist, sucht neue Aufgaben.
+  const due = DEPARTMENTS.filter(planDue).sort((a, b) => (lastPlan(a) ?? "").localeCompare(lastPlan(b) ?? ""))[0];
   return due ? { agent: due, mode: "planung" } : { agent: null, reason: "nichts zu tun" };
 });
 
@@ -529,14 +544,11 @@ route("POST", "/team/claim", ({ body }) => {
   need(DEPARTMENTS.includes(agent), "agent");
   const s = settings();
   if (s.team_active !== "1") return { task: null, reason: "pausiert", plan: false };
+  autoQueue();
   const busy = runningTask();
   if (busy) return { task: null, reason: "besetzt", plan: false };
-  if (startsToday(agent) >= Number(s.max_tasks_per_day)) return { task: null, reason: "tageslimit", plan: false };
-  const task = queueOf(agent)[0];
-  if (!task) {
-    const plannedToday = db.prepare("select 1 from agent_events where kind = 'planung' and substr(created_at, 1, 10) = ?").get(today());
-    return { task: null, reason: "leer", plan: !plannedToday && planDue(agent) };
-  }
+  const task = startsToday(agent) < Number(s.max_tasks_per_day) ? queueOf(agent)[0] : null;
+  if (!task) return { task: null, reason: queueOf(agent).length ? "tageslimit" : "leer", plan: !queueOf(agent).length && planDue(agent) };
   const t = now();
   db.prepare("update tasks set run_state = 'laeuft', status = 'in_arbeit', updated_at = ? where id = ?").run(t, task.id);
   logEvent(agent, "start", `Beginnt: ${task.title}`, task.id);

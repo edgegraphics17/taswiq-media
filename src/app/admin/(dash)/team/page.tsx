@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  AlertTriangle, ArrowRight, BarChart3, Check, CircleDot, Code2, Compass, Handshake, Lightbulb, type LucideIcon, MessageCircleQuestion, Pause, Play, Power, ShieldCheck, TrendingUp, X,
+  AlertTriangle, ArrowRight, BarChart3, Check, CircleDot, Code2, Compass, Handshake, Lightbulb, type LucideIcon, Megaphone, MessageCircleQuestion, Pause, Play, Power, ShieldCheck, TrendingUp, X,
 } from "lucide-react";
 import { removeTask, requestRun, setTeam } from "@/app/admin/actions";
 import { getTasks, getTeam, needsYou } from "@/lib/admin/data";
@@ -14,7 +14,7 @@ import { LiveRefresh } from "@/components/admin/LiveRefresh";
 
 export const metadata: Metadata = { title: "Team" };
 
-const ICON: Record<Department["icon"], LucideIcon> = { compass: Compass, code: Code2, trending: TrendingUp, handshake: Handshake, shield: ShieldCheck, chart: BarChart3 };
+const ICON: Record<Department["icon"], LucideIcon> = { compass: Compass, code: Code2, trending: TrendingUp, megaphone: Megaphone, handshake: Handshake, shield: ShieldCheck, chart: BarChart3 };
 
 const EVENT: Record<AgentEventKind, { icon: LucideIcon; tone: string; label: string }> = {
   start: { icon: Play, tone: "bg-brand-50 text-brand-600", label: "Start" },
@@ -134,7 +134,7 @@ export default async function TeamPage({ searchParams }: { searchParams: Promise
           <p className="text-xs font-medium text-brand-600">Arbeit</p>
           <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-ink">Team</h1>
           <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
-            Sechs Abteilungen arbeiten deine Aufgaben ab, schlagen neue vor und geben sich gegenseitig Arbeit weiter. Du siehst jeden Schritt und entscheidest, was ohne dich laufen darf.
+            Sieben Abteilungen suchen selbst nach Aufgaben, setzen sie um und geben sich gegenseitig Arbeit weiter. Du siehst jeden Schritt und kannst jederzeit eingreifen.
           </p>
         </div>
         <form action={setTeam}>
@@ -169,7 +169,7 @@ export default async function TeamPage({ searchParams }: { searchParams: Promise
                   : "Alles abgearbeitet. Das Team wartet auf neue Aufgaben."}
           </p>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-night-muted">
-            Der Taktgeber prüft alle zwei Stunden zwischen 8 und 20 Uhr, ob es Arbeit gibt, und startet dann genau eine Abteilung. Das läuft nur, solange die Claude-App auf deinem Mac geöffnet ist.
+            Nach jeder Aufgabe startet die nächste Abteilung von selbst; ist nichts offen, sucht eine Abteilung neue Aufgaben. Zusätzlich stößt ein Taktgeber das Team stündlich zwischen 7 und 22 Uhr an. Das läuft nur, solange die Claude-App auf deinem Mac geöffnet ist.
           </p>
         </div>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
@@ -188,7 +188,7 @@ export default async function TeamPage({ searchParams }: { searchParams: Promise
               ))}
             </div>
             <p className="mt-3 text-xs leading-relaxed text-night-muted">
-              {auto ? "Das Team setzt eigene Vorschläge mit kleinem Risiko direkt um. Preise, Rechtstexte, Kosten und Löschungen brauchen weiter dein Okay." : "Jeder Vorschlag wartet auf dein Okay, bevor jemand daran arbeitet."}
+              {auto ? "Das Team legt Aufgaben an und setzt sie direkt um. Nur Preise, Rechtstexte, Kosten, Löschungen und das Scharfschalten von Anzeigen warten auf dich." : "Jeder Vorschlag wartet auf dein Okay, bevor jemand daran arbeitet."}
             </p>
           </form>
           <form action={setTeam} className="rounded-2xl bg-white/5 p-4">
@@ -228,6 +228,7 @@ export default async function TeamPage({ searchParams }: { searchParams: Promise
                       {t.requested_by && t.requested_by !== t.department ? `${departmentById[t.requested_by].name} → ${departmentById[t.department].name}` : departmentById[t.department].name}
                     </span>
                     <span className="text-muted">{TASK_CATEGORY_LABEL[t.category]}</span>
+                    {t.client && <span className="rounded-full bg-night px-2.5 py-0.5 font-semibold text-white">Kunde: {t.client}</span>}
                     {t.risk === "hoch" && <span className="rounded-full bg-rose-50 px-2.5 py-0.5 font-semibold text-rose-800">Braucht immer dein Okay</span>}
                     {t.executor === "karim" && <span className="rounded-full border border-line px-2.5 py-0.5 text-muted">Nur du kannst das erledigen</span>}
                   </div>
@@ -239,8 +240,8 @@ export default async function TeamPage({ searchParams }: { searchParams: Promise
                         <input type="hidden" name="id" value={t.id} />
                         {(question || t.executor === "beide") && (
                           <label className="grid min-w-48 flex-1 gap-1 text-xs font-semibold text-muted">
-                            {question ? "Deine Antwort" : "Angaben für das Team"}
-                            <input name="input" required defaultValue={question ? "" : (t.run_input ?? "")} className="h-11 rounded-lg border border-line bg-white px-3 text-sm text-ink outline-none focus:border-brand-500" />
+                            {question ? "Deine Antwort" : "Angaben für das Team (optional)"}
+                            <input name="input" required={question} defaultValue={question ? "" : (t.run_input ?? "")} className="h-11 rounded-lg border border-line bg-white px-3 text-sm text-ink outline-none focus:border-brand-500" />
                           </label>
                         )}
                         <button type="submit" className={cn(pill, "bg-night text-white hover:bg-night-soft")}>

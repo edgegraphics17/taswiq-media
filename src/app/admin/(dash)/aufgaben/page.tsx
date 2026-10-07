@@ -4,7 +4,7 @@ import { Bot, Check, Play, Plus, RotateCcw, Sparkles, Trash2, UserRound } from "
 import { createTask, removeTask, requestRun, setTask } from "@/app/admin/actions";
 import { getAnalyticsData, getLeads, getTasks, wonThisMonth } from "@/lib/admin/data";
 import { goal, goalNeeds } from "@/config/goal";
-import { departmentById } from "@/config/team";
+import { departmentById, departments } from "@/config/team";
 import { EFFORT_LABEL, PRIORITY_LABEL, TASK_CATEGORY_LABEL } from "@/lib/admin/labels";
 import { isDemoMode } from "@/lib/env";
 import { cn, formatDate, formatEUR, formatNumber } from "@/lib/format";
@@ -71,6 +71,7 @@ function Task({ t, focus = false }: { t: TaskRow; focus?: boolean }) {
               )}
               <span className="rounded-full bg-canvas px-2.5 py-0.5 font-medium text-body">{TASK_CATEGORY_LABEL[t.category]}</span>
               <span className="text-muted">{departmentById[t.department]?.name}</span>
+              {t.client && <span className="rounded-full bg-night px-2.5 py-0.5 font-semibold text-white">Kunde: {t.client}</span>}
               <span className="text-muted">{EFFORT_LABEL[t.effort]}</span>
               <span className="inline-flex items-center gap-1 text-muted">
                 {t.source === "claude" ? <Sparkles className="size-3" aria-hidden /> : <UserRound className="size-3" aria-hidden />}
@@ -121,8 +122,8 @@ function Task({ t, focus = false }: { t: TaskRow; focus?: boolean }) {
                 <form action={requestRun} className="space-y-2 rounded-xl border border-line p-4">
                   <input type="hidden" name="id" value={t.id} />
                   <label className="block text-xs font-semibold text-muted">
-                    {t.executor === "beide" ? "Angaben für Claude (z. B. Adresse, Link, Entscheidung)" : "Hinweis für Claude (optional)"}
-                    <textarea name="input" rows={2} maxLength={4000} defaultValue={t.run_input ?? ""} required={t.executor === "beide"} className="mt-1.5 w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-ink outline-none focus:border-brand-500" />
+                    {t.executor === "beide" ? "Angaben für Claude (optional – ohne Angabe arbeitet das Team mit sinnvollen Annahmen)" : "Hinweis für Claude (optional)"}
+                    <textarea name="input" rows={2} maxLength={4000} defaultValue={t.run_input ?? ""} className="mt-1.5 w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-ink outline-none focus:border-brand-500" />
                   </label>
                   <button type="submit" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-500 px-5 text-sm font-semibold text-white transition-colors hover:bg-brand-600">
                     <Bot className="size-4" aria-hidden /> Von Claude umsetzen lassen
@@ -323,6 +324,21 @@ export default async function TasksPage({ searchParams }: { searchParams: Promis
                 </option>
               ))}
             </select>
+          </label>
+          <label className="grid gap-1.5 text-xs font-semibold text-muted sm:col-span-2">
+            Abteilung
+            <select name="department" defaultValue="" className={input}>
+              <option value="">Automatisch nach Bereich</option>
+              {departments.map((d) => (
+                <option key={d.id} value={d.id}>
+                  {d.name}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="grid gap-1.5 text-xs font-semibold text-muted">
+            Kunde (optional)
+            <input name="client" maxLength={120} placeholder="leer = TasWiq" className={input} />
           </label>
           <label className="grid gap-1.5 text-xs font-semibold text-muted sm:col-span-3">
             Warum bringt das Umsatz? (optional)

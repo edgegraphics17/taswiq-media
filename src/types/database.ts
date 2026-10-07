@@ -165,9 +165,11 @@ export type TaskRow = {
   requested_by: DepartmentId | null;
   /** hoch = läuft nie ohne deine Freigabe */
   risk: "niedrig" | "hoch";
+  /** Kundenauftrag: Name des Kunden (leer = TasWiq selbst) */
+  client: string | null;
 };
 export type TaskInsert = Pick<TaskRow, "title"> &
-  Partial<Pick<TaskRow, "key" | "why" | "steps" | "category" | "priority" | "effort" | "status" | "source" | "executor" | "run_state" | "run_input" | "run_note" | "department" | "risk">>;
+  Partial<Pick<TaskRow, "key" | "why" | "steps" | "category" | "priority" | "effort" | "status" | "source" | "executor" | "run_state" | "run_input" | "run_note" | "department" | "risk" | "client">>;
 
 /* ─── Besucherstatistik ─── */
 export type SiteHit = {

@@ -11,7 +11,7 @@ import { clientIp, rateLimit } from "@/lib/rate-limit";
 import { getAdminUser } from "@/lib/admin/data";
 import { addLeadNote, deleteTask, insertTask, setPassword, setTeamSettings, updateLead as updateLeadInBackend, updateTask, upsertServices, verifyPassword } from "@/lib/db";
 import { LEAD_STATUSES, TASK_CATEGORIES, TASK_STATUSES } from "@/types/database";
-import { departmentFor } from "@/config/team";
+import { DEPARTMENT_IDS, departmentFor } from "@/config/team";
 
 /** Jede Mutation prüft die Admin-Berechtigung erneut – Server Actions sind öffentliche Endpunkte. */
 async function requireAdminUser() {
@@ -150,6 +150,8 @@ const taskSchema = z.object({
   category: z.enum(TASK_CATEGORIES),
   priority: z.coerce.number().int().min(1).max(3),
   effort: z.enum(["S", "M", "L"]),
+  department: z.enum(DEPARTMENT_IDS).or(z.literal("")).optional(),
+  client: z.string().trim().max(120).optional(),
 });
 
 export async function createTask(formData: FormData) {
@@ -157,9 +159,19 @@ export async function createTask(formData: FormData) {
   await requireAdminUser();
   const parsed = taskSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) redirect("/admin/aufgaben?error=1");
-  const { priority, why, steps, ...rest } = parsed.data;
+  const { priority, why, steps, department, client, ...rest } = parsed.data;
   try {
-    await insertTask({ ...rest, priority: priority as 1 | 2 | 3, why: why || null, steps: steps || null, source: "karim", department: departmentFor(rest.category) });
+    // Was du hier anlegst, soll das Team erledigen: Die Abteilung übernimmt ohne weitere Rückfrage (im Modus „Selbstständig“ sofort).
+    await insertTask({
+      ...rest,
+      priority: priority as 1 | 2 | 3,
+      why: why || null,
+      steps: steps || null,
+      client: client || null,
+      source: "karim",
+      executor: "claude",
+      department: department || departmentFor(rest.category),
+    });
   } catch (e) {
     console.error("[admin] createTask", e);
     redirect("/admin/aufgaben?error=1");

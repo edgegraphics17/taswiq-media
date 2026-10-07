@@ -45,3 +45,8 @@ next-env.d.ts
 # gstack-Logs
 .gstack/
 .claude/
+
+# Kundenaufträge des Marketing-Teams (Entwürfe, Motive, Pläne) – bleiben lokal
+/kunden/
+
+/team/tmp/

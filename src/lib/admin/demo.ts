@@ -92,6 +92,7 @@ const task = (i: number, t: Partial<TaskRow> & Pick<TaskRow, "title" | "category
   proposed_by: null,
   requested_by: null,
   risk: "niedrig",
+  client: null,
   ...t,
 });
 export const demoTasks: TaskRow[] = [
