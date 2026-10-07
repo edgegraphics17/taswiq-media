@@ -4,9 +4,9 @@ import { redirect } from "next/navigation";
 import { isDemoMode } from "@/lib/env";
 import { isAdminEmail } from "@/lib/auth";
 import { SESSION_COOKIE, verifySession } from "@/lib/session";
-import { getLeadWithEvents, listCalculatorRequests, listLeads, type LeadFilters } from "@/lib/db";
-import { demoCalcRequests, demoEvents, demoLeads } from "@/lib/admin/demo";
-import type { CalculatorRequest, LeadEventRow, LeadRow } from "@/types/database";
+import { getAnalytics, getLeadWithEvents, listCalculatorRequests, listLeads, listTasks, type LeadFilters } from "@/lib/db";
+import { demoAnalytics, demoCalcRequests, demoEvents, demoLeads, demoTasks } from "@/lib/admin/demo";
+import type { AnalyticsData, CalculatorRequest, LeadEventRow, LeadRow, TaskRow } from "@/types/database";
 
 /**
  * Datenschicht des Admin-Dashboards (nur Server Components / Server Actions).
@@ -52,6 +52,28 @@ export async function getLead(id: string): Promise<{ lead: LeadRow; events: Lead
 export async function getCalculatorRequests(): Promise<CalculatorRequest[]> {
   if (isDemoMode()) return demoCalcRequests;
   return listCalculatorRequests();
+}
+
+export async function getTasks(): Promise<TaskRow[]> {
+  if (isDemoMode()) return demoTasks;
+  return listTasks();
+}
+
+export async function getAnalyticsData(days: number): Promise<AnalyticsData> {
+  if (isDemoMode()) return demoAnalytics(days);
+  return getAnalytics(days);
+}
+
+/** Umsatzziel pro Monat – daran richtet sich das Arbeits-Dashboard aus. */
+export const MONTHLY_GOAL = 900_000;
+
+/** Gewonnener Auftragswert im laufenden Monat (Zeitpunkt = letzte Änderung des gewonnenen Leads). */
+export function wonThisMonth(leads: LeadRow[]) {
+  const start = new Date();
+  start.setDate(1);
+  start.setHours(0, 0, 0, 0);
+  const won = leads.filter((l) => l.status === "gewonnen" && new Date(l.updated_at) >= start);
+  return { count: won.length, value: won.reduce((s, l) => s + (l.deal_value ?? 0), 0) };
 }
 
 /** Kennzahlen – aus allen Leads berechnet (klein genug für In-Memory; bei >10k Leads im Backend aggregieren). */

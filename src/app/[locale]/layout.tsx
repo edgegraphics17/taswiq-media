@@ -5,6 +5,8 @@ import { getMessages, getTranslations, setRequestLocale } from "next-intl/server
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { MotionProvider } from "@/components/providers/MotionProvider";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { CookieBanner } from "@/components/consent/CookieBanner";
+import { PageViews } from "@/components/consent/PageViews";
 import { fontVars } from "@/app/fonts";
 import { routing, LOCALE_META } from "@/i18n/routing";
 import { languageAlternates, organizationJsonLd } from "@/lib/seo";
@@ -48,7 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 /** Nur diese Namespaces brauchen Client Components – der Rest bleibt auf dem Server (kleineres RSC-Payload). */
-const CLIENT_NAMESPACES = ["common", "nav", "languageSwitcher", "funnel", "contactForm", "leadResult", "calculator", "portfolio", "site"] as const;
+const CLIENT_NAMESPACES = ["common", "nav", "languageSwitcher", "funnel", "contactForm", "leadResult", "calculator", "portfolio", "site", "consent"] as const;
 
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;
@@ -63,6 +65,8 @@ export default async function LocaleLayout({ children, params }: Props) {
       <body>
         <NextIntlClientProvider locale={locale} messages={clientMessages}>
           <MotionProvider>{children}</MotionProvider>
+          <CookieBanner />
+          <PageViews />
         </NextIntlClientProvider>
         <JsonLd data={await organizationJsonLd(locale)} />
         <SpeedInsights />

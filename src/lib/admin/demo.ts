@@ -1,4 +1,4 @@
-import type { CalculatorRequest, LeadEventRow, LeadRow } from "@/types/database";
+import type { AnalyticsData, CalculatorRequest, LeadEventRow, LeadRow, TaskRow } from "@/types/database";
 
 /**
  * Demo-Daten fürs Dashboard, solange das Backend lokal nicht verbunden ist.
@@ -70,3 +70,48 @@ export const demoCalcRequests: CalculatorRequest[] = Array.from({ length: 8 }).m
   referrer: null,
   converted_lead_id: i % 3 === 0 ? `00000000-0000-4000-8000-${String(i + 1).padStart(12, "0")}` : null,
 }));
+
+const task = (i: number, t: Partial<TaskRow> & Pick<TaskRow, "title" | "category" | "priority">): TaskRow => ({
+  id: `20000000-0000-4000-8000-${String(i).padStart(12, "0")}`,
+  key: null,
+  why: "Demo-Aufgabe – im echten Dashboard steht hier, warum das Umsatz bringt.",
+  steps: "Schritt 1\nSchritt 2\nSchritt 3",
+  effort: "M",
+  status: "offen",
+  source: "claude",
+  created_at: ago(i * 5),
+  updated_at: ago(i * 5),
+  done_at: null,
+  ...t,
+});
+export const demoTasks: TaskRow[] = [
+  task(1, { title: "Lead-Benachrichtigung einrichten", category: "workflows", priority: 1, status: "in_arbeit" }),
+  task(2, { title: "Google Search Console verbinden", category: "seo", priority: 1 }),
+  task(3, { title: "Impressum mit Anschrift vervollständigen", category: "risiken", priority: 1 }),
+  task(4, { title: "Drei Referenz-Fallstudien mit Zahlen", category: "angebote", priority: 2, source: "karim" }),
+  task(5, { title: "Cookie-Banner einbauen", category: "fehlt", priority: 1, status: "erledigt", done_at: ago(1) }),
+];
+
+export function demoAnalytics(days: number): AnalyticsData {
+  const daily = Array.from({ length: days }).map((_, i) => {
+    const visitors = 18 + ((i * 7) % 23) + (i % 7 === 5 ? -9 : 0);
+    return { day: new Date(base - (days - 1 - i) * 86_400_000).toISOString().slice(0, 10), visitors, views: Math.round(visitors * 2.3) };
+  });
+  const visitors = daily.reduce((s, d) => s + d.visitors, 0);
+  const share = (p: number) => Math.round(visitors * p);
+  return {
+    days,
+    since: daily[0].day,
+    totals: { visitors, views: daily.reduce((s, d) => s + d.views, 0) },
+    daily,
+    pages: [["/", 0.52], ["/preisrechner", 0.21], ["/portfolio", 0.14], ["/leistungen/bestellsystem-gastronomie", 0.09], ["/blog", 0.06]].map(([path, p]) => ({ path: path as string, visitors: share(p as number), views: share((p as number) * 1.4) })),
+    channels: [["suche", 0.41], ["direkt", 0.27], ["social", 0.19], ["ki", 0.07], ["verweis", 0.06]].map(([channel, p]) => ({ channel: channel as string, visitors: share(p as number), views: share((p as number) * 2) })),
+    sources: [["google.com", "suche", 0.38], ["direkt", "direkt", 0.27], ["instagram.com", "social", 0.15], ["chatgpt.com", "ki", 0.05], ["bing.com", "suche", 0.03]].map(([source, channel, p]) => ({ source: source as string, channel: channel as string, visitors: share(p as number) })),
+    campaigns: [{ campaign: "herbst-gastro", visitors: share(0.08) }],
+    devices: [{ device: "mobil", visitors: share(0.63) }, { device: "desktop", visitors: share(0.34) }, { device: "tablet", visitors: share(0.03) }],
+    locales: [{ locale: "de", visitors: share(0.9) }, { locale: "en", visitors: share(0.1) }],
+    events: [{ name: "rechner_schritt", n: share(0.4), visitors: share(0.16) }, { name: "rechner_ergebnis", n: share(0.09), visitors: share(0.08) }, { name: "funnel_step", n: share(0.12), visitors: share(0.06) }, { name: "generate_lead", n: share(0.02), visitors: share(0.02) }],
+    leads: demoLeads.length,
+    calculations: demoCalcRequests.length,
+  };
+}

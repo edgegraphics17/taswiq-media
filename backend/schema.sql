@@ -101,3 +101,49 @@ create table if not exists login_tokens (
   expires_at  text not null,
   used_at     text
 );
+
+-- Passwort-Login fürs Dashboard: nur scrypt-Hash + Salt, nie das Passwort selbst.
+create table if not exists admin_credentials (
+  email          text primary key collate nocase,
+  password_hash  text not null,
+  salt           text not null,
+  updated_at     text not null default (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+);
+
+-- Arbeits-Dashboard: offene Aufgaben auf dem Weg zum Umsatzziel.
+-- `key` ist ein optionaler, eindeutiger Slug – damit lassen sich Aufgaben wiederholt einspielen, ohne Dubletten.
+create table if not exists tasks (
+  id          text primary key,
+  key         text unique,
+  title       text not null check (length(title) between 3 and 200),
+  why         text,
+  steps       text,
+  category    text not null default 'sonstiges' check (category in ('traffic','seo','geo','angebote','workflows','bugs','risiken','fehlt','vertrieb','sonstiges')),
+  priority    integer not null default 2 check (priority in (1, 2, 3)),
+  effort      text not null default 'M' check (effort in ('S','M','L')),
+  status      text not null default 'offen' check (status in ('offen','in_arbeit','erledigt')),
+  source      text not null default 'karim' check (source in ('karim','claude')),
+  created_at  text not null default (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
+  updated_at  text not null default (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
+  done_at     text
+);
+create index if not exists tasks_status_idx on tasks (status, priority);
+
+-- Besucherstatistik (eigene Messung, ohne Cookies): ein Eintrag je Seitenaufruf oder Ereignis.
+-- `visitor` ist ein täglich wechselnder Hash (kein Wiedererkennen über Tage, keine IP gespeichert).
+create table if not exists site_hits (
+  id          integer primary key autoincrement,
+  created_at  text not null default (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
+  day         text not null,
+  type        text not null check (type in ('pageview','event')),
+  name        text,
+  path        text not null,
+  locale      text,
+  visitor     text not null,
+  session_id  text,
+  channel     text not null default 'direkt',
+  source      text,
+  campaign    text,
+  device      text
+);
+create index if not exists site_hits_day_idx on site_hits (day, type);

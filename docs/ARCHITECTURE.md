@@ -197,6 +197,9 @@ der Client (`src/lib/db.ts`) hat deshalb ein 10-s-Timeout und einen Retry bei Ve
 | `leads` | Kontakt, Qualifizierung, Score/Tier, **Kunden-Status** (neu → kontaktiert → angebot → verhandlung → gewonnen/verloren/archiviert), Auftragswert, n8n-Automation |
 | `lead_events` | Verlauf: Erstellung & Status-Wechsel automatisch (im API-Dienst, in einer Transaktion), Notizen, Automationen |
 | `login_tokens` | einmalige Magic-Link-Tokens (nur SHA-256-Hash, 15 min gültig) |
+| `admin_credentials` | Passwort-Login: scrypt-Hash + Salt je Admin-E-Mail |
+| `tasks` | Arbeits-Dashboard: Aufgaben mit Bereich, Dringlichkeit, Aufwand, Status, Herkunft (karim/claude) |
+| `site_hits` | Besucherstatistik: Seitenaufrufe und Ereignisse (ohne IP, Tages-Hash) |
 
 **API** (Header `x-taswiq-token`, nur von Next.js-Server und n8n genutzt): `POST /leads`, `GET /leads?status&tier&q`, `GET|PATCH /leads/:id`
 (`?fields=a,b` = flach, für n8n), `POST /leads/:id/events`, `POST|GET /calculator-requests`, `GET|PUT /services`, `POST /auth/request`,
@@ -237,6 +240,20 @@ Mutationen      ──► Server Actions (actions.ts) prüfen Admin erneut → B
 Live            ──► LiveRefresh (EventSource) → /admin/api/live (SSE-Proxy, nur mit Session) → Backend /events → router.refresh()
 Login           ──► Magic Link: Backend erzeugt Einmal-Token (nur für ADMIN_EMAILS) → Mail via n8n-Webhook → /admin/auth/callback löst ein, setzt Cookie
 ```
+**Zwei Bereiche (seit 08.10.2026):**
+- **Kunden & Website:** Anfragen (Leads), Analytics, Kalkulationen, Preise
+- **Arbeit:** Fokus & Aufgaben – alle offenen Aufgaben auf dem Weg zum Umsatzziel (`MONTHLY_GOAL` in `src/lib/admin/data.ts`), oben die drei wichtigsten.
+  Neue Aufgaben kommen aus dem Dashboard-Formular oder als JSON über `POST /tasks/bulk` (siehe `backend/README.md` → „Aufgaben einspielen“).
+
+**Login:** E-Mail + Passwort (`/admin/login`, Link im Footer). Passwort liegt als scrypt-Hash in `admin_credentials`; 5 Fehlversuche sperren das Konto 15 Minuten.
+Ändern unter `/admin/konto`. Der Magic-Link-Weg (`/admin/auth/callback`) bleibt als Reserve im Code.
+
+**Analytics:** eigene Messung ohne Cookies. `PageViews` (Client) → `POST /api/track` → Backend-Tabelle `site_hits`. Besucher = täglich wechselnder Hash aus IP + Browser
+(nichts davon wird gespeichert), Kanal aus Referrer/UTM (Suche, KI-Assistenten, Social, Direkt, Verweis, Anzeigen, E-Mail). Bots und „Do Not Track“ werden nicht gezählt.
+
+**Einwilligung:** `CookieBanner` + `src/lib/consent.ts`. Ohne Zustimmung wird nichts im Browser gespeichert; mit „Statistik“ merkt sich die Seite
+Session-ID und Herkunft im sessionStorage (`src/lib/attribution.ts`). Footer-Link „Cookie-Einstellungen“ öffnet die Auswahl erneut.
+
 Seiten: **Leads** (KPIs, Pipeline nach Status, Filter per URL, Tabelle mit Score/Tier/Status) · **Lead-Detail** (Kontakt-Buttons inkl. WhatsApp, Rechner-Auswahl, Score-Begründung, Verlauf + Notizen, Status/Auftragswert/Nächster Schritt) · **Kalkulationen** (Conversion Rechner → Lead) · **Preise** (Editor für `services`). Ohne Backend lokal: Demo-Modus mit Beispieldaten; in Produktion gesperrt.
 
 ---

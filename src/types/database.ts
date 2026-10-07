@@ -128,3 +128,56 @@ export type LeadEventRow = LeadEventRowT;
 export type CalculatorRequest = CalculatorRequestRow;
 export type LeadStatusEnum = LeadStatus;
 export const LEAD_STATUSES: LeadStatus[] = ["neu", "kontaktiert", "angebot", "verhandlung", "gewonnen", "verloren", "archiviert"];
+
+/* ─── Arbeits-Dashboard ─── */
+export const TASK_CATEGORIES = ["traffic", "seo", "geo", "angebote", "workflows", "bugs", "risiken", "fehlt", "vertrieb", "sonstiges"] as const;
+export type TaskCategory = (typeof TASK_CATEGORIES)[number];
+export const TASK_STATUSES = ["offen", "in_arbeit", "erledigt"] as const;
+export type TaskStatus = (typeof TASK_STATUSES)[number];
+export type TaskRow = {
+  id: string;
+  key: string | null;
+  title: string;
+  why: string | null;
+  steps: string | null;
+  category: TaskCategory;
+  priority: 1 | 2 | 3;
+  effort: "S" | "M" | "L";
+  status: TaskStatus;
+  source: "karim" | "claude";
+  created_at: string;
+  updated_at: string;
+  done_at: string | null;
+};
+export type TaskInsert = Pick<TaskRow, "title"> & Partial<Pick<TaskRow, "key" | "why" | "steps" | "category" | "priority" | "effort" | "status" | "source">>;
+
+/* ─── Besucherstatistik ─── */
+export type SiteHit = {
+  type: "pageview" | "event";
+  name?: string | null;
+  path: string;
+  locale?: string | null;
+  visitor: string;
+  session_id?: string | null;
+  channel: string;
+  source?: string | null;
+  campaign?: string | null;
+  device?: string | null;
+  /** Herkunft vom ersten Aufruf des Besuchers an diesem Tag übernehmen */
+  inherit?: boolean;
+};
+export type AnalyticsData = {
+  days: number;
+  since: string;
+  totals: { views: number; visitors: number };
+  daily: { day: string; views: number; visitors: number }[];
+  pages: { path: string; views: number; visitors: number }[];
+  channels: { channel: string; visitors: number; views: number }[];
+  sources: { source: string; channel: string; visitors: number }[];
+  campaigns: { campaign: string; visitors: number }[];
+  devices: { device: string; visitors: number }[];
+  locales: { locale: string; visitors: number }[];
+  events: { name: string; n: number; visitors: number }[];
+  leads: number;
+  calculations: number;
+};

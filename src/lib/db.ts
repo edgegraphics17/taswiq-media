@@ -8,6 +8,10 @@ import type {
   LeadRow,
   ServiceRowType,
   ServiceUpsert,
+  AnalyticsData,
+  SiteHit,
+  TaskInsert,
+  TaskRow,
 } from "@/types/database";
 
 /**
@@ -26,7 +30,7 @@ export class BackendError extends Error {
 }
 
 interface CallOptions {
-  method?: "GET" | "POST" | "PATCH" | "PUT";
+  method?: "GET" | "POST" | "PATCH" | "PUT" | "DELETE";
   body?: unknown;
   timeoutMs?: number;
 }
@@ -129,6 +133,56 @@ export async function verifyLoginToken(token: string): Promise<string | null> {
     if (e instanceof BackendError && (e.status === 401 || e.status === 422)) return null;
     throw e;
   }
+}
+
+/** Passwort-Login. "ok" → E-Mail, "invalid" → falsche Daten, "locked" → zu viele Fehlversuche. */
+export async function verifyPassword(email: string, password: string): Promise<"ok" | "invalid" | "locked"> {
+  try {
+    await call("/auth/password", { method: "POST", body: { email, password } });
+    return "ok";
+  } catch (e) {
+    if (e instanceof BackendError && e.status === 429) return "locked";
+    if (e instanceof BackendError && (e.status === 401 || e.status === 422)) return "invalid";
+    throw e;
+  }
+}
+
+export async function setPassword(email: string, current: string, password: string): Promise<"ok" | "invalid" | "weak"> {
+  try {
+    await call("/auth/set-password", { method: "POST", body: { email, current, password } });
+    return "ok";
+  } catch (e) {
+    if (e instanceof BackendError && e.status === 401) return "invalid";
+    if (e instanceof BackendError && e.status === 422) return "weak";
+    throw e;
+  }
+}
+
+// ─── Aufgaben ───────────────────────────────────────────────────────
+export function listTasks(): Promise<TaskRow[]> {
+  return call<TaskRow[]>("/tasks");
+}
+
+export async function insertTask(task: TaskInsert): Promise<void> {
+  await call("/tasks", { method: "POST", body: task });
+}
+
+export async function updateTask(id: string, patch: Partial<TaskInsert>): Promise<void> {
+  await call(`/tasks/${encodeURIComponent(id)}`, { method: "PATCH", body: patch });
+}
+
+export async function deleteTask(id: string): Promise<void> {
+  await call(`/tasks/${encodeURIComponent(id)}`, { method: "DELETE" });
+}
+
+// ─── Besucherstatistik ──────────────────────────────────────────────
+/** Kurzes Timeout, kein Retry: ein verlorener Seitenaufruf ist egal, eine hängende Anfrage nicht. */
+export async function insertHit(hit: SiteHit): Promise<void> {
+  await call("/track", { method: "POST", body: hit, timeoutMs: 4000 });
+}
+
+export function getAnalytics(days: number): Promise<AnalyticsData> {
+  return call<AnalyticsData>(`/analytics?days=${days}`);
 }
 
 /** Live-Stream (SSE) für das Dashboard – wird vom Route-Handler /admin/api/live durchgereicht. */

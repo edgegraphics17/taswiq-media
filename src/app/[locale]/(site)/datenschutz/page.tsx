@@ -4,6 +4,7 @@ import { LegalPage } from "@/components/layout/LegalPage";
 import { site } from "@/config/site";
 import type { Locale } from "@/i18n/routing";
 import { pageMetadata } from "@/lib/seo";
+import { ConsentLink } from "@/components/consent/ConsentLink";
 
 type Props = { params: Promise<{ locale: Locale }> };
 
@@ -17,6 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function DatenschutzPage({ params }: Props) {
   setRequestLocale((await params).locale);
   const t = await getTranslations("legal.privacy");
+  const tFooter = await getTranslations("footer");
   return (
     <LegalPage title={t("title")}>
       <p className="rounded-xl border border-danger/30 bg-danger/5 p-4 text-sm text-danger">{t("draft")}</p>
@@ -26,6 +28,15 @@ export default async function DatenschutzPage({ params }: Props) {
       </p>
       <h2>{t("formsTitle")}</h2>
       <p>{t("formsText")}</p>
+      <h2>{t("hostingTitle")}</h2>
+      <p>{t("hostingText")}</p>
+      <h2>{t("analyticsTitle")}</h2>
+      <p>{t("analyticsText")}</p>
+      <h2>{t("cookiesTitle")}</h2>
+      <p>
+        {t("cookiesText")}{" "}
+        <ConsentLink className="font-medium text-brand-600 underline underline-offset-2">{tFooter("cookieSettings")}</ConsentLink>
+      </p>
       <h2>{t("calendlyTitle")}</h2>
       <p>{t("calendlyText")}</p>
       <h2>{t("videosTitle")}</h2>

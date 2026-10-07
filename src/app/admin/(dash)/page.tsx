@@ -33,8 +33,8 @@ export default async function LeadsPage({ searchParams }: { searchParams: Promis
       {!isDemoMode() && <LiveRefresh />}
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-xs font-medium text-brand-600">Dashboard</p>
-          <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-ink">Leads</h1>
+          <p className="text-xs font-medium text-brand-600">Kunden &amp; Website</p>
+          <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-ink">Anfragen</h1>
         </div>
         <p className="text-sm text-muted">{formatNumber(k.newThisMonth)} neue Leads diesen Monat</p>
       </header>

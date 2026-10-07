@@ -1,10 +1,12 @@
+import NextLink from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
-import { Mail, MessageCircle, Phone } from "lucide-react";
+import { LockKeyhole, Mail, MessageCircle, Phone } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { site, hasAddress, nav, type AppHref } from "@/config/site";
 import { industryPages, mediaPage, servicePages } from "@/config/seo-pages";
 import { Logo } from "@/components/ui/Logo";
 import { PartnerBadge } from "@/components/ui/PartnerBadge";
+import { ConsentLink } from "@/components/consent/ConsentLink";
 
 /** Footer als große weiße Karte auf Canvas – mit schwarzer CTA-Kapsel oben. */
 export async function Footer() {
@@ -83,13 +85,18 @@ export async function Footer() {
         <p>
           © {new Date().getFullYear()} {site.legalName}. {tSite("vatNote")}
         </p>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <Link href="/impressum" className="rounded-full bg-white px-3 py-1.5 hover:text-brand-600">
             {t("legalNotice")}
           </Link>
           <Link href="/datenschutz" className="rounded-full bg-white px-3 py-1.5 hover:text-brand-600">
             {t("privacy")}
           </Link>
+          <ConsentLink className="rounded-full bg-white px-3 py-1.5 hover:text-brand-600">{t("cookieSettings")}</ConsentLink>
+          {/* Dashboard liegt außerhalb der Sprach-Routen → next/link statt next-intl-Link (kein /en-Präfix) */}
+          <NextLink href="/admin" prefetch={false} rel="nofollow" className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 hover:text-brand-600">
+            <LockKeyhole className="size-3" aria-hidden /> {t("login")}
+          </NextLink>
         </div>
       </div>
     </footer>

@@ -31,3 +31,16 @@ als Verlaufseintrag und im Lead-Detail des Dashboards („Jev-Einschätzung“).
 ## Preis-Seed
 `npm run db:seed-sql` erzeugt `seed.sql`. Das Backend lädt sie nur beim ersten Start in eine leere Tabelle `services`; eine leere Tabelle
 ist unkritisch (die Seite rechnet dann mit `src/config/pricing.ts`).
+
+## Aufgaben einspielen (Arbeits-Dashboard)
+Aufgaben als JSON-Liste in `backend/tasks/<datum>.json` ablegen (Felder: `key`, `title`, `why`, `steps` – ein Schritt pro Zeile –, `category`, `priority` 1–3,
+`effort` S/M/L, `source` „claude“). Einträge mit bereits vorhandenem `key` werden übersprungen, die Datei kann also gefahrlos erneut eingespielt werden.
+```bash
+sprite file push -s taswiq-media backend/tasks/<datum>.json /home/sprite/taswiq/tasks-in.json
+sprite exec -s taswiq-media --no-stdin -- /home/sprite/taswiq/api.sh -X POST localhost:8080/tasks/bulk -d @/home/sprite/taswiq/tasks-in.json
+```
+Erledigt melden: `api.sh -X PATCH localhost:8080/tasks/<key> -d '{"status":"erledigt"}'` (als Datei mit `-d @…`, die CLI zerlegt Anführungszeichen).
+
+## Passwort zurücksetzen
+`api.sh -X POST localhost:8080/auth/set-password -d @pw.json` mit `{"email":"…","password":"…","force":true}` – `force` überspringt die Abfrage des alten Passworts
+und ist nur über die Konsole des Sprites erreichbar. Datei danach löschen.

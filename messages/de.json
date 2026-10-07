@@ -1213,7 +1213,9 @@
     "contact": "Kontakt",
     "legalNotice": "Impressum",
     "privacy": "Datenschutz",
-    "partnerNote": "Agentur & Entwicklung in Deutschland · KI-Technologie von winsym.ai aus Kuala Lumpur."
+    "partnerNote": "Agentur & Entwicklung in Deutschland · KI-Technologie von winsym.ai aus Kuala Lumpur.",
+    "cookieSettings": "Cookie-Einstellungen",
+    "login": "Login"
   },
   "contactBox": {
     "title": "Lieber direkt sprechen?",
@@ -8840,13 +8842,19 @@
       "draft": "Entwurf – beschreibt die technischen Datenflüsse dieser Website. Vor dem Livegang rechtlich prüfen lassen.",
       "controller": "Verantwortlicher",
       "formsTitle": "Kontaktformular, Funnel & Preisrechner",
-      "formsText": "Wenn du uns über den Funnel oder den Preisrechner schreibst, speichern wir deine Angaben (Name, E-Mail, optional Telefon, Firma, Nachricht, gewählte Leistungen, Budget-Stufe und Kalkulation) zur Bearbeitung deiner Anfrage (Art. 6 Abs. 1 lit. b DSGVO). Die Daten liegen in einer Supabase-Datenbank (Hosting in der EU, Region Frankfurt) und werden über einen selbst betriebenen n8n-Workflow verarbeitet: Benachrichtigung an uns und eine Bestätigungs-E-Mail an dich. Deine IP-Adresse speichern wir nur als gesalzenen Hash zum Schutz vor Spam. Anfragen löschen wir, wenn kein Auftrag zustande kommt, spätestens nach 24 Monaten.",
+      "formsText": "Wenn du uns über den Funnel oder den Preisrechner schreibst, speichern wir deine Angaben (Name, E-Mail, optional Telefon, Firma, Nachricht, gewählte Leistungen, Budget-Stufe und Kalkulation) zur Bearbeitung deiner Anfrage (Art. 6 Abs. 1 lit. b DSGVO). Die Daten liegen in einer eigenen Datenbank auf einem von uns betriebenen Server beim Hosting-Dienstleister Fly.io und werden über einen selbst betriebenen n8n-Workflow verarbeitet: Benachrichtigung an uns und eine Bestätigungs-E-Mail an dich. Deine IP-Adresse speichern wir nur als gesalzenen Hash zum Schutz vor Spam. Anfragen löschen wir, wenn kein Auftrag zustande kommt, spätestens nach 24 Monaten.",
       "calendlyTitle": "Terminbuchung (Calendly)",
       "calendlyText": "Den Buchungskalender laden wir erst nach deinem Klick. Dabei werden Daten an Calendly LLC (USA) übertragen (Art. 6 Abs. 1 lit. a DSGVO, EU-US Data Privacy Framework).",
       "videosTitle": "Videos",
       "videosText": "Vorschau-Clips liegen auf unserem eigenen Server. Links zu YouTube öffnen sich erst auf deinen Klick in einem neuen Tab.",
       "rightsTitle": "Deine Rechte",
-      "rightsText": "Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch – eine E-Mail an uns genügt."
+      "rightsText": "Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch – eine E-Mail an uns genügt.",
+      "hostingTitle": "Hosting",
+      "hostingText": "Die Website wird bei Vercel Inc. ausgeliefert. Beim Aufruf verarbeitet Vercel technisch notwendige Verbindungsdaten (IP-Adresse, Zeitpunkt, aufgerufene Seite), um die Seite auszuliefern und abzusichern (Art. 6 Abs. 1 lit. f DSGVO). Über Vercel Speed Insights messen wir Ladezeiten – ohne Cookies und ohne dich wiederzuerkennen.",
+      "analyticsTitle": "Reichweitenmessung",
+      "analyticsText": "Wir zählen Seitenaufrufe mit einer eigenen Messung auf unserem Server – ohne Cookies, ohne Dienste wie Google Analytics. Gespeichert werden aufgerufene Seite, Herkunft (z. B. Suchmaschine oder Kampagne), Gerätetyp und Sprache. Deine IP-Adresse speichern wir nicht; Besuche werden über einen Kurzwert unterschieden, der täglich wechselt und sich nicht auf dich zurückführen lässt (Art. 6 Abs. 1 lit. f DSGVO). Sendet dein Browser „Do Not Track“, zählen wir nicht.",
+      "cookiesTitle": "Cookies & lokale Speicherung",
+      "cookiesText": "Wir setzen keine Werbe- oder Tracking-Cookies. Im Speicher deines Browsers liegt nur deine Auswahl aus dem Cookie-Fenster (technisch notwendig, § 25 Abs. 2 TDDDG). Erst wenn du „Statistik“ erlaubst, merken wir uns für die Dauer deines Besuchs eine zufällige Sitzungs-Kennung sowie Herkunft und Kampagne im Sitzungsspeicher (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG). Deine Auswahl kannst du jederzeit ändern:"
     }
   },
   "notFound": {
@@ -9035,5 +9043,20 @@
         "Festpreis nach dem Prototyp"
       ]
     }
+  },
+  "consent": {
+    "title": "Kurz zu Cookies & Daten",
+    "text": "Wir setzen keine Werbe-Cookies. Mit deiner Zustimmung merken wir uns für diesen Besuch, über welche Seite und Kampagne du gekommen bist – das hilft uns, die Website besser zu machen.",
+    "acceptAll": "Alle akzeptieren",
+    "onlyNecessary": "Nur notwendige",
+    "settings": "Einstellungen",
+    "save": "Auswahl speichern",
+    "privacy": "Datenschutz",
+    "necessaryTitle": "Notwendig",
+    "necessaryText": "Speichert nur deine Auswahl in diesem Fenster. Ohne das müssten wir dich bei jedem Besuch neu fragen.",
+    "alwaysOn": "Immer aktiv",
+    "statisticsTitle": "Statistik",
+    "statisticsText": "Verbindet deine Seitenaufrufe während dieses Besuchs und merkt sich Herkunft und Kampagne (UTM) im Sitzungsspeicher deines Browsers. Keine Weitergabe an Dritte, kein Profil über mehrere Tage.",
+    "dialogLabel": "Cookie-Einstellungen"
   }
 }

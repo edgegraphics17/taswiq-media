@@ -15,7 +15,7 @@
  *   PORT                        Standard: 8080
  */
 import http from "node:http";
-import { randomUUID, createHash, timingSafeEqual, randomBytes } from "node:crypto";
+import { randomUUID, createHash, timingSafeEqual, randomBytes, scryptSync } from "node:crypto";
 import { readFileSync, mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -294,6 +294,157 @@ route("POST", "/auth/verify", ({ body }) => {
   });
   if (!row) throw new HttpError(401, "invalidToken");
   return { email: row.email };
+});
+
+// ─── Passwort-Login ─────────────────────────────────────────────────
+const pwHash = (password, salt) => scryptSync(password, salt, 64).toString("hex");
+/** Sperre nach Fehlversuchen: 5 falsche Passwörter → 15 Minuten Pause (pro E-Mail, im Speicher). */
+const fails = new Map();
+const LOCK_AFTER = 5;
+const LOCK_MS = 15 * 60_000;
+
+const checkPassword = (email, password) => {
+  const row = db.prepare("select * from admin_credentials where email = ?").get(email);
+  // Auch ohne Treffer rechnen – sonst verrät die Antwortzeit, ob es das Konto gibt.
+  const given = pwHash(password, row?.salt ?? "no-such-account");
+  return Boolean(row) && safeEqual(given, row.password_hash);
+};
+
+route("POST", "/auth/password", ({ body }) => {
+  const email = String(body?.email ?? "").trim().toLowerCase();
+  const password = String(body?.password ?? "");
+  need(email && password.length <= 200, "credentials");
+  const f = fails.get(email);
+  if (f && f.n >= LOCK_AFTER && Date.now() - f.at < LOCK_MS) throw new HttpError(429, "locked");
+  if (!ADMIN_EMAILS.includes(email) || !checkPassword(email, password)) {
+    fails.set(email, { n: (f && Date.now() - f.at < LOCK_MS ? f.n : 0) + 1, at: Date.now() });
+    if (fails.size > 1000) fails.clear();
+    throw new HttpError(401, "invalidCredentials");
+  }
+  fails.delete(email);
+  return { email };
+});
+
+/** Passwort setzen/ändern. `current` ist Pflicht, sobald schon eines existiert (außer force = Bootstrap über die Konsole). */
+route("POST", "/auth/set-password", ({ body }) => {
+  const email = String(body?.email ?? "").trim().toLowerCase();
+  const password = String(body?.password ?? "");
+  need(ADMIN_EMAILS.includes(email), "email");
+  need(password.length >= 10 && password.length <= 200, "weakPassword");
+  const exists = db.prepare("select 1 from admin_credentials where email = ?").get(email);
+  if (exists && !body.force && !checkPassword(email, String(body?.current ?? ""))) throw new HttpError(401, "invalidCredentials");
+  const salt = randomBytes(16).toString("hex");
+  db.prepare(
+    `insert into admin_credentials (email, password_hash, salt, updated_at) values (?, ?, ?, ?)
+     on conflict (email) do update set password_hash = excluded.password_hash, salt = excluded.salt, updated_at = excluded.updated_at`,
+  ).run(email, pwHash(password, salt), salt, now());
+  return { ok: true };
+});
+
+// ─── Aufgaben (Arbeits-Dashboard) ───────────────────────────────────
+const TASK_FIELDS = ["title", "why", "steps", "category", "priority", "effort", "status", "source"];
+const taskValues = (body) => {
+  const v = {};
+  for (const k of TASK_FIELDS) if (body[k] !== undefined) v[k] = body[k];
+  if (v.title !== undefined) v.title = String(v.title).trim().slice(0, 200);
+  for (const k of ["why", "steps"]) if (v[k] != null) v[k] = String(v[k]).trim().slice(0, 4000) || null;
+  return v;
+};
+const insertTask = (body) => {
+  const v = taskValues(body);
+  need(v.title && v.title.length >= 3, "title");
+  const id = randomUUID();
+  const t = now();
+  const cols = Object.keys(v);
+  db.prepare(`insert into tasks (id, key, created_at, updated_at, done_at, ${cols.join(",")}) values (?, ?, ?, ?, ?, ${cols.map(() => "?").join(",")})`)
+    .run(id, body.key ? String(body.key).slice(0, 80) : null, t, t, v.status === "erledigt" ? t : null, ...cols.map((c) => v[c]));
+  return id;
+};
+
+route("GET", "/tasks", () =>
+  db.prepare("select * from tasks order by case status when 'in_arbeit' then 0 when 'offen' then 1 else 2 end, priority, created_at").all(),
+);
+
+route("POST", "/tasks", ({ body }) => {
+  need(body && typeof body === "object");
+  const id = insertTask(body);
+  broadcast("task", id);
+  return { id };
+});
+
+/** Mehrere Aufgaben einspielen – Einträge mit bereits vorhandenem `key` werden übersprungen (kein Überschreiben). */
+route("POST", "/tasks/bulk", ({ body }) => {
+  need(Array.isArray(body) && body.length > 0 && body.length <= 200);
+  let added = 0;
+  tx(() => {
+    for (const t of body) {
+      if (t.key && db.prepare("select 1 from tasks where key = ?").get(String(t.key))) continue;
+      insertTask(t);
+      added++;
+    }
+  });
+  if (added) broadcast("task", "bulk");
+  return { added, skipped: body.length - added };
+});
+
+route("PATCH", "/tasks/:id", ({ params, body }) => {
+  need(body && typeof body === "object");
+  const old = db.prepare("select * from tasks where id = ? or key = ?").get(params.id, params.id);
+  if (!old) throw new HttpError(404, "notFound");
+  const set = { ...taskValues(body), updated_at: now() };
+  if (set.status && set.status !== old.status) set.done_at = set.status === "erledigt" ? set.updated_at : null;
+  const cols = Object.keys(set);
+  db.prepare(`update tasks set ${cols.map((c) => `${c} = ?`).join(", ")} where id = ?`).run(...cols.map((c) => set[c]), old.id);
+  broadcast("task", old.id);
+  return db.prepare("select * from tasks where id = ?").get(old.id);
+});
+
+route("DELETE", "/tasks/:id", ({ params }) => {
+  const r = db.prepare("delete from tasks where id = ?").run(params.id);
+  if (!r.changes) throw new HttpError(404, "notFound");
+  broadcast("task", params.id);
+  return { ok: true };
+});
+
+// ─── Besucherstatistik ──────────────────────────────────────────────
+const clip = (v, n) => (v == null || v === "" ? null : String(v).slice(0, n));
+
+route("POST", "/track", ({ body }) => {
+  need(body && ["pageview", "event"].includes(body.type) && typeof body.path === "string" && typeof body.visitor === "string", "hit");
+  const day = now().slice(0, 10);
+  const visitor = body.visitor.slice(0, 64);
+  // Folgeseiten und Ereignisse erben die Herkunft des Einstiegs – sonst würde jeder Besuch zusätzlich als „direkt“ zählen.
+  const entry = body.inherit ? db.prepare("select channel, source, campaign from site_hits where day = ? and visitor = ? order by id limit 1").get(day, visitor) : null;
+  const origin = entry ?? { channel: clip(body.channel, 30) ?? "direkt", source: clip(body.source, 120), campaign: clip(body.campaign, 120) };
+  db.prepare(
+    "insert into site_hits (day, type, name, path, locale, visitor, session_id, channel, source, campaign, device) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+  ).run(
+    day, body.type, clip(body.name, 60), body.path.slice(0, 200), clip(body.locale, 5), visitor,
+    clip(body.session_id, 40), origin.channel, origin.source, origin.campaign, clip(body.device, 10),
+  );
+  return { ok: true };
+});
+
+route("GET", "/analytics", ({ query }) => {
+  const days = Math.min(365, Math.max(1, Number(query.get("days")) || 30));
+  const since = new Date(Date.now() - (days - 1) * 86_400_000).toISOString().slice(0, 10);
+  const all = (sql) => db.prepare(sql).all(since);
+  const pv = "from site_hits where day >= ? and type = 'pageview'";
+  return {
+    days,
+    since,
+    totals: db.prepare(`select count(*) as views, count(distinct day || visitor) as visitors ${pv}`).get(since),
+    daily: all(`select day, count(*) as views, count(distinct visitor) as visitors ${pv} group by day order by day`),
+    pages: all(`select path, count(*) as views, count(distinct day || visitor) as visitors ${pv} group by path order by views desc limit 15`),
+    channels: all(`select channel, count(distinct day || visitor) as visitors, count(*) as views ${pv} group by channel order by visitors desc`),
+    sources: all(`select coalesce(source, 'direkt') as source, channel, count(distinct day || visitor) as visitors ${pv} group by 1, 2 order by visitors desc limit 15`),
+    campaigns: all(`select campaign, count(distinct day || visitor) as visitors ${pv} and campaign is not null group by campaign order by visitors desc limit 10`),
+    devices: all(`select coalesce(device, 'unbekannt') as device, count(distinct day || visitor) as visitors ${pv} group by 1 order by visitors desc`),
+    locales: all(`select coalesce(locale, 'de') as locale, count(distinct day || visitor) as visitors ${pv} group by 1 order by visitors desc`),
+    events: all("select name, count(*) as n, count(distinct day || visitor) as visitors from site_hits where day >= ? and type = 'event' group by name order by n desc"),
+    leads: db.prepare("select count(*) as n from leads where substr(created_at, 1, 10) >= ?").get(since).n,
+    calculations: db.prepare("select count(*) as n from calculator_requests where substr(created_at, 1, 10) >= ?").get(since).n,
+  };
 });
 
 // ─── Server ─────────────────────────────────────────────────────────

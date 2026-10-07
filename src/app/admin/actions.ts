@@ -1,14 +1,16 @@
 "use server";
 
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { z } from "zod";
 import { isAdminAuthConfigured, isDemoMode } from "@/lib/env";
-import { SESSION_COOKIE } from "@/lib/session";
+import { SESSION_COOKIE, SESSION_MAX_AGE, signSession } from "@/lib/session";
+import { isAdminEmail } from "@/lib/auth";
+import { clientIp, rateLimit } from "@/lib/rate-limit";
 import { getAdminUser } from "@/lib/admin/data";
-import { addLeadNote, requestLoginLink, updateLead as updateLeadInBackend, upsertServices } from "@/lib/db";
-import { LEAD_STATUSES } from "@/types/database";
+import { addLeadNote, deleteTask, insertTask, setPassword, updateLead as updateLeadInBackend, updateTask, upsertServices, verifyPassword } from "@/lib/db";
+import { LEAD_STATUSES, TASK_CATEGORIES, TASK_STATUSES } from "@/types/database";
 
 /** Jede Mutation prüft die Admin-Berechtigung erneut – Server Actions sind öffentliche Endpunkte. */
 async function requireAdminUser() {
@@ -17,14 +19,47 @@ async function requireAdminUser() {
   return user;
 }
 
+/** Login mit E-Mail + Passwort. Fehlermeldung ist bewusst immer dieselbe – verrät nicht, ob die Adresse existiert. */
 export async function signIn(formData: FormData) {
-  const email = z.string().trim().toLowerCase().email().safeParse(formData.get("email"));
-  if (!email.success) redirect("/admin/login?error=email");
+  const parsed = z.object({ email: z.string().trim().toLowerCase().email(), password: z.string().min(1).max(200) }).safeParse(Object.fromEntries(formData));
+  if (!parsed.success) redirect("/admin/login?error=credentials");
   if (!isAdminAuthConfigured()) redirect("/admin/login?error=config");
-  // Das Backend schickt nur an Adressen aus ADMIN_EMAILS einen Link – Fehler werden bewusst verschluckt.
-  await requestLoginLink(email.data).catch((e) => console.error("[admin] Login-Link fehlgeschlagen", e));
-  // Immer dieselbe Antwort – verrät nicht, ob die Adresse existiert
-  redirect("/admin/login?sent=1");
+  // Zusätzlich zur Sperre im Backend (pro Konto): Bremse pro IP.
+  if (!rateLimit(`login:${clientIp(await headers())}`, 10, 15 * 60_000)) redirect("/admin/login?error=locked");
+
+  const { email, password } = parsed.data;
+  const result = await verifyPassword(email, password).catch((e) => {
+    console.error("[admin] Login fehlgeschlagen", e);
+    return "error" as const;
+  });
+  if (result === "error") redirect("/admin/login?error=backend");
+  if (result === "locked") redirect("/admin/login?error=locked");
+  if (result !== "ok" || !isAdminEmail(email)) redirect("/admin/login?error=credentials");
+
+  (await cookies()).set(SESSION_COOKIE, await signSession(email), {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+    maxAge: SESSION_MAX_AGE,
+  });
+  const next = String(formData.get("next") ?? "");
+  redirect(/^\/admin(\/[\w\-/]*)?$/.test(next) ? next : "/admin");
+}
+
+export async function changePassword(formData: FormData) {
+  if (isDemoMode()) redirect("/admin/konto?demo=1");
+  const user = await requireAdminUser();
+  const current = String(formData.get("current") ?? "");
+  const password = String(formData.get("password") ?? "");
+  if (password.length < 10) redirect("/admin/konto?error=weak");
+  if (password !== String(formData.get("repeat") ?? "")) redirect("/admin/konto?error=mismatch");
+  const result = await setPassword(user.email, current, password).catch((e) => {
+    console.error("[admin] changePassword", e);
+    return "error" as const;
+  });
+  if (result !== "ok") redirect(`/admin/konto?error=${result === "invalid" ? "current" : result}`);
+  redirect("/admin/konto?saved=1");
 }
 
 export async function signOut() {
@@ -104,4 +139,62 @@ export async function updatePrices(formData: FormData) {
   }
   revalidateTag("pricing");
   redirect("/admin/preise?saved=1");
+}
+
+// ─── Aufgaben (Arbeits-Dashboard) ───────────────────────────────────
+const taskSchema = z.object({
+  title: z.string().trim().min(3).max(200),
+  why: z.string().trim().max(4000).optional(),
+  steps: z.string().trim().max(4000).optional(),
+  category: z.enum(TASK_CATEGORIES),
+  priority: z.coerce.number().int().min(1).max(3),
+  effort: z.enum(["S", "M", "L"]),
+});
+
+export async function createTask(formData: FormData) {
+  if (isDemoMode()) redirect("/admin/aufgaben?demo=1");
+  await requireAdminUser();
+  const parsed = taskSchema.safeParse(Object.fromEntries(formData));
+  if (!parsed.success) redirect("/admin/aufgaben?error=1");
+  const { priority, why, steps, ...rest } = parsed.data;
+  try {
+    await insertTask({ ...rest, priority: priority as 1 | 2 | 3, why: why || null, steps: steps || null, source: "karim" });
+  } catch (e) {
+    console.error("[admin] createTask", e);
+    redirect("/admin/aufgaben?error=1");
+  }
+  revalidatePath("/admin/aufgaben");
+  redirect("/admin/aufgaben?saved=1");
+}
+
+/** Status oder Priorität einer Aufgabe ändern (Buttons in der Liste). */
+export async function setTask(formData: FormData) {
+  if (isDemoMode()) redirect("/admin/aufgaben?demo=1");
+  await requireAdminUser();
+  const parsed = z
+    .object({ id: z.string().uuid(), status: z.enum(TASK_STATUSES).optional(), priority: z.coerce.number().int().min(1).max(3).optional() })
+    .safeParse(Object.fromEntries(formData));
+  if (!parsed.success) redirect("/admin/aufgaben?error=1");
+  const { id, status, priority } = parsed.data;
+  try {
+    await updateTask(id, { ...(status ? { status } : {}), ...(priority ? { priority: priority as 1 | 2 | 3 } : {}) });
+  } catch (e) {
+    console.error("[admin] setTask", e);
+    redirect("/admin/aufgaben?error=1");
+  }
+  revalidatePath("/admin/aufgaben");
+}
+
+export async function removeTask(formData: FormData) {
+  if (isDemoMode()) redirect("/admin/aufgaben?demo=1");
+  await requireAdminUser();
+  const id = z.string().uuid().safeParse(formData.get("id"));
+  if (!id.success) redirect("/admin/aufgaben?error=1");
+  try {
+    await deleteTask(id.data);
+  } catch (e) {
+    console.error("[admin] removeTask", e);
+    redirect("/admin/aufgaben?error=1");
+  }
+  revalidatePath("/admin/aufgaben");
 }

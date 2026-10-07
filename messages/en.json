@@ -1213,7 +1213,9 @@
     "contact": "Contact",
     "legalNotice": "Legal notice",
     "privacy": "Privacy",
-    "partnerNote": "Agency & development in Germany · AI technology by winsym.ai, Kuala Lumpur."
+    "partnerNote": "Agency & development in Germany · AI technology by winsym.ai, Kuala Lumpur.",
+    "cookieSettings": "Cookie settings",
+    "login": "Login"
   },
   "contactBox": {
     "title": "Rather talk directly?",
@@ -8839,13 +8841,19 @@
       "draft": "Draft – describes the technical data flows of this website. Have it legally reviewed before going live.",
       "controller": "Controller",
       "formsTitle": "Contact form, funnel & pricing calculator",
-      "formsText": "When you contact us via the funnel or the pricing calculator, we store your details (name, email, optionally phone, company, message, selected services, budget range and calculation) to process your enquiry (Art. 6(1)(b) GDPR). The data is stored in a Supabase database (hosted in the EU, Frankfurt region) and processed via a self-hosted n8n workflow: a notification to us and a confirmation email to you. We only store your IP address as a salted hash to protect against spam. If no contract results, we delete enquiries after 24 months at the latest.",
+      "formsText": "When you contact us via the funnel or the pricing calculator, we store your details (name, email, optionally phone, company, message, selected services, budget range and calculation) to process your enquiry (Art. 6(1)(b) GDPR). The data is stored in our own database on a server we operate with the hosting provider Fly.io and processed via a self-hosted n8n workflow: a notification to us and a confirmation email to you. We only store your IP address as a salted hash to protect against spam. If no contract results, we delete enquiries after 24 months at the latest.",
       "calendlyTitle": "Appointment booking (Calendly)",
       "calendlyText": "We only load the booking calendar after you click. Data is then transferred to Calendly LLC (USA) (Art. 6(1)(a) GDPR, EU-US Data Privacy Framework).",
       "videosTitle": "Videos",
       "videosText": "Preview clips are hosted on our own server. Links to YouTube only open in a new tab when you click them.",
       "rightsTitle": "Your rights",
-      "rightsText": "Access, rectification, erasure, restriction, data portability and objection – a quick email to us is all it takes."
+      "rightsText": "Access, rectification, erasure, restriction, data portability and objection – a quick email to us is all it takes.",
+      "hostingTitle": "Hosting",
+      "hostingText": "The website is served by Vercel Inc. When you open a page, Vercel processes technically necessary connection data (IP address, time, requested page) to deliver and secure the site (Art. 6(1)(f) GDPR). We measure loading times with Vercel Speed Insights – without cookies and without recognising you.",
+      "analyticsTitle": "Reach measurement",
+      "analyticsText": "We count page views with our own measurement on our server – without cookies and without services such as Google Analytics. We store the requested page, source (e.g. search engine or campaign), device type and language. We do not store your IP address; visits are told apart by a short value that changes daily and cannot be traced back to you (Art. 6(1)(f) GDPR). If your browser sends “Do Not Track”, we do not count.",
+      "cookiesTitle": "Cookies & local storage",
+      "cookiesText": "We do not set advertising or tracking cookies. Your browser only stores your choice from the cookie dialog (technically necessary, Sec. 25(2) TDDDG). Only if you allow “Statistics” do we remember a random session identifier plus source and campaign in session storage for the duration of your visit (Art. 6(1)(a) GDPR, Sec. 25(1) TDDDG). You can change your choice at any time:"
     }
   },
   "notFound": {
@@ -9034,5 +9042,20 @@
         "Fixed price after the prototype"
       ]
     }
+  },
+  "consent": {
+    "title": "A quick word on cookies & data",
+    "text": "We don't use advertising cookies. With your consent we remember for this visit which page and campaign brought you here – that helps us improve the website.",
+    "acceptAll": "Accept all",
+    "onlyNecessary": "Necessary only",
+    "settings": "Settings",
+    "save": "Save selection",
+    "privacy": "Privacy policy",
+    "necessaryTitle": "Necessary",
+    "necessaryText": "Only stores your choice from this dialog. Without it we would have to ask you on every visit.",
+    "alwaysOn": "Always on",
+    "statisticsTitle": "Statistics",
+    "statisticsText": "Links your page views during this visit and remembers source and campaign (UTM) in your browser's session storage. Not shared with third parties, no profile across days.",
+    "dialogLabel": "Cookie settings"
   }
 }

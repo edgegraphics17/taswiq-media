@@ -1,4 +1,4 @@
-import type { LeadStatusEnum } from "@/types/database";
+import type { LeadStatusEnum, TaskCategory, TaskStatus } from "@/types/database";
 
 export const STATUS_LABEL: Record<LeadStatusEnum, string> = {
   neu: "Neu",
@@ -43,4 +43,41 @@ export const INDUSTRY_LABEL: Record<string, string> = {
   handwerk: "Handwerk & Services",
   musik: "Events & Artists",
   andere: "Andere",
+};
+
+/* ─── Arbeits-Dashboard ─── */
+export const TASK_CATEGORY_LABEL: Record<TaskCategory, string> = {
+  traffic: "Traffic",
+  seo: "SEO",
+  geo: "GEO (KI-Suche)",
+  angebote: "Angebote",
+  workflows: "Workflows",
+  bugs: "Bugs",
+  risiken: "Risiken",
+  fehlt: "Fehlt noch",
+  vertrieb: "Vertrieb",
+  sonstiges: "Sonstiges",
+};
+export const TASK_STATUS_LABEL: Record<TaskStatus, string> = { offen: "Offen", in_arbeit: "In Arbeit", erledigt: "Erledigt" };
+export const PRIORITY_LABEL: Record<number, string> = { 1: "Jetzt", 2: "Als Nächstes", 3: "Später" };
+export const EFFORT_LABEL: Record<string, string> = { S: "unter 1 Std.", M: "halber Tag", L: "mehrere Tage" };
+
+/* ─── Analytics ─── */
+export const CHANNEL_LABEL: Record<string, string> = {
+  suche: "Suchmaschinen",
+  ki: "KI-Assistenten",
+  social: "Social Media",
+  direkt: "Direkt",
+  verweis: "Andere Websites",
+  anzeigen: "Anzeigen",
+  email: "E-Mail",
+  kampagne: "Kampagnen (UTM)",
+};
+export const EVENT_LABEL: Record<string, string> = {
+  rechner_schritt: "Rechner: Schritt weiter",
+  rechner_ergebnis: "Rechner: Ergebnis gesehen",
+  rechner_anfrage: "Rechner: Anfrage gesendet",
+  funnel_step: "Anfrage-Funnel: Schritt weiter",
+  generate_lead: "Anfrage gesendet",
+  portfolio_open: "Portfolio-Projekt geöffnet",
 };
