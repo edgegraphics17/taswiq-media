@@ -197,24 +197,192 @@
     "hero": {
       "eyebrow": "Software for small & mid-sized businesses",
       "titleStart": "Your own",
-      "rotating": [
-        "ordering system.",
-        "booking system.",
-        "client portal.",
-        "dashboard."
-      ],
       "sub": "We build software you own – instead of paying commission to platforms and subscriptions for tools that don't fit. AI-assisted, in weeks instead of months, at a fixed price.",
+      "question": "What kind of business do you run?",
+      "questionHint": "Pick your industry – this is what your system looks like.",
+      "pickerLabel": "Choose your industry",
+      "sceneLink": "See software for {industry}",
+      "live": "Live",
+      "scenes": {
+        "gastro": {
+          "pill": "Food",
+          "word": "ordering system.",
+          "alt": "Bakery counter with fresh bread and pastries",
+          "app": "Today's orders",
+          "rows": [
+            {
+              "lead": "#1042",
+              "title": "2× flatbread, 1× baklava",
+              "meta": "Pickup · 12:30",
+              "status": "New"
+            },
+            {
+              "lead": "#1041",
+              "title": "Lunch menu for 4",
+              "meta": "Delivery · 12:15",
+              "status": "In progress"
+            },
+            {
+              "lead": "#1040",
+              "title": "Breakfast platter",
+              "meta": "Pickup · 11:40",
+              "status": "Done"
+            }
+          ],
+          "toastLabel": "New order",
+          "toastValue": "+ €18.50",
+          "win": "0% commission – the order belongs to you."
+        },
+        "beauty": {
+          "pill": "Beauty",
+          "word": "booking system.",
+          "alt": "Barbershop with barber chairs and lit mirrors",
+          "app": "Today's appointments",
+          "rows": [
+            {
+              "lead": "14:30",
+              "title": "Haircut & beard",
+              "meta": "Booked online · Yusuf",
+              "status": "New"
+            },
+            {
+              "lead": "15:15",
+              "title": "Balayage",
+              "meta": "Reminder sent",
+              "status": "Confirmed"
+            },
+            {
+              "lead": "16:00",
+              "title": "Kids' cut",
+              "meta": "Deposit received",
+              "status": "Confirmed"
+            }
+          ],
+          "toastLabel": "New appointment",
+          "toastValue": "Thu · 14:30",
+          "win": "No fee per booking – your clients stay yours."
+        },
+        "immobilien": {
+          "pill": "Real estate",
+          "word": "tenant portal.",
+          "alt": "Hand passing over an apartment key with a house key ring",
+          "app": "Tenant portal",
+          "rows": [
+            {
+              "lead": "4B",
+              "title": "Heating is down",
+              "meta": "Damage report with 2 photos",
+              "status": "New"
+            },
+            {
+              "lead": "Sat",
+              "title": "Viewing 11:00",
+              "meta": "3-room apartment",
+              "status": "Planned"
+            },
+            {
+              "lead": "12",
+              "title": "Service charges 2025",
+              "meta": "Sent to all tenants",
+              "status": "Done"
+            }
+          ],
+          "toastLabel": "New report",
+          "toastValue": "Apt. 4B",
+          "win": "Fewer calls – tenants report everything online."
+        },
+        "automotive": {
+          "pill": "Automotive",
+          "word": "booking system.",
+          "alt": "Mechanic working in a car repair shop",
+          "app": "Workshop bookings",
+          "rows": [
+            {
+              "lead": "08:00",
+              "title": "Service · VW Golf",
+              "meta": "Booked online",
+              "status": "New"
+            },
+            {
+              "lead": "10:30",
+              "title": "Tyre change",
+              "meta": "Reminder sent",
+              "status": "Confirmed"
+            },
+            {
+              "lead": "13:00",
+              "title": "MOT · Ford Transit",
+              "meta": "Ready for pickup",
+              "status": "Done"
+            }
+          ],
+          "toastLabel": "Slot booked",
+          "toastValue": "Tue · 08:00",
+          "win": "Bookings around the clock – no phone needed."
+        },
+        "kanzlei": {
+          "pill": "Advisory",
+          "word": "client portal.",
+          "alt": "Advisor reviewing documents at a desk",
+          "app": "Client portal",
+          "rows": [
+            {
+              "lead": "PDF",
+              "title": "Fuel_receipt_May.pdf",
+              "meta": "AI read: €238.00 · 19% VAT",
+              "status": "New"
+            },
+            {
+              "lead": "10th",
+              "title": "VAT return",
+              "meta": "Due in 5 days",
+              "status": "Open"
+            },
+            {
+              "lead": "Thu",
+              "title": "Annual review 15:00",
+              "meta": "Booked online",
+              "status": "Confirmed"
+            }
+          ],
+          "toastLabel": "Receipt read",
+          "toastValue": "€238.00",
+          "win": "No paper chaos – receipts arrive sorted."
+        },
+        "handwerk": {
+          "pill": "Trades",
+          "word": "job system.",
+          "alt": "Electrician working on a distribution board",
+          "app": "Jobs",
+          "rows": [
+            {
+              "lead": "#218",
+              "title": "Bathroom renovation",
+              "meta": "Request with 4 photos",
+              "status": "New"
+            },
+            {
+              "lead": "#217",
+              "title": "Electrical quote",
+              "meta": "Accepted by the client",
+              "status": "Accepted"
+            },
+            {
+              "lead": "#215",
+              "title": "On site Wed 07:30",
+              "meta": "Team 2 · digital sign-off",
+              "status": "Planned"
+            }
+          ],
+          "toastLabel": "Quote accepted",
+          "toastValue": "€4,800",
+          "win": "A quote in minutes – not on your weekend."
+        }
+      },
       "primary": "Free consultation",
       "secondary": "See our work",
       "proofTitle": "450+ projects",
-      "proofText": "for hotels, festivals, brands & businesses",
-      "browserUrl": "daron-brot-ii.vercel.app",
-      "browserAlt": "Own ordering system of Daron Brot II bakery in Aachen",
-      "phoneAlt": "Online appointment booking of OMED hair salon on a phone",
-      "orderLabel": "New order",
-      "orderValue": "+ €18.50",
-      "feeTitle": "0% commission",
-      "feeText": "The order belongs to you."
+      "proofText": "for hotels, festivals, brands & businesses"
     },
     "references": {
       "title": "Trusted through 450+ projects with hotels, festivals, brands & artists",

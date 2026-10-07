@@ -197,24 +197,192 @@
     "hero": {
       "eyebrow": "Software für KMU & Mittelstand",
       "titleStart": "Dein eigenes",
-      "rotating": [
-        "Bestellsystem.",
-        "Buchungssystem.",
-        "Kundenportal.",
-        "Dashboard."
-      ],
       "sub": "Wir bauen Software, die dir gehört – statt Provision an Plattformen und Abos für Tools, die nicht passen. Mit KI-gestützter Entwicklung in Wochen statt Monaten, zum Festpreis.",
+      "question": "Was für einen Betrieb führst du?",
+      "questionHint": "Tipp auf deine Branche – so sieht dein System aus.",
+      "pickerLabel": "Branche wählen",
+      "sceneLink": "Software für {industry} ansehen",
+      "live": "Live",
+      "scenes": {
+        "gastro": {
+          "pill": "Gastro",
+          "word": "Bestellsystem.",
+          "alt": "Theke einer Bäckerei mit frischem Brot und Gebäck",
+          "app": "Bestellungen heute",
+          "rows": [
+            {
+              "lead": "#1042",
+              "title": "2× Fladenbrot, 1× Baklava",
+              "meta": "Abholung · 12:30",
+              "status": "Neu"
+            },
+            {
+              "lead": "#1041",
+              "title": "Mittagsmenü für 4",
+              "meta": "Lieferung · 12:15",
+              "status": "In Arbeit"
+            },
+            {
+              "lead": "#1040",
+              "title": "Frühstücksplatte",
+              "meta": "Abholung · 11:40",
+              "status": "Fertig"
+            }
+          ],
+          "toastLabel": "Neue Bestellung",
+          "toastValue": "+ 18,50 €",
+          "win": "0 % Provision – die Bestellung gehört dir."
+        },
+        "beauty": {
+          "pill": "Beauty",
+          "word": "Buchungssystem.",
+          "alt": "Barbershop mit Friseurstühlen und beleuchteten Spiegeln",
+          "app": "Termine heute",
+          "rows": [
+            {
+              "lead": "14:30",
+              "title": "Haarschnitt & Bart",
+              "meta": "Online gebucht · Yusuf",
+              "status": "Neu"
+            },
+            {
+              "lead": "15:15",
+              "title": "Balayage",
+              "meta": "Erinnerung gesendet",
+              "status": "Bestätigt"
+            },
+            {
+              "lead": "16:00",
+              "title": "Kinderschnitt",
+              "meta": "Anzahlung erhalten",
+              "status": "Bestätigt"
+            }
+          ],
+          "toastLabel": "Neuer Termin",
+          "toastValue": "Do · 14:30",
+          "win": "Keine Gebühr pro Buchung – deine Kunden bleiben deine."
+        },
+        "immobilien": {
+          "pill": "Immobilien",
+          "word": "Mieterportal.",
+          "alt": "Hand übergibt einen Wohnungsschlüssel mit Haus-Anhänger",
+          "app": "Mieterportal",
+          "rows": [
+            {
+              "lead": "4B",
+              "title": "Heizung fällt aus",
+              "meta": "Schadensmeldung mit 2 Fotos",
+              "status": "Neu"
+            },
+            {
+              "lead": "Sa",
+              "title": "Besichtigung 11:00",
+              "meta": "3-Zimmer-Wohnung",
+              "status": "Geplant"
+            },
+            {
+              "lead": "12",
+              "title": "Nebenkosten 2025",
+              "meta": "An alle Mieter versendet",
+              "status": "Erledigt"
+            }
+          ],
+          "toastLabel": "Neue Meldung",
+          "toastValue": "Whg. 4B",
+          "win": "Weniger Anrufe – Mieter melden alles online."
+        },
+        "automotive": {
+          "pill": "Automotive",
+          "word": "Terminsystem.",
+          "alt": "Mechaniker arbeitet in einer Kfz-Werkstatt",
+          "app": "Werkstatt-Termine",
+          "rows": [
+            {
+              "lead": "08:00",
+              "title": "Inspektion · VW Golf",
+              "meta": "Online gebucht",
+              "status": "Neu"
+            },
+            {
+              "lead": "10:30",
+              "title": "Reifenwechsel",
+              "meta": "Erinnerung gesendet",
+              "status": "Bestätigt"
+            },
+            {
+              "lead": "13:00",
+              "title": "HU/AU · Ford Transit",
+              "meta": "Fahrzeug abholbereit",
+              "status": "Fertig"
+            }
+          ],
+          "toastLabel": "Termin gebucht",
+          "toastValue": "Di · 08:00",
+          "win": "Termine rund um die Uhr – ganz ohne Telefon."
+        },
+        "kanzlei": {
+          "pill": "Kanzlei",
+          "word": "Mandantenportal.",
+          "alt": "Berater prüft Unterlagen am Schreibtisch",
+          "app": "Mandantenportal",
+          "rows": [
+            {
+              "lead": "PDF",
+              "title": "Tankbeleg_Mai.pdf",
+              "meta": "KI erkannt: 238,00 € · 19 % USt",
+              "status": "Neu"
+            },
+            {
+              "lead": "10.",
+              "title": "USt-Voranmeldung",
+              "meta": "Frist in 5 Tagen",
+              "status": "Offen"
+            },
+            {
+              "lead": "Do",
+              "title": "Jahresgespräch 15:00",
+              "meta": "Online gebucht",
+              "status": "Bestätigt"
+            }
+          ],
+          "toastLabel": "Beleg erkannt",
+          "toastValue": "238,00 €",
+          "win": "Keine Zettelwirtschaft – Belege kommen sortiert an."
+        },
+        "handwerk": {
+          "pill": "Handwerk",
+          "word": "Auftragssystem.",
+          "alt": "Elektriker arbeitet an einem Verteilerkasten",
+          "app": "Aufträge",
+          "rows": [
+            {
+              "lead": "#218",
+              "title": "Badsanierung",
+              "meta": "Anfrage mit 4 Fotos",
+              "status": "Neu"
+            },
+            {
+              "lead": "#217",
+              "title": "Angebot Elektro",
+              "meta": "Vom Kunden angenommen",
+              "status": "Zusage"
+            },
+            {
+              "lead": "#215",
+              "title": "Einsatz Mi 07:30",
+              "meta": "Team 2 · digitale Abnahme",
+              "status": "Geplant"
+            }
+          ],
+          "toastLabel": "Angebot angenommen",
+          "toastValue": "4.800 €",
+          "win": "Angebot in Minuten – statt am Wochenende."
+        }
+      },
       "primary": "Kostenloses Erstgespräch",
       "secondary": "Projekte ansehen",
       "proofTitle": "450+ Projekte",
-      "proofText": "für Hotels, Festivals, Marken & Betriebe",
-      "browserUrl": "daron-brot-ii.vercel.app",
-      "browserAlt": "Eigenes Bestellsystem der Bäckerei Daron Brot II in Aachen",
-      "phoneAlt": "Online-Terminbuchung des OMED Friseursalons auf dem Handy",
-      "orderLabel": "Neue Bestellung",
-      "orderValue": "+ 18,50 €",
-      "feeTitle": "0 % Provision",
-      "feeText": "Die Bestellung gehört dir."
+      "proofText": "für Hotels, Festivals, Marken & Betriebe"
     },
     "references": {
       "title": "Vertrauen aus 450+ Projekten mit Hotels, Festivals, Marken & Artists",

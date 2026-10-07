@@ -195,6 +195,16 @@
   }
 }
 
+/* Hero: Fortschritt der aktiven Branche im Wähler */
+@keyframes hero-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
 /* ─── PDF-Export des Kostenrahmens ─── */
 .print-root {
   display: none;
