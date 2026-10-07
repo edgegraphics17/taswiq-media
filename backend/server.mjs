@@ -48,6 +48,17 @@ if (db.prepare("select count(*) as n from services").get().n === 0) {
   }
 }
 
+// Spalten, die nach dem ersten Livegang dazukamen (create table if not exists ergänzt keine Spalten).
+for (const [table, col, def] of [
+  ["tasks", "executor", "text not null default 'karim'"], // wer setzt um: karim | claude | beide (Claude mit Angaben von Karim)
+  ["tasks", "run_state", "text"], // Auftrag an Claude: beauftragt → laeuft → fertig | rueckfrage
+  ["tasks", "run_input", "text"], // Angaben von Karim für die Umsetzung
+  ["tasks", "run_note", "text"], // Rückmeldung von Claude
+  ["tasks", "run_requested_at", "text"],
+]) {
+  if (!db.prepare(`select 1 from pragma_table_info('${table}') where name = ?`).get(col)) db.exec(`alter table ${table} add column ${col} ${def}`);
+}
+
 const jev = createJev({ db });
 console.log(jev.enabled ? `[jev] aktiv (Tageslimit ${jev.usage().limit})` : "[jev] aus (kein JEV_API_KEY)");
 
@@ -342,12 +353,15 @@ route("POST", "/auth/set-password", ({ body }) => {
 });
 
 // ─── Aufgaben (Arbeits-Dashboard) ───────────────────────────────────
-const TASK_FIELDS = ["title", "why", "steps", "category", "priority", "effort", "status", "source"];
+const TASK_FIELDS = ["title", "why", "steps", "category", "priority", "effort", "status", "source", "executor", "run_state", "run_input", "run_note"];
+const RUN_STATES = [null, "beauftragt", "laeuft", "fertig", "rueckfrage"];
 const taskValues = (body) => {
   const v = {};
   for (const k of TASK_FIELDS) if (body[k] !== undefined) v[k] = body[k];
   if (v.title !== undefined) v.title = String(v.title).trim().slice(0, 200);
-  for (const k of ["why", "steps"]) if (v[k] != null) v[k] = String(v[k]).trim().slice(0, 4000) || null;
+  for (const k of ["why", "steps", "run_input", "run_note"]) if (v[k] != null) v[k] = String(v[k]).trim().slice(0, 4000) || null;
+  if (v.executor !== undefined) need(["karim", "claude", "beide"].includes(v.executor), "executor");
+  if (v.run_state !== undefined) need(RUN_STATES.includes(v.run_state), "run_state");
   return v;
 };
 const insertTask = (body) => {
@@ -361,8 +375,11 @@ const insertTask = (body) => {
   return id;
 };
 
-route("GET", "/tasks", () =>
-  db.prepare("select * from tasks order by case status when 'in_arbeit' then 0 when 'offen' then 1 else 2 end, priority, created_at").all(),
+/** ?queue=1 → nur Aufgaben, die Karim im Dashboard an Claude übergeben hat (älteste zuerst). */
+route("GET", "/tasks", ({ query }) =>
+  query.get("queue")
+    ? db.prepare("select * from tasks where run_state = 'beauftragt' and status != 'erledigt' order by run_requested_at").all()
+    : db.prepare("select * from tasks order by case status when 'in_arbeit' then 0 when 'offen' then 1 else 2 end, priority, created_at").all(),
 );
 
 route("POST", "/tasks", ({ body }) => {
@@ -373,18 +390,29 @@ route("POST", "/tasks", ({ body }) => {
 });
 
 /** Mehrere Aufgaben einspielen – Einträge mit bereits vorhandenem `key` werden übersprungen (kein Überschreiben). */
-route("POST", "/tasks/bulk", ({ body }) => {
+route("POST", "/tasks/bulk", ({ body, query }) => {
   need(Array.isArray(body) && body.length > 0 && body.length <= 200);
+  // ?update=1 → vorhandene Aufgaben (gleicher key) mit den mitgegebenen Feldern aktualisieren, z. B. beim Umplanen.
+  const update = Boolean(query.get("update"));
   let added = 0;
+  let updated = 0;
   tx(() => {
     for (const t of body) {
-      if (t.key && db.prepare("select 1 from tasks where key = ?").get(String(t.key))) continue;
-      insertTask(t);
-      added++;
+      const old = t.key ? db.prepare("select * from tasks where key = ?").get(String(t.key)) : null;
+      if (!old) {
+        insertTask(t);
+        added++;
+      } else if (update) {
+        const set = { ...taskValues(t), updated_at: now() };
+        if (set.status && set.status !== old.status) set.done_at = set.status === "erledigt" ? set.updated_at : null;
+        const cols = Object.keys(set);
+        db.prepare(`update tasks set ${cols.map((c) => `${c} = ?`).join(", ")} where id = ?`).run(...cols.map((c) => set[c]), old.id);
+        updated++;
+      }
     }
   });
-  if (added) broadcast("task", "bulk");
-  return { added, skipped: body.length - added };
+  if (added || updated) broadcast("task", "bulk");
+  return { added, updated, skipped: body.length - added - updated };
 });
 
 route("PATCH", "/tasks/:id", ({ params, body }) => {
@@ -393,6 +421,7 @@ route("PATCH", "/tasks/:id", ({ params, body }) => {
   if (!old) throw new HttpError(404, "notFound");
   const set = { ...taskValues(body), updated_at: now() };
   if (set.status && set.status !== old.status) set.done_at = set.status === "erledigt" ? set.updated_at : null;
+  if (set.run_state === "beauftragt" && old.run_state !== "beauftragt") set.run_requested_at = set.updated_at;
   const cols = Object.keys(set);
   db.prepare(`update tasks set ${cols.map((c) => `${c} = ?`).join(", ")} where id = ?`).run(...cols.map((c) => set[c]), old.id);
   broadcast("task", old.id);

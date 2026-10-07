@@ -64,16 +64,18 @@ export async function getAnalyticsData(days: number): Promise<AnalyticsData> {
   return getAnalytics(days);
 }
 
-/** Umsatzziel pro Monat – daran richtet sich das Arbeits-Dashboard aus. */
-export const MONTHLY_GOAL = 900_000;
-
 /** Gewonnener Auftragswert im laufenden Monat (Zeitpunkt = letzte Änderung des gewonnenen Leads). */
 export function wonThisMonth(leads: LeadRow[]) {
   const start = new Date();
   start.setDate(1);
   start.setHours(0, 0, 0, 0);
   const won = leads.filter((l) => l.status === "gewonnen" && new Date(l.updated_at) >= start);
-  return { count: won.length, value: won.reduce((s, l) => s + (l.deal_value ?? 0), 0) };
+  return {
+    count: won.length,
+    value: won.reduce((s, l) => s + (l.deal_value ?? 0), 0),
+    /** neue Anfragen in diesem Monat */
+    leads: leads.filter((l) => new Date(l.created_at) >= start).length,
+  };
 }
 
 /** Kennzahlen – aus allen Leads berechnet (klein genug für In-Memory; bei >10k Leads im Backend aggregieren). */

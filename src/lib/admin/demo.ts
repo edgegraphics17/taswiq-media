@@ -82,6 +82,11 @@ const task = (i: number, t: Partial<TaskRow> & Pick<TaskRow, "title" | "category
   created_at: ago(i * 5),
   updated_at: ago(i * 5),
   done_at: null,
+  executor: "claude",
+  run_state: null,
+  run_input: null,
+  run_note: null,
+  run_requested_at: null,
   ...t,
 });
 export const demoTasks: TaskRow[] = [

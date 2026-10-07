@@ -242,7 +242,8 @@ Login           ──► Magic Link: Backend erzeugt Einmal-Token (nur für ADM
 ```
 **Zwei Bereiche (seit 08.10.2026):**
 - **Kunden & Website:** Anfragen (Leads), Analytics, Kalkulationen, Preise
-- **Arbeit:** Fokus & Aufgaben – alle offenen Aufgaben auf dem Weg zum Umsatzziel (`MONTHLY_GOAL` in `src/lib/admin/data.ts`), oben die drei wichtigsten.
+- **Arbeit:** Fokus & Aufgaben – alle offenen Aufgaben auf dem Weg zum Umsatzziel (10.000 €/Monat, Annahmen und Zwischenstufen in `src/config/goal.ts`), oben die drei wichtigsten.
+  Aufgaben lassen sich im Dashboard an Claude übergeben (`run_state`, siehe `backend/README.md`).
   Neue Aufgaben kommen aus dem Dashboard-Formular oder als JSON über `POST /tasks/bulk` (siehe `backend/README.md` → „Aufgaben einspielen“).
 
 **Login:** E-Mail + Passwort (`/admin/login`, Link im Footer). Passwort liegt als scrypt-Hash in `admin_credentials`; 5 Fehlversuche sperren das Konto 15 Minuten.

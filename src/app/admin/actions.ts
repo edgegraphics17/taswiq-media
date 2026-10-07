@@ -198,3 +198,21 @@ export async function removeTask(formData: FormData) {
   }
   revalidatePath("/admin/aufgaben");
 }
+
+/** Aufgabe an Claude übergeben (oder den Auftrag zurückziehen). Claude holt beauftragte Aufgaben ab und meldet das Ergebnis zurück. */
+export async function requestRun(formData: FormData) {
+  if (isDemoMode()) redirect("/admin/aufgaben?demo=1");
+  await requireAdminUser();
+  const parsed = z
+    .object({ id: z.string().uuid(), cancel: z.string().optional(), input: z.string().trim().max(4000).optional() })
+    .safeParse(Object.fromEntries(formData));
+  if (!parsed.success) redirect("/admin/aufgaben?error=1");
+  const { id, cancel, input } = parsed.data;
+  try {
+    await updateTask(id, cancel ? { run_state: null } : { run_state: "beauftragt", run_input: input || null, run_note: null });
+  } catch (e) {
+    console.error("[admin] requestRun", e);
+    redirect("/admin/aufgaben?error=1");
+  }
+  revalidatePath("/admin/aufgaben");
+}

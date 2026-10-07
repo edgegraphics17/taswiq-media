@@ -126,6 +126,7 @@ create table if not exists tasks (
   created_at  text not null default (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
   updated_at  text not null default (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
   done_at     text
+  -- executor, run_state, run_input, run_note, run_requested_at: siehe Spalten-Nachtrag in server.mjs
 );
 create index if not exists tasks_status_idx on tasks (status, priority);
 

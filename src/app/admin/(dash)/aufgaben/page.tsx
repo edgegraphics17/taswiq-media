@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Check, Play, Plus, RotateCcw, Sparkles, Trash2, UserRound } from "lucide-react";
-import { createTask, removeTask, setTask } from "@/app/admin/actions";
-import { getLeads, getTasks, MONTHLY_GOAL, wonThisMonth } from "@/lib/admin/data";
+import { Bot, Check, Play, Plus, RotateCcw, Sparkles, Trash2, UserRound } from "lucide-react";
+import { createTask, removeTask, requestRun, setTask } from "@/app/admin/actions";
+import { getAnalyticsData, getLeads, getTasks, wonThisMonth } from "@/lib/admin/data";
+import { goal, goalNeeds } from "@/config/goal";
 import { EFFORT_LABEL, PRIORITY_LABEL, TASK_CATEGORY_LABEL } from "@/lib/admin/labels";
 import { isDemoMode } from "@/lib/env";
-import { cn, formatDate, formatEUR } from "@/lib/format";
+import { cn, formatDate, formatEUR, formatNumber } from "@/lib/format";
 import { TASK_CATEGORIES, type TaskRow } from "@/types/database";
 import { LiveRefresh } from "@/components/admin/LiveRefresh";
 
@@ -15,6 +16,13 @@ const PRIORITY_TONE: Record<number, string> = {
   1: "bg-night text-white",
   2: "bg-brand-50 text-brand-600",
   3: "border border-line text-muted",
+};
+const RUN_LABEL: Record<NonNullable<TaskRow["run_state"]>, string> = { beauftragt: "An Claude übergeben", laeuft: "Claude arbeitet", fertig: "Von Claude umgesetzt", rueckfrage: "Claude hat eine Rückfrage" };
+const RUN_TONE: Record<NonNullable<TaskRow["run_state"]>, string> = {
+  beauftragt: "bg-brand-50 text-brand-600 ring-brand-200",
+  laeuft: "bg-brand-50 text-brand-600 ring-brand-200",
+  fertig: "bg-emerald-50 text-emerald-800 ring-emerald-200",
+  rueckfrage: "bg-amber-50 text-amber-800 ring-amber-200",
 };
 const input = "h-11 w-full rounded-lg border border-line bg-white px-3 text-sm text-ink outline-none focus:border-brand-500";
 const iconBtn = "grid size-11 shrink-0 place-items-center rounded-lg text-muted transition-colors hover:bg-canvas hover:text-ink";
@@ -34,6 +42,7 @@ function StatusButton({ id, status, label, children, className }: { id: string; 
 function Task({ t, focus = false }: { t: TaskRow; focus?: boolean }) {
   const done = t.status === "erledigt";
   const steps = t.steps?.split("\n").map((s) => s.trim()).filter(Boolean) ?? [];
+  const canRun = t.executor !== "karim";
   return (
     <li className={cn("rounded-2xl border bg-white", focus ? "border-brand-200 shadow-[var(--shadow-soft)]" : "border-line")}>
       <div className="flex items-start gap-1 p-2 sm:gap-2 sm:p-3">
@@ -54,6 +63,11 @@ function Task({ t, focus = false }: { t: TaskRow; focus?: boolean }) {
             <span className="mt-1.5 flex flex-wrap items-center gap-1.5 text-xs">
               {!done && <span className={cn("rounded-full px-2.5 py-0.5 font-bold", PRIORITY_TONE[t.priority])}>{PRIORITY_LABEL[t.priority]}</span>}
               {t.status === "in_arbeit" && <span className="rounded-full bg-amber-50 px-2.5 py-0.5 font-semibold text-amber-800 ring-1 ring-amber-200 ring-inset">In Arbeit</span>}
+              {!done && t.run_state && (
+                <span className={cn("inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 font-semibold ring-1 ring-inset", RUN_TONE[t.run_state])}>
+                  <Bot className="size-3" aria-hidden /> {RUN_LABEL[t.run_state]}
+                </span>
+              )}
               <span className="rounded-full bg-canvas px-2.5 py-0.5 font-medium text-body">{TASK_CATEGORY_LABEL[t.category]}</span>
               <span className="text-muted">{EFFORT_LABEL[t.effort]}</span>
               <span className="inline-flex items-center gap-1 text-muted">
@@ -61,10 +75,10 @@ function Task({ t, focus = false }: { t: TaskRow; focus?: boolean }) {
                 {t.source === "claude" ? "von Claude" : "von dir"}
               </span>
               {done && t.done_at && <span className="text-muted">erledigt am {formatDate(t.done_at)}</span>}
-              {(t.why || steps.length > 0) && <span className="font-medium text-brand-600 group-open:hidden">Details</span>}
+              {!done && <span className="font-medium text-brand-600 group-open:hidden">{canRun && !t.run_state ? "Details & an Claude übergeben" : "Details"}</span>}
             </span>
           </summary>
-          {(t.why || steps.length > 0) && (
+          {(t.why || steps.length > 0 || !done) && (
             <div className="mt-3 max-w-2xl space-y-3 text-sm leading-relaxed text-body">
               {t.why && (
                 <p>
@@ -81,6 +95,37 @@ function Task({ t, focus = false }: { t: TaskRow; focus?: boolean }) {
                     ))}
                   </ol>
                 </div>
+              )}
+              {t.run_note && (
+                <p className="rounded-xl bg-brand-50 px-4 py-3 text-ink">
+                  <b>Rückmeldung von Claude: </b>
+                  {t.run_note}
+                </p>
+              )}
+              {!done && !canRun && <p className="text-muted">Diese Aufgabe kannst nur du erledigen – Claude kann sie nicht übernehmen.</p>}
+              {!done && canRun && (t.run_state === "beauftragt" || t.run_state === "laeuft") && (
+                <form action={requestRun} className="flex flex-wrap items-center gap-3">
+                  <input type="hidden" name="id" value={t.id} />
+                  <input type="hidden" name="cancel" value="1" />
+                  <p className="text-muted">{t.run_state === "laeuft" ? "Claude arbeitet gerade daran." : "Übergeben – Claude holt die Aufgabe beim nächsten Durchlauf ab."}</p>
+                  {t.run_state === "beauftragt" && (
+                    <button type="submit" className="min-h-11 rounded-full border border-line px-4 text-sm font-medium text-ink hover:border-brand-300">
+                      Auftrag zurückziehen
+                    </button>
+                  )}
+                </form>
+              )}
+              {!done && canRun && t.run_state !== "beauftragt" && t.run_state !== "laeuft" && (
+                <form action={requestRun} className="space-y-2 rounded-xl border border-line p-4">
+                  <input type="hidden" name="id" value={t.id} />
+                  <label className="block text-xs font-semibold text-muted">
+                    {t.executor === "beide" ? "Angaben für Claude (z. B. Adresse, Link, Entscheidung)" : "Hinweis für Claude (optional)"}
+                    <textarea name="input" rows={2} maxLength={4000} defaultValue={t.run_input ?? ""} required={t.executor === "beide"} className="mt-1.5 w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-ink outline-none focus:border-brand-500" />
+                  </label>
+                  <button type="submit" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-500 px-5 text-sm font-semibold text-white transition-colors hover:bg-brand-600">
+                    <Bot className="size-4" aria-hidden /> Von Claude umsetzen lassen
+                  </button>
+                </form>
               )}
             </div>
           )}
@@ -109,9 +154,16 @@ function Task({ t, focus = false }: { t: TaskRow; focus?: boolean }) {
  */
 export default async function TasksPage({ searchParams }: { searchParams: Promise<{ bereich?: string; error?: string; saved?: string }> }) {
   const { bereich, error } = await searchParams;
-  const [tasks, leads] = await Promise.all([getTasks(), getLeads()]);
+  const [tasks, leads, visitors] = await Promise.all([getTasks(), getLeads(), getAnalyticsData(30).then((a) => a.totals.visitors).catch(() => null)]);
   const won = wonThisMonth(leads);
-  const share = Math.min(100, (won.value / MONTHLY_GOAL) * 100);
+  const share = Math.min(100, (won.value / goal.monthly) * 100);
+  const needs = goalNeeds();
+  const next = goal.milestones.find((m) => won.value < m.value) ?? null;
+  const path = [
+    { label: "Aufträge", ist: won.count, soll: needs.deals, hint: `Ø ${formatEUR(goal.avgDeal)} je Auftrag` },
+    { label: "Anfragen", ist: won.leads, soll: needs.leads, hint: "jede 4. wird zum Auftrag" },
+    { label: "Besucher (30 Tage)", ist: visitors, soll: needs.visitors, hint: "2 von 100 fragen an" },
+  ];
 
   const open = tasks.filter((t) => t.status !== "erledigt");
   const done = tasks.filter((t) => t.status === "erledigt").sort((a, b) => (b.done_at ?? "").localeCompare(a.done_at ?? ""));
@@ -130,11 +182,11 @@ export default async function TasksPage({ searchParams }: { searchParams: Promis
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <h2 id="goal-title" className="text-sm font-medium text-night-muted">
-              Ziel: {formatEUR(MONTHLY_GOAL)} Umsatz pro Monat
+              Ziel: {formatEUR(goal.monthly)} Umsatz pro Monat
             </h2>
             <p className="num mt-2 text-4xl font-extrabold tracking-tight">{formatEUR(won.value)}</p>
             <p className="mt-1 text-sm text-night-muted">
-              gewonnen in diesem Monat · {won.count} {won.count === 1 ? "Auftrag" : "Aufträge"} · {share.toLocaleString("de-DE", { maximumFractionDigits: 1 })} % vom Ziel
+              gewonnen in diesem Monat · {next ? `nächste Stufe: ${next.label}` : "Ziel erreicht"}
             </p>
           </div>
           <dl className="flex gap-6 text-sm">
@@ -151,8 +203,34 @@ export default async function TasksPage({ searchParams }: { searchParams: Promis
         <div className="mt-5 h-2 overflow-hidden rounded-full bg-white/10" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(share)} aria-label="Fortschritt zum Monatsziel">
           <div className="h-full rounded-full bg-mint-400" style={{ width: `${share}%`, minWidth: won.value ? 6 : 0 }} />
         </div>
-        <p className="mt-3 text-xs text-night-muted">
-          Zählt Anfragen mit Status „Gewonnen“ und eingetragenem Auftragswert. Trag den Wert im Lead ein, sobald ein Auftrag steht.
+        <ol className="mt-3 grid grid-cols-2 gap-2 text-xs sm:grid-cols-4">
+          {goal.milestones.map((m) => {
+            const reached = won.value >= m.value;
+            return (
+              <li key={m.label} className={cn("flex items-center gap-2 rounded-full px-3 py-1.5", reached ? "bg-mint-500 font-semibold text-night" : "bg-white/5 text-night-muted")}>
+                <span className={cn("grid size-4 shrink-0 place-items-center rounded-full", reached ? "bg-night text-mint-400" : "border border-night-muted")}>{reached && <Check className="size-3" aria-hidden />}</span>
+                {m.label}
+                <span className="sr-only">{reached ? " – erreicht" : " – offen"}</span>
+              </li>
+            );
+          })}
+        </ol>
+
+        <h3 className="mt-7 text-sm font-semibold">Was es dafür pro Monat braucht</h3>
+        <dl className="mt-3 grid gap-2 sm:grid-cols-3">
+          {path.map((p) => (
+            <div key={p.label} className="rounded-2xl bg-white/5 p-4">
+              <dt className="text-xs text-night-muted">{p.label}</dt>
+              <dd className="num mt-1 text-2xl font-extrabold">
+                {p.ist === null ? "–" : formatNumber(p.ist)} <span className="text-sm font-medium text-night-muted">von {formatNumber(p.soll)}</span>
+              </dd>
+              <dd className="mt-0.5 text-xs text-night-muted">{p.hint}</dd>
+            </div>
+          ))}
+        </dl>
+        <p className="mt-3 text-xs leading-relaxed text-night-muted">
+          Die Quoten sind Startannahmen, keine Erfahrungswerte – sie werden angepasst, sobald echte Aufträge da sind. Umsatz zählt, wenn eine Anfrage auf „Gewonnen“ steht und
+          ein Auftragswert eingetragen ist. Solange kaum Besucher kommen, führt der schnellste Weg zum ersten Auftrag über direkte Ansprache, nicht über die Website.
         </p>
       </section>
 

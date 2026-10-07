@@ -35,6 +35,10 @@ ist unkritisch (die Seite rechnet dann mit `src/config/pricing.ts`).
 ## Aufgaben einspielen (Arbeits-Dashboard)
 Aufgaben als JSON-Liste in `backend/tasks/<datum>.json` ablegen (Felder: `key`, `title`, `why`, `steps` – ein Schritt pro Zeile –, `category`, `priority` 1–3,
 `effort` S/M/L, `source` „claude“). Einträge mit bereits vorhandenem `key` werden übersprungen, die Datei kann also gefahrlos erneut eingespielt werden.
+Mit `/tasks/bulk?update=1` werden vorhandene Aufgaben stattdessen mit den mitgegebenen Feldern aktualisiert (Umplanen). `executor`: `karim` (nur er), `claude` (Claude allein), `beide` (Claude braucht Angaben).
+
+**Übergabe aus dem Dashboard:** „Von Claude umsetzen lassen“ setzt `run_state = beauftragt` (+ `run_input`). Warteschlange: `api.sh "localhost:8080/tasks?queue=1"`.
+Beim Abarbeiten `run_state` auf `laeuft`, danach `fertig` (+ `status: erledigt`) oder `rueckfrage` setzen und das Ergebnis in `run_note` schreiben.
 ```bash
 sprite file push -s taswiq-media backend/tasks/<datum>.json /home/sprite/taswiq/tasks-in.json
 sprite exec -s taswiq-media --no-stdin -- /home/sprite/taswiq/api.sh -X POST localhost:8080/tasks/bulk -d @/home/sprite/taswiq/tasks-in.json

@@ -148,8 +148,16 @@ export type TaskRow = {
   created_at: string;
   updated_at: string;
   done_at: string | null;
+  /** Wer setzt um: du allein, Claude allein oder Claude mit Angaben von dir */
+  executor: "karim" | "claude" | "beide";
+  /** Auftrag an Claude aus dem Dashboard: beauftragt → laeuft → fertig | rueckfrage */
+  run_state: "beauftragt" | "laeuft" | "fertig" | "rueckfrage" | null;
+  run_input: string | null;
+  run_note: string | null;
+  run_requested_at: string | null;
 };
-export type TaskInsert = Pick<TaskRow, "title"> & Partial<Pick<TaskRow, "key" | "why" | "steps" | "category" | "priority" | "effort" | "status" | "source">>;
+export type TaskInsert = Pick<TaskRow, "title"> &
+  Partial<Pick<TaskRow, "key" | "why" | "steps" | "category" | "priority" | "effort" | "status" | "source" | "executor" | "run_state" | "run_input" | "run_note">>;
 
 /* ─── Besucherstatistik ─── */
 export type SiteHit = {
