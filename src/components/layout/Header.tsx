@@ -6,6 +6,8 @@ import { ChevronRight } from "lucide-react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { Logo } from "@/components/ui/Logo";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
+import { NavDropdown } from "@/components/layout/NavDropdown";
+import { navMenus } from "@/config/seo-pages";
 import { contactHref, nav, type AppHref } from "@/config/site";
 import { cn } from "@/lib/format";
 
@@ -70,7 +72,10 @@ export function Header({
         </Link>
 
         <nav aria-label={t("mainNav")} className="hidden items-center gap-1 lg:flex">
-          {nav.map((item) => (
+          {nav.map((item) => {
+            const pages = navMenus[item.key];
+            if (pages) return <NavDropdown key={item.key} item={item} pages={pages} active={isActive(item.href)} />;
+            return (
             <Link
               key={item.key}
               href={item.href}
@@ -82,7 +87,8 @@ export function Header({
             >
               {tNav(item.key)}
             </Link>
-          ))}
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-2">

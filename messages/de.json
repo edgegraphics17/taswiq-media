@@ -106,7 +106,80 @@
     "portfolio": "Portfolio",
     "process": "Ablauf",
     "blog": "Ratgeber",
-    "calculator": "Preisrechner"
+    "calculator": "Preisrechner",
+    "submenu": "Untermenü {label}",
+    "menus": {
+      "services": {
+        "all": "Alle Leistungen ansehen",
+        "items": {
+          "individualsoftware": {
+            "label": "Individualsoftware",
+            "hint": "Passgenau für deine Abläufe"
+          },
+          "bestellsystem": {
+            "label": "Bestellsystem",
+            "hint": "Bestellungen ohne Provision"
+          },
+          "buchungssystem": {
+            "label": "Buchungssystem",
+            "hint": "Termine & Reservierungen"
+          },
+          "webapp": {
+            "label": "Web-Apps & Portale",
+            "hint": "Kundenportale, Tools, Apps"
+          },
+          "dashboard": {
+            "label": "Dashboards",
+            "hint": "Alle Zahlen an einem Ort"
+          },
+          "ki": {
+            "label": "KI-Automatisierung",
+            "hint": "Anfragen, Belege, Telefon"
+          },
+          "website": {
+            "label": "Websites",
+            "hint": "Websites, die Anfragen bringen"
+          },
+          "media": {
+            "label": "Premium-Media",
+            "hint": "Aftermovies & Brand-Filme"
+          }
+        }
+      },
+      "industries": {
+        "all": "Alle Branchen ansehen",
+        "items": {
+          "gastro": {
+            "label": "Gastronomie & Food",
+            "hint": "Restaurants & Lieferdienste"
+          },
+          "immobilien": {
+            "label": "Immobilien",
+            "hint": "Makler & Hausverwaltungen"
+          },
+          "automotive": {
+            "label": "Autohaus & Fahrschule",
+            "hint": "Autohäuser & Werkstätten"
+          },
+          "kanzlei": {
+            "label": "Kanzleien & Berater",
+            "hint": "Steuerberater, Anwälte, Lohnbüros"
+          },
+          "beauty": {
+            "label": "Friseure & Beauty",
+            "hint": "Salons, Barber, Physio, Studios"
+          },
+          "handwerk": {
+            "label": "Handwerk & Services",
+            "hint": "Handwerk, Reinigung, Kundendienst"
+          },
+          "media": {
+            "label": "Events & Artists",
+            "hint": "Festivals, Artists, Brands"
+          }
+        }
+      }
+    }
   },
   "languageSwitcher": {
     "label": "Sprache wählen",

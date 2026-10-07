@@ -106,7 +106,80 @@
     "portfolio": "Portfolio",
     "process": "Process",
     "blog": "Guides",
-    "calculator": "Pricing"
+    "calculator": "Pricing",
+    "submenu": "{label} submenu",
+    "menus": {
+      "services": {
+        "all": "See all services",
+        "items": {
+          "individualsoftware": {
+            "label": "Custom software",
+            "hint": "Built around your processes"
+          },
+          "bestellsystem": {
+            "label": "Ordering system",
+            "hint": "Orders without commission"
+          },
+          "buchungssystem": {
+            "label": "Booking system",
+            "hint": "Appointments & reservations"
+          },
+          "webapp": {
+            "label": "Web apps & portals",
+            "hint": "Client portals, tools, apps"
+          },
+          "dashboard": {
+            "label": "Dashboards",
+            "hint": "All your numbers in one place"
+          },
+          "ki": {
+            "label": "AI automation",
+            "hint": "Enquiries, documents, phone"
+          },
+          "website": {
+            "label": "Websites",
+            "hint": "Fast and built for enquiries"
+          },
+          "media": {
+            "label": "Premium media",
+            "hint": "Aftermovies & brand films"
+          }
+        }
+      },
+      "industries": {
+        "all": "See all industries",
+        "items": {
+          "gastro": {
+            "label": "Restaurants & food",
+            "hint": "Restaurants, bakeries, delivery"
+          },
+          "immobilien": {
+            "label": "Real estate",
+            "hint": "Agents & property managers"
+          },
+          "automotive": {
+            "label": "Dealers & driving schools",
+            "hint": "Dealers, garages, schools"
+          },
+          "kanzlei": {
+            "label": "Firms & advisors",
+            "hint": "Tax advisors, lawyers, payroll"
+          },
+          "beauty": {
+            "label": "Salons & beauty",
+            "hint": "Salons, barbers, physio, studios"
+          },
+          "handwerk": {
+            "label": "Trades & services",
+            "hint": "Trades, cleaning, field service"
+          },
+          "media": {
+            "label": "Events & artists",
+            "hint": "Festivals, artists, brands"
+          }
+        }
+      }
+    }
   },
   "languageSwitcher": {
     "label": "Choose language",

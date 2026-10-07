@@ -255,6 +255,12 @@ export const industryPages = seoPages.filter((p) => p.kind === "branche");
 export const servicePages = seoPages.filter((p) => p.kind === "leistung");
 export const mediaPage = seoPages.find((p) => p.kind === "media")!;
 
+/** Dropdowns der Hauptnavigation: nav-Key (config/site.ts) → verlinkte Seiten. Labels: messages → nav.menus.<key>.items.<id> */
+export const navMenus: Record<string, SeoPage[] | undefined> = {
+  services: [...servicePages, mediaPage],
+  industries: [...industryPages, mediaPage],
+};
+
 export const getSeoPageBySlug = (slug: string, locale: Locale) => seoPages.find((p) => p.slugs[locale] === slug);
 export const getSeoPageById = (id: SeoPageId) => seoPages.find((p) => p.id === id)!;
 
