@@ -216,7 +216,7 @@ export default async function TasksPage({ searchParams }: { searchParams: Promis
           })}
         </ol>
 
-        <h3 className="mt-7 text-sm font-semibold">Was es dafür pro Monat braucht</h3>
+        <h3 className="mt-7 text-sm font-semibold text-white">Was es dafür pro Monat braucht</h3>
         <dl className="mt-3 grid gap-2 sm:grid-cols-3">
           {path.map((p) => (
             <div key={p.label} className="rounded-2xl bg-white/5 p-4">
