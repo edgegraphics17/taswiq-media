@@ -18,12 +18,13 @@ const PRIORITY_TONE: Record<number, string> = {
   2: "bg-brand-50 text-brand-600",
   3: "border border-line text-muted",
 };
-const RUN_LABEL: Record<NonNullable<TaskRow["run_state"]>, string> = { beauftragt: "An Claude übergeben", laeuft: "Claude arbeitet", fertig: "Von Claude umgesetzt", rueckfrage: "Claude hat eine Rückfrage" };
+const RUN_LABEL: Record<NonNullable<TaskRow["run_state"]>, string> = { beauftragt: "In der Warteschlange", laeuft: "Team arbeitet daran", fertig: "Vom Team umgesetzt", rueckfrage: "Rückfrage an dich", zurueckgestellt: "Zurückgestellt" };
 const RUN_TONE: Record<NonNullable<TaskRow["run_state"]>, string> = {
   beauftragt: "bg-brand-50 text-brand-600 ring-brand-200",
   laeuft: "bg-brand-50 text-brand-600 ring-brand-200",
   fertig: "bg-emerald-50 text-emerald-800 ring-emerald-200",
   rueckfrage: "bg-amber-50 text-amber-800 ring-amber-200",
+  zurueckgestellt: "bg-slate-100 text-slate-600 ring-slate-200",
 };
 const input = "h-11 w-full rounded-lg border border-line bg-white px-3 text-sm text-ink outline-none focus:border-brand-500";
 const iconBtn = "grid size-11 shrink-0 place-items-center rounded-lg text-muted transition-colors hover:bg-canvas hover:text-ink";

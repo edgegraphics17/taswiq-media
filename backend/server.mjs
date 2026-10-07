@@ -59,6 +59,7 @@ for (const [table, col, def] of [
   ["tasks", "proposed_by", "text"], // Abteilung, die die Aufgabe vorgeschlagen hat (null = Karim / Claude-Sitzung)
   ["tasks", "requested_by", "text"], // Abteilung, die sie bei einer anderen angefragt hat
   ["tasks", "risk", "text not null default 'niedrig'"], // hoch = nie ohne Freigabe von Karim
+  ["tasks", "queue_pos", "integer"], // von Karim festgelegte Reihenfolge in der Warteschlange (kleiner = früher)
   ["tasks", "client", "text"], // Kundenauftrag (Name des Kunden) – leer = TasWiq selbst
 ]) {
   if (!db.prepare(`select 1 from pragma_table_info('${table}') where name = ?`).get(col)) db.exec(`alter table ${table} add column ${col} ${def}`);
@@ -361,7 +362,7 @@ route("POST", "/auth/set-password", ({ body }) => {
 const TASK_FIELDS = ["title", "why", "steps", "category", "priority", "effort", "status", "source", "executor", "run_state", "run_input", "run_note", "department", "proposed_by", "requested_by", "risk", "client"];
 const DEPARTMENTS = ["leitung", "entwicklung", "wachstum", "marketing", "vertrieb", "qualitaet", "analyse"];
 const DEPARTMENT_NAME = { leitung: "Leitung", entwicklung: "Entwicklung", wachstum: "Wachstum", marketing: "Marketing", vertrieb: "Angebot & Vertrieb", qualitaet: "Qualität & Sicherheit", analyse: "Analyse" };
-const RUN_STATES = [null, "beauftragt", "laeuft", "fertig", "rueckfrage"];
+const RUN_STATES = [null, "beauftragt", "laeuft", "fertig", "rueckfrage", "zurueckgestellt"]; // zurueckgestellt = von Karim geparkt, wird nicht automatisch eingereiht
 const taskValues = (body) => {
   const v = {};
   for (const k of TASK_FIELDS) if (body[k] !== undefined) v[k] = body[k];
@@ -439,6 +440,21 @@ route("PATCH", "/tasks/:id", ({ params, body }) => {
   return db.prepare("select * from tasks where id = ?").get(old.id);
 });
 
+/** Reihenfolge in der Warteschlange der Abteilung ändern: up | down | top. Danach sind alle Plätze der Abteilung fest nummeriert. */
+route("POST", "/tasks/:id/move", ({ params, body }) => {
+  const task = db.prepare("select * from tasks where id = ?").get(params.id);
+  if (!task) throw new HttpError(404, "notFound");
+  need(["up", "down", "top"].includes(body?.dir), "dir");
+  const ids = queueOf(task.department).map((t) => t.id);
+  const i = ids.indexOf(task.id);
+  need(i >= 0, "notQueued");
+  const j = body.dir === "top" ? 0 : body.dir === "up" ? Math.max(0, i - 1) : Math.min(ids.length - 1, i + 1);
+  ids.splice(j, 0, ids.splice(i, 1)[0]);
+  tx(() => ids.forEach((id, pos) => db.prepare("update tasks set queue_pos = ? where id = ?").run(pos, id)));
+  broadcast("task", task.id);
+  return { ok: true };
+});
+
 route("DELETE", "/tasks/:id", ({ params }) => {
   const r = db.prepare("delete from tasks where id = ?").run(params.id);
   if (!r.changes) throw new HttpError(404, "notFound");
@@ -482,7 +498,7 @@ const runningTask = () => {
 };
 const startsToday = (agent) => db.prepare("select count(*) as n from agent_events where agent = ? and kind = 'start' and substr(created_at, 1, 10) = ?").get(agent, today()).n;
 const queueOf = (agent) =>
-  db.prepare("select * from tasks where department = ? and run_state = 'beauftragt' and status != 'erledigt' and executor != 'karim' order by priority, run_requested_at").all(agent);
+  db.prepare("select * from tasks where department = ? and run_state = 'beauftragt' and status != 'erledigt' and executor != 'karim' order by coalesce(queue_pos, 1000000), priority, run_requested_at").all(agent);
 const lastPlan = (agent) => db.prepare("select max(created_at) as at from agent_events where agent = ? and kind = 'planung'").get(agent).at;
 const planDue = (agent) => {
   const at = lastPlan(agent);

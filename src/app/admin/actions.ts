@@ -9,7 +9,7 @@ import { SESSION_COOKIE, SESSION_MAX_AGE, signSession } from "@/lib/session";
 import { isAdminEmail } from "@/lib/auth";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
 import { getAdminUser } from "@/lib/admin/data";
-import { addLeadNote, deleteTask, insertTask, setPassword, setTeamSettings, updateLead as updateLeadInBackend, updateTask, upsertServices, verifyPassword } from "@/lib/db";
+import { addLeadNote, deleteTask, insertTask, moveTask, setPassword, setTeamSettings, updateLead as updateLeadInBackend, updateTask, upsertServices, verifyPassword } from "@/lib/db";
 import { LEAD_STATUSES, TASK_CATEGORIES, TASK_STATUSES } from "@/types/database";
 import { DEPARTMENT_IDS, departmentFor } from "@/config/team";
 
@@ -195,7 +195,7 @@ export async function setTask(formData: FormData) {
     console.error("[admin] setTask", e);
     redirect("/admin/aufgaben?error=1");
   }
-  revalidatePath("/admin/aufgaben");
+  revalidatePath("/admin", "layout");
 }
 
 export async function removeTask(formData: FormData) {
@@ -209,8 +209,7 @@ export async function removeTask(formData: FormData) {
     console.error("[admin] removeTask", e);
     redirect("/admin/aufgaben?error=1");
   }
-  revalidatePath("/admin/aufgaben");
-  revalidatePath("/admin/team");
+  revalidatePath("/admin", "layout");
 }
 
 /** Aufgabe an Claude übergeben (oder den Auftrag zurückziehen). Claude holt beauftragte Aufgaben ab und meldet das Ergebnis zurück. */
@@ -218,18 +217,33 @@ export async function requestRun(formData: FormData) {
   if (isDemoMode()) redirect("/admin/aufgaben?demo=1");
   await requireAdminUser();
   const parsed = z
-    .object({ id: z.string().uuid(), cancel: z.string().optional(), input: z.string().trim().max(4000).optional() })
+    .object({ id: z.string().uuid(), cancel: z.string().optional(), defer: z.string().optional(), input: z.string().trim().max(4000).optional() })
     .safeParse(Object.fromEntries(formData));
   if (!parsed.success) redirect("/admin/aufgaben?error=1");
-  const { id, cancel, input } = parsed.data;
+  const { id, cancel, defer, input } = parsed.data;
   try {
-    await updateTask(id, cancel ? { run_state: null } : { run_state: "beauftragt", run_input: input || null, run_note: null });
+    // zurueckgestellt = geparkt: bleibt sichtbar, wird aber nicht automatisch eingereiht
+    await updateTask(id, cancel || defer ? { run_state: "zurueckgestellt" } : { run_state: "beauftragt", run_input: input || null, run_note: null });
   } catch (e) {
     console.error("[admin] requestRun", e);
     redirect("/admin/aufgaben?error=1");
   }
-  revalidatePath("/admin/aufgaben");
-  revalidatePath("/admin/team");
+  revalidatePath("/admin", "layout");
+}
+
+/** Reihenfolge (hoch/runter/ganz nach oben) oder Dringlichkeit einer Aufgabe in der Warteschlange ändern. */
+export async function reorderTask(formData: FormData) {
+  if (isDemoMode()) redirect("/admin/team?demo=1");
+  await requireAdminUser();
+  const parsed = z.object({ id: z.string().uuid(), dir: z.enum(["up", "down", "top"]) }).safeParse(Object.fromEntries(formData));
+  if (!parsed.success) redirect("/admin/team?error=1");
+  try {
+    await moveTask(parsed.data.id, parsed.data.dir);
+  } catch (e) {
+    console.error("[admin] reorderTask", e);
+    redirect("/admin/team?error=1");
+  }
+  revalidatePath("/admin/team", "layout");
 }
 
 /** Schalter des Teams: ein/aus, Freigabe-Modus, Tageslimit je Abteilung. */

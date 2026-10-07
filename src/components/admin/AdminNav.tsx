@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BarChart3, Calculator, Inbox, ListChecks, Tags, UsersRound, type LucideIcon } from "lucide-react";
+import { BarChart3, Calculator, CircleCheckBig, Inbox, ListChecks, Tags, UsersRound, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/format";
 
 interface Item {
@@ -32,7 +32,8 @@ export function AdminNav({ newLeads, openTasks, waiting }: { newLeads: number; o
       title: "Arbeit",
       items: [
         { href: "/admin/aufgaben", label: "Fokus & Aufgaben", icon: ListChecks, badge: openTasks },
-        { href: "/admin/team", label: "Team", icon: UsersRound, badge: waiting },
+        { href: "/admin/freigaben", label: "Freigaben", icon: CircleCheckBig, badge: waiting },
+        { href: "/admin/team", label: "Team", icon: UsersRound },
       ],
     },
   ];

@@ -59,8 +59,11 @@ export async function getTasks(): Promise<TaskRow[]> {
   return listTasks();
 }
 
-/** Wartet auf Karim: Vorschlag einer Abteilung ohne Freigabe oder eine Rückfrage. */
-export const needsYou = (t: TaskRow) => t.status !== "erledigt" && ((t.proposed_by !== null && t.run_state === null) || t.run_state === "rueckfrage");
+/**
+ * Wartet auf deine Entscheidung: Das Team könnte die Aufgabe umsetzen, braucht aber dein Okay (Risiko, fehlende Angabe)
+ * oder hat eine Rückfrage. Aufgaben, die nur du selbst erledigen kannst, zählen nicht dazu.
+ */
+export const needsYou = (t: TaskRow) => t.status !== "erledigt" && t.executor !== "karim" && (t.run_state === null || t.run_state === "rueckfrage");
 
 export async function getTeam(): Promise<TeamState> {
   if (isDemoMode()) return demoTeam;

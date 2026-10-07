@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  AlertTriangle, ArrowRight, BarChart3, Check, CircleDot, Code2, Compass, Handshake, Lightbulb, type LucideIcon, Megaphone, MessageCircleQuestion, Pause, Play, Power, ShieldCheck, TrendingUp, X,
+  AlertTriangle, ArrowRight, BarChart3, Check, CircleDot, Code2, Compass, Handshake, Lightbulb, type LucideIcon, Megaphone, MessageCircleQuestion, Pause, Play, Power, ShieldCheck, TrendingUp,
 } from "lucide-react";
-import { removeTask, requestRun, setTeam } from "@/app/admin/actions";
+import { setTeam } from "@/app/admin/actions";
 import { getTasks, getTeam, needsYou } from "@/lib/admin/data";
-import { TASK_CATEGORY_LABEL } from "@/lib/admin/labels";
 import { departmentById, departments, type Department } from "@/config/team";
 import { isDemoMode } from "@/lib/env";
 import { cn, formatDateTime } from "@/lib/format";
@@ -50,7 +49,7 @@ function DepartmentCard({ d, state, tasks, active }: { d: Department; state: Tea
         : { label: "Frei", tone: "bg-emerald-50 text-emerald-800", dot: "bg-mint-500" };
 
   return (
-    <li className={cn("flex flex-col rounded-[1.75rem] border bg-white p-5", working ? "border-brand-300 shadow-[var(--shadow-picked)]" : "border-line")}>
+    <li className={cn("relative flex flex-col rounded-[1.75rem] border bg-white p-5 transition-colors hover:border-brand-300", working ? "border-brand-300 shadow-[var(--shadow-picked)]" : "border-line")}>
       <div className="flex items-start justify-between gap-3">
         <span className={cn("grid size-11 shrink-0 place-items-center rounded-2xl", working ? "bg-brand-500 text-white" : "bg-brand-50 text-brand-600")}>
           <Icon className="size-5" aria-hidden />
@@ -60,7 +59,11 @@ function DepartmentCard({ d, state, tasks, active }: { d: Department; state: Tea
           {status.label}
         </span>
       </div>
-      <h3 className="mt-4 text-lg font-bold tracking-tight text-ink">{d.name}</h3>
+      <h3 className="mt-4 text-lg font-bold tracking-tight text-ink">
+        <Link href={`/admin/team/${d.id}`} className="after:absolute after:inset-0 after:rounded-[1.75rem] hover:text-brand-600">
+          {d.name}
+        </Link>
+      </h3>
       <p className="mt-1 text-sm leading-relaxed text-muted">{d.role}</p>
 
       <div className="mt-4 min-h-[4.5rem] flex-1 rounded-2xl bg-canvas p-3.5 text-sm">
@@ -97,7 +100,10 @@ function DepartmentCard({ d, state, tasks, active }: { d: Department; state: Tea
           </div>
         ))}
       </dl>
-      <ul className="mt-4 flex flex-wrap gap-1.5" aria-label="Fertigkeiten">
+      <p className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600">
+        Aufgaben ansehen <ArrowRight className="size-4" aria-hidden />
+      </p>
+      <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Fertigkeiten">
         {d.skills.map((k) => (
           <li key={k} className="rounded-full border border-line px-2.5 py-1 text-xs text-body">
             {k}
@@ -213,59 +219,15 @@ export default async function TeamPage({ searchParams }: { searchParams: Promise
       </section>
 
       {waiting.length > 0 && (
-        <section aria-labelledby="wait-title" className="mt-8">
-          <h2 id="wait-title" className="flex items-center gap-2 text-lg font-bold text-ink">
-            Wartet auf dich <span className="num rounded-full bg-brand-500 px-2 py-0.5 text-xs font-bold text-white">{waiting.length}</span>
-          </h2>
-          <ul className="mt-4 space-y-2">
-            {waiting.map((t) => {
-              const question = t.run_state === "rueckfrage";
-              return (
-                <li key={t.id} className="rounded-2xl border border-line bg-white p-4 sm:p-5">
-                  <div className="flex flex-wrap items-center gap-1.5 text-xs">
-                    <span className={cn("rounded-full px-2.5 py-0.5 font-semibold", question ? "bg-amber-50 text-amber-800" : "bg-brand-50 text-brand-600")}>{question ? "Rückfrage" : "Vorschlag"}</span>
-                    <span className="rounded-full bg-canvas px-2.5 py-0.5 font-medium text-body">
-                      {t.requested_by && t.requested_by !== t.department ? `${departmentById[t.requested_by].name} → ${departmentById[t.department].name}` : departmentById[t.department].name}
-                    </span>
-                    <span className="text-muted">{TASK_CATEGORY_LABEL[t.category]}</span>
-                    {t.client && <span className="rounded-full bg-night px-2.5 py-0.5 font-semibold text-white">Kunde: {t.client}</span>}
-                    {t.risk === "hoch" && <span className="rounded-full bg-rose-50 px-2.5 py-0.5 font-semibold text-rose-800">Braucht immer dein Okay</span>}
-                    {t.executor === "karim" && <span className="rounded-full border border-line px-2.5 py-0.5 text-muted">Nur du kannst das erledigen</span>}
-                  </div>
-                  <p className="mt-2 font-semibold text-ink">{t.title}</p>
-                  {question ? <p className="mt-1 text-sm leading-relaxed text-body">{t.run_note}</p> : t.why && <p className="mt-1 text-sm leading-relaxed text-body">{t.why}</p>}
-                  <div className="mt-3 flex flex-wrap items-end gap-2">
-                    {t.executor !== "karim" && (
-                      <form action={requestRun} className={cn("flex flex-wrap items-end gap-2", (question || t.executor === "beide") && "min-w-0 flex-1 basis-full sm:basis-auto")}>
-                        <input type="hidden" name="id" value={t.id} />
-                        {(question || t.executor === "beide") && (
-                          <label className="grid min-w-48 flex-1 gap-1 text-xs font-semibold text-muted">
-                            {question ? "Deine Antwort" : "Angaben für das Team (optional)"}
-                            <input name="input" required={question} defaultValue={question ? "" : (t.run_input ?? "")} className="h-11 rounded-lg border border-line bg-white px-3 text-sm text-ink outline-none focus:border-brand-500" />
-                          </label>
-                        )}
-                        <button type="submit" className={cn(pill, "bg-night text-white hover:bg-night-soft")}>
-                          <Check className="size-4" aria-hidden /> {question ? "Antworten und weiter" : "Freigeben"}
-                        </button>
-                      </form>
-                    )}
-                    {!question && (
-                      <form action={removeTask}>
-                        <input type="hidden" name="id" value={t.id} />
-                        <button type="submit" className={cn(pill, "border border-line bg-white text-body hover:text-danger")}>
-                          <X className="size-4" aria-hidden /> Ablehnen
-                        </button>
-                      </form>
-                    )}
-                    <Link href="/admin/aufgaben" className={cn(pill, "px-3 font-medium text-brand-600")}>
-                      Details
-                    </Link>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        </section>
+        <Link href="/admin/freigaben" className="mt-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-brand-200 bg-white p-4 transition-colors hover:border-brand-400 sm:p-5">
+          <span className="flex items-center gap-3 font-semibold text-ink">
+            <span className="num grid size-9 place-items-center rounded-full bg-brand-500 text-sm font-bold text-white">{waiting.length}</span>
+            {waiting.length === 1 ? "Aufgabe wartet auf deine Entscheidung" : "Aufgaben warten auf deine Entscheidung"}
+          </span>
+          <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600">
+            Zu den Freigaben <ArrowRight className="size-4" aria-hidden />
+          </span>
+        </Link>
       )}
 
       <section aria-labelledby="dept-title" className="mt-10">

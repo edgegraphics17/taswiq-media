@@ -177,6 +177,10 @@ export async function deleteTask(id: string): Promise<void> {
   await call(`/tasks/${encodeURIComponent(id)}`, { method: "DELETE" });
 }
 
+export async function moveTask(id: string, dir: "up" | "down" | "top"): Promise<void> {
+  await call(`/tasks/${encodeURIComponent(id)}/move`, { method: "POST", body: { dir } });
+}
+
 // ─── Team (Command Center) ──────────────────────────────────────────
 export function getTeamState(): Promise<TeamState> {
   return call<TeamState>("/team/state");

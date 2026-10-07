@@ -152,8 +152,8 @@ export type TaskRow = {
   done_at: string | null;
   /** Wer setzt um: du allein, Claude allein oder Claude mit Angaben von dir */
   executor: "karim" | "claude" | "beide";
-  /** Auftrag an Claude aus dem Dashboard: beauftragt → laeuft → fertig | rueckfrage */
-  run_state: "beauftragt" | "laeuft" | "fertig" | "rueckfrage" | null;
+  /** Auftrag ans Team: beauftragt → laeuft → fertig | rueckfrage · zurueckgestellt = von dir geparkt */
+  run_state: "beauftragt" | "laeuft" | "fertig" | "rueckfrage" | "zurueckgestellt" | null;
   run_input: string | null;
   run_note: string | null;
   run_requested_at: string | null;
@@ -167,6 +167,8 @@ export type TaskRow = {
   risk: "niedrig" | "hoch";
   /** Kundenauftrag: Name des Kunden (leer = TasWiq selbst) */
   client: string | null;
+  /** von dir festgelegter Platz in der Warteschlange der Abteilung */
+  queue_pos: number | null;
 };
 export type TaskInsert = Pick<TaskRow, "title"> &
   Partial<Pick<TaskRow, "key" | "why" | "steps" | "category" | "priority" | "effort" | "status" | "source" | "executor" | "run_state" | "run_input" | "run_note" | "department" | "risk" | "client">>;
