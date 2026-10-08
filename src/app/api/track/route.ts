@@ -4,6 +4,9 @@ import { z } from "zod";
 import { insertHit } from "@/lib/db";
 import { env, isBackendConfigured } from "@/lib/env";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
+import { isAdminEmail } from "@/lib/auth";
+import { INTERNAL_COOKIE, internalCookieOptions } from "@/lib/internal";
+import { SESSION_COOKIE, verifySession } from "@/lib/session";
 
 export const runtime = "nodejs";
 
@@ -48,6 +51,18 @@ function classify(referrer: string | undefined, utmSource: string | undefined, u
 }
 
 /**
+ * Eigenes Gerät? Dann wird nichts gespeichert. Erkennung über das Merkzeichen aus src/lib/internal.ts – oder über eine
+ * gültige Dashboard-Anmeldung, falls das Merkzeichen noch fehlt (wird dann gleich mitgesetzt).
+ */
+async function internalDevice(req: NextRequest): Promise<"cookie" | "session" | null> {
+  const mark = req.cookies.get(INTERNAL_COOKIE)?.value;
+  if (mark === "1") return "cookie";
+  if (mark === "0") return null;
+  const session = await verifySession(req.cookies.get(SESSION_COOKIE)?.value).catch(() => null);
+  return session && isAdminEmail(session.email) ? "session" : null;
+}
+
+/**
  * POST /api/track – eigene Reichweitenmessung ohne Cookies.
  * Der Besucher wird nur als täglich wechselnder Hash gezählt (IP + Browser + Datum + Salt);
  * weder die IP noch der Browser-String werden gespeichert.
@@ -56,6 +71,13 @@ export async function POST(req: NextRequest) {
   const ua = req.headers.get("user-agent") ?? "";
   const ip = clientIp(req.headers);
   if (!ua || BOT.test(ua) || !isBackendConfigured() || !rateLimit(`track:${ip}`, 120, 60_000)) return new NextResponse(null, { status: 204 });
+
+  const internal = await internalDevice(req);
+  if (internal) {
+    const res = new NextResponse(null, { status: 204 });
+    if (internal === "session") res.cookies.set(INTERNAL_COOKIE, "1", internalCookieOptions);
+    return res;
+  }
 
   const parsed = schema.safeParse(await req.json().catch(() => null));
   if (!parsed.success || parsed.data.path.startsWith("/admin")) return new NextResponse(null, { status: 204 });

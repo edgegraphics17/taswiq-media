@@ -45,6 +45,7 @@ export const demoLeads: LeadRow[] = seeds.map((s, i) => ({
   source_meta: { utm_source: i % 2 ? "instagram" : "google" },
   automation: { notified_at: ago(i * 19 + 2), welcome_sent_at: ago(i * 19 + 2) },
   ip_hash: null,
+  is_test: false,
   ...s,
 })) as LeadRow[];
 
@@ -70,6 +71,7 @@ export const demoCalcRequests: CalculatorRequest[] = Array.from({ length: 8 }).m
   utm: {},
   referrer: null,
   converted_lead_id: i % 3 === 0 ? `00000000-0000-4000-8000-${String(i + 1).padStart(12, "0")}` : null,
+  is_test: false,
 }));
 
 const task = (i: number, t: Partial<TaskRow> & Pick<TaskRow, "title" | "category" | "priority">): TaskRow => ({
@@ -125,6 +127,7 @@ export function demoAnalytics(days: number): AnalyticsData {
     events: [{ name: "rechner_schritt", n: share(0.4), visitors: share(0.16) }, { name: "rechner_ergebnis", n: share(0.09), visitors: share(0.08) }, { name: "funnel_step", n: share(0.12), visitors: share(0.06) }, { name: "generate_lead", n: share(0.02), visitors: share(0.02) }],
     leads: demoLeads.length,
     calculations: demoCalcRequests.length,
+    tests: { leads: 0, calculations: 0 },
   };
 }
 

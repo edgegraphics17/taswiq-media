@@ -2,12 +2,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Mail, MessageCircle, Phone } from "lucide-react";
 import { getLead } from "@/lib/admin/data";
-import { addNote, updateLead } from "@/app/admin/actions";
+import { addNote, markLeadTest, updateLead } from "@/app/admin/actions";
 import { BUDGET_LABEL, INDUSTRY_LABEL, SOURCE_LABEL, STATUS_LABEL } from "@/lib/admin/labels";
 import { LEAD_STATUSES, type Json } from "@/types/database";
 import { getTranslations } from "next-intl/server";
 import { formatDateTime, formatNumber } from "@/lib/format";
-import { ScoreBar, StatusPill, TierPill } from "@/components/admin/Pills";
+import { ScoreBar, StatusPill, TestPill, TierPill } from "@/components/admin/Pills";
 
 const JEV_LEVELS = ["Niedrig", "Mittel", "Hoch", "Sehr hoch"];
 
@@ -58,6 +58,7 @@ export default async function LeadDetail({
             <StatusPill status={lead.status} />
             <TierPill tier={lead.tier} />
             <ScoreBar score={lead.score} />
+            {lead.is_test && <TestPill />}
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -191,6 +192,20 @@ export default async function LeadDetail({
               <textarea name="owner_notes" rows={4} defaultValue={lead.owner_notes ?? ""} className="rounded-lg border border-line p-3 text-sm text-ink" />
             </label>
             <button type="submit" className="mt-4 h-11 w-full rounded-lg bg-brand-500 text-sm font-semibold text-white">Speichern</button>
+          </form>
+
+          <form action={markLeadTest} className="rounded-2xl border border-line bg-white p-5 text-sm">
+            <h2 className="font-bold text-ink">Test-Eintrag</h2>
+            <p className="mt-1 text-xs leading-relaxed text-muted">
+              {lead.is_test
+                ? "Diese Anfrage ist als Test markiert. Sie bleibt gespeichert, zählt aber weder in Analytics noch im Zielfortschritt."
+                : "Eigene Probe-Anfrage? Als Test markiert zählt sie in keiner Kennzahl mit. Gelöscht wird nichts."}
+            </p>
+            <input type="hidden" name="id" value={lead.id} />
+            <input type="hidden" name="test" value={lead.is_test ? "0" : "1"} />
+            <button type="submit" className="mt-3 h-11 w-full cursor-pointer rounded-lg border border-line bg-white text-sm font-semibold text-ink hover:bg-canvas">
+              {lead.is_test ? "Test-Markierung entfernen" : "Als Test markieren"}
+            </button>
           </form>
 
           <section className="rounded-2xl border border-line bg-white p-5 text-sm">

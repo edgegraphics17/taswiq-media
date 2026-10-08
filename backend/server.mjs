@@ -49,7 +49,26 @@ if (db.prepare("select count(*) as n from services").get().n === 0) {
 }
 
 // Spalten, die nach dem ersten Livegang dazukamen (create table if not exists ergänzt keine Spalten).
-for (const [table, col, def] of [
+/**
+ * Einmalig beim Einführen der Test-Kennzeichnung (10/2026): Bis dahin gab es nur eigene Probe-Einträge.
+ * Markiert Anfragen, die „Test“ im Namen, in der Firma oder in der Nachricht tragen, und Sitzungen mit drei oder mehr
+ * Kalkulationen. Im Dashboard lässt sich jede Markierung wieder entfernen.
+ */
+function backfillTests() {
+  db.exec(`
+    update leads set is_test = 1 where lower(name) like '%test%' or lower(coalesce(company, '')) like '%test%' or lower(coalesce(message, '')) like '%test%';
+    update calculator_requests set is_test = 1
+     where converted_lead_id in (select id from leads where is_test = 1)
+        or id in (select calculator_request_id from leads where is_test = 1)
+        or session_id in (select session_id from calculator_requests where session_id is not null group by session_id having count(*) >= 3);
+    update site_hits set is_test = 1
+     where (day, visitor) in (select day, visitor from site_hits where session_id in (select session_id from calculator_requests where is_test = 1 and session_id is not null));
+  `);
+  const n = (t) => db.prepare(`select count(*) as n from ${t} where is_test = 1`).get().n;
+  console.log(`[db] Test-Kennzeichnung eingeführt: ${n("leads")} Anfragen, ${n("calculator_requests")} Kalkulationen, ${n("site_hits")} Aufrufe markiert`);
+}
+
+for (const [table, col, def, after] of [
   ["tasks", "executor", "text not null default 'karim'"], // wer setzt um: karim | claude | beide (Claude mit Angaben von Karim)
   ["tasks", "run_state", "text"], // Auftrag an Claude: beauftragt → laeuft → fertig | rueckfrage
   ["tasks", "run_input", "text"], // Angaben von Karim für die Umsetzung
@@ -61,8 +80,14 @@ for (const [table, col, def] of [
   ["tasks", "risk", "text not null default 'niedrig'"], // hoch = nie ohne Freigabe von Karim
   ["tasks", "queue_pos", "integer"], // von Karim festgelegte Reihenfolge in der Warteschlange (kleiner = früher)
   ["tasks", "client", "text"], // Kundenauftrag (Name des Kunden) – leer = TasWiq selbst
+  // Testeinträge und eigene Besuche: bleiben gespeichert, zählen aber in keiner Kennzahl mit.
+  ["site_hits", "is_test", "integer not null default 0"],
+  ["calculator_requests", "is_test", "integer not null default 0"],
+  ["leads", "is_test", "integer not null default 0", backfillTests],
 ]) {
-  if (!db.prepare(`select 1 from pragma_table_info('${table}') where name = ?`).get(col)) db.exec(`alter table ${table} add column ${col} ${def}`);
+  if (db.prepare(`select 1 from pragma_table_info('${table}') where name = ?`).get(col)) continue;
+  db.exec(`alter table ${table} add column ${col} ${def}`);
+  after?.();
 }
 
 const jev = createJev({ db });
@@ -83,8 +108,21 @@ const parseCols = (row, cols) => {
   for (const c of cols) out[c] = out[c] == null ? out[c] : JSON.parse(out[c]);
   return out;
 };
-const lead = (row) => parseCols(row, LEAD_JSON);
-const calc = (row) => parseCols(row, CALC_JSON);
+const flag = (row) => (row ? { ...row, is_test: !!row.is_test } : row);
+const lead = (row) => flag(parseCols(row, LEAD_JSON));
+const calc = (row) => flag(parseCols(row, CALC_JSON));
+/** Besuche einer Sitzung (alle Aufrufe desselben Besuchers an diesen Tagen) als Test kennzeichnen oder wieder freigeben. */
+const flagSessionHits = (sessionId, isTest) => {
+  if (!sessionId) return;
+  db.prepare("update site_hits set is_test = ? where (day, visitor) in (select day, visitor from site_hits where session_id = ?)").run(isTest, sessionId);
+};
+const flagCalc = (id, isTest) => {
+  const row = db.prepare("select session_id from calculator_requests where id = ?").get(id);
+  if (!row) return false;
+  db.prepare("update calculator_requests set is_test = ? where id = ?").run(isTest, id);
+  flagSessionHits(row.session_id, isTest);
+  return true;
+};
 const event = (row) => parseCols(row, ["payload"]);
 const service = (row) => ({ ...row, dreh: !!row.dreh, is_active: !!row.is_active });
 const hash = (s) => createHash("sha256").update(s).digest("hex");
@@ -220,6 +258,16 @@ route("PATCH", "/leads/:id", ({ params, body }) => {
         if (body.status === "kontaktiert" && !old.last_contacted_at) set.last_contacted_at = set.updated_at;
       }
     }
+    if ("is_test" in body) {
+      const isTest = body.is_test ? 1 : 0;
+      set.is_test = isTest;
+      if (isTest !== old.is_test) {
+        db.prepare("insert into lead_events (id, lead_id, type, body, created_by, created_at) values (?, ?, 'note', ?, ?, ?)")
+          .run(randomUUID(), params.id, isTest ? "Als Test markiert – zählt in keiner Kennzahl mit." : "Test-Markierung entfernt.", actor, set.updated_at);
+        // Die Kalkulation, aus der die Anfrage entstand, gehört dazu.
+        for (const c of db.prepare("select id from calculator_requests where converted_lead_id = ? or id = ?").all(params.id, old.calculator_request_id)) flagCalc(c.id, isTest);
+      }
+    }
     if (body.automation && typeof body.automation === "object") {
       set.automation = json({ ...JSON.parse(old.automation), ...body.automation });
     }
@@ -257,6 +305,12 @@ route("POST", "/calculator-requests", ({ body }) => {
 route("GET", "/calculator-requests", () =>
   db.prepare("select * from calculator_requests order by created_at desc limit 200").all().map(calc),
 );
+
+route("PATCH", "/calculator-requests/:id", ({ params, body }) => {
+  need(body && typeof body.is_test === "boolean", "is_test");
+  if (!tx(() => flagCalc(params.id, body.is_test ? 1 : 0))) throw new HttpError(404, "notFound");
+  return { ok: true };
+});
 
 route("GET", "/services", ({ query }) => {
   const rows = db.prepare(`select * from services ${query.get("all") ? "" : "where is_active = 1"} order by group_id, sort_order`).all();
@@ -643,7 +697,8 @@ route("GET", "/analytics", ({ query }) => {
   const days = Math.min(365, Math.max(1, Number(query.get("days")) || 30));
   const since = new Date(Date.now() - (days - 1) * 86_400_000).toISOString().slice(0, 10);
   const all = (sql) => db.prepare(sql).all(since);
-  const pv = "from site_hits where day >= ? and type = 'pageview'";
+  const pv = "from site_hits where day >= ? and type = 'pageview' and is_test = 0";
+  const count = (table, isTest) => db.prepare(`select count(*) as n from ${table} where substr(created_at, 1, 10) >= ? and is_test = ?`).get(since, isTest).n;
   return {
     days,
     since,
@@ -655,9 +710,11 @@ route("GET", "/analytics", ({ query }) => {
     campaigns: all(`select campaign, count(distinct day || visitor) as visitors ${pv} and campaign is not null group by campaign order by visitors desc limit 10`),
     devices: all(`select coalesce(device, 'unbekannt') as device, count(distinct day || visitor) as visitors ${pv} group by 1 order by visitors desc`),
     locales: all(`select coalesce(locale, 'de') as locale, count(distinct day || visitor) as visitors ${pv} group by 1 order by visitors desc`),
-    events: all("select name, count(*) as n, count(distinct day || visitor) as visitors from site_hits where day >= ? and type = 'event' group by name order by n desc"),
-    leads: db.prepare("select count(*) as n from leads where substr(created_at, 1, 10) >= ?").get(since).n,
-    calculations: db.prepare("select count(*) as n from calculator_requests where substr(created_at, 1, 10) >= ?").get(since).n,
+    events: all("select name, count(*) as n, count(distinct day || visitor) as visitors from site_hits where day >= ? and type = 'event' and is_test = 0 group by name order by n desc"),
+    leads: count("leads", 0),
+    calculations: count("calculator_requests", 0),
+    // Als Test markiert und deshalb oben nicht mitgezählt
+    tests: { leads: count("leads", 1), calculations: count("calculator_requests", 1) },
   };
 });
 

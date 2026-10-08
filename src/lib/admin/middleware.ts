@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { env, isAdminAuthConfigured, isDemoMode } from "@/lib/env";
 import { isAdminEmail } from "@/lib/auth";
 import { SESSION_COOKIE, verifySession } from "@/lib/session";
+import { INTERNAL_COOKIE, internalCookieOptions } from "@/lib/internal";
 
 const PUBLIC_ADMIN_PATHS = ["/admin/login", "/admin/auth"];
 
@@ -30,5 +31,8 @@ export async function guardAdmin(request: NextRequest) {
   if (!isAdminEmail(session.email) || env.adminEmails.length === 0) {
     return NextResponse.redirect(new URL("/admin/login?error=forbidden", request.url));
   }
-  return NextResponse.next();
+  // Wer im Dashboard angemeldet ist, gehört zum Team: Gerät aus der Besucherstatistik nehmen (einmalig, per Schalter umkehrbar).
+  const response = NextResponse.next();
+  if (!request.cookies.has(INTERNAL_COOKIE)) response.cookies.set(INTERNAL_COOKIE, "1", internalCookieOptions);
+  return response;
 }

@@ -98,6 +98,11 @@ export function updateLead(id: string, patch: LeadUpdate): Promise<LeadRow> {
   return call<LeadRow>(`/leads/${encodeURIComponent(id)}`, { method: "PATCH", body: patch });
 }
 
+/** Anfrage als Test kennzeichnen (oder die Kennzeichnung entfernen) – die verknüpfte Kalkulation zieht mit. */
+export async function setLeadTest(id: string, isTest: boolean, actor: string): Promise<void> {
+  await call(`/leads/${encodeURIComponent(id)}`, { method: "PATCH", body: { is_test: isTest, actor } });
+}
+
 export async function addLeadNote(leadId: string, body: string, createdBy: string): Promise<void> {
   await call(`/leads/${encodeURIComponent(leadId)}/events`, { method: "POST", body: { type: "note", body, created_by: createdBy } });
 }
@@ -110,6 +115,10 @@ export async function insertCalculatorRequest(row: CalculatorRequestInsert): Pro
 
 export function listCalculatorRequests(): Promise<CalculatorRequest[]> {
   return call<CalculatorRequest[]>("/calculator-requests");
+}
+
+export async function setCalculatorTest(id: string, isTest: boolean): Promise<void> {
+  await call(`/calculator-requests/${encodeURIComponent(id)}`, { method: "PATCH", body: { is_test: isTest } });
 }
 
 // ─── Preise ─────────────────────────────────────────────────────────

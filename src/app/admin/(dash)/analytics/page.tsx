@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { cookies } from "next/headers";
+import { setDeviceCounted } from "@/app/admin/actions";
+import { INTERNAL_COOKIE, INTERNAL_PARAM } from "@/lib/internal";
+import { site } from "@/config/site";
 import { getAnalyticsData } from "@/lib/admin/data";
 import { CHANNEL_LABEL, EVENT_LABEL } from "@/lib/admin/labels";
 import { cn, formatNumber } from "@/lib/format";
@@ -46,6 +50,11 @@ export default async function AnalyticsPage({ searchParams }: { searchParams: Pr
   const requested = Number((await searchParams).tage);
   const days = (RANGES as readonly number[]).includes(requested) ? requested : 30;
   const a = await getAnalyticsData(days);
+  // Das Dashboard setzt das Merkzeichen beim ersten Öffnen selbst – fehlt es noch, greift die Anmeldung.
+  const counted = (await cookies()).get(INTERNAL_COOKIE)?.value === "0";
+  // `tests` fehlt, solange das Backend noch auf dem Stand vor der Test-Kennzeichnung läuft (wird getrennt ausgeliefert).
+  const t = a.tests ?? { leads: 0, calculations: 0 };
+  const tests = [t.leads ? `${formatNumber(t.leads)} Test-${t.leads === 1 ? "Anfrage" : "Anfragen"}` : "", t.calculations ? `${formatNumber(t.calculations)} Test-${t.calculations === 1 ? "Kalkulation" : "Kalkulationen"}` : ""].filter(Boolean);
 
   // Lücken füllen: Tage ohne Besuch sind 0, nicht „fehlen“.
   const byDay = new Map(a.daily.map((d) => [d.day, d]));
@@ -101,7 +110,27 @@ export default async function AnalyticsPage({ searchParams }: { searchParams: Pr
         </p>
       )}
 
-      <dl className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-5">
+      <section aria-label="Eigene Besuche" className="mt-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 rounded-2xl border border-line bg-white px-5 py-4">
+        <div className="min-w-0 flex-1 basis-72">
+          <p className="flex items-center gap-2 text-sm font-bold text-ink">
+            <span className={cn("size-2 shrink-0 rounded-full", counted ? "bg-amber-500" : "bg-emerald-500")} aria-hidden />
+            {counted ? "Dieses Gerät wird mitgezählt" : "Dieses Gerät wird nicht mitgezählt"}
+          </p>
+          <p className="mt-1 text-xs leading-relaxed text-muted">
+            {counted ? "Deine eigenen Besuche auf der Website erscheinen in diesen Zahlen." : "Deine eigenen Besuche auf der Website tauchen hier nicht auf – auch nach dem Abmelden."} Andere Geräte und Prüf-Browser einmalig mit{" "}
+            <code className="rounded bg-canvas px-1 py-0.5 text-[11px] text-body">{site.url}/?{INTERNAL_PARAM}=1</code> öffnen.
+            {tests.length > 0 && <> Nicht mitgezählt: {tests.join(" und ")}.</>}
+          </p>
+        </div>
+        <form action={setDeviceCounted}>
+          <input type="hidden" name="counted" value={counted ? "0" : "1"} />
+          <button type="submit" className="min-h-11 cursor-pointer rounded-lg border border-line bg-white px-4 text-sm font-semibold text-ink hover:bg-canvas">
+            {counted ? "Dieses Gerät ausnehmen" : "Dieses Gerät wieder mitzählen"}
+          </button>
+        </form>
+      </section>
+
+      <dl className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-5">
         {tiles.map((t) => (
           <div key={t.label} className="rounded-2xl border border-line bg-white p-4">
             <dt className="text-xs font-semibold tracking-wide text-muted">{t.label}</dt>
@@ -157,7 +186,7 @@ export default async function AnalyticsPage({ searchParams }: { searchParams: Pr
       </div>
 
       <p className="mt-6 text-xs leading-relaxed text-muted">
-        Eigene Messung ohne Cookies: Besucher werden pro Tag gezählt (wer an zwei Tagen kommt, zählt zweimal). Bots und Aufrufe mit „Do Not Track“ sind nicht enthalten.
+        Eigene Messung ohne Cookies: Besucher werden pro Tag gezählt (wer an zwei Tagen kommt, zählt zweimal). Bots, Aufrufe mit „Do Not Track“, ausgenommene eigene Geräte und als Test markierte Einträge sind nicht enthalten.
         Google-Rankings und Klickzahlen aus der Suche stehen nicht hier, sondern in der Google Search Console.
       </p>
     </div>

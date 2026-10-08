@@ -24,6 +24,15 @@ export function TierPill({ tier }: { tier: LeadRow["tier"] }) {
   );
 }
 
+/** Probe-Eintrag: bleibt in der Liste, zählt aber in keiner Kennzahl mit. */
+export function TestPill() {
+  return (
+    <span className="inline-flex rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-semibold whitespace-nowrap text-amber-900 ring-1 ring-amber-200 ring-inset" title="Als Test markiert – zählt in keiner Kennzahl mit">
+      Test
+    </span>
+  );
+}
+
 /** Score 0–100 als dünner Einzelfarb-Balken + Zahl (Zahl trägt die Information, Balken die Gestalt). */
 export function ScoreBar({ score }: { score: number }) {
   return (

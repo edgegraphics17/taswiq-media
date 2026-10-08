@@ -43,6 +43,8 @@ type CalculatorRequestRow = {
   utm: Json;
   referrer: string | null;
   converted_lead_id: string | null;
+  /** Probe-Eintrag: bleibt gespeichert, zählt in keiner Kennzahl mit */
+  is_test: boolean;
 };
 
 type LeadRowT = {
@@ -75,6 +77,8 @@ type LeadRowT = {
   source_meta: Json;
   automation: Json;
   ip_hash: string | null;
+  /** Probe-Eintrag: bleibt gespeichert, zählt in keiner Kennzahl mit */
+  is_test: boolean;
 };
 
 type LeadEventRowT = {
@@ -115,10 +119,11 @@ export type LeadInsert = Optional<
   | "source_meta"
   | "automation"
   | "ip_hash"
+  | "is_test"
 >;
 export type CalculatorRequestInsert = Optional<
   CalculatorRequestRow,
-  "id" | "created_at" | "session_id" | "summary" | "line_items" | "monthly_total" | "utm" | "referrer" | "converted_lead_id"
+  "id" | "created_at" | "session_id" | "summary" | "line_items" | "monthly_total" | "utm" | "referrer" | "converted_lead_id" | "is_test"
 >;
 export type ServiceUpsert = Pick<ServiceRow, "group_id" | "option_id" | "label" | "preis" | "mtl" | "is_active">;
 export type ServiceRowType = ServiceRow;
@@ -202,6 +207,8 @@ export type AnalyticsData = {
   events: { name: string; n: number; visitors: number }[];
   leads: number;
   calculations: number;
+  /** Als Test markiert und deshalb in `leads`/`calculations` nicht enthalten */
+  tests: { leads: number; calculations: number };
 };
 
 /* ─── Team (Command Center) ─── */

@@ -9,7 +9,8 @@ import { SESSION_COOKIE, SESSION_MAX_AGE, signSession } from "@/lib/session";
 import { isAdminEmail } from "@/lib/auth";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
 import { getAdminUser } from "@/lib/admin/data";
-import { addLeadNote, deleteTask, insertTask, moveTask, setPassword, setTeamSettings, updateLead as updateLeadInBackend, updateTask, upsertServices, verifyPassword } from "@/lib/db";
+import { INTERNAL_COOKIE, internalCookieOptions } from "@/lib/internal";
+import { addLeadNote, setCalculatorTest, setLeadTest, deleteTask, insertTask, moveTask, setPassword, setTeamSettings, updateLead as updateLeadInBackend, updateTask, upsertServices, verifyPassword } from "@/lib/db";
 import { LEAD_STATUSES, TASK_CATEGORIES, TASK_STATUSES } from "@/types/database";
 import { DEPARTMENT_IDS, departmentFor } from "@/config/team";
 
@@ -112,6 +113,44 @@ export async function addNote(formData: FormData) {
     redirect(`/admin/leads/${id}?error=note`);
   }
   redirect(`/admin/leads/${id}?saved=1`);
+}
+
+/** Anfrage als Test kennzeichnen oder die Kennzeichnung entfernen – gelöscht wird nichts, sie zählt nur nicht mehr mit. */
+export async function markLeadTest(formData: FormData) {
+  const parsed = z.object({ id: z.string().uuid(), test: z.enum(["0", "1"]) }).safeParse(Object.fromEntries(formData));
+  if (!parsed.success) redirect("/admin?error=1");
+  const { id, test } = parsed.data;
+  if (isDemoMode()) redirect(`/admin/leads/${id}?demo=1`);
+  const user = await requireAdminUser();
+  try {
+    await setLeadTest(id, test === "1", user.email);
+  } catch (e) {
+    console.error("[admin] markLeadTest", e);
+    redirect(`/admin/leads/${id}?error=1`);
+  }
+  revalidatePath("/admin", "layout");
+  redirect(`/admin/leads/${id}?saved=1`);
+}
+
+export async function markCalculationTest(formData: FormData) {
+  if (isDemoMode()) redirect("/admin/rechner?demo=1");
+  await requireAdminUser();
+  const parsed = z.object({ id: z.string().uuid(), test: z.enum(["0", "1"]) }).safeParse(Object.fromEntries(formData));
+  if (!parsed.success) redirect("/admin/rechner?error=1");
+  try {
+    await setCalculatorTest(parsed.data.id, parsed.data.test === "1");
+  } catch (e) {
+    console.error("[admin] markCalculationTest", e);
+    redirect("/admin/rechner?error=1");
+  }
+  revalidatePath("/admin", "layout");
+}
+
+/** Schalter unter Analytics: Zählt dieses Gerät in der Besucherstatistik mit? (Merkzeichen im Browser, siehe src/lib/internal.ts) */
+export async function setDeviceCounted(formData: FormData) {
+  if (!isDemoMode()) await requireAdminUser();
+  (await cookies()).set(INTERNAL_COOKIE, formData.get("counted") === "1" ? "0" : "1", internalCookieOptions);
+  revalidatePath("/admin/analytics");
 }
 
 /** Preis-Editor: überschreibt die Werte aus pricing.ts – live nach Cache-Invalidierung. */

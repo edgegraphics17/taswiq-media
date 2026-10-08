@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { ChevronRight, Search } from "lucide-react";
-import { computeKpis, getLeads } from "@/lib/admin/data";
+import { computeKpis, getLeads, real } from "@/lib/admin/data";
 import { BUDGET_LABEL, INDUSTRY_LABEL, SOURCE_LABEL, STATUS_LABEL } from "@/lib/admin/labels";
 import { LEAD_STATUSES } from "@/types/database";
 import { isDemoMode } from "@/lib/env";
 import { formatDateTime, formatEUR, formatNumber } from "@/lib/format";
-import { ScoreBar, StatusPill, TierPill } from "@/components/admin/Pills";
+import { ScoreBar, StatusPill, TestPill, TierPill } from "@/components/admin/Pills";
 import { LiveRefresh } from "@/components/admin/LiveRefresh";
 
 
@@ -17,7 +17,9 @@ export default async function LeadsPage({ searchParams }: { searchParams: Promis
   const filters = await searchParams;
   const [all, leads] = await Promise.all([getLeads(), getLeads(filters)]);
   const k = computeKpis(all);
-  const perStatus = LEAD_STATUSES.map((s) => ({ s, n: all.filter((l) => l.status === s).length }));
+  // Als Test markierte Anfragen stehen weiter in der Liste, zählen aber in Kacheln und Pipeline nicht mit.
+  const counted = real(all);
+  const perStatus = LEAD_STATUSES.map((s) => ({ s, n: counted.filter((l) => l.status === s).length }));
   const maxN = Math.max(1, ...perStatus.map((p) => p.n));
 
   const tiles = [
@@ -128,9 +130,12 @@ export default async function LeadsPage({ searchParams }: { searchParams: Promis
                 <tr key={l.id} className="hover:bg-canvas/70">
                   <td className="num px-4 py-3 whitespace-nowrap text-muted">{formatDateTime(l.created_at)}</td>
                   <td className="px-4 py-3">
-                    <Link href={`/admin/leads/${l.id}`} className="font-semibold text-ink hover:text-brand-600">
-                      {l.name}
-                    </Link>
+                    <span className="flex flex-wrap items-center gap-2">
+                      <Link href={`/admin/leads/${l.id}`} className="font-semibold text-ink hover:text-brand-600">
+                        {l.name}
+                      </Link>
+                      {l.is_test && <TestPill />}
+                    </span>
                     <p className="text-xs text-muted">{l.company ?? l.email}</p>
                   </td>
                   <td className="px-4 py-3 text-body">{INDUSTRY_LABEL[l.industry] ?? l.industry}</td>

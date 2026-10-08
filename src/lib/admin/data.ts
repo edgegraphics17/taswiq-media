@@ -75,8 +75,12 @@ export async function getAnalyticsData(days: number): Promise<AnalyticsData> {
   return getAnalytics(days);
 }
 
+/** Echte Einträge: Als Test markierte Anfragen und Kalkulationen bleiben sichtbar, zählen aber in keiner Kennzahl. */
+export const real = <T extends { is_test?: boolean }>(rows: T[]) => rows.filter((r) => !r.is_test);
+
 /** Gewonnener Auftragswert im laufenden Monat (Zeitpunkt = letzte Änderung des gewonnenen Leads). */
-export function wonThisMonth(leads: LeadRow[]) {
+export function wonThisMonth(all: LeadRow[]) {
+  const leads = real(all);
   const start = new Date();
   start.setDate(1);
   start.setHours(0, 0, 0, 0);
@@ -90,7 +94,8 @@ export function wonThisMonth(leads: LeadRow[]) {
 }
 
 /** Kennzahlen – aus allen Leads berechnet (klein genug für In-Memory; bei >10k Leads im Backend aggregieren). */
-export function computeKpis(leads: LeadRow[]) {
+export function computeKpis(all: LeadRow[]) {
+  const leads = real(all);
   const open = leads.filter((l) => ["neu", "kontaktiert", "angebot", "verhandlung"].includes(l.status));
   const won = leads.filter((l) => l.status === "gewonnen");
   const closed = leads.filter((l) => l.status === "gewonnen" || l.status === "verloren");
