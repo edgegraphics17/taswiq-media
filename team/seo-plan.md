@@ -36,6 +36,7 @@ Arbeitsgrundlage der Abteilung Wachstum. Ziel: 600 passende Besucher und 12 Anfr
 | Software Gastronomie, Bestellsystem Restaurant | /leistungen/software-gastronomie |
 | Bestellsystem ohne Provision, Online-Bestellsystem Gastronomie | /leistungen/bestellsystem-ohne-provision |
 | Lieferando Alternative | /blog/eigenes-bestellsystem-statt-lieferando |
+| Bestellsystem Bäckerei, Vorbestellung Bäckerei online | /blog/bestellsystem-baeckerei |
 | Buchungssystem Friseur, Online-Terminbuchung Friseur | /leistungen/buchungssystem-friseur-beauty |
 | Online-Buchungssystem | /leistungen/online-buchungssystem |
 | Mandantenportal Steuerberater / Kanzlei | /leistungen/software-steuerberater-kanzlei |
@@ -52,7 +53,7 @@ Arbeitsgrundlage der Abteilung Wachstum. Ziel: 600 passende Besucher und 12 Anfr
 
 Aus den Google-Vorschlägen vom 08.10.2026, sortiert nach Kaufabsicht und danach, ob wir eine Referenz haben:
 
-- Gastronomie: `bestellsystem bäckerei`, `vorbestellung bäckerei online` (Referenz Daron Brot) · `qr code bestellsystem` (+ kostenlos) ·
+- Gastronomie: ~~`bestellsystem bäckerei`, `vorbestellung bäckerei online`~~ (erledigt 08.10.2026: /blog/bestellsystem-baeckerei) · `qr code bestellsystem` (+ kostenlos) ·
   `tischreservierungssystem` · `lieferando alternative` + Stadt
 - Beauty/Gesundheit: `treatwell alternative` · `buchungssystem physiotherapie` · `online buchungssystem für kurse` ·
   `online buchungssystem mit bezahlfunktion` · `online buchungssystem kostenlos` (Vergleich: was kostenlos wirklich kostet)

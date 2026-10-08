@@ -11,6 +11,7 @@ Fotos von [Unsplash](https://unsplash.com/license) (freie Lizenz, kommerziell nu
 | public/images/sectors/automotive-4.webp | Jimmy Nilsson Masth | https://images.unsplash.com/photo-1645445522156-9ac06bc7a767 |
 | public/images/sectors/automotive-5.webp | Stepan | https://images.unsplash.com/photo-1786450855473-08b82bad59be |
 | public/images/blog/aftermovie-premium-festivalfilm.webp | Yvette de Wit | https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3 |
+| public/images/blog/bestellsystem-baeckerei.webp | Yeh Xintong | https://images.unsplash.com/photo-1568254183919-78a4f43a2877 |
 | public/images/blog/buchungssystem-friseur-ohne-provision.webp | Benyamin Bohlouli | https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6 |
 | public/images/blog/digitalisierung-autohaus-fahrschule.webp | Crosby Hinze | https://images.unsplash.com/photo-1643142314913-0cf633d9bbb5 |
 | public/images/blog/eigenes-bestellsystem-statt-lieferando.webp | Stella He | https://images.unsplash.com/photo-1640583342012-4622f31b650d |

@@ -56,7 +56,7 @@ export const seoPages: SeoPage[] = [
     highlightPackage: "system",
     featureIcons: ["cart", "chef", "card", "calendar", "chart", "languages"],
     portfolio: ["daron", "cinnamon", "il-forno", "mangal"],
-    blog: ["eigenes-bestellsystem-statt-lieferando", "saas-abo-oder-eigene-software"],
+    blog: ["bestellsystem-baeckerei", "eigenes-bestellsystem-statt-lieferando", "saas-abo-oder-eigene-software"],
     hero: { image: "/images/portfolio/site-daron.jpg", frame: "browser", url: "daron-brot-ii.vercel.app" },
     spotlight: { image: "/images/cases/il-forno.jpg", href: "/portfolio" },
   },
@@ -161,7 +161,7 @@ export const seoPages: SeoPage[] = [
     highlightPackage: "system",
     featureIcons: ["cart", "card", "chef", "map", "message", "chart"],
     portfolio: ["daron", "il-forno", "mangal"],
-    blog: ["eigenes-bestellsystem-statt-lieferando", "saas-abo-oder-eigene-software"],
+    blog: ["bestellsystem-baeckerei", "eigenes-bestellsystem-statt-lieferando", "saas-abo-oder-eigene-software"],
     hero: { image: "/images/portfolio/site-daron.jpg", frame: "browser", url: "daron-brot-ii.vercel.app" },
   },
   {
