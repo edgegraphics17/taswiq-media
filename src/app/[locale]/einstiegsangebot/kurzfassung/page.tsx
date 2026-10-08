@@ -72,7 +72,7 @@ export default async function KurzfassungPage({ params }: Props) {
             <SheetList items={buy.points} />
           </section>
           <section className="rounded-3xl bg-night p-5 text-white">
-            <h2 className="flex flex-wrap items-center gap-2 text-sm font-medium">
+            <h2 className="flex flex-wrap items-center gap-2 text-sm font-medium text-white">
               {rent.title}
               <span className="num rounded-full bg-mint-500 px-2 py-0.5 text-[11px] font-medium text-white">{rent.badge}</span>
             </h2>
