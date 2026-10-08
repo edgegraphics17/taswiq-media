@@ -5,7 +5,7 @@
 //   node linkedin/login.mjs            Rechte für Profil-Beiträge (sofort verfügbar)
 //   node linkedin/login.mjs seiten     Rechte für Unternehmensseiten (Community Management API)
 //   node linkedin/login.mjs --neu      App-Zugangsdaten neu eingeben
-import { spawn } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 import { randomBytes } from "node:crypto";
 import { createServer } from "node:http";
 import { createInterface } from "node:readline";
@@ -52,6 +52,21 @@ async function appCredentials() {
   return app;
 }
 
+// Eine frühere, noch wartende Anmeldung hält den Port fest – sie wird durch die neue ersetzt.
+function stopPreviousLogin() {
+  const pids = spawnSync("lsof", ["-ti", `tcp:${REDIRECT_PORT}`, "-sTCP:LISTEN"], { encoding: "utf8" })
+    .stdout.split("\n")
+    .filter(Boolean);
+  for (const pid of pids) {
+    const command = spawnSync("ps", ["-o", "command=", "-p", pid], { encoding: "utf8" }).stdout;
+    if (!command.includes("login.mjs")) {
+      throw new Error(`Port ${REDIRECT_PORT} ist von einem anderen Programm belegt (PID ${pid}).`);
+    }
+    process.kill(Number(pid));
+  }
+  if (pids.length) spawnSync("sleep", ["0.5"]);
+}
+
 function waitForCode(state) {
   return new Promise((resolve, reject) => {
     const server = createServer((req, res) => {
@@ -84,6 +99,7 @@ function waitForCode(state) {
 
 try {
   const app = await appCredentials();
+  stopPreviousLogin();
   const state = randomBytes(16).toString("hex");
   const authUrl =
     "https://www.linkedin.com/oauth/v2/authorization?" +
