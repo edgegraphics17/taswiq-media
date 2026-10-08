@@ -31,6 +31,10 @@ Das Skript fragt einmalig Client ID und Client Secret ab und öffnet die Freigab
 | `linkedin_update_page` | Logo, Titelbild und weitere Seitenfelder |
 | `linkedin_api_request` | Freier API-Aufruf für alles Übrige |
 
+## Geplante Beiträge
+
+`node linkedin/publish.mjs` veröffentlicht den fälligen Beitrag aus `kunden/taswiq/linkedin/beitraege.json` – nur Einträge mit Status `freigegeben`, höchstens einen pro Lauf. `--liste` zeigt die Warteschlange. Redaktionsplan und Seitentexte liegen im selben Ordner.
+
 ## Grenzen
 
 - Unternehmensseiten **anlegen** kann die API nicht – das geht nur auf linkedin.com.
