@@ -7,7 +7,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { api, escapeCommentary, resolveAuthor, uploadImage } from "./lib.mjs";
+import { api, buildContent, escapeCommentary, resolveAuthor } from "./lib.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const QUEUE = process.env.LINKEDIN_QUEUE || join(ROOT, "kunden", "taswiq", "linkedin", "beitraege.json");
@@ -17,7 +17,7 @@ const save = () => writeFile(QUEUE, `${JSON.stringify(queue, null, 2)}\n`);
 
 if (process.argv.includes("--liste")) {
   for (const post of queue.beitraege) {
-    console.log(`${post.termin}  ${post.status.padEnd(15)} ${post.thema.padEnd(9)} ${post.id}`);
+    console.log(`${post.termin}  ${post.status.padEnd(15)} ${post.format.padEnd(18)} ${post.id}`);
   }
   process.exit(0);
 }
@@ -33,9 +33,7 @@ if (!due) {
 
 try {
   const author = await resolveAuthor(queue.absender ?? "me");
-  const content = due.bild
-    ? { media: { id: await uploadImage(author, join(ROOT, due.bild)), ...(due.bildtext ? { altText: due.bildtext } : {}) } }
-    : undefined;
+  const content = await buildContent(author, due, ROOT);
   const { id } = await api("POST", "/rest/posts", {
     body: {
       author,

@@ -153,13 +153,12 @@ export async function resolveAuthor(author = "me") {
   throw new Error(`Unbekannter Absender „${author}“ – erwartet: "me", eine Seiten-ID oder eine URN.`);
 }
 
-/** Lädt ein lokales Bild hoch und liefert dessen URN (urn:li:image:…). */
-export async function uploadImage(ownerUrn, filePath) {
+async function upload(resource, ownerUrn, filePath) {
   const bytes = await readFile(filePath);
-  const { data } = await api("POST", "/rest/images?action=initializeUpload", {
+  const { data } = await api("POST", `/rest/${resource}?action=initializeUpload`, {
     body: { initializeUploadRequest: { owner: ownerUrn } },
   });
-  const { uploadUrl, image } = data.value;
+  const { uploadUrl } = data.value;
   const res = await fetch(uploadUrl, {
     method: "PUT",
     headers: {
@@ -169,9 +168,39 @@ export async function uploadImage(ownerUrn, filePath) {
     body: bytes,
   });
   if (!res.ok) {
-    throw new Error(`Bild-Upload von ${basename(filePath)} fehlgeschlagen (${res.status}).`);
+    throw new Error(`Upload von ${basename(filePath)} fehlgeschlagen (${res.status}).`);
   }
-  return image;
+  return data.value;
+}
+
+/** Lädt ein lokales Bild hoch und liefert dessen URN (urn:li:image:…). */
+export const uploadImage = async (ownerUrn, filePath) => (await upload("images", ownerUrn, filePath)).image;
+
+/** Lädt ein PDF hoch (Karussell-Beitrag) und liefert dessen URN (urn:li:document:…). */
+export const uploadDocument = async (ownerUrn, filePath) => (await upload("documents", ownerUrn, filePath)).document;
+
+/** Inhalt eines Beitrags aus der Warteschlange: ein Bild, mehrere Bilder, PDF-Karussell oder Umfrage. */
+export async function buildContent(ownerUrn, post, root = ".") {
+  const alt = post.bildtext ? { altText: post.bildtext } : {};
+  if (post.umfrage) {
+    return {
+      poll: {
+        question: post.umfrage.frage,
+        options: post.umfrage.optionen.map((text) => ({ text })),
+        settings: { duration: post.umfrage.dauer ?? "ONE_WEEK" },
+      },
+    };
+  }
+  if (post.dokument) {
+    return { media: { id: await uploadDocument(ownerUrn, join(root, post.dokument)), title: post.dokumenttitel } };
+  }
+  if (post.bilder?.length) {
+    const images = [];
+    for (const path of post.bilder) images.push({ id: await uploadImage(ownerUrn, join(root, path)), ...alt });
+    return { multiImage: { images } };
+  }
+  if (post.bild) return { media: { id: await uploadImage(ownerUrn, join(root, post.bild)), ...alt } };
+  return undefined;
 }
 
 /** Beitragstext ist „Little Text“: reservierte Zeichen müssen maskiert werden, Hashtags bleiben erhalten. */
