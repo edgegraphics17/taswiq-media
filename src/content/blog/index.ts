@@ -1,6 +1,7 @@
 import type { BlogCategory, BlogPost } from "./types";
 import { post as bestellsystem } from "./posts/eigenes-bestellsystem-statt-lieferando";
 import { post as baeckerei } from "./posts/bestellsystem-baeckerei";
+import { post as qrBestellung } from "./posts/qr-code-bestellsystem";
 import { post as immobilien } from "./posts/software-fuer-makler-und-hausverwaltungen";
 import { post as automotive } from "./posts/digitalisierung-autohaus-fahrschule";
 import { post as kanzlei } from "./posts/mandantenportal-steuerberater";
@@ -21,6 +22,7 @@ export type { BlogCategory, BlogPost, BlogBlock } from "./types";
 /** Reihenfolge = Reihenfolge im Blog-Index (neueste/wichtigste zuerst) */
 export const posts: BlogPost[] = [
   individual,
+  qrBestellung,
   kiTelefon,
   baeckerei,
   bestellsystem,

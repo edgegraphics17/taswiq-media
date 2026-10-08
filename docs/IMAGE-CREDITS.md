@@ -19,6 +19,7 @@ Fotos von [Unsplash](https://unsplash.com/license) (freie Lizenz, kommerziell nu
 | public/images/blog/ki-automatisierung-mittelstand.webp | Milad Fakurian | https://images.unsplash.com/photo-1620641788421-7a1c342ea42e |
 | public/images/blog/ki-telefonassistent-kosten.webp | Julian Hochgesang | https://images.unsplash.com/photo-1587560699334-bea93391dcef |
 | public/images/blog/mandantenportal-steuerberater.webp | Scott Graham | https://images.unsplash.com/photo-1454165804606-c3d57bc86b40 |
+| public/images/blog/qr-code-bestellsystem.webp | Haberdoedas | https://images.unsplash.com/photo-1773327066749-509a76a55d6b |
 | public/images/blog/saas-abo-oder-eigene-software.webp | Jakub Żerdzicki | https://images.unsplash.com/photo-1711097383282-28097ae16b1d |
 | public/images/blog/software-fuer-handwerker-und-dienstleister.webp | Anton Savinov | https://images.unsplash.com/photo-1731694411560-050e5b91e943 |
 | public/images/blog/software-fuer-makler-und-hausverwaltungen.webp | Luke van Zyl | https://images.unsplash.com/photo-1515263487990-61b07816b324 |
