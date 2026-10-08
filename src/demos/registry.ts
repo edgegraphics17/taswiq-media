@@ -40,7 +40,11 @@ export interface DemoDef {
   image: string;
   /** Paket der Branchenseite, das dem Umfang der Demo entspricht (config/packages.ts → industryPackages) */
   pack: string;
-  theme: { accent: string; on: string; soft: string; deep: string; display: string };
+  /**
+   * Designsystem der Musterfirma: Farben und Schriften der Kundenseite, `bo` = Verwaltungsansicht
+   * (Fläche, Linie, Text, Radius von Flächen/Bedienelementen, Seitenleiste).
+   */
+  theme: { accent: string; on: string; soft: string; deep: string; display: string; ui: string; bo: { bg: string; line: string; ink: string; r: string; rc: string; side: string; sideInk: string } };
   views: { id: string; label: string; tab: string }[];
   tour: TourStep[];
   /** Was die Demo zeigt */
@@ -65,7 +69,7 @@ export const demos: DemoDef[] = [
     metaDescription: "Bestell bei der Muster-Pizzeria Fiamma und verfolge die Bestellung im Küchen-Board: Speisekarte, Abholung und Lieferung, Auswertung. Kostenlos testen.",
     image: "/images/demo/restaurant.jpg",
     pack: "pro",
-    theme: { accent: "#c53d16", on: "#ffffff", soft: "#fbeee6", deep: "#2a1a12", display: "var(--font-fraunces)" },
+    theme: { accent: "#f2541b", on: "#ffffff", soft: "#fdeee6", deep: "#2b2420", display: "var(--font-urbanist)", ui: "var(--font-urbanist)", bo: { bg: "#fbf1eb", line: "#f0e2d8", ink: "#2b2420", r: "22px", rc: "999px", side: "#ffffff", sideInk: "#2b2420" } },
     views: [
       { id: "kunde", label: "Bestellseite", tab: "karte" },
       { id: "betrieb", label: "Dashboard", tab: "kueche" },
@@ -115,7 +119,7 @@ export const demos: DemoDef[] = [
     metaDescription: "Buch einen Termin beim Muster-Salon Kammwerk und sieh ihn im Kalender des Teams: Leistungen, freie Zeiten, Kundenprofil, Kundenkartei. Kostenlos testen.",
     image: "/images/demo/friseur.jpg",
     pack: "pro",
-    theme: { accent: "#c99a5b", on: "#1b1512", soft: "#f4ece1", deep: "#231c18", display: "var(--font-archivo)" },
+    theme: { accent: "#0d0d0d", on: "#ffffff", soft: "#f1f1ef", deep: "#0d0d0d", display: "var(--font-hanken)", ui: "var(--font-hanken)", bo: { bg: "#f4f4f2", line: "#e2e2de", ink: "#0d0d0d", r: "14px", rc: "8px", side: "#0d0d0d", sideInk: "#ffffff" } },
     views: [
       { id: "kunde", label: "Buchungsseite", tab: "buchen" },
       { id: "betrieb", label: "Dashboard", tab: "kalender" },
@@ -165,7 +169,7 @@ export const demos: DemoDef[] = [
     metaDescription: "Durchsuch die Objekte der Muster-Firma Kranich Immobilien, frag eine Besichtigung an und sieh die Anfrage in der Pipeline des Büros. Kostenlos testen.",
     image: "/images/demo/immobilien.jpg",
     pack: "portal",
-    theme: { accent: "#0e6a66", on: "#ffffff", soft: "#e4efee", deep: "#12383c", display: "var(--font-instrument)" },
+    theme: { accent: "#1e1e1b", on: "#ffffff", soft: "#efefec", deep: "#1e1e1b", display: "var(--font-redhat)", ui: "var(--font-redhat)", bo: { bg: "#f3f3f1", line: "#cccccc", ink: "#1e1e1b", r: "3px", rc: "3px", side: "#ffffff", sideInk: "#1e1e1b" } },
     views: [
       { id: "kunde", label: "Website & Exposé", tab: "suche" },
       { id: "betrieb", label: "Dashboard", tab: "anfragen" },
@@ -215,7 +219,7 @@ export const demos: DemoDef[] = [
     metaDescription: "Buch einen Werkstatttermin beim Muster-Autohaus Falkner, gib eine Zusatzarbeit frei und sieh den Werkstattplan des Teams. Kostenlos testen.",
     image: "/images/demo/werkstatt.jpg",
     pack: "app",
-    theme: { accent: "#1d4ed8", on: "#ffffff", soft: "#e7edfc", deep: "#101418", display: "var(--font-archivo)" },
+    theme: { accent: "#e63e2d", on: "#ffffff", soft: "#fdecea", deep: "#0e1b1d", display: "var(--font-rajdhani)", ui: "var(--font-plex-sans)", bo: { bg: "#eef2f5", line: "#d9e0e6", ink: "#0e1b1d", r: "0px", rc: "0px", side: "#0e1b1d", sideInk: "#ffffff" } },
     views: [
       { id: "kunde", label: "Kundenseite", tab: "termin" },
       { id: "betrieb", label: "Dashboard", tab: "auftraege" },
@@ -265,7 +269,7 @@ export const demos: DemoDef[] = [
     metaDescription: "Lad im Muster-Portal von Albrecht & Sommer einen Beleg hoch, gib eine Steuererklärung frei und sieh die Kanzlei-Ansicht mit Fristen. Kostenlos testen.",
     image: "/images/demo/steuerkanzlei.jpg",
     pack: "portal",
-    theme: { accent: "#1e5c43", on: "#ffffff", soft: "#e8f0eb", deep: "#17322a", display: "var(--font-fraunces)" },
+    theme: { accent: "#111111", on: "#ffffff", soft: "#f1f1f0", deep: "#0f0f0f", display: "var(--font-manrope)", ui: "var(--font-manrope)", bo: { bg: "#f5f5f4", line: "#dcdcda", ink: "#0f0f0f", r: "0px", rc: "0px", side: "#0f0f0f", sideInk: "#ffffff" } },
     views: [
       { id: "kunde", label: "Mandantenportal", tab: "uebersicht" },
       { id: "betrieb", label: "Kanzlei-Ansicht", tab: "mandanten" },
@@ -315,7 +319,7 @@ export const demos: DemoDef[] = [
     metaDescription: "Stell bei Wilke Haustechnik eine Anfrage, schreib im Büro das Angebot und schließ den Auftrag in der Monteur-App mit Unterschrift ab. Kostenlos testen.",
     image: "/images/demo/handwerk.jpg",
     pack: "auftrag",
-    theme: { accent: "#f5c400", on: "#131416", soft: "#fff5c7", deep: "#131416", display: "var(--font-archivo)" },
+    theme: { accent: "#f4c042", on: "#152b3b", soft: "#dfecf3", deep: "#152b3b", display: "var(--font-shoulders)", ui: "var(--font-instrument)", bo: { bg: "#f4f7f9", line: "#d6e0e7", ink: "#152b3b", r: "20px", rc: "12px", side: "#152b3b", sideInk: "#ffffff" } },
     views: [
       { id: "kunde", label: "Kundenseite", tab: "anfrage" },
       { id: "betrieb", label: "Büro", tab: "auftraege" },

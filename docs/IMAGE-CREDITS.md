@@ -77,3 +77,43 @@ Fotos von [Unsplash](https://unsplash.com/license) (freie Lizenz, kommerziell nu
 | public/images/blog/ki-telefonassistent-handwerk.webp | Marc Zeman | https://images.unsplash.com/photo-1732660513320-a6b489f3fece |
 | public/images/blog/ki-software-entwickeln-lassen.webp | Austin Distel | https://images.unsplash.com/photo-1557804506-669a67965ba0 |
 | public/images/blog/ki-automatisierung-kleine-unternehmen.webp | Vitaly Gariev | https://images.unsplash.com/photo-1713947503486-0e3916611517 |
+| public/images/demo/photos/r-margherita.webp | Aurélien Lemasson-Théobald | https://images.unsplash.com/photo-1574071318508-1cdbab80d002 |
+| public/images/demo/photos/r-diavola.webp | Alan Hardman | https://images.unsplash.com/photo-1534308983496-4fabb1a015ee |
+| public/images/demo/photos/r-funghi.webp | Amadeus Moga | https://images.unsplash.com/photo-1717883235373-ef10b2a745a3 |
+| public/images/demo/photos/r-formaggi.webp | mostafa mahmoudi | https://images.unsplash.com/photo-1637438333503-5e218b937aef |
+| public/images/demo/photos/r-bufala.webp | Anastasiia Chepinska | https://images.unsplash.com/photo-1587085416963-22efba033dd5 |
+| public/images/demo/photos/r-tartufo.webp | Ivan Torres | https://images.unsplash.com/photo-1513104890138-7c749659a591 |
+| public/images/demo/photos/r-ragu.webp | Brett Wharton | https://images.unsplash.com/photo-1778600855523-d7f69ffe85cd |
+| public/images/demo/photos/r-aglio.webp | Vinn Koonyosying | https://images.unsplash.com/photo-1516685018646-549198525c1b |
+| public/images/demo/photos/r-norma.webp | Stefan Schauberger | https://images.unsplash.com/photo-1621523439264-3ade1eca1109 |
+| public/images/demo/photos/r-lasagne.webp | Emanuel Ekström | https://images.unsplash.com/photo-1709429790175-b02bb1b19207 |
+| public/images/demo/photos/r-mista.webp | Jonathan Ybema | https://images.unsplash.com/photo-1569760142069-bc6838de16c1 |
+| public/images/demo/photos/r-burrata.webp | Lilian Do Khac | https://images.unsplash.com/photo-1767441357990-4c6d05ce79af |
+| public/images/demo/photos/r-tiramisu.webp | Janesca | https://images.unsplash.com/photo-1691688334265-7936fb8c49ba |
+| public/images/demo/photos/r-panna.webp | Mustafa akın | https://images.unsplash.com/photo-1787550275377-9f54a07c68c8 |
+| public/images/demo/photos/r-acqua.webp | Greg Rosenke | https://images.unsplash.com/photo-1595994195534-d5219f02f99f |
+| public/images/demo/photos/r-limonata.webp | Rajasekhar R | https://images.unsplash.com/photo-1651993737174-6890c1daef5b |
+| public/images/demo/photos/r-birra.webp | Story Ninety-Four | https://images.unsplash.com/photo-1597822738124-151fb72dcb79 |
+| public/images/demo/photos/f-hero.webp | Barney Goodman | https://images.unsplash.com/photo-1781455793310-8427c96454c7 |
+| public/images/demo/photos/f-styling.webp | Adam Winger | https://images.unsplash.com/photo-1580618672591-eb180b1a973f |
+| public/images/demo/photos/f-color.webp | Ionela Mat | https://images.unsplash.com/photo-1707720531504-ce087725861a |
+| public/images/demo/photos/f-barber.webp | Allef Vinicius | https://images.unsplash.com/photo-1503951914875-452162b0f3f1 |
+| public/images/demo/photos/f-beard.webp | Arthur Humeau | https://images.unsplash.com/photo-1532710093739-9470acff878f |
+| public/images/demo/photos/f-wash.webp | Giorgio Trovato | https://images.unsplash.com/photo-1637777269308-6a072f24e8a4 |
+| public/images/demo/photos/i-hero.webp | Avi Werde | https://images.unsplash.com/photo-1613490493576-7fde63acd811 |
+| public/images/demo/photos/i-kitchen.webp | Point3D Commercial Imaging Ltd. | https://images.unsplash.com/photo-1630699144641-72fa7a6b8aa1 |
+| public/images/demo/photos/i-bedroom.webp | Spl Interiors | https://images.unsplash.com/photo-1750420556288-d0e32a6f517b |
+| public/images/demo/photos/i-bath.webp | Murad Kerimli | https://images.unsplash.com/photo-1733426107854-ee00a25d72a7 |
+| public/images/demo/photos/i-dining.webp | Clay Banks | https://images.unsplash.com/photo-1745794621090-d856c53b0cc2 |
+| public/images/demo/photos/i-living.webp | Zac Gudakov | https://images.unsplash.com/photo-1628744876497-eb30460be9f6 |
+| public/images/demo/photos/i-loft.webp | ULISES RAMIREZ | https://images.unsplash.com/photo-1783990349147-906f62b882c1 |
+| public/images/demo/photos/i-office.webp | Adolfo Félix | https://images.unsplash.com/photo-1577412647305-991150c7d163 |
+| public/images/demo/photos/w-hero.webp | Hyundai Motor Group | https://images.unsplash.com/photo-1670488645266-e11deb6c75d2 |
+| public/images/demo/photos/w-mech1.webp | Kate Ibragimova | https://images.unsplash.com/photo-1625047509248-ec889cbff17f |
+| public/images/demo/photos/w-mech2.webp | Chi Xiang | https://images.unsplash.com/photo-1632405862117-236585cfb757 |
+| public/images/demo/photos/k-hero.webp | Fotos | https://images.unsplash.com/photo-1637589267610-6c66fc2a086b |
+| public/images/demo/photos/k-building.webp | Matt Reames | https://images.unsplash.com/photo-1543892607-04657ef3a279 |
+| public/images/demo/photos/h-hero.webp | Timur Shakerzianov | https://images.unsplash.com/photo-1676210134190-3f2c0d5cf58d |
+| public/images/demo/photos/h-heating.webp | Julian Hochgesang | https://images.unsplash.com/photo-1599028274511-e02a767949a3 |
+| public/images/demo/photos/h-bath.webp | Lotus Design N Print | https://images.unsplash.com/photo-1584622650111-993a426fbf0a |
+| public/images/demo/photos/h-pipe.webp | Timur Shakerzianov | https://images.unsplash.com/photo-1676210134188-4c05dd172f89 |

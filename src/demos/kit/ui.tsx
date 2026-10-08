@@ -1,14 +1,16 @@
 "use client";
 
 import { useEffect, useId, useRef, type ButtonHTMLAttributes, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { X, type LucideIcon } from "lucide-react";
 import { useDemo } from "@/demos/kit/context";
 import { cx, fmtDayLong, day, initials } from "@/demos/kit/util";
 
 /**
  * Bausteine der Verwaltungsansichten ("Backoffice") aller Demos.
- * Bewusst nüchtern: flache Flächen, feine Linien, enge Radien, tabellarische Ziffern, Farbe nur für Bedeutung.
- * Die Markenfarbe der Musterfirma kommt über --d-accent (siehe registry.ts → theme).
+ * Bewusst nüchtern: flache Flächen, feine Linien, tabellarische Ziffern, Farbe nur für Bedeutung.
+ * Die Markenfarbe der Musterfirma kommt über --d-accent, ihr Form- und Seitenleisten-Stil über
+ * --bo-r / --bo-rc / --bo-side / --bo-side-ink (siehe registry.ts → theme.bo).
  */
 
 export interface NavItem {
@@ -21,18 +23,18 @@ export interface NavItem {
 export function Backoffice({ nav, user, role, title, actions, children }: { nav: NavItem[]; user: string; role: string; title: string; actions?: ReactNode; children: ReactNode }) {
   const { def, tab, setTab } = useDemo();
   return (
-    <div className="min-h-[calc(100dvh-var(--bar-h))] bg-bo-bg font-plex text-[14px] leading-normal text-bo-body lg:grid lg:grid-cols-[13.5rem_minmax(0,1fr)]">
-      <aside className="border-bo-line bg-white lg:sticky lg:top-[var(--bar-h)] lg:flex lg:h-[calc(100dvh-var(--bar-h))] lg:flex-col lg:border-r">
+    <div className="min-h-[var(--app-h)] bg-bo-bg font-plex text-[14px] leading-normal text-bo-body @dlg:grid @dlg:grid-cols-[13.5rem_minmax(0,1fr)]">
+      <aside className="border-bo-side-line bg-bo-side @dlg:sticky @dlg:top-[var(--bar-h)] @dlg:flex @dlg:h-[var(--app-h)] @dlg:flex-col @dlg:border-r">
         <div className="flex items-center gap-2.5 px-4 pt-4 pb-3">
-          <span className="grid size-8 shrink-0 place-items-center rounded-md bg-d-deep text-[13px] font-semibold text-white" aria-hidden>
+          <span className="grid size-8 shrink-0 place-items-center rounded-[var(--bo-rc)] bg-[color-mix(in_srgb,var(--bo-side-ink)_12%,transparent)] text-[13px] font-semibold text-bo-side-ink" aria-hidden>
             {def.firm.replace(/^(Pizzeria|Autohaus)\s/, "")[0]}
           </span>
           <div className="min-w-0">
-            <p className="truncate text-[13.5px] leading-tight font-semibold text-bo-ink">{def.firm}</p>
-            <p className="text-[11.5px] leading-tight text-bo-muted">Verwaltung</p>
+            <p className="truncate text-[13.5px] leading-tight font-semibold text-bo-side-ink">{def.firm}</p>
+            <p className="text-[11.5px] leading-tight text-bo-side-ink/60">Verwaltung</p>
           </div>
         </div>
-        <nav aria-label="Bereiche" className="flex gap-1 overflow-x-auto border-b border-bo-line px-3 pb-2 [scrollbar-width:none] lg:flex-col lg:gap-0.5 lg:overflow-visible lg:border-0 lg:px-2 lg:pb-0">
+        <nav aria-label="Bereiche" className="flex gap-1 overflow-x-auto border-b border-bo-side-line px-3 pb-2 [scrollbar-width:none] @dlg:flex-col @dlg:gap-0.5 @dlg:overflow-visible @dlg:border-0 @dlg:px-2 @dlg:pb-0">
           {nav.map((n) => {
             const active = tab === n.id;
             return (
@@ -42,28 +44,28 @@ export function Backoffice({ nav, user, role, title, actions, children }: { nav:
                 aria-current={active ? "page" : undefined}
                 onClick={() => setTab(n.id)}
                 className={cx(
-                  "relative flex min-h-10 shrink-0 items-center gap-2.5 rounded-md px-2.5 text-left text-[13.5px] whitespace-nowrap transition-colors lg:min-h-9",
-                  active ? "bg-bo-bg font-medium text-bo-ink" : "text-bo-body hover:bg-bo-bg/70 hover:text-bo-ink",
+                  "relative flex min-h-10 shrink-0 items-center gap-2.5 rounded-[var(--bo-rc)] px-2.5 text-left text-[13.5px] whitespace-nowrap transition-colors @dlg:min-h-9",
+                  active ? "bg-[color-mix(in_srgb,var(--bo-side-ink)_10%,transparent)] font-medium text-bo-side-ink" : "text-bo-side-ink/70 hover:bg-[color-mix(in_srgb,var(--bo-side-ink)_7%,transparent)] hover:text-bo-side-ink",
                 )}
               >
-                {active && <span className="absolute inset-y-2 left-0 hidden w-[3px] rounded-full bg-d-accent lg:block" aria-hidden />}
+                {active && <span className="absolute inset-y-2 left-0 hidden w-[3px] rounded-full bg-d-accent @dlg:block" aria-hidden />}
                 <n.icon className="size-4 shrink-0" strokeWidth={1.75} aria-hidden />
                 <span className="flex-1">{n.label}</span>
-                {n.count ? <span className="num rounded bg-d-accent px-1.5 text-[11px] leading-[18px] font-semibold text-d-on">{n.count}</span> : null}
+                {n.count ? <span className="num rounded-[var(--bo-rc)] bg-d-accent px-1.5 text-[11px] leading-[18px] font-semibold text-d-on">{n.count}</span> : null}
               </button>
             );
           })}
         </nav>
-        <div className="mt-auto hidden items-center gap-2.5 border-t border-bo-line px-4 py-3 lg:flex">
+        <div className="mt-auto hidden items-center gap-2.5 border-t border-bo-side-line px-4 py-3 @dlg:flex">
           <Avatar name={user} />
           <div className="min-w-0">
-            <p className="truncate text-[13px] leading-tight font-medium text-bo-ink">{user}</p>
-            <p className="truncate text-[11.5px] leading-tight text-bo-muted">{role}</p>
+            <p className="truncate text-[13px] leading-tight font-medium text-bo-side-ink">{user}</p>
+            <p className="truncate text-[11.5px] leading-tight text-bo-side-ink/60">{role}</p>
           </div>
         </div>
       </aside>
 
-      <div className="min-w-0 px-4 py-5 sm:px-6 lg:px-8 lg:py-6">
+      <div className="min-w-0 px-4 py-5 @dsm:px-6 @dlg:px-8 @dlg:py-6">
         <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
           <div>
             <p className="text-[12.5px] text-bo-muted">{fmtDayLong(day())}</p>
@@ -79,7 +81,7 @@ export function Backoffice({ nav, user, role, title, actions, children }: { nav:
 
 export function Panel({ title, aside, children, className, flush, tour }: { title?: ReactNode; aside?: ReactNode; children: ReactNode; className?: string; flush?: boolean; tour?: string }) {
   return (
-    <section data-tour={tour} className={cx("rounded-[10px] border border-bo-line bg-white", className)}>
+    <section data-tour={tour} className={cx("rounded-[var(--bo-r)] border border-bo-line bg-white", className)}>
       {(title || aside) && (
         <header className="flex min-h-11 flex-wrap items-center justify-between gap-x-4 gap-y-1 border-b border-bo-line px-4 py-2">
           <h2 className="text-[13.5px] font-semibold text-bo-ink">{title}</h2>
@@ -105,7 +107,7 @@ const DOTS: Record<Tone, string> = { neutral: "bg-bo-muted", ok: "bg-bo-ok", war
 /** Status-Etikett: Punkt + Text, nie nur Farbe */
 export function Tag({ tone = "neutral", children, className }: { tone?: Tone; children: ReactNode; className?: string }) {
   return (
-    <span className={cx("inline-flex items-center gap-1.5 rounded px-1.5 py-0.5 text-[12px] leading-[18px] font-medium whitespace-nowrap", TONES[tone], className)}>
+    <span className={cx("inline-flex items-center gap-1.5 rounded-[var(--bo-rc)] px-1.5 py-0.5 text-[12px] leading-[18px] font-medium whitespace-nowrap", TONES[tone], className)}>
       <span className={cx("size-1.5 rounded-full", DOTS[tone])} aria-hidden />
       {children}
     </span>
@@ -115,9 +117,9 @@ export function Tag({ tone = "neutral", children, className }: { tone?: Tone; ch
 /** Kennzahlen als schlichte Zeile mit Trennlinien – keine Kachel-Parade */
 export function Figures({ items, tour }: { items: { label: string; value: ReactNode; note?: ReactNode }[]; tour?: string }) {
   return (
-    <dl data-tour={tour} className="grid grid-cols-2 overflow-hidden rounded-[10px] border border-bo-line bg-white sm:flex">
+    <dl data-tour={tour} className="grid grid-cols-2 overflow-hidden rounded-[var(--bo-r)] border border-bo-line bg-white @dsm:flex">
       {items.map((it, i) => (
-        <div key={it.label} className={cx("flex-1 px-4 py-3", i > 0 && "sm:border-l sm:border-bo-line", i > 1 && "max-sm:border-t max-sm:border-bo-line", i % 2 === 1 && "max-sm:border-l max-sm:border-bo-line")}>
+        <div key={it.label} className={cx("flex-1 px-4 py-3", i > 0 && "@dsm:border-l @dsm:border-bo-line", i > 1 && "@max-dsm:border-t @max-dsm:border-bo-line", i % 2 === 1 && "@max-dsm:border-l @max-dsm:border-bo-line")}>
           <dt className="text-[12px] text-bo-muted">{it.label}</dt>
           <dd className="num mt-0.5 text-[1.35rem] leading-tight font-semibold tracking-[-0.01em] text-bo-ink">{it.value}</dd>
           {it.note && <p className="num mt-0.5 text-[12px] text-bo-muted">{it.note}</p>}
@@ -179,8 +181,8 @@ export function Btn({ variant = "line", size = "md", className, ...props }: Butt
       type="button"
       {...props}
       className={cx(
-        "inline-flex items-center justify-center gap-1.5 rounded-md font-medium whitespace-nowrap transition-[filter,background-color,border-color] disabled:pointer-events-none disabled:opacity-45",
-        size === "sm" ? "min-h-9 px-2.5 text-[12.5px] sm:min-h-8" : "min-h-11 px-3.5 text-[13.5px] sm:min-h-9",
+        "inline-flex items-center justify-center gap-1.5 rounded-[var(--bo-rc)] font-medium whitespace-nowrap transition-[filter,background-color,border-color] disabled:pointer-events-none disabled:opacity-45",
+        size === "sm" ? "min-h-9 px-2.5 text-[12.5px] @dsm:min-h-8" : "min-h-11 px-3.5 text-[13.5px] @dsm:min-h-9",
         BTN[variant],
         className,
       )}
@@ -190,7 +192,7 @@ export function Btn({ variant = "line", size = "md", className, ...props }: Butt
 
 export function Toggle({ checked, onChange, label }: { checked: boolean; onChange: (v: boolean) => void; label: string }) {
   return (
-    <button type="button" role="switch" aria-checked={checked} aria-label={label} onClick={() => onChange(!checked)} className="grid min-h-11 place-items-center px-1 sm:min-h-9">
+    <button type="button" role="switch" aria-checked={checked} aria-label={label} onClick={() => onChange(!checked)} className="grid min-h-11 place-items-center px-1 @dsm:min-h-9">
       <span className={cx("flex h-5 w-9 items-center rounded-full p-0.5 transition-colors", checked ? "bg-bo-ok" : "bg-[#c3c8d2]")}>
         <span className={cx("size-4 rounded-full bg-white shadow-sm transition-transform", checked && "translate-x-4")} />
       </span>
@@ -213,10 +215,15 @@ export const th = "px-3 py-2 text-left text-[11.5px] font-medium tracking-wide t
 export const td = "px-3 py-2.5 align-middle first:pl-4 last:pr-4";
 export const tr = "border-t border-bo-line";
 
-/** Dialog: mittig am Desktop, als Blatt von unten am Handy. Escape und Klick daneben schließen. */
+/**
+ * Dialog: mittig am Desktop, als Blatt von unten am Handy. Escape und Klick daneben schließen.
+ * In der Handy-Ansicht der Demo-Leiste rendert der Dialog im Telefon-Rahmen (frame aus dem Demo-Kontext),
+ * damit er die kleine Fläche abdeckt statt des ganzen Browserfensters.
+ */
 export function Sheet({ open, onClose, title, children, footer, wide, tone = "bo" }: { open: boolean; onClose: () => void; title: ReactNode; children: ReactNode; footer?: ReactNode; wide?: boolean; tone?: "bo" | "brand" }) {
   const id = useId();
   const ref = useRef<HTMLDivElement>(null);
+  const { frame } = useDemo();
   useEffect(() => {
     if (!open) return;
     const last = document.activeElement as HTMLElement | null;
@@ -232,8 +239,8 @@ export function Sheet({ open, onClose, title, children, footer, wide, tone = "bo
     };
   }, [open, onClose]);
   if (!open) return null;
-  return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-[rgb(16_18_22/0.5)] sm:items-center sm:p-6" onClick={(e) => e.target === e.currentTarget && onClose()}>
+  const overlay = (
+    <div className={cx("inset-0 z-50 flex items-end justify-center bg-[rgb(16_18_22/0.5)] @dsm:items-center @dsm:p-6", frame ? "absolute" : "fixed")} onClick={(e) => e.target === e.currentTarget && onClose()}>
       <div
         ref={ref}
         tabIndex={-1}
@@ -241,9 +248,9 @@ export function Sheet({ open, onClose, title, children, footer, wide, tone = "bo
         aria-modal="true"
         aria-labelledby={id}
         className={cx(
-          "flex max-h-[90dvh] w-full animate-demo-in flex-col overflow-hidden bg-white shadow-[0_24px_60px_-18px_rgb(17_17_19/0.35)] outline-none",
-          wide ? "sm:max-w-2xl" : "sm:max-w-lg",
-          tone === "bo" ? "rounded-t-xl font-plex text-[14px] text-bo-body sm:rounded-xl" : "rounded-t-2xl sm:rounded-2xl",
+          "flex max-h-[calc(var(--app-h)*0.92)] w-full animate-demo-in flex-col overflow-hidden bg-white shadow-[0_24px_60px_-18px_rgb(17_17_19/0.35)] outline-none",
+          wide ? "@dsm:max-w-2xl" : "@dsm:max-w-lg",
+          tone === "bo" ? "rounded-t-[var(--bo-r)] font-plex text-[14px] text-bo-body @dsm:rounded-[var(--bo-r)]" : "rounded-t-[var(--bo-r)] @dsm:rounded-[var(--bo-r)]",
         )}
       >
         <header className={cx("flex items-start justify-between gap-4 px-5 pt-4 pb-3", tone === "bo" && "border-b border-bo-line")}>
@@ -259,6 +266,7 @@ export function Sheet({ open, onClose, title, children, footer, wide, tone = "bo
       </div>
     </div>
   );
+  return frame ? createPortal(overlay, frame) : overlay;
 }
 
 /** Beschriftetes Formularfeld (Label immer sichtbar) */
@@ -272,7 +280,7 @@ export function Field({ label, hint, children, className }: { label: string; hin
   );
 }
 /** Eingabefeld-Stil: 16 px am Handy (kein Zoom unter iOS) */
-export const input = "block min-h-11 w-full rounded-md border border-[#cfd3db] bg-white px-3 text-[16px] text-[#15171c] placeholder:text-[#8b909c] focus:border-[#15171c] focus:outline-none sm:text-[14px]";
+export const input = "block min-h-11 w-full rounded-[var(--bo-rc)] border border-[#cfd3db] bg-white px-3 text-[16px] text-[#15171c] placeholder:text-[#8b909c] focus:border-bo-ink focus:outline-none @dsm:text-[14px]";
 
 /** Fortschritt in Schritten – für Bestell-, Fahrzeug- und Auftragsstatus auf den Kundenseiten */
 export function Track({ steps, current, className }: { steps: string[]; current: number; className?: string }) {
@@ -293,7 +301,7 @@ export function Track({ steps, current, className }: { steps: string[]; current:
                 <span className="size-2 rounded-full bg-d-accent" />
               ) : null}
             </span>
-            <span className={cx("mt-1.5 block px-1 text-[11.5px] leading-tight sm:text-[12.5px]", now ? "font-semibold" : done ? "" : "opacity-55")}>{s}</span>
+            <span className={cx("mt-1.5 block px-1 text-[11.5px] leading-tight @dsm:text-[12.5px]", now ? "font-semibold" : done ? "" : "opacity-55")}>{s}</span>
           </li>
         );
       })}

@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type ComponentType } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Calculator, Check, CirclePlay, Info, MessageCircle, RotateCcw, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Calculator, Check, CirclePlay, Info, MessageCircle, Monitor, RotateCcw, Smartphone, X } from "lucide-react";
 import { LogoMark } from "@/components/ui/Logo";
 import { site } from "@/config/site";
 import { DemoContext, type DemoCtx } from "@/demos/kit/context";
@@ -13,9 +13,11 @@ import { formatEUR } from "@/lib/format";
 import { track } from "@/lib/track";
 
 /**
- * Hülle jeder Demo: schmale TasWiq-Leiste (Ansicht wechseln, Tour, Infos, Anfrage), darunter die App der Musterfirma.
+ * Hülle jeder Demo: schmale TasWiq-Leiste (Ansicht wechseln, Web/Handy, Tour, Infos, Anfrage), darunter die App der Musterfirma.
  * Die Leiste ist bewusst im TasWiq-Look gehalten, die App darunter im Look der Musterfirma – so bleibt klar, was Demo ist.
  * Die Apps laufen nur im Browser (Daten relativ zu "heute", nichts wird gespeichert) und werden je Demo einzeln nachgeladen.
+ * Umschalter „Web / Handy": dieselbe App am Desktop im Telefon-Rahmen – die Apps richten sich nach ihrem Rahmen (Container-Queries),
+ * deshalb genügt es, den Rahmen zu wechseln. Dialoge der App rendert die Handy-Ansicht im Rahmen (siehe kit/context.tsx → frame).
  */
 const loading = () => (
   <div className="grid min-h-[70dvh] place-items-center text-sm text-muted" role="status">
@@ -32,6 +34,7 @@ const APPS: Record<DemoSlug, ComponentType> = {
 };
 
 type Pricing = { start: number; shown: number; rent: number };
+type Device = "web" | "handy";
 
 export function DemoShell({ def, pricing, industryHref, industryLabel, children }: { def: DemoDef; pricing: Pricing; industryHref: string; industryLabel: string; children?: React.ReactNode }) {
   const App = APPS[def.slug];
@@ -42,6 +45,8 @@ export function DemoShell({ def, pricing, industryHref, industryLabel, children 
   const [tour, setTour] = useState<number | null>(null);
   const [toast, setToast] = useState<{ id: number; text: string } | null>(null);
   const [run, setRun] = useState(0);
+  const [device, setDevice] = useState<Device>("web");
+  const [frame, setFrame] = useState<HTMLElement | null>(null);
   const toastTimer = useRef<ReturnType<typeof setTimeout>>(null);
 
   const go = useCallback((v: string, tab?: string) => {
@@ -55,13 +60,15 @@ export function DemoShell({ def, pricing, industryHref, industryLabel, children 
     toastTimer.current = setTimeout(() => setToast(null), 4200);
   }, []);
 
-  // Deep-Links für den Vertrieb: ?ansicht=betrieb öffnet direkt das Dashboard, ?tour=0 überspringt die Begrüßung, ?tour=1 startet die Tour.
+  // Deep-Links für den Vertrieb: ?ansicht=betrieb öffnet direkt das Dashboard, ?tour=0 überspringt die Begrüßung, ?tour=1 startet die Tour, ?geraet=handy zeigt den Telefon-Rahmen.
   useEffect(() => {
     const q = new URLSearchParams(window.location.search);
     const v = q.get("ansicht");
     if (v && def.views.some((x) => x.id === v)) setView(v);
     const b = q.get("bereich");
     if (b) setTabs((t) => ({ ...t, [v && def.views.some((x) => x.id === v) ? v : def.views[0].id]: b }));
+    const g = q.get("geraet");
+    if (g === "handy" || g === "web") setDevice(g);
     const t = q.get("tour");
     if (t === "1") setTour(0);
     else if (t !== "0") setWelcome(true);
@@ -86,9 +93,28 @@ export function DemoShell({ def, pricing, industryHref, industryLabel, children 
     setTabs(Object.fromEntries(def.views.map((v) => [v.id, v.tab])));
     showToast("Demo zurückgesetzt – alle Eingaben sind gelöscht.");
   };
+  const switchDevice = (d: Device) => {
+    setDevice(d);
+    if (d === "handy") track("demo_device_handy");
+  };
 
-  const ctx = useMemo<DemoCtx>(() => ({ def, view, tab: tabs[view] ?? "", go, setTab, toast: showToast }), [def, view, tabs, go, setTab, showToast]);
-  const theme = { "--d-accent": def.theme.accent, "--d-on": def.theme.on, "--d-soft": def.theme.soft, "--d-deep": def.theme.deep, "--d-display": def.theme.display } as React.CSSProperties;
+  const ctx = useMemo<DemoCtx>(() => ({ def, view, tab: tabs[view] ?? "", go, setTab, toast: showToast, frame }), [def, view, tabs, go, setTab, showToast, frame]);
+  const theme = {
+    "--d-accent": def.theme.accent,
+    "--d-on": def.theme.on,
+    "--d-soft": def.theme.soft,
+    "--d-deep": def.theme.deep,
+    "--d-display": def.theme.display,
+    "--d-ui": def.theme.ui,
+    "--app-h": device === "handy" ? "100%" : "calc(100dvh - var(--bar-h))",
+    "--color-bo-bg": def.theme.bo.bg,
+    "--color-bo-line": def.theme.bo.line,
+    "--color-bo-ink": def.theme.bo.ink,
+    "--bo-r": def.theme.bo.r,
+    "--bo-rc": def.theme.bo.rc,
+    "--bo-side": def.theme.bo.side,
+    "--bo-side-ink": def.theme.bo.sideInk,
+  } as React.CSSProperties;
 
   return (
     <DemoContext.Provider value={ctx}>
@@ -106,6 +132,7 @@ export function DemoShell({ def, pricing, industryHref, industryLabel, children 
             </p>
             <ViewSwitch def={def} view={view} onChange={(v) => go(v)} className="mx-auto hidden md:flex" />
             <div className="flex shrink-0 items-center gap-1 md:ml-auto">
+              <DeviceSwitch device={device} onChange={switchDevice} className="mr-1 hidden md:flex" />
               <button type="button" onClick={startTour} className="inline-flex min-h-11 items-center gap-1.5 rounded-full px-2.5 text-sm font-medium text-white/85 hover:bg-white/10 hover:text-white">
                 <CirclePlay className="size-4" aria-hidden /> Tour
               </button>
@@ -124,9 +151,24 @@ export function DemoShell({ def, pricing, industryHref, industryLabel, children 
         </header>
 
         <main id="main">
-          <div style={theme} className="min-h-[calc(100dvh-var(--bar-h))] bg-white">
-            <App key={run} />
-          </div>
+          {device === "handy" ? (
+            <div className="flex justify-center bg-[#e9edf2] px-4 py-5 md:py-7">
+              {/* Telefon-Rahmen: die App richtet sich nach der schmalen Fläche (Container-Queries), nicht nach dem Fenster */}
+              <div className="relative rounded-[2.6rem] bg-[#0c0d10] px-[11px] py-[15px] shadow-[0_24px_60px_-18px_rgb(17_17_19/0.4)]" style={{ height: "min(52rem, calc(100dvh - var(--bar-h) - 2.5rem))" }}>
+                <span className="absolute top-[6px] left-1/2 h-[3px] w-14 -translate-x-1/2 rounded-full bg-white/25" aria-hidden />
+                <span className="absolute top-[5px] left-[calc(50%+3.25rem)] size-[5px] rounded-full bg-white/15" aria-hidden />
+                <div ref={setFrame} style={{ ...theme, "--bar-h": "0px" } as React.CSSProperties} className="@container relative h-full w-[23rem] max-w-full overflow-hidden rounded-[2.1rem] bg-white [transform:translateZ(0)]">
+                  <div className="h-full overflow-x-hidden overflow-y-auto overscroll-contain">
+                    <App key={run} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div style={theme} className="@container min-h-[calc(100dvh-var(--bar-h))] bg-white">
+              <App key={run} />
+            </div>
+          )}
           {/* Auf dem Server gerenderter Text zur Demo (Hauptüberschrift, Funktionen, Kosten, weiterführende Links) */}
           {children}
         </main>
@@ -181,6 +223,29 @@ function ViewSwitch({ def, view, onChange, className }: { def: DemoDef; view: st
   );
 }
 
+/** „Web / Handy": dieselbe Demo vollbreit oder im Telefon-Rahmen (nur am Desktop sinnvoll, echte Handys sind schon schmal) */
+function DeviceSwitch({ device, onChange, className }: { device: Device; onChange: (d: Device) => void; className?: string }) {
+  const opts = [
+    { id: "web" as const, label: "Web", icon: Monitor },
+    { id: "handy" as const, label: "Handy", icon: Smartphone },
+  ];
+  return (
+    <div role="group" aria-label="Gerät wechseln" className={`gap-0.5 rounded-full bg-white/10 p-0.5 ${className ?? ""}`}>
+      {opts.map((o) => (
+        <button
+          key={o.id}
+          type="button"
+          aria-pressed={device === o.id}
+          onClick={() => onChange(o.id)}
+          className={`inline-flex min-h-9 items-center gap-1.5 rounded-full px-3 text-[13px] font-medium whitespace-nowrap transition-colors ${device === o.id ? "bg-white text-ink" : "text-white/75 hover:text-white"}`}
+        >
+          <o.icon className="size-4" aria-hidden /> {o.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 function Welcome({ def, onTour, onSkip }: { def: DemoDef; onTour: () => void; onSkip: () => void }) {
   const primary = useRef<HTMLButtonElement>(null);
   useEffect(() => {
@@ -209,7 +274,7 @@ function Welcome({ def, onTour, onSkip }: { def: DemoDef; onTour: () => void; on
             Selbst umsehen
           </button>
         </div>
-        <p className="mt-4 text-xs text-muted">Die Tour kannst du jederzeit abbrechen oder später oben über „Tour“ starten.</p>
+        <p className="mt-4 text-xs text-muted">Die Tour kannst du jederzeit abbrechen oder später oben über „Tour“ starten. Am Desktop zeigt „Handy“ dieselbe Demo im Telefon-Rahmen.</p>
       </div>
     </div>
   );

@@ -57,6 +57,27 @@ const EXTRAS = [
   { id: "gf", label: "Glutenfreier Boden", add: 2.5 },
 ];
 
+/** Gerichte-Fotos (public/images/demo/photos) für die Karten der Speisekarte */
+const PHOTOS: Record<string, { src: string; alt: string }> = {
+  margherita: { src: "/images/demo/photos/r-margherita.webp", alt: "Pizza Margherita mit Basilikum aus dem Holzofen" },
+  diavola: { src: "/images/demo/photos/r-diavola.webp", alt: "Pizza Diavola mit scharfer Salami und Chili" },
+  funghi: { src: "/images/demo/photos/r-funghi.webp", alt: "Pizza Prosciutto e Funghi mit Schinken und Champignons" },
+  formaggi: { src: "/images/demo/photos/r-formaggi.webp", alt: "Pizza Quattro Formaggi mit vier Käsesorten" },
+  bufala: { src: "/images/demo/photos/r-bufala.webp", alt: "Pizza Bufala mit Büffelmozzarella, Kirschtomaten und Rucola" },
+  tartufo: { src: "/images/demo/photos/r-tartufo.webp", alt: "Pizza Tartufo mit Trüffelcreme und Waldpilzen" },
+  ragu: { src: "/images/demo/photos/r-ragu.webp", alt: "Tagliatelle al Ragù mit geschmortem Rinderragù" },
+  aglio: { src: "/images/demo/photos/r-aglio.webp", alt: "Spaghetti Aglio e Olio mit Knoblauch und Peperoncino" },
+  norma: { src: "/images/demo/photos/r-norma.webp", alt: "Rigatoni alla Norma mit Aubergine und Ricotta salata" },
+  lasagne: { src: "/images/demo/photos/r-lasagne.webp", alt: "Lasagne della Casa mit Ragù und Béchamel aus dem Holzofen" },
+  mista: { src: "/images/demo/photos/r-mista.webp", alt: "Insalata Mista mit Blattsalaten, Tomate und Gurke" },
+  burrata: { src: "/images/demo/photos/r-burrata.webp", alt: "Burrata mit Ochsenherztomaten und Basilikumöl" },
+  tiramisu: { src: "/images/demo/photos/r-tiramisu.webp", alt: "Tiramisù nach dem Rezept von Nonna Rosa" },
+  panna: { src: "/images/demo/photos/r-panna.webp", alt: "Panna Cotta mit Waldbeeren" },
+  acqua: { src: "/images/demo/photos/r-acqua.webp", alt: "Flasche San Pellegrino Mineralwasser" },
+  limonata: { src: "/images/demo/photos/r-limonata.webp", alt: "Limonata Zitronenlimonade aus Sizilien" },
+  moretti: { src: "/images/demo/photos/r-birra.webp", alt: "Flasche Birra Moretti Lager" },
+};
+
 type Mode = "abholung" | "lieferung";
 type Status = "neu" | "arbeit" | "fertig" | "done";
 interface Line {
@@ -166,38 +187,38 @@ function Storefront({ dishes, soldOut, settings, order, onPlace, onNew }: { dish
   const cartProps = { cart, setCart, mode, setMode, settings, sub, order, onNew, onDashboard: () => go("betrieb", "kueche"), onPlace: (o: Omit<Order, "no" | "at" | "status" | "own">) => (onPlace(o), setCart([])) };
 
   return (
-    <div className="bg-[#faf7f2] font-plex text-[15px] text-[#3b2f28]">
-      <header className="bg-d-deep text-[#f6ece1]">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-4 py-3 sm:px-6">
+    <div className="bg-[#faf7f2] font-plex text-[15px] text-[#2b2420]">
+      <header className="bg-d-deep text-[#faf7f2]">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-4 py-3 @dsm:px-6">
           <p className="flex items-baseline gap-2">
             <span className="font-d-display text-[1.9rem] leading-none font-semibold tracking-tight italic">Fiamma</span>
-            <span className="text-[11px] tracking-[0.2em] uppercase opacity-70">Pizzeria</span>
+            <span className="text-[11px] tracking-[0.2em] text-[#ff8f5e] uppercase">Pizzeria</span>
           </p>
           <p className="flex flex-wrap items-center gap-x-4 gap-y-0.5 text-[13px] opacity-85">
             <span className="inline-flex items-center gap-1.5">
               <Clock className="size-3.5" aria-hidden /> Heute 11:30 – 22:30
             </span>
-            <span className="hidden items-center gap-1.5 sm:inline-flex">
+            <span className="hidden items-center gap-1.5 @dsm:inline-flex">
               <MapPin className="size-3.5" aria-hidden /> Am Lindenplatz 4, Musterstadt
             </span>
-            <span className="num hidden items-center gap-1.5 md:inline-flex">
+            <span className="num hidden items-center gap-1.5 @dmd:inline-flex">
               <Phone className="size-3.5" aria-hidden /> 01234 567 890
             </span>
           </p>
         </div>
       </header>
 
-      <section className="bg-d-deep text-[#f6ece1]">
-        <div className="mx-auto grid max-w-6xl gap-6 px-4 pt-4 pb-8 sm:px-6 md:grid-cols-[1.05fr_1fr] md:items-center md:pt-6 md:pb-10">
+      <section className="bg-d-deep text-[#faf7f2]">
+        <div className="mx-auto grid max-w-6xl gap-6 px-4 pt-4 pb-8 @dsm:px-6 @dmd:grid-cols-[1.05fr_1fr] @dmd:items-center @dmd:pt-6 @dmd:pb-10">
           <div>
             <h1 className="font-d-display text-[clamp(2rem,4.6vw,3.3rem)] leading-[1.02] font-medium tracking-[-0.02em] text-balance text-[#fff7ee]">
-              Aus dem Holzofen. <em className="text-[#ffb089]">Direkt bei uns bestellt.</em>
+              Aus dem Holzofen. <em className="text-[#ff8f5e]">Direkt bei uns bestellt.</em>
             </h1>
             <p className="mt-3 max-w-md text-[15px] leading-relaxed opacity-80">Teig mit 48 Stunden Ruhe, 90 Sekunden bei 450 Grad. Bestell hier, hol ab oder lass liefern – ohne Umweg über eine Plattform.</p>
             <ModeSwitch mode={mode} setMode={setMode} dark className="mt-5 max-w-sm" />
           </div>
-          <div className="relative aspect-[16/9] overflow-hidden rounded-xl md:aspect-[5/3]">
-            <Image src="/images/sectors/gastro-1.webp" alt="Pizza im Holzofen" fill priority sizes="(min-width:768px) 520px, 100vw" className="object-cover" />
+          <div className="relative aspect-[16/9] overflow-hidden rounded-[var(--bo-r)] shadow-[0_10px_30px_-12px_rgb(43_36_32/0.18)] @dmd:aspect-[4/3]">
+            <Image src="/images/sectors/gastro-1.webp" alt="Pizza im glühenden Holzofen" fill priority sizes="(min-width:768px) 520px, 100vw" className="object-cover" />
           </div>
         </div>
       </section>
@@ -208,9 +229,9 @@ function Storefront({ dishes, soldOut, settings, order, onPlace, onNew }: { dish
         </p>
       )}
 
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-6 sm:px-6 lg:grid-cols-[minmax(0,1fr)_22.5rem] lg:py-8">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-6 @dsm:px-6 @dlg:grid-cols-[minmax(0,1fr)_22.5rem] @dlg:py-8">
         <div data-tour="menu">
-          <div role="tablist" aria-label="Kategorien" className="sticky top-[var(--bar-h)] z-10 -mx-4 flex gap-1 overflow-x-auto border-b border-[#e6ddd2] bg-[#faf7f2] px-4 [scrollbar-width:none] sm:mx-0 sm:px-0">
+          <div role="tablist" aria-label="Kategorien" className="sticky top-[var(--bar-h)] z-10 -mx-4 flex gap-1 overflow-x-auto border-b border-[#e6ddd2] bg-[#faf7f2] px-4 [scrollbar-width:none] @dsm:mx-0 @dsm:px-0">
             {CATS.map((c) => (
               <button
                 key={c}
@@ -218,24 +239,28 @@ function Storefront({ dishes, soldOut, settings, order, onPlace, onNew }: { dish
                 type="button"
                 aria-selected={cat === c}
                 onClick={() => setCat(c)}
-                className={cx("min-h-12 shrink-0 border-b-2 px-3 font-d-display text-[1.05rem] transition-colors", cat === c ? "border-d-accent font-semibold text-[#2a1a12]" : "border-transparent text-[#7a6a5f] hover:text-[#2a1a12]")}
+                className={cx("min-h-12 shrink-0 border-b-2 px-3 font-d-display text-[1.05rem] transition-colors", cat === c ? "border-d-accent font-semibold text-[#2b2420]" : "border-transparent text-[#7a6a5f] hover:text-[#2b2420]")}
               >
                 {c}
               </button>
             ))}
           </div>
 
-          <ul className="divide-y divide-[#e6ddd2]">
+          <ul className="mt-5 grid gap-4 @dmd:grid-cols-2">
             {dishes
               .filter((d) => d.cat === cat)
               .map((d) => {
                 const out = soldOut[d.id];
+                const photo = PHOTOS[d.id];
                 return (
-                  <li key={d.id} className={cx("flex items-start gap-4 py-4", out && "opacity-50")}>
-                    <div className="min-w-0 flex-1">
-                      <h3 className="flex flex-wrap items-center gap-x-2 gap-y-1 font-d-display text-[1.2rem] leading-tight font-semibold text-[#2a1a12]">
+                  <li key={d.id} className={cx("flex flex-col overflow-hidden rounded-[var(--bo-r)] border border-[#e6ddd2] bg-white shadow-[0_10px_30px_-12px_rgb(43_36_32/0.18)]", out && "opacity-50")}>
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-t-[var(--bo-r)]">
+                      <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 768px) 24rem, 100vw" className="object-cover" />
+                    </div>
+                    <div className="flex flex-1 flex-col px-4 pt-3 pb-4">
+                      <h3 className="flex flex-wrap items-center gap-x-2 gap-y-1 font-d-display text-[1.2rem] leading-tight font-semibold text-[#2b2420]">
                         {d.name}
-                        {d.top && <span className="rounded-sm bg-d-accent px-1.5 py-px font-plex text-[10.5px] font-semibold tracking-wide text-white uppercase">Beliebt</span>}
+                        {d.top && <span className="rounded-[var(--bo-rc)] bg-d-accent px-2 py-px font-plex text-[10.5px] font-semibold tracking-wide text-white uppercase">Beliebt</span>}
                         {d.veg && (
                           <span className="inline-flex items-center gap-0.5 font-plex text-[11.5px] font-medium text-[#2f6b3c]">
                             <Leaf className="size-3" aria-hidden /> vegetarisch
@@ -247,24 +272,24 @@ function Storefront({ dishes, soldOut, settings, order, onPlace, onNew }: { dish
                           </span>
                         )}
                       </h3>
-                      <p className="mt-0.5 text-[14.5px] leading-snug text-[#5c4d43]">{d.desc}</p>
+                      <p className="mt-1 text-[14.5px] leading-snug text-[#5c4d43]">{d.desc}</p>
                       <p className="mt-1 text-[11.5px] text-[#8a7a6e]">Allergene: {d.allergens}</p>
-                    </div>
-                    <div className="flex shrink-0 items-center gap-3">
-                      <span className="num font-medium text-[#2a1a12]">{eur(d.price)}</span>
-                      {out ? (
-                        <span className="w-11 text-center text-[11.5px] leading-tight font-medium">Heute aus</span>
-                      ) : (
-                        <button
-                          type="button"
-                          disabled={settings.paused}
-                          onClick={() => (d.cat === "Pizza" ? setConfig(d) : add(d))}
-                          aria-label={`${d.name} hinzufügen`}
-                          className="grid size-11 place-items-center rounded-full border border-[#d9cdbf] bg-white text-[#2a1a12] transition-colors hover:border-d-accent hover:bg-d-accent hover:text-white disabled:opacity-40"
-                        >
-                          <Plus className="size-5" aria-hidden />
-                        </button>
-                      )}
+                      <div className="mt-auto flex items-center justify-between gap-3 pt-3">
+                        <span className="num font-plex-mono text-[1.05rem] font-medium text-[#2b2420]">{eur(d.price)}</span>
+                        {out ? (
+                          <span className="grid min-h-11 place-items-center px-1 text-center text-[11.5px] leading-tight font-medium text-[#8a7a6e]">Heute aus</span>
+                        ) : (
+                          <button
+                            type="button"
+                            disabled={settings.paused}
+                            onClick={() => (d.cat === "Pizza" ? setConfig(d) : add(d))}
+                            aria-label={`${d.name} hinzufügen`}
+                            className="grid size-11 place-items-center rounded-[var(--bo-rc)] bg-d-accent text-white shadow-[0_6px_16px_-8px_rgb(242_84_27/0.55)] transition-[filter] hover:brightness-95 disabled:opacity-40"
+                          >
+                            <Plus className="size-5" aria-hidden />
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </li>
                 );
@@ -273,7 +298,7 @@ function Storefront({ dishes, soldOut, settings, order, onPlace, onNew }: { dish
           <p className="mt-4 text-[12px] leading-relaxed text-[#8a7a6e]">A Gluten · C Eier · G Milch · I Sellerie · J Senf. Alle Preise inklusive Mehrwertsteuer.</p>
         </div>
 
-        <aside data-tour="cart" className="hidden lg:block">
+        <aside data-tour="cart" className="hidden @dlg:block">
           <div className="sticky top-[calc(var(--bar-h)+1rem)]">
             <Cart {...cartProps} />
           </div>
@@ -281,12 +306,12 @@ function Storefront({ dishes, soldOut, settings, order, onPlace, onNew }: { dish
       </div>
 
       {/* Handy: Warenkorb als Leiste unten */}
-      <div className="sticky bottom-0 z-20 border-t border-[#e6ddd2] bg-[#faf7f2] p-3 lg:hidden">
-        <button type="button" onClick={() => setCartOpen(true)} className="flex min-h-12 w-full items-center justify-between rounded-lg bg-d-accent px-4 font-medium text-white">
+      <div className="sticky bottom-0 z-20 border-t border-[#e6ddd2] bg-[#faf7f2] p-3 @dlg:hidden">
+        <button type="button" onClick={() => setCartOpen(true)} className="flex min-h-12 w-full items-center justify-between rounded-[var(--bo-rc)] bg-d-accent px-5 font-medium text-white shadow-[0_10px_30px_-12px_rgb(43_36_32/0.18)] transition-[filter] hover:brightness-95">
           <span className="inline-flex items-center gap-2">
             <ShoppingBag className="size-4" aria-hidden /> {order ? `Bestellung #${order.no}` : count ? `Warenkorb · ${count} Artikel` : "Warenkorb"}
           </span>
-          <span className="num">{order ? STATUS_LABEL[order.status] : eur(sub)}</span>
+          <span className="num">{order ? STATUS_LABEL[order.status] : <span className="font-plex-mono">{eur(sub)}</span>}</span>
         </button>
       </div>
       <Sheet open={cartOpen} onClose={() => setCartOpen(false)} title={order ? "Deine Bestellung" : "Warenkorb"} tone="brand">
@@ -304,7 +329,7 @@ function ModeSwitch({ mode, setMode, dark, className }: { mode: Mode; setMode: (
     { id: "lieferung" as const, label: "Lieferung", sub: "35–45 Min.", icon: Bike },
   ];
   return (
-    <div role="radiogroup" aria-label="Abholung oder Lieferung" className={cx("grid grid-cols-2 gap-1 rounded-lg p-1", dark ? "bg-white/10" : "bg-[#efe8de]", className)}>
+    <div role="radiogroup" aria-label="Abholung oder Lieferung" className={cx("grid grid-cols-2 gap-1 rounded-[var(--bo-rc)] p-1", dark ? "bg-white/10" : "bg-[#fdeee6]", className)}>
       {opts.map((o) => (
         <button
           key={o.id}
@@ -312,7 +337,7 @@ function ModeSwitch({ mode, setMode, dark, className }: { mode: Mode; setMode: (
           role="radio"
           aria-checked={mode === o.id}
           onClick={() => setMode(o.id)}
-          className={cx("flex min-h-12 items-center gap-2.5 rounded-md px-3 text-left transition-colors", mode === o.id ? "bg-white text-[#2a1a12]" : dark ? "text-[#f6ece1]/80 hover:text-white" : "text-[#5c4d43]")}
+          className={cx("flex min-h-12 items-center gap-2.5 rounded-[var(--bo-rc)] px-3 text-left transition-colors", mode === o.id ? "bg-white text-[#2b2420] shadow-[0_2px_10px_-4px_rgb(43_36_32/0.25)]" : dark ? "text-[#faf7f2]/80 hover:text-white" : "text-[#5c4d43]")}
         >
           <o.icon className="size-[18px] shrink-0" strokeWidth={1.75} aria-hidden />
           <span className="leading-tight">
@@ -346,7 +371,7 @@ function ConfigSheet({ dish, onClose, onAdd }: { dish: Dish | null; onClose: () 
       open
       onClose={onClose}
       tone="brand"
-      title={<span className="font-d-display text-[1.4rem] font-semibold text-[#2a1a12]">{dish.name}</span>}
+      title={<span className="font-d-display text-[1.4rem] font-semibold text-[#2b2420]">{dish.name}</span>}
       footer={
         <div className="flex w-full items-center gap-3">
           <Qty value={qty} onChange={setQty} />
@@ -356,35 +381,40 @@ function ConfigSheet({ dish, onClose, onAdd }: { dish: Dish | null; onClose: () 
               onAdd(detail, unit, qty);
               onClose();
             }}
-            className="flex min-h-12 flex-1 items-center justify-between rounded-lg bg-d-accent px-4 font-medium text-white hover:brightness-95"
+            className="flex min-h-12 flex-1 items-center justify-between rounded-[var(--bo-rc)] bg-d-accent px-5 font-medium text-white shadow-[0_10px_30px_-12px_rgb(43_36_32/0.18)] transition-[filter] hover:brightness-95"
           >
-            In den Warenkorb <span className="num">{eur(unit * qty)}</span>
+            In den Warenkorb <span className="num font-plex-mono">{eur(unit * qty)}</span>
           </button>
         </div>
       }
     >
-      <div className="font-plex text-[15px] text-[#3b2f28]">
-        <p className="text-[#5c4d43]">{dish.desc}</p>
+      <div className="font-plex text-[15px] text-[#2b2420]">
+        {PHOTOS[dish.id] && (
+          <div className="relative aspect-[16/9] overflow-hidden rounded-[var(--bo-r)] shadow-[0_10px_30px_-12px_rgb(43_36_32/0.18)]">
+            <Image src={PHOTOS[dish.id].src} alt={PHOTOS[dish.id].alt} fill sizes="(min-width: 40rem) 32rem, 100vw" className="object-cover" />
+          </div>
+        )}
+        <p className="mt-3 text-[#5c4d43]">{dish.desc}</p>
         <fieldset className="mt-5">
-          <legend className="text-[13px] font-semibold text-[#2a1a12]">Größe</legend>
-          <div className="mt-2 divide-y divide-[#e6ddd2] rounded-lg border border-[#e6ddd2]">
+          <legend className="text-[13px] font-semibold text-[#2b2420]">Größe</legend>
+          <div className="mt-2 divide-y divide-[#e6ddd2] overflow-hidden rounded-[var(--bo-r)] border border-[#e6ddd2]">
             {SIZES.map((o) => (
               <label key={o.id} className="flex min-h-12 cursor-pointer items-center gap-3 px-3">
                 <input type="radio" name="size" checked={size === o.id} onChange={() => setSize(o.id)} className="size-4 accent-[var(--d-accent)]" />
                 <span className="flex-1">{o.label}</span>
-                <span className="num text-[14px] text-[#5c4d43]">{o.add ? `+ ${eur(o.add)}` : eur(dish.price)}</span>
+                <span className="num font-plex-mono text-[14px] text-[#5c4d43]">{o.add ? `+ ${eur(o.add)}` : eur(dish.price)}</span>
               </label>
             ))}
           </div>
         </fieldset>
         <fieldset className="mt-5">
-          <legend className="text-[13px] font-semibold text-[#2a1a12]">Extras</legend>
-          <div className="mt-2 divide-y divide-[#e6ddd2] rounded-lg border border-[#e6ddd2]">
+          <legend className="text-[13px] font-semibold text-[#2b2420]">Extras</legend>
+          <div className="mt-2 divide-y divide-[#e6ddd2] overflow-hidden rounded-[var(--bo-r)] border border-[#e6ddd2]">
             {EXTRAS.map((o) => (
               <label key={o.id} className="flex min-h-12 cursor-pointer items-center gap-3 px-3">
                 <input type="checkbox" checked={extras.includes(o.id)} onChange={(e) => setExtras((x) => (e.target.checked ? [...x, o.id] : x.filter((i) => i !== o.id)))} className="size-4 accent-[var(--d-accent)]" />
                 <span className="flex-1">{o.label}</span>
-                <span className="num text-[14px] text-[#5c4d43]">{o.add ? `+ ${eur(o.add)}` : "gratis"}</span>
+                <span className="num font-plex-mono text-[14px] text-[#5c4d43]">{o.add ? `+ ${eur(o.add)}` : "gratis"}</span>
               </label>
             ))}
           </div>
@@ -395,7 +425,7 @@ function ConfigSheet({ dish, onClose, onAdd }: { dish: Dish | null; onClose: () 
 }
 
 function Qty({ value, onChange, small }: { value: number; onChange: (n: number) => void; small?: boolean }) {
-  const b = cx("grid place-items-center rounded-full border border-[#d9cdbf] bg-white text-[#2a1a12] hover:border-[#2a1a12]", small ? "size-8" : "size-11");
+  const b = cx("grid place-items-center rounded-full border border-[#e6ddd2] bg-white text-[#2b2420] transition-colors hover:border-[#2b2420]", small ? "size-8" : "size-11");
   return (
     <div className="flex items-center gap-1.5">
       <button type="button" onClick={() => onChange(value - 1)} aria-label="Weniger" className={b}>
@@ -452,7 +482,8 @@ function Cart({
   const first = Math.ceil((now + lead) / 15) * 15;
   const slots = Array.from({ length: 6 }, (_, i) => hm(first + i * 15));
   const valid = name.trim().length > 1 && phone.trim().length > 5 && (mode === "abholung" || street.trim().length > 4);
-  const box = bare ? "" : "rounded-xl border border-[#e6ddd2] bg-white p-4";
+  const box = bare ? "" : "rounded-[var(--bo-r)] border border-[#e6ddd2] bg-white p-4 shadow-[0_10px_30px_-12px_rgb(43_36_32/0.18)]";
+  const inputCls = input.replace("border-[#cfd3db]", "border-[#e6ddd2]");
 
   if (order) {
     const steps = ["Eingegangen", "In Zubereitung", order.mode === "abholung" ? "Abholbereit" : "Unterwegs", "Abgeschlossen"];
@@ -460,28 +491,28 @@ function Cart({
     return (
       <div className={box}>
         <p className="text-[12.5px] font-medium text-[#8a7a6e]">Bestellung #{order.no}</p>
-        <h2 className="mt-0.5 font-d-display text-[1.45rem] leading-tight font-semibold text-[#2a1a12]">
+        <h2 className="mt-0.5 font-d-display text-[1.45rem] leading-tight font-semibold text-[#2b2420]">
           {idx === 0 ? "Danke! Wir haben deine Bestellung." : idx === 1 ? "Deine Bestellung ist im Ofen." : idx === 2 ? (order.mode === "abholung" ? "Fertig – komm vorbei." : "Unterwegs zu dir.") : "Guten Appetit!"}
         </h2>
         <p className="mt-1 text-[14px] text-[#5c4d43]">
-          {order.mode === "abholung" ? "Abholung" : "Lieferung"} gegen {order.due} Uhr · {eur(order.total)}
+          {order.mode === "abholung" ? "Abholung" : "Lieferung"} gegen {order.due} Uhr · <span className="num font-plex-mono">{eur(order.total)}</span>
         </p>
         <Track steps={steps} current={idx} className="mt-5" />
         <ul className="mt-5 space-y-1 border-t border-[#e6ddd2] pt-3 text-[14px]">
           {order.lines.map((l, i) => (
             <li key={i}>
-              <span className="num">{l.qty}×</span> {l.name}
+              <span className="num font-plex-mono">{l.qty}×</span> {l.name}
               {l.detail && <span className="text-[#8a7a6e]"> · {l.detail}</span>}
             </li>
           ))}
         </ul>
-        <div className="mt-4 rounded-lg bg-d-soft p-3 text-[13.5px] leading-snug text-[#3b2f28]">
+        <div className="mt-4 rounded-[var(--bo-r)] bg-d-soft p-3 text-[13.5px] leading-snug text-[#2b2420]">
           <strong className="font-semibold">So sieht es der Betrieb:</strong> Deine Bestellung liegt jetzt im Küchen-Board. Setz dort den Status – diese Anzeige läuft mit.
-          <button type="button" onClick={onDashboard} className="mt-2 flex min-h-11 w-full items-center justify-center rounded-md bg-d-deep px-3 font-medium text-white">
+          <button type="button" onClick={onDashboard} className="mt-2 flex min-h-11 w-full items-center justify-center rounded-[var(--bo-rc)] bg-d-deep px-3 font-medium text-white transition-[filter] hover:brightness-110">
             Im Dashboard ansehen
           </button>
         </div>
-        <button type="button" onClick={onNew} className="mt-2 min-h-11 w-full text-[14px] font-medium text-[#5c4d43] underline decoration-[#d9cdbf] underline-offset-4 hover:text-[#2a1a12]">
+        <button type="button" onClick={onNew} className="mt-2 min-h-11 w-full text-[14px] font-medium text-[#5c4d43] underline decoration-[#e6ddd2] underline-offset-4 hover:text-[#2b2420]">
           Neue Bestellung
         </button>
       </div>
@@ -490,7 +521,7 @@ function Cart({
 
   return (
     <div className={box}>
-      {!bare && <h2 className="font-d-display text-[1.35rem] font-semibold text-[#2a1a12]">Deine Bestellung</h2>}
+      {!bare && <h2 className="font-d-display text-[1.35rem] font-semibold text-[#2b2420]">Deine Bestellung</h2>}
       <ModeSwitch mode={mode} setMode={setMode} className={bare ? "" : "mt-3"} />
 
       {cart.length === 0 ? (
@@ -501,13 +532,13 @@ function Cart({
         </p>
       ) : (
         <>
-          <ul className="mt-3 divide-y divide-[#efe8de]">
+          <ul className="mt-3 divide-y divide-[#e6ddd2]">
             {cart.map((l) => (
               <li key={l.key} className="flex items-center gap-3 py-2.5">
                 <div className="min-w-0 flex-1">
-                  <p className="leading-tight font-medium text-[#2a1a12]">{l.name}</p>
+                  <p className="leading-tight font-medium text-[#2b2420]">{l.name}</p>
                   {l.detail && <p className="text-[12.5px] leading-tight text-[#8a7a6e]">{l.detail}</p>}
-                  <p className="num text-[13px] text-[#5c4d43]">{eur(l.unit * l.qty)}</p>
+                  <p className="num font-plex-mono text-[13px] text-[#5c4d43]">{eur(l.unit * l.qty)}</p>
                 </div>
                 <Qty small value={l.qty} onChange={(n) => setCart((c) => (n <= 0 ? c.filter((x) => x.key !== l.key) : c.map((x) => (x.key === l.key ? { ...x, qty: n } : x))))} />
               </li>
@@ -516,27 +547,27 @@ function Cart({
           <dl className="num mt-2 space-y-1 border-t border-[#e6ddd2] pt-3 text-[14px]">
             <div className="flex justify-between">
               <dt>Zwischensumme</dt>
-              <dd>{eur(sub)}</dd>
+              <dd className="font-plex-mono">{eur(sub)}</dd>
             </div>
             {mode === "lieferung" && (
               <div className="flex justify-between">
                 <dt>Lieferung{fee === 0 && <span className="text-[#2f6b3c]"> · frei ab {eur0(settings.freeFrom)}</span>}</dt>
-                <dd>{fee ? eur(fee) : "0,00 €"}</dd>
+                <dd className="font-plex-mono">{fee ? eur(fee) : "0,00 €"}</dd>
               </div>
             )}
-            <div className="flex justify-between pt-1 text-[16px] font-semibold text-[#2a1a12]">
+            <div className="flex justify-between pt-1 text-[16px] font-semibold text-[#2b2420]">
               <dt>Gesamt</dt>
-              <dd>{eur(total)}</dd>
+              <dd className="font-plex-mono">{eur(total)}</dd>
             </div>
           </dl>
           {missing > 0 && (
-            <p className="num mt-3 rounded-md bg-[#fbf0d9] px-3 py-2 text-[13px] text-bo-warn" role="status">
+            <p className="num mt-3 rounded-[var(--bo-r)] bg-[#fbf0d9] px-3 py-2 text-[13px] text-bo-warn" role="status">
               Noch {eur(missing)} bis zum Mindestbestellwert für die Lieferung ({eur0(settings.minOrder)}).
             </p>
           )}
 
           {!checkout ? (
-            <button type="button" disabled={missing > 0 || settings.paused} onClick={() => setCheckout(true)} className="mt-4 min-h-12 w-full rounded-lg bg-d-accent px-4 font-medium text-white hover:brightness-95 disabled:opacity-40">
+            <button type="button" disabled={missing > 0 || settings.paused} onClick={() => setCheckout(true)} className="mt-4 min-h-12 w-full rounded-[var(--bo-rc)] bg-d-accent px-4 font-medium text-white shadow-[0_10px_30px_-12px_rgb(43_36_32/0.18)] transition-[filter] hover:brightness-95 disabled:opacity-40">
               Zur Kasse
             </button>
           ) : (
@@ -560,7 +591,7 @@ function Cart({
               }}
             >
               <Field label={mode === "abholung" ? "Abholzeit" : "Lieferzeit"}>
-                <select value={when} onChange={(e) => setWhen(e.target.value)} className={input}>
+                <select value={when} onChange={(e) => setWhen(e.target.value)} className={inputCls}>
                   <option value="asap">So schnell wie möglich (ca. {slots[0]} Uhr)</option>
                   {slots.slice(1).map((s) => (
                     <option key={s} value={s}>
@@ -570,14 +601,14 @@ function Cart({
                 </select>
               </Field>
               <Field label="Name">
-                <input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" aria-invalid={tried && name.trim().length < 2} className={input} placeholder="Vor- und Nachname" />
+                <input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" aria-invalid={tried && name.trim().length < 2} className={inputCls} placeholder="Vor- und Nachname" />
               </Field>
               <Field label="Telefon" hint="Nur für Rückfragen zur Bestellung.">
-                <input value={phone} onChange={(e) => setPhone(e.target.value)} type="tel" autoComplete="tel" aria-invalid={tried && phone.trim().length < 6} className={input} placeholder="0151 2345678" />
+                <input value={phone} onChange={(e) => setPhone(e.target.value)} type="tel" autoComplete="tel" aria-invalid={tried && phone.trim().length < 6} className={inputCls} placeholder="0151 2345678" />
               </Field>
               {mode === "lieferung" && (
                 <Field label="Straße und Hausnummer">
-                  <input value={street} onChange={(e) => setStreet(e.target.value)} autoComplete="street-address" aria-invalid={tried && street.trim().length < 5} className={input} placeholder="Gartenweg 12" />
+                  <input value={street} onChange={(e) => setStreet(e.target.value)} autoComplete="street-address" aria-invalid={tried && street.trim().length < 5} className={inputCls} placeholder="Gartenweg 12" />
                 </Field>
               )}
               <fieldset>
@@ -587,7 +618,7 @@ function Cart({
                     { id: "online", label: "Online" },
                     { id: "vorort", label: mode === "abholung" ? "Bei Abholung" : "Bar an der Tür" },
                   ].map((p) => (
-                    <button key={p.id} type="button" aria-pressed={pay === p.id} onClick={() => setPay(p.id)} className={cx("min-h-11 rounded-md border px-3 text-[14px] font-medium", pay === p.id ? "border-[#2a1a12] bg-[#2a1a12] text-white" : "border-[#d9cdbf] bg-white")}>
+                    <button key={p.id} type="button" aria-pressed={pay === p.id} onClick={() => setPay(p.id)} className={cx("min-h-11 rounded-[var(--bo-rc)] border px-3 text-[14px] font-medium transition-colors", pay === p.id ? "border-[#2b2420] bg-[#2b2420] text-white" : "border-[#e6ddd2] bg-white text-[#2b2420] hover:border-[#2b2420]")}>
                       {p.label}
                     </button>
                   ))}
@@ -598,8 +629,8 @@ function Cart({
                   Bitte trag Name, Telefon{mode === "lieferung" ? " und Adresse" : ""} ein – erfundene Angaben genügen.
                 </p>
               )}
-              <button type="submit" className="flex min-h-12 w-full items-center justify-between rounded-lg bg-d-accent px-4 font-medium text-white hover:brightness-95">
-                Jetzt bestellen <span className="num">{eur(total)}</span>
+              <button type="submit" className="flex min-h-12 w-full items-center justify-between rounded-[var(--bo-rc)] bg-d-accent px-5 font-medium text-white shadow-[0_10px_30px_-12px_rgb(43_36_32/0.18)] transition-[filter] hover:brightness-95">
+                Jetzt bestellen <span className="num font-plex-mono">{eur(total)}</span>
               </button>
               <p className="text-center text-[12px] text-[#8a7a6e]">Demo: Es wird nichts bestellt, bezahlt oder gespeichert.</p>
             </form>
@@ -647,7 +678,7 @@ function Dashboard({
         { id: "einstellungen", label: "Einstellungen", icon: Settings },
       ]}
       actions={
-        <label className="flex items-center gap-2 rounded-md border border-bo-line bg-white py-0.5 pr-1 pl-3 text-[13px]">
+        <label className="flex items-center gap-2 rounded-[var(--bo-rc)] border border-bo-line bg-white py-0.5 pr-1 pl-3 text-[13px]">
           <span className={settings.paused ? "font-medium text-bo-bad" : "text-bo-body"}>{settings.paused ? "Bestellstopp aktiv" : "Online-Bestellungen an"}</span>
           <Toggle checked={!settings.paused} onChange={(v) => onSettings({ ...settings, paused: !v })} label="Online-Bestellungen annehmen" />
         </label>
@@ -676,19 +707,19 @@ function Kitchen({ orders, onAdvance }: { orders: Order[]; onAdvance: (no: numbe
     { status: "fertig", title: "Fertig", action: "Übergeben" },
   ];
   return (
-    <div data-tour="board" className="grid gap-3 md:grid-cols-3">
+    <div data-tour="board" className="grid gap-3 @dmd:grid-cols-3">
       {cols.map((c) => {
         const list = orders.filter((o) => o.status === c.status).sort((a, b) => a.at - b.at);
         return (
-          <section key={c.status} aria-label={c.title} className="rounded-[10px] border border-bo-line bg-[#e9ebee] p-2">
+          <section key={c.status} aria-label={c.title} className="rounded-[var(--bo-r)] border border-bo-line bg-bo-bg p-2">
             <h2 className="flex items-center justify-between px-2 py-1.5 text-[13px] font-semibold text-bo-ink">
-              {c.title} <span className="num rounded bg-white px-1.5 text-[12px] font-medium text-bo-muted">{list.length}</span>
+              {c.title} <span className="num rounded-[var(--bo-rc)] bg-white px-1.5 text-[12px] font-medium text-bo-muted">{list.length}</span>
             </h2>
             <ul className="space-y-2">
               {list.map((o) => {
                 const wait = Math.max(0, now - o.at);
                 return (
-                  <li key={o.no} className={cx("rounded-lg border border-bo-line bg-white", o.own && "animate-demo-flash")}>
+                  <li key={o.no} className={cx("rounded-[var(--bo-r)] border border-bo-line bg-white", o.own && "animate-demo-flash")}>
                     <div className="flex items-center justify-between gap-2 border-b border-dashed border-bo-line px-3 py-2">
                       <p className="font-plex-mono text-[15px] font-medium text-bo-ink">#{o.no}</p>
                       <p className="flex items-center gap-1.5 text-[12.5px] font-medium text-bo-ink">
@@ -707,7 +738,7 @@ function Kitchen({ orders, onAdvance }: { orders: Order[]; onAdvance: (no: numbe
                         </li>
                       ))}
                     </ul>
-                    {o.note && <p className="mx-3 mb-2.5 rounded bg-[#fbf0d9] px-2 py-1 text-[12.5px] text-bo-warn">Hinweis: {o.note}</p>}
+                    {o.note && <p className="mx-3 mb-2.5 rounded-[var(--bo-r)] bg-[#fbf0d9] px-2 py-1 text-[12.5px] text-bo-warn">Hinweis: {o.note}</p>}
                     <div className="flex items-center justify-between gap-2 border-t border-bo-line px-3 py-2">
                       <p className="text-[12px] text-bo-muted">
                         {o.customer}
@@ -811,7 +842,7 @@ function MenuEditor({ dishes, soldOut, onPrice, onSoldOut }: { dishes: Dish[]; s
                 </td>
                 <td className={td}>{d.cat}</td>
                 <td className={td}>
-                  <label className="flex w-24 items-center rounded-md border border-bo-line bg-white focus-within:border-bo-ink">
+                  <label className="flex w-24 items-center rounded-[var(--bo-rc)] border border-bo-line bg-white focus-within:border-bo-ink">
                     <span className="sr-only">Preis für {d.name}</span>
                     <input
                       type="number"
@@ -820,7 +851,7 @@ function MenuEditor({ dishes, soldOut, onPrice, onSoldOut }: { dishes: Dish[]; s
                       min="0"
                       value={d.price}
                       onChange={(e) => onPrice(d.id, Math.max(0, Number(e.target.value)))}
-                      className="num min-h-9 w-full bg-transparent pl-2 text-right text-[16px] text-bo-ink outline-none sm:text-[13.5px]"
+                      className="num min-h-9 w-full bg-transparent pl-2 text-right text-[16px] text-bo-ink outline-none @dsm:text-[13.5px]"
                     />
                     <span className="px-2 text-bo-muted">€</span>
                   </label>
@@ -870,7 +901,7 @@ function Numbers({ orders }: { orders: Order[] }) {
           { label: "Zubereitung im Schnitt", value: "14 Min.", note: "Ziel: unter 18 Min." },
         ]}
       />
-      <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr]">
+      <div className="grid gap-4 @dlg:grid-cols-[1.4fr_1fr]">
         <Panel title="Bestellungen je Stunde" aside={today ? "heute" : "gestern"}>
           <Bars label="Bestellungen je Stunde" data={hours} mark={today ? open - 1 : 8} />
         </Panel>
@@ -888,7 +919,7 @@ function Numbers({ orders }: { orders: Order[] }) {
         </Panel>
       </div>
       <Panel title="Eigene Seite statt Plattform" aside={`Rechenbeispiel für diesen Monat`}>
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-4 @dsm:grid-cols-3">
           <div>
             <p className="text-[12px] text-bo-muted">Online-Umsatz im laufenden Monat</p>
             <p className="num text-[1.2rem] font-semibold text-bo-ink">{eur0(month)}</p>
@@ -911,17 +942,17 @@ function Numbers({ orders }: { orders: Order[] }) {
 function SettingsPanel({ settings, onSettings }: { settings: Settings; onSettings: (s: Settings) => void }) {
   const numField = (label: string, key: "minOrder" | "fee" | "freeFrom", hint: string) => (
     <Field label={label} hint={hint}>
-      <span className="flex items-center rounded-md border border-[#cfd3db] bg-white focus-within:border-bo-ink">
-        <input type="number" inputMode="decimal" min="0" step="0.5" value={settings[key]} onChange={(e) => onSettings({ ...settings, [key]: Math.max(0, Number(e.target.value)) })} className="num min-h-11 w-full bg-transparent px-3 text-[16px] text-bo-ink outline-none sm:min-h-9 sm:text-[14px]" />
+      <span className="flex items-center rounded-[var(--bo-rc)] border border-bo-line bg-white focus-within:border-bo-ink">
+        <input type="number" inputMode="decimal" min="0" step="0.5" value={settings[key]} onChange={(e) => onSettings({ ...settings, [key]: Math.max(0, Number(e.target.value)) })} className="num min-h-11 w-full bg-transparent px-3 text-[16px] text-bo-ink outline-none @dsm:min-h-9 @dsm:text-[14px]" />
         <span className="px-3 text-bo-muted">€</span>
       </span>
     </Field>
   );
   const days = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
   return (
-    <div className="grid gap-4 lg:grid-cols-2">
+    <div className="grid gap-4 @dlg:grid-cols-2">
       <Panel title="Lieferung" aside="wirkt sofort im Warenkorb">
-        <div className="grid gap-3 sm:grid-cols-3">
+        <div className="grid gap-3 @dsm:grid-cols-3">
           {numField("Mindestbestellwert", "minOrder", "nur Lieferung")}
           {numField("Liefergebühr", "fee", "je Bestellung")}
           {numField("Gratis ab", "freeFrom", "Warenwert")}

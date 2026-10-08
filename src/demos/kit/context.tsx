@@ -12,6 +12,8 @@ export interface DemoCtx {
   go: (view: string, tab?: string) => void;
   setTab: (tab: string) => void;
   toast: (text: string) => void;
+  /** In der Handy-Ansicht die Fläche des Telefon-Rahmens: Dialoge rendert die App dorthin, statt ins Browserfenster */
+  frame: HTMLElement | null;
 }
 
 export const DemoContext = createContext<DemoCtx | null>(null);

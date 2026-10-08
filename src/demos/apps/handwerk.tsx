@@ -122,14 +122,14 @@ function CustomerSite({ orders, onAdd, onPatch }: { orders: Order[]; onAdd: (o: 
   const { tab, setTab } = useDemo();
   const mine = orders.filter((o) => o.mine || o.own);
   return (
-    <div className="min-h-[calc(100dvh-var(--bar-h))] bg-[#f4f4f2] font-plex text-[15px] text-[#33363a]">
+    <div className="min-h-[calc(100dvh-var(--bar-h))] bg-white font-plex text-[15px] text-d-deep">
       <header className="bg-d-deep text-white">
-        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-6 px-4 sm:px-6">
+        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-6 px-4 @dsm:px-6">
           <p className="flex items-center gap-2.5 py-3">
-            <span className="grid size-8 place-items-center bg-d-accent font-d-display text-[18px] font-black text-d-on">W</span>
+            <span className="grid size-9 place-items-center rounded-[var(--bo-rc)] bg-d-accent font-d-display text-[19px] font-black text-d-on">W</span>
             <span className="leading-none">
               <span className={cx(H, "block text-[1.05rem]")}>Wilke Haustechnik</span>
-              <span className="mt-0.5 block text-[11px] text-[#a9adb3]">Sanitär · Heizung · Klima</span>
+              <span className="mt-1 block text-[11px] font-medium tracking-[0.14em] text-d-accent uppercase">Sanitär · Heizung · Klima</span>
             </span>
           </p>
           <nav aria-label="Kundenbereich" className="flex gap-1">
@@ -137,7 +137,7 @@ function CustomerSite({ orders, onAdd, onPatch }: { orders: Order[]; onAdd: (o: 
               { id: "anfrage", label: "Anfrage stellen" },
               { id: "status", label: `Meine Aufträge (${mine.length})` },
             ].map((n) => (
-              <button key={n.id} type="button" aria-current={tab === n.id ? "page" : undefined} onClick={() => setTab(n.id)} className={cx("min-h-12 border-b-[3px] px-3 text-[14px] font-medium", tab === n.id ? "border-d-accent text-white" : "border-transparent text-[#a9adb3] hover:text-white")}>
+              <button key={n.id} type="button" aria-current={tab === n.id ? "page" : undefined} onClick={() => setTab(n.id)} className={cx("min-h-12 border-b-[3px] px-3 text-[13.5px] font-bold tracking-wide uppercase", tab === n.id ? "border-d-accent text-white" : "border-transparent text-white/60 hover:text-d-accent")}>
                 {n.label}
               </button>
             ))}
@@ -176,21 +176,21 @@ function Request({ onAdd, onStatus }: { onAdd: (o: Omit<Order, "id" | "stage" | 
 
   if (done) {
     return (
-      <div className="mx-auto max-w-xl px-4 py-12 sm:px-6">
-        <span className="grid size-12 place-items-center bg-d-accent text-d-on">
+      <div className="mx-auto max-w-xl px-4 py-12 @dsm:px-6">
+        <span className="grid size-12 place-items-center rounded-[var(--bo-rc)] bg-d-accent text-d-on">
           <Check className="size-6" strokeWidth={3} aria-hidden />
         </span>
-        <h1 className={cx(H, "mt-5 text-[2.1rem] leading-none text-[#131416]")}>Anfrage ist da.</h1>
-        <p className="mt-3 text-[16px] leading-relaxed">
-          Vorgang <span className="font-plex-mono font-medium text-[#131416]">{done}</span>. Wir melden uns heute noch mit einem Angebot oder einem Terminvorschlag.
+        <h1 className={cx(H, "mt-5 text-[2.3rem] leading-none text-d-deep")}>Anfrage ist da.</h1>
+        <p className="mt-3 text-[16px] leading-relaxed text-d-deep/80">
+          Vorgang <span className="num font-plex-mono font-semibold text-d-deep">{done}</span>. Wir melden uns heute noch mit einem Angebot oder einem Terminvorschlag.
         </p>
-        <div className="mt-6 border-l-4 border-d-accent bg-white p-4 text-[14px] leading-snug">
+        <div className="mt-6 rounded-[var(--bo-r)] border-l-4 border-d-accent bg-d-soft/70 p-5 text-[14px] leading-snug text-d-deep">
           <strong className="font-semibold">So sieht es das Büro:</strong> Ihre Anfrage steht mit Beschreibung und Fotos in der Auftragsübersicht. Schreiben Sie dort das Angebot – hier unter „Meine Aufträge“ können Sie es danach annehmen.
-          <div className="mt-3 flex flex-wrap gap-2">
-            <button type="button" onClick={() => go("betrieb", "auftraege")} className="min-h-11 bg-d-deep px-4 font-medium text-white">
+          <div className="mt-4 flex flex-wrap gap-2">
+            <button type="button" onClick={() => go("betrieb", "auftraege")} className="min-h-12 rounded-[var(--bo-rc)] bg-d-deep px-5 text-[13.5px] font-bold tracking-wide text-white uppercase hover:bg-d-deep/85">
               Im Büro ansehen
             </button>
-            <button type="button" onClick={onStatus} className="min-h-11 border border-[#c9cbcf] bg-white px-4 font-medium">
+            <button type="button" onClick={onStatus} className="min-h-12 rounded-[var(--bo-rc)] border-2 border-d-deep bg-white px-5 text-[13.5px] font-bold tracking-wide text-d-deep uppercase hover:border-d-accent hover:bg-d-accent hover:text-d-on">
               Meine Aufträge
             </button>
           </div>
@@ -202,31 +202,73 @@ function Request({ onAdd, onStatus }: { onAdd: (o: Omit<Order, "id" | "stage" | 
   return (
     <>
       <div className="relative overflow-hidden bg-d-deep">
-        <Image src="/images/sectors/handwerk-5.webp" alt="Monteur prüft einen Heizkreisverteiler" fill priority sizes="100vw" className="object-cover object-[center_30%] opacity-45" />
-        <div className="relative mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-11">
-          <h1 className={cx(H, "max-w-lg text-[clamp(2.1rem,6vw,3.6rem)] leading-[0.92] text-white")}>
-            Heizung kalt? <span className="text-d-accent">Wir kommen.</span>
+        <Image src="/images/demo/photos/h-hero.webp" alt="Haustechniker prüft eine Heizungsanlage im Keller" fill priority sizes="100vw" className="object-cover object-[center_35%] opacity-45" />
+        <div className="relative mx-auto max-w-5xl px-4 py-10 @dsm:px-6 @dsm:py-14">
+          <p className="text-[12px] font-bold tracking-[0.22em] text-d-accent uppercase">Sanitär · Heizung · Klima · Musterstadt</p>
+          <h1 className={cx(H, "mt-3 max-w-xl text-[clamp(2.4rem,9vw,4.2rem)] leading-[0.9] text-d-accent")}>
+            Vom Anruf bis<br />zur Rechnung
           </h1>
-          <p className="mt-3 max-w-md text-[15px] leading-relaxed text-[#d9dbde]">Anliegen in drei Schritten schildern, Fotos anhängen, fertig. Sie bekommen heute noch ein Angebot oder einen Termin.</p>
-          <p className="num mt-4 inline-flex items-center gap-2 bg-d-accent px-3 py-1.5 text-[14px] font-semibold text-d-on">
-            <Phone className="size-4" aria-hidden /> Notdienst rund um die Uhr: 01234 110 220
-          </p>
+          <p className="mt-4 max-w-md text-[15px] leading-relaxed text-white/85">Anliegen in drei Schritten schildern, Fotos anhängen, fertig. Sie bekommen heute noch ein Angebot oder einen Termin.</p>
+          <div className="mt-6 flex flex-wrap gap-2.5">
+            <button
+              type="button"
+              onClick={() => document.getElementById("anfrage-start")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+              className="min-h-12 rounded-[var(--bo-rc)] bg-d-accent px-6 text-[14px] font-bold tracking-wide text-d-on uppercase hover:brightness-95"
+            >
+              Anfrage starten
+            </button>
+            <button type="button" onClick={onStatus} className="min-h-12 rounded-[var(--bo-rc)] border-2 border-white/45 px-6 text-[14px] font-bold tracking-wide text-white uppercase hover:border-d-accent hover:bg-d-accent hover:text-d-on">
+              Meine Aufträge
+            </button>
+          </div>
+          <ul className="mt-7 flex flex-wrap items-center gap-2" aria-label="Unsere Zusagen">
+            <li className="inline-flex min-h-8 items-center gap-1.5 rounded-full bg-d-accent px-3 text-[12px] font-bold tracking-wide text-d-on uppercase">
+              <Wrench className="size-3.5" strokeWidth={2.2} aria-hidden /> Meisterbetrieb
+            </li>
+            <li className="inline-flex min-h-8 items-center gap-1.5 rounded-full bg-d-accent px-3 text-[12px] font-bold tracking-wide text-d-on uppercase">
+              <Check className="size-3.5" strokeWidth={3} aria-hidden /> Festpreis
+            </li>
+            <li className="num inline-flex min-h-8 items-center gap-1.5 rounded-full border border-d-accent bg-d-deep px-3 text-[12px] font-bold tracking-wide text-d-accent uppercase">
+              <Phone className="size-3.5" strokeWidth={2.2} aria-hidden /> 24/7-Notdienst: 01234 110 220
+            </li>
+          </ul>
         </div>
       </div>
 
-      <div className="mx-auto max-w-3xl px-4 py-7 sm:px-6" data-tour="anfrage">
-        <ol className="flex gap-2 text-[13px] font-medium" aria-label="Fortschritt">
+      <section aria-label="Unsere Leistungen" className="mx-auto max-w-5xl px-4 pt-8 @dsm:px-6">
+        <ul className="grid gap-3 @dsm:grid-cols-3">
+          {[
+            { img: "/images/demo/photos/h-heating.webp", alt: "Heizungsanlage mit Brennwertkessel und Leitungen", label: "Heizung", note: "Wird nicht warm · Wartung · Tausch" },
+            { img: "/images/demo/photos/h-bath.webp", alt: "Modernes Bad mit bodengleicher Dusche und Waschtisch", label: "Sanitär & Bad", note: "Wasserhahn · WC · Abfluss" },
+            { img: "/images/demo/photos/h-pipe.webp", alt: "Rohrleitungen mit Armaturen an einer Wand", label: "Rohrleitungen", note: "Rohrbruch · Wasserschaden" },
+          ].map((s) => (
+            <li key={s.img} className="overflow-hidden rounded-[var(--bo-r)] bg-white shadow-[var(--shadow-soft)]">
+              <div className="relative aspect-[4/3] w-full">
+                <Image src={s.img} alt={s.alt} fill sizes="(min-width: 40rem) 30vw, 92vw" className="object-cover" />
+              </div>
+              <div className="bg-d-deep px-4 py-3.5 text-white">
+                <p className={cx(H, "text-[1.1rem] leading-none text-d-accent")}>{s.label}</p>
+                <p className="mt-1.5 text-[12.5px] leading-snug text-white/75">{s.note}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <div id="anfrage-start" className="mx-auto max-w-3xl px-4 py-7 @dsm:px-6" data-tour="anfrage">
+        <ol className="flex gap-2 text-[13px]" aria-label="Fortschritt">
           {["Anliegen", "Beschreibung & Fotos", "Adresse & Termin"].map((s, i) => (
-            <li key={s} aria-current={step === i ? "step" : undefined} className={cx("flex-1 border-t-4 pt-2", i <= step ? "border-d-accent text-[#131416]" : "border-[#d9dbde] text-[#8b8f96]")}>
-              <span className="num">{i + 1}.</span> {s}
+            <li key={s} aria-current={step === i ? "step" : undefined} className={cx("flex-1 rounded-[var(--bo-rc)] border-t-4 px-2.5 pt-2.5 pb-2.5", i <= step ? "border-d-accent bg-d-deep text-white" : "border-d-deep/15 bg-d-soft/60 text-d-deep/55")}>
+              <span className={cx("num grid size-6 place-items-center rounded-full text-[12px] font-bold", i <= step ? "bg-d-accent text-d-on" : "bg-white text-d-deep/50")}>{i + 1}</span>
+              <span className={cx("mt-2 block leading-tight font-semibold", i > step && "opacity-70")}>{s}</span>
             </li>
           ))}
         </ol>
 
         {step === 0 && (
           <div className="mt-6">
-            <h2 className={cx(H, "text-[1.4rem] text-[#131416]")}>Worum geht es?</h2>
-            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            <h2 className={cx(H, "text-[1.5rem] text-d-deep")}>Worum geht es?</h2>
+            <div className="mt-3 grid gap-2.5 @dsm:grid-cols-2">
               {TOPICS.map((x) => (
                 <button
                   key={x.id}
@@ -236,11 +278,13 @@ function Request({ onAdd, onStatus }: { onAdd: (o: Omit<Order, "id" | "stage" | 
                     setTopic(x.id);
                     setStep(1);
                   }}
-                  className={cx("flex min-h-16 items-center gap-3 border bg-white px-4 text-left transition-colors hover:border-[#131416]", topic === x.id ? "border-[#131416]" : "border-[#d9dbde]")}
+                  className={cx("flex min-h-16 items-center gap-3 rounded-[var(--bo-rc)] border-2 px-4 text-left transition-colors", topic === x.id ? "border-d-deep bg-d-soft" : "border-d-deep/12 bg-white hover:border-d-accent hover:bg-d-soft/50")}
                 >
-                  <x.icon className={cx("size-6 shrink-0", x.urgent ? "text-bo-bad" : "text-[#131416]")} strokeWidth={1.6} aria-hidden />
-                  <span className="flex-1 font-semibold text-[#131416]">{x.label}</span>
-                  {x.urgent ? <span className="bg-bo-bad px-1.5 py-0.5 text-[11px] font-semibold text-white uppercase">Notfall</span> : <ChevronRight className="size-4 text-[#8b8f96]" aria-hidden />}
+                  <span className={cx("grid size-9 shrink-0 place-items-center rounded-full", x.urgent ? "bg-bo-bad text-white" : "bg-d-deep text-d-accent")}>
+                    <x.icon className="size-5" strokeWidth={1.7} aria-hidden />
+                  </span>
+                  <span className="flex-1 font-semibold text-d-deep">{x.label}</span>
+                  {x.urgent ? <span className="rounded-[var(--bo-rc)] bg-bo-bad px-2 py-1 text-[11px] font-bold text-white uppercase">Notfall</span> : <ChevronRight className="size-4 text-d-deep/40" aria-hidden />}
                 </button>
               ))}
             </div>
@@ -249,9 +293,9 @@ function Request({ onAdd, onStatus }: { onAdd: (o: Omit<Order, "id" | "stage" | 
 
         {step === 1 && (
           <div className="mt-6">
-            <h2 className={cx(H, "text-[1.4rem] text-[#131416]")}>{t?.label}</h2>
+            <h2 className={cx(H, "text-[1.5rem] text-d-deep")}>{t?.label}</h2>
             {t?.urgent && (
-              <p role="alert" className="num mt-3 border-l-4 border-bo-bad bg-[#fbe7e5] px-4 py-3 text-[14px] font-medium text-bo-bad">
+              <p role="alert" className="num mt-3 rounded-[var(--bo-rc)] border-l-4 border-bo-bad bg-[#fbe7e5] px-4 py-3 text-[14px] font-medium text-bo-bad">
                 Bei Gefahr bitte sofort anrufen: 01234 110 220. {t.id === "gas" && "Fenster öffnen, kein Licht schalten, Haus verlassen."}
               </p>
             )}
@@ -261,23 +305,23 @@ function Request({ onAdd, onStatus }: { onAdd: (o: Omit<Order, "id" | "stage" | 
             <p className="mt-4 mb-1 text-[12.5px] font-medium opacity-80">Fotos helfen uns, das richtige Material mitzubringen</p>
             <div className="flex flex-wrap gap-2">
               {Array.from({ length: photos }, (_, i) => (
-                <span key={i} className="relative size-20 overflow-hidden border border-[#d9dbde]">
+                <span key={i} className="relative size-20 overflow-hidden rounded-[var(--bo-rc)] border-2 border-d-deep/12">
                   <Image src={THUMBS[i % THUMBS.length]} alt={`Foto ${i + 1}`} fill sizes="80px" className="object-cover" />
                 </span>
               ))}
               {photos < 3 && (
-                <button type="button" onClick={() => setPhotos((p) => p + 1)} className="grid size-20 place-items-center border-2 border-dashed border-[#b9bcc1] bg-white text-[#5b5f66] hover:border-[#131416]">
-                  <span className="text-center text-[11.5px] leading-tight font-medium">
+                <button type="button" onClick={() => setPhotos((p) => p + 1)} className="grid size-20 place-items-center rounded-[var(--bo-rc)] border-2 border-dashed border-d-deep/30 bg-d-soft/50 text-d-deep transition-colors hover:border-d-accent hover:bg-d-accent/20">
+                  <span className="text-center text-[11.5px] leading-tight font-bold uppercase">
                     <Camera className="mx-auto mb-1 size-5" strokeWidth={1.6} aria-hidden /> Foto
                   </span>
                 </button>
               )}
             </div>
             <div className="mt-6 flex justify-between gap-2">
-              <button type="button" onClick={() => setStep(0)} className="min-h-12 border border-[#c9cbcf] bg-white px-4 font-medium">
+              <button type="button" onClick={() => setStep(0)} className="min-h-12 rounded-[var(--bo-rc)] border-2 border-d-deep bg-white px-5 text-[13.5px] font-bold tracking-wide text-d-deep uppercase hover:border-d-accent hover:bg-d-accent hover:text-d-on">
                 Zurück
               </button>
-              <button type="button" onClick={() => setStep(2)} className="min-h-12 bg-d-accent px-6 font-semibold text-d-on hover:brightness-95">
+              <button type="button" onClick={() => setStep(2)} className="min-h-12 rounded-[var(--bo-rc)] bg-d-accent px-7 text-[13.5px] font-bold tracking-wide text-d-on uppercase hover:brightness-95">
                 Weiter
               </button>
             </div>
@@ -295,15 +339,15 @@ function Request({ onAdd, onStatus }: { onAdd: (o: Omit<Order, "id" | "stage" | 
               setDone(onAdd({ customer: name.trim(), address: street.trim(), topic: t?.label ?? "Anfrage", desc: desc.trim() || "Keine Beschreibung angegeben.", photos, urgent: t?.urgent, slot: when }));
             }}
           >
-            <h2 className={cx(H, "text-[1.4rem] text-[#131416]")}>Wo und wann?</h2>
-            <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            <h2 className={cx(H, "text-[1.5rem] text-d-deep")}>Wo und wann?</h2>
+            <div className="mt-3 grid gap-3 @dsm:grid-cols-2">
               <Field label="Name">
                 <input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" className={input} placeholder="Vor- und Nachname" />
               </Field>
               <Field label="Telefon">
                 <input value={phone} onChange={(e) => setPhone(e.target.value)} type="tel" autoComplete="tel" className={input} placeholder="0151 2345678" />
               </Field>
-              <Field label="Straße und Hausnummer" className="sm:col-span-2">
+              <Field label="Straße und Hausnummer" className="@dsm:col-span-2">
                 <input value={street} onChange={(e) => setStreet(e.target.value)} autoComplete="street-address" className={input} placeholder="Gartenweg 12, Musterstadt" />
               </Field>
             </div>
@@ -311,7 +355,7 @@ function Request({ onAdd, onStatus }: { onAdd: (o: Omit<Order, "id" | "stage" | 
               <legend className="mb-1.5 text-[12.5px] font-medium opacity-80">Wann passt es Ihnen am besten?</legend>
               <div className="flex flex-wrap gap-1.5">
                 {["vormittags", "nachmittags", "ganztags", "so schnell wie möglich"].map((w) => (
-                  <button key={w} type="button" aria-pressed={when === w} onClick={() => setWhen(w)} className={cx("min-h-11 border px-3.5 text-[14px] font-medium", when === w ? "border-[#131416] bg-[#131416] text-white" : "border-[#c9cbcf] bg-white")}>
+                  <button key={w} type="button" aria-pressed={when === w} onClick={() => setWhen(w)} className={cx("min-h-11 rounded-[var(--bo-rc)] border-2 px-3.5 text-[14px] font-bold tracking-wide uppercase", when === w ? "border-d-accent bg-d-accent text-d-on" : "border-d-deep/15 bg-white text-d-deep hover:border-d-accent hover:bg-d-soft/50")}>
                     {w}
                   </button>
                 ))}
@@ -323,14 +367,14 @@ function Request({ onAdd, onStatus }: { onAdd: (o: Omit<Order, "id" | "stage" | 
               </p>
             )}
             <div className="mt-6 flex justify-between gap-2">
-              <button type="button" onClick={() => setStep(1)} className="min-h-12 border border-[#c9cbcf] bg-white px-4 font-medium">
+              <button type="button" onClick={() => setStep(1)} className="min-h-12 rounded-[var(--bo-rc)] border-2 border-d-deep bg-white px-5 text-[13.5px] font-bold tracking-wide text-d-deep uppercase hover:border-d-accent hover:bg-d-accent hover:text-d-on">
                 Zurück
               </button>
-              <button type="submit" className="min-h-12 bg-d-accent px-6 font-semibold text-d-on hover:brightness-95">
+              <button type="submit" className="min-h-12 rounded-[var(--bo-rc)] bg-d-accent px-7 text-[13.5px] font-bold tracking-wide text-d-on uppercase hover:brightness-95">
                 Anfrage senden
               </button>
             </div>
-            <p className="mt-2 text-right text-[12px] text-[#6c7077]">Demo: Es wird nichts gesendet oder gespeichert.</p>
+            <p className="mt-2 text-right text-[12px] text-d-deep/55">Demo: Es wird nichts gesendet oder gespeichert.</p>
           </form>
         )}
       </div>
@@ -339,11 +383,11 @@ function Request({ onAdd, onStatus }: { onAdd: (o: Omit<Order, "id" | "stage" | 
 }
 
 function QuoteTable({ quote, dark }: { quote: Pos[]; dark?: boolean }) {
-  const line = dark ? "border-white/15" : "border-[#e2e3e5]";
+  const line = dark ? "border-white/15" : "border-bo-line";
   return (
     <table className="num w-full text-[13.5px]">
       <thead>
-        <tr className={cx("text-left text-[11.5px] tracking-wide uppercase", dark ? "text-white/60" : "text-[#6c7077]")}>
+        <tr className={cx("text-left text-[11.5px] tracking-wide uppercase", dark ? "text-white/60" : "text-bo-muted")}>
           <th className="py-1.5 font-medium">Leistung</th>
           <th className="py-1.5 text-right font-medium">Menge</th>
           <th className="py-1.5 text-right font-medium">Betrag</th>
@@ -390,50 +434,59 @@ function QuoteTable({ quote, dark }: { quote: Pos[]; dark?: boolean }) {
 function MyOrders({ orders, onPatch }: { orders: Order[]; onPatch: (id: string, c: Partial<Order>) => void }) {
   const { go, toast } = useDemo();
   return (
-    <div className="mx-auto max-w-3xl space-y-5 px-4 py-8 sm:px-6" data-tour="status">
-      <h1 className={cx(H, "text-[1.8rem] leading-none text-[#131416]")}>Meine Aufträge</h1>
+    <div className="mx-auto max-w-3xl space-y-5 px-4 py-8 @dsm:px-6" data-tour="status">
+      <h1 className={cx(H, "text-[2rem] leading-none text-d-deep")}>Meine Aufträge</h1>
       {orders.map((o) => {
         const idx = STAGES.findIndex((s) => s.id === o.stage);
         const waiting = o.stage === "angebot" && o.quote;
         return (
-          <article key={o.id} className="border border-[#d9dbde] bg-white">
-            <header className="flex flex-wrap items-start justify-between gap-3 border-b border-[#e2e3e5] px-5 py-4">
+          <article key={o.id} className="overflow-hidden rounded-[var(--bo-r)] border border-d-deep/12 bg-white shadow-[var(--shadow-soft)]">
+            <header className="flex flex-wrap items-start justify-between gap-3 bg-d-deep px-5 py-4 text-white">
               <div>
-                <p className="font-plex-mono text-[12.5px] text-[#6c7077]">{o.id}</p>
-                <h2 className="text-[17px] font-semibold text-[#131416]">{o.topic}</h2>
-                <p className="flex items-center gap-1.5 text-[13px] text-[#6c7077]">
+                <p className="num font-plex-mono text-[12.5px] text-d-accent">{o.id}</p>
+                <h2 className="text-[17px] font-semibold">{o.topic}</h2>
+                <p className="flex items-center gap-1.5 text-[13px] text-white/70">
                   <MapPin className="size-3.5" aria-hidden /> {o.address}
                 </p>
               </div>
-              {waiting && <span className="bg-d-accent px-2 py-1 text-[12px] font-semibold text-d-on uppercase">Angebot liegt vor</span>}
+              {waiting && <span className="rounded-[var(--bo-rc)] bg-d-accent px-2.5 py-1 text-[12px] font-bold text-d-on uppercase">Angebot liegt vor</span>}
             </header>
-            <div className="px-5 py-4">
+            <div className="px-5 py-5">
               <Track steps={["Anfrage", "Angebot", "Termin", "Erledigt", "Rechnung"]} current={idx} />
             </div>
             {waiting && (
-              <div className="border-t border-[#e2e3e5] px-5 py-4">
+              <div className="border-t border-d-deep/12 bg-d-soft/60 px-5 py-4">
                 <QuoteTable quote={o.quote!} />
                 <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-                  <p className="text-[13px] text-[#6c7077]">Festpreis, gültig 14 Tage. Mehr wird es nur nach Rücksprache.</p>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      onPatch(o.id, { stage: "geplant", value: gross(o.quote!) });
-                      toast("Angebot angenommen. Im Büro wartet der Auftrag jetzt im Einsatzplan auf einen Monteur.");
-                    }}
-                    className="min-h-12 bg-d-accent px-6 font-semibold text-d-on hover:brightness-95"
-                  >
-                    Angebot annehmen
-                  </button>
+                  <p className="text-[13px] text-d-deep/70">Festpreis, gültig 14 Tage. Mehr wird es nur nach Rücksprache.</p>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onPatch(o.id, { stage: "geplant", value: gross(o.quote!) });
+                        toast("Angebot angenommen. Im Büro wartet der Auftrag jetzt im Einsatzplan auf einen Monteur.");
+                      }}
+                      className="min-h-12 rounded-[var(--bo-rc)] bg-d-accent px-6 text-[13.5px] font-bold tracking-wide text-d-on uppercase hover:brightness-95"
+                    >
+                      Angebot annehmen
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => toast("Kein Problem – sagen Sie uns kurz Bescheid, dann passen wir das Angebot an.")}
+                      className="min-h-12 rounded-[var(--bo-rc)] border-2 border-d-deep bg-white px-5 text-[13.5px] font-bold tracking-wide text-d-deep uppercase hover:border-d-accent hover:bg-d-accent hover:text-d-on"
+                    >
+                      Angebot ablehnen
+                    </button>
+                  </div>
                 </div>
               </div>
             )}
-            {o.stage === "anfrage" && <p className="border-t border-[#e2e3e5] px-5 py-3 text-[14px] text-[#6c7077]">Wir prüfen Ihre Anfrage und melden uns heute noch.</p>}
+            {o.stage === "anfrage" && <p className="border-t border-d-deep/12 px-5 py-3 text-[14px] text-d-deep/70">Wir prüfen Ihre Anfrage und melden uns heute noch.</p>}
             {o.stage === "geplant" && (
-              <div className="border-t border-[#e2e3e5] px-5 py-3 text-[14px]">
+              <div className="border-t border-d-deep/12 px-5 py-3.5 text-[14px]">
                 {o.tech ? (
                   <p>
-                    <strong className="font-semibold text-[#131416]">
+                    <strong className="font-semibold text-d-deep">
                       {fmtDay(workday(o.day ?? 0))}, {o.slot} Uhr
                     </strong>{" "}
                     · Ihr Monteur: {o.tech}. Er meldet sich 30 Minuten vor Ankunft.
@@ -441,7 +494,7 @@ function MyOrders({ orders, onPatch }: { orders: Order[]; onPatch: (id: string, 
                 ) : (
                   <p>
                     Danke für Ihren Auftrag. Wir teilen gerade einen Monteur ein –{" "}
-                    <button type="button" onClick={() => go("betrieb", "plan")} className="font-semibold underline underline-offset-2">
+                    <button type="button" onClick={() => go("betrieb", "plan")} className="font-semibold text-d-deep underline decoration-d-accent decoration-2 underline-offset-2">
                       im Einsatzplan des Büros ansehen
                     </button>
                     .
@@ -450,8 +503,11 @@ function MyOrders({ orders, onPatch }: { orders: Order[]; onPatch: (id: string, 
               </div>
             )}
             {(o.stage === "erledigt" || o.stage === "rechnung") && (
-              <p className="flex items-center gap-2 border-t border-[#e2e3e5] px-5 py-3 text-[14px]">
-                <FileText className="size-4 text-[#6c7077]" aria-hidden /> Arbeitsbericht mit Fotos und Ihrer Unterschrift{o.doneAt ? ` · ${o.doneAt}` : ""}
+              <p className="flex items-center gap-2 border-t border-d-deep/12 px-5 py-3 text-[14px]">
+                <span className="grid size-7 shrink-0 place-items-center rounded-full bg-d-soft text-d-deep">
+                  <FileText className="size-3.5" aria-hidden />
+                </span>
+                Arbeitsbericht mit Fotos und Ihrer Unterschrift{o.doneAt ? ` · ${o.doneAt}` : ""}
                 {o.stage === "rechnung" && " · Rechnung liegt bei"}
               </p>
             )}
@@ -492,13 +548,13 @@ function Board({ orders, onPatch, onQuote }: { orders: Order[]; onPatch: (id: st
         {STAGES.map((st) => {
           const list = orders.filter((o) => o.stage === st.id);
           return (
-            <section key={st.id} aria-label={st.title} className="rounded-[10px] border border-bo-line bg-[#e9ebee] p-2">
+            <section key={st.id} aria-label={st.title} className="rounded-[var(--bo-r)] border border-bo-line bg-bo-bg p-2">
               <h2 className="flex items-center justify-between px-2 py-1.5 text-[13px] font-semibold text-bo-ink">
-                {st.title} <span className="num rounded bg-white px-1.5 text-[12px] font-medium text-bo-muted">{list.length}</span>
+                {st.title} <span className="num rounded-[var(--bo-rc)] bg-white px-1.5 text-[12px] font-medium text-bo-muted">{list.length}</span>
               </h2>
               <ul className="space-y-2">
                 {list.map((o) => (
-                  <li key={o.id} className={cx("rounded-lg border border-bo-line bg-white p-3", o.own && "animate-demo-flash")}>
+                  <li key={o.id} className={cx("rounded-[var(--bo-r)] border border-bo-line bg-white p-3", o.own && "animate-demo-flash")}>
                     <div className="flex items-center justify-between gap-2">
                       <span className="font-plex-mono text-[12px] text-bo-muted">{o.id}</span>
                       {o.urgent ? <Tag tone="bad">Notfall</Tag> : o.via === "KI-Telefon" ? <Tag tone="info">KI-Telefon</Tag> : o.photos > 0 ? <span className="num inline-flex items-center gap-1 text-[12px] text-bo-muted"><Camera className="size-3" aria-hidden /> {o.photos}</span> : null}
@@ -509,7 +565,7 @@ function Board({ orders, onPatch, onQuote }: { orders: Order[]; onPatch: (id: st
                       {o.own && " (du)"} · {o.address}
                     </p>
                     {o.via === "KI-Telefon" && (
-                      <p className="mt-2 flex gap-2 rounded bg-[#e6eefb] px-2 py-1.5 text-[12px] leading-snug text-[#1d4fa8]">
+                      <p className="mt-2 flex gap-2 rounded-[var(--bo-rc)] bg-[#e6eefb] px-2 py-1.5 text-[12px] leading-snug text-[#1d4fa8]">
                         <PhoneCall className="mt-0.5 size-3.5 shrink-0" aria-hidden />
                         <span>{o.desc}</span>
                       </p>
@@ -582,14 +638,14 @@ function QuoteBuilder({ orders, id, onPick, onPatch }: { orders: Order[]; id: st
     );
   }
   return (
-    <div data-tour="angebot" className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_22rem]">
+    <div data-tour="angebot" className="grid gap-4 @dlg:grid-cols-[minmax(0,1fr)_22rem]">
       <div className="space-y-4">
         <Panel
           title={`Anfrage ${order.id}`}
           aside={
             <label className="flex items-center gap-2">
               <span className="sr-only">Anfrage wählen</span>
-              <select value={order.id} onChange={(e) => onPick(e.target.value)} className="min-h-9 rounded-md border border-bo-line bg-white px-2 text-[16px] text-bo-ink sm:text-[13px]">
+              <select value={order.id} onChange={(e) => onPick(e.target.value)} className="min-h-9 rounded-[var(--bo-rc)] border border-bo-line bg-white px-2 text-[16px] text-bo-ink @dsm:text-[13px]">
                 {open.map((o) => (
                   <option key={o.id} value={o.id}>
                     {o.id} · {o.customer}
@@ -607,7 +663,7 @@ function QuoteBuilder({ orders, id, onPick, onPatch }: { orders: Order[]; id: st
           {order.photos > 0 && (
             <div className="mt-3 flex gap-2">
               {Array.from({ length: Math.min(order.photos, 3) }, (_, i) => (
-                <span key={i} className="relative size-16 overflow-hidden rounded border border-bo-line">
+                <span key={i} className="relative size-16 overflow-hidden rounded-[var(--bo-rc)] border border-bo-line">
                   <Image src={THUMBS[i % THUMBS.length]} alt={`Foto ${i + 1} vom Kunden`} fill sizes="64px" className="object-cover" />
                 </span>
               ))}
@@ -646,7 +702,7 @@ function QuoteBuilder({ orders, id, onPick, onPatch }: { orders: Order[]; id: st
         </Panel>
       </div>
       <div>
-        <div className="sticky top-[calc(var(--bar-h)+1rem)] rounded-[10px] border border-bo-line bg-white">
+        <div className="sticky top-[calc(var(--bar-h)+1rem)] rounded-[var(--bo-r)] border border-bo-line bg-white">
           <div className="border-b border-bo-line px-4 py-3">
             <p className="text-[12px] text-bo-muted">Angebot an</p>
             <p className="font-semibold text-bo-ink">{order.customer}</p>
@@ -697,7 +753,7 @@ function Schedule({ orders, onPatch }: { orders: Order[]; onPatch: (id: string, 
                   </div>
                   <label>
                     <span className="sr-only">Monteur</span>
-                    <select value={p.tech} onChange={(e) => setPick((s) => ({ ...s, [o.id]: { ...p, tech: e.target.value } }))} className="min-h-9 rounded-md border border-bo-line bg-white px-2 text-[16px] text-bo-ink sm:text-[13px]">
+                    <select value={p.tech} onChange={(e) => setPick((s) => ({ ...s, [o.id]: { ...p, tech: e.target.value } }))} className="min-h-9 rounded-[var(--bo-rc)] border border-bo-line bg-white px-2 text-[16px] text-bo-ink @dsm:text-[13px]">
                       {TECHS.map((t) => (
                         <option key={t}>{t}</option>
                       ))}
@@ -705,7 +761,7 @@ function Schedule({ orders, onPatch }: { orders: Order[]; onPatch: (id: string, 
                   </label>
                   <label>
                     <span className="sr-only">Tag</span>
-                    <select value={p.day} onChange={(e) => setPick((s) => ({ ...s, [o.id]: { ...p, day: Number(e.target.value) } }))} className="min-h-9 rounded-md border border-bo-line bg-white px-2 text-[16px] text-bo-ink sm:text-[13px]">
+                    <select value={p.day} onChange={(e) => setPick((s) => ({ ...s, [o.id]: { ...p, day: Number(e.target.value) } }))} className="min-h-9 rounded-[var(--bo-rc)] border border-bo-line bg-white px-2 text-[16px] text-bo-ink @dsm:text-[13px]">
                       {days.map((d) => (
                         <option key={d} value={d}>
                           {d === 0 ? "Heute" : fmtDay(workday(d))}
@@ -759,7 +815,7 @@ function Schedule({ orders, onPatch }: { orders: Order[]; onPatch: (id: string, 
                       <td key={d} className="border-l border-bo-line p-1.5 align-top">
                         <ul className="space-y-1">
                           {jobs.map((j) => (
-                            <li key={j.key} className={cx("rounded border-l-[3px] px-2 py-1 leading-tight", j.live ? "animate-demo-flash border-l-d-accent bg-d-soft" : j.done ? "border-l-bo-ok bg-[#e3f3ea]" : "border-l-[#8a93a3] bg-bo-bg")}>
+                            <li key={j.key} className={cx("rounded-[var(--bo-rc)] border-l-[3px] px-2 py-1 leading-tight", j.live ? "animate-demo-flash border-l-d-accent bg-d-soft" : j.done ? "border-l-bo-ok bg-[#e3f3ea]" : "border-l-bo-muted bg-bo-bg")}>
                               <span className="num block text-[11px] text-bo-muted">
                                 {j.slot}
                                 {j.done && " · erledigt"}
@@ -794,7 +850,7 @@ function Numbers({ orders }: { orders: Order[] }) {
           { label: "Zeit bis zum Angebot", value: "2,4 Std.", note: "vorher: 2 Tage" },
         ]}
       />
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid gap-4 @dlg:grid-cols-2">
         <Panel title="Abgeschlossene Aufträge je Woche" aside="letzte acht Wochen">
           <Bars label="Abgeschlossene Aufträge je Woche" data={[21, 24, 19, 27, 26, 31, 29, 34].map((v, i) => ({ label: `KW ${i + 34}`, value: v }))} mark={7} />
         </Panel>
@@ -859,27 +915,27 @@ function TechApp({ orders, onPatch, onOffice }: { orders: Order[]; onPatch: (id:
   const [openId, setOpenId] = useState<string | null>(null);
   const open = jobs.find((j) => j.id === openId);
   return (
-    <div className="min-h-[calc(100dvh-var(--bar-h))] bg-[#dfe1e4] px-4 py-6 font-plex sm:py-9">
-      <div className="mx-auto grid max-w-4xl items-start gap-8 md:grid-cols-[minmax(0,24rem)_1fr]">
+    <div className="min-h-[calc(100dvh-var(--bar-h))] bg-bo-bg px-4 py-6 font-plex @dsm:py-9">
+      <div className="mx-auto grid max-w-4xl items-start gap-8 @dmd:grid-cols-[minmax(0,24rem)_1fr]">
         {/* Telefonrahmen */}
-        <div data-tour="monteur" className="mx-auto w-full max-w-[24rem] overflow-hidden rounded-[2rem] border-[10px] border-[#131416] bg-[#f4f4f2] shadow-[0_30px_60px_-24px_rgb(0_0_0/0.5)]">
-          <div className="flex items-center justify-between bg-[#131416] px-5 pt-1 pb-2 text-[11px] font-medium text-white/80">
+        <div data-tour="monteur" className="mx-auto w-full max-w-[24rem] overflow-hidden rounded-[var(--bo-r)] border-[10px] border-bo-ink bg-bo-bg shadow-[0_30px_60px_-24px_rgb(0_0_0/0.5)]">
+          <div className="flex items-center justify-between bg-bo-ink px-5 pt-1 pb-2 text-[11px] font-medium text-white/80">
             <span className="num">{clock()}</span>
             <span>Wilke · Monteur</span>
           </div>
-          <div className="h-[36rem] overflow-y-auto text-[14.5px] text-[#33363a]">{open ? <JobDetail key={open.id} job={open} onBack={() => setOpenId(null)} onPatch={onPatch} /> : <JobList me={me} jobs={jobs} onOpen={setOpenId} />}</div>
+          <div className="h-[36rem] overflow-y-auto text-[14.5px] text-bo-ink">{open ? <JobDetail key={open.id} job={open} onBack={() => setOpenId(null)} onPatch={onPatch} /> : <JobList me={me} jobs={jobs} onOpen={setOpenId} />}</div>
         </div>
-        <div className="hidden text-[#33363a] md:block">
-          <h1 className={cx(H, "text-[1.7rem] leading-none text-[#131416]")}>Die App für draußen.</h1>
+        <div className="hidden text-bo-ink @dmd:block">
+          <h1 className={cx(H, "text-[1.7rem] leading-none text-bo-ink")}>Die App für draußen.</h1>
           <p className="mt-3 max-w-sm text-[15px] leading-relaxed">Deniz sieht morgens seine Einsätze, hakt vor Ort die Checkliste ab, erfasst das Material und lässt den Kunden auf dem Display unterschreiben.</p>
           <ul className="mt-5 space-y-2.5 text-[14px]">
             {["Öffne einen Einsatz", "Hak die Checkliste ab", "Unterschreib mit Maus oder Finger", "Schließ den Auftrag ab – im Büro steht er sofort auf „Erledigt“"].map((s, i) => (
               <li key={s} className="flex gap-3">
-                <span className="num grid size-5 shrink-0 place-items-center bg-[#131416] text-[11px] font-semibold text-white">{i + 1}</span> {s}
+                <span className="num grid size-5 shrink-0 place-items-center rounded-[var(--bo-rc)] bg-bo-ink text-[11px] font-semibold text-white">{i + 1}</span> {s}
               </li>
             ))}
           </ul>
-          <button type="button" onClick={onOffice} className="mt-6 min-h-11 border border-[#131416] px-4 text-[14px] font-medium hover:bg-[#131416] hover:text-white">
+          <button type="button" onClick={onOffice} className="mt-6 min-h-11 rounded-[var(--bo-rc)] border border-bo-ink px-4 text-[14px] font-medium hover:bg-bo-ink hover:text-white">
             Zum Büro wechseln
           </button>
         </div>
@@ -892,7 +948,7 @@ function JobList({ me, jobs, onOpen }: { me: string; jobs: Order[]; onOpen: (id:
   const left = jobs.filter((j) => j.stage === "geplant").length;
   return (
     <div>
-      <div className="bg-[#131416] px-5 pt-3 pb-5 text-white">
+      <div className="bg-bo-ink px-5 pt-3 pb-5 text-white">
         <p className="text-[13px] text-white/60">{fmtDay(workday(0))}</p>
         <h2 className={cx(H, "text-[1.5rem] leading-tight")}>Moin {me.split(" ")[0]}.</h2>
         <p className="mt-0.5 text-[13.5px] text-white/75">{left ? `${left} ${left === 1 ? "Einsatz" : "Einsätze"} offen` : "Alles erledigt für heute."}</p>
@@ -902,19 +958,19 @@ function JobList({ me, jobs, onOpen }: { me: string; jobs: Order[]; onOpen: (id:
           const done = j.stage === "erledigt";
           return (
             <li key={j.id}>
-              <button type="button" disabled={done} onClick={() => onOpen(j.id)} className={cx("block w-full border bg-white p-3.5 text-left", done ? "border-[#d9dbde] opacity-60" : "border-[#c9cbcf] hover:border-[#131416]")}>
+              <button type="button" disabled={done} onClick={() => onOpen(j.id)} className={cx("block w-full rounded-[var(--bo-rc)] border bg-white p-3.5 text-left", done ? "border-bo-line opacity-60" : "border-bo-line hover:border-bo-ink")}>
                 <span className="flex items-center justify-between gap-2">
-                  <span className="num text-[13px] font-semibold text-[#131416]">{j.slot}</span>
+                  <span className="num text-[13px] font-semibold text-bo-ink">{j.slot}</span>
                   {done ? (
                     <span className="inline-flex items-center gap-1 text-[12px] font-semibold text-bo-ok">
                       <Check className="size-3.5" strokeWidth={3} aria-hidden /> erledigt
                     </span>
                   ) : (
-                    <ChevronRight className="size-4 text-[#8b8f96]" aria-hidden />
+                    <ChevronRight className="size-4 text-bo-muted" aria-hidden />
                   )}
                 </span>
-                <span className="mt-1 block font-semibold text-[#131416]">{j.topic}</span>
-                <span className="mt-0.5 flex items-center gap-1.5 text-[13px] text-[#6c7077]">
+                <span className="mt-1 block font-semibold text-bo-ink">{j.topic}</span>
+                <span className="mt-0.5 flex items-center gap-1.5 text-[13px] text-bo-muted">
                   <MapPin className="size-3.5 shrink-0" aria-hidden /> {j.customer} · {j.address}
                 </span>
               </button>
@@ -935,21 +991,21 @@ function JobDetail({ job, onBack, onPatch }: { job: Order; onBack: () => void; o
   const ready = checks.length === CHECKS.length && signed;
   return (
     <div>
-      <div className="sticky top-0 z-10 flex items-center gap-2 border-b border-[#d9dbde] bg-white px-2 py-1.5">
+      <div className="sticky top-0 z-10 flex items-center gap-2 border-b border-bo-line bg-white px-2 py-1.5">
         <button type="button" onClick={onBack} aria-label="Zurück zur Liste" className="grid size-11 place-items-center">
           <ArrowLeft className="size-5" aria-hidden />
         </button>
         <div className="min-w-0">
-          <p className="truncate text-[14px] font-semibold text-[#131416]">{job.topic}</p>
-          <p className="num font-plex-mono text-[11.5px] text-[#6c7077]">
+          <p className="truncate text-[14px] font-semibold text-bo-ink">{job.topic}</p>
+          <p className="num font-plex-mono text-[11.5px] text-bo-muted">
             {job.id} · {job.slot}
           </p>
         </div>
       </div>
       <div className="space-y-4 p-3">
-        <section className="border border-[#d9dbde] bg-white">
+        <section className="overflow-hidden rounded-[var(--bo-r)] border border-bo-line bg-white">
           {/* Lageskizze */}
-          <svg viewBox="0 0 320 96" className="block w-full bg-[#e9ebe6]" role="img" aria-label={`Lageskizze: ${job.address}`}>
+          <svg viewBox="0 0 320 96" className="block w-full bg-bo-bg" role="img" aria-label={`Lageskizze: ${job.address}`}>
             <path d="M0 62h320M96 0v96M228 0v96M0 22h96M228 34h92" stroke="#fff" strokeWidth="9" />
             <path d="M118 8h88v22h-88zM118 40h40v14h-40zM166 40h40v14h-40zM118 72h88v20h-88zM8 32h76v22H8zM240 44h72v10h-72zM240 72h72v20h-72zM8 72h76v20H8z" fill="#d5d8d0" />
             <path d="M40 0c8 30 20 40 56 62" stroke="#b9d3e6" strokeWidth="7" fill="none" />
@@ -959,32 +1015,32 @@ function JobDetail({ job, onBack, onPatch }: { job: Order; onBack: () => void; o
             </g>
           </svg>
           <div className="p-3.5">
-            <p className="font-semibold text-[#131416]">{job.customer}</p>
-            <p className="text-[13.5px] text-[#6c7077]">{job.address}, Musterstadt</p>
+            <p className="font-semibold text-bo-ink">{job.customer}</p>
+            <p className="text-[13.5px] text-bo-muted">{job.address}, Musterstadt</p>
             <div className="mt-2.5 grid grid-cols-2 gap-2">
-              <button type="button" onClick={() => toast("Navigation würde jetzt in der Karten-App starten.")} className="min-h-11 border border-[#c9cbcf] text-[13.5px] font-medium">
+              <button type="button" onClick={() => toast("Navigation würde jetzt in der Karten-App starten.")} className="min-h-11 rounded-[var(--bo-rc)] border border-bo-line text-[13.5px] font-medium">
                 Route starten
               </button>
-              <button type="button" onClick={() => toast("Anruf beim Kunden würde jetzt starten.")} className="min-h-11 border border-[#c9cbcf] text-[13.5px] font-medium">
+              <button type="button" onClick={() => toast("Anruf beim Kunden würde jetzt starten.")} className="min-h-11 rounded-[var(--bo-rc)] border border-bo-line text-[13.5px] font-medium">
                 Kunde anrufen
               </button>
             </div>
-            {job.desc && <p className="mt-3 border-t border-[#e2e3e5] pt-2.5 text-[13.5px] leading-relaxed">{job.desc}</p>}
+            {job.desc && <p className="mt-3 border-t border-bo-line pt-2.5 text-[13.5px] leading-relaxed">{job.desc}</p>}
           </div>
         </section>
 
         <section>
-          <h3 className="mb-1.5 text-[11.5px] font-semibold tracking-[0.12em] text-[#6c7077] uppercase">
+          <h3 className="mb-1.5 text-[11.5px] font-semibold tracking-[0.12em] text-bo-muted uppercase">
             Checkliste <span className="num">{checks.length}/{CHECKS.length}</span>
           </h3>
-          <ul className="divide-y divide-[#e2e3e5] border border-[#d9dbde] bg-white">
+          <ul className="divide-y divide-bo-line rounded-[var(--bo-r)] border border-bo-line bg-white">
             {CHECKS.map((c, i) => {
               const on = checks.includes(i);
               return (
                 <li key={c}>
                   <button type="button" role="checkbox" aria-checked={on} onClick={() => setChecks((x) => (on ? x.filter((y) => y !== i) : [...x, i]))} className="flex min-h-12 w-full items-center gap-3 px-3.5 text-left">
-                    <span className={cx("grid size-6 shrink-0 place-items-center border-2", on ? "border-[#131416] bg-[#131416] text-d-accent" : "border-[#b9bcc1]")}>{on && <Check className="size-4" strokeWidth={3} aria-hidden />}</span>
-                    <span className={on ? "text-[#6c7077] line-through" : ""}>{c}</span>
+                    <span className={cx("grid size-6 shrink-0 place-items-center rounded-[var(--bo-rc)] border-2", on ? "border-bo-ink bg-bo-ink text-d-accent" : "border-bo-line")}>{on && <Check className="size-4" strokeWidth={3} aria-hidden />}</span>
+                    <span className={on ? "text-bo-muted line-through" : ""}>{c}</span>
                   </button>
                 </li>
               );
@@ -993,19 +1049,19 @@ function JobDetail({ job, onBack, onPatch }: { job: Order; onBack: () => void; o
         </section>
 
         <section>
-          <h3 className="mb-1.5 text-[11.5px] font-semibold tracking-[0.12em] text-[#6c7077] uppercase">Material</h3>
-          <ul className="divide-y divide-[#e2e3e5] border border-[#d9dbde] bg-white">
+          <h3 className="mb-1.5 text-[11.5px] font-semibold tracking-[0.12em] text-bo-muted uppercase">Material</h3>
+          <ul className="divide-y divide-bo-line rounded-[var(--bo-r)] border border-bo-line bg-white">
             {MATERIAL.map((m) => {
               const q = mat[m.id] ?? 0;
               return (
                 <li key={m.id} className="flex items-center justify-between gap-3 px-3.5 py-1.5">
                   <span>{m.name}</span>
                   <span className="flex items-center gap-1.5">
-                    <button type="button" onClick={() => setMat((s) => ({ ...s, [m.id]: Math.max(0, q - 1) }))} aria-label={`${m.name} weniger`} className="grid size-10 place-items-center border border-[#c9cbcf]">
+                    <button type="button" onClick={() => setMat((s) => ({ ...s, [m.id]: Math.max(0, q - 1) }))} aria-label={`${m.name} weniger`} className="grid size-10 place-items-center rounded-[var(--bo-rc)] border border-bo-line">
                       <Minus className="size-4" aria-hidden />
                     </button>
-                    <span className="num w-6 text-center font-semibold text-[#131416]">{q}</span>
-                    <button type="button" onClick={() => setMat((s) => ({ ...s, [m.id]: q + 1 }))} aria-label={`${m.name} mehr`} className="grid size-10 place-items-center border border-[#c9cbcf]">
+                    <span className="num w-6 text-center font-semibold text-bo-ink">{q}</span>
+                    <button type="button" onClick={() => setMat((s) => ({ ...s, [m.id]: q + 1 }))} aria-label={`${m.name} mehr`} className="grid size-10 place-items-center rounded-[var(--bo-rc)] border border-bo-line">
                       <Plus className="size-4" aria-hidden />
                     </button>
                   </span>
@@ -1016,21 +1072,21 @@ function JobDetail({ job, onBack, onPatch }: { job: Order; onBack: () => void; o
         </section>
 
         <section>
-          <h3 className="mb-1.5 text-[11.5px] font-semibold tracking-[0.12em] text-[#6c7077] uppercase">Fotos</h3>
+          <h3 className="mb-1.5 text-[11.5px] font-semibold tracking-[0.12em] text-bo-muted uppercase">Fotos</h3>
           <div className="flex flex-wrap gap-2">
             {Array.from({ length: photos }, (_, i) => (
-              <span key={i} className="relative size-16 overflow-hidden border border-[#d9dbde]">
+              <span key={i} className="relative size-16 overflow-hidden rounded-[var(--bo-rc)] border border-bo-line">
                 <Image src={THUMBS[i % THUMBS.length]} alt={`Foto ${i + 1}`} fill sizes="64px" className="object-cover" />
               </span>
             ))}
-            <button type="button" onClick={() => setPhotos((p) => Math.min(4, p + 1))} className="grid size-16 place-items-center border-2 border-dashed border-[#b9bcc1] bg-white" aria-label="Foto aufnehmen">
-              <Camera className="size-5 text-[#5b5f66]" strokeWidth={1.6} aria-hidden />
+            <button type="button" onClick={() => setPhotos((p) => Math.min(4, p + 1))} className="grid size-16 place-items-center rounded-[var(--bo-rc)] border-2 border-dashed border-bo-line bg-white" aria-label="Foto aufnehmen">
+              <Camera className="size-5 text-bo-muted" strokeWidth={1.6} aria-hidden />
             </button>
           </div>
         </section>
 
         <section>
-          <h3 className="mb-1.5 text-[11.5px] font-semibold tracking-[0.12em] text-[#6c7077] uppercase">Unterschrift des Kunden</h3>
+          <h3 className="mb-1.5 text-[11.5px] font-semibold tracking-[0.12em] text-bo-muted uppercase">Unterschrift des Kunden</h3>
           <SignaturePad onChange={setSigned} />
         </section>
 
@@ -1042,7 +1098,7 @@ function JobDetail({ job, onBack, onPatch }: { job: Order; onBack: () => void; o
             toast(`${job.id} abgeschlossen. Im Büro steht der Auftrag jetzt auf „Erledigt“ – bereit für die Rechnung.`);
             onBack();
           }}
-          className="min-h-14 w-full bg-d-accent font-semibold text-d-on disabled:bg-[#d9dbde] disabled:text-[#8b8f96]"
+          className="min-h-14 w-full rounded-[var(--bo-rc)] bg-d-accent font-semibold text-d-on disabled:bg-bo-line disabled:text-bo-muted"
         >
           {ready ? "Auftrag abschließen" : !signed && checks.length === CHECKS.length ? "Unterschrift fehlt noch" : "Erst Checkliste und Unterschrift"}
         </button>
@@ -1077,7 +1133,7 @@ function SignaturePad({ onChange }: { onChange: (signed: boolean) => void }) {
     return [e.clientX - r.left, e.clientY - r.top] as const;
   };
   return (
-    <div className="border border-[#d9dbde] bg-white">
+    <div className="overflow-hidden rounded-[var(--bo-r)] border border-bo-line bg-white">
       <canvas
         ref={ref}
         role="img"
@@ -1105,7 +1161,7 @@ function SignaturePad({ onChange }: { onChange: (signed: boolean) => void }) {
         onPointerUp={() => (drawing.current = false)}
         onPointerCancel={() => (drawing.current = false)}
       />
-      <div className="flex items-center justify-between border-t border-dashed border-[#c9cbcf] px-3 py-1 text-[12px] text-[#6c7077]">
+      <div className="flex items-center justify-between border-t border-dashed border-bo-line px-3 py-1 text-[12px] text-bo-muted">
         <span>{has ? "Danke – Unterschrift erfasst" : "Hier mit Maus oder Finger unterschreiben"}</span>
         <button
           type="button"
@@ -1115,7 +1171,7 @@ function SignaturePad({ onChange }: { onChange: (signed: boolean) => void }) {
             setHas(false);
             onChange(false);
           }}
-          className="min-h-9 px-2 font-medium text-[#131416] underline underline-offset-2"
+          className="min-h-9 px-2 font-medium text-bo-ink underline underline-offset-2"
         >
           Löschen
         </button>

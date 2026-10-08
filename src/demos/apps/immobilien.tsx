@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { ArrowLeft, BedDouble, Building2, CalendarClock, ChartColumn, Check, Inbox, MapPin, Maximize2, Phone } from "lucide-react";
+import { ArrowLeft, Building2, CalendarClock, ChartColumn, Check, Inbox, MapPin, Phone } from "lucide-react";
 import { useDemo } from "@/demos/kit/context";
 import { Avatar, Backoffice, Bars, Btn, Field, Figures, input, Panel, Ranks, Tag, td, th, tr, Track } from "@/demos/kit/ui";
 import { cx, eur0, fmtDay, num, workday } from "@/demos/kit/util";
@@ -238,21 +238,21 @@ function Site({ objects, sel, onSelect, mine, onRequest }: { objects: LiveObj[];
   const { tab, setTab } = useDemo();
   const obj = objects.find((o) => o.id === sel)!;
   return (
-    <div className="min-h-[calc(100dvh-var(--bar-h))] bg-[#f6f5f1] font-plex text-[15px] text-[#33403f]">
-      <header className="border-b border-[#dcdad2] bg-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-4 py-3 sm:px-6">
+    <div className="min-h-[var(--app-h)] bg-d-soft font-plex text-[15px] text-[#4a4943]">
+      <header className="border-b border-bo-line bg-white">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-4 py-3 @dsm:px-6">
           <button type="button" onClick={() => setTab("suche")} className="flex items-center gap-2.5 text-left">
             <svg viewBox="0 0 32 32" className="size-8 text-d-deep" aria-hidden>
-              <rect width="32" height="32" rx="4" fill="currentColor" />
+              <rect width="32" height="32" rx="1" fill="currentColor" />
               <path d="M8 22.5V15l8-6.5 8 6.5v7.5" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinejoin="round" />
               <path d="M13.500 22.500v-5h5v5" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinejoin="round" />
             </svg>
             <span className="leading-none">
-              <span className="block font-d-display text-[1.5rem] text-d-deep">Kranich</span>
-              <span className="block text-[10.5px] tracking-[0.22em] text-[#6f7b79] uppercase">Immobilien</span>
+              <span className="block font-d-display text-[1.5rem] tracking-[-0.02em] text-d-deep">Kranich</span>
+              <span className="block text-[10.5px] font-semibold tracking-[0.22em] text-[#6b6a63] uppercase">Immobilien</span>
             </span>
           </button>
-          <p className="num hidden items-center gap-1.5 text-[13.5px] text-[#55615f] sm:flex">
+          <p className="num hidden items-center gap-1.5 text-[13.5px] text-[#6b6a63] @dsm:flex">
             <Phone className="size-3.5" aria-hidden /> 01234 445 566 · Mo – Fr, 9 – 18 Uhr
           </p>
         </div>
@@ -264,91 +264,154 @@ function Site({ objects, sel, onSelect, mine, onRequest }: { objects: LiveObj[];
 
 function StatusBadge({ status }: { status: ObjStatus }) {
   if (status === "aktiv") return null;
-  return <span className={cx("absolute top-3 left-3 rounded-sm px-2 py-1 text-[11.5px] font-semibold tracking-wide uppercase", status === "reserviert" ? "bg-[#f0c75e] text-[#3d2f00]" : "bg-[#33403f] text-white")}>{status === "reserviert" ? "Reserviert" : "Vergeben"}</span>;
+  return <span className={cx("absolute top-0 left-0 px-2.5 py-1.5 text-[10.5px] font-semibold tracking-[0.14em] uppercase", status === "reserviert" ? "bg-[#f0c75e] text-[#3d2f00]" : "bg-d-deep text-white")}>{status === "reserviert" ? "Reserviert" : "Vergeben"}</span>;
 }
+
+/** "5. Obergeschoss, Aufzug" → "5. OG" – nur für die kompakte Faktenzeile der Objektkarten */
+const floorShort = (f: string) => f.split(",")[0]!.replace(" Obergeschoss", ". OG").replace("Erdgeschoss", "EG");
 
 function SearchPage({ objects, onSelect }: { objects: LiveObj[]; onSelect: (id: string) => void }) {
   const [deal, setDeal] = useState<"alle" | Deal>("alle");
   const [rooms, setRooms] = useState(0);
   const [max, setMax] = useState(0);
   const list = objects.filter((o) => (deal === "alle" || o.deal === deal) && o.rooms >= rooms && (!max || (o.deal === "miete" ? o.price <= max : o.price <= max * 500)));
-  const chip = (on: boolean) => cx("min-h-11 rounded-md border px-3.5 text-[14px] font-medium transition-colors", on ? "border-d-deep bg-d-deep text-white" : "border-[#cfcdc4] bg-white hover:border-d-deep");
+  const chip = (on: boolean) => cx("min-h-11 rounded-[var(--bo-rc)] border px-3.5 text-[14px] font-medium transition-colors", on ? "border-d-deep bg-d-deep text-white" : "border-bo-line bg-white text-d-deep hover:border-d-deep");
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
-      <h1 className="max-w-3xl font-d-display text-[clamp(2.1rem,5vw,3.6rem)] leading-[1.02] text-d-deep">
-        Wohnen und arbeiten in Musterstadt. <em>Seit 1987 in guten Händen.</em>
-      </h1>
-      <div data-tour="suche" className="mt-7 flex flex-wrap items-end gap-x-6 gap-y-4 rounded-xl border border-[#dcdad2] bg-white p-4">
+    <div className="mx-auto max-w-6xl px-4 py-8 @dsm:px-6 @dsm:py-10">
+      <div className="grid gap-6 @dmd:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] @dmd:items-end">
         <div>
-          <p className="mb-1.5 text-[12.5px] font-medium text-[#55615f]">Ich möchte</p>
-          <div className="flex gap-1.5" role="group" aria-label="Mieten oder kaufen">
-            {(["alle", "miete", "kauf"] as const).map((d) => (
-              <button key={d} type="button" aria-pressed={deal === d} onClick={() => setDeal(d)} className={chip(deal === d)}>
-                {d === "alle" ? "Alles sehen" : d === "miete" ? "Mieten" : "Kaufen"}
-              </button>
-            ))}
-          </div>
+          <p className="text-[10.5px] font-semibold tracking-[0.22em] text-[#6b6a63] uppercase">Musterstadt · Miete und Kauf</p>
+          <h1 className="mt-3 max-w-3xl font-d-display text-[clamp(2.1rem,5vw,3.6rem)] leading-[1.02] tracking-[-0.03em] text-d-deep">
+            Die richtige Wohnung in Musterstadt. <em className="text-[#6b6a63]">Seit 1987 in guten Händen.</em>
+          </h1>
+          <p className="mt-4 max-w-xl text-[15.5px] leading-relaxed text-[#4a4943]">Jedes Objekt mit Exposé, Grundriss und Kostenaufstellung. Die Besichtigung fragst du online an.</p>
         </div>
-        <div>
-          <p className="mb-1.5 text-[12.5px] font-medium text-[#55615f]">Zimmer</p>
-          <div className="flex gap-1.5" role="group" aria-label="Mindestens Zimmer">
-            {[0, 2, 3, 4].map((r) => (
-              <button key={r} type="button" aria-pressed={rooms === r} onClick={() => setRooms(r)} className={chip(rooms === r)}>
-                {r === 0 ? "egal" : `ab ${r}`}
-              </button>
-            ))}
+        <figure className="relative aspect-[16/10] overflow-hidden rounded-[var(--bo-r)]">
+          <Image src="/images/demo/photos/i-hero.webp" alt="Modernes weißes Wohnhaus mit Pool als Beispielobjekt aus unserem Bestand" fill sizes="(min-width: 768px) 42vw, 100vw" className="object-cover" />
+        </figure>
+      </div>
+      <div data-tour="suche" className="mt-8 rounded-[var(--bo-r)] border border-bo-line bg-white">
+        <div className="flex flex-wrap items-end gap-x-8 gap-y-5 p-4 @dsm:p-5">
+          <div>
+            <p className="mb-2 text-[10.5px] font-semibold tracking-[0.16em] text-[#6b6a63] uppercase">Ich möchte</p>
+            <div className="flex gap-1.5" role="group" aria-label="Mieten oder kaufen">
+              {(["alle", "miete", "kauf"] as const).map((d) => (
+                <button key={d} type="button" aria-pressed={deal === d} onClick={() => setDeal(d)} className={chip(deal === d)}>
+                  {d === "alle" ? "Alles sehen" : d === "miete" ? "Mieten" : "Kaufen"}
+                </button>
+              ))}
+            </div>
           </div>
+          <div>
+            <p className="mb-2 text-[10.5px] font-semibold tracking-[0.16em] text-[#6b6a63] uppercase">Zimmer</p>
+            <div className="flex gap-1.5" role="group" aria-label="Mindestens Zimmer">
+              {[0, 2, 3, 4].map((r) => (
+                <button key={r} type="button" aria-pressed={rooms === r} onClick={() => setRooms(r)} className={chip(rooms === r)}>
+                  {r === 0 ? "egal" : `ab ${r}`}
+                </button>
+              ))}
+            </div>
+          </div>
+          <Field label="Budget" className="w-40">
+            <select value={max} onChange={(e) => setMax(Number(e.target.value))} className={input}>
+              <option value={0}>kein Limit</option>
+              <option value={700}>700 € kalt</option>
+              <option value={1000}>1.000 € kalt</option>
+              <option value={1500}>1.500 € kalt</option>
+            </select>
+          </Field>
+          <p className="num ml-auto self-center border-l border-bo-line pl-4 text-[13.5px] text-[#6b6a63]" aria-live="polite">
+            {list.length} {list.length === 1 ? "Objekt" : "Objekte"}
+          </p>
         </div>
-        <Field label="Miete bis" className="w-40">
-          <select value={max} onChange={(e) => setMax(Number(e.target.value))} className={input}>
-            <option value={0}>kein Limit</option>
-            <option value={700}>700 € kalt</option>
-            <option value={1000}>1.000 € kalt</option>
-            <option value={1500}>1.500 € kalt</option>
-          </select>
-        </Field>
-        <p className="num ml-auto self-center text-[14px] text-[#55615f]" aria-live="polite">
-          {list.length} {list.length === 1 ? "Objekt" : "Objekte"}
-        </p>
       </div>
 
-      <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="mt-6 grid gap-5 @dsm:grid-cols-2 @dlg:grid-cols-3">
         {list.map((o) => (
           <li key={o.id}>
-            <button type="button" onClick={() => onSelect(o.id)} className="group block w-full overflow-hidden rounded-xl border border-[#dcdad2] bg-white text-left transition-shadow hover:shadow-[0_14px_34px_-18px_rgb(18_56_60/0.45)]">
+            <button type="button" onClick={() => onSelect(o.id)} className="group block w-full overflow-hidden rounded-[var(--bo-r)] border border-bo-line bg-white text-left transition-colors hover:border-d-deep">
               <span className="relative block aspect-[3/2] overflow-hidden">
                 <Image src={o.img} alt={o.alt} fill sizes="(min-width:1024px) 360px, (min-width:640px) 50vw, 100vw" className={cx("object-cover transition-transform duration-500 group-hover:scale-[1.03]", o.status === "vergeben" && "grayscale")} />
                 <StatusBadge status={o.status} />
-                <span className="absolute right-3 bottom-3 rounded-sm bg-white/95 px-2 py-1 text-[12px] font-medium text-d-deep">{o.deal === "miete" ? "Zur Miete" : "Zum Kauf"}</span>
+                <span className="absolute right-0 bottom-0 bg-d-deep px-2.5 py-1.5 text-[10.5px] font-semibold tracking-[0.14em] text-white uppercase">{o.deal === "miete" ? "Zur Miete" : "Zum Kauf"}</span>
               </span>
               <span className="block p-4">
-                <span className="flex items-center gap-1 text-[12.5px] text-[#6f7b79]">
+                <span className="block font-d-display text-[1.45rem] leading-[1.1] tracking-[-0.02em] text-d-deep">{o.title}</span>
+                <span className="mt-1.5 flex items-center gap-1 text-[12.5px] text-[#6b6a63]">
                   <MapPin className="size-3.5" aria-hidden /> {o.area} · {o.kind}
                 </span>
-                <span className="mt-1 block font-d-display text-[1.45rem] leading-[1.1] text-d-deep">{o.title}</span>
-                <span className="num mt-3 flex items-center justify-between gap-3 border-t border-[#e7e5de] pt-3 text-[13.5px]">
-                  <span className="flex items-center gap-3 text-[#55615f]">
-                    <span className="inline-flex items-center gap-1">
-                      <BedDouble className="size-4" strokeWidth={1.6} aria-hidden /> {o.rooms} Zi.
-                    </span>
-                    <span className="inline-flex items-center gap-1">
-                      <Maximize2 className="size-3.5" strokeWidth={1.6} aria-hidden /> {o.size} m²
-                    </span>
+                <span className="num mt-3 block text-[1.3rem] leading-none font-semibold tracking-[-0.01em] text-d-deep">{priceLabel(o)}</span>
+                <span className="mt-3 grid grid-cols-3 border-t border-bo-line pt-3 text-[12.5px]">
+                  <span>
+                    <span className="block text-[10px] font-semibold tracking-[0.14em] text-[#6b6a63] uppercase">Zimmer</span>
+                    <span className="num mt-0.5 block font-medium text-d-deep">{o.rooms}</span>
                   </span>
-                  <span className="text-[15px] font-semibold text-d-deep">{priceLabel(o)}</span>
+                  <span className="border-l border-bo-line pl-3">
+                    <span className="block text-[10px] font-semibold tracking-[0.14em] text-[#6b6a63] uppercase">Fläche</span>
+                    <span className="num mt-0.5 block font-medium text-d-deep">{o.size} m²</span>
+                  </span>
+                  <span className="border-l border-bo-line pl-3">
+                    <span className="block text-[10px] font-semibold tracking-[0.14em] text-[#6b6a63] uppercase">Etage</span>
+                    <span className="num mt-0.5 block font-medium text-d-deep">{floorShort(o.floor)}</span>
+                  </span>
                 </span>
               </span>
             </button>
           </li>
         ))}
       </ul>
-      {list.length === 0 && <p className="mt-6 rounded-xl border border-dashed border-[#cfcdc4] px-5 py-10 text-center text-[#55615f]">Dazu haben wir gerade nichts. Lockere einen Filter – oder hinterlass einen Suchauftrag.</p>}
+      {list.length === 0 && <p className="mt-6 rounded-[var(--bo-r)] border border-dashed border-bo-line bg-white px-5 py-10 text-center text-[#6b6a63]">Dazu haben wir gerade nichts. Lockere einen Filter – oder hinterlass einen Suchauftrag.</p>}
     </div>
   );
 }
 
 const ENERGY = ["A+", "A", "B", "C", "D", "E", "F", "G", "H"];
 const ENERGY_COLOR = ["#2e9b4f", "#57b04a", "#93c13f", "#cdd235", "#f4d12f", "#f3a72c", "#ec7b2a", "#e14e28", "#c9302a"];
+
+/** Räume des Musterobjekts für die Galerie im Exposé */
+const ROOMS: { src: string; room: string; alt: string }[] = [
+  { src: "/images/demo/photos/i-living.webp", room: "Wohnzimmer", alt: "Wohnzimmer mit zwei grauen Samtsofas, Kamin und bodentiefen Fenstern" },
+  { src: "/images/demo/photos/i-kitchen.webp", room: "Küche", alt: "Offene Küche mit grauem Schrankwerk, Küchenhalbinsel und Edelstahlgeräten" },
+  { src: "/images/demo/photos/i-bedroom.webp", room: "Schlafzimmer", alt: "Schlafzimmer mit Bett vor hölzerner Bogenwand und warmem Deckenlicht" },
+  { src: "/images/demo/photos/i-bath.webp", room: "Bad", alt: "Bad mit freistehender Wanne, Glasdusche und hellen Steinflächen" },
+  { src: "/images/demo/photos/i-dining.webp", room: "Essbereich", alt: "Essbereich mit dunklem Holztisch und weißer Küche im Hintergrund" },
+  { src: "/images/demo/photos/i-loft.webp", room: "Loft", alt: "Offener Loft-Raum mit Galerie, dunkler Küche und Sonnenschatten" },
+  { src: "/images/demo/photos/i-office.webp", room: "Arbeitszimmer", alt: "Arbeitszimmer als Großraumbüro mit weißen Arbeitsplätzen und Glaswänden" },
+];
+
+/** Galerie des Musterobjekts: großes Hauptbild plus Vorschaustreifen, Umschalten im Client */
+function Gallery({ obj }: { obj: LiveObj }) {
+  const [pic, setPic] = useState(0);
+  const shot = ROOMS[pic]!;
+  return (
+    <div className="mt-5">
+      <div className="relative aspect-[16/10] overflow-hidden rounded-[var(--bo-r)]">
+        <Image key={shot.src} src={shot.src} alt={shot.alt} fill priority sizes="(min-width:1024px) 720px, 100vw" className="object-cover" />
+        <StatusBadge status={obj.status} />
+        <span className="absolute right-0 bottom-0 bg-white/95 px-2.5 py-1.5 text-[10.5px] font-semibold tracking-[0.14em] text-d-deep uppercase">{shot.room}</span>
+      </div>
+      <div className="mt-2 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none]">
+        {ROOMS.map((r, i) => (
+          <button
+            key={r.src}
+            type="button"
+            aria-pressed={i === pic}
+            onClick={() => setPic(i)}
+            className={cx("relative size-16 shrink-0 overflow-hidden rounded-[var(--bo-rc)] border transition-colors", i === pic ? "border-d-deep ring-1 ring-d-deep" : "border-bo-line opacity-70 hover:opacity-100")}
+          >
+            <Image src={r.src} alt="" fill sizes="64px" className="object-cover" />
+            <span className="sr-only">
+              Bild {i + 1} von {ROOMS.length}: {r.room}
+            </span>
+          </button>
+        ))}
+      </div>
+      <p className="num mt-1 text-[11.5px] text-[#6b6a63]">
+        {shot.room} · Bild {pic + 1} von {ROOMS.length}
+      </p>
+    </div>
+  );
+}
 
 function Expose({ obj, mine, onBack, onRequest }: { obj: LiveObj; mine: Lead | null; onBack: () => void; onRequest: (l: Omit<Lead, "id" | "stage" | "when" | "own">) => void }) {
   const { go } = useDemo();
@@ -363,57 +426,61 @@ function Expose({ obj, mine, onBack, onRequest }: { obj: LiveObj; mine: Lead | n
   ];
   const e = ENERGY.indexOf(obj.energy);
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
-      <button type="button" onClick={onBack} className="inline-flex min-h-11 items-center gap-1.5 text-[14px] font-medium text-d-accent hover:underline">
+    <div className="mx-auto max-w-6xl px-4 py-6 @dsm:px-6">
+      <button type="button" onClick={onBack} className="inline-flex min-h-11 items-center gap-1.5 text-[12.5px] font-semibold tracking-[0.12em] text-d-deep uppercase hover:underline">
         <ArrowLeft className="size-4" aria-hidden /> Alle Objekte
       </button>
-      <div className="mt-2 grid gap-8 lg:grid-cols-[minmax(0,1fr)_23rem]">
+      <div className="mt-2 grid gap-8 @dlg:grid-cols-[minmax(0,1fr)_23rem]">
         <div>
-          <div className="relative aspect-[16/9] overflow-hidden rounded-xl">
-            <Image src={obj.img} alt={obj.alt} fill priority sizes="(min-width:1024px) 720px, 100vw" className="object-cover" />
-            <StatusBadge status={obj.status} />
-          </div>
-          <p className="mt-5 flex items-center gap-1 text-[13.5px] text-[#6f7b79]">
+          <p className="text-[10.5px] font-semibold tracking-[0.22em] text-[#6b6a63] uppercase">
+            Exposé · {obj.id} · {obj.kind}
+          </p>
+          <p className="mt-2 flex items-center gap-1 text-[13px] text-[#6b6a63]">
             <MapPin className="size-4" aria-hidden /> Musterstadt-{obj.area}
           </p>
-          <h1 className="mt-1 font-d-display text-[clamp(1.9rem,4.4vw,3rem)] leading-[1.04] text-d-deep">{obj.title}</h1>
-          <p className="mt-4 max-w-2xl text-[16px] leading-relaxed">{obj.text}</p>
+          <h1 className="mt-1 font-d-display text-[clamp(1.9rem,4.4vw,3rem)] leading-[1.04] tracking-[-0.03em] text-d-deep">{obj.title}</h1>
+          <Gallery obj={obj} />
+          <p className="mt-5 max-w-2xl text-[16px] leading-relaxed text-[#4a4943]">{obj.text}</p>
 
-          <dl data-tour="fakten" className="mt-7 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-[#dcdad2] bg-[#dcdad2] sm:grid-cols-3">
+          <dl data-tour="fakten" className="mt-7 grid grid-cols-2 gap-px overflow-hidden rounded-[var(--bo-r)] border border-bo-line bg-bo-line @dsm:grid-cols-3">
             {facts.map(([k, v]) => (
               <div key={k} className="bg-white px-4 py-3">
-                <dt className="text-[12px] text-[#6f7b79]">{k}</dt>
-                <dd className="num mt-0.5 font-medium text-d-deep">{v}</dd>
+                <dt className="text-[10px] font-semibold tracking-[0.14em] text-[#6b6a63] uppercase">{k}</dt>
+                <dd className="num mt-1 text-[15px] font-semibold text-d-deep">{v}</dd>
               </div>
             ))}
           </dl>
 
-          <div className="mt-8 grid gap-8 md:grid-cols-2">
+          <div className="mt-8 grid gap-8 @dmd:grid-cols-2">
             <section>
-              <h2 className="font-d-display text-[1.5rem] text-d-deep">Grundriss</h2>
+              <h2 className="border-b border-bo-line pb-2 font-d-display text-[1.5rem] tracking-[-0.02em] text-d-deep">Grundriss</h2>
               <FloorPlan obj={obj} />
             </section>
             <section>
-              <h2 className="font-d-display text-[1.5rem] text-d-deep">Ausstattung</h2>
-              <ul className="mt-3 space-y-2">
+              <h2 className="border-b border-bo-line pb-2 font-d-display text-[1.5rem] tracking-[-0.02em] text-d-deep">Ausstattung</h2>
+              <ul className="mt-1">
                 {obj.perks.map((p) => (
-                  <li key={p} className="flex items-center gap-2.5">
+                  <li key={p} className="flex items-center gap-2.5 border-b border-bo-line py-2.5">
                     <Check className="size-4 text-d-accent" strokeWidth={2.5} aria-hidden /> {p}
                   </li>
                 ))}
               </ul>
-              <h2 className="mt-7 font-d-display text-[1.5rem] text-d-deep">Energieausweis</h2>
-              <div className="mt-3" role="img" aria-label={`Energieeffizienzklasse ${obj.energy}, ${obj.kwh} Kilowattstunden je Quadratmeter und Jahr`}>
-                <div className="flex gap-0.5">
+              <h2 className="mt-8 border-b border-bo-line pb-2 font-d-display text-[1.5rem] tracking-[-0.02em] text-d-deep">Energieausweis</h2>
+              <div className="mt-3">
+                <div className="flex gap-0.5" role="img" aria-label={`Energieeffizienzklasse ${obj.energy}, ${obj.kwh} Kilowattstunden je Quadratmeter und Jahr`}>
                   {ENERGY.map((c, i) => (
-                    <span key={c} className={cx("relative flex-1 py-1 text-center text-[11px] font-semibold text-white first:rounded-l last:rounded-r", i === e && "ring-2 ring-d-deep ring-offset-2 ring-offset-[#f6f5f1]")} style={{ background: ENERGY_COLOR[i] }}>
+                    <span key={c} className={cx("relative flex-1 py-1 text-center text-[11px] font-semibold text-white", i === e && "ring-2 ring-d-deep ring-offset-2 ring-offset-[#efefec]")} style={{ background: ENERGY_COLOR[i] }}>
                       {c}
                     </span>
                   ))}
                 </div>
-                <p className="num mt-2.5 text-[13.5px] text-[#55615f]">
-                  Klasse <strong className="font-semibold text-d-deep">{obj.energy}</strong> · {obj.kwh} kWh/(m²·a) · {obj.year > 2010 ? "Wärmepumpe" : "Gas-Zentralheizung"}
-                </p>
+                <table className="num mt-3 w-full border-t border-bo-line text-[14px]">
+                  <tbody>
+                    <Row k="Energieeffizienzklasse" v={obj.energy} strong />
+                    <Row k="Endenergiebedarf" v={`${obj.kwh} kWh/(m²·a)`} />
+                    <Row k="Wärmeversorgung" v={obj.year > 2010 ? "Wärmepumpe" : "Gas-Zentralheizung"} />
+                  </tbody>
+                </table>
               </div>
             </section>
           </div>
@@ -421,24 +488,27 @@ function Expose({ obj, mine, onBack, onRequest }: { obj: LiveObj; mine: Lead | n
 
         <aside>
           <div className="sticky top-[calc(var(--bar-h)+1rem)] space-y-4">
-            <div className="rounded-xl bg-d-deep p-5 text-[#dfe9e8]">
-              <p className="text-[12.5px] text-[#a9c1bf]">{rent ? "Kaltmiete" : "Kaufpreis"}</p>
-              <p className="num font-d-display text-[2.4rem] leading-none text-white">{eur0(obj.price)}</p>
-              <dl className="num mt-4 space-y-1.5 border-t border-white/15 pt-3 text-[14px]">
-                {rent ? (
-                  <>
-                    <Row k="Nebenkosten" v={`${eur0(obj.extra)} mtl.`} />
-                    <Row k="Warmmiete" v={`${eur0(obj.price + obj.extra)} mtl.`} strong />
-                    <Row k="Kaution" v={eur0(obj.price * 3)} />
-                  </>
-                ) : (
-                  <>
-                    <Row k="Preis je m²" v={eur0(obj.price / obj.size)} />
-                    {obj.extra > 0 && <Row k="Hausgeld" v={`${eur0(obj.extra)} mtl.`} />}
-                    <Row k="Käuferprovision" v="3,57 % inkl. MwSt." />
-                  </>
-                )}
-              </dl>
+            <div className="rounded-[var(--bo-r)] border border-bo-line bg-white p-5">
+              <p className="text-[10.5px] font-semibold tracking-[0.16em] text-[#6b6a63] uppercase">{rent ? "Kaltmiete" : "Kaufpreis"}</p>
+              <p className="num mt-2 font-d-display text-[2.4rem] leading-none tracking-[-0.03em] text-d-deep">{eur0(obj.price)}</p>
+              <h2 className="mt-4 border-t border-bo-line pt-3 text-[10.5px] font-semibold tracking-[0.16em] text-[#6b6a63] uppercase">Kostenaufstellung</h2>
+              <table className="num mt-1 w-full text-[14px]">
+                <tbody>
+                  {rent ? (
+                    <>
+                      <Row k="Nebenkosten" v={`${eur0(obj.extra)} mtl.`} />
+                      <Row k="Warmmiete" v={`${eur0(obj.price + obj.extra)} mtl.`} strong />
+                      <Row k="Kaution" v={eur0(obj.price * 3)} />
+                    </>
+                  ) : (
+                    <>
+                      <Row k="Preis je m²" v={eur0(obj.price / obj.size)} />
+                      {obj.extra > 0 && <Row k="Hausgeld" v={`${eur0(obj.extra)} mtl.`} />}
+                      <Row k="Käuferprovision" v="3,57 % inkl. MwSt." />
+                    </>
+                  )}
+                </tbody>
+              </table>
             </div>
             <Viewing obj={obj} mine={mine} onRequest={onRequest} onDashboard={() => go("betrieb", "anfragen")} />
           </div>
@@ -450,10 +520,12 @@ function Expose({ obj, mine, onBack, onRequest }: { obj: LiveObj; mine: Lead | n
 
 function Row({ k, v, strong }: { k: string; v: string; strong?: boolean }) {
   return (
-    <div className={cx("flex justify-between gap-3", strong && "font-semibold text-white")}>
-      <dt className={strong ? "" : "text-[#a9c1bf]"}>{k}</dt>
-      <dd>{v}</dd>
-    </div>
+    <tr className="border-t border-bo-line">
+      <th scope="row" className={cx("py-2 pr-3 text-left font-normal", strong ? "font-semibold text-d-deep" : "text-[#6b6a63]")}>
+        {k}
+      </th>
+      <td className={cx("py-2 text-right text-d-deep", strong && "font-semibold")}>{v}</td>
+    </tr>
   );
 }
 
@@ -467,18 +539,18 @@ function Viewing({ obj, mine, onRequest, onDashboard }: { obj: LiveObj; mine: Le
   const [household, setHousehold] = useState("2 Personen");
   const [income, setIncome] = useState("3");
   const [tried, setTried] = useState(false);
-  const box = "rounded-xl border border-[#dcdad2] bg-white p-5";
+  const box = "rounded-[var(--bo-r)] border border-bo-line bg-white p-5";
 
   if (mine) {
     const idx = { neu: 0, termin: 1, unterlagen: 2, zusage: 3 }[mine.stage];
     return (
       <div className={box} data-tour="besichtigung">
-        <h2 className="font-d-display text-[1.4rem] leading-tight text-d-deep">{idx === 0 ? "Ihre Anfrage ist bei uns." : idx === 1 ? "Ihr Termin ist bestätigt." : idx === 2 ? "Ihre Unterlagen sind geprüft." : "Sie haben die Zusage."}</h2>
-        <p className="num mt-1 text-[14px] text-[#55615f]">Wunschtermin: {mine.slot}</p>
+        <h2 className="font-d-display text-[1.4rem] leading-tight tracking-[-0.02em] text-d-deep">{idx === 0 ? "Ihre Anfrage ist bei uns." : idx === 1 ? "Ihr Termin ist bestätigt." : idx === 2 ? "Ihre Unterlagen sind geprüft." : "Sie haben die Zusage."}</h2>
+        <p className="num mt-1 text-[14px] text-[#6b6a63]">Wunschtermin: {mine.slot}</p>
         <Track steps={["Anfrage", "Termin", "Unterlagen", "Zusage"]} current={idx} className="mt-5" />
-        <div className="mt-5 rounded-lg bg-d-soft p-3 text-[13.5px] leading-snug">
+        <div className="mt-5 rounded-[var(--bo-rc)] border border-bo-line bg-d-soft p-3 text-[13.5px] leading-snug">
           <strong className="font-semibold">So sieht es das Büro:</strong> Ihre Anfrage liegt in der Pipeline unter „Neu“. Schieben Sie sie dort weiter – diese Anzeige läuft mit.
-          <button type="button" onClick={onDashboard} className="mt-2 min-h-11 w-full rounded-md bg-d-deep px-3 font-medium text-white">
+          <button type="button" onClick={onDashboard} className="mt-2 min-h-11 w-full rounded-[var(--bo-rc)] bg-d-deep px-3 font-medium text-white">
             Im Dashboard ansehen
           </button>
         </div>
@@ -488,8 +560,8 @@ function Viewing({ obj, mine, onRequest, onDashboard }: { obj: LiveObj; mine: Le
   if (obj.status !== "aktiv") {
     return (
       <div className={box} data-tour="besichtigung">
-        <h2 className="font-d-display text-[1.4rem] text-d-deep">{obj.status === "reserviert" ? "Dieses Objekt ist reserviert." : "Dieses Objekt ist vergeben."}</h2>
-        <p className="mt-2 text-[14px] leading-relaxed text-[#55615f]">Wir setzen Sie gern auf die Nachrückerliste und melden uns, wenn sich etwas ändert.</p>
+        <h2 className="font-d-display text-[1.4rem] tracking-[-0.02em] text-d-deep">{obj.status === "reserviert" ? "Dieses Objekt ist reserviert." : "Dieses Objekt ist vergeben."}</h2>
+        <p className="mt-2 text-[14px] leading-relaxed text-[#6b6a63]">Wir setzen Sie gern auf die Nachrückerliste und melden uns, wenn sich etwas ändert.</p>
       </div>
     );
   }
@@ -505,12 +577,12 @@ function Viewing({ obj, mine, onRequest, onDashboard }: { obj: LiveObj; mine: Le
         onRequest({ name: name.trim(), obj: obj.id, slot, move, household, fit: rent ? `${income.replace(".", ",")}-fache Miete` : "Finanzierung in Klärung", ok: rent ? Number(income) >= 3 : false });
       }}
     >
-      <h2 className="font-d-display text-[1.4rem] text-d-deep">Besichtigung anfragen</h2>
+      <h2 className="font-d-display text-[1.4rem] tracking-[-0.02em] text-d-deep">Besichtigung anfragen</h2>
       <fieldset className="mt-3">
-        <legend className="mb-1.5 text-[12.5px] font-medium text-[#55615f]">Freie Termine</legend>
+        <legend className="mb-2 text-[10.5px] font-semibold tracking-[0.16em] text-[#6b6a63] uppercase">Freie Termine</legend>
         <div className="grid gap-1.5">
           {slots.map((s) => (
-            <button key={s} type="button" aria-pressed={slot === s} onClick={() => setSlot(s)} className={cx("num min-h-11 rounded-md border px-3 text-left text-[14px] font-medium", slot === s ? "border-d-accent bg-d-soft text-d-deep" : "border-[#cfcdc4] hover:border-d-deep")}>
+            <button key={s} type="button" aria-pressed={slot === s} onClick={() => setSlot(s)} className={cx("num min-h-11 rounded-[var(--bo-rc)] border px-3 text-left text-[14px] font-medium transition-colors", slot === s ? "border-d-deep bg-d-deep text-white" : "border-bo-line text-d-deep hover:border-d-deep")}>
               {s} Uhr
             </button>
           ))}
@@ -555,20 +627,20 @@ function Viewing({ obj, mine, onRequest, onDashboard }: { obj: LiveObj; mine: Le
           Bitte Name und E-Mail eintragen – erfundene Angaben genügen.
         </p>
       )}
-      <button type="submit" className="mt-4 min-h-12 w-full rounded-lg bg-d-accent px-4 font-medium text-white hover:brightness-95">
+      <button type="submit" className="mt-4 min-h-12 w-full rounded-[var(--bo-rc)] bg-d-accent px-4 font-medium text-white hover:brightness-95">
         Termin anfragen
       </button>
-      <p className="mt-2 text-center text-[12px] text-[#6f7b79]">Demo: Es wird nichts gesendet oder gespeichert.</p>
+      <p className="mt-2 text-center text-[12px] text-[#6b6a63]">Demo: Es wird nichts gesendet oder gespeichert.</p>
     </form>
   );
 }
 
 /** Schematischer Grundriss – Wohnung mit Flur oder offene Gewerbefläche */
 function FloorPlan({ obj }: { obj: Obj }) {
-  const wall = { fill: "none", stroke: "#12383c", strokeWidth: 3, strokeLinejoin: "miter" as const };
-  const thin = { fill: "none", stroke: "#12383c", strokeWidth: 1.25 };
-  const label = { fontSize: 10.5, fill: "#33403f", fontFamily: "var(--font-plex-sans), sans-serif", textAnchor: "middle" as const };
-  const small = { ...label, fontSize: 8.5, fill: "#6f7b79" };
+  const wall = { fill: "none", stroke: "#1e1e1b", strokeWidth: 3, strokeLinejoin: "miter" as const };
+  const thin = { fill: "none", stroke: "#1e1e1b", strokeWidth: 1.25 };
+  const label = { fontSize: 10.5, fill: "#1e1e1b", fontFamily: "var(--font-plex), sans-serif", textAnchor: "middle" as const };
+  const small = { ...label, fontSize: 8.5, fill: "#6b6a63" };
   const open = obj.kind === "Gewerbe" || obj.rooms === 1;
   const rooms = open
     ? obj.kind === "Gewerbe"
@@ -594,7 +666,7 @@ function FloorPlan({ obj }: { obj: Obj }) {
         { x: 187, y: 113, n: "Flur", m: "" },
       ];
   return (
-    <figure className="mt-3 rounded-xl border border-[#dcdad2] bg-white p-4">
+    <figure className="mt-3 rounded-[var(--bo-r)] border border-bo-line bg-white p-4">
       <svg viewBox="0 0 320 232" role="img" aria-label={`Schematischer Grundriss: ${rooms.map((r) => r.n).join(", ")}`} className="w-full">
         <rect x="8" y="8" width="304" height="200" {...wall} />
         {open ? (
@@ -610,7 +682,7 @@ function FloorPlan({ obj }: { obj: Obj }) {
         )}
         {/* Fenster */}
         <path d="M40 8h60M190 8h70M8 150v36M312 30v40" stroke="#fff" strokeWidth="3.5" />
-        <path d="M40 8h60M190 8h70M8 150v36M312 30v40" stroke="#12383c" strokeWidth="1" />
+        <path d="M40 8h60M190 8h70M8 150v36M312 30v40" stroke="#1e1e1b" strokeWidth="1" />
         {/* Wohnungstür */}
         <path d="M170 208h26" stroke="#fff" strokeWidth="4" />
         <path d="M170 208a26 26 0 0 1 26-26v26" {...thin} />
@@ -629,7 +701,7 @@ function FloorPlan({ obj }: { obj: Obj }) {
           ca. 3 m
         </text>
       </svg>
-      <figcaption className="mt-1 text-[12px] text-[#6f7b79]">Schematische Darstellung, nicht maßstabsgetreu.</figcaption>
+      <figcaption className="mt-1 text-[12px] text-[#6b6a63]">Schematische Darstellung, nicht maßstabsgetreu.</figcaption>
     </figure>
   );
 }
@@ -659,11 +731,11 @@ function Dashboard({ objects, leads, onStage, onStatus }: { objects: LiveObj[]; 
 function Pipeline({ leads, objects, onStage }: { leads: Lead[]; objects: LiveObj[]; onStage: (id: number, s: Stage | null) => void }) {
   const { toast } = useDemo();
   return (
-    <div data-tour="pipeline" className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+    <div data-tour="pipeline" className="grid gap-3 @dmd:grid-cols-2 @dxl:grid-cols-4">
       {STAGES.map((st, si) => {
         const list = leads.filter((l) => l.stage === st.id);
         return (
-          <section key={st.id} aria-label={st.title} className="rounded-[10px] border border-bo-line bg-[#e9ebee] p-2">
+          <section key={st.id} aria-label={st.title} className="rounded-[var(--bo-r)] border border-bo-line bg-bo-bg p-2">
             <h2 className="flex items-center justify-between px-2 py-1.5 text-[13px] font-semibold text-bo-ink">
               {st.title} <span className="num rounded bg-white px-1.5 text-[12px] font-medium text-bo-muted">{list.length}</span>
             </h2>
@@ -671,7 +743,7 @@ function Pipeline({ leads, objects, onStage }: { leads: Lead[]; objects: LiveObj
               {list.map((l) => {
                 const o = objects.find((x) => x.id === l.obj)!;
                 return (
-                  <li key={l.id} className={cx("rounded-lg border border-bo-line bg-white p-3", l.own && "animate-demo-flash")}>
+                  <li key={l.id} className={cx("rounded-[var(--bo-r)] border border-bo-line bg-white p-3", l.own && "animate-demo-flash")}>
                     <div className="flex items-start gap-2.5">
                       <Avatar name={l.name} />
                       <div className="min-w-0 flex-1">
@@ -773,7 +845,7 @@ function ObjectTable({ objects, onStatus }: { objects: LiveObj[]; onStatus: (id:
                         onStatus(o.id, e.target.value as ObjStatus);
                         toast(`${o.id} ist jetzt „${e.target.value}“ – auf der Website sofort sichtbar.`);
                       }}
-                      className="min-h-9 rounded-md border border-bo-line bg-white px-2 text-[16px] text-bo-ink sm:text-[13px]"
+                      className="min-h-9 rounded-[var(--bo-rc)] border border-bo-line bg-white px-2 text-[16px] text-bo-ink @dsm:text-[13px]"
                     >
                       <option value="aktiv">aktiv</option>
                       <option value="reserviert">reserviert</option>
@@ -794,7 +866,7 @@ function Viewings({ leads, objects }: { leads: Lead[]; objects: LiveObj[] }) {
   const list = leads.filter((l) => l.stage === "termin" || l.stage === "neu").filter((l) => l.slot.includes(","));
   const days = [...new Set(list.map((l) => l.slot.split(", ").slice(0, -1).join(", ")))];
   return (
-    <div className="grid gap-4 lg:grid-cols-2">
+    <div className="grid gap-4 @dlg:grid-cols-2">
       {days.map((d) => (
         <Panel key={d} flush title={d}>
           <ul>
@@ -835,7 +907,7 @@ function Numbers({ objects, leads }: { objects: LiveObj[]; leads: Lead[] }) {
           { label: "Zeit bis zur ersten Antwort", value: "38 Min.", note: "vorher: 1,4 Tage" },
         ]}
       />
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid gap-4 @dlg:grid-cols-2">
         <Panel title="Vom Aufruf bis zur Zusage" aside="letzte 30 Tage">
           <Ranks
             data={[

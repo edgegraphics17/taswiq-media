@@ -90,10 +90,19 @@
   --color-d-soft: var(--d-soft);
   --color-d-deep: var(--d-deep);
   --font-d-display: var(--d-display), ui-serif, Georgia, serif;
-  --font-plex: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-plex: var(--d-ui, var(--font-plex-sans)), ui-sans-serif, system-ui, sans-serif;
   --font-plex-mono: var(--font-plex-mono-face), ui-monospace, SFMono-Regular, monospace;
+  /* Seitenleiste der Verwaltung je Musterfirma (registry.ts → theme.bo.side/sideInk); inline, damit die Werte erst am App-Container gelten */
+  --color-bo-side: var(--bo-side, #ffffff);
+  --color-bo-side-ink: var(--bo-side-ink, #15171c);
+  --color-bo-side-line: color-mix(in srgb, var(--bo-side-ink, #15171c) 16%, transparent);
 }
 @theme {
+  /* Container-Breiten der Demos: die Apps richten sich nach ihrem Rahmen (Web oder Handy-Ansicht), nicht nach dem Fenster */
+  --container-dsm: 40rem;
+  --container-dmd: 48rem;
+  --container-dlg: 64rem;
+  --container-dxl: 80rem;
   --color-bo-bg: #f1f2f4;
   --color-bo-line: #dfe2e7;
   --color-bo-ink: #15171c;

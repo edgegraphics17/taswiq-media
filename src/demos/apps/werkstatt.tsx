@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { CalendarDays, CarFront, ChartColumn, Check, ClipboardList, Clock, MapPin, Phone, TriangleAlert, Wrench } from "lucide-react";
 import { useDemo } from "@/demos/kit/context";
-import { Backoffice, Bars, Btn, Field, Figures, input, Panel, Ranks, Tag, td, th, tr, Track } from "@/demos/kit/ui";
+import { Backoffice, Bars, Btn, Field, Figures, input, Panel, Ranks, Tag, td, th, tr } from "@/demos/kit/ui";
 import { clock, cx, dur, eur, eur0, fmtDay, hm, nowMinutes, weekdayShort, workday } from "@/demos/kit/util";
 
 /**
@@ -82,10 +82,10 @@ const MOBILITY = [
 ];
 const MODELS = ["VW Golf", "Škoda Octavia", "BMW 3er", "Opel Corsa", "Ford Focus", "Audi A4", "Anderes Modell"];
 
-/** Deutsches Kennzeichen als kleines Schild */
+/** Deutsches Kennzeichen als kleines Schild – scharfkantig, Kennzeichen-Schrift in Mono */
 function Plate({ value, size = "md" }: { value: string; size?: "sm" | "md" | "lg" }) {
   return (
-    <span className={cx("inline-flex items-stretch overflow-hidden rounded-[4px] border-[1.5px] border-[#15171c] bg-white align-middle font-plex-mono font-medium text-[#15171c]", size === "lg" ? "text-[1.5rem]" : size === "sm" ? "text-[12px]" : "text-[15px]")}>
+    <span className={cx("inline-flex items-stretch overflow-hidden rounded-[var(--bo-rc)] border-[1.5px] border-bo-ink bg-white align-middle font-plex-mono font-medium tracking-[0.04em] text-bo-ink", size === "lg" ? "text-[1.45rem]" : size === "sm" ? "text-[12px]" : "text-[15px]")}>
       <span className={cx("flex items-end justify-center bg-[#1d4ed8] pb-px text-white", size === "lg" ? "w-6 text-[11px]" : size === "sm" ? "w-3 text-[6.5px]" : "w-4 text-[8px]")} aria-hidden>
         D
       </span>
@@ -96,6 +96,30 @@ function Plate({ value, size = "md" }: { value: string; size?: "sm" | "md" | "lg
 
 const stepLabel = (s: number) => (s < 0 ? "Geplant" : s > 4 ? "Abgeholt" : STEPS[s]);
 const stepTone = (s: number) => (s < 0 ? "neutral" : s === 4 ? "ok" : s > 4 ? "neutral" : s === 3 ? "info" : "warn");
+
+/** Technischer Status-Leser: nummerierte Stationen mit rotem Fortschrittsband statt weicher Punkte */
+function StatusRail({ steps, current }: { steps: string[]; current: number }) {
+  const pct = steps.length > 1 ? (Math.max(current, 0) / (steps.length - 1)) * 100 : 0;
+  return (
+    <div className="mt-5">
+      <div className="h-1.5 w-full bg-[#e3e9ec]" role="presentation">
+        <div className="h-full bg-d-accent transition-[width] duration-500" style={{ width: `${pct}%` }} />
+      </div>
+      <ol className="mt-px grid grid-cols-5 gap-px bg-[#d2dce0]">
+        {steps.map((s, i) => {
+          const done = i < current;
+          const now = i === current;
+          return (
+            <li key={s} aria-current={now ? "step" : undefined} className={cx("bg-white px-1 pt-2 pb-1.5 text-center", (done || now) && "bg-d-soft")}>
+              <span className={cx("num mx-auto grid size-6 place-items-center font-plex-mono text-[11px] font-semibold", done ? "bg-d-accent text-white" : now ? "border-2 border-d-accent bg-white text-d-accent" : "border border-[#b9c6cb] bg-white text-[#9aa8ad]")}>{String(i + 1).padStart(2, "0")}</span>
+              <span className={cx("mt-1 block text-[10.5px] leading-tight tracking-[0.04em] uppercase", now ? "font-semibold text-d-deep" : done ? "text-d-deep" : "text-[#9aa8ad]")}>{s}</span>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+  );
+}
 
 export default function WerkstattDemo() {
   const { view } = useDemo();
@@ -117,24 +141,25 @@ const H = "font-d-display font-extrabold tracking-tight [font-stretch:88%]";
 function CustomerSite({ jobs, onPatch, onBook }: { jobs: Job[]; onPatch: (no: string, c: Partial<Job>) => void; onBook: (j: Omit<Job, "no" | "step" | "own" | "bay">) => string }) {
   const { tab, setTab } = useDemo();
   return (
-    <div className="min-h-[calc(100dvh-var(--bar-h))] bg-[#f3f4f6] font-plex text-[15px] text-[#30353d]">
+    <div className="min-h-[calc(100dvh-var(--bar-h))] bg-[#eef2f5] font-plex text-[15px] text-[#0e1b1d]">
       <header className="bg-d-deep text-white">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 px-4 sm:px-6">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 px-4 @dsm:px-6">
           <p className="flex items-center gap-3 py-3">
             <span className="grid h-8 place-items-center bg-d-accent px-2 font-d-display text-[15px] font-black tracking-wide [font-stretch:80%]">FALKNER</span>
-            <span className="hidden text-[12.5px] text-[#a7afbb] sm:inline">Autohaus · Werkstatt & Service</span>
+            <span className="hidden font-plex-mono text-[10.5px] tracking-[0.22em] text-[#8fa3a8] uppercase @dsm:inline">Werkstatt & Service · Musterstadt</span>
           </p>
           <nav aria-label="Kundenbereich" className="flex gap-1">
             {[
               { id: "termin", label: "Termin buchen" },
               { id: "fahrzeug", label: "Mein Fahrzeug" },
             ].map((n) => (
-              <button key={n.id} type="button" aria-current={tab === n.id ? "page" : undefined} onClick={() => setTab(n.id)} className={cx("min-h-12 border-b-[3px] px-3 text-[14px] font-medium", tab === n.id ? "border-d-accent text-white" : "border-transparent text-[#a7afbb] hover:text-white")}>
+              <button key={n.id} type="button" aria-current={tab === n.id ? "page" : undefined} onClick={() => setTab(n.id)} className={cx("min-h-12 border-b-[3px] px-3 text-[13.5px] font-semibold tracking-[0.04em] uppercase", tab === n.id ? "border-d-accent text-white" : "border-transparent text-[#8fa3a8] hover:text-white")}>
                 {n.label}
               </button>
             ))}
           </nav>
         </div>
+        <div className="h-1 bg-d-accent" aria-hidden />
       </header>
       {tab === "fahrzeug" ? <MyCar job={jobs.find((j) => j.mine)!} onPatch={onPatch} /> : <BookService jobs={jobs} onBook={onBook} />}
     </div>
@@ -166,24 +191,25 @@ function BookService({ jobs, onBook }: { jobs: Job[]; onBook: (j: Omit<Job, "no"
 
   if (done) {
     return (
-      <div className="mx-auto max-w-xl px-4 py-12 sm:px-6">
+      <div className="mx-auto max-w-xl px-4 py-12 @dsm:px-6">
         <span className="grid size-12 place-items-center bg-d-accent text-white">
           <Check className="size-6" strokeWidth={2.5} aria-hidden />
         </span>
-        <h1 className={cx(H, "mt-5 text-[2.2rem] leading-none text-[#101418]")}>Termin bestätigt.</h1>
+        <p className="mt-5 font-plex-mono text-[11px] tracking-[0.24em] text-d-accent uppercase">Buchung bestätigt · Annahme Musterstadt</p>
+        <h1 className={cx(H, "mt-2 text-[2.1rem] leading-none uppercase text-d-deep")}>Termin bestätigt.</h1>
         <p className="mt-3 text-[16px] leading-relaxed">
-          Wir erwarten Sie am {fmtDay(workday(dayIdx))} um {hm(time!)} Uhr in der Annahme. Ihre Auftragsnummer: <span className="font-plex-mono font-medium text-[#101418]">{done}</span>
+          Wir erwarten Sie am {fmtDay(workday(dayIdx))} um {hm(time!)} Uhr in der Annahme. Ihre Auftragsnummer: <span className="font-plex-mono font-medium text-d-deep">{done}</span>
         </p>
         <p className="mt-4">
           <Plate value={plateShown} size="lg" />
         </p>
-        <div className="mt-6 rounded-lg bg-d-soft p-4 text-[14px] leading-snug">
+        <div className="mt-6 border border-[#d2dce0] bg-d-soft p-4 text-[14px] leading-snug shadow-[inset_4px_0_0_var(--d-accent)]">
           <strong className="font-semibold">So sieht es die Werkstatt:</strong> Ihr Termin hat sich selbst in den Werkstattplan eingetragen – niemand musste ans Telefon.
           <div className="mt-3 flex flex-wrap gap-2">
-            <button type="button" onClick={() => go("betrieb", "plan")} className="min-h-11 rounded-md bg-d-deep px-4 font-medium text-white">
+            <button type="button" onClick={() => go("betrieb", "plan")} className="min-h-11 bg-d-deep px-4 font-medium text-white hover:bg-[#16292c]">
               Im Werkstattplan ansehen
             </button>
-            <button type="button" onClick={() => go("kunde", "fahrzeug")} className="min-h-11 rounded-md border border-[#c3c9d3] bg-white px-4 font-medium">
+            <button type="button" onClick={() => go("kunde", "fahrzeug")} className="min-h-11 border border-[#b9c6cb] bg-white px-4 font-medium hover:border-d-deep">
               Fahrzeugstatus ansehen
             </button>
           </div>
@@ -193,44 +219,50 @@ function BookService({ jobs, onBook }: { jobs: Job[]; onBook: (j: Omit<Job, "no"
   }
 
   const head = (n: string, t: string) => (
-    <h2 className={cx(H, "flex items-center gap-2.5 text-[1.3rem] text-[#101418]")}>
-      <span className="grid size-6 place-items-center bg-[#101418] font-plex text-[12px] font-semibold tracking-normal text-white [font-stretch:100%]">{n}</span>
+    <h2 className={cx(H, "flex items-center gap-3 text-[1.2rem] uppercase text-d-deep")}>
+      <span className="grid size-7 shrink-0 place-items-center bg-d-accent font-plex-mono text-[13px] font-semibold text-white">{n}</span>
       {t}
     </h2>
   );
-  const option = (on: boolean) => cx("flex min-h-14 w-full items-center gap-3 border px-3 py-2 text-left transition-colors", on ? "border-d-accent bg-d-soft" : "border-[#d5d9e0] bg-white hover:border-[#101418]");
+  const option = (on: boolean) => cx("flex min-h-14 w-full items-center gap-3 border px-3 py-2 text-left transition-colors", on ? "border-d-deep bg-d-soft shadow-[inset_4px_0_0_var(--d-accent)]" : "border-[#d2dce0] bg-white hover:border-d-deep");
 
   return (
     <>
-      <div className="relative h-40 overflow-hidden bg-d-deep sm:h-52">
-        <Image src="/images/blog/werkstatt-termin-online-buchen.webp" alt="Helle Werkstatthalle mit Hebebühnen" fill priority sizes="100vw" className="object-cover object-[center_65%] opacity-60" />
-        <div className="absolute inset-0 mx-auto flex max-w-6xl flex-col justify-end px-4 pb-5 sm:px-6">
-          <h1 className={cx(H, "max-w-xl text-[clamp(2rem,5vw,3.2rem)] leading-[0.95] text-white uppercase")}>Werkstatt-Termin in zwei Minuten.</h1>
-          <p className="mt-2 flex flex-wrap gap-x-4 text-[13px] text-[#d5dae2]">
+      <div className="relative overflow-hidden bg-d-deep text-white">
+        <Image src="/images/demo/photos/w-hero.webp" alt="Silbernes Fahrzeug in der dunklen Ausstellungshalle des Autohauses" fill priority sizes="100vw" className="object-cover object-[center_60%] opacity-45" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(14,27,29,0.96)_10%,rgba(14,27,29,0.45)_100%)]" aria-hidden />
+        <div className="absolute inset-x-0 top-0 h-1 bg-d-accent" aria-hidden />
+        <div className="relative mx-auto flex min-h-[20rem] max-w-6xl flex-col justify-end gap-3 px-4 pt-14 pb-6 @dsm:px-6 @dlg:min-h-[23rem]">
+          <p className="font-plex-mono text-[11px] tracking-[0.28em] text-d-accent uppercase">Werkstatt & Service · Musterstadt</p>
+          <h1 className={cx(H, "max-w-2xl text-[2.15rem] leading-[0.92] text-white uppercase @dsm:text-[2.8rem] @dlg:text-[3.3rem]")}>Werkstatt-Termin in zwei Minuten.</h1>
+          <p className="flex flex-wrap gap-x-4 gap-y-1 text-[13px] text-[#c3d0d3]">
             <span className="inline-flex items-center gap-1.5">
               <MapPin className="size-3.5" aria-hidden /> Industriestraße 40, Musterstadt
             </span>
             <span className="inline-flex items-center gap-1.5">
               <Clock className="size-3.5" aria-hidden /> Annahme Mo – Fr ab 7:30
             </span>
-            <span className="num inline-flex items-center gap-1.5">
+            <span className="inline-flex items-center gap-1.5 font-plex-mono">
               <Phone className="size-3.5" aria-hidden /> 01234 778 900
             </span>
+          </p>
+          <p>
+            <a href="#buchen" className="inline-flex min-h-12 items-center bg-d-accent px-6 text-[14.5px] font-semibold tracking-[0.06em] text-white uppercase hover:brightness-95">Termin buchen</a>
           </p>
         </div>
       </div>
 
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-7 sm:px-6 lg:grid-cols-[minmax(0,1fr)_21rem]">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-7 @dsm:px-6 @dlg:grid-cols-[minmax(0,1fr)_21rem]">
         <div className="space-y-8">
-          <section>
+          <section id="buchen">
             {head("1", "Ihr Fahrzeug")}
-            <div className="mt-3 grid gap-3 sm:grid-cols-[auto_1fr]">
+            <div className="mt-3 grid gap-3 @dsm:grid-cols-[auto_1fr]">
               <Field label="Kennzeichen">
-                <span className="flex items-stretch overflow-hidden rounded-[5px] border-2 border-[#15171c] bg-white focus-within:ring-2 focus-within:ring-d-accent">
-                  <span className="flex w-6 items-end justify-center bg-[#1d4ed8] pb-1 text-[10px] font-medium text-white" aria-hidden>
+                <span className="flex items-stretch overflow-hidden border-2 border-bo-ink bg-white focus-within:ring-2 focus-within:ring-d-accent">
+                  <span className="flex w-6 items-end justify-center bg-[#1d4ed8] pb-1 font-plex-mono text-[10px] font-medium text-white" aria-hidden>
                     D
                   </span>
-                  <input value={plate} onChange={(e) => setPlate(e.target.value.toUpperCase().slice(0, 10))} placeholder="MU AB 123" autoCapitalize="characters" className="min-h-11 w-40 bg-transparent px-2.5 font-plex-mono text-[19px] font-medium tracking-wide text-[#15171c] outline-none placeholder:text-[#b3b8c2]" />
+                  <input value={plate} onChange={(e) => setPlate(e.target.value.toUpperCase().slice(0, 10))} placeholder="MU AB 123" autoCapitalize="characters" className="min-h-11 w-40 bg-transparent px-2.5 font-plex-mono text-[19px] font-medium tracking-wide text-bo-ink outline-none placeholder:text-[#a7b4b9]" />
                 </span>
               </Field>
               <Field label="Modell">
@@ -245,20 +277,20 @@ function BookService({ jobs, onBook }: { jobs: Job[]; onBook: (j: Omit<Job, "no"
 
           <section data-tour="leistungen">
             {head("2", "Was soll gemacht werden?")}
-            <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+            <ul className="mt-3 grid gap-2 @dsm:grid-cols-2">
               {SERVICES.map((s) => {
                 const on = picked.includes(s.id);
                 return (
                   <li key={s.id}>
                     <button type="button" aria-pressed={on} onClick={() => setPicked((p) => (on ? p.filter((x) => x !== s.id) : [...p, s.id]))} className={option(on)}>
-                      <span className={cx("grid size-5 shrink-0 place-items-center border", on ? "border-d-accent bg-d-accent text-white" : "border-[#aab0bb] bg-white")}>{on && <Check className="size-3.5" strokeWidth={3} aria-hidden />}</span>
+                      <span className={cx("grid size-5 shrink-0 place-items-center border", on ? "border-d-accent bg-d-accent text-white" : "border-[#8d9ba0] bg-white")}>{on && <Check className="size-3.5" strokeWidth={3} aria-hidden />}</span>
                       <span className="min-w-0 flex-1 leading-tight">
-                        <span className="block font-semibold text-[#101418]">{s.name}</span>
-                        <span className="block text-[12.5px] text-[#667080]">
+                        <span className="block font-semibold text-d-deep">{s.name}</span>
+                        <span className="block text-[12.5px] text-[#5f7075]">
                           {s.note} · {dur(s.min)}
                         </span>
                       </span>
-                      <span className="num shrink-0 text-[14px] font-medium text-[#101418]">{s.price ? `${s.from ? "ab " : ""}${eur(s.price).replace(",00", "")}` : "kostenlos"}</span>
+                      <span className="num shrink-0 font-plex-mono text-[14px] font-medium text-d-deep">{s.price ? `${s.from ? "ab " : ""}${eur(s.price).replace(",00", "")}` : "kostenlos"}</span>
                     </button>
                   </li>
                 );
@@ -268,16 +300,19 @@ function BookService({ jobs, onBook }: { jobs: Job[]; onBook: (j: Omit<Job, "no"
 
           <section>
             {head("3", "Wie bleiben Sie mobil?")}
-            <div className="mt-3 grid gap-2 sm:grid-cols-3">
-              {MOBILITY.map((m) => (
-                <button key={m.id} type="button" aria-pressed={mob === m.id} onClick={() => setMob(m.id)} className={option(mob === m.id)}>
-                  <span className="leading-tight">
-                    <span className="block font-semibold text-[#101418]">{m.name}</span>
-                    <span className="block text-[12.5px] text-[#667080]">{m.note}</span>
-                    <span className="num mt-0.5 block text-[13px] font-medium text-[#101418]">{m.price ? `+ ${eur0(m.price)}` : "inklusive"}</span>
-                  </span>
-                </button>
-              ))}
+            <div className="mt-3 grid gap-px border border-[#d2dce0] bg-[#d2dce0] @dsm:grid-cols-3">
+              {MOBILITY.map((m) => {
+                const on = mob === m.id;
+                return (
+                  <button key={m.id} type="button" aria-pressed={on} onClick={() => setMob(m.id)} className={cx("min-h-14 px-3 py-2 text-left transition-colors", on ? "bg-d-deep text-white" : "bg-white hover:bg-[#e4eaed]")}>
+                    <span className="leading-tight">
+                      <span className="block font-semibold">{m.name}</span>
+                      <span className={cx("block text-[12.5px]", on ? "text-[#a9bcc0]" : "text-[#5f7075]")}>{m.note}</span>
+                      <span className={cx("num mt-0.5 block font-plex-mono text-[13px] font-medium", on ? "text-white" : "text-d-deep")}>{m.price ? `+ ${eur0(m.price)}` : "inklusive"}</span>
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </section>
 
@@ -295,19 +330,19 @@ function BookService({ jobs, onBook }: { jobs: Job[]; onBook: (j: Omit<Job, "no"
                       setDayIdx(i);
                       setTime(null);
                     }}
-                    className={cx("min-h-14 w-16 shrink-0 border text-center leading-tight", dayIdx === i ? "border-[#101418] bg-[#101418] text-white" : "border-[#d5d9e0] bg-white")}
+                    className={cx("min-h-14 w-16 shrink-0 border text-center leading-tight transition-colors", dayIdx === i ? "border-d-deep bg-d-deep text-white shadow-[inset_0_3px_0_var(--d-accent)]" : "border-[#d2dce0] bg-white hover:border-d-deep")}
                   >
                     <span className="block text-[12px] opacity-75">{weekdayShort(d)}</span>
-                    <span className="num block text-[17px] font-semibold">{d.getDate()}.</span>
+                    <span className="num block font-plex-mono text-[17px] font-semibold">{d.getDate()}.</span>
                   </button>
                 );
               })}
             </div>
-            <div className="mt-2 grid grid-cols-3 gap-1.5 sm:grid-cols-6">
+            <div className="mt-2 grid grid-cols-3 gap-1.5 @dsm:grid-cols-6">
               {times.map((t) => {
                 const full = busy(t);
                 return (
-                  <button key={t} type="button" disabled={full} aria-pressed={time === t} onClick={() => setTime(t)} className={cx("num min-h-11 border text-[14px] font-medium disabled:text-[#a3a9b4] disabled:line-through", time === t ? "border-d-accent bg-d-accent text-white" : "border-[#d5d9e0] bg-white hover:border-[#101418]")}>
+                  <button key={t} type="button" disabled={full} aria-pressed={time === t} onClick={() => setTime(t)} className={cx("num min-h-11 border font-plex-mono text-[14px] font-medium disabled:text-[#9aa8ad] disabled:line-through", time === t ? "border-d-accent bg-d-accent text-white" : "border-[#d2dce0] bg-white hover:border-d-deep")}>
                     {hm(t)}
                   </button>
                 );
@@ -319,7 +354,7 @@ function BookService({ jobs, onBook }: { jobs: Job[]; onBook: (j: Omit<Job, "no"
             {head("5", "Ihre Kontaktdaten")}
             <form
               noValidate
-              className="mt-3 grid gap-3 sm:grid-cols-2"
+              className="mt-3 grid gap-3 @dsm:grid-cols-2"
               onSubmit={(e) => {
                 e.preventDefault();
                 setTried(true);
@@ -334,63 +369,64 @@ function BookService({ jobs, onBook }: { jobs: Job[]; onBook: (j: Omit<Job, "no"
                 <input value={phone} onChange={(e) => setPhone(e.target.value)} type="tel" autoComplete="tel" className={input} placeholder="0151 2345678" />
               </Field>
               {tried && !valid && (
-                <p role="alert" className="text-[13px] text-bo-bad sm:col-span-2">
+                <p role="alert" className="text-[13px] text-bo-bad @dsm:col-span-2">
                   Es fehlt noch etwas: Kennzeichen, mindestens eine Leistung, eine Uhrzeit, Name und Telefon. Erfundene Angaben genügen.
                 </p>
               )}
-              <div className="sm:col-span-2">
-                <button type="submit" className="min-h-12 w-full bg-d-accent px-6 font-semibold text-white hover:brightness-95 sm:w-auto">
+              <div className="@dsm:col-span-2">
+                <button type="submit" className="min-h-12 w-full bg-d-accent px-6 text-[14.5px] font-semibold tracking-[0.06em] text-white uppercase hover:brightness-95 @dsm:w-auto">
                   Termin verbindlich buchen
                 </button>
-                <p className="mt-2 text-[12px] text-[#667080]">Demo: Es wird nichts gebucht oder gespeichert.</p>
+                <p className="mt-2 text-[12px] text-[#5f7075]">Demo: Es wird nichts gebucht oder gespeichert.</p>
               </div>
             </form>
           </section>
         </div>
 
         <aside>
-          <div className="sticky top-[calc(var(--bar-h)+1rem)] border border-[#d5d9e0] bg-white">
+          <div className="sticky top-[calc(var(--bar-h)+1rem)] border border-[#d2dce0] bg-white">
+            <div className="h-1 bg-d-accent" aria-hidden />
             <div className="bg-d-deep px-5 py-4 text-white">
-              <p className="text-[12px] text-[#a7afbb]">Ihr Auftrag</p>
-              <p className="mt-1.5">
+              <p className="font-plex-mono text-[10.5px] tracking-[0.22em] text-[#8fa3a8] uppercase">Ihr Auftrag</p>
+              <p className="mt-2">
                 <Plate value={plateShown} />
               </p>
-              <p className="mt-1.5 text-[14px]">{model}</p>
+              <p className="mt-2 text-[14px]">{model}</p>
             </div>
             <div className="px-5 py-4">
               {chosen.length === 0 ? (
-                <p className="text-[14px] text-[#667080]">Wählen Sie mindestens eine Leistung.</p>
+                <p className="text-[14px] text-[#5f7075]">Wählen Sie mindestens eine Leistung.</p>
               ) : (
                 <ul className="space-y-2 text-[14px]">
                   {chosen.map((s) => (
                     <li key={s.id} className="flex justify-between gap-3">
                       <span>{s.name}</span>
-                      <span className="num text-[#667080]">{s.price ? eur(s.price) : "0,00 €"}</span>
+                      <span className="num font-plex-mono text-[#5f7075]">{s.price ? eur(s.price) : "0,00 €"}</span>
                     </li>
                   ))}
                   {mobility.price > 0 && (
                     <li className="flex justify-between gap-3">
                       <span>{mobility.name}</span>
-                      <span className="num text-[#667080]">{eur(mobility.price)}</span>
+                      <span className="num font-plex-mono text-[#5f7075]">{eur(mobility.price)}</span>
                     </li>
                   )}
                 </ul>
               )}
-              <dl className="num mt-4 space-y-1.5 border-t border-[#e3e6eb] pt-3 text-[14px]">
+              <dl className="num mt-4 space-y-1.5 border-t border-[#dde5e8] pt-3 font-plex-mono text-[14px]">
                 <div className="flex justify-between">
-                  <dt className="text-[#667080]">Arbeitszeit</dt>
+                  <dt className="text-[#5f7075]">Arbeitszeit</dt>
                   <dd>{min ? `ca. ${dur(min)}` : "–"}</dd>
                 </div>
                 <div className="flex justify-between">
-                  <dt className="text-[#667080]">Annahme</dt>
+                  <dt className="text-[#5f7075]">Annahme</dt>
                   <dd>{time !== null ? `${fmtDay(workday(dayIdx))}, ${hm(time)}` : "noch offen"}</dd>
                 </div>
-                <div className="flex justify-between pt-2 text-[17px] font-semibold text-[#101418]">
+                <div className="flex justify-between border-t border-[#dde5e8] pt-2 text-[17px] font-semibold text-d-deep">
                   <dt>Richtpreis</dt>
                   <dd>{eur(price)}</dd>
                 </div>
               </dl>
-              <p className="mt-3 text-[12px] leading-snug text-[#667080]">Inklusive Mehrwertsteuer. Mehr wird es nur, wenn Sie eine Zusatzarbeit ausdrücklich freigeben.</p>
+              <p className="mt-3 text-[12px] leading-snug text-[#5f7075]">Inklusive Mehrwertsteuer. Mehr wird es nur, wenn Sie eine Zusatzarbeit ausdrücklich freigeben.</p>
             </div>
           </div>
         </aside>
@@ -416,78 +452,80 @@ function MyCar({ job, onPatch }: { job: Job; onPatch: (no: string, c: Partial<Jo
     toast(state === "frei" ? "Freigegeben. Die Werkstatt sieht die Freigabe jetzt im Auftrag – mit Uhrzeit." : "Abgelehnt. Die Werkstatt vermerkt das im Bericht.");
   };
   return (
-    <div className="mx-auto grid max-w-6xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[minmax(0,1fr)_21rem]">
+    <div className="mx-auto grid max-w-6xl gap-6 px-4 py-8 @dsm:px-6 @dlg:grid-cols-[minmax(0,1fr)_21rem]">
       <div className="space-y-5">
         <div>
-          <p className="text-[13px] text-[#667080]">Guten Tag, Frau Hartmann</p>
+          <p className="text-[13px] text-[#5f7075]">Guten Tag, Frau Hartmann</p>
           <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-2">
             <Plate value={job.plate} size="lg" />
             <div>
-              <h1 className={cx(H, "text-[1.6rem] leading-none text-[#101418]")}>{job.car}</h1>
-              <p className="num mt-1 text-[13px] text-[#667080]">
-                68.420 km · Auftrag <span className="font-plex-mono">{job.no}</span>
-              </p>
+              <h1 className={cx(H, "text-[1.6rem] leading-none uppercase text-d-deep")}>{job.car}</h1>
+              <p className="num mt-1 font-plex-mono text-[13px] text-[#5f7075]">68.420 km · Auftrag {job.no}</p>
             </div>
           </div>
         </div>
 
-        <section data-tour="status" className="border border-[#d5d9e0] bg-white p-5">
-          <h2 className="text-[12px] font-semibold tracking-[0.12em] text-[#667080] uppercase">Stand Ihres Fahrzeugs</h2>
-          <p className={cx(H, "mt-1 text-[1.5rem] text-[#101418]")}>{job.step >= 4 ? "Abholbereit – wir freuen uns auf Sie." : job.step === 3 ? "In der Endkontrolle." : "In Arbeit auf Bühne 2."}</p>
-          <p className="num mt-0.5 text-[14px] text-[#667080]">Voraussichtlich fertig um {hm(job.start + job.min + 20)} Uhr</p>
-          <Track steps={[...STEPS]} current={Math.min(job.step, 4)} className="mt-5" />
-          <ol className="mt-5 space-y-1.5 border-t border-[#e3e6eb] pt-4 text-[14px]">
+        <section data-tour="status" className="border border-[#d2dce0] bg-white p-5">
+          <h2 className="font-plex-mono text-[11px] font-semibold tracking-[0.22em] text-[#5f7075] uppercase">Stand Ihres Fahrzeugs</h2>
+          <p className={cx(H, "mt-1 text-[1.5rem] uppercase text-d-deep")}>{job.step >= 4 ? "Abholbereit – wir freuen uns auf Sie." : job.step === 3 ? "In der Endkontrolle." : "In Arbeit auf Bühne 2."}</p>
+          <p className="num mt-0.5 font-plex-mono text-[14px] text-[#5f7075]">Voraussichtlich fertig um {hm(job.start + job.min + 20)} Uhr</p>
+          <StatusRail steps={[...STEPS]} current={Math.min(job.step, 4)} />
+          <ol className="mt-5 space-y-1.5 border-t border-[#dde5e8] pt-4 text-[14px]">
             {log.map((l, i) => (
               <li key={i} className="flex gap-3">
-                <span className="num w-11 shrink-0 font-plex-mono text-[13px] text-[#667080]">{l.t || "jetzt"}</span>
+                <span className="num w-11 shrink-0 font-plex-mono text-[13px] text-d-accent">{l.t || "jetzt"}</span>
                 <span>{l.text}</span>
               </li>
             ))}
           </ol>
         </section>
 
-        <section data-tour="freigabe" className={cx("border bg-white", ex.state === "offen" ? "border-[#c8860a]" : "border-[#d5d9e0]")}>
-          <div className={cx("flex items-center gap-2 px-5 py-2.5 text-[13px] font-semibold", ex.state === "offen" ? "bg-[#fbf0d9] text-bo-warn" : ex.state === "frei" ? "bg-[#e3f3ea] text-bo-ok" : "bg-[#eef0f3] text-[#667080]")}>
+        <section data-tour="freigabe" className={cx("border bg-white", ex.state === "offen" ? "border-d-accent" : "border-[#d2dce0]")}>
+          <div className={cx("flex items-center gap-2 px-5 py-2.5 text-[13px] font-semibold", ex.state === "offen" ? "bg-d-accent text-white" : ex.state === "frei" ? "bg-d-deep text-white" : "bg-[#e4eaed] text-[#5f7075]")}>
             {ex.state === "offen" ? <TriangleAlert className="size-4" aria-hidden /> : <Check className="size-4" aria-hidden />}
             {ex.state === "offen" ? "Ihre Freigabe wird benötigt" : ex.state === "frei" ? `Freigegeben um ${ex.at} Uhr` : `Abgelehnt um ${ex.at} Uhr`}
           </div>
-          <div className="grid gap-5 p-5 sm:grid-cols-[1fr_auto]">
+          <div className="grid gap-5 p-5 @dsm:grid-cols-[minmax(0,1fr)_auto]">
             <div>
-              <h3 className="text-[17px] font-semibold text-[#101418]">{ex.text}</h3>
+              <div className="relative mb-4 aspect-[3/2] w-full max-w-sm overflow-hidden border border-[#d2dce0]">
+                <Image src="/images/demo/photos/w-mech1.webp" alt="Mechaniker am offenen Motorraum – der Befund entsteht direkt am Fahrzeug" fill sizes="(min-width: 40rem) 24rem, 100vw" className="object-cover object-[center_55%]" />
+                <span className="absolute bottom-0 left-0 bg-d-deep px-2 py-1 font-plex-mono text-[10px] tracking-[0.18em] text-white uppercase">Befundfoto · Bühne 2</span>
+              </div>
+              <h3 className="text-[17px] font-semibold text-d-deep">{ex.text}</h3>
               <p className="mt-1 text-[14px] leading-relaxed">Bei der Inspektion gemessen: 2 mm Restbelag vorn. Unter 3 mm verlängert sich der Bremsweg spürbar, die Beläge sollten jetzt getauscht werden.</p>
               {/* Messwert als Skala: Neuzustand 12 mm, Grenze 3 mm, gemessen 2 mm */}
               <div className="mt-4 max-w-sm" role="img" aria-label="Belagstärke: gemessen 2 Millimeter, Verschleißgrenze 3 Millimeter, Neuzustand 12 Millimeter">
-                <div className="relative h-3 rounded-full bg-[linear-gradient(to_right,#b3261e_0_25%,#e9ecef_25%_100%)]">
-                  <span className="absolute -top-1 h-5 w-1 rounded-full bg-[#101418]" style={{ left: "16.6%" }} />
+                <div className="relative h-3 bg-[linear-gradient(to_right,var(--d-accent)_0_25%,#e3e9ec_25%_100%)]">
+                  <span className="absolute -top-1 h-5 w-1 bg-d-deep" style={{ left: "16.6%" }} />
                 </div>
-                <div className="num mt-1.5 flex justify-between text-[11.5px] text-[#667080]">
-                  <span className="font-semibold text-bo-bad">Ist: 2 mm</span>
+                <div className="num mt-1.5 flex justify-between font-plex-mono text-[11.5px] text-[#5f7075]">
+                  <span className="font-semibold text-d-accent">Ist: 2 mm</span>
                   <span>Grenze 3 mm</span>
                   <span>Neu: 12 mm</span>
                 </div>
               </div>
             </div>
-            <div className="sm:text-right">
-              <p className="num font-d-display text-[2rem] leading-none font-extrabold text-[#101418] [font-stretch:88%]">{eur(ex.price)}</p>
-              <p className="mt-1 text-[12.5px] text-[#667080]">Material und Einbau, inkl. MwSt.</p>
-              <p className="text-[12.5px] text-[#667080]">+ 45 Min. Arbeitszeit</p>
+            <div className="@dsm:text-right">
+              <p className="num font-plex-mono text-[2rem] leading-none font-semibold text-d-deep">{eur(ex.price)}</p>
+              <p className="mt-1 text-[12.5px] text-[#5f7075]">Material und Einbau, inkl. MwSt.</p>
+              <p className="text-[12.5px] text-[#5f7075]">+ 45 Min. Arbeitszeit</p>
             </div>
           </div>
           {ex.state === "offen" && (
-            <div className="flex flex-wrap gap-2 border-t border-[#e3e6eb] px-5 py-3">
-              <button type="button" onClick={() => decide("frei")} className="min-h-12 flex-1 bg-d-accent px-5 font-semibold text-white hover:brightness-95">
-                Jetzt freigeben
+            <div className="flex flex-wrap gap-2 border-t border-[#dde5e8] px-5 py-3">
+              <button type="button" onClick={() => decide("frei")} className="min-h-12 flex-1 bg-d-accent px-5 text-[14.5px] font-semibold tracking-[0.06em] text-white uppercase hover:brightness-95">
+                Freigeben
               </button>
-              <button type="button" onClick={() => decide("abgelehnt")} className="min-h-12 border border-[#c3c9d3] px-4 font-medium">
-                Nicht jetzt
+              <button type="button" onClick={() => decide("abgelehnt")} className="min-h-12 border border-d-deep px-5 font-semibold text-d-deep hover:bg-[#e4eaed]">
+                Ablehnen
               </button>
-              <button type="button" onClick={() => toast("Rückruf notiert – die Annahme meldet sich in den nächsten Minuten.")} className="min-h-12 border border-[#c3c9d3] px-4 font-medium">
+              <button type="button" onClick={() => toast("Rückruf notiert – die Annahme meldet sich in den nächsten Minuten.")} className="min-h-12 border border-[#b9c6cb] px-4 font-medium hover:border-d-deep">
                 Bitte anrufen
               </button>
             </div>
           )}
           {ex.state !== "offen" && (
-            <div className="border-t border-[#e3e6eb] bg-d-soft px-5 py-3 text-[13.5px]">
+            <div className="border-t border-[#dde5e8] bg-d-soft px-5 py-3 text-[13.5px] shadow-[inset_4px_0_0_var(--d-accent)]">
               <strong className="font-semibold">So sieht es die Werkstatt:</strong> Ihre Entscheidung steht jetzt im Auftrag.{" "}
               <button type="button" onClick={() => go("betrieb", "auftraege")} className="font-semibold text-d-accent underline underline-offset-2">
                 Im Dashboard ansehen
@@ -498,9 +536,9 @@ function MyCar({ job, onPatch }: { job: Job; onPatch: (no: string, c: Partial<Jo
       </div>
 
       <aside className="space-y-4">
-        <div className="border border-[#d5d9e0] bg-white p-5">
-          <h2 className="text-[12px] font-semibold tracking-[0.12em] text-[#667080] uppercase">Kosten</h2>
-          <ul className="num mt-3 space-y-2 text-[14px]">
+        <div className="border border-[#d2dce0] bg-white p-5">
+          <h2 className="font-plex-mono text-[11px] font-semibold tracking-[0.22em] text-[#5f7075] uppercase">Kosten</h2>
+          <ul className="num mt-3 space-y-2 font-plex-mono text-[14px]">
             <li className="flex justify-between">
               <span>Inspektion</span>
               <span>289,00 €</span>
@@ -509,37 +547,37 @@ function MyCar({ job, onPatch }: { job: Job; onPatch: (no: string, c: Partial<Jo
               <span>Ölwechsel mit Filter</span>
               <span>119,00 €</span>
             </li>
-            <li className={cx("flex justify-between", ex.state !== "frei" && "text-[#98a0ac]")}>
+            <li className={cx("flex justify-between", ex.state !== "frei" && "text-[#9aa8ad]")}>
               <span>
                 Bremsbeläge vorn{ex.state === "offen" && " (offen)"}
                 {ex.state === "abgelehnt" && " (abgelehnt)"}
               </span>
               <span className={ex.state === "abgelehnt" ? "line-through" : ""}>{eur(ex.price)}</span>
             </li>
-            <li className="flex justify-between border-t border-[#e3e6eb] pt-2 text-[16px] font-semibold text-[#101418]">
+            <li className="flex justify-between border-t border-[#dde5e8] pt-2 text-[16px] font-semibold text-d-deep">
               <span>Gesamt</span>
               <span>{eur(total)}</span>
             </li>
           </ul>
-          <p className="mt-3 text-[12px] text-[#667080]">Zahlung bei Abholung oder vorab online.</p>
+          <p className="mt-3 text-[12px] text-[#5f7075]">Zahlung bei Abholung oder vorab online.</p>
         </div>
-        <div className="border border-[#d5d9e0] bg-white p-5 text-[14px]">
-          <h2 className="text-[12px] font-semibold tracking-[0.12em] text-[#667080] uppercase">Fahrzeugakte</h2>
+        <div className="border border-[#d2dce0] bg-white p-5 text-[14px]">
+          <h2 className="font-plex-mono text-[11px] font-semibold tracking-[0.22em] text-[#5f7075] uppercase">Fahrzeugakte</h2>
           <dl className="mt-3 space-y-2">
             <div className="flex justify-between gap-3">
-              <dt className="text-[#667080]">Nächste HU</dt>
-              <dd className="num">März 2027</dd>
+              <dt className="text-[#5f7075]">Nächste HU</dt>
+              <dd className="num font-plex-mono">März 2027</dd>
             </div>
             <div className="flex justify-between gap-3">
-              <dt className="text-[#667080]">Winterräder</dt>
+              <dt className="text-[#5f7075]">Winterräder</dt>
               <dd>eingelagert · Regal B-14</dd>
             </div>
             <div className="flex justify-between gap-3">
-              <dt className="text-[#667080]">Letzter Service</dt>
-              <dd className="num">vor 11 Monaten</dd>
+              <dt className="text-[#5f7075]">Letzter Service</dt>
+              <dd className="num font-plex-mono">vor 11 Monaten</dd>
             </div>
             <div className="flex justify-between gap-3">
-              <dt className="text-[#667080]">Ihr Berater</dt>
+              <dt className="text-[#5f7075]">Ihr Berater</dt>
               <dd>Kemal Demir</dd>
             </div>
           </dl>
@@ -656,7 +694,7 @@ function Plan({ jobs }: { jobs: Job[] }) {
           {[0, 1, 2, 3, 4, 5].map((i) => (
             <Btn key={i} size="sm" variant={dayIdx === i ? "dark" : "quiet"} aria-pressed={dayIdx === i} onClick={() => setDayIdx(i)}>
               {i === 0 ? "Heute" : weekdayShort(workday(i))}
-              {jobs.some((j) => j.own && j.day === i) && <span className="size-1.5 rounded-full bg-d-accent" aria-label="neue Online-Buchung" />}
+              {jobs.some((j) => j.own && j.day === i) && <span className="size-1.5 rounded-[var(--bo-rc)] bg-d-accent" aria-label="neue Online-Buchung" />}
             </Btn>
           ))}
         </div>
@@ -679,13 +717,13 @@ function Plan({ jobs }: { jobs: Job[] }) {
               <div className="flex items-center gap-2 px-4 text-[13px] font-medium text-bo-ink">
                 <Wrench className="size-3.5 text-bo-muted" strokeWidth={1.75} aria-hidden /> {b}
               </div>
-              <div className="relative h-[4.5rem] border-l border-bo-line" style={{ backgroundImage: "linear-gradient(to right, #e6e8ec 1px, transparent 1px)", backgroundSize: `${(60 / span) * 100}% 100%` }}>
+              <div className="relative h-[4.5rem] border-l border-bo-line" style={{ backgroundImage: "linear-gradient(to right, var(--color-bo-line) 1px, transparent 1px)", backgroundSize: `${(60 / span) * 100}% 100%` }}>
                 {list
                   .filter((j) => j.bay === bi)
                   .map((j) => (
                     <div
                       key={j.no}
-                      className={cx("absolute inset-y-1.5 overflow-hidden rounded border-l-[3px] px-2 py-1 leading-tight", j.own ? "animate-demo-flash border-l-d-accent bg-d-soft ring-1 ring-d-accent" : j.step >= 4 ? "border-l-bo-ok bg-[#e3f3ea]" : j.step >= 0 ? "border-l-[#c8860a] bg-[#fbf0d9]" : "border-l-[#8a93a3] bg-[#eef0f3]")}
+                      className={cx("absolute inset-y-1.5 overflow-hidden rounded-[var(--bo-r)] border-l-[3px] px-2 py-1 leading-tight", j.own ? "animate-demo-flash border-l-d-accent bg-d-soft ring-1 ring-d-accent" : j.step >= 4 ? "border-l-bo-ok bg-[#e3f3ea]" : j.step >= 0 ? "border-l-[#c8860a] bg-[#fbf0d9]" : "border-l-bo-muted bg-bo-bg")}
                       style={{ left: `${((j.start - DAY_START) / span) * 100}%`, width: `${(Math.max(j.min, 30) / span) * 100}%` }}
                       title={`${j.plate} · ${j.work}`}
                     >
@@ -702,16 +740,16 @@ function Plan({ jobs }: { jobs: Job[] }) {
       </div>
       <ul className="flex flex-wrap gap-x-4 gap-y-1 border-t border-bo-line px-4 py-2.5 text-[12px] text-bo-muted">
         <li className="inline-flex items-center gap-1.5">
-          <span className="h-3 w-3 rounded-sm border-l-[3px] border-l-[#8a93a3] bg-[#eef0f3]" aria-hidden /> geplant
+          <span className="h-3 w-3 rounded-[var(--bo-r)] border-l-[3px] border-l-bo-muted bg-bo-bg" aria-hidden /> geplant
         </li>
         <li className="inline-flex items-center gap-1.5">
-          <span className="h-3 w-3 rounded-sm border-l-[3px] border-l-[#c8860a] bg-[#fbf0d9]" aria-hidden /> in Arbeit
+          <span className="h-3 w-3 rounded-[var(--bo-r)] border-l-[3px] border-l-[#c8860a] bg-[#fbf0d9]" aria-hidden /> in Arbeit
         </li>
         <li className="inline-flex items-center gap-1.5">
-          <span className="h-3 w-3 rounded-sm border-l-[3px] border-l-bo-ok bg-[#e3f3ea]" aria-hidden /> fertig
+          <span className="h-3 w-3 rounded-[var(--bo-r)] border-l-[3px] border-l-bo-ok bg-[#e3f3ea]" aria-hidden /> fertig
         </li>
         <li className="inline-flex items-center gap-1.5">
-          <span className="h-3 w-3 rounded-sm border-l-[3px] border-l-d-accent bg-d-soft" aria-hidden /> gerade online gebucht
+          <span className="h-3 w-3 rounded-[var(--bo-r)] border-l-[3px] border-l-d-accent bg-d-soft" aria-hidden /> gerade online gebucht
         </li>
       </ul>
     </Panel>
@@ -797,7 +835,7 @@ function Numbers({ jobs }: { jobs: Job[] }) {
           { label: "Antwort auf Freigaben", value: "11 Min.", note: "im Schnitt, per Handy" },
         ]}
       />
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid gap-4 @dlg:grid-cols-2">
         <Panel title="Umsatz nach Leistung" aside="laufender Monat">
           <Ranks
             data={[
