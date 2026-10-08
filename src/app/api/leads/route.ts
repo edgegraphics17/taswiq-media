@@ -9,6 +9,7 @@ import { bracketForRange } from "@/config/funnel";
 import { insertLead } from "@/lib/db";
 import { isBackendConfigured } from "@/lib/env";
 import { forwardToN8n, hashIp } from "@/lib/webhook";
+import { sendLeadMails } from "@/lib/mail";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
@@ -22,7 +23,8 @@ export const runtime = "nodejs";
  *  3. Rechner-Leads: Kalkulation serverseitig neu berechnen → Budget-Stufe ableiten
  *  4. Scoring serverseitig (Client-Werte werden ignoriert)
  *  5. Im Backend (Sprite) speichern (Source of Truth) + Kalkulation verknüpfen
- *  6. n8n-Webhook (Slack/Discord, Mail je Branche & Tier, Follow-up)
+ *  6. E-Mails über Resend (Benachrichtigung an uns, Bestätigung an den Lead)
+ *  7. n8n-Webhook (Slack/Discord, Follow-up) – optional
  */
 export async function POST(req: NextRequest) {
   const ip = clientIp(req.headers);
@@ -134,33 +136,37 @@ export async function POST(req: NextRequest) {
   }
 
   // Flacher, sprechender Payload – n8n arbeitet ohne Mapping (Schema: docs/ARCHITECTURE.md)
-  await forwardToN8n("lead.created", {
-    lead: {
-      id: leadId,
-      createdAt: now,
-      name: data.name,
-      firstName: data.name.split(" ")[0],
-      email: data.email,
-      phone: data.phone || null,
-      company: data.company || null,
-      message: data.message || null,
-      source: data.source,
-      industry: data.industry,
-      interests: data.interests,
-      projectStatus: data.projectStatus ?? null,
-      budget,
-      estimate,
-      paymentModel,
-      rentEstimate,
-      calculatorSummary,
-      calculatorSummaryLocalized,
-      locale: data.locale,
-      score,
-      scoreReasons: reasons,
-      tier,
-    },
-    meta: { attribution: data.attribution ?? {}, calculatorRequestId: data.calculator?.requestId ?? null },
-  });
+  const lead = {
+    id: leadId,
+    createdAt: now,
+    name: data.name,
+    firstName: data.name.split(" ")[0],
+    email: data.email,
+    phone: data.phone || null,
+    company: data.company || null,
+    message: data.message || null,
+    source: data.source,
+    industry: data.industry,
+    interests: data.interests,
+    projectStatus: data.projectStatus ?? null,
+    budget,
+    estimate,
+    paymentModel,
+    rentEstimate,
+    calculatorSummary,
+    calculatorSummaryLocalized,
+    locale: data.locale,
+    score,
+    scoreReasons: reasons,
+    tier,
+  };
+  await Promise.all([
+    sendLeadMails(lead),
+    forwardToN8n("lead.created", {
+      lead,
+      meta: { attribution: data.attribution ?? {}, calculatorRequestId: data.calculator?.requestId ?? null },
+    }),
+  ]);
 
   return NextResponse.json({ ok: true, leadId, tier, score });
 }

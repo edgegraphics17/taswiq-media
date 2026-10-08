@@ -40,7 +40,7 @@ Taswiq Media./
    │  │  ├─ (dash)/              ← Leads, Lead-Detail, Kalkulationen, Preis-Editor
    │  │  ├─ login/, auth/callback/
    │  │  └─ actions.ts           ← Server Actions (Status, Notizen, Preise, Login)
-   │  ├─ api/leads/route.ts      ← Phase 3 – Funnel/Rechner → Backend → n8n
+   │  ├─ api/leads/route.ts      ← Phase 3 – Funnel/Rechner → Backend → Mails (Resend) → n8n
    │  ├─ api/calculator/route.ts ← Phase 2 – Kalkulation protokollieren
    │  ├─ robots.ts, sitemap.ts, llms.txt/, opengraph-image.tsx
    ├─ config/                    ← Struktur & Preise (IDs, Icons, Medien) – Texte in messages/
@@ -56,6 +56,7 @@ Taswiq Media./
    │  ├─ lead-scoring.ts         ← Score + Tier
    │  ├─ validation.ts           ← Zod-Schemas (Client-Inline + Server)
    │  ├─ webhook.ts              ← n8n-Forwarding (Secret + HMAC, 4-s-Timeout)
+   │  ├─ mail.ts                 ← Resend: Benachrichtigung an uns + Bestätigung an den Lead (de/en, 4-s-Timeout)
    │  ├─ seo.ts                  ← Metadata-Helfer + JSON-LD
    │  ├─ db.ts                   ← einzige Naht zum Backend (Token, Timeout, Retry)
    │  ├─ session.ts              ← signiertes Admin-Cookie (Web Crypto, Edge-tauglich)
@@ -297,5 +298,7 @@ Seiten: **Leads** (KPIs, Pipeline nach Status, Filter per URL, Tabelle mit Score
 3. n8n: Workflow importieren, Credentials (Header-Auth `x-taswiq-secret`, Header-Auth `x-taswiq-token` = Backend, SMTP, Discord) verbinden, aktivieren;
    zusätzlich einen Webhook-Flow für `admin.login` ({email, link} → Mail) anlegen
 4. `.env` aus `.env.example` befüllen (Vercel: Project → Environment Variables): `TASWIQ_API_URL`, `TASWIQ_API_TOKEN`, `SESSION_SECRET`, `ADMIN_EMAILS`
+   · E-Mail: Domain `taswiq-media.de` bei Resend bestätigen (DNS-Einträge beim Domain-Anbieter), `RESEND_API_KEY` in Vercel hinterlegen
+     (optional `MAIL_FROM`, `LEAD_NOTIFY_TO`) – ohne Key speichert die Seite Anfragen, verschickt aber nichts
 5. `site.ts`: Domain, Adresse, Social-Profile · Impressum & Datenschutz final prüfen lassen
 6. Freigaben: Nennung der Referenzkunden/Artists und Nutzung der SPOTS-Filme (Endcards „Spots KL“ sind herausgeschnitten)
