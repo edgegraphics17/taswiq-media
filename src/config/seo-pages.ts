@@ -116,7 +116,7 @@ export const seoPages: SeoPage[] = [
     highlightPackage: "system",
     featureIcons: ["calendar", "users", "message", "card", "star", "chart"],
     portfolio: ["omed", "klarvoran", "daron"],
-    blog: ["buchungssystem-friseur-ohne-provision", "was-kostet-eine-website"],
+    blog: ["treatwell-alternative", "buchungssystem-friseur-ohne-provision", "was-kostet-eine-website"],
     hero: { image: "/images/portfolio/site-omed.jpg", frame: "browser", url: "omed-friseursalon.vercel.app" },
     spotlight: { image: "/images/portfolio/mobile-omed.jpg", href: "/portfolio" },
   },
@@ -131,7 +131,7 @@ export const seoPages: SeoPage[] = [
     highlightPackage: "custom",
     featureIcons: ["file", "calendar", "smartphone", "camera", "card", "chart"],
     portfolio: ["taswiq-system", "antragsbruder", "omed"],
-    blog: ["software-fuer-handwerker-und-dienstleister", "unternehmens-dashboard-kennzahlen"],
+    blog: ["handwerkersoftware-kleinbetriebe", "software-fuer-handwerker-und-dienstleister", "unternehmens-dashboard-kennzahlen"],
     hero: { image: "/images/portfolio/site-antragsbruder.jpg", frame: "mock" },
   },
 
@@ -147,7 +147,7 @@ export const seoPages: SeoPage[] = [
     highlightPackage: "custom",
     featureIcons: ["search", "frame", "code", "plug", "shield", "refresh"],
     portfolio: ["antragsbruder", "daron", "taswiq-system"],
-    blog: ["individualsoftware-mittelstand-kosten", "software-mit-ki-entwickeln"],
+    blog: ["individualsoftware-vs-standardsoftware", "software-entwickeln-lassen-kosten", "individualsoftware-mittelstand-kosten", "software-mit-ki-entwickeln"],
     hero: { image: "/images/portfolio/site-antragsbruder.jpg", frame: "browser", url: "antragsbruder.de" },
   },
   {
@@ -175,7 +175,7 @@ export const seoPages: SeoPage[] = [
     highlightPackage: "system",
     featureIcons: ["calendar", "shield", "message", "card", "users", "chart"],
     portfolio: ["omed", "klarvoran", "daron"],
-    blog: ["buchungssystem-friseur-ohne-provision", "digitalisierung-autohaus-fahrschule"],
+    blog: ["treatwell-alternative", "buchungssystem-physiotherapie", "buchungssystem-friseur-ohne-provision", "digitalisierung-autohaus-fahrschule"],
     hero: { image: "/images/portfolio/site-omed.jpg", frame: "browser", url: "omed-friseursalon.vercel.app" },
   },
   {
@@ -189,7 +189,7 @@ export const seoPages: SeoPage[] = [
     highlightPackage: "custom",
     featureIcons: ["lock", "file", "smartphone", "languages", "plug", "zap"],
     portfolio: ["antragsbruder", "daron", "omed"],
-    blog: ["web-app-oder-native-app", "mandantenportal-steuerberater"],
+    blog: ["software-entwickeln-lassen-kosten", "web-app-oder-native-app", "mandantenportal-steuerberater"],
     hero: { image: "/images/portfolio/site-antragsbruder.jpg", frame: "browser", url: "antragsbruder.de" },
   },
   {
@@ -231,7 +231,7 @@ export const seoPages: SeoPage[] = [
     highlightPackage: "website",
     featureIcons: ["monitor", "search", "sparkles", "zap", "languages", "chart"],
     portfolio: ["klarvoran", "omed", "mipp"],
-    blog: ["was-kostet-eine-website", "saas-abo-oder-eigene-software"],
+    blog: ["website-erstellen-lassen-monatliche-kosten", "was-kostet-eine-website", "saas-abo-oder-eigene-software"],
     hero: { image: "/images/portfolio/site-klarvoran.jpg", frame: "browser", url: "klarvoran.de" },
   },
 

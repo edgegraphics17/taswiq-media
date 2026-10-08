@@ -1,5 +1,11 @@
 import type { BlogCategory, BlogPost } from "./types";
 import { post as bestellsystem } from "./posts/eigenes-bestellsystem-statt-lieferando";
+import { post as physio } from "./posts/buchungssystem-physiotherapie";
+import { post as treatwell } from "./posts/treatwell-alternative";
+import { post as softwareKosten } from "./posts/software-entwickeln-lassen-kosten";
+import { post as individualVsStandard } from "./posts/individualsoftware-vs-standardsoftware";
+import { post as websiteMonatlich } from "./posts/website-erstellen-lassen-monatliche-kosten";
+import { post as handwerkKlein } from "./posts/handwerkersoftware-kleinbetriebe";
 import { post as baeckerei } from "./posts/bestellsystem-baeckerei";
 import { post as qrBestellung } from "./posts/qr-code-bestellsystem";
 import { post as immobilien } from "./posts/software-fuer-makler-und-hausverwaltungen";
@@ -21,6 +27,12 @@ export type { BlogCategory, BlogPost, BlogBlock } from "./types";
 
 /** Reihenfolge = Reihenfolge im Blog-Index (neueste/wichtigste zuerst) */
 export const posts: BlogPost[] = [
+  handwerkKlein,
+  websiteMonatlich,
+  individualVsStandard,
+  softwareKosten,
+  treatwell,
+  physio,
   individual,
   qrBestellung,
   kiTelefon,

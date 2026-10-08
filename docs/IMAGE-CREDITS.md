@@ -10,6 +10,12 @@ Fotos von [Unsplash](https://unsplash.com/license) (freie Lizenz, kommerziell nu
 | public/images/sectors/automotive-3.webp | Markus Winkler | https://images.unsplash.com/photo-1587813369290-091c9d432daf |
 | public/images/sectors/automotive-4.webp | Jimmy Nilsson Masth | https://images.unsplash.com/photo-1645445522156-9ac06bc7a767 |
 | public/images/sectors/automotive-5.webp | Stepan | https://images.unsplash.com/photo-1786450855473-08b82bad59be |
+| public/images/blog/buchungssystem-physiotherapie.webp | yury kirillov | https://images.unsplash.com/photo-1649751361457-01d3a696c7e6 |
+| public/images/blog/treatwell-alternative.webp | Giorgio Trovato | https://images.unsplash.com/photo-1626383120723-2a941488860d |
+| public/images/blog/software-entwickeln-lassen-kosten.webp | Emile Perron | https://images.unsplash.com/photo-1484417894907-623942c8ee29 |
+| public/images/blog/individualsoftware-vs-standardsoftware.webp | Kaleidico | https://images.unsplash.com/photo-1532622785990-d2c36a76f5a6 |
+| public/images/blog/website-erstellen-lassen-monatliche-kosten.webp | Kari Shea | https://images.unsplash.com/photo-1496181133206-80ce9b88a853 |
+| public/images/blog/handwerkersoftware-kleinbetriebe.webp | Barn Images | https://images.unsplash.com/photo-1426927308491-6380b6a9936f |
 | public/images/blog/aftermovie-premium-festivalfilm.webp | Yvette de Wit | https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3 |
 | public/images/blog/bestellsystem-baeckerei.webp | Yeh Xintong | https://images.unsplash.com/photo-1568254183919-78a4f43a2877 |
 | public/images/blog/buchungssystem-friseur-ohne-provision.webp | Benyamin Bohlouli | https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6 |
