@@ -22,6 +22,8 @@ export const env = {
   ipHashSalt: process.env.IP_HASH_SALT ?? "taswiq-dev-salt",
   /** Resend (E-Mail-Versand): Benachrichtigung an uns + Bestätigung an den Lead. Nur serverseitig. */
   resendApiKey: process.env.RESEND_API_KEY ?? "",
+  /** Signing Secret des Resend-Webhooks (/api/webhooks/resend) – ohne Secret wird jeder Aufruf abgelehnt. */
+  resendWebhookSecret: process.env.RESEND_WEBHOOK_SECRET ?? "",
   /** Absender – die Domain muss bei Resend bestätigt sein. */
   mailFrom: process.env.MAIL_FROM ?? "TasWiq Media. <info@taswiq-media.de>",
   /** Offizielles Postfach: bekommt jede Anfrage (kommagetrennt), die erste Adresse ist Antwortadresse der Bestätigung. */

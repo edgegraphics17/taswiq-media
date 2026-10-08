@@ -50,3 +50,6 @@ next-env.d.ts
 /kunden/
 
 /team/tmp/
+
+# E-Mail-Vorschau (npm run mail:preview)
+/mail-preview

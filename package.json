@@ -8,7 +8,10 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "db:seed-sql": "node --no-warnings scripts/generate-seed.ts"
+    "db:seed-sql": "node --no-warnings scripts/generate-seed.ts",
+    "mail:sync": "node scripts/resend.mjs sync",
+    "mail:preview": "node scripts/resend.mjs preview",
+    "mail:send": "node scripts/resend.mjs send"
   },
   "dependencies": {
     "@vercel/speed-insights": "^2.0.0",
