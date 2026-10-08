@@ -217,7 +217,7 @@ export const seoPages: SeoPage[] = [
     highlightPackage: "system",
     featureIcons: ["message", "file", "phone", "workflow", "star", "chart"],
     portfolio: ["reviews", "taswiq-system", "antragsbruder"],
-    blog: ["ki-automatisierung-mittelstand", "software-mit-ki-entwickeln"],
+    blog: ["ki-telefonassistent-kosten", "ki-automatisierung-mittelstand", "software-mit-ki-entwickeln"],
     hero: { image: "/images/portfolio/site-antragsbruder.jpg", frame: "mock" },
   },
   {

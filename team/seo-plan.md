@@ -47,6 +47,7 @@ Arbeitsgrundlage der Abteilung Wachstum. Ziel: 600 passende Besucher und 12 Anfr
 | Web-App / Kundenportal entwickeln lassen | /leistungen/web-app-entwicklung |
 | Dashboard erstellen lassen | /leistungen/dashboard-entwicklung |
 | KI-Automatisierung Unternehmen | /leistungen/ki-automatisierung-unternehmen |
+| KI Telefonassistent Kosten (+ Handwerk, Arztpraxis, Hausverwaltung) | /blog/ki-telefonassistent-kosten |
 | Website erstellen lassen (Kosten) | /leistungen/website-erstellen-lassen |
 
 ## Gefundene Suchanfragen ohne eigene Seite (Lücken → Aufgaben)
@@ -62,7 +63,7 @@ Aus den Google-Vorschlägen vom 08.10.2026, sortiert nach Kaufabsicht und danach
 - Automotive: `werkstatt termin online buchen` · `fahrschul app kosten` · `autohaus software vergleich`
 - Software allgemein: `individualsoftware beispiele` · `individualsoftware vs standardsoftware` · `software entwickeln lassen kosten` ·
   `app entwickeln lassen kosten` · `kundenportal erstellen lassen` · `ki software entwickeln lassen`
-- KI: `ki telefonassistent kosten` (+ arztpraxis, hausverwaltung) · `ki automatisierung für kleine unternehmen`
+- KI: ~~`ki telefonassistent kosten` (+ handwerk, arztpraxis, hausverwaltung)~~ (erledigt 08.10.2026: /blog/ki-telefonassistent-kosten) · `ki automatisierung für kleine unternehmen`
 - Website: `website erstellen lassen monatliche kosten` (passt zur Miete)
 
 ## Noch offen (braucht Karim)

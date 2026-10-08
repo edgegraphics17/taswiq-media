@@ -11,6 +11,7 @@ import { post as kiDev } from "./posts/software-mit-ki-entwickeln";
 import { post as webapp } from "./posts/web-app-oder-native-app";
 import { post as dashboard } from "./posts/unternehmens-dashboard-kennzahlen";
 import { post as kiAuto } from "./posts/ki-automatisierung-mittelstand";
+import { post as kiTelefon } from "./posts/ki-telefonassistent-kosten";
 import { post as website } from "./posts/was-kostet-eine-website";
 import { post as saas } from "./posts/saas-abo-oder-eigene-software";
 import { post as aftermovie } from "./posts/aftermovie-premium-festivalfilm";
@@ -20,6 +21,7 @@ export type { BlogCategory, BlogPost, BlogBlock } from "./types";
 /** Reihenfolge = Reihenfolge im Blog-Index (neueste/wichtigste zuerst) */
 export const posts: BlogPost[] = [
   individual,
+  kiTelefon,
   baeckerei,
   bestellsystem,
   kiDev,
