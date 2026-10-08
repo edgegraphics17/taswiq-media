@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Mail, MessageCircle, Phone } from "lucide-react";
+import { ArrowLeft, CalendarCheck, Mail, MessageCircle, Phone } from "lucide-react";
 import { getLead } from "@/lib/admin/data";
 import { addNote, markLeadTest, updateLead } from "@/app/admin/actions";
 import { BUDGET_LABEL, INDUSTRY_LABEL, SOURCE_LABEL, STATUS_LABEL } from "@/lib/admin/labels";
 import { LEAD_STATUSES, type Json } from "@/types/database";
 import { getTranslations } from "next-intl/server";
 import { formatDateTime, formatNumber } from "@/lib/format";
+import { formatSlot, readAppointment } from "@/lib/appointment";
 import { ScoreBar, StatusPill, TestPill, TierPill } from "@/components/admin/Pills";
 
 const JEV_LEVELS = ["Niedrig", "Mittel", "Hoch", "Sehr hoch"];
@@ -36,6 +37,7 @@ export default async function LeadDetail({
   const leadLocale = (lead.source_meta as { locale?: string } | null)?.locale;
   const calc = (lead.source_meta as { calculatorSummary?: { label: string; wert: string }[] } | null)?.calculatorSummary;
   const jev = readJev(lead.automation);
+  const appointment = readAppointment(lead.automation);
   const wa = lead.phone ? `https://wa.me/${lead.phone.replace(/[^\d]/g, "")}` : null;
 
   return (
@@ -80,6 +82,20 @@ export default async function LeadDetail({
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="space-y-6">
+          {appointment && (
+            <section className="rounded-2xl border border-brand-200 bg-brand-50 p-5">
+              <h2 className="flex items-center gap-2 text-sm font-bold text-ink">
+                <CalendarCheck className="size-4 text-brand-600" aria-hidden /> Terminwunsch
+              </h2>
+              <ul className="mt-2 space-y-1 text-sm font-medium text-ink">
+                {appointment.slots.map((s) => (
+                  <li key={`${s.date}-${s.part}`}>{formatSlot(s)}</li>
+                ))}
+              </ul>
+              <p className="mt-2 text-xs text-muted">Gewünscht am {formatDateTime(appointment.requestedAt)} – bitte einen der Termine bestätigen.</p>
+            </section>
+          )}
+
           <section className="rounded-2xl border border-line bg-white p-5">
             <h2 className="text-sm font-bold text-ink">Anfrage</h2>
             <dl className="mt-3 grid gap-x-6 gap-y-3 text-sm sm:grid-cols-2">

@@ -32,7 +32,7 @@ export function DirectContact({
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState<ServerErrorCode | null>(null);
   const [serverFields, setServerFields] = useState<Record<string, ValidationCode>>();
-  const [done, setDone] = useState<{ tier: LeadTier; name: string; email: string } | null>(null);
+  const [done, setDone] = useState<{ tier: LeadTier; name: string; email: string; leadId: string | null } | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
 
   const submit = async (v: ContactValues) => {
@@ -60,14 +60,14 @@ export function DirectContact({
       return;
     }
     track("generate_lead", { tier: res.tier, source, currency: "EUR" });
-    setDone({ tier: res.tier, name: v.name, email: v.email });
+    setDone({ tier: res.tier, name: v.name, email: v.email, leadId: res.leadId });
     cardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
     <div ref={cardRef} className="card scroll-mt-28 p-5 sm:p-9">
       {done ? (
-        <LeadResult tier={done.tier} name={done.name} email={done.email} industry={industry} onReset={() => setDone(null)} />
+        <LeadResult tier={done.tier} name={done.name} leadId={done.leadId} industry={industry} onReset={() => setDone(null)} />
       ) : (
         <>
           <h3 className="text-2xl font-medium sm:text-[1.7rem]">{title}</h3>

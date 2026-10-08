@@ -48,7 +48,7 @@ export function Calculator({ data: rawData }: { data: PricingData }) {
   const [requestId, setRequestId] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState<ServerErrorCode | null>(null);
-  const [done, setDone] = useState<{ tier: LeadTier; name: string; email: string } | null>(null);
+  const [done, setDone] = useState<{ tier: LeadTier; name: string; email: string; leadId: string | null } | null>(null);
   const [mounted, setMounted] = useState(false);
   const topRef = useRef<HTMLDivElement>(null);
   const loggedState = useRef<string>("");
@@ -174,7 +174,7 @@ export function Calculator({ data: rawData }: { data: PricingData }) {
     setSubmitting(false);
     if (!res.ok) return setServerError(res.error);
     track("rechner_anfrage", { tier: res.tier, modell: renting ? "miete" : "kauf" });
-    setDone({ tier: res.tier, name: v.name, email: v.email });
+    setDone({ tier: res.tier, name: v.name, email: v.email, leadId: res.leadId });
   };
 
   const nextLabel = idx === steps.length - 2 ? tr("showResult") : tc("next");
@@ -369,7 +369,7 @@ export function Calculator({ data: rawData }: { data: PricingData }) {
 
                   <div id="angebot" className="scroll-mt-28 rounded-[2rem] border border-brand-100 bg-brand-50/60 p-5 sm:p-8">
                     {done ? (
-                      <LeadResult tier={done.tier} name={done.name} email={done.email} industry={industry} />
+                      <LeadResult tier={done.tier} name={done.name} leadId={done.leadId} industry={industry} />
                     ) : (
                       <>
                         <h3 className="text-2xl font-medium">{tr("requestTitle")}</h3>

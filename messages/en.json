@@ -2,7 +2,7 @@
   "metadata": {
     "siteTitle": "Custom Software & Web Apps for SMEs | TasWiq Media.",
     "titleTemplate": "%s | TasWiq Media.",
-    "description": "Your own ordering systems, booking systems, client portals, dashboards and websites for small and mid-sized businesses – built with AI in weeks, at a fixed price. Backed by winsym.ai.",
+    "description": "Ordering systems, booking systems, client portals, dashboards and websites for SMEs – built with AI in weeks, at a fixed price. Backed by winsym.ai.",
     "ogTitle": "TasWiq Media. – Own your software, not rent a platform",
     "ogDescription": "Ordering systems, booking systems, portals and dashboards for SMEs – built with AI in weeks. Backed by winsym.ai.",
     "category": "Software Development",
@@ -20,7 +20,7 @@
     ],
     "calculator": {
       "title": "Pricing Calculator: What Does Custom Software Cost?",
-      "description": "Put your project together in two minutes: ordering system, booking system, client portal, dashboard, website or AI workflows. See the cost range instantly – no obligation.",
+      "description": "Put your project together in two minutes: ordering system, booking system, portal, dashboard, website or AI. See the cost range instantly.",
       "keywords": [
         "software cost",
         "ordering system cost",
@@ -659,7 +659,7 @@
     "titleAccent": "browse.",
     "text": "Software demos you can try, films and reels – filter by area and open any project for details, video or the demo.",
     "metaTitle": "Portfolio – Software Demos, Films & Reels",
-    "metaDescription": "Try an ordering system, appointment booking, client portal and field service software as live demos – plus hotel films, food reels and property videos. The TasWiq Media portfolio.",
+    "metaDescription": "Try an ordering system, booking, client portal and field service software as live demos – plus hotel films, food reels and property videos.",
     "keywords": [
       "software agency portfolio",
       "try a software demo",
@@ -1215,6 +1215,11 @@
     "empty": "No articles in this category yet.",
     "back": "All articles",
     "takeaways": "Key takeaways",
+    "earlyCta": {
+      "text": "What would this cost for your business?",
+      "calculator": "Calculate costs",
+      "contact": "Discuss your project"
+    },
     "toc": "Contents",
     "faq": "FAQ",
     "related": "Read next",
@@ -1240,6 +1245,8 @@
     "privacy": "Privacy",
     "partnerNote": "Agency & development in Germany · AI technology by winsym.ai, Kuala Lumpur.",
     "cookieSettings": "Cookie settings",
+    "starterOffer": "Starter offer",
+    "demos": "Software demos",
     "login": "Login"
   },
   "contactBox": {
@@ -8329,12 +8336,26 @@
     },
     "premium": {
       "title": "{name}, let's talk directly.",
-      "text": "We plan projects of this size personally. Pick a slot for a 30-minute strategy call – free and non-binding.",
-      "iframeTitle": "Book an appointment",
-      "loadCalendar": "Load calendar",
-      "calendlyNote": "Loading transfers data to Calendly (USA).",
+      "text": "We plan projects of this size personally – in a 30-minute strategy call, free and non-binding.",
+      "question": "When would a call suit you?",
+      "hint": "Give us two preferred times. We'll confirm one of them by email or phone.",
+      "slot1": "First preferred time",
+      "slot2": "Second preferred time",
+      "optional": "(optional)",
+      "day": "Day",
+      "time": "Time of day",
+      "parts": {
+        "vormittag": "Morning (9 am–12 pm)",
+        "nachmittag": "Afternoon (12–4 pm)",
+        "abend": "Late afternoon (4–7 pm)"
+      },
+      "missing": "Please pick a day for your first preferred time.",
+      "send": "Send preferred times",
+      "privacyNote": "Your preferred times stay with us – no external calendar service.",
+      "savedTitle": "Thanks, {name}! We have your preferred times.",
+      "savedText": "We'll confirm one of them as soon as possible by email or phone.",
       "callNow": "Call now",
-      "noSlot": "No suitable slot? We'll get back to you personally today."
+      "noSlot": "Rather talk right away?"
     }
   },
   "calculator": {

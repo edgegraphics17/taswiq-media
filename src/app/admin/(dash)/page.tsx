@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { ChevronRight, Search } from "lucide-react";
+import { CalendarCheck, ChevronRight, Search } from "lucide-react";
 import { computeKpis, getLeads, real } from "@/lib/admin/data";
 import { BUDGET_LABEL, INDUSTRY_LABEL, SOURCE_LABEL, STATUS_LABEL } from "@/lib/admin/labels";
 import { LEAD_STATUSES } from "@/types/database";
 import { isDemoMode } from "@/lib/env";
 import { formatDateTime, formatEUR, formatNumber } from "@/lib/format";
+import { readAppointment } from "@/lib/appointment";
 import { ScoreBar, StatusPill, TestPill, TierPill } from "@/components/admin/Pills";
 import { LiveRefresh } from "@/components/admin/LiveRefresh";
 
@@ -135,6 +136,11 @@ export default async function LeadsPage({ searchParams }: { searchParams: Promis
                         {l.name}
                       </Link>
                       {l.is_test && <TestPill />}
+                      {readAppointment(l.automation) && (
+                        <span className="inline-flex items-center gap-1 rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-semibold whitespace-nowrap text-brand-600" title="Hat einen Terminwunsch genannt">
+                          <CalendarCheck className="size-3" aria-hidden /> Terminwunsch
+                        </span>
+                      )}
                     </span>
                     <p className="text-xs text-muted">{l.company ?? l.email}</p>
                   </td>

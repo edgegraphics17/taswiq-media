@@ -2,7 +2,7 @@
   "metadata": {
     "siteTitle": "Software, Web-Apps & Systeme für KMU | TasWiq Media.",
     "titleTemplate": "%s | TasWiq Media.",
-    "description": "Eigene Bestellsysteme, Buchungssysteme, Kundenportale, Dashboards und Websites für kleine und mittlere Unternehmen – mit KI in Wochen gebaut, zum Festpreis. Backed by winsym.ai.",
+    "description": "Eigene Bestellsysteme, Buchungssysteme, Kundenportale, Dashboards und Websites für KMU – mit KI in Wochen gebaut, zum Festpreis. Backed by winsym.ai.",
     "ogTitle": "TasWiq Media. – Eigene Software statt fremder Plattformen",
     "ogDescription": "Bestellsysteme, Buchungssysteme, Portale und Dashboards für KMU – mit KI in Wochen gebaut. Backed by winsym.ai.",
     "category": "Software Development",
@@ -20,7 +20,7 @@
     ],
     "calculator": {
       "title": "Preisrechner: Was kostet Software oder eine Website?",
-      "description": "Stell dein Projekt in zwei Minuten zusammen: Bestellsystem, Buchungssystem, Kundenportal, Dashboard, Website oder KI-Workflows. Du siehst sofort den Kostenrahmen – unverbindlich.",
+      "description": "Stell dein Projekt in zwei Minuten zusammen: Bestellsystem, Buchungssystem, Portal, Dashboard, Website oder KI. Du siehst sofort den Kostenrahmen.",
       "keywords": [
         "Software Kosten",
         "Bestellsystem Kosten",
@@ -659,7 +659,7 @@
     "titleAccent": "Durchstöbern.",
     "text": "Software-Demos zum Ausprobieren, Filme und Reels – filtere nach Bereich und öffne jedes Projekt für Details, Video oder Demo.",
     "metaTitle": "Portfolio – Software-Demos, Filme & Reels",
-    "metaDescription": "Bestellsystem, Terminbuchung, Mandantenportal und Handwerker-Software als Demo ausprobieren – dazu Hotel-Filme, Food-Reels und Immobilienvideos. Das Portfolio von TasWiq Media.",
+    "metaDescription": "Bestellsystem, Terminbuchung, Mandantenportal und Handwerker-Software als Demo ausprobieren – dazu Hotel-Filme, Food-Reels und Immobilienvideos.",
     "keywords": [
       "Portfolio Softwareagentur",
       "Software Demo ausprobieren",
@@ -1191,7 +1191,7 @@
     "titleAccent": "die digital wachsen.",
     "text": "Kosten, Abläufe und ehrliche Einschätzungen zu Software, Websites und KI – für Gastronomie, Immobilien, Automotive, Kanzleien, Beauty und Handwerk.",
     "metaTitle": "Ratgeber – Software, Websites & KI für KMU",
-    "metaDescription": "Ratgeber zu Bestellsystem, Buchungssystem, Individualsoftware, Web-Apps, Dashboards, KI-Automatisierung und Website-Kosten – für kleine und mittlere Unternehmen.",
+    "metaDescription": "Ratgeber zu Bestellsystem, Buchungssystem, Individualsoftware, Web-Apps, Dashboards, KI-Automatisierung und Website-Kosten – für kleine Betriebe.",
     "keywords": [
       "Ratgeber Software KMU",
       "Individualsoftware Kosten",
@@ -1215,6 +1215,11 @@
     "empty": "In dieser Kategorie gibt es noch keine Artikel.",
     "back": "Alle Artikel",
     "takeaways": "Das Wichtigste in Kürze",
+    "earlyCta": {
+      "text": "Was würde das für deinen Betrieb kosten?",
+      "calculator": "Kosten berechnen",
+      "contact": "Projekt besprechen"
+    },
     "toc": "Inhalt",
     "faq": "Häufige Fragen",
     "related": "Weiterlesen",
@@ -1240,6 +1245,8 @@
     "privacy": "Datenschutz",
     "partnerNote": "Agentur & Entwicklung in Deutschland · KI-Technologie von winsym.ai aus Kuala Lumpur.",
     "cookieSettings": "Cookie-Einstellungen",
+    "starterOffer": "Einstiegsangebot",
+    "demos": "Software-Demos",
     "login": "Login"
   },
   "contactBox": {
@@ -1413,7 +1420,7 @@
     "gastro": {
       "navLabel": "Software für Gastronomie",
       "keyword": "Software für Gastronomie",
-      "metaTitle": "Software für Gastronomie: Bestellsystem ohne Provision",
+      "metaTitle": "Software für Gastronomie: Bestellsystem für Restaurants",
       "metaDescription": "Eigenes Bestellsystem, Reservierung und Küchen-Board für Restaurants, Lieferdienste, Bäckereien und Imbisse. Ohne Provision, ab 2.900 € oder zur Miete.",
       "keywords": [
         "Software Gastronomie",
@@ -3751,7 +3758,7 @@
     "kanzlei": {
       "navLabel": "Software für Kanzleien & Berater",
       "keyword": "Software für Steuerberater & Kanzleien",
-      "metaTitle": "Mandantenportal für Steuerberater & Kanzleien",
+      "metaTitle": "Mandantenportal für Steuerberater: Software für Kanzleien",
       "metaDescription": "Eigenes Mandantenportal mit Beleg-Upload, Checklisten, Fristen und KI-Belegerkennung – für Steuerberater, Anwälte und Lohnbüros. Mit Kostenrahmen.",
       "keywords": [
         "Mandantenportal Steuerberater",
@@ -4525,7 +4532,7 @@
     "beauty": {
       "navLabel": "Buchungssystem für Friseure & Beauty",
       "keyword": "Buchungssystem für Friseure & Beauty",
-      "metaTitle": "Buchungssystem für Friseur & Beauty ohne Provision",
+      "metaTitle": "Buchungssystem für Friseur & Beauty: Online-Terminbuchung",
       "metaDescription": "Online-Terminbuchung für Friseure, Barber, Kosmetik, Physio und Studios – mit Erinnerung, Anzahlung und Warteliste. Ohne Provision, ab 2.200 €.",
       "keywords": [
         "Buchungssystem Friseur",
@@ -6363,7 +6370,7 @@
     "bestellsystem": {
       "navLabel": "Bestellsystem ohne Provision",
       "keyword": "Bestellsystem ohne Provision",
-      "metaTitle": "Bestellsystem für Restaurants: die Lieferando-Alternative",
+      "metaTitle": "Online-Bestellsystem ohne Provision für die Gastronomie",
       "metaDescription": "Online-Bestellsystem unter deinem Namen: Speisekarte, Warenkorb, Zahlung, Küchen-Display, Liefergebiete. Keine Provision pro Bestellung. Ab 2.900 €.",
       "keywords": [
         "Bestellsystem ohne Provision",
@@ -6635,7 +6642,7 @@
       "navLabel": "Online-Buchungssystem",
       "keyword": "Online-Buchungssystem",
       "metaTitle": "Online-Buchungssystem für Termine, Kurse & Reservierung",
-      "metaDescription": "Online-Terminbuchung unter deinem Namen: Kalender, Mitarbeiter, Erinnerungen, Anzahlung, Doppelbuchungs-Schutz. Für Salons, Praxen, Werkstätten. Ab 2.200 €.",
+      "metaDescription": "Online-Buchungssystem unter deinem Namen: Kalender, Team, Erinnerungen, Anzahlung, keine Doppelbuchungen. Für Salons, Praxen, Werkstätten. Ab 2.200 €.",
       "keywords": [
         "Online Buchungssystem",
         "Terminbuchung Software",
@@ -8330,12 +8337,26 @@
     },
     "premium": {
       "title": "{name}, lass uns direkt sprechen.",
-      "text": "Projekte dieser Größe planen wir persönlich. Such dir einen Termin für ein 30-minütiges Strategiegespräch aus – kostenlos und unverbindlich.",
-      "iframeTitle": "Termin buchen",
-      "loadCalendar": "Kalender laden",
-      "calendlyNote": "Beim Laden werden Daten an Calendly (USA) übertragen.",
+      "text": "Projekte dieser Größe planen wir persönlich – in einem 30-minütigen Strategiegespräch, kostenlos und unverbindlich.",
+      "question": "Wann passt ein Gespräch?",
+      "hint": "Nenn uns zwei Wunschtermine. Wir bestätigen einen davon per E-Mail oder Telefon.",
+      "slot1": "Erster Wunschtermin",
+      "slot2": "Zweiter Wunschtermin",
+      "optional": "(optional)",
+      "day": "Tag",
+      "time": "Tageszeit",
+      "parts": {
+        "vormittag": "Vormittags (9–12 Uhr)",
+        "nachmittag": "Nachmittags (12–16 Uhr)",
+        "abend": "Später Nachmittag (16–19 Uhr)"
+      },
+      "missing": "Bitte wähl einen Tag für den ersten Wunschtermin.",
+      "send": "Terminwunsch senden",
+      "privacyNote": "Dein Terminwunsch bleibt bei uns – kein externer Kalenderdienst.",
+      "savedTitle": "Danke, {name}! Dein Terminwunsch ist da.",
+      "savedText": "Wir bestätigen dir einen der Termine so schnell wie möglich per E-Mail oder Telefon.",
       "callNow": "Jetzt anrufen",
-      "noSlot": "Kein passender Termin? Wir melden uns noch heute persönlich bei dir."
+      "noSlot": "Lieber sofort sprechen?"
     }
   },
   "calculator": {

@@ -1,5 +1,6 @@
 import "server-only";
 import { env, isBackendConfigured } from "@/lib/env";
+import type { Appointment } from "@/lib/appointment";
 import type {
   CalculatorRequest,
   CalculatorRequestInsert,
@@ -108,6 +109,12 @@ export async function setLeadTest(id: string, isTest: boolean, actor: string): P
 
 export async function addLeadNote(leadId: string, body: string, createdBy: string): Promise<void> {
   await call(`/leads/${encodeURIComponent(leadId)}/events`, { method: "POST", body: { type: "note", body, created_by: createdBy } });
+}
+
+/** Terminwunsch des Leads (src/lib/appointment.ts): am Lead ablegen und als Zeile im Verlauf zeigen. */
+export async function setLeadAppointment(leadId: string, appointment: Appointment, note: string): Promise<void> {
+  await call(`/leads/${encodeURIComponent(leadId)}`, { method: "PATCH", body: { automation: { appointment }, actor: "Website" } });
+  await call(`/leads/${encodeURIComponent(leadId)}/events`, { method: "POST", body: { type: "note", body: note, payload: appointment, created_by: "Website" } });
 }
 
 // ─── Rechner ────────────────────────────────────────────────────────

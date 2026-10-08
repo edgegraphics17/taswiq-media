@@ -101,7 +101,7 @@ export function LeadFunnel({
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState<ServerErrorCode | null>(null);
   const [serverFields, setServerFields] = useState<Record<string, ValidationCode>>();
-  const [done, setDone] = useState<{ tier: LeadTier; name: string; email: string } | null>(null);
+  const [done, setDone] = useState<{ tier: LeadTier; name: string; email: string; leadId: string | null } | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const reduced = useReducedMotion();
@@ -160,7 +160,7 @@ export function LeadFunnel({
       return;
     }
     track("generate_lead", { tier: res.tier, source, currency: "EUR" });
-    setDone({ tier: res.tier, name: v.name, email: v.email });
+    setDone({ tier: res.tier, name: v.name, email: v.email, leadId: res.leadId });
     cardRef.current?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
   };
 
@@ -185,7 +185,7 @@ export function LeadFunnel({
   return (
     <div ref={cardRef} className="card relative scroll-mt-28 overflow-hidden p-5 sm:p-9">
       {done ? (
-        <LeadResult tier={done.tier} name={done.name} email={done.email} industry={industry} onReset={reset} />
+        <LeadResult tier={done.tier} name={done.name} leadId={done.leadId} industry={industry} onReset={reset} />
       ) : (
         <>
           {/* Fortschritt als Pillen-Leiste */}

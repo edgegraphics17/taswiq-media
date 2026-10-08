@@ -7,7 +7,7 @@ import type { BudgetBracket, FunnelIndustry, InterestId, LeadSource, LeadTier, P
  *
  *  Tier-Regeln (in dieser Reihenfolge):
  *   1. Budget "Unter 5.000 €"                              → starter  (Einstiegspakete, Prototyp-Sprint)
- *   2. Budget "15.000–40.000 €" oder "Über 40.000 €"       → premium  (direkte Terminbuchung / Calendly)
+ *   2. Budget "15.000–40.000 €" oder "Über 40.000 €"       → premium  (Terminwunsch direkt im Abschluss)
  *   3. Budget 5.000–15.000 € + Termin/dringend/Rechner + Score ≥ 70 → premium
  *   4. alles andere                                        → growth   (Angebot in 24 h)
  */
