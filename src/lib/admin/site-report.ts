@@ -5,7 +5,7 @@ import { getPathStats, listSiteScans, saveSiteScan } from "@/lib/db";
 import { demoAnalytics } from "@/lib/admin/demo";
 import { getLeads, getTasks } from "@/lib/admin/data";
 import { buildReport, snapshotOf, type SiteReport } from "@/lib/admin/site-findings";
-import { getSiteStructure, type SiteStructure } from "@/lib/admin/site-structure";
+import { getSiteStructure, scanSite, type SiteStructure } from "@/lib/admin/site-structure";
 import type { Locale } from "@/i18n/routing";
 import type { PathStats } from "@/types/database";
 
@@ -38,10 +38,10 @@ function demoPaths(): PathStats {
  * Fällt eine Quelle aus (Statistik, Aufgaben, Verlauf), bleibt der Rest nutzbar.
  * Speichert den Stand einmal je Tag fürs „Was hat sich geändert?“.
  */
-export async function getSiteReport(origin: string, locale: Locale): Promise<{ site: SiteStructure; report: SiteReport }> {
+export async function getSiteReport(origin: string, locale: Locale, fresh = false): Promise<{ site: SiteStructure; report: SiteReport }> {
   const demo = isDemoMode();
   const [site, paths, tasks, scans, leads] = await Promise.all([
-    getSiteStructure(origin, locale),
+    fresh ? scanSite(origin, locale) : getSiteStructure(origin, locale),
     demo ? demoPaths() : getPathStats(30).catch(() => null),
     getTasks().catch(() => []),
     demo ? [] : listSiteScans(locale).catch(() => []),

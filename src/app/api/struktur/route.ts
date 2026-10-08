@@ -21,9 +21,11 @@ export async function GET(req: NextRequest) {
 
   const requested = req.nextUrl.searchParams.get("sprache") as Locale;
   const locale = routing.locales.includes(requested) ? requested : routing.defaultLocale;
-  if (req.nextUrl.searchParams.get("neu")) revalidateTag(STRUCTURE_TAG);
+  const fresh = Boolean(req.nextUrl.searchParams.get("neu"));
   try {
-    const { site, report } = await getSiteReport(req.nextUrl.origin, locale);
+    // Frisch eingelesen wird direkt; der gemerkte Stand des Dashboards wird zusätzlich verworfen, damit beide dasselbe zeigen.
+    if (fresh) revalidateTag(STRUCTURE_TAG);
+    const { site, report } = await getSiteReport(req.nextUrl.origin, locale, fresh);
     return NextResponse.json({
       eingelesen: site.scannedAt,
       sprache: locale,

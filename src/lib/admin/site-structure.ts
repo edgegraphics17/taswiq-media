@@ -261,7 +261,8 @@ async function fetchPage(origin: string, path: string): Promise<Fetched> {
 const MAX_PAGES = 250;
 const PARALLEL = 6;
 
-async function scan(origin: string, locale: Locale): Promise<SiteStructure> {
+/** Website jetzt einlesen, ohne den gemerkten Stand zu benutzen */
+export async function scanSite(origin: string, locale: Locale): Promise<SiteStructure> {
   const known = knownPages(locale);
   const home = localize("/", locale);
   const inLocale = (path: string) => {
@@ -429,4 +430,4 @@ async function scan(origin: string, locale: Locale): Promise<SiteStructure> {
 }
 
 /** Eingelesene Struktur – 30 Minuten gemerkt, „Neu einlesen“ im Dashboard verwirft den Stand sofort. */
-export const getSiteStructure = unstable_cache(scan, ["seitenstruktur-v2"], { revalidate: 1800, tags: [STRUCTURE_TAG] });
+export const getSiteStructure = unstable_cache(scanSite, ["seitenstruktur-v2"], { revalidate: 1800, tags: [STRUCTURE_TAG] });
