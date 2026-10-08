@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { hrefFor: () => "/", changeFrequency: "monthly", priority: 1 },
     { hrefFor: () => "/portfolio", changeFrequency: "monthly", priority: 0.9 },
     { hrefFor: () => "/preisrechner", changeFrequency: "monthly", priority: 0.9 },
+    { hrefFor: () => "/einstiegsangebot", changeFrequency: "monthly", priority: 0.9 },
     ...seoPages.map((p) => ({
       hrefFor: (l: Locale) => ({ pathname: "/leistungen/[slug]" as const, params: { slug: p.slugs[l] } }),
       changeFrequency: "monthly" as const,

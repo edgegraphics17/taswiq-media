@@ -9076,5 +9076,237 @@
     "statisticsTitle": "Statistik",
     "statisticsText": "Verbindet deine Seitenaufrufe während dieses Besuchs und merkt sich Herkunft und Kampagne (UTM) im Sitzungsspeicher deines Browsers. Keine Weitergabe an Dritte, kein Profil über mehrere Tage.",
     "dialogLabel": "Cookie-Einstellungen"
+  },
+  "starterOffer": {
+    "metaTitle": "Einstiegsangebot: Bestellsystem zum Festpreis",
+    "metaDescription": "Eigenes Bestellsystem für Bäckereien, Imbisse und Restaurants: fester Umfang, 2.900 € Festpreis oder 269 € im Monat, 3 Monate Testzeit, live in 2–3 Wochen.",
+    "keywords": [
+      "Bestellsystem Festpreis",
+      "Bestellsystem Bäckerei",
+      "Bestellsystem mieten",
+      "Vorbestellung Bäckerei online",
+      "Bestellsystem Imbiss"
+    ],
+    "breadcrumb": "Einstiegsangebot",
+    "hero": {
+      "badge": "Einstiegsangebot für Bäckereien & Gastronomie",
+      "title": "Dein eigenes Bestellsystem.",
+      "accent": "Fester Umfang, fester Preis.",
+      "text": "Deine Gäste bestellen direkt auf deiner Seite – zur Abholung oder Lieferung, ohne Plattform und ohne Provision. Du weißt vor dem Start, was du bekommst und was es kostet.",
+      "primary": "Angebot anfragen",
+      "secondary": "Kurzfassung zum Weitergeben",
+      "imageAlt": "Bestellsystem der Bäckerei Daron Brot II mit Speisekarte und Warenkorb",
+      "refNote": "Live bei Daron Brot II, Aachen",
+      "facts": [
+        {
+          "value": "{price}",
+          "label": "Festpreis, einmalig"
+        },
+        {
+          "value": "{rent}",
+          "label": "im Monat, wenn du mietest"
+        },
+        {
+          "value": "2–3 Wochen",
+          "label": "bis zur ersten Bestellung"
+        }
+      ]
+    },
+    "problem": {
+      "tag": "Das Problem",
+      "title": "Deine Stammgäste kennen dich längst. Trotzdem verdient die Plattform mit.",
+      "text": "Wer jede Woche bei dir bestellt, braucht keine Plattform, um dich zu finden. Trotzdem zahlst du bei jeder dieser Bestellungen Provision – oder nimmst Vorbestellungen am Telefon an, während vorne die Schlange wächst.",
+      "points": [
+        "Provision auf Bestellungen von Gästen, die dich schon kennen",
+        "Vorbestellungen per Telefon und Zettel – mitten im Betrieb",
+        "Die Kundendaten liegen bei der Plattform, nicht bei dir"
+      ],
+      "story": {
+        "label": "Die Lösung",
+        "quote": "Ein Bestellsystem unter deinem Namen – auf deiner Seite, mit deiner Karte.",
+        "text": "Gäste wählen aus deiner Karte, legen in den Warenkorb und bestellen zur Abholung oder Lieferung. Du siehst jede Bestellung im Dashboard und änderst Artikel und Preise selbst."
+      },
+      "note": "Du musst keine Plattform kündigen. Viele Betriebe nutzen beides: die Plattform für neue Gäste, das eigene System für alle, die wiederkommen."
+    },
+    "scope": {
+      "tag": "Fester Umfang",
+      "title": "Das ist drin.",
+      "accent": "Nicht mehr, nicht weniger.",
+      "text": "Das Einstiegsangebot ist das Bestellsystem Start – ein fertiges System mit festem Umfang. Deshalb steht der Preis schon vor dem ersten Gespräch.",
+      "includedTitle": "Im Preis enthalten",
+      "included": [
+        {
+          "title": "Speisekarte mit Varianten & Extras",
+          "text": "Deine Artikel mit Größen, Belägen und Extras – auf dem Handy bestellbar, ohne App und ohne Registrierung."
+        },
+        {
+          "title": "Abholung & Lieferung",
+          "text": "Der Gast wählt, wie er die Bestellung bekommt. Bezahlt wird bei Abholung oder Übergabe."
+        },
+        {
+          "title": "Bestell-Dashboard",
+          "text": "Alle Bestellungen an einem Ort – im Laden auf dem Tablet oder unterwegs auf dem Handy."
+        },
+        {
+          "title": "Artikel & Preise selbst ändern",
+          "text": "Neues Tagesangebot, ausverkauft, neuer Preis: Das änderst du selbst in einer Minute."
+        },
+        {
+          "title": "Einrichtung mit deiner Karte & deinem Logo",
+          "text": "Wir bauen das System mit deinen Artikeln auf. Du klickst dich nach 7 Tagen durch den Prototyp."
+        }
+      ],
+      "laterTitle": "Später jederzeit erweiterbar",
+      "laterText": "Wenn das System läuft und du mehr brauchst, wächst es mit – zu den Preisen der bestehenden Preisliste.",
+      "later": [
+        {
+          "label": "Bestellsystem Pro",
+          "hint": "Online-Zahlung, Küchen-Board, Liefergebiete, Gutscheine",
+          "price": "ab {pro}"
+        },
+        {
+          "label": "WhatsApp-Benachrichtigungen",
+          "hint": "Bestätigungen und Status automatisch",
+          "price": "+ {whatsapp}"
+        },
+        {
+          "label": "Mehrsprachig",
+          "hint": "z. B. Deutsch, Englisch, Arabisch, Türkisch",
+          "price": "+ {mehrsprachig}"
+        },
+        {
+          "label": "Lokales SEO-Paket",
+          "hint": "Gefunden werden bei „… in der Nähe“",
+          "price": "+ {seo}"
+        }
+      ]
+    },
+    "price": {
+      "tag": "Preis",
+      "title": "Zwei Wege.",
+      "accent": "Dasselbe System.",
+      "text": "Einmal zahlen und besitzen – oder monatlich mieten und ohne Anzahlung starten. Du entscheidest nach dem Prototyp.",
+      "buy": {
+        "title": "Kaufen",
+        "lead": "Einmal zahlen, für immer besitzen.",
+        "unit": "einmalig",
+        "points": [
+          "Festpreis für genau diesen Umfang",
+          "Code & Daten gehören dir",
+          "Laufender Betrieb ab {ops} im Monat"
+        ],
+        "cta": "Zum Festpreis anfragen"
+      },
+      "rent": {
+        "title": "Mieten",
+        "badge": "0 € Anzahlung",
+        "lead": "Monatliche Rate statt Einmalpreis.",
+        "unit": "im Monat",
+        "points": [
+          "Hosting, Wartung, Support & Updates inklusive",
+          "{trial} Monate Testzeit – in dieser Zeit monatlich kündbar",
+          "Danach {term} Monate Mindestlaufzeit",
+          "Deine Daten gehören dir – Kauf später möglich"
+        ],
+        "cta": "Zur Miete anfragen"
+      }
+    },
+    "reference": {
+      "tag": "Referenz",
+      "title": "Läuft bereits:",
+      "accent": "Daron Brot II in Aachen.",
+      "note": "Das System bei Daron Brot II hat einen größeren Umfang als das Einstiegsangebot – unter anderem Küchen-Board und drei Sprachen. Es zeigt, wohin dein System wachsen kann.",
+      "visit": "Live ansehen",
+      "opensNewTab": "(öffnet in neuem Tab)"
+    },
+    "timeline": {
+      "tag": "Ablauf",
+      "title": "In 2–3 Wochen",
+      "accent": "zur ersten Bestellung.",
+      "text": "Du investierst insgesamt etwa drei Stunden – den Rest übernehmen wir.",
+      "phases": [
+        {
+          "when": "Tag 1",
+          "title": "Gespräch",
+          "text": "30 Minuten: Wir schauen auf deine Karte und wie heute bestellt wird. Du erfährst ehrlich, ob das Angebot zu dir passt."
+        },
+        {
+          "when": "Tag 7",
+          "title": "Prototyp",
+          "text": "Du klickst dich durch dein Bestellsystem – mit deiner Karte und deinem Logo. Erst danach entscheidest du: kaufen oder mieten."
+        },
+        {
+          "when": "Woche 2",
+          "title": "Einrichtung",
+          "text": "Artikel, Abholzeiten, Lieferung. Du testest selbst und sagst, was noch fehlt."
+        },
+        {
+          "when": "Woche 2–3",
+          "title": "Live",
+          "text": "Start an einem ruhigen Tag, kurze Einweisung für dein Team, QR-Code für Theke und Tüte."
+        }
+      ]
+    },
+    "faq": [
+      {
+        "q": "Was kostet das Einstiegsangebot genau?",
+        "a": "{price} einmalig als Festpreis für den beschriebenen Umfang – oder {rent} im Monat zur Miete, ohne Anzahlung. Beim Kauf kommt der laufende Betrieb ab {ops} im Monat dazu, bei der Miete ist er enthalten. Alle Preise sind Endpreise nach § 19 UStG."
+      },
+      {
+        "q": "Was bedeutet die Testzeit bei der Miete?",
+        "a": "In den ersten {trial} Monaten kannst du monatlich kündigen. Danach läuft die Miete {term} Monate. Deine Daten gehören dir, und du kannst das System später kaufen."
+      },
+      {
+        "q": "Können meine Gäste online bezahlen?",
+        "a": "Im Einstiegsangebot zahlen Gäste bei Abholung oder Übergabe. Online-Zahlung gehört zum Bestellsystem Pro ab {pro} – der Wechsel ist jederzeit möglich."
+      },
+      {
+        "q": "Muss ich meine Plattform kündigen?",
+        "a": "Nein. Die meisten Betriebe fahren zweigleisig: Plattform für neue Gäste, eigenes System für alle, die wiederkommen."
+      },
+      {
+        "q": "Wie viel Zeit kostet mich das?",
+        "a": "Etwa drei Stunden: das erste Gespräch, der Blick auf den Prototyp und eine kurze Einweisung zum Start."
+      },
+      {
+        "q": "Was, wenn ich später mehr brauche?",
+        "a": "Das System wächst mit: Online-Zahlung, Küchen-Board, Liefergebiete, weitere Sprachen oder Filialen lassen sich zu den Preisen der Preisliste ergänzen."
+      }
+    ],
+    "contact": {
+      "title": "Lass uns in 30 Minuten klären,",
+      "accent": "ob es zu dir passt.",
+      "text": "Schreib kurz, was du verkaufst und wie heute bei dir bestellt wird. Wir melden uns innerhalb von 24 Stunden.",
+      "points": [
+        "Antwort innerhalb von 24 Stunden",
+        "Prototyp nach 7 Tagen",
+        "Festpreis {price} oder {rent} im Monat"
+      ],
+      "formTitle": "Kurze Nachricht genügt.",
+      "formText": "Kein Fragebogen, kein Verkaufsgespräch. Zwei Sätze zu deinem Betrieb reichen.",
+      "submit": "Angebot anfragen"
+    },
+    "sheet": {
+      "metaTitle": "Einstiegsangebot Bestellsystem – Kurzfassung",
+      "back": "Zur Angebotsseite",
+      "print": "Als PDF speichern oder drucken",
+      "hint": "Im Druckdialog „Als PDF sichern“ wählen – die Seite passt auf ein A4-Blatt.",
+      "kicker": "Einstiegsangebot · Bäckereien, Imbisse, Restaurants",
+      "title": "Dein eigenes Bestellsystem – fester Umfang, fester Preis.",
+      "lead": "Gäste bestellen direkt auf deiner Seite, zur Abholung oder Lieferung. Ohne Plattform, ohne Provision, mit deinen eigenen Kundendaten.",
+      "scopeTitle": "Das bekommst du",
+      "termsTitle": "Gut zu wissen",
+      "terms": [
+        "Prototyp mit deiner Karte nach 7 Tagen – erst danach entscheidest du",
+        "Live in 2–3 Wochen, dein Zeitaufwand: etwa drei Stunden",
+        "Bezahlung im Einstieg bei Abholung oder Übergabe; Online-Zahlung im Bestellsystem Pro ab {pro}",
+        "Du musst keine Plattform kündigen"
+      ],
+      "referenceTitle": "Referenz",
+      "reference": "Daron Brot II, Aachen – Bestellsystem live im Einsatz (dort mit größerem Umfang).",
+      "nextTitle": "Nächster Schritt",
+      "next": "30 Minuten Gespräch – wir schauen auf deine Karte und sagen ehrlich, ob das Angebot passt.",
+      "more": "Alle Details"
+    }
   }
 }

@@ -9075,5 +9075,237 @@
     "statisticsTitle": "Statistics",
     "statisticsText": "Links your page views during this visit and remembers source and campaign (UTM) in your browser's session storage. Not shared with third parties, no profile across days.",
     "dialogLabel": "Cookie settings"
+  },
+  "starterOffer": {
+    "metaTitle": "Starter offer: ordering system at a fixed price",
+    "metaDescription": "Your own ordering system for bakeries, takeaways and restaurants: fixed scope, €2,900 fixed price or €269 per month, 3-month trial, live in 2–3 weeks.",
+    "keywords": [
+      "ordering system fixed price",
+      "bakery ordering system",
+      "rent ordering system",
+      "bakery pre-order online",
+      "takeaway ordering system"
+    ],
+    "breadcrumb": "Starter offer",
+    "hero": {
+      "badge": "Starter offer for bakeries & restaurants",
+      "title": "Your own ordering system.",
+      "accent": "Fixed scope, fixed price.",
+      "text": "Your guests order directly on your site – for pickup or delivery, with no platform and no commission. You know what you get and what it costs before we start.",
+      "primary": "Request the offer",
+      "secondary": "One-page summary to share",
+      "imageAlt": "Ordering system of the bakery Daron Brot II with menu and cart",
+      "refNote": "Live at Daron Brot II, Aachen",
+      "facts": [
+        {
+          "value": "{price}",
+          "label": "fixed price, one-off"
+        },
+        {
+          "value": "{rent}",
+          "label": "per month if you rent"
+        },
+        {
+          "value": "2–3 weeks",
+          "label": "to the first order"
+        }
+      ]
+    },
+    "problem": {
+      "tag": "The problem",
+      "title": "Your regulars already know you. The platform still takes its cut.",
+      "text": "Someone who orders from you every week does not need a platform to find you. Yet you pay commission on each of those orders – or take pre-orders by phone while the queue grows at the counter.",
+      "points": [
+        "Commission on orders from guests who already know you",
+        "Pre-orders by phone and paper – in the middle of service",
+        "Customer data sits with the platform, not with you"
+      ],
+      "story": {
+        "label": "The solution",
+        "quote": "An ordering system under your name – on your site, with your menu.",
+        "text": "Guests pick from your menu, fill the cart and order for pickup or delivery. You see every order in the dashboard and change items and prices yourself."
+      },
+      "note": "You do not have to leave any platform. Many businesses use both: the platform for new guests, their own system for everyone who comes back."
+    },
+    "scope": {
+      "tag": "Fixed scope",
+      "title": "What is included.",
+      "accent": "No more, no less.",
+      "text": "The starter offer is Ordering System Start – a finished system with a fixed scope. That is why the price is clear before the first call.",
+      "includedTitle": "Included in the price",
+      "included": [
+        {
+          "title": "Menu with variants & extras",
+          "text": "Your items with sizes, toppings and extras – orderable on a phone, with no app and no sign-up."
+        },
+        {
+          "title": "Pickup & delivery",
+          "text": "The guest chooses how to receive the order. Payment happens at pickup or handover."
+        },
+        {
+          "title": "Order dashboard",
+          "text": "All orders in one place – on a tablet in the shop or on your phone on the go."
+        },
+        {
+          "title": "Change items & prices yourself",
+          "text": "New daily special, sold out, new price: you change it yourself in a minute."
+        },
+        {
+          "title": "Setup with your menu & logo",
+          "text": "We build the system with your items. After 7 days you click through the prototype."
+        }
+      ],
+      "laterTitle": "Extend it any time later",
+      "laterText": "Once the system runs and you need more, it grows with you – at the prices of the existing price list.",
+      "later": [
+        {
+          "label": "Ordering System Pro",
+          "hint": "Online payment, kitchen board, delivery zones, vouchers",
+          "price": "from {pro}"
+        },
+        {
+          "label": "WhatsApp notifications",
+          "hint": "Confirmations and status, automatically",
+          "price": "+ {whatsapp}"
+        },
+        {
+          "label": "Multilingual",
+          "hint": "e.g. German, English, Arabic, Turkish",
+          "price": "+ {mehrsprachig}"
+        },
+        {
+          "label": "Local SEO package",
+          "hint": "Get found for “… near me”",
+          "price": "+ {seo}"
+        }
+      ]
+    },
+    "price": {
+      "tag": "Price",
+      "title": "Two ways.",
+      "accent": "The same system.",
+      "text": "Pay once and own it – or rent monthly and start with no down payment. You decide after the prototype.",
+      "buy": {
+        "title": "Buy",
+        "lead": "Pay once, own it for good.",
+        "unit": "one-off",
+        "points": [
+          "Fixed price for exactly this scope",
+          "Code & data belong to you",
+          "Running operation from {ops} per month"
+        ],
+        "cta": "Request at the fixed price"
+      },
+      "rent": {
+        "title": "Rent",
+        "badge": "€0 down payment",
+        "lead": "A monthly rate instead of a one-off price.",
+        "unit": "per month",
+        "points": [
+          "Hosting, maintenance, support & updates included",
+          "{trial}-month trial – cancel monthly during this time",
+          "After that, a {term}-month minimum term",
+          "Your data belongs to you – you can buy later"
+        ],
+        "cta": "Request the rental"
+      }
+    },
+    "reference": {
+      "tag": "Reference",
+      "title": "Already running:",
+      "accent": "Daron Brot II in Aachen.",
+      "note": "The system at Daron Brot II has a larger scope than the starter offer – including a kitchen board and three languages. It shows where your system can grow.",
+      "visit": "See it live",
+      "opensNewTab": "(opens in a new tab)"
+    },
+    "timeline": {
+      "tag": "Process",
+      "title": "In 2–3 weeks",
+      "accent": "to the first order.",
+      "text": "You invest about three hours in total – we take care of the rest.",
+      "phases": [
+        {
+          "when": "Day 1",
+          "title": "Call",
+          "text": "30 minutes: we look at your menu and how orders come in today. You get an honest answer on whether the offer fits."
+        },
+        {
+          "when": "Day 7",
+          "title": "Prototype",
+          "text": "You click through your ordering system – with your menu and logo. Only then do you decide: buy or rent."
+        },
+        {
+          "when": "Week 2",
+          "title": "Setup",
+          "text": "Items, pickup times, delivery. You test it yourself and tell us what is missing."
+        },
+        {
+          "when": "Week 2–3",
+          "title": "Live",
+          "text": "Launch on a quiet day, a short briefing for your team, a QR code for counter and bag."
+        }
+      ]
+    },
+    "faq": [
+      {
+        "q": "What exactly does the starter offer cost?",
+        "a": "{price} one-off as a fixed price for the scope described – or {rent} per month to rent, with no down payment. If you buy, running operation from {ops} per month is added; if you rent, it is included. All prices are final prices under § 19 UStG (no VAT charged)."
+      },
+      {
+        "q": "What does the trial period mean when renting?",
+        "a": "During the first {trial} months you can cancel monthly. After that the rental runs for {term} months. Your data belongs to you, and you can buy the system later."
+      },
+      {
+        "q": "Can my guests pay online?",
+        "a": "In the starter offer guests pay at pickup or handover. Online payment is part of Ordering System Pro from {pro} – you can switch at any time."
+      },
+      {
+        "q": "Do I have to leave my platform?",
+        "a": "No. Most businesses run both: the platform for new guests, their own system for everyone who comes back."
+      },
+      {
+        "q": "How much of my time does it take?",
+        "a": "About three hours: the first call, a look at the prototype and a short briefing at launch."
+      },
+      {
+        "q": "What if I need more later?",
+        "a": "The system grows with you: online payment, kitchen board, delivery zones, more languages or branches can be added at the prices of the price list."
+      }
+    ],
+    "contact": {
+      "title": "Let's find out in 30 minutes",
+      "accent": "whether it fits you.",
+      "text": "Tell us briefly what you sell and how orders come in today. We reply within 24 hours.",
+      "points": [
+        "Reply within 24 hours",
+        "Prototype after 7 days",
+        "Fixed price {price} or {rent} per month"
+      ],
+      "formTitle": "A short message is enough.",
+      "formText": "No questionnaire, no sales pitch. Two sentences about your business will do.",
+      "submit": "Request the offer"
+    },
+    "sheet": {
+      "metaTitle": "Starter offer ordering system – summary",
+      "back": "Back to the offer page",
+      "print": "Save as PDF or print",
+      "hint": "Choose “Save as PDF” in the print dialog – the page fits on one A4 sheet.",
+      "kicker": "Starter offer · bakeries, takeaways, restaurants",
+      "title": "Your own ordering system – fixed scope, fixed price.",
+      "lead": "Guests order directly on your site, for pickup or delivery. No platform, no commission, and the customer data is yours.",
+      "scopeTitle": "What you get",
+      "termsTitle": "Good to know",
+      "terms": [
+        "Prototype with your menu after 7 days – only then do you decide",
+        "Live in 2–3 weeks, your time: about three hours",
+        "In the starter offer guests pay at pickup or handover; online payment in Ordering System Pro from {pro}",
+        "You do not have to leave any platform"
+      ],
+      "referenceTitle": "Reference",
+      "reference": "Daron Brot II, Aachen – ordering system live in use (with a larger scope there).",
+      "nextTitle": "Next step",
+      "next": "A 30-minute call – we look at your menu and tell you honestly whether the offer fits.",
+      "more": "All details"
+    }
   }
 }

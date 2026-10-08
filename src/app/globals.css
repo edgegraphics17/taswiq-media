@@ -214,7 +214,11 @@
     size: A4;
     margin: 0;
   }
-  body > *:not(.print-root) {
+  body > *:not(.print-root):not(.print-sheet) {
+    display: none !important;
+  }
+  /* Kurzfassung des Einstiegsangebots: das Blatt selbst wird gedruckt, die Leiste darüber nicht */
+  .print-sheet .no-print {
     display: none !important;
   }
   .print-root {

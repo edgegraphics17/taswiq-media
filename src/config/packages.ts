@@ -133,7 +133,23 @@ export const serviceOffers: Record<"individualsoftware" | "bestellsystem" | "buc
   },
 };
 
-export const allPackages = [...softwarePackages, ...mediaPackages];
+/**
+ * Einstiegsangebot (/einstiegsangebot): das eine Paket, mit dem ein Gespräch anfängt – Bestellsystem Start
+ * mit festem Umfang. Kein eigener Preis: Kauf, Miete und Erweiterungen kommen aus der Liste oben.
+ * Texte: messages → starterOffer.
+ */
+const startTier = serviceOffers.bestellsystem.tiers[0];
+const extraPrice = (id: string) => serviceOffers.bestellsystem.extras.find((x) => x.id === id)!.price;
+export const starterOffer = {
+  service: "bestellsystem",
+  tier: startTier.id,
+  price: startTier.price,
+  proPrice: serviceOffers.bestellsystem.tiers[1].price,
+  extras: { whatsapp: extraPrice("whatsapp"), mehrsprachig: extraPrice("mehrsprachig"), seo: extraPrice("seo") },
+  reference: "daron",
+} as const;
+
+export const allPackages =[...softwarePackages, ...mediaPackages];
 
 /** Laufender Betrieb (monatlich) – auf allen Software-Seiten als Hinweis */
 export const runningCosts = { hosting: 49, betrieb: 149, wachstum: 490 } as const;
