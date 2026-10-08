@@ -16,6 +16,12 @@ Fotos von [Unsplash](https://unsplash.com/license) (freie Lizenz, kommerziell nu
 | public/images/blog/individualsoftware-vs-standardsoftware.webp | Kaleidico | https://images.unsplash.com/photo-1532622785990-d2c36a76f5a6 |
 | public/images/blog/website-erstellen-lassen-monatliche-kosten.webp | Kari Shea | https://images.unsplash.com/photo-1496181133206-80ce9b88a853 |
 | public/images/blog/handwerkersoftware-kleinbetriebe.webp | Barn Images | https://images.unsplash.com/photo-1426927308491-6380b6a9936f |
+| public/images/blog/digitalisierung-handwerk-foerderung.webp | Austin Ramsey | https://images.unsplash.com/photo-1611021061218-761c355ed331 |
+| public/images/blog/kundenportal-erstellen-lassen.webp | Luke Southern | https://images.unsplash.com/photo-1602016736566-7ed6a58894bd |
+| public/images/blog/werkstatt-termin-online-buchen.webp | Mehmet Talha Onuk | https://images.unsplash.com/photo-1727893119356-1702fe921cf9 |
+| public/images/blog/mieterportal.webp | ALEXANDRE LALLEMAND | https://images.unsplash.com/photo-1610286986642-057ece0c3656 |
+| public/images/blog/tischreservierungssystem.webp | Tomi Saputra | https://images.unsplash.com/photo-1775204295894-e231d179388e |
+| public/images/blog/online-buchungssystem-fuer-kurse.webp | Leo_Visions | https://images.unsplash.com/photo-1671581084718-c4c04fc00250 |
 | public/images/blog/aftermovie-premium-festivalfilm.webp | Yvette de Wit | https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3 |
 | public/images/blog/bestellsystem-baeckerei.webp | Yeh Xintong | https://images.unsplash.com/photo-1568254183919-78a4f43a2877 |
 | public/images/blog/buchungssystem-friseur-ohne-provision.webp | Benyamin Bohlouli | https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6 |

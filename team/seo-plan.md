@@ -56,13 +56,12 @@ Arbeitsgrundlage der Abteilung Wachstum. Ziel: 600 passende Besucher und 12 Anfr
 Aus den Google-Vorschlägen vom 08.10.2026, sortiert nach Kaufabsicht und danach, ob wir eine Referenz haben:
 
 - Gastronomie: ~~`bestellsystem bäckerei`, `vorbestellung bäckerei online`~~ (erledigt 08.10.2026: /blog/bestellsystem-baeckerei) · ~~`qr code bestellsystem` (+ kostenlos)~~ (erledigt 08.10.2026: /blog/qr-code-bestellsystem) ·
-  `tischreservierungssystem` · `lieferando alternative` + Stadt
-- Beauty/Gesundheit: ~~`treatwell alternative`~~ (/blog/treatwell-alternative) · ~~`buchungssystem physiotherapie`~~ (/blog/buchungssystem-physiotherapie) · `online buchungssystem für kurse` ·
-  `online buchungssystem mit bezahlfunktion` · `online buchungssystem kostenlos` (Vergleich: was kostenlos wirklich kostet)
-- Handwerk: ~~`handwerkersoftware für kleinbetriebe` (+ vergleich)~~ (/blog/handwerkersoftware-kleinbetriebe) · `digitalisierung handwerk förderung` · `ki telefonassistent handwerk`
-- Immobilien: `software hausverwaltung für private vermieter` · `mieterportal` · `maklersoftware vergleich`
-- Automotive: `werkstatt termin online buchen` · `fahrschul app kosten` · `autohaus software vergleich`
-- Software allgemein: ~~`individualsoftware beispiele` · `individualsoftware vs standardsoftware`~~ (/blog/individualsoftware-vs-standardsoftware) · ~~`software entwickeln lassen kosten` · `app entwickeln lassen kosten`~~ (/blog/software-entwickeln-lassen-kosten) · `kundenportal erstellen lassen` · `ki software entwickeln lassen`
+  ~~`tischreservierungssystem`~~ (/blog/tischreservierungssystem) · `lieferando alternative` + Stadt
+- Beauty/Gesundheit: ~~`treatwell alternative`~~ (/blog/treatwell-alternative) · ~~`buchungssystem physiotherapie`~~ (/blog/buchungssystem-physiotherapie) · ~~`online buchungssystem für kurse` · `online buchungssystem mit bezahlfunktion`~~ (/blog/online-buchungssystem-fuer-kurse) · `online buchungssystem kostenlos` (Vergleich: was kostenlos wirklich kostet)
+- Handwerk: ~~`handwerkersoftware für kleinbetriebe` (+ vergleich)~~ (/blog/handwerkersoftware-kleinbetriebe) · ~~`digitalisierung handwerk förderung`~~ (/blog/digitalisierung-handwerk-foerderung) · `ki telefonassistent handwerk`
+- Immobilien: `software hausverwaltung für private vermieter` · ~~`mieterportal`~~ (/blog/mieterportal) · `maklersoftware vergleich`
+- Automotive: ~~`werkstatt termin online buchen`~~ (/blog/werkstatt-termin-online-buchen) · `fahrschul app kosten` · `autohaus software vergleich`
+- Software allgemein: ~~`individualsoftware beispiele` · `individualsoftware vs standardsoftware`~~ (/blog/individualsoftware-vs-standardsoftware) · ~~`software entwickeln lassen kosten` · `app entwickeln lassen kosten`~~ (/blog/software-entwickeln-lassen-kosten) · ~~`kundenportal erstellen lassen`~~ (/blog/kundenportal-erstellen-lassen) · `ki software entwickeln lassen`
 - KI: ~~`ki telefonassistent kosten` (+ handwerk, arztpraxis, hausverwaltung)~~ (erledigt 08.10.2026: /blog/ki-telefonassistent-kosten) · `ki automatisierung für kleine unternehmen`
 - Website: ~~`website erstellen lassen monatliche kosten`~~ (/blog/website-erstellen-lassen-monatliche-kosten)
 

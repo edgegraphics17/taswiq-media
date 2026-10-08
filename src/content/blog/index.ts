@@ -6,6 +6,12 @@ import { post as softwareKosten } from "./posts/software-entwickeln-lassen-koste
 import { post as individualVsStandard } from "./posts/individualsoftware-vs-standardsoftware";
 import { post as websiteMonatlich } from "./posts/website-erstellen-lassen-monatliche-kosten";
 import { post as handwerkKlein } from "./posts/handwerkersoftware-kleinbetriebe";
+import { post as foerderung } from "./posts/digitalisierung-handwerk-foerderung";
+import { post as kundenportal } from "./posts/kundenportal-erstellen-lassen";
+import { post as werkstatt } from "./posts/werkstatt-termin-online-buchen";
+import { post as mieterportal } from "./posts/mieterportal";
+import { post as tischreservierung } from "./posts/tischreservierungssystem";
+import { post as kurse } from "./posts/online-buchungssystem-fuer-kurse";
 import { post as baeckerei } from "./posts/bestellsystem-baeckerei";
 import { post as qrBestellung } from "./posts/qr-code-bestellsystem";
 import { post as immobilien } from "./posts/software-fuer-makler-und-hausverwaltungen";
@@ -27,6 +33,12 @@ export type { BlogCategory, BlogPost, BlogBlock } from "./types";
 
 /** Reihenfolge = Reihenfolge im Blog-Index (neueste/wichtigste zuerst) */
 export const posts: BlogPost[] = [
+  kurse,
+  tischreservierung,
+  mieterportal,
+  werkstatt,
+  kundenportal,
+  foerderung,
   handwerkKlein,
   websiteMonatlich,
   individualVsStandard,
