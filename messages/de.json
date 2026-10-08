@@ -8317,6 +8317,35 @@
       "offline": "Keine Verbindung zum Server. Prüfe dein Internet und versuch es erneut – oder ruf uns direkt an."
     }
   },
+  "booking": {
+    "metaTitle": "Gespräch buchen – 30 Minuten, kostenlos",
+    "metaDescription": "Such dir einen freien Termin für ein 30-minütiges Erstgespräch mit TasWiq Media aus – kostenlos und unverbindlich.",
+    "eyebrow": "Erstgespräch · 30 Minuten · kostenlos",
+    "title": "Such dir einen Termin aus,",
+    "titleAccent": "wir melden uns pünktlich.",
+    "text": "Im Gespräch klären wir, was dein System können muss, wie dein Ablauf heute aussieht und was es ungefähr kostet. Du siehst hier nur Zeiten, die wirklich frei sind.",
+    "points": [
+      "Wir rufen an oder schicken einen Videolink",
+      "Bestätigung sofort per E-Mail",
+      "Absagen oder verschieben: einfach auf die E-Mail antworten"
+    ],
+    "stepSlot": "1. Termin wählen",
+    "stepContact": "2. Deine Angaben",
+    "question": "Wann passt ein Gespräch?",
+    "hint": "Wähl einen freien Termin. Du bekommst sofort eine Bestätigung per E-Mail.",
+    "day": "Tag",
+    "time": "Uhrzeit",
+    "timezone": "Alle Uhrzeiten in deutscher Zeit (Berlin). Ein Gespräch dauert etwa 30 Minuten.",
+    "missing": "Bitte wähl eine Uhrzeit.",
+    "book": "Termin buchen",
+    "loading": "Freie Termine werden geladen …",
+    "taken": "Dieser Termin wurde gerade vergeben. Bitte wähl einen anderen – die Auswahl ist aktualisiert.",
+    "privacyNote": "Dein Termin wird bei uns gespeichert – kein externer Kalenderdienst.",
+    "bookedTitle": "Danke, {name}! Dein Termin steht.",
+    "bookedText": "Die Bestätigung ist unterwegs in dein Postfach. Wir melden uns zum Termin bei dir – telefonisch oder mit einem Link zum Videogespräch.",
+    "emptyTitle": "Gerade sind alle Termine vergeben.",
+    "emptyText": "Ruf kurz an oder schreib per WhatsApp – wir finden einen Termin."
+  },
   "leadResult": {
     "reset": "Neue Anfrage stellen",
     "starter": {
@@ -8333,7 +8362,8 @@
         "Innerhalb von 24 Stunden bekommst du eine Einschätzung und einen Terminvorschlag.",
         "Im Workshop klären wir, was dein System können muss – danach folgt der Prototyp."
       ],
-      "callNow": "Lieber sofort sprechen?"
+      "callNow": "Lieber sofort sprechen?",
+      "bookLink": "Oder gleich einen Termin buchen"
     },
     "premium": {
       "title": "{name}, lass uns direkt sprechen.",

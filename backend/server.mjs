@@ -522,7 +522,7 @@ route("DELETE", "/tasks/:id", ({ params }) => {
 // Abteilungen sind Claude-Sitzungen auf Karims Rechner. Sie holen Arbeit ausschließlich über diese Endpunkte ab –
 // Hauptschalter, Tageslimit und „immer nur eine Abteilung gleichzeitig“ werden deshalb hier durchgesetzt, nicht im Prompt.
 const SETTING_DEFAULTS = { team_active: "0", autonomy: "freigabe", max_tasks_per_day: "3" };
-const settings = () => ({ ...SETTING_DEFAULTS, ...Object.fromEntries(db.prepare("select key, value from settings").all().map((r) => [r.key, r.value])) });
+const settings = () => ({ ...SETTING_DEFAULTS, ...Object.fromEntries(db.prepare("select key, value from settings where key != 'booking'").all().map((r) => [r.key, r.value])) });
 const logEvent = (agent, kind, text, taskId = null) => {
   db.prepare("insert into agent_events (agent, kind, task_id, text, created_at) values (?, ?, ?, ?, ?)").run(agent, kind, taskId, String(text).trim().slice(0, 1000), now());
   broadcast("team", agent);
@@ -760,6 +760,80 @@ route("GET", "/site-scans", ({ query }) => {
   const limit = Math.min(60, Math.max(1, Number(query.get("limit")) || 14));
   return db.prepare("select day, locale, created_at, data from site_scans where locale = ? order by day desc limit ?").all(query.get("locale") === "en" ? "en" : "de", limit)
     .map((r) => ({ ...r, data: JSON.parse(r.data) }));
+});
+
+// ─── Kalender: Gesprächstermine und gesperrte Zeiten ────────────────
+// Welche Zeiten grundsätzlich angeboten werden, rechnet die Website aus den Einstellungen (src/lib/booking.ts).
+// Hier liegt die Wahrheit darüber, was belegt ist – ein Zeitraum kann nur einmal aktiv vergeben werden.
+const isoTime = (v) => {
+  const t = Date.parse(v);
+  need(typeof v === "string" && Number.isFinite(t), "time");
+  return new Date(t).toISOString();
+};
+const str = (v, max) => (typeof v === "string" && v.trim() ? v.trim().slice(0, max) : null);
+
+route("GET", "/bookings", ({ query }) => {
+  const from = query.get("from") ? isoTime(query.get("from")) : "0000";
+  const to = query.get("to") ? isoTime(query.get("to")) : "9999";
+  const lead = query.get("lead");
+  if (lead) return db.prepare("select * from bookings where lead_id = ? order by start_at").all(lead);
+  return db.prepare("select * from bookings where end_at > ? and start_at < ? order by start_at limit 2000").all(from, to);
+});
+
+route("POST", "/bookings", ({ body }) => {
+  need(body && typeof body === "object");
+  const start = isoTime(body.start_at);
+  const end = isoTime(body.end_at);
+  need(end > start && Date.parse(end) - Date.parse(start) <= 24 * 3_600_000, "range");
+  const kind = body.kind === "gesperrt" ? "gesperrt" : "termin";
+  const name = str(body.name, 120);
+  const email = str(body.email, 200);
+  if (kind === "termin") need(name && email, "contact");
+  const leadId = str(body.lead_id, 64);
+  const id = randomUUID();
+  tx(() => {
+    if (leadId) need(db.prepare("select 1 from leads where id = ?").get(leadId), "lead");
+    if (db.prepare("select 1 from bookings where status = 'gebucht' and start_at < ? and end_at > ?").get(end, start)) throw new HttpError(409, "taken");
+    db.prepare("insert into bookings (id, created_at, start_at, end_at, kind, lead_id, name, email, phone, note, locale) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+      .run(id, now(), start, end, kind, leadId, name, email, str(body.phone, 40), str(body.note, 2000), body.locale === "en" ? "en" : "de");
+    if (leadId) {
+      db.prepare("insert into lead_events (id, lead_id, type, body, payload, created_by, created_at) values (?, ?, 'note', ?, ?, ?, ?)")
+        .run(randomUUID(), leadId, str(body.event_text, 300) ?? "Gesprächstermin gebucht", json({ booking_id: id, start_at: start }), "Website", now());
+    }
+  });
+  broadcast("booking", id);
+  if (leadId) broadcast("event", leadId);
+  return db.prepare("select * from bookings where id = ?").get(id);
+});
+
+route("PATCH", "/bookings/:id", ({ params, body }) => {
+  need(body && body.status === "abgesagt", "status");
+  const row = db.prepare("select * from bookings where id = ?").get(params.id);
+  if (!row) throw new HttpError(404, "notFound");
+  if (row.status !== "abgesagt") {
+    db.prepare("update bookings set status = 'abgesagt' where id = ?").run(params.id);
+    if (row.lead_id && row.kind === "termin") {
+      db.prepare("insert into lead_events (id, lead_id, type, body, payload, created_by, created_at) values (?, ?, 'note', ?, ?, ?, ?)")
+        .run(randomUUID(), row.lead_id, "Gesprächstermin abgesagt – der Slot ist wieder frei.", json({ booking_id: row.id, start_at: row.start_at }), str(body.actor, 200), now());
+      broadcast("event", row.lead_id);
+    }
+    broadcast("booking", params.id);
+  }
+  return db.prepare("select * from bookings where id = ?").get(params.id);
+});
+
+route("GET", "/booking-settings", () => {
+  const row = db.prepare("select value from settings where key = 'booking'").get();
+  return { value: row ? JSON.parse(row.value) : null };
+});
+
+route("PUT", "/booking-settings", ({ body }) => {
+  need(body && typeof body === "object" && !Array.isArray(body));
+  const value = JSON.stringify(body);
+  need(value.length <= 4000, "tooLarge");
+  db.prepare("insert into settings (key, value) values ('booking', ?) on conflict (key) do update set value = excluded.value").run(value);
+  broadcast("booking", "settings");
+  return { value: body };
 });
 
 // ─── Server ─────────────────────────────────────────────────────────

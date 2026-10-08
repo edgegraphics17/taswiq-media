@@ -10,12 +10,13 @@ import { isAdminEmail } from "@/lib/auth";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
 import { getAdminUser } from "@/lib/admin/data";
 import { INTERNAL_COOKIE, internalCookieOptions } from "@/lib/internal";
-import { addLeadNote, setCalculatorTest, setLeadTest, deleteTask, insertTask, moveTask, setPassword, setTeamSettings, updateLead as updateLeadInBackend, updateTask, upsertServices, verifyPassword } from "@/lib/db";
+import { addLeadNote, setCalculatorTest, setLeadTest, cancelBooking as cancelBookingInBackend, createBooking, saveBookingSettings as saveBookingSettingsInBackend, deleteTask, insertTask, moveTask, setPassword, setTeamSettings, updateLead as updateLeadInBackend, updateTask, upsertServices, verifyPassword } from "@/lib/db";
 import { LEAD_STATUSES, TASK_CATEGORIES, TASK_STATUSES } from "@/types/database";
 import { DEPARTMENT_IDS, departmentFor } from "@/config/team";
 import { STRUCTURE_TAG } from "@/lib/admin/site-structure";
 import { getSiteReport, requestOrigin } from "@/lib/admin/site-report";
 import { taskOf } from "@/lib/admin/site-findings";
+import { bookingSettingsSchema } from "@/lib/booking";
 
 /** Jede Mutation prüft die Admin-Berechtigung erneut – Server Actions sind öffentliche Endpunkte. */
 async function requireAdminUser() {
@@ -342,4 +343,64 @@ export async function setTeam(formData: FormData) {
     redirect("/admin/team?error=1");
   }
   revalidatePath("/admin/team");
+}
+
+// ─── Kalender ───────────────────────────────────────────────────────
+/** Termin absagen oder Sperre aufheben – der Zeitraum ist danach auf der Website wieder buchbar. */
+export async function cancelBooking(formData: FormData) {
+  const id = z.string().uuid().safeParse(formData.get("id"));
+  if (!id.success) redirect("/admin/kalender?error=1");
+  if (isDemoMode()) redirect("/admin/kalender?demo=1");
+  const user = await requireAdminUser();
+  try {
+    await cancelBookingInBackend(id.data, user.email);
+  } catch (e) {
+    console.error("[admin] cancelBooking", e);
+    redirect("/admin/kalender?error=1");
+  }
+  revalidatePath("/admin/kalender");
+  redirect("/admin/kalender?saved=frei");
+}
+
+/** Zeitraum sperren (einzelner Slot oder ganzer Tag) – auf der Website verschwindet er aus der Auswahl. */
+export async function blockTime(formData: FormData) {
+  const parsed = z.object({ start: z.string().datetime(), end: z.string().datetime(), note: z.string().max(200).optional() }).safeParse(Object.fromEntries(formData));
+  if (!parsed.success) redirect("/admin/kalender?error=1");
+  if (isDemoMode()) redirect("/admin/kalender?demo=1");
+  await requireAdminUser();
+  let ok = false;
+  try {
+    ok = Boolean(await createBooking({ start_at: parsed.data.start, end_at: parsed.data.end, kind: "gesperrt", note: parsed.data.note || null }));
+  } catch (e) {
+    console.error("[admin] blockTime", e);
+    redirect("/admin/kalender?error=1");
+  }
+  if (!ok) redirect("/admin/kalender?error=belegt");
+  revalidatePath("/admin/kalender");
+  redirect("/admin/kalender?saved=gesperrt");
+}
+
+export async function saveBookingSettings(formData: FormData) {
+  const num = (k: string) => Number(formData.get(k));
+  const parsed = bookingSettingsSchema.safeParse({
+    weekdays: formData.getAll("weekdays").map(Number),
+    from: formData.get("from"),
+    to: formData.get("to"),
+    breakFrom: formData.get("breakFrom") ?? "",
+    breakTo: formData.get("breakTo") ?? "",
+    slotMinutes: num("slotMinutes"),
+    noticeHours: num("noticeHours"),
+    horizonDays: num("horizonDays"),
+  });
+  if (!parsed.success) redirect("/admin/kalender?error=zeiten#zeiten");
+  if (isDemoMode()) redirect("/admin/kalender?demo=1");
+  await requireAdminUser();
+  try {
+    await saveBookingSettingsInBackend(parsed.data);
+  } catch (e) {
+    console.error("[admin] saveBookingSettings", e);
+    redirect("/admin/kalender?error=1");
+  }
+  revalidatePath("/admin/kalender");
+  redirect("/admin/kalender?saved=zeiten");
 }

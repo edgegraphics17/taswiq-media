@@ -4,8 +4,10 @@ import { redirect } from "next/navigation";
 import { isDemoMode } from "@/lib/env";
 import { isAdminEmail } from "@/lib/auth";
 import { SESSION_COOKIE, verifySession } from "@/lib/session";
-import { getAnalytics, getTeamState, getLeadWithEvents, listCalculatorRequests, listLeads, listTasks, type LeadFilters } from "@/lib/db";
+import { listLeadBookings, getAnalytics, getTeamState, getLeadWithEvents, listCalculatorRequests, listLeads, listTasks, type LeadFilters } from "@/lib/db";
 import { demoAnalytics, demoCalcRequests, demoEvents, demoLeads, demoTasks, demoTeam } from "@/lib/admin/demo";
+import { BOOKING_DEFAULTS, type BookingRow, type BookingSettings } from "@/lib/booking";
+import { loadCalendar } from "@/lib/booking.server";
 import type { AnalyticsData, CalculatorRequest, LeadEventRow, LeadRow, TaskRow, TeamState } from "@/types/database";
 
 /**
@@ -111,4 +113,19 @@ export function computeKpis(all: LeadRow[]) {
     premiumOpen: open.filter((l) => l.tier === "premium").length,
     unanswered: leads.filter((l) => l.status === "neu").length,
   };
+}
+
+/** Kalender: Einstellungen und alle Einträge im offenen Zeitraum. Im Demo-Modus leer. */
+export async function getCalendar(): Promise<{ settings: BookingSettings; bookings: BookingRow[] }> {
+  if (isDemoMode()) return { settings: BOOKING_DEFAULTS, bookings: [] };
+  return loadCalendar();
+}
+
+/** Anstehende, nicht abgesagte Gesprächstermine (ohne Sperren) */
+export const upcomingBookings = (bookings: BookingRow[], nowMs = Date.now()) =>
+  bookings.filter((b) => b.kind === "termin" && b.status === "gebucht" && Date.parse(b.end_at) > nowMs);
+
+export async function getLeadBookings(leadId: string): Promise<BookingRow[]> {
+  if (isDemoMode()) return [];
+  return listLeadBookings(leadId);
 }

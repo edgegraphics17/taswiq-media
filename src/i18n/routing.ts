@@ -23,6 +23,7 @@ export const routing = defineRouting({
     "/preisrechner": { de: "/preisrechner", en: "/pricing-calculator" },
     "/einstiegsangebot": { de: "/einstiegsangebot", en: "/starter-offer" },
     "/einstiegsangebot/kurzfassung": { de: "/einstiegsangebot/kurzfassung", en: "/starter-offer/summary" },
+    "/termin": { de: "/termin", en: "/book-a-call" },
     "/portfolio": "/portfolio",
     "/blog": "/blog",
     "/blog/[slug]": "/blog/[slug]",

@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, CalendarCheck, Mail, MessageCircle, Phone } from "lucide-react";
-import { getLead } from "@/lib/admin/data";
+import { getLead, getLeadBookings } from "@/lib/admin/data";
 import { addNote, markLeadTest, updateLead } from "@/app/admin/actions";
 import { BUDGET_LABEL, INDUSTRY_LABEL, SOURCE_LABEL, STATUS_LABEL } from "@/lib/admin/labels";
 import { LEAD_STATUSES, type Json } from "@/types/database";
 import { getTranslations } from "next-intl/server";
 import { formatDateTime, formatNumber } from "@/lib/format";
 import { formatSlot, readAppointment } from "@/lib/appointment";
+import { formatBooking } from "@/lib/booking";
 import { ScoreBar, StatusPill, TestPill, TierPill } from "@/components/admin/Pills";
 
 const JEV_LEVELS = ["Niedrig", "Mittel", "Hoch", "Sehr hoch"];
@@ -38,6 +39,7 @@ export default async function LeadDetail({
   const calc = (lead.source_meta as { calculatorSummary?: { label: string; wert: string }[] } | null)?.calculatorSummary;
   const jev = readJev(lead.automation);
   const appointment = readAppointment(lead.automation);
+  const bookings = (await getLeadBookings(lead.id).catch(() => [])).filter((b) => b.status === "gebucht");
   const wa = lead.phone ? `https://wa.me/${lead.phone.replace(/[^\d]/g, "")}` : null;
 
   return (
@@ -82,6 +84,20 @@ export default async function LeadDetail({
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="space-y-6">
+          {bookings.length > 0 && (
+            <section className="rounded-2xl border border-brand-200 bg-brand-50 p-5">
+              <h2 className="flex items-center gap-2 text-sm font-bold text-ink">
+                <CalendarCheck className="size-4 text-brand-600" aria-hidden /> Gesprächstermin
+              </h2>
+              <ul className="mt-2 space-y-1 text-sm font-medium text-ink">
+                {bookings.map((b) => (
+                  <li key={b.id} className="num">{formatBooking(b.start_at, b.end_at)}</li>
+                ))}
+              </ul>
+              <Link href="/admin/kalender" className="mt-2 inline-block text-xs font-semibold text-brand-600">Im Kalender ansehen oder absagen</Link>
+            </section>
+          )}
+
           {appointment && (
             <section className="rounded-2xl border border-brand-200 bg-brand-50 p-5">
               <h2 className="flex items-center gap-2 text-sm font-bold text-ink">

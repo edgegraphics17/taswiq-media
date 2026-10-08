@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BarChart3, Calculator, CircleCheckBig, Inbox, ListChecks, Network, Tags, UsersRound, type LucideIcon } from "lucide-react";
+import { BarChart3, Calculator, CalendarDays, CircleCheckBig, Inbox, ListChecks, Network, Tags, UsersRound, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/format";
 
 interface Item {
@@ -16,13 +16,14 @@ interface Item {
  * Zwei Bereiche: „Kunden & Website“ (was reinkommt, wie die Seite läuft) und „Arbeit“ (was als Nächstes zu tun ist).
  * Aktive Seite ist markiert; Zähler zeigen, wo etwas wartet.
  */
-export function AdminNav({ newLeads, openTasks, waiting }: { newLeads: number; openTasks: number; waiting: number }) {
+export function AdminNav({ newLeads, openTasks, waiting, upcoming = 0 }: { newLeads: number; openTasks: number; waiting: number; upcoming?: number }) {
   const pathname = usePathname();
   const groups: { title: string; items: Item[] }[] = [
     {
       title: "Kunden & Website",
       items: [
         { href: "/admin", label: "Anfragen", icon: Inbox, badge: newLeads },
+        { href: "/admin/kalender", label: "Kalender", icon: CalendarDays, badge: upcoming },
         { href: "/admin/analytics", label: "Analytics", icon: BarChart3 },
         { href: "/admin/struktur", label: "Seitenstruktur", icon: Network },
         { href: "/admin/rechner", label: "Kalkulationen", icon: Calculator },

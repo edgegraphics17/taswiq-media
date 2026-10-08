@@ -175,3 +175,23 @@ create table if not exists site_scans (
   data        text not null,
   primary key (day, locale)
 );
+
+-- Kalender: gebuchte Gespräche und von Hand gesperrte Zeiten. Ein Zeitraum kann nur einmal aktiv belegt sein
+-- (prüft server.mjs in einer Transaktion); abgesagte Einträge bleiben stehen, geben den Slot aber wieder frei.
+create table if not exists bookings (
+  id          text primary key,
+  created_at  text not null,
+  start_at    text not null,
+  end_at      text not null,
+  kind        text not null default 'termin' check (kind in ('termin','gesperrt')),
+  status      text not null default 'gebucht' check (status in ('gebucht','abgesagt')),
+  lead_id     text references leads (id) on delete set null,
+  name        text,
+  email       text,
+  phone       text,
+  note        text,
+  locale      text not null default 'de',
+  check (end_at > start_at)
+);
+create index if not exists bookings_start_idx on bookings (start_at);
+create index if not exists bookings_lead_idx  on bookings (lead_id);

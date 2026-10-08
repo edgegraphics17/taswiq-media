@@ -9,12 +9,15 @@ import { starterPackages, starterPrices, type FunnelIndustry, type LeadTier } fr
 import { cn, formatEUR } from "@/lib/format";
 import { APPOINTMENT_MAX_DAYS, DAYPARTS, isoDay, type AppointmentSlot, type Daypart } from "@/lib/appointment";
 import { submitAppointment, type ServerErrorCode } from "@/lib/submit-lead";
+import { BookedNote, LeadBooking } from "@/components/booking/SlotPicker";
+import { Link } from "@/i18n/navigation";
+import { track } from "@/lib/track";
 
 /**
  * Abschluss-Screen mit Lead-Scoring-Twist:
  *  starter (< 5.000 €)   → Einstiegspakete mit festem Preis (Prototyp-Sprint, Website, Buchung …)
  *  growth               → "Einschätzung in 24 h" + nächste Schritte
- *  premium (≥ 15.000 €) → Terminwunsch direkt hier: zwei Wunschtermine, gespeichert am Lead (kein Drittanbieter)
+ *  premium (≥ 15.000 €) → Termin direkt im eigenen Kalender buchen (kein Drittanbieter); ohne freie Termine: zwei Wunschtermine nennen
  */
 export function LeadResult({ tier, name, leadId, industry, onReset }: { tier: LeadTier; name: string; leadId: string | null; industry: FunnelIndustry; onReset?: () => void }) {
   const t = useTranslations("leadResult");
@@ -95,6 +98,9 @@ function Growth({ first }: { first: string }) {
           {site.phone}
         </a>
       </p>
+      <Link href="/termin" className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-50 px-5 text-sm font-medium text-brand-600 hover:bg-brand-100">
+        <CalendarCheck className="size-4" aria-hidden /> {t("bookLink")}
+      </Link>
     </>
   );
 }
@@ -115,6 +121,8 @@ function Premium({ first, leadId }: { first: string; leadId: string | null }) {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<ServerErrorCode | null>(null);
   const [saved, setSaved] = useState<AppointmentSlot[] | null>(null);
+  const [booked, setBooked] = useState<{ start: string; end: string } | null>(null);
+  const tb = useTranslations("booking");
   const locale = useLocale();
 
   const today = new Date();
@@ -154,6 +162,16 @@ function Premium({ first, leadId }: { first: string; leadId: string | null }) {
     </div>
   );
 
+  if (booked) {
+    return (
+      <>
+        <h3 className="mt-5 text-2xl font-medium">{tb("bookedTitle", { name: first })}</h3>
+        <p className="mx-auto mt-3 max-w-md text-muted">{tb("bookedText")}</p>
+        <BookedNote start={booked.start} end={booked.end} />
+      </>
+    );
+  }
+
   if (saved) {
     return (
       <>
@@ -175,11 +193,8 @@ function Premium({ first, leadId }: { first: string; leadId: string | null }) {
     );
   }
 
-  return (
-    <>
-      <h3 className="mt-5 text-2xl font-medium">{t("title", { name: first })}</h3>
-      <p className="mx-auto mt-3 max-w-md text-muted">{t("text")}</p>
-      {leadId ? (
+  /** Nur wenn der Kalender gerade keinen freien Termin hat: zwei Wunschtermine nennen. */
+  const wishForm = (
         <form onSubmit={submit} noValidate className="mt-6 rounded-[2rem] border border-line bg-white p-5 text-left sm:p-6">
           <p className="flex items-center gap-2 font-medium text-ink">
             <CalendarCheck className="size-5 text-brand-600" aria-hidden /> {t("question")}
@@ -243,6 +258,21 @@ function Premium({ first, leadId }: { first: string; leadId: string | null }) {
           </button>
           <p className="mt-3 text-center text-xs text-muted">{t("privacyNote")}</p>
         </form>
+  );
+
+  return (
+    <>
+      <h3 className="mt-5 text-2xl font-medium">{t("title", { name: first })}</h3>
+      <p className="mx-auto mt-3 max-w-md text-muted">{t("text")}</p>
+      {leadId ? (
+        <LeadBooking
+          leadId={leadId}
+          onBooked={(b) => {
+            track("termin_gebucht", { quelle: "anfrage" });
+            setBooked(b);
+          }}
+          fallback={wishForm}
+        />
       ) : (
         contact
       )}

@@ -1,6 +1,7 @@
 import "server-only";
 import { env, isBackendConfigured } from "@/lib/env";
 import type { Appointment } from "@/lib/appointment";
+import { readBookingSettings, type BookingRow, type BookingSettings } from "@/lib/booking";
 import type {
   CalculatorRequest,
   CalculatorRequestInsert,
@@ -115,6 +116,53 @@ export async function addLeadNote(leadId: string, body: string, createdBy: strin
 export async function setLeadAppointment(leadId: string, appointment: Appointment, note: string): Promise<void> {
   await call(`/leads/${encodeURIComponent(leadId)}`, { method: "PATCH", body: { automation: { appointment }, actor: "Website" } });
   await call(`/leads/${encodeURIComponent(leadId)}/events`, { method: "POST", body: { type: "note", body: note, payload: appointment, created_by: "Website" } });
+}
+
+// ─── Kalender (Terminbuchung) ───────────────────────────────────────
+export function listBookings(from: string, to: string): Promise<BookingRow[]> {
+  return call<BookingRow[]>(`/bookings?${new URLSearchParams({ from, to })}`);
+}
+
+export function listLeadBookings(leadId: string): Promise<BookingRow[]> {
+  return call<BookingRow[]>(`/bookings?${new URLSearchParams({ lead: leadId })}`);
+}
+
+export interface BookingInsert {
+  start_at: string;
+  end_at: string;
+  kind?: "termin" | "gesperrt";
+  lead_id?: string | null;
+  name?: string | null;
+  email?: string | null;
+  phone?: string | null;
+  note?: string | null;
+  locale?: "de" | "en";
+  /** Zeile für den Verlauf des Leads */
+  event_text?: string;
+}
+
+/** Legt den Termin an – oder gibt null zurück, wenn der Zeitraum inzwischen belegt ist. */
+export async function createBooking(row: BookingInsert): Promise<BookingRow | null> {
+  try {
+    return await call<BookingRow>("/bookings", { method: "POST", body: row });
+  } catch (e) {
+    if (e instanceof BackendError && e.status === 409) return null;
+    throw e;
+  }
+}
+
+/** Termin absagen bzw. Sperre aufheben – der Zeitraum ist danach wieder frei. */
+export async function cancelBooking(id: string, actor: string): Promise<void> {
+  await call(`/bookings/${encodeURIComponent(id)}`, { method: "PATCH", body: { status: "abgesagt", actor } });
+}
+
+export async function getBookingSettings(): Promise<BookingSettings> {
+  const { value } = await call<{ value: unknown }>("/booking-settings");
+  return readBookingSettings(value);
+}
+
+export async function saveBookingSettings(settings: BookingSettings): Promise<void> {
+  await call("/booking-settings", { method: "PUT", body: settings });
 }
 
 // ─── Rechner ────────────────────────────────────────────────────────

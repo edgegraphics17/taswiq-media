@@ -8316,6 +8316,35 @@
       "offline": "No connection to the server. Check your internet and try again – or just give us a call."
     }
   },
+  "booking": {
+    "metaTitle": "Book a call – 30 minutes, free",
+    "metaDescription": "Pick a free slot for a 30-minute intro call with TasWiq Media – free and non-binding.",
+    "eyebrow": "Intro call · 30 minutes · free",
+    "title": "Pick a time,",
+    "titleAccent": "we'll be on time.",
+    "text": "On the call we clarify what your system needs to do, how you work today and roughly what it costs. You only see times that are actually free.",
+    "points": [
+      "We call you or send a video link",
+      "Instant confirmation by email",
+      "Cancel or reschedule: just reply to the email"
+    ],
+    "stepSlot": "1. Pick a time",
+    "stepContact": "2. Your details",
+    "question": "When would a call suit you?",
+    "hint": "Pick a free slot. You'll get a confirmation by email right away.",
+    "day": "Day",
+    "time": "Time",
+    "timezone": "All times are German time (Berlin). A call takes about 30 minutes.",
+    "missing": "Please pick a time.",
+    "book": "Book this time",
+    "loading": "Loading free slots …",
+    "taken": "This slot has just been taken. Please pick another one – the list is up to date.",
+    "privacyNote": "Your booking is stored with us – no external calendar service.",
+    "bookedTitle": "Thanks, {name}! Your call is booked.",
+    "bookedText": "The confirmation is on its way to your inbox. We'll contact you at that time – by phone or with a link to a video call.",
+    "emptyTitle": "All slots are taken right now.",
+    "emptyText": "Give us a quick call or message us on WhatsApp – we'll find a time."
+  },
   "leadResult": {
     "reset": "Start a new enquiry",
     "starter": {
@@ -8332,7 +8361,8 @@
         "Within 24 hours you get an assessment and a suggested call time.",
         "In the workshop we define what your system must do – then comes the prototype."
       ],
-      "callNow": "Rather talk right away?"
+      "callNow": "Rather talk right away?",
+      "bookLink": "Or book a call right away"
     },
     "premium": {
       "title": "{name}, let's talk directly.",

@@ -167,3 +167,40 @@ export async function sendInternalNotice(subject: string, text: string, leadId: 
     replyTo: env.leadNotifyTo[0] ?? site.email,
   });
 }
+
+/**
+ * Terminbuchung über den eigenen Kalender: Hinweis an uns und Bestätigung an die Person, die gebucht hat
+ * (in der Sprache der Website). `when` ist der fertig formatierte Zeitraum in deutscher Zeit.
+ */
+export async function sendBookingMails(b: { name: string; email: string; phone: string | null; note: string | null; when: string; whenDe: string; locale: Locale; leadId: string | null }) {
+  if (!isMailConfigured()) return { notified: false, confirmed: false };
+  const en = b.locale === "en";
+  const first = b.name.trim().split(" ")[0] || b.name;
+  const subject = en ? "Your call with TasWiq Media is booked" : "Dein Gespräch mit TasWiq Media ist eingetragen";
+  const [notified, confirmed] = await Promise.all([
+    sendInternalNotice(
+      `Neuer Gesprächstermin: ${b.name}`,
+      `${b.name} hat ein Gespräch gebucht: ${b.whenDe}.\n\nE-Mail: ${b.email}${b.phone ? `\nTelefon: ${b.phone}` : ""}${b.note ? `\n\nNachricht: ${b.note}` : ""}\n\nDer Termin steht im Dashboard unter „Kalender“.`,
+      b.leadId,
+    ),
+    send({
+      kind: "bestaetigung",
+      leadId: b.leadId,
+      to: [b.email],
+      subject,
+      template: "taswiq-nachricht",
+      variables: {
+        BETREFF: esc(subject),
+        UEBERSCHRIFT: esc(en ? `See you then, ${first}.` : `Bis dahin, ${first}.`),
+        INHALT_HTML: paragraphs(
+          en
+            ? `Your call is booked: ${b.when}.\n\nWe will contact you at that time – by phone or with a link to a video call.\n\nIf something comes up, just reply to this email and we will find a new time.`
+            : `Dein Gespräch ist eingetragen: ${b.when}.\n\nWir melden uns zu diesem Termin bei dir – telefonisch oder mit einem Link zum Videogespräch.\n\nKommt dir etwas dazwischen, antworte einfach auf diese E-Mail, dann finden wir einen neuen Termin.`,
+        ),
+        GRUSS: en ? "Best regards" : "Viele Grüße",
+      },
+      replyTo: env.leadNotifyTo[0] ?? site.email,
+    }),
+  ]);
+  return { notified, confirmed };
+}
