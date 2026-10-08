@@ -13,6 +13,7 @@ import { INTERNAL_COOKIE, internalCookieOptions } from "@/lib/internal";
 import { addLeadNote, setCalculatorTest, setLeadTest, deleteTask, insertTask, moveTask, setPassword, setTeamSettings, updateLead as updateLeadInBackend, updateTask, upsertServices, verifyPassword } from "@/lib/db";
 import { LEAD_STATUSES, TASK_CATEGORIES, TASK_STATUSES } from "@/types/database";
 import { DEPARTMENT_IDS, departmentFor } from "@/config/team";
+import { STRUCTURE_TAG } from "@/lib/admin/site-structure";
 
 /** Jede Mutation prüft die Admin-Berechtigung erneut – Server Actions sind öffentliche Endpunkte. */
 async function requireAdminUser() {
@@ -151,6 +152,13 @@ export async function setDeviceCounted(formData: FormData) {
   if (!isDemoMode()) await requireAdminUser();
   (await cookies()).set(INTERNAL_COOKIE, formData.get("counted") === "1" ? "0" : "1", internalCookieOptions);
   revalidatePath("/admin/analytics");
+}
+
+/** Seitenstruktur: gemerkten Stand verwerfen – beim nächsten Aufruf wird die Website neu eingelesen. */
+export async function rescanSite() {
+  if (!isDemoMode()) await requireAdminUser();
+  revalidateTag(STRUCTURE_TAG);
+  revalidatePath("/admin/struktur");
 }
 
 /** Preis-Editor: überschreibt die Werte aus pricing.ts – live nach Cache-Invalidierung. */
