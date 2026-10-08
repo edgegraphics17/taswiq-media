@@ -9,6 +9,7 @@ import { getSeoPageById } from "@/config/seo-pages";
 import { site } from "@/config/site";
 import { Block, Inline } from "@/components/blog/RichText";
 import { BlogCard, blogCover, CATEGORY_ICON } from "@/components/blog/BlogCard";
+import { DemoCallout } from "@/components/home/DemoStrip";
 import { FunnelSection } from "@/components/product/FunnelSection";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Icon } from "@/components/ui/Icon";
@@ -123,6 +124,9 @@ export default async function BlogPostPage({ params }: Props) {
                 ))}
               </ul>
             </section>
+
+            {/* Passende Software-Demo zum Ausprobieren (Media-Artikel haben keine) */}
+            {page.kind !== "media" && <DemoCallout slug={page.demo} className="mt-6" />}
 
             {post.sections.map((s) => (
               <section key={s.h2} aria-labelledby={anchor(s.h2)} className="mt-12 scroll-mt-28">

@@ -9331,5 +9331,17 @@
       "next": "A 30-minute call – we look at your menu and tell you honestly whether the offer fits.",
       "more": "All details"
     }
+  },
+  "demoStrip": {
+    "tag": "Demos",
+    "title": "Try it first,",
+    "accent": "decide later.",
+    "text": "Six sample companies you click through yourself: order, book, approve – and see in the dashboard what reaches the business. No sign-up. Demos are in German.",
+    "all": "See all demos",
+    "calloutTag": "Try it yourself",
+    "calloutTitle": "{kind} demo: {firm}",
+    "calloutAllTitle": "Software demos to try",
+    "calloutText": "Click through the customer view and dashboard of a sample company – no sign-up, nothing is stored.",
+    "calloutCta": "Open the demo"
   }
 }

@@ -9332,5 +9332,17 @@
       "next": "30 Minuten Gespräch – wir schauen auf deine Karte und sagen ehrlich, ob das Angebot passt.",
       "more": "Alle Details"
     }
+  },
+  "demoStrip": {
+    "tag": "Demos",
+    "title": "Erst ausprobieren,",
+    "accent": "dann entscheiden.",
+    "text": "Sechs Musterfirmen, in denen du selbst klickst: bestellen, buchen, freigeben – und im Dashboard sehen, was beim Betrieb ankommt. Ohne Anmeldung.",
+    "all": "Alle Demos ansehen",
+    "calloutTag": "Zum Ausprobieren",
+    "calloutTitle": "{kind}-Demo: {firm}",
+    "calloutAllTitle": "Software-Demos zum Ausprobieren",
+    "calloutText": "Klick dich durch Kundenansicht und Dashboard einer Musterfirma – ohne Anmeldung, es wird nichts gespeichert.",
+    "calloutCta": "Demo öffnen"
   }
 }

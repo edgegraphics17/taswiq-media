@@ -4,6 +4,7 @@ import { Hero } from "@/components/home/Hero";
 import { References } from "@/components/home/References";
 import { Problem } from "@/components/home/Problem";
 import { Services } from "@/components/home/Services";
+import { DemoStrip } from "@/components/home/DemoStrip";
 import { Industries } from "@/components/home/Industries";
 import { PortfolioTeaser } from "@/components/home/PortfolioTeaser";
 import { PromiseSection } from "@/components/home/Promise";
@@ -16,7 +17,7 @@ import { Contact } from "@/components/home/Contact";
 
 /**
  * Startseite – Software für KMU & Mittelstand im Vordergrund, Media-Referenzen als Social Proof:
- * Hero → Referenzen → Problem (Plattform vs. eigenes System) → Leistungen → Branchen → Projekte
+ * Hero → Referenzen → Problem (Plattform vs. eigenes System) → Leistungen → Demos (kleine Leiste) → Branchen → Projekte
  * → Warum wir (+ winsym.ai) → Ablauf → Premium-Media → Rechner → Ratgeber → Kontakt.
  * Title/Description/hreflang kommen aus dem [locale]-Layout.
  */
@@ -28,6 +29,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
       <References className="pb-8" />
       <Problem />
       <Services />
+      <DemoStrip />
       <Industries />
       <PortfolioTeaser />
       <PromiseSection />

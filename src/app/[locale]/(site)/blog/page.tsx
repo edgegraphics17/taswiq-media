@@ -5,6 +5,7 @@ import { blogCategories, posts, readingMinutes } from "@/content/blog";
 import { BlogList } from "@/components/blog/BlogList";
 import { Eyebrow } from "@/components/ui/SectionHeading";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { DemoStrip } from "@/components/home/DemoStrip";
 import { FunnelSection } from "@/components/product/FunnelSection";
 import type { Locale } from "@/i18n/routing";
 import { LOCALE_META } from "@/i18n/routing";
@@ -67,6 +68,8 @@ export default async function BlogIndexPage({ params }: Props) {
           />
         </div>
       </section>
+
+      <DemoStrip className="!pt-0" />
 
       <FunnelSection title={t("funnel.title")} accent={t("funnel.accent")} text={t("funnel.text")} source="blog" />
 
