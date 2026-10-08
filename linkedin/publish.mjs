@@ -15,6 +15,12 @@ const QUEUE = process.env.LINKEDIN_QUEUE || join(ROOT, "kunden", "taswiq", "link
 const queue = JSON.parse(await readFile(QUEUE, "utf8"));
 const save = () => writeFile(QUEUE, `${JSON.stringify(queue, null, 2)}\n`);
 
+// Läuft die Warteschlange über einen anderen Kanal (z. B. Windsor als Unternehmensseite), darf dieses Skript nichts senden.
+if (!process.argv.includes("--liste") && (queue.kanal ?? "api") !== "api") {
+  console.log(`Warteschlange läuft über „${queue.kanal}“ – dieses Skript veröffentlicht nichts.`);
+  process.exit(0);
+}
+
 if (process.argv.includes("--liste")) {
   for (const post of queue.beitraege) {
     console.log(`${post.termin}  ${post.status.padEnd(15)} ${post.format.padEnd(18)} ${post.id}`);
