@@ -7,7 +7,8 @@ import type { Locale } from "@/i18n/routing";
 
 /**
  * E-Mail-Versand über Resend (https://resend.com) – ohne SDK, ein einzelner HTTP-Aufruf.
- *  - Benachrichtigung an uns (deutsch, Antwort geht direkt an den Lead)
+ *  - Benachrichtigung ans offizielle Postfach (deutsch, Antwort geht direkt an den Lead);
+ *    wichtige Anfragen (Premium oder dringend) gehen zusätzlich ans private Postfach
  *  - Bestätigung an den Lead in der Sprache der Website
  * Timeout 4 s – ein langsamer Versand darf den Funnel nie blockieren.
  * Der Lead ist zu diesem Zeitpunkt bereits im Backend gespeichert.
@@ -24,6 +25,7 @@ export interface LeadMail {
   source: string;
   industry: string;
   interests: string[];
+  projectStatus: string | null;
   budget: string;
   estimate: { min: number; max: number; monthly: number } | null;
   calculatorSummary: { label: string; wert: string }[] | null;
@@ -80,7 +82,10 @@ ${body}
 const btn = (href: string, label: string) =>
   `<a href="${href}" style="display:inline-block;background:#7840fe;color:#ffffff;font-weight:700;text-decoration:none;padding:12px 24px;border-radius:999px">${esc(label)}</a>`;
 
+const isImportant = (lead: LeadMail) => lead.tier === "premium" || lead.projectStatus === "dringend";
+
 function notification(lead: LeadMail): Mail {
+  const important = isImportant(lead);
   const rows: [string, string][] = [
     ["Name", lead.name],
     ["E-Mail", lead.email],
@@ -93,7 +98,7 @@ function notification(lead: LeadMail): Mail {
       ? [["Kalkulation", formatRange(lead.estimate.min, lead.estimate.max) + (lead.estimate.monthly ? ` · ${formatEUR(lead.estimate.monthly)} mtl.` : "")] as [string, string]]
       : []),
     ["Quelle", SOURCE_LABEL[lead.source] ?? lead.source],
-    ["Einstufung", `${TIER_LABEL[lead.tier]} · Score ${lead.score}`],
+    ["Einstufung", `${TIER_LABEL[lead.tier]} · Score ${lead.score}${lead.projectStatus === "dringend" ? " · dringend" : ""}`],
     ...(lead.message ? [["Nachricht", lead.message] as [string, string]] : []),
   ];
   const summary = lead.calculatorSummary?.length
@@ -101,8 +106,8 @@ function notification(lead: LeadMail): Mail {
     : "";
   const link = lead.id ? `<p style="margin:22px 0 0">${btn(`${site.url}/admin/leads/${lead.id}`, "Im Dashboard öffnen")}</p>` : "";
   return {
-    to: env.leadNotifyTo,
-    subject: `Neue Anfrage: ${lead.name}${lead.company ? ` (${lead.company})` : ""} – ${TIER_LABEL[lead.tier]}`,
+    to: [...new Set(important ? [...env.leadNotifyTo, ...env.leadNotifyImportantTo] : env.leadNotifyTo)],
+    subject: `${important ? "Wichtig – neue" : "Neue"} Anfrage: ${lead.name}${lead.company ? ` (${lead.company})` : ""} – ${TIER_LABEL[lead.tier]}`,
     html: layout(
       `<p style="margin:0">Neue Anfrage über die Website. Antworten auf diese Mail gehen direkt an ${esc(lead.firstName)}.</p>${rowsTable(rows)}${summary}${link}`,
       "Automatische Benachrichtigung der Website.",
@@ -154,7 +159,7 @@ function confirmation(lead: LeadMail): Mail {
 <p style="margin:18px 0 0">${c.bye}<br>${esc(site.owner)}</p>`,
       `${esc(site.legalName)} · ${a.street}, ${a.postalCode} ${a.city}<br>${c.why} · <a href="${site.url}${c.legalPath}" style="color:#7a8290">${c.legal}</a>`,
     ),
-    replyTo: site.email,
+    replyTo: env.leadNotifyTo[0] ?? site.email,
   };
 }
 

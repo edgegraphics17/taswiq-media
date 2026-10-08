@@ -4,6 +4,12 @@
  * nur in der Konsole geloggt und das Admin-Dashboard zeigt Demo-Daten.
  */
 
+const list = (v: string) =>
+  v
+    .split(",")
+    .map((e) => e.trim())
+    .filter(Boolean);
+
 export const env = {
   /** Basis-URL der Backend-API auf dem Sprite "taswiq-media" (ohne Slash am Ende). */
   backendUrl: (process.env.TASWIQ_API_URL ?? "").replace(/\/$/, ""),
@@ -17,17 +23,11 @@ export const env = {
   /** Resend (E-Mail-Versand): Benachrichtigung an uns + Bestätigung an den Lead. Nur serverseitig. */
   resendApiKey: process.env.RESEND_API_KEY ?? "",
   /** Absender – die Domain muss bei Resend bestätigt sein. */
-  mailFrom: process.env.MAIL_FROM ?? "TasWiq Media. <kontakt@taswiq-media.de>",
-  /** Wer über neue Anfragen informiert wird (kommagetrennt). Leer = karim@azzaoui.de. */
-  leadNotifyTo: (process.env.LEAD_NOTIFY_TO || "karim@azzaoui.de")
-    .split(",")
-    .map((e) => e.trim())
-    .filter(Boolean),
-  /** Allowlist fürs Admin-Dashboard (kommagetrennt). Leer = niemand darf rein. */
-  adminEmails: (process.env.ADMIN_EMAILS ?? "")
-    .split(",")
-    .map((e) => e.trim().toLowerCase())
-    .filter(Boolean),
+  mailFrom: process.env.MAIL_FROM ?? "TasWiq Media. <info@taswiq-media.de>",
+  /** Offizielles Postfach: bekommt jede Anfrage (kommagetrennt), die erste Adresse ist Antwortadresse der Bestätigung. */
+  leadNotifyTo: list(process.env.LEAD_NOTIFY_TO || "info@taswiq-media.de"),
+  /** Zusätzlich bei wichtigen Anfragen (Premium oder dringend) – privates Postfach. */
+  leadNotifyImportantTo: list(process.env.LEAD_NOTIFY_IMPORTANT_TO || "karim@azzaoui.de"),
 };
 
 /** Backend-API erreichbar konfiguriert (Leads, Preise, Dashboard-Daten). */
