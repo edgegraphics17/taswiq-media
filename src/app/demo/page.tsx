@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { ArrowLeftRight, ArrowRight, ArrowUpRight, Calculator, Check, CirclePlay, MousePointerClick, Plug } from "lucide-react";
 import { DemoPreview } from "@/components/demo/DemoPreview";
-import { IntegrationChip, IntegrationMarquee } from "@/components/demo/Integrations";
+import { IntegrationList, IntegrationMarquee } from "@/components/demo/Integrations";
 import { PortalNav } from "@/components/demo/PortalNav";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { DemoLink } from "@/components/ui/DemoLink";
@@ -100,22 +100,20 @@ export default async function DemoHubPage() {
           </div>
         </section>
 
-        <section id="anbindungen" aria-labelledby="anbindungen-title" className="container-x scroll-mt-28 pb-6">
-          <div className="card overflow-hidden py-5 sm:py-6">
-            <div className="flex flex-col gap-x-10 gap-y-1.5 px-5 sm:px-7 lg:flex-row lg:items-baseline lg:justify-between">
-              <h2 id="anbindungen-title" className="flex items-center gap-2.5 text-[clamp(1.25rem,2vw,1.6rem)] leading-tight font-medium">
-                <span className="grid size-7 shrink-0 place-items-center rounded-lg bg-blush-100 text-blush-600">
-                  <Plug className="size-4" aria-hidden />
-                </span>
-                <span>
-                  Läuft mit den Tools, <span className="text-brand-500">die du schon nutzt.</span>
-                </span>
-              </h2>
-              <p className="max-w-md text-sm leading-relaxed text-muted lg:text-right">Kasse, Kalender, Buchhaltung, Portale: Wir schließen dein System an das an, womit dein Betrieb heute arbeitet.</p>
-            </div>
-            <IntegrationMarquee className="mt-5" />
-            <p className="mt-4 px-5 text-xs leading-relaxed text-muted sm:px-7">Auswahl – was sich anbinden lässt, hängt von der Schnittstelle des Anbieters ab. Dein Tool fehlt? Frag uns. Alle Marken gehören ihren Inhabern.</p>
+        <section id="anbindungen" aria-labelledby="anbindungen-title" className="scroll-mt-28 pt-2 pb-10 sm:pb-12">
+          <div className="container-x flex flex-col gap-x-10 gap-y-1.5 lg:flex-row lg:items-baseline lg:justify-between">
+            <h2 id="anbindungen-title" className="flex items-center gap-2.5 text-[clamp(1.25rem,2vw,1.6rem)] leading-tight font-medium">
+              <span className="grid size-7 shrink-0 place-items-center rounded-lg bg-blush-100 text-blush-600">
+                <Plug className="size-4" aria-hidden />
+              </span>
+              <span>
+                Läuft mit den Tools, <span className="text-brand-500">die du schon nutzt.</span>
+              </span>
+            </h2>
+            <p className="max-w-md text-sm leading-relaxed text-muted lg:text-right">Kasse, Kalender, Buchhaltung, Portale: Wir schließen dein System an das an, womit dein Betrieb heute arbeitet.</p>
           </div>
+          <IntegrationMarquee className="mt-5" />
+          <p className="container-x mt-4 text-xs leading-relaxed text-muted">Auswahl – was sich anbinden lässt, hängt von der Schnittstelle des Anbieters ab. Dein Tool fehlt? Frag uns. Alle Marken gehören ihren Inhabern.</p>
         </section>
 
         <section aria-label="Alle Demos" className="container-x pb-16">
@@ -152,11 +150,7 @@ export default async function DemoHubPage() {
                           <Plug className="size-3.5 text-muted" aria-hidden /> Lässt sich anbinden
                           <span className="font-normal text-muted">· {conn.note}</span>
                         </h3>
-                        <ul className="mt-2.5 flex flex-wrap gap-1.5">
-                          {conn.items.map((it) => (
-                            <IntegrationChip key={it} item={it} />
-                          ))}
-                        </ul>
+                        <IntegrationList items={conn.items} scope={d.slug} />
                       </div>
                       <div className="mt-auto flex flex-wrap items-end justify-between gap-x-6 gap-y-4 pt-7">
                         <p className="text-[13px] leading-snug text-muted">
