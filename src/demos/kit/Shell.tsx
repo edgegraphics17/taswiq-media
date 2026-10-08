@@ -98,7 +98,24 @@ export function DemoShell({ def, pricing, industryHref, industryLabel, children 
     if (d === "handy") track("demo_device_handy");
   };
 
-  const ctx = useMemo<DemoCtx>(() => ({ def, view, tab: tabs[view] ?? "", go, setTab, toast: showToast, frame }), [def, view, tabs, go, setTab, showToast, frame]);
+  // Im Telefon-Rahmen scrollt die Fläche im Rahmen, sonst das Fenster
+  const toTop = useCallback(() => {
+    const box = frame?.firstElementChild;
+    if (box) box.scrollTo({ top: 0 });
+    else window.scrollTo({ top: 0 });
+  }, [frame]);
+  // Ansicht oder Bereich gewechselt → oben beginnen (nicht beim ersten Aufbau; während der Tour holt sie ihr Ziel selbst in den Blick)
+  const tab = tabs[view] ?? "";
+  const mounted = useRef(false);
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+      return;
+    }
+    toTop();
+  }, [view, tab, toTop]);
+
+  const ctx = useMemo<DemoCtx>(() => ({ def, view, tab, go, setTab, toast: showToast, toTop, frame }), [def, view, tab, go, setTab, showToast, toTop, frame]);
   const theme = {
     "--d-accent": def.theme.accent,
     "--d-on": def.theme.on,
@@ -114,6 +131,10 @@ export function DemoShell({ def, pricing, industryHref, industryLabel, children 
     "--bo-rc": def.theme.bo.rc,
     "--bo-side": def.theme.bo.side,
     "--bo-side-ink": def.theme.bo.sideInk,
+    "--bo-title-tt": def.theme.bo.caps ? "uppercase" : "none",
+    "--bo-title-ls": def.theme.bo.caps ? "0.01em" : "-0.02em",
+    "--d-focus": def.theme.focus ?? def.theme.deep,
+    "--d-cta": def.theme.cta ?? def.theme.accent,
   } as React.CSSProperties;
 
   return (
@@ -126,19 +147,19 @@ export function DemoShell({ def, pricing, industryHref, industryLabel, children 
               <span className="hidden lg:inline">Demos</span>
             </Link>
             <span className="h-5 w-px bg-white/15" aria-hidden />
-            <p className="min-w-0 flex-1 truncate text-sm md:flex-none">
+            <p className="min-w-0 flex-1 truncate text-sm md:max-w-[9.5rem] md:flex-none xl:max-w-none">
               <span className="font-medium">{def.firm}</span>
-              <span className="ml-2 hidden rounded-full bg-white/10 px-2 py-0.5 text-[11px] font-medium text-white/75 sm:inline">Musterfirma</span>
+              <span className="ml-2 hidden rounded-full bg-white/10 px-2 py-0.5 text-[11px] font-medium text-white/75 sm:inline md:hidden xl:inline">Musterfirma</span>
             </p>
             <ViewSwitch def={def} view={view} onChange={(v) => go(v)} className="mx-auto hidden md:flex" />
             <div className="flex shrink-0 items-center gap-1 md:ml-auto">
               <DeviceSwitch device={device} onChange={switchDevice} className="mr-1 hidden md:flex" />
               <button type="button" onClick={startTour} className="inline-flex min-h-11 items-center gap-1.5 rounded-full px-2.5 text-sm font-medium text-white/85 hover:bg-white/10 hover:text-white">
-                <CirclePlay className="size-4" aria-hidden /> Tour
+                <CirclePlay className="size-4" aria-hidden /> <span className="md:max-lg:sr-only">Tour</span>
               </button>
               <button type="button" onClick={() => setInfo(true)} aria-expanded={info} className="inline-flex min-h-11 items-center gap-1.5 rounded-full px-2.5 text-sm font-medium text-white/85 hover:bg-white/10 hover:text-white">
-                <Info className="size-4" aria-hidden /> <span className="hidden sm:inline">Was ist möglich?</span>
-                <span className="sm:hidden">Infos</span>
+                <Info className="size-4" aria-hidden /> <span className="hidden xl:inline">Was ist möglich?</span>
+                <span className="md:max-lg:sr-only xl:hidden">Infos</span>
               </button>
               <Link href="/#kontakt" prefetch={false} onClick={() => track("demo_cta")} className="ml-1 hidden min-h-9 items-center gap-1.5 rounded-full bg-brand-500 px-4 text-sm font-medium text-white hover:bg-brand-600 lg:inline-flex">
                 Für meinen Betrieb <ArrowRight className="size-4" aria-hidden />
@@ -157,7 +178,7 @@ export function DemoShell({ def, pricing, industryHref, industryLabel, children 
               <div className="relative rounded-[2.6rem] bg-[#0c0d10] px-[11px] py-[15px] shadow-[0_24px_60px_-18px_rgb(17_17_19/0.4)]" style={{ height: "min(52rem, calc(100dvh - var(--bar-h) - 2.5rem))" }}>
                 <span className="absolute top-[6px] left-1/2 h-[3px] w-14 -translate-x-1/2 rounded-full bg-white/25" aria-hidden />
                 <span className="absolute top-[5px] left-[calc(50%+3.25rem)] size-[5px] rounded-full bg-white/15" aria-hidden />
-                <div ref={setFrame} style={{ ...theme, "--bar-h": "0px" } as React.CSSProperties} className="@container relative h-full w-[23rem] max-w-full overflow-hidden rounded-[2.1rem] bg-white [transform:translateZ(0)]">
+                <div ref={setFrame} style={{ ...theme, "--bar-h": "0px" } as React.CSSProperties} className="demo-app @container relative h-full w-[23rem] max-w-full overflow-hidden rounded-[2.1rem] bg-white [transform:translateZ(0)]">
                   <div className="h-full overflow-x-hidden overflow-y-auto overscroll-contain">
                     <App key={run} />
                   </div>
@@ -165,7 +186,7 @@ export function DemoShell({ def, pricing, industryHref, industryLabel, children 
               </div>
             </div>
           ) : (
-            <div style={theme} className="@container min-h-[calc(100dvh-var(--bar-h))] bg-white">
+            <div style={theme} className="demo-app @container min-h-[calc(100dvh-var(--bar-h))] bg-white">
               <App key={run} />
             </div>
           )}
@@ -214,7 +235,7 @@ function ViewSwitch({ def, view, onChange, className }: { def: DemoDef; view: st
           type="button"
           aria-pressed={view === v.id}
           onClick={() => onChange(v.id)}
-          className={`min-h-9 flex-1 rounded-full px-3.5 text-[13px] font-medium whitespace-nowrap transition-colors md:flex-none ${view === v.id ? "bg-white text-ink" : "text-white/75 hover:text-white"}`}
+          className={`min-h-9 flex-1 rounded-full px-3.5 text-[13px] font-medium whitespace-nowrap transition-colors md:flex-none md:max-lg:px-2.5 ${view === v.id ? "bg-white text-ink" : "text-white/75 hover:text-white"}`}
         >
           {v.label}
         </button>
@@ -239,7 +260,7 @@ function DeviceSwitch({ device, onChange, className }: { device: Device; onChang
           onClick={() => onChange(o.id)}
           className={`inline-flex min-h-9 items-center gap-1.5 rounded-full px-3 text-[13px] font-medium whitespace-nowrap transition-colors ${device === o.id ? "bg-white text-ink" : "text-white/75 hover:text-white"}`}
         >
-          <o.icon className="size-4" aria-hidden /> {o.label}
+          <o.icon className="size-4" aria-hidden /> <span className="md:max-xl:sr-only">{o.label}</span>
         </button>
       ))}
     </div>

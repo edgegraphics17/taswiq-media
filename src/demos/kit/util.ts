@@ -1,3 +1,5 @@
+import { useRef } from "react";
+
 /** Kleine Helfer der Demo-Apps: Beträge, Uhrzeiten und Tage relativ zu "heute" (damit jede Demo immer aktuell aussieht). */
 
 const eurFmt = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" });
@@ -50,6 +52,20 @@ export const nowMinutes = () => {
 };
 export const clock = () => hm(nowMinutes());
 export const monthName = (offset = 0) => new Intl.DateTimeFormat("de-DE", { month: "long" }).format(new Date(new Date().getFullYear(), new Date().getMonth() + offset, 1));
+
+/**
+ * Sperre gegen doppeltes Absenden: liefert eine Funktion, die innerhalb der Frist nur einmal `true` meldet.
+ * Formulare der Demos legen beim Absenden einen Vorgang an – ein Doppelklick soll keinen zweiten erzeugen.
+ */
+export function useOnce(ms = 900) {
+  const last = useRef(0);
+  return () => {
+    const now = Date.now();
+    if (now - last.current < ms) return false;
+    last.current = now;
+    return true;
+  };
+}
 
 export function cx(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ");

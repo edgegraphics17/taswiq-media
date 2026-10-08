@@ -44,7 +44,7 @@ export interface DemoDef {
    * Designsystem der Musterfirma: Farben und Schriften der Kundenseite, `bo` = Verwaltungsansicht
    * (Fläche, Linie, Text, Radius von Flächen/Bedienelementen, Seitenleiste).
    */
-  theme: { accent: string; on: string; soft: string; deep: string; display: string; ui: string; bo: { bg: string; line: string; ink: string; r: string; rc: string; side: string; sideInk: string } };
+  theme: { accent: string; on: string; soft: string; deep: string; display: string; ui: string; /** Farbe des Fokusrahmens, falls die Tiefe dafür nicht taugt */ focus?: string; /** Fläche für Schaltflächen mit weißem Text, wenn der Akzent dafür zu hell ist (WCAG AA) */ cta?: string; bo: { bg: string; line: string; ink: string; r: string; rc: string; side: string; sideInk: string; /** Seitentitel der Verwaltung in Versalien (Display-Schriften, die dafür gezeichnet sind) */ caps?: boolean } };
   views: { id: string; label: string; tab: string }[];
   tour: TourStep[];
   /** Was die Demo zeigt */
@@ -69,7 +69,7 @@ export const demos: DemoDef[] = [
     metaDescription: "Bestell bei der Muster-Pizzeria Fiamma und verfolge die Bestellung im Küchen-Board: Speisekarte, Abholung und Lieferung, Auswertung. Kostenlos testen.",
     image: "/images/demo/restaurant.jpg",
     pack: "pro",
-    theme: { accent: "#f2541b", on: "#ffffff", soft: "#fdeee6", deep: "#2b2420", display: "var(--font-urbanist)", ui: "var(--font-urbanist)", bo: { bg: "#fbf1eb", line: "#f0e2d8", ink: "#2b2420", r: "22px", rc: "999px", side: "#ffffff", sideInk: "#2b2420" } },
+    theme: { accent: "#f2541b", cta: "#d5430e", on: "#ffffff", soft: "#fdeee6", deep: "#2b2420", display: "var(--font-urbanist)", ui: "var(--font-urbanist)", bo: { bg: "#fbf1eb", line: "#f0e2d8", ink: "#2b2420", r: "22px", rc: "999px", side: "#ffffff", sideInk: "#2b2420" } },
     views: [
       { id: "kunde", label: "Bestellseite", tab: "karte" },
       { id: "betrieb", label: "Dashboard", tab: "kueche" },
@@ -219,7 +219,7 @@ export const demos: DemoDef[] = [
     metaDescription: "Buch einen Werkstatttermin beim Muster-Autohaus Falkner, gib eine Zusatzarbeit frei und sieh den Werkstattplan des Teams. Kostenlos testen.",
     image: "/images/demo/werkstatt.jpg",
     pack: "app",
-    theme: { accent: "#e63e2d", on: "#ffffff", soft: "#fdecea", deep: "#0e1b1d", display: "var(--font-rajdhani)", ui: "var(--font-plex-sans)", bo: { bg: "#eef2f5", line: "#d9e0e6", ink: "#0e1b1d", r: "0px", rc: "0px", side: "#0e1b1d", sideInk: "#ffffff" } },
+    theme: { accent: "#e63e2d", cta: "#d8321f", on: "#ffffff", soft: "#fdecea", deep: "#0e1b1d", display: "var(--font-rajdhani)", ui: "var(--font-plex-sans)", bo: { bg: "#eef2f5", line: "#d9e0e6", ink: "#0e1b1d", r: "0px", rc: "0px", side: "#0e1b1d", sideInk: "#ffffff", caps: true } },
     views: [
       { id: "kunde", label: "Kundenseite", tab: "termin" },
       { id: "betrieb", label: "Dashboard", tab: "auftraege" },
@@ -319,7 +319,7 @@ export const demos: DemoDef[] = [
     metaDescription: "Stell bei Wilke Haustechnik eine Anfrage, schreib im Büro das Angebot und schließ den Auftrag in der Monteur-App mit Unterschrift ab. Kostenlos testen.",
     image: "/images/demo/handwerk.jpg",
     pack: "auftrag",
-    theme: { accent: "#f4c042", on: "#152b3b", soft: "#dfecf3", deep: "#152b3b", display: "var(--font-shoulders)", ui: "var(--font-instrument)", bo: { bg: "#f4f7f9", line: "#d6e0e7", ink: "#152b3b", r: "20px", rc: "12px", side: "#152b3b", sideInk: "#ffffff" } },
+    theme: { accent: "#f4c042", on: "#152b3b", soft: "#dfecf3", deep: "#152b3b", display: "var(--font-shoulders)", ui: "var(--font-instrument)", bo: { bg: "#f4f7f9", line: "#d6e0e7", ink: "#152b3b", r: "16px", rc: "10px", side: "#152b3b", sideInk: "#ffffff", caps: true } },
     views: [
       { id: "kunde", label: "Kundenseite", tab: "anfrage" },
       { id: "betrieb", label: "Büro", tab: "auftraege" },

@@ -2,9 +2,9 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { CalendarClock, Camera, ChartColumn, Check, FileText, FolderOpen, Inbox, Lock, MessageSquare, Phone, ScanLine, Send, Upload, Users } from "lucide-react";
+import { ArrowRight, CalendarClock, Camera, ChartColumn, Check, FileText, FolderOpen, Inbox, LayoutGrid, Lock, MessageSquare, Phone, ScanLine, Send, Upload, Users } from "lucide-react";
 import { useDemo } from "@/demos/kit/context";
-import { Avatar, Backoffice, Bars, Btn, Figures, Panel, Ranks, Tag, td, th, tr } from "@/demos/kit/ui";
+import { Backoffice, Bars, Btn, Figures, Panel, Ranks, Tag, td, th, tr } from "@/demos/kit/ui";
 import { clock, cx, day, eur, fmtDate, fmtDay, monthName, num } from "@/demos/kit/util";
 
 /**
@@ -82,6 +82,8 @@ export default function KanzleiDemo() {
     answered,
     upload,
     confirm: (id: number) => setReceipts((r) => r.map((x) => (x.id === id ? { ...x, status: "geprueft" } : x))),
+    // Prüfschritt: ausgelesene Angaben korrigieren und damit freigeben
+    fix: (id: number, change: Pick<Receipt, "vendor" | "amount" | "cat">) => setReceipts((r) => r.map((x) => (x.id === id ? { ...x, ...change, status: "geprueft" } : x))),
     send: (from: Msg["from"], text: string) => setMsgs((m) => [...m, { from, text, at: `heute, ${clock()}` }]),
     approve: () => setApproved(clock()),
     answer: (text: string) => {
@@ -100,6 +102,7 @@ interface State {
   answered: boolean;
   upload: () => void;
   confirm: (id: number) => void;
+  fix: (id: number, change: Pick<Receipt, "vendor" | "amount" | "cat">) => void;
   send: (from: Msg["from"], text: string) => void;
   approve: () => void;
   answer: (text: string) => void;
@@ -107,180 +110,283 @@ interface State {
 const baseCount = 5; // bereits früher im Monat geliefert, nicht einzeln gelistet
 const delivered = (s: State) => baseCount + s.receipts.length;
 
-/* ───────────────────────────── Mandantenportal ───────────────────────────── */
+/* ───────────────────────────── Mandantenportal ─────────────────────────────
+   Gestaltung „Albrecht & Sommer": seriöses Schwarz (#111) auf Weiß, Manrope, viel Weißraum und Haarlinien (#dcdcda).
+   Bewusst Software statt Werbeseite: feste Navigation (Leiste links, am Handy Reiter unten), nummerierte Listen,
+   Zahlen tabellarisch, Etiketten 11 px gesperrt. Kanten gerade (Radius 0–2 px). Abstände im 4/8er-Raster, Blöcke 32/48. */
 
-const SERIF = "font-d-display tracking-[-0.01em]";
+const SERIF = "font-d-display tracking-[-0.03em]";
+const P = {
+  label: "text-[11px] leading-none font-bold tracking-[0.14em] uppercase",
+  muted: "text-[#6b6b66]",
+  line: "border-[#dcdcda]",
+  btn: "inline-flex min-h-11 items-center justify-center gap-2 rounded-[2px] px-5 text-[14px] font-bold whitespace-nowrap transition-colors active:translate-y-px disabled:pointer-events-none disabled:opacity-40",
+  dark: "bg-[#111111] text-white hover:bg-black",
+  ghost: "border border-[#111111] text-[#111111] hover:bg-[#111111] hover:text-white",
+  input: "min-h-11 w-full rounded-[2px] border border-[#b9b9b4] bg-white px-3 text-[16px] text-[#111111] outline-none transition-colors placeholder:text-[#7d7d78] hover:border-[#111111] focus:border-[#111111] focus:shadow-[inset_0_-2px_0_#111111] @dsm:text-[14.5px]",
+};
+const CATEGORIES = ["Wareneinkauf", "Strom und Gas", "Telefon und Internet", "Bürobedarf", "Fahrzeugkosten", "Bewirtung", "Versicherungen", "Miete", "Reinigung"];
 
 function Portal({ s }: { s: State }) {
   const { tab, setTab } = useDemo();
+  const open = [delivered(s) < TARGET, !s.approved, !s.answered].filter(Boolean).length;
   const nav = [
-    { id: "uebersicht", label: "Übersicht", icon: Check },
-    { id: "belege", label: "Belege", icon: ScanLine },
-    { id: "dokumente", label: "Dokumente", icon: FolderOpen },
-    { id: "nachrichten", label: "Nachrichten", icon: MessageSquare },
+    { id: "uebersicht", label: "Übersicht", icon: LayoutGrid, count: open },
+    { id: "belege", label: "Belege", icon: ScanLine, count: s.receipts.filter((r) => r.status === "erkannt").length },
+    { id: "dokumente", label: "Dokumente", icon: FolderOpen, count: s.approved ? 0 : 1 },
+    { id: "nachrichten", label: "Nachrichten", icon: MessageSquare, count: 0 },
   ];
   return (
-    <div className="min-h-[var(--app-h)] bg-d-soft font-plex text-[15px] text-[#3f3f3a]">
-      <header className="bg-d-deep text-white">
-        <div className="mx-auto max-w-5xl px-4 pt-4 @dsm:px-6">
-          <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-1">
-            <p>
-              <span className={cx(SERIF, "block text-[1.35rem] leading-none font-semibold text-white")}>Albrecht & Sommer</span>
-              <span className="mt-1.5 block text-[11px] tracking-wide text-white/55 uppercase">Steuerberatung · Mandantenportal</span>
-            </p>
-            <p className="flex items-center gap-2 text-[13px] text-white/70">
-              <Lock className="size-3.5" aria-hidden /> Angemeldet: Jana Petersen · Café Rosenhof
-            </p>
-          </div>
-          <div className="relative mt-4 h-20 overflow-hidden @dsm:h-24">
-            <Image src="/images/demo/photos/k-hero.webp" alt="Kanzleiräume der Steuerberatung Albrecht & Sommer" fill sizes="(min-width: 40rem) 40rem, 100vw" className="object-cover object-[center_60%] grayscale" />
-          </div>
-        </div>
-        <nav aria-label="Portal" className="mx-auto mt-3 flex max-w-5xl gap-1 overflow-x-auto px-4 [scrollbar-width:none] @dsm:px-6">
+    <div className="min-h-[var(--app-h)] bg-white font-plex text-[15px] leading-[1.55] text-[#3f3f3a] @dlg:grid @dlg:grid-cols-[15.5rem_minmax(0,1fr)]">
+      {/* Breite Rahmen: Leiste links */}
+      <aside className="on-dark hidden bg-[#111111] text-white @dlg:sticky @dlg:top-[var(--bar-h)] @dlg:flex @dlg:h-[var(--app-h)] @dlg:flex-col">
+        <p className="border-b border-white/15 px-6 py-6">
+          <span className={cx(SERIF, "block text-[1.375rem] leading-none font-extrabold text-white")}>Albrecht & Sommer</span>
+          <span className={cx("mt-2.5 block text-white/60", P.label)}>Steuerberatung</span>
+        </p>
+        <nav aria-label="Portal" className="flex flex-col gap-0.5 px-3 py-4">
           {nav.map((n) => (
-            <button key={n.id} type="button" aria-current={tab === n.id ? "page" : undefined} onClick={() => setTab(n.id)} className={cx("flex min-h-12 shrink-0 items-center gap-2 border-b-2 px-3 text-[14px] font-medium", tab === n.id ? "border-white text-white" : "border-transparent text-white/55 hover:text-white")}>
-              <n.icon className="size-4" strokeWidth={1.75} aria-hidden /> {n.label}
+            <button key={n.id} type="button" aria-current={tab === n.id ? "page" : undefined} onClick={() => setTab(n.id)} className={cx("flex min-h-11 items-center gap-3 rounded-[2px] px-3 text-left text-[14.5px] font-semibold transition-colors", tab === n.id ? "bg-white text-[#111111]" : "text-white/75 hover:bg-white/10 hover:text-white")}>
+              <n.icon className="size-[18px] shrink-0" strokeWidth={1.75} aria-hidden />
+              <span className="flex-1">{n.label}</span>
+              {n.count > 0 && <span className={cx("num min-w-5 rounded-[2px] px-1.5 text-center text-[11px] leading-5 font-bold", tab === n.id ? "bg-[#111111] text-white" : "bg-white text-[#111111]")}>{n.count}</span>}
             </button>
           ))}
         </nav>
-      </header>
-      <div className="mx-auto max-w-5xl px-4 py-7 @dsm:px-6">{tab === "belege" ? <Receipts s={s} /> : tab === "dokumente" ? <Documents s={s} /> : tab === "nachrichten" ? <Messages s={s} /> : <Overview s={s} onTab={setTab} />}</div>
+        <div className="mt-auto border-t border-white/15 px-6 py-5">
+          <p className={cx("flex items-center gap-2 text-white/60", P.label)}>
+            <Lock className="size-3.5" aria-hidden /> Sicher angemeldet
+          </p>
+          <p className="mt-3 text-[14.5px] leading-tight font-semibold text-white">Jana Petersen</p>
+          <p className="mt-1 text-[13px] text-white/65">Café Rosenhof · Mandant 10482</p>
+        </div>
+      </aside>
+
+      <div className="flex min-h-[var(--app-h)] min-w-0 flex-col">
+        {/* Schmale Rahmen: Kopfzeile oben, Reiter unten */}
+        <header className="on-dark flex items-center justify-between gap-4 bg-[#111111] px-4 py-3.5 text-white @dsm:px-6 @dlg:hidden">
+          <p>
+            <span className={cx(SERIF, "block text-[1.125rem] leading-none font-extrabold text-white")}>Albrecht & Sommer</span>
+            <span className={cx("mt-2 block text-[10px] text-white/60", P.label)}>Mandantenportal</span>
+          </p>
+          <p className="flex min-w-0 items-center gap-2 text-[12.5px] font-semibold text-white/80">
+            <Lock className="size-3.5 shrink-0" aria-hidden /> <span className="truncate">J. Petersen</span>
+          </p>
+        </header>
+        <main className="mx-auto w-full max-w-[64rem] flex-1 px-4 py-6 @dsm:px-6 @dlg:px-10 @dlg:py-10">{tab === "belege" ? <Receipts s={s} /> : tab === "dokumente" ? <Documents s={s} /> : tab === "nachrichten" ? <Messages s={s} /> : <Overview s={s} onTab={setTab} />}</main>
+        <nav aria-label="Portal" className="sticky bottom-0 z-20 grid grid-cols-4 border-t border-[#111111] bg-white @dlg:hidden">
+          {nav.map((n) => (
+            <button key={n.id} type="button" aria-current={tab === n.id ? "page" : undefined} onClick={() => setTab(n.id)} className={cx("relative flex min-h-14 flex-col items-center justify-center gap-1 text-[11px] font-bold transition-colors", tab === n.id ? "bg-[#111111] text-white" : "text-[#3f3f3a]")}>
+              <span className="relative">
+                <n.icon className="size-5" strokeWidth={1.75} aria-hidden />
+                {n.count > 0 && <span className={cx("num absolute -top-1.5 -right-2.5 grid min-w-4 place-items-center rounded-full px-1 text-[10px] leading-4", tab === n.id ? "bg-white text-[#111111]" : "bg-[#111111] text-white")}>{n.count}</span>}
+              </span>
+              {n.label}
+            </button>
+          ))}
+        </nav>
+      </div>
     </div>
   );
 }
 
 const card = "rounded-none border border-[#dcdcda] bg-white";
+/** Seitenkopf der Unterseiten: Etikett, Titel, rechts eine Kennzahl oder Aktion */
+function PageHead({ label, title, children }: { label: string; title: string; children?: React.ReactNode }) {
+  return (
+    <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4 border-b border-[#111111] pb-5">
+      <div>
+        <p className={cx(P.label, P.muted)}>{label}</p>
+        <h1 className={cx(SERIF, "mt-3 text-[2rem] leading-none font-extrabold text-[#111111] @dsm:text-[2.5rem]")}>{title}</h1>
+      </div>
+      {children}
+    </div>
+  );
+}
 
 function Overview({ s, onTab }: { s: State; onTab: (t: string) => void }) {
   const [text, setText] = useState("");
   const n = delivered(s);
   const open = [n < TARGET, !s.approved, !s.answered].filter(Boolean).length;
-  const task = "flex flex-wrap items-center gap-x-4 gap-y-3 px-5 py-4";
-  const doneMark = (done: boolean) => <span className={cx("grid size-6 shrink-0 place-items-center rounded-[2px] border-2", done ? "border-d-accent bg-d-accent text-white" : "border-[#c9c9c2] bg-white")}>{done && <Check className="size-3.5" strokeWidth={3} aria-hidden />}</span>;
+  const num2 = (i: number, done: boolean) => (
+    <span className={cx("num grid size-9 shrink-0 place-items-center rounded-[2px] border text-[12.5px] font-bold", done ? "border-[#111111] bg-[#111111] text-white" : "border-[#b9b9b4] text-[#111111]")}>{done ? <Check className="size-4" strokeWidth={3} aria-hidden /> : `0${i}`}</span>
+  );
+  const row = "grid grid-cols-[2.25rem_minmax(0,1fr)] items-start gap-x-4 gap-y-3 py-5 @dmd:grid-cols-[2.25rem_minmax(0,1fr)_auto] @dmd:items-center";
+  const deadlines: [string, number, string][] = [
+    ["Umsatzsteuer-Voranmeldung", 6, "Belege bis dahin vollständig"],
+    ["Lohnmeldung", 12, "Stunden der Aushilfen melden"],
+    ["Einkommensteuer-Vorauszahlung", 27, "1.650,00 € · wird abgebucht"],
+  ];
   return (
-    <div className="grid gap-6 @dlg:grid-cols-[minmax(0,1fr)_18.5rem]">
-      <div>
-        <h1 className={cx(SERIF, "text-[2rem] leading-tight font-medium text-d-deep")}>Guten Tag, Frau Petersen.</h1>
-        <p className="mt-2 text-[#6f6f68]">{open ? `${open === 1 ? "Eine Sache wartet" : `${open} Dinge warten`} auf Sie. Alles andere erledigen wir.` : "Im Moment ist nichts offen. Danke – so können wir zügig arbeiten."}</p>
+    <div className="space-y-10 @dlg:space-y-12">
+      <section className="grid gap-2 @dmd:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
+        <div className="on-dark flex flex-col justify-between gap-10 bg-[#111111] p-6 text-white @dsm:p-8">
+          <div>
+            <p className={cx("inline-flex min-h-7 items-center gap-2 rounded-[2px] bg-white/10 px-2.5 text-white/85", P.label)}>
+              <Lock className="size-3.5" aria-hidden /> Mandantenportal
+            </p>
+            <h1 className={cx(SERIF, "mt-5 text-[clamp(2rem,6.4cqi,3.25rem)] leading-[1.02] font-extrabold text-white")}>
+              Guten Tag,
+              <br />
+              Frau Petersen.
+            </h1>
+            <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-white/70">{open ? `${open === 1 ? "Eine Sache wartet" : `${open} Dinge warten`} auf Sie. Alles andere erledigen wir.` : "Im Moment ist nichts offen. Danke – so können wir zügig arbeiten."}</p>
+          </div>
+          <dl className="grid grid-cols-3 gap-4">
+            {[
+              [String(open), "offene Aufgaben"],
+              [`${n}/${TARGET}`, `Belege ${monthName()}`],
+              ["6", "Tage bis zur Frist"],
+            ].map(([v, l]) => (
+              <div key={l} className="border-t border-white/25 pt-4">
+                <dd className={cx(SERIF, "num text-[clamp(1.375rem,6.8cqi,2rem)] leading-none font-extrabold whitespace-nowrap text-white @dlg:text-[2.5rem]")}>{v}</dd>
+                <dt className="mt-2 text-[12.5px] leading-snug text-white/65">{l}</dt>
+              </div>
+            ))}
+          </dl>
+        </div>
+        <div className="relative min-h-[15rem] overflow-hidden bg-[#c9c9cd] @dmd:min-h-[24rem]">
+          <Image src="/images/demo/photos/k-hero.webp" alt="Steuerberaterin Katrin Sommer im dunklen Blazer vor grauem Hintergrund" fill priority sizes="(min-width: 48rem) 28rem, 100vw" className="object-cover object-[center_22%] grayscale" />
+          <div className="absolute inset-x-3 bottom-3 flex flex-wrap items-center justify-between gap-3 bg-white/95 p-4">
+            <p className="leading-tight">
+              <span className={cx("block", P.label, P.muted)}>Ihre Ansprechpartnerin</span>
+              <span className="mt-2 block text-[16px] font-extrabold text-[#111111]">Katrin Sommer</span>
+              <span className="num mt-1 flex items-center gap-1.5 text-[13px]">
+                <Phone className="size-3.5" aria-hidden /> 01234 220 114
+              </span>
+            </p>
+            <button type="button" onClick={() => onTab("nachrichten")} className={cx(P.btn, P.dark)}>
+              Nachricht
+            </button>
+          </div>
+        </div>
+      </section>
 
-        <h2 className="mt-7 text-[11px] font-semibold tracking-wide text-[#6f6f68] uppercase">Was offen ist</h2>
-        <section data-tour="aufgaben" className={cx(card, "mt-2 divide-y divide-[#dcdcda]")} aria-label="Offene Aufgaben">
-          <div className={task}>
-            {doneMark(n >= TARGET)}
-            <div className="min-w-0 flex-1">
-              <p className="font-medium text-d-deep">Belege für {monthName()} hochladen</p>
-              <div className="mt-2 flex items-center gap-3">
-                <div className="h-1.5 flex-1 bg-[#e3e3df]">
-                  <div className="h-full bg-d-accent transition-[width] duration-500" style={{ width: `${Math.min(100, (n / TARGET) * 100)}%` }} />
+      <section>
+        <div className="flex items-end justify-between gap-4 border-b border-[#111111] pb-3">
+          <h2 className={cx(SERIF, "text-[1.5rem] leading-none font-extrabold text-[#111111]")}>Was offen ist</h2>
+          <p className={cx("num", P.label, P.muted)}>{open} von 3</p>
+        </div>
+        <div data-tour="aufgaben" className="divide-y divide-[#dcdcda] border-b border-[#dcdcda]" aria-label="Offene Aufgaben">
+          <div className={row}>
+            {num2(1, n >= TARGET)}
+            <div className="min-w-0">
+              <p className="text-[16px] leading-snug font-bold text-[#111111]">Belege für {monthName()} hochladen</p>
+              <div className="mt-2.5 flex items-center gap-3">
+                <div className="h-1.5 max-w-xs flex-1 bg-[#e3e3df]">
+                  <div className="h-full bg-[#111111] transition-[width] duration-500" style={{ width: `${Math.min(100, (n / TARGET) * 100)}%` }} />
                 </div>
-                <p className="num shrink-0 text-[13px] text-[#6f6f68]">
+                <p className={cx("num shrink-0 text-[13px]", P.muted)}>
                   {n} von etwa {TARGET}
                 </p>
               </div>
             </div>
-            <button type="button" onClick={() => onTab("belege")} className="min-h-11 rounded-[2px] bg-d-accent px-4 text-[14px] font-medium text-white hover:bg-d-deep">
-              Belege hochladen
+            <button type="button" onClick={() => onTab("belege")} className={cx(P.btn, P.dark, "col-start-2 justify-self-start @dmd:col-start-3")}>
+              Belege hochladen <ArrowRight className="size-4" aria-hidden />
             </button>
           </div>
-          <div className={task}>
-            {doneMark(!!s.approved)}
-            <div className="min-w-0 flex-1">
-              <p className={cx("font-medium text-d-deep", s.approved && "line-through opacity-60")}>Einkommensteuererklärung 2025 prüfen und freigeben</p>
-              <p className="mt-1 text-[13px] text-[#6f6f68]">{s.approved ? <>Freigegeben heute um <span className="num">{s.approved}</span> Uhr</> : <>Abgabe beim Finanzamt geplant für <span className="num">{fmtDay(day(9))}</span></>}</p>
+          <div className={row}>
+            {num2(2, !!s.approved)}
+            <div className="min-w-0">
+              <p className={cx("text-[16px] leading-snug font-bold text-[#111111]", s.approved && "line-through decoration-1 opacity-55")}>Einkommensteuererklärung 2025 prüfen und freigeben</p>
+              <p className={cx("mt-1 text-[13.5px]", P.muted)}>
+                {s.approved ? (
+                  <>
+                    Freigegeben heute um <span className="num">{s.approved}</span> Uhr
+                  </>
+                ) : (
+                  <>
+                    Abgabe beim Finanzamt geplant für <span className="num">{fmtDay(day(9))}</span>
+                  </>
+                )}
+              </p>
             </div>
             {!s.approved && (
-              <button type="button" onClick={() => onTab("dokumente")} className="min-h-11 rounded-[2px] border border-[#c9c9c2] px-4 text-[14px] font-medium text-d-deep hover:border-d-deep">
+              <button type="button" onClick={() => onTab("dokumente")} className={cx(P.btn, P.ghost, "col-start-2 justify-self-start @dmd:col-start-3")}>
                 Ansehen
               </button>
             )}
           </div>
-          <div className="px-5 py-4">
-            <div className="flex items-start gap-4">
-              {doneMark(s.answered)}
-              <div className="min-w-0 flex-1">
-                <p className={cx("font-medium text-d-deep", s.answered && "line-through opacity-60")}>Rückfrage zum Beleg „Restaurant Zur Linde“, 86,50 €</p>
-                <p className="mt-1 text-[13px] text-[#6f6f68]">{s.answered ? "Beantwortet – vielen Dank." : "Bewirtungsbeleg: Wer hat teilgenommen und was war der Anlass?"}</p>
-                {!s.answered && (
-                  <form
-                    className="mt-3 flex flex-wrap gap-2"
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      s.answer(text.trim() || "Besprechung mit Lieferant Hansen, zwei Personen, Thema Jahresvertrag.");
-                    }}
-                  >
-                    <label className="min-w-0 flex-1">
-                      <span className="sr-only">Antwort auf die Rückfrage</span>
-                      <input value={text} onChange={(e) => setText(e.target.value)} placeholder="z. B. Besprechung mit Lieferant, zwei Personen" className="min-h-11 w-full rounded-[2px] border border-[#c9c9c2] bg-white px-3 text-[16px] text-d-deep outline-none focus:border-d-deep @dsm:text-[14px]" />
-                    </label>
-                    <button type="submit" className="min-h-11 rounded-[2px] border border-[#c9c9c2] px-4 text-[14px] font-medium text-d-deep hover:border-d-deep">
-                      Antworten
-                    </button>
-                  </form>
-                )}
-              </div>
+          <div className="grid grid-cols-[2.25rem_minmax(0,1fr)] items-start gap-x-4 py-5">
+            {num2(3, s.answered)}
+            <div className="min-w-0">
+              <p className={cx("text-[16px] leading-snug font-bold text-[#111111]", s.answered && "line-through decoration-1 opacity-55")}>Rückfrage zum Beleg „Restaurant Zur Linde“, 86,50 €</p>
+              <p className={cx("mt-1 text-[13.5px]", P.muted)}>{s.answered ? "Beantwortet – vielen Dank." : "Bewirtungsbeleg: Wer hat teilgenommen und was war der Anlass?"}</p>
+              {!s.answered && (
+                <form
+                  className="mt-3 flex max-w-xl flex-wrap gap-2"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    s.answer(text.trim() || "Besprechung mit Lieferant Hansen, zwei Personen, Thema Jahresvertrag.");
+                  }}
+                >
+                  <label className="min-w-[12rem] flex-1">
+                    <span className="sr-only">Antwort auf die Rückfrage</span>
+                    <input value={text} onChange={(e) => setText(e.target.value)} maxLength={200} placeholder="z. B. Besprechung mit Lieferant, zwei Personen" className={P.input} />
+                  </label>
+                  <button type="submit" className={cx(P.btn, P.ghost)}>
+                    Antworten
+                  </button>
+                </form>
+              )}
             </div>
-          </div>
-        </section>
-
-        <h2 className="mt-8 text-[11px] font-semibold tracking-wide text-[#6f6f68] uppercase">Zuletzt für Sie erledigt</h2>
-        <ul className="mt-2 divide-y divide-[#dcdcda] border-y border-[#dcdcda] text-[14px]">
-          {[
-            [`Umsatzsteuer-Voranmeldung ${monthName(-1)} übermittelt`, fmtDay(day(-3))],
-            [`Lohnabrechnungen ${monthName(-1)} bereitgestellt`, fmtDay(day(-7))],
-            ["Einspruch gegen Vorauszahlungsbescheid – stattgegeben", fmtDay(day(-15))],
-          ].map(([t, w]) => (
-            <li key={t} className="flex justify-between gap-4 py-2.5">
-              <span>{t}</span>
-              <span className="num shrink-0 text-[#8a8a82]">{w}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <aside className="space-y-4">
-        <div className={cx(card, "overflow-hidden")}>
-          <div className="relative aspect-[2/1] overflow-hidden">
-            <Image src="/images/demo/photos/k-building.webp" alt="Kanzleigebäude von Albrecht & Sommer in der Musterstadt" fill sizes="(min-width: 64rem) 18.5rem, 100vw" className="object-cover grayscale" />
-          </div>
-          <div className="p-5">
-            <h2 className="text-[11px] font-semibold tracking-wide text-[#6f6f68] uppercase">Ihre Ansprechpartnerin</h2>
-            <div className="mt-3 flex items-center gap-3">
-              <Avatar name="Katrin Sommer" />
-              <div>
-                <p className="font-medium text-d-deep">Katrin Sommer</p>
-                <p className="text-[13px] text-[#6f6f68]">Steuerberaterin</p>
-              </div>
-            </div>
-            <p className="num mt-3 flex items-center gap-2 text-[14px]">
-              <Phone className="size-3.5" aria-hidden /> 01234 220 114
-            </p>
-            <button type="button" onClick={() => onTab("nachrichten")} className="mt-3 min-h-11 w-full rounded-[2px] border border-[#c9c9c2] text-[14px] font-medium text-d-deep hover:border-d-deep">
-              Nachricht schreiben
-            </button>
           </div>
         </div>
-        <div className={cx(card, "p-5")}>
-          <h2 className="text-[11px] font-semibold tracking-wide text-[#6f6f68] uppercase">Nächste Fristen</h2>
-          <ul className="mt-3 space-y-3 text-[14px]">
+      </section>
+
+      <div className="grid gap-10 @dmd:grid-cols-2 @dmd:gap-12">
+        <section>
+          <h2 className={cx("border-b border-[#111111] pb-3", P.label, "text-[#111111]")}>Zuletzt für Sie erledigt</h2>
+          <ul className="divide-y divide-[#dcdcda] border-b border-[#dcdcda] text-[14.5px]">
             {[
-              ["Umsatzsteuer-Voranmeldung", 6, "Belege bis dahin vollständig"],
-              ["Lohnmeldung", 12, "Stunden der Aushilfen melden"],
-              ["Einkommensteuer-Vorauszahlung", 27, "1.650,00 € · wird abgebucht"],
-            ].map(([t, off, note]) => (
-              <li key={t as string} className="flex gap-3">
-                <span className="num w-12 shrink-0 text-center leading-tight">
-                  <span className="block text-[17px] font-semibold text-d-deep">{day(off as number).getDate()}.</span>
-                  <span className="block text-[11px] text-[#8a8a82]">{monthName((day(off as number).getMonth() - new Date().getMonth() + 12) % 12).slice(0, 3)}.</span>
+              [`Umsatzsteuer-Voranmeldung ${monthName(-1)} übermittelt`, fmtDay(day(-3))],
+              [`Lohnabrechnungen ${monthName(-1)} bereitgestellt`, fmtDay(day(-7))],
+              ["Einspruch gegen Vorauszahlungsbescheid – stattgegeben", fmtDay(day(-15))],
+            ].map(([t, w]) => (
+              <li key={t} className="flex items-start gap-3 py-3.5">
+                <Check className="mt-1 size-4 shrink-0 text-[#111111]" strokeWidth={2.5} aria-hidden />
+                <span className="min-w-0 flex-1 text-[#111111]">{t}</span>
+                <span className={cx("num shrink-0 text-[13px]", P.muted)}>{w}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+        <section>
+          <h2 className={cx("border-b border-[#111111] pb-3", P.label, "text-[#111111]")}>Nächste Fristen</h2>
+          <ul className="divide-y divide-[#dcdcda] border-b border-[#dcdcda]">
+            {deadlines.map(([t, off, note]) => (
+              <li key={t} className="flex items-center gap-4 py-3">
+                <span className="num grid w-12 shrink-0 text-center leading-none">
+                  <span className={cx(SERIF, "text-[1.5rem] font-extrabold text-[#111111]")}>{day(off).getDate()}</span>
+                  <span className={cx("mt-1.5 text-[10px]", P.label, P.muted)}>{monthName((day(off).getMonth() - new Date().getMonth() + 12) % 12).slice(0, 3)}</span>
                 </span>
-                <span>
-                  <span className="block font-medium text-d-deep">{t}</span>
-                  <span className="block text-[12.5px] text-[#6f6f68]">{note}</span>
+                <span className="min-w-0 border-l border-[#dcdcda] pl-4 leading-tight">
+                  <span className="block text-[14.5px] font-bold text-[#111111]">{t}</span>
+                  <span className={cx("num mt-1 block text-[13px]", P.muted)}>{note}</span>
                 </span>
               </li>
             ))}
           </ul>
+        </section>
+      </div>
+
+      <section className="grid border border-[#dcdcda] @dsm:grid-cols-[14rem_minmax(0,1fr)]">
+        <div className="relative aspect-[16/9] overflow-hidden @dsm:aspect-auto">
+          <Image src="/images/demo/photos/k-building.webp" alt="Kanzleigebäude von Albrecht & Sommer mit Glasfassade" fill sizes="(min-width: 40rem) 14rem, 100vw" className="object-cover grayscale" />
         </div>
-      </aside>
+        <dl className="grid gap-x-8 gap-y-4 p-5 text-[14px] @dsm:grid-cols-3 @dsm:p-6">
+          {[
+            ["Kanzlei", "Am Stadtgraben 14, Musterstadt"],
+            ["Erreichbar", "Mo – Do 8 – 17 Uhr, Fr bis 14 Uhr"],
+            ["Sicherheit", "Hosting in Deutschland, Anmeldung in zwei Schritten"],
+          ].map(([k, v]) => (
+            <div key={k}>
+              <dt className={cx(P.label, P.muted)}>{k}</dt>
+              <dd className="num mt-2 leading-snug font-semibold text-[#111111]">{v}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
     </div>
   );
 }
@@ -290,77 +396,146 @@ const R_TONE = { liest: "info", erkannt: "warn", geprueft: "ok", rueckfrage: "ba
 
 function Receipts({ s }: { s: State }) {
   const n = delivered(s);
+  const [edit, setEdit] = useState<number | null>(null);
+  const [draft, setDraft] = useState({ vendor: "", amount: "", cat: "" });
+  const amount = Number(draft.amount.replace(/\./g, "").replace(",", "."));
+  const badDraft = { vendor: draft.vendor.trim().length < 2, amount: !draft.amount.trim() || !Number.isFinite(amount) || amount <= 0 };
+  const cols = "@dmd:grid-cols-[6.5rem_minmax(0,1.4fr)_minmax(0,1fr)_7.5rem_minmax(0,15rem)]";
   return (
     <div>
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h1 className={cx(SERIF, "text-[1.8rem] leading-tight font-medium text-d-deep")}>Belege {monthName()}</h1>
-          <p className="num mt-1 text-[#6f6f68]">
-            {n} von etwa {TARGET} geliefert · Summe erkannt: {eur(s.receipts.filter((r) => r.status !== "liest").reduce((a, r) => a + r.amount, 0))}
-          </p>
-        </div>
-      </div>
+      <PageHead label={`Belege · ${monthName()}`} title="Belege">
+        <dl className="num flex gap-8">
+          <div>
+            <dt className={cx(P.label, P.muted)}>Geliefert</dt>
+            <dd className={cx(SERIF, "mt-2 text-[1.5rem] leading-none font-extrabold text-[#111111]")}>
+              {n}
+              <span className={cx("text-[14px] font-semibold", P.muted)}> / {TARGET}</span>
+            </dd>
+          </div>
+          <div>
+            <dt className={cx(P.label, P.muted)}>Summe erkannt</dt>
+            <dd className={cx(SERIF, "mt-2 text-[1.5rem] leading-none font-extrabold text-[#111111]")}>{eur(s.receipts.filter((r) => r.status !== "liest").reduce((a, r) => a + r.amount, 0))}</dd>
+          </div>
+        </dl>
+      </PageHead>
 
-      <div data-tour="upload" className="mt-5 border-2 border-dashed border-[#c5c5be] bg-white px-5 py-8 text-center">
-        <Upload className="mx-auto size-7 text-d-accent" strokeWidth={1.5} aria-hidden />
-        <p className="mt-2 font-medium text-d-deep">Beleg fotografieren oder Datei hierher ziehen</p>
-        <p className="mx-auto mt-1 max-w-md text-[13.5px] text-[#6f6f68]">Lieferant, Datum, Betrag und Kategorie lesen wir automatisch aus. Sie prüfen nur noch.</p>
-        <div className="mt-4 flex flex-wrap justify-center gap-2">
-          <button type="button" onClick={s.upload} className="inline-flex min-h-12 items-center gap-2 rounded-[2px] bg-d-accent px-5 font-medium text-white hover:bg-d-deep">
+      <div data-tour="upload" className="mt-6 grid gap-6 border border-dashed border-[#111111] bg-[#f5f5f4] p-6 @dmd:grid-cols-[minmax(0,1fr)_auto] @dmd:items-center @dsm:p-8">
+        <div className="flex gap-4">
+          <span className="grid size-12 shrink-0 place-items-center bg-[#111111] text-white" aria-hidden>
+            <Upload className="size-5" strokeWidth={1.75} />
+          </span>
+          <div className="min-w-0">
+            <p className="text-[17px] leading-snug font-extrabold text-[#111111]">Beleg fotografieren oder Datei hierher ziehen</p>
+            <p className="mt-1.5 max-w-md text-[14px] leading-relaxed">Lieferant, Datum, Betrag und Kategorie lesen wir automatisch aus. Sie prüfen nur noch.</p>
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <button type="button" onClick={s.upload} className={cx(P.btn, P.dark, "min-h-12")}>
             <Camera className="size-4" aria-hidden /> Beleg aufnehmen
           </button>
-          <button type="button" onClick={s.upload} className="inline-flex min-h-12 items-center gap-2 rounded-[2px] border border-[#c9c9c2] bg-white px-5 font-medium text-d-deep hover:border-d-deep">
+          <button type="button" onClick={s.upload} className={cx(P.btn, P.ghost, "min-h-12 bg-white")}>
             <FileText className="size-4" aria-hidden /> PDF auswählen
           </button>
         </div>
-        <p className="mt-3 text-[12px] text-[#8a8a82]">Demo: Ein Klick fügt einen Beispielbeleg hinzu – es wird nichts hochgeladen.</p>
+        <p className={cx("text-[12px] @dmd:col-span-2", P.muted)}>Demo: Ein Klick fügt einen Beispielbeleg hinzu – es wird nichts hochgeladen.</p>
       </div>
 
-      <div className={cx(card, "mt-5 overflow-x-auto")}>
-        <table className="w-full min-w-[620px] text-[14px]">
-          <thead>
-            <tr className="text-left text-[11px] tracking-wide text-[#6f6f68] uppercase">
-              <th className="px-4 py-2.5 font-medium">Datum</th>
-              <th className="px-3 py-2.5 font-medium">Lieferant</th>
-              <th className="px-3 py-2.5 font-medium">Kategorie</th>
-              <th className="px-3 py-2.5 text-right font-medium">Betrag</th>
-              <th className="px-4 py-2.5 font-medium">Stand</th>
-            </tr>
-          </thead>
-          <tbody>
-            {s.receipts.map((r) => (
-              <tr key={r.id} className={cx("border-t border-[#dcdcda]", r.fresh && r.status === "erkannt" && "animate-demo-flash")}>
-                {r.status === "liest" ? (
-                  <td colSpan={4} className="px-4 py-3">
-                    <span className="flex items-center gap-3 text-[#6f6f68]">
-                      <ScanLine className="size-4 animate-pulse text-d-accent" aria-hidden /> Beleg wird gelesen …
-                      <span className="h-1.5 w-32 overflow-hidden bg-[#e3e3df]">
-                        <span className="block h-full w-1/2 animate-pulse bg-d-accent" />
-                      </span>
+      <div className="mt-8">
+        <div className={cx("hidden gap-x-4 border-b border-[#111111] pb-2.5 @dmd:grid", cols, P.label, P.muted)}>
+          <span>Datum</span>
+          <span>Lieferant</span>
+          <span>Kategorie</span>
+          <span className="text-right">Betrag</span>
+          <span>Stand</span>
+        </div>
+        <ul className="border-t border-[#111111] @dmd:border-t-0">
+          {s.receipts.map((r) => (
+            <li key={r.id} className={cx("border-b border-[#dcdcda]", r.fresh && r.status === "erkannt" && "animate-demo-flash")}>
+              {r.status === "liest" ? (
+                <p className={cx("flex min-h-14 items-center gap-3 py-3 text-[14px]", P.muted)} role="status">
+                  <ScanLine className="size-5 shrink-0 animate-pulse text-[#111111]" aria-hidden /> Beleg wird gelesen …
+                  <span className="h-1.5 w-32 overflow-hidden bg-[#e3e3df]">
+                    <span className="block h-full w-1/2 animate-pulse bg-[#111111]" />
+                  </span>
+                </p>
+              ) : (
+                <div className={cx("grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-1.5 py-3.5 text-[14.5px]", cols)}>
+                  <span className={cx("num order-3 text-[13px] @dmd:order-none @dmd:text-[14px]", P.muted)}>{r.date}</span>
+                  <span className="order-1 min-w-0 font-bold break-words text-[#111111] @dmd:order-none">{r.vendor}</span>
+                  <span className="order-4 justify-self-end text-[13px] @dmd:order-none @dmd:justify-self-start @dmd:text-[14.5px]">{r.cat}</span>
+                  <span className="num order-2 text-right font-bold text-[#111111] @dmd:order-none">{eur(r.amount)}</span>
+                  <span className="order-5 col-span-2 flex flex-wrap items-center gap-2 @dmd:order-none @dmd:col-span-1">
+                    <span className={cx(r.status === "erkannt" && "w-full @dxl:w-auto")}>
+                      <Tag tone={R_TONE[r.status]} className="rounded-[2px]">
+                        {R_LABEL[r.status]}
+                      </Tag>
                     </span>
-                  </td>
-                ) : (
-                  <>
-                    <td className="num px-4 py-3">{r.date}</td>
-                    <td className="px-3 py-3 font-medium text-d-deep">{r.vendor}</td>
-                    <td className="px-3 py-3">{r.cat}</td>
-                    <td className="num px-3 py-3 text-right text-d-deep">{eur(r.amount)}</td>
-                  </>
-                )}
-                <td className="px-4 py-2">
-                  <span className="flex flex-wrap items-center gap-2">
-                    <Tag tone={R_TONE[r.status]}>{R_LABEL[r.status]}</Tag>
-                    {r.status === "erkannt" && (
-                      <button type="button" onClick={() => s.confirm(r.id)} className="min-h-11 rounded-[2px] border border-[#c9c9c2] px-2.5 text-[13px] font-medium text-d-deep hover:border-d-deep">
-                        Stimmt so
-                      </button>
+                    {r.status === "erkannt" && edit !== r.id && (
+                      <>
+                        <button type="button" onClick={() => s.confirm(r.id)} className={cx(P.btn, P.dark, "min-h-11 flex-1 px-3 text-[13px] @dmd:min-h-9 @dmd:flex-none")}>
+                          Stimmt so
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setEdit(r.id);
+                            setDraft({ vendor: r.vendor, amount: r.amount.toFixed(2).replace(".", ","), cat: r.cat });
+                          }}
+                          className={cx(P.btn, P.ghost, "min-h-11 flex-1 px-3 text-[13px] @dmd:min-h-9 @dmd:flex-none")}
+                        >
+                          Korrigieren
+                        </button>
+                      </>
                     )}
                   </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                </div>
+              )}
+              {edit === r.id && r.status === "erkannt" && (
+                <form
+                  noValidate
+                  className="mb-4 grid gap-4 border border-[#111111] bg-[#f5f5f4] p-4 @dmd:grid-cols-[minmax(0,1.4fr)_8rem_minmax(0,1fr)_auto] @dmd:items-end"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    if (badDraft.vendor || badDraft.amount) return;
+                    s.fix(r.id, { vendor: draft.vendor.trim(), amount, cat: draft.cat });
+                    setEdit(null);
+                  }}
+                >
+                  <label className="block">
+                    <span className={cx("mb-2 block", P.label, P.muted)}>Lieferant</span>
+                    <input value={draft.vendor} onChange={(e) => setDraft((d) => ({ ...d, vendor: e.target.value }))} maxLength={60} aria-invalid={badDraft.vendor} className={cx(P.input, badDraft.vendor && "border-bo-bad")} />
+                  </label>
+                  <label className="block">
+                    <span className={cx("mb-2 block", P.label, P.muted)}>Betrag in €</span>
+                    <input value={draft.amount} onChange={(e) => setDraft((d) => ({ ...d, amount: e.target.value }))} inputMode="decimal" maxLength={12} aria-invalid={badDraft.amount} className={cx(P.input, "num text-right", badDraft.amount && "border-bo-bad")} />
+                  </label>
+                  <label className="block">
+                    <span className={cx("mb-2 block", P.label, P.muted)}>Kategorie</span>
+                    <select value={draft.cat} onChange={(e) => setDraft((d) => ({ ...d, cat: e.target.value }))} className={P.input}>
+                      {CATEGORIES.map((c) => (
+                        <option key={c}>{c}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <div className="flex gap-2">
+                    <button type="submit" disabled={badDraft.vendor || badDraft.amount} className={cx(P.btn, P.dark, "flex-1")}>
+                      Freigeben
+                    </button>
+                    <button type="button" onClick={() => setEdit(null)} className={cx(P.btn, P.ghost, "bg-white")}>
+                      Abbrechen
+                    </button>
+                  </div>
+                  {(badDraft.vendor || badDraft.amount) && (
+                    <p role="alert" className="text-[13px] font-medium text-bo-bad @dmd:col-span-4">
+                      {badDraft.vendor ? "Bitte den Lieferanten eintragen." : "Bitte einen Betrag über 0 € eintragen, zum Beispiel 49,95."}
+                    </p>
+                  )}
+                </form>
+              )}
+            </li>
+          ))}
+        </ul>
+        {s.receipts.length === 0 && <p className={cx("border-b border-[#dcdcda] py-10 text-center", P.muted)}>Noch keine Belege in diesem Monat.</p>}
       </div>
     </div>
   );
@@ -380,101 +555,107 @@ function Documents({ s }: { s: State }) {
     ["Nachzahlung", "1.474,00 €", true],
   ];
   return (
-    <div className="grid gap-6 @dmd:grid-cols-[14rem_minmax(0,1fr)]">
-      <nav aria-label="Ordner">
-        <ul className="flex gap-1 overflow-x-auto @dmd:block @dmd:space-y-0.5">
-          {FOLDERS.map((x) => (
-            <li key={x.id} className="shrink-0">
-              <button type="button" aria-current={folder === x.id ? "true" : undefined} onClick={() => setFolder(x.id)} className={cx("flex min-h-11 w-full items-center gap-2.5 rounded-none border px-3 text-left text-[14px]", folder === x.id ? "border-[#dcdcda] bg-white font-medium text-d-deep" : "border-transparent text-[#6f6f68] hover:text-d-deep")}>
-                <FolderOpen className="size-4 shrink-0" strokeWidth={1.75} aria-hidden />
-                <span className="flex-1 whitespace-nowrap">{x.name}</span>
-                {x.id === "freigabe" && !s.approved ? <span className="num rounded-[2px] bg-d-accent px-1.5 text-[11px] font-semibold text-white">1</span> : <span className="num text-[12px] text-[#8a8a82]">{x.files.length}</span>}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      {folder === "freigabe" ? (
-        <section data-tour="freigabe" className={card}>
-          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#dcdcda] px-5 py-3">
-            <h1 className="font-medium text-d-deep">Einkommensteuererklärung 2025 – Entwurf</h1>
-            <Tag tone={s.approved ? "ok" : "warn"}>{s.approved ? `freigegeben · heute ${s.approved} Uhr` : "wartet auf Ihre Freigabe"}</Tag>
-          </div>
-          <div className="bg-[#e9e9e5] p-4 @dsm:p-6">
-            {/* Dokumentvorschau als Blatt Papier */}
-            <div className="mx-auto max-w-xl bg-white px-6 py-7 shadow-[0_1px_3px_rgb(0_0_0/0.12),0_12px_28px_-14px_rgb(0_0_0/0.25)] @dsm:px-9">
-              <p className="flex items-start justify-between gap-4 border-b-2 border-d-deep pb-3">
-                <span className={cx(SERIF, "text-[1.05rem] leading-tight font-semibold text-d-deep")}>
-                  Albrecht & Sommer
-                  <span className="block font-plex text-[10px] font-normal tracking-[0.18em] text-[#8a8a82] uppercase">Steuerberatung</span>
-                </span>
-                <span className="num text-right text-[11.5px] leading-snug text-[#6f6f68]">
-                  Mandant 10482
-                  <br />
-                  {fmtDate(day(-1))}
-                </span>
-              </p>
-              <h2 className={cx(SERIF, "mt-5 text-[1.3rem] font-medium text-d-deep")}>Einkommensteuererklärung 2025</h2>
-              <p className="text-[13px] text-[#6f6f68]">Jana Petersen · Zusammenfassung der Berechnung</p>
-              <table className="num mt-4 w-full text-[13.5px]">
-                <tbody>
-                  {rows.map(([k, v, strong]) => (
-                    <tr key={k} className={cx("border-t border-[#dcdcda]", strong && "border-t-2 border-d-deep text-[15px] font-semibold text-d-deep")}>
-                      <td className="py-2">{k}</td>
-                      <td className="py-2 text-right">{v}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <p className="mt-4 text-[12px] leading-relaxed text-[#8a8a82]">Die Nachzahlung entsteht durch den höheren Gewinn gegenüber 2024. Wir empfehlen, die Vorauszahlungen für 2026 anzupassen – dazu melden wir uns gesondert.</p>
-              {s.approved && (
-                <p className="mt-5 inline-block -rotate-2 rounded-none border-2 border-d-accent px-3 py-1.5 text-[12px] leading-tight font-semibold tracking-wide text-d-accent uppercase">
-                  Digital freigegeben
-                  <span className="num block text-[10.5px] font-normal tracking-normal normal-case">
-                    J. Petersen · {fmtDate(day())} · {s.approved} Uhr
-                  </span>
-                </p>
-              )}
-            </div>
-          </div>
-          {s.approved ? (
-            <p className="border-t border-[#dcdcda] bg-d-soft px-5 py-3 text-[13.5px]">
-              <strong className="font-semibold">So sieht es die Kanzlei:</strong> Die Freigabe ist mit Zeitstempel im Mandat vermerkt, die Erklärung kann übermittelt werden.{" "}
-              <button type="button" onClick={() => go("betrieb", "postfach")} className="font-semibold text-d-accent underline underline-offset-2">
-                In der Kanzlei-Ansicht ansehen
-              </button>
-            </p>
-          ) : (
-            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[#dcdcda] px-5 py-3">
-              <label className="flex min-h-11 items-center gap-2.5 text-[14px]">
-                <input type="checkbox" checked={checked} onChange={(e) => setChecked(e.target.checked)} className="size-4 accent-[var(--d-accent)]" /> Ich habe die Angaben geprüft und bin einverstanden.
-              </label>
-              <button type="button" disabled={!checked} onClick={s.approve} className="min-h-12 rounded-[2px] bg-d-accent px-5 font-medium text-white hover:bg-d-deep disabled:opacity-40">
-                Erklärung freigeben
-              </button>
-            </div>
-          )}
-        </section>
-      ) : (
-        <section className={card}>
-          <h1 className="border-b border-[#dcdcda] px-5 py-3 font-medium text-d-deep">{f.name}</h1>
-          <ul className="divide-y divide-[#dcdcda]">
-            {f.files.map((name, i) => (
-              <li key={name} className="flex items-center gap-3 px-5 py-3">
-                <FileText className="size-5 shrink-0 text-[#a3a39b]" strokeWidth={1.5} aria-hidden />
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-d-deep">{name}</p>
-                  <p className="num text-[12.5px] text-[#8a8a82]">
-                    PDF · {120 + i * 87} KB · bereitgestellt am {d(-(4 + i * 19))}
-                  </p>
-                </div>
-                <span className="text-[13px] text-[#6f6f68]">Ansehen</span>
+    <div>
+      <PageHead label="Ablage" title="Dokumente" />
+      <div className="mt-6 grid gap-6 @dmd:grid-cols-[13.5rem_minmax(0,1fr)] @dmd:gap-8">
+        <nav aria-label="Ordner" className="min-w-0">
+          <ul className="no-bar -mx-4 flex gap-1.5 overflow-x-auto px-4 @dsm:-mx-6 @dsm:px-6 @dmd:mx-0 @dmd:block @dmd:space-y-0.5 @dmd:px-0">
+            {FOLDERS.map((x) => (
+              <li key={x.id} className="shrink-0">
+                <button type="button" aria-current={folder === x.id ? "true" : undefined} onClick={() => setFolder(x.id)} className={cx("flex min-h-11 w-full items-center gap-2.5 rounded-[2px] border px-3 text-left text-[14px] font-semibold transition-colors", folder === x.id ? "border-[#111111] bg-[#111111] text-white" : "border-[#dcdcda] text-[#3f3f3a] hover:border-[#111111] @dmd:border-transparent")}>
+                  <FolderOpen className="size-4 shrink-0" strokeWidth={1.75} aria-hidden />
+                  <span className="flex-1 whitespace-nowrap">{x.name}</span>
+                  {x.id === "freigabe" && !s.approved ? <span className={cx("num rounded-[2px] px-1.5 text-[11px] leading-5 font-bold", folder === x.id ? "bg-white text-[#111111]" : "bg-[#111111] text-white")}>1</span> : <span className={cx("num text-[12px]", folder === x.id ? "text-white/70" : P.muted)}>{x.files.length}</span>}
+                </button>
               </li>
             ))}
           </ul>
-        </section>
-      )}
+        </nav>
+
+        {folder === "freigabe" ? (
+          <section data-tour="freigabe" className={cx(card, "min-w-0")}>
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#dcdcda] px-5 py-4">
+              <h2 className="text-[15px] font-extrabold tracking-normal text-[#111111]">Einkommensteuererklärung 2025 – Entwurf</h2>
+              <Tag tone={s.approved ? "ok" : "warn"} className="rounded-[2px]">
+                {s.approved ? `freigegeben · heute ${s.approved} Uhr` : "wartet auf Ihre Freigabe"}
+              </Tag>
+            </div>
+            <div className="bg-[#ececea] p-4 @dsm:p-8">
+              {/* Dokumentvorschau als Blatt Papier */}
+              <div className="mx-auto max-w-xl bg-white px-6 py-8 shadow-[0_1px_2px_rgb(0_0_0/0.14),0_18px_36px_-20px_rgb(0_0_0/0.35)] @dsm:px-10 @dsm:py-10">
+                <p className="flex items-start justify-between gap-4 border-b-2 border-[#111111] pb-4">
+                  <span className={cx(SERIF, "text-[1.125rem] leading-tight font-extrabold text-[#111111]")}>
+                    Albrecht & Sommer
+                    <span className={cx("mt-1.5 block text-[10px] font-bold", P.label, P.muted)}>Steuerberatung</span>
+                  </span>
+                  <span className={cx("num text-right text-[11.5px] leading-snug", P.muted)}>
+                    Mandant 10482
+                    <br />
+                    {fmtDate(day(-1))}
+                  </span>
+                </p>
+                <h3 className={cx(SERIF, "mt-6 text-[1.375rem] leading-tight font-extrabold text-[#111111]")}>Einkommensteuererklärung 2025</h3>
+                <p className={cx("mt-1 text-[13px]", P.muted)}>Jana Petersen · Zusammenfassung der Berechnung</p>
+                <table className="num mt-5 w-full text-[13.5px]">
+                  <tbody>
+                    {rows.map(([k, v, strong]) => (
+                      <tr key={k} className={cx("border-t border-[#dcdcda]", strong && "border-t-2 border-[#111111] text-[15.5px] font-extrabold text-[#111111]")}>
+                        <td className="py-2.5 pr-3">{k}</td>
+                        <td className="py-2.5 text-right whitespace-nowrap">{v}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p className={cx("mt-5 text-[12px] leading-relaxed", P.muted)}>Die Nachzahlung entsteht durch den höheren Gewinn gegenüber 2024. Wir empfehlen, die Vorauszahlungen für 2026 anzupassen – dazu melden wir uns gesondert.</p>
+                {s.approved && (
+                  <p className="mt-6 inline-block -rotate-2 border-2 border-[#111111] px-3 py-2 text-[12px] leading-tight font-extrabold tracking-[0.1em] text-[#111111] uppercase">
+                    Digital freigegeben
+                    <span className="num mt-1 block text-[10.5px] font-medium tracking-normal normal-case">
+                      J. Petersen · {fmtDate(day())} · {s.approved} Uhr
+                    </span>
+                  </p>
+                )}
+              </div>
+            </div>
+            {s.approved ? (
+              <p className="border-t border-[#dcdcda] bg-[#f5f5f4] px-5 py-4 text-[13.5px]">
+                <strong className="font-bold text-[#111111]">So sieht es die Kanzlei:</strong> Die Freigabe ist mit Zeitstempel im Mandat vermerkt, die Erklärung kann übermittelt werden.{" "}
+                <button type="button" onClick={() => go("betrieb", "postfach")} className="min-h-11 font-bold text-[#111111] underline underline-offset-4">
+                  In der Kanzlei-Ansicht ansehen
+                </button>
+              </p>
+            ) : (
+              <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[#dcdcda] px-5 py-4">
+                <label className="flex min-h-11 items-center gap-3 text-[14.5px] font-medium text-[#111111]">
+                  <input type="checkbox" checked={checked} onChange={(e) => setChecked(e.target.checked)} className="size-5 shrink-0 accent-[#111111]" /> Ich habe die Angaben geprüft und bin einverstanden.
+                </label>
+                <button type="button" disabled={!checked} onClick={s.approve} className={cx(P.btn, P.dark, "min-h-12")}>
+                  Erklärung freigeben
+                </button>
+              </div>
+            )}
+          </section>
+        ) : (
+          <section className={cx(card, "min-w-0")}>
+            <h2 className="border-b border-[#dcdcda] px-5 py-4 text-[15px] font-extrabold tracking-normal text-[#111111]">{f.name}</h2>
+            <ul className="divide-y divide-[#dcdcda]">
+              {f.files.map((name, i) => (
+                <li key={name} className="flex items-center gap-4 px-5 py-3.5">
+                  <span className="grid size-10 shrink-0 place-items-center bg-[#f5f5f4] text-[#111111]" aria-hidden>
+                    <FileText className="size-5" strokeWidth={1.5} />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate font-semibold text-[#111111]">{name}</p>
+                    <p className={cx("num text-[12.5px]", P.muted)}>
+                      PDF · {120 + i * 87} KB · bereitgestellt am {d(-(4 + i * 19))}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+      </div>
     </div>
   );
 }
@@ -486,8 +667,8 @@ function Thread({ msgs, me }: { msgs: Msg[]; me: Msg["from"] }) {
         const mine = m.from === me;
         return (
           <li key={i} className={cx("flex", mine && "justify-end")}>
-            <div className={cx("max-w-[85%] rounded-[var(--bo-r)] px-3.5 py-2.5 text-[14px] leading-relaxed", mine ? "bg-d-deep text-white" : "border border-bo-line bg-white text-bo-body")}>
-              <p>{m.text}</p>
+            <div className={cx("max-w-[85%] min-w-0 rounded-[var(--bo-r)] px-4 py-3 text-[14px] leading-relaxed", mine ? "bg-d-deep text-white" : "border border-bo-line bg-white text-bo-body")}>
+              <p className="break-words whitespace-pre-line">{m.text}</p>
               <p className={cx("num mt-1 text-[11.5px]", mine ? "text-white/60" : "text-bo-muted")}>
                 {m.from === "kanzlei" ? "Katrin Sommer" : "Jana Petersen"} · {m.at}
               </p>
@@ -513,7 +694,7 @@ function Composer({ onSend, placeholder }: { onSend: (t: string) => void; placeh
     >
       <label className="min-w-0 flex-1">
         <span className="sr-only">Nachricht</span>
-        <input value={text} onChange={(e) => setText(e.target.value)} placeholder={placeholder} className="min-h-12 w-full rounded-[var(--bo-rc)] border border-bo-line bg-white px-3 text-[16px] text-bo-ink outline-none focus:border-bo-ink @dsm:text-[14px]" />
+        <input value={text} onChange={(e) => setText(e.target.value)} maxLength={500} placeholder={placeholder} className="min-h-12 w-full rounded-[var(--bo-rc)] border border-bo-line bg-white px-3 text-[16px] text-bo-ink outline-none focus:border-bo-ink @dsm:text-[14px]" />
       </label>
       <button type="submit" aria-label="Nachricht senden" className="grid min-h-12 w-12 place-items-center rounded-[var(--bo-rc)] bg-d-accent text-white hover:bg-d-deep">
         <Send className="size-4" aria-hidden />
@@ -524,12 +705,13 @@ function Composer({ onSend, placeholder }: { onSend: (t: string) => void; placeh
 
 function Messages({ s }: { s: State }) {
   return (
-    <div className="mx-auto max-w-2xl">
-      <h1 className={cx(SERIF, "text-[1.8rem] leading-tight font-medium text-d-deep")}>Nachrichten</h1>
-      <p className="mt-1 flex items-center gap-2 text-[13.5px] text-[#6f6f68]">
-        <Lock className="size-3.5" aria-hidden /> Verschlüsselt übertragen, nur für Sie und Ihre Kanzlei sichtbar.
-      </p>
-      <div className="mt-5">
+    <div>
+      <PageHead label="Postfach" title="Nachrichten">
+        <p className={cx("flex max-w-xs items-start gap-2 text-[13px] leading-snug", P.muted)}>
+          <Lock className="mt-0.5 size-3.5 shrink-0" aria-hidden /> Verschlüsselt übertragen, nur für Sie und Ihre Kanzlei sichtbar.
+        </p>
+      </PageHead>
+      <div className="mt-6 max-w-2xl">
         <Thread msgs={s.msgs} me="mandant" />
         <Composer onSend={(t) => s.send("mandant", t)} placeholder="Nachricht an Frau Sommer" />
       </div>

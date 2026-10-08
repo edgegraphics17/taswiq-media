@@ -89,6 +89,8 @@
   --color-d-on: var(--d-on);
   --color-d-soft: var(--d-soft);
   --color-d-deep: var(--d-deep);
+  /* Fläche für Schaltflächen mit Text: Akzent, bei hellen Akzenten etwas tiefer (Weiß darauf ≥ 4.5:1) */
+  --color-d-cta: var(--d-cta, var(--d-accent));
   --font-d-display: var(--d-display), ui-serif, Georgia, serif;
   --font-plex: var(--d-ui, var(--font-plex-sans)), ui-sans-serif, system-ui, sans-serif;
   --font-plex-mono: var(--font-plex-mono-face), ui-monospace, SFMono-Regular, monospace;
@@ -223,6 +225,33 @@
       stroke-dashoffset: 0;
     }
   }
+}
+
+/* ─── Software-Demos: Fokusrahmen in der Farbe der Musterfirma, Titel der Verwaltung, Hilfen ─── */
+.demo-app {
+  /* Eingaben der Besucher (lange Namen, Wörter ohne Leerzeichen) brechen um, statt den Rahmen zu sprengen */
+  overflow-wrap: break-word;
+}
+.demo-app :focus-visible {
+  outline: 2px solid var(--d-focus, var(--d-deep));
+  outline-offset: 2px;
+}
+.demo-app .on-dark :focus-visible,
+.demo-app .on-dark:focus-visible {
+  outline-color: #fff;
+}
+.demo-app .on-side :focus-visible {
+  outline-color: var(--bo-side-ink);
+}
+.demo-app .bo-title {
+  text-transform: var(--bo-title-tt, none);
+  letter-spacing: var(--bo-title-ls, -0.02em);
+}
+.demo-app .no-bar {
+  scrollbar-width: none;
+}
+.demo-app .no-bar::-webkit-scrollbar {
+  display: none;
 }
 
 /* ─── Gestaffeltes Einblenden von Karten-Rastern (Desktop) ───

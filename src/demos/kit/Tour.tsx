@@ -32,7 +32,8 @@ export function Tour({ steps, index, onIndex, onClose, onDone }: { steps: TourSt
     let tries = 0;
     const tick = () => {
       setVp((v) => (v.w === window.innerWidth && v.h === window.innerHeight ? v : { w: window.innerWidth, h: window.innerHeight }));
-      const el = step.target ? document.querySelector<HTMLElement>(`[data-tour="${step.target}"]`) : null;
+      // Dasselbe Ziel kann es je Rahmenbreite zweimal geben (z. B. Warenkorb als Spalte und als Leiste) – das sichtbare zählt
+      const el = step.target ? ([...document.querySelectorAll<HTMLElement>(`[data-tour="${step.target}"]`)].find((e) => e.getClientRects().length > 0) ?? null) : null;
       if (el) {
         if (!scrolled) {
           scrolled = true;

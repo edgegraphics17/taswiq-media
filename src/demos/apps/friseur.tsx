@@ -2,10 +2,10 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import { CalendarDays, ChartColumn, Check, ChevronLeft, ChevronRight, Clock, MapPin, Scissors, Search, Users } from "lucide-react";
+import { ArrowDown, CalendarDays, ChartColumn, Check, ChevronLeft, ChevronRight, Clock, MapPin, Scissors, Search, Users } from "lucide-react";
 import { useDemo } from "@/demos/kit/context";
 import { Avatar, Backoffice, Bars, Btn, Field, Figures, input, Panel, Ranks, Sheet, Tag, td, th, Toggle, tr } from "@/demos/kit/ui";
-import { cx, dur, eur0, fmtDay, fmtDayLong, hm, nowMinutes, weekdayShort, workday } from "@/demos/kit/util";
+import { cx, dur, eur0, fmtDay, fmtDayLong, hm, initials, nowMinutes, useOnce, weekdayShort, workday } from "@/demos/kit/util";
 
 /**
  * Demo "Kammwerk": Buchungsseite mit Kundenprofil + Dashboard mit Teamkalender und Kundenkartei.
@@ -34,20 +34,6 @@ const SERVICES: Service[] = [
   { id: "b-trim", group: "Bart", name: "Bart trimmen & Konturen", min: 20, price: 19 },
 ];
 const GROUPS: Group[] = ["Damen", "Herren", "Farbe", "Bart"];
-
-/** Foto je Leistung – nur Schwarzweiß, passend zur strengen Bildsprache des Salons */
-const SERVICE_PHOTO: Record<string, { src: string; alt: string; pos: string }> = {
-  "d-wsf": { src: "/images/demo/photos/f-wash.webp", alt: "Haarwäsche am Waschbecken vor dem Schnitt", pos: "object-center" },
-  "d-cut": { src: "/images/demo/photos/f-styling.webp", alt: "Trockenschnitt – Stylistin formt das Haar mit der Schere", pos: "object-[30%_50%]" },
-  "d-style": { src: "/images/demo/photos/f-styling.webp", alt: "Föhnen und Styling mit der Rundbürste", pos: "object-[70%_50%]" },
-  "h-cut": { src: "/images/demo/photos/f-barber.webp", alt: "Herrenschnitt mit der Schere beim Barber", pos: "object-center" },
-  "h-combo": { src: "/images/demo/photos/f-barber.webp", alt: "Haarschnitt und Bartpflege in einer Sitzung", pos: "object-[35%_50%]" },
-  "h-clip": { src: "/images/demo/photos/f-barber.webp", alt: "Maschinenschnitt am Übergang zum Nacken", pos: "object-[65%_50%]" },
-  "f-ansatz": { src: "/images/demo/photos/f-color.webp", alt: "Ansatzfarbe wird am Kopf aufgetragen", pos: "object-center" },
-  "f-bal": { src: "/images/demo/photos/f-color.webp", alt: "Balayage – Strähnen werden freihand aufgehellt", pos: "object-[35%_50%]" },
-  "f-gloss": { src: "/images/demo/photos/f-color.webp", alt: "Glossing für Glanz in den Längen", pos: "object-[65%_50%]" },
-  "b-trim": { src: "/images/demo/photos/f-beard.webp", alt: "Bart trimmen und Konturen sauber nacharbeiten", pos: "object-center" },
-};
 
 interface Staff {
   id: string;
@@ -198,30 +184,52 @@ export default function FriseurDemo() {
   );
 }
 
-/* ───────────────────────────── Buchungsseite ───────────────────────────── */
+/* ───────────────────────────── Buchungsseite ─────────────────────────────
+   Gestaltung „Kammwerk": streng Schwarz-Weiß wie ein Barber-Magazin. Hanken Grotesk – Display 900 in Versalien,
+   Mikro-Etiketten 10.5 px mit 0.22em Sperrung, Ziffern tabellarisch. Alle Fotos in Graustufen, Flächen wechseln
+   zwischen Schwarz (#0d0d0d) und Weiß, getrennt durch Haarlinien. Abstände im 4/8er-Raster, Sektionen 48/80. */
+
+const K = {
+  wrap: "mx-auto w-full max-w-[76rem] px-4 @dsm:px-6 @dlg:px-8",
+  label: "text-[10.5px] leading-none font-bold tracking-[0.22em] uppercase",
+  display: "font-d-display font-black tracking-[-0.03em] uppercase",
+  grey: "text-[#5f5f5a]",
+  photo: "object-cover grayscale contrast-[1.08]",
+  btn: "inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-7 text-[13px] font-bold tracking-[0.12em] uppercase transition-colors active:translate-y-px",
+};
+
+/** Ein Foto je Bereich – nur Schwarzweiß, passend zur strengen Bildsprache des Salons */
+const GROUP_PHOTO: Record<Group, { src: string; alt: string; pos: string; note: string }> = {
+  Damen: { src: "/images/demo/photos/f-styling.webp", alt: "Stylistin föhnt einer Kundin die Haare über die Rundbürste", pos: "object-[70%_40%]", note: "Schnitt, Styling, Pflege" },
+  Herren: { src: "/images/demo/photos/f-barber.webp", alt: "Barber arbeitet am Kunden im Friseurstuhl", pos: "object-[40%_30%]", note: "Schere, Maschine, Fade" },
+  Farbe: { src: "/images/demo/photos/f-color.webp", alt: "Coloristin trägt Farbe mit dem Pinsel auf eine Strähne auf", pos: "object-[55%_45%]", note: "Ansatz, Balayage, Glanz" },
+  Bart: { src: "/images/demo/photos/f-beard.webp", alt: "Rasierschaum wird mit dem Pinsel am Bart aufgetragen", pos: "object-[45%_35%]", note: "Trimmen, Konturen, Messer" },
+};
 
 function Wordmark({ className }: { className?: string }) {
-  return <span className={cx("font-d-display font-extrabold tracking-[0.14em] uppercase [font-stretch:125%]", className)}>Kammwerk</span>;
+  return <span className={cx("font-d-display font-black tracking-[0.18em] uppercase", className)}>Kammwerk</span>;
 }
 
 function Storefront({ appts, services, onBook, onPatch }: { appts: Appt[]; services: Service[]; onBook: (a: Omit<Appt, "id" | "status" | "via" | "own">) => void; onPatch: (id: number, c: Partial<Appt> | null) => void }) {
   const { tab, setTab } = useDemo();
   const [preset, setPreset] = useState<string[]>([]);
   return (
-    <div className="min-h-[var(--app-h)] bg-white font-plex text-[15px] text-[#0d0d0d]">
-      <header className="bg-[#0d0d0d] text-white">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 px-4 @dsm:px-6">
-          <p className="flex items-baseline gap-3 py-3">
-            <Wordmark className="text-[1.15rem] text-white" />
-            <span className="hidden text-[10.5px] tracking-[0.2em] text-white/55 uppercase @dsm:inline">Friseur & Barber · Musterstadt</span>
+    <div className="min-h-[var(--app-h)] bg-white font-plex text-[15px] leading-[1.55] text-[#0d0d0d]">
+      <header className="on-dark sticky top-[var(--bar-h)] z-20 border-b border-white/15 bg-[#0d0d0d] text-white">
+        <div className={cx(K.wrap, "flex items-center justify-between gap-4")}>
+          <p className="flex items-baseline gap-4 py-3">
+            <Wordmark className="text-[1.05rem] text-white" />
+            <span className={cx("hidden text-white/60 @dmd:inline", K.label)}>Friseur & Barber · Musterstadt</span>
           </p>
-          <nav aria-label="Kundenbereich" className="flex gap-1">
+          <nav aria-label="Kundenbereich" className="flex">
             {[
-              { id: "buchen", label: "Termin buchen" },
-              { id: "profil", label: "Mein Profil" },
+              { id: "buchen", label: "Termin buchen", short: "Buchen" },
+              { id: "profil", label: "Mein Profil", short: "Profil" },
             ].map((n) => (
-              <button key={n.id} type="button" aria-current={tab === n.id ? "page" : undefined} onClick={() => setTab(n.id)} className={cx("min-h-12 border-b-2 px-3 text-[13.5px] font-medium tracking-[0.04em]", tab === n.id ? "border-white text-white" : "border-transparent text-white/55 hover:text-white")}>
-                {n.label}
+              <button key={n.id} type="button" aria-current={tab === n.id ? "page" : undefined} onClick={() => setTab(n.id)} className={cx("relative min-h-12 px-3 text-[11.5px] font-bold tracking-[0.16em] uppercase transition-colors @dsm:px-4", tab === n.id ? "text-white" : "text-white/55 hover:text-white")}>
+                <span className="@dsm:hidden">{n.short}</span>
+                <span className="hidden @dsm:inline">{n.label}</span>
+                {tab === n.id && <span className="absolute inset-x-3 bottom-0 h-0.5 bg-white @dsm:inset-x-4" aria-hidden />}
               </button>
             ))}
           </nav>
@@ -239,21 +247,34 @@ function Storefront({ appts, services, onBook, onPatch }: { appts: Appt[]; servi
       ) : (
         <Booking key={preset.join()} appts={appts} services={services} preset={preset} onBook={onBook} />
       )}
+      <footer className="on-dark bg-[#0d0d0d] text-white/60">
+        <div className={cx(K.wrap, "flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-t border-white/15 py-6", K.label)}>
+          <Wordmark className="text-[0.9rem] text-white" />
+          <span className="inline-flex items-center gap-2">
+            <MapPin className="size-3.5" aria-hidden /> Bahnhofstraße 21, Musterstadt
+          </span>
+          <span className="num inline-flex items-center gap-2">
+            <Clock className="size-3.5" aria-hidden /> Mo – Sa, 9:00 – 18:30
+          </span>
+        </div>
+      </footer>
     </div>
   );
 }
 
 function Booking({ appts, services, preset, onBook }: { appts: Appt[]; services: Service[]; preset: string[]; onBook: (a: Omit<Appt, "id" | "status" | "via" | "own">) => void }) {
-  const { go } = useDemo();
+  const { go, toTop } = useDemo();
   const [picked, setPicked] = useState<string[]>(preset);
   const [who, setWho] = useState("egal");
-  const [dayIdx, setDayIdx] = useState(0);
+  // Abends ist heute nichts mehr frei – dann startet die Auswahl mit dem nächsten Werktag
+  const [dayIdx, setDayIdx] = useState(() => (nowMinutes() + 60 > CLOSE ? 1 : 0));
   const [slot, setSlot] = useState<{ start: number; staff: string } | null>(null);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [remind, setRemind] = useState(true);
   const [tried, setTried] = useState(false);
   const [done, setDone] = useState<{ day: number; start: number; staff: string } | null>(null);
+  const once = useOnce();
 
   const chosen = services.filter((s) => picked.includes(s.id));
   const total = chosen.reduce((n, s) => n + s.min, 0);
@@ -277,45 +298,54 @@ function Booking({ appts, services, preset, onBook }: { appts: Appt[]; services:
     setSlot(null);
   };
   const staffName = (id: string) => STAFF.find((s) => s.id === id)!.name;
+  const bad = { name: name.trim().length < 2, phone: phone.trim().length < 6 };
+  const jump = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   if (done) {
     return (
-      <div className="mx-auto max-w-xl px-4 py-12 @dsm:px-6">
-        <span className="grid size-12 place-items-center rounded-full bg-[#0d0d0d] text-white">
-          <Check className="size-6" strokeWidth={2.5} aria-hidden />
-        </span>
-        <p className="mt-5 text-[10.5px] font-semibold tracking-[0.2em] text-[#6f6f6a] uppercase">Kammwerk · Musterstadt</p>
-        <h1 className="mt-1.5 font-d-display text-[2.25rem] leading-[1.05] font-extrabold tracking-tight text-[#0d0d0d] [font-stretch:115%]">Dein Termin steht.</h1>
-        <p className="mt-2 text-[16px] leading-relaxed">
-          {fmtDayLong(workday(done.day))} um {hm(done.start)} Uhr bei {staffName(done.staff)}. {remind ? "Am Vortag erinnern wir dich per SMS." : ""}
-        </p>
-        <dl className="mt-6 divide-y divide-[#e2e2de] border-y border-[#e2e2de] text-[15px]">
-          {chosen.map((s) => (
-            <div key={s.id} className="flex justify-between py-2.5">
-              <dt>{s.name}</dt>
-              <dd className="num text-[#6f6f6a]">
-                {dur(s.min)} · {eur0(s.price)}
-              </dd>
+      <div className={cx(K.wrap, "py-12 @dlg:py-20")}>
+        <div className="mx-auto max-w-xl">
+          <p className={cx(K.label, K.grey)}>Bestätigung · Kammwerk</p>
+          <h1 className={cx(K.display, "mt-4 text-[clamp(2.75rem,11cqi,5rem)] leading-[0.86] text-[#0d0d0d]")}>
+            Dein Termin
+            <br />
+            steht.
+          </h1>
+          <div className="on-dark mt-8 bg-[#0d0d0d] p-6 text-white">
+            <p className={cx(K.label, "text-white/60")}>{fmtDayLong(workday(done.day))}</p>
+            <p className="num mt-3 font-d-display text-[3.5rem] leading-none font-black tracking-[-0.04em] text-white">{hm(done.start)}</p>
+            <p className="mt-3 text-[15px] text-white/80">
+              bei {staffName(done.staff)} · <span className="num">{dur(total)}</span>. {remind ? "Am Vortag erinnern wir dich per SMS." : ""}
+            </p>
+            <dl className="mt-6 border-t border-dashed border-white/30 pt-4 text-[14.5px]">
+              {chosen.map((s) => (
+                <div key={s.id} className="flex justify-between gap-4 py-1.5">
+                  <dt className="min-w-0 break-words">{s.name}</dt>
+                  <dd className="num shrink-0 text-white/70">
+                    {dur(s.min)} · {eur0(s.price)}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+          <div className="mt-6 border border-[#0d0d0d] p-5 text-[14px] leading-snug">
+            <strong className="font-bold">So sieht es der Salon:</strong> Der Termin steht jetzt im Kalender von {staffName(done.staff).split(" ")[0]} – und die Zeit ist für alle anderen belegt.
+            <div className="mt-4 flex flex-wrap gap-2">
+              <button type="button" onClick={() => go("betrieb", "kalender")} className={cx(K.btn, "bg-[#0d0d0d] text-white hover:bg-black")}>
+                Im Kalender ansehen
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setDone(null);
+                  setPicked([]);
+                  setSlot(null);
+                }}
+                className={cx(K.btn, "border border-[#0d0d0d] text-[#0d0d0d] hover:bg-[#0d0d0d] hover:text-white")}
+              >
+                Weiteren Termin buchen
+              </button>
             </div>
-          ))}
-        </dl>
-        <div className="mt-6 rounded-[var(--bo-r)] bg-[#f1f1ef] p-4 text-[14px] leading-snug">
-          <strong className="font-semibold">So sieht es der Salon:</strong> Der Termin steht jetzt im Kalender von {staffName(done.staff).split(" ")[0]} – und die Zeit ist für alle anderen belegt.
-          <div className="mt-3 flex flex-wrap gap-2">
-            <button type="button" onClick={() => go("betrieb", "kalender")} className="min-h-11 rounded-[var(--bo-rc)] bg-[#0d0d0d] px-4 font-medium text-white">
-              Im Kalender ansehen
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setDone(null);
-                setPicked([]);
-                setSlot(null);
-              }}
-              className="min-h-11 rounded-[var(--bo-rc)] border border-[#0d0d0d] px-4 font-medium"
-            >
-              Weiteren Termin buchen
-            </button>
           </div>
         </div>
       </div>
@@ -323,116 +353,134 @@ function Booking({ appts, services, preset, onBook }: { appts: Appt[]; services:
   }
 
   const stepHead = (n: number, title: string, hint?: string) => (
-    <div className="border-t border-[#0d0d0d] pt-4">
-      <div className="flex items-baseline gap-3">
-        <span className="num text-[11px] font-semibold tracking-[0.2em] text-[#6f6f6a]">0{n}</span>
-        {hint && <span className="ml-auto text-[11px] tracking-[0.2em] text-[#6f6f6a] uppercase">{hint}</span>}
-      </div>
-      <h2 className="mt-1 font-d-display text-[1.6rem] leading-tight font-extrabold tracking-tight text-[#0d0d0d] [font-stretch:115%]">{title}</h2>
+    <div className="flex items-end justify-between gap-4 border-t-2 border-[#0d0d0d] pt-4">
+      <h2 className={cx(K.display, "flex items-baseline gap-3 text-[1.75rem] leading-none text-[#0d0d0d] @dsm:text-[2.25rem]")}>
+        <span className="num text-[0.5em] font-bold tracking-[0.1em] text-[#8a8a85]">0{n}</span>
+        {title}
+      </h2>
+      {hint && <span className={cx("hidden shrink-0 pb-1 @dsm:block", K.label, K.grey)}>{hint}</span>}
     </div>
   );
+  const locked = (on: boolean) => cx("scroll-mt-[calc(var(--bar-h)+4.5rem)] transition-opacity", on && "pointer-events-none opacity-35");
+  const pill = (on: boolean) => cx("border transition-colors", on ? "border-[#0d0d0d] bg-[#0d0d0d] text-white" : "border-[#cfcfca] bg-white text-[#0d0d0d] hover:border-[#0d0d0d]");
+  const fieldCls = cx(input, "rounded-none border-[#0d0d0d] text-[#0d0d0d] hover:border-[#0d0d0d] focus:shadow-[inset_0_-2px_0_#0d0d0d]");
 
   return (
     <>
-      <div className="relative h-64 overflow-hidden bg-[#0d0d0d] @dsm:h-80">
-        <Image src="/images/demo/photos/f-hero.webp" alt="Barber bei der Arbeit im Kammwerk – Haarschnitt im Gegenlicht" fill priority sizes="100vw" className="object-cover object-[center_40%] opacity-70 grayscale" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-[#0d0d0d]/45 to-[#0d0d0d]/25" aria-hidden />
-        <div className="absolute inset-0 mx-auto flex max-w-6xl flex-col justify-end px-4 pb-6 @dsm:px-6">
-          <p className="text-[10.5px] font-semibold tracking-[0.2em] text-white/70 uppercase">Friseur & Barber · Musterstadt</p>
-          <h1 className="mt-2 font-d-display text-[2.75rem] leading-none font-extrabold tracking-[-0.02em] text-white uppercase [font-stretch:125%] @dsm:text-[4rem]">Kammwerk</h1>
-          <div className="mt-4">
-            <a href="#kammwerk-leistungen" className="inline-flex min-h-12 items-center rounded-full bg-white px-6 text-[14px] font-semibold tracking-[0.04em] text-[#0d0d0d]">
-              Termin buchen
-            </a>
+      <section className="on-dark relative overflow-hidden bg-[#0d0d0d] text-white">
+        <Image src="/images/demo/photos/f-hero.webp" alt="Blick in den Salon Kammwerk: Friseurstühle, Spiegel und Regale im gedämpften Licht" fill priority sizes="100vw" className={cx(K.photo, "object-[center_55%] opacity-55")} />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-[#0d0d0d]/40 to-[#0d0d0d]/70" aria-hidden />
+        <div className={cx(K.wrap, "relative flex min-h-[30rem] flex-col justify-between gap-10 pt-6 pb-8 @dlg:min-h-[38rem] @dlg:pb-12")}>
+          <p className={cx("flex justify-between gap-4 text-white/70", K.label)}>
+            <span>Friseur & Barber</span>
+            <span className="hidden @dsm:inline">Musterstadt · Bahnhofstraße 21</span>
+            <span>Seit 2013</span>
+          </p>
+          <div>
+            <h1 className={cx(K.display, "-ml-[0.04em] text-[clamp(2.4rem,14.2cqi,11rem)] leading-[0.8] whitespace-nowrap text-white")}>Kammwerk</h1>
+            <div className="mt-8 grid gap-8 border-t border-white/25 pt-6 @dmd:grid-cols-[minmax(0,1fr)_auto] @dmd:items-end">
+              <div>
+                <p className="max-w-md text-[17px] leading-snug text-white/85">Schnitt, Farbe, Bart. Buch deinen Termin in unter einer Minute – rund um die Uhr, ohne Anruf.</p>
+                <a href="#kammwerk-leistungen" className={cx(K.btn, "mt-6 bg-white text-[#0d0d0d] hover:bg-[#e9e9e5]")}>
+                  Termin buchen <ArrowDown className="size-4" aria-hidden />
+                </a>
+              </div>
+              <dl className="grid grid-cols-3 gap-6 @dmd:gap-10">
+                {[
+                  ["4,9", "von 5 · 312 Stimmen"],
+                  ["3", "Stühle, ein Team"],
+                  ["24/7", "online buchbar"],
+                ].map(([v, l]) => (
+                  <div key={l}>
+                    <dd className="num font-d-display text-[2rem] leading-none font-black tracking-[-0.04em] text-white @dsm:text-[2.75rem]">{v}</dd>
+                    <dt className={cx("mt-2 leading-snug text-white/65", K.label, "leading-[1.4]")}>{l}</dt>
+                  </div>
+                ))}
+              </dl>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="border-b border-[#e2e2de] bg-white">
-        <div className="mx-auto flex max-w-6xl flex-wrap gap-x-5 gap-y-1 px-4 py-2.5 text-[10.5px] tracking-[0.2em] text-[#6f6f6a] uppercase @dsm:px-6">
-          <span className="inline-flex items-center gap-1.5">
-            <MapPin className="size-3.5" aria-hidden /> Bahnhofstraße 21, Musterstadt
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <Clock className="size-3.5" aria-hidden /> Mo – Sa, 9:00 – 18:30
-          </span>
-        </div>
-      </div>
+      </section>
 
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-7 @dsm:px-6 @dlg:grid-cols-[minmax(0,1fr)_21rem]">
-        <div className="space-y-9">
-          <section id="kammwerk-leistungen" data-tour="services">
-            {stepHead(1, "Was darf es sein?", "Mehrfachauswahl möglich")}
-            <div className="mt-6 space-y-8">
-              {GROUPS.map((g) => (
-                <div key={g}>
-                  <h3 className="border-b border-[#0d0d0d] pb-1.5 text-[11px] font-semibold tracking-[0.2em] text-[#0d0d0d] uppercase">{g}</h3>
-                  <ul className="mt-4 grid gap-4 @dmd:grid-cols-2">
-                    {services
-                      .filter((s) => s.group === g)
-                      .map((s) => {
+      <div className={cx(K.wrap, "grid gap-10 py-10 @dlg:grid-cols-[minmax(0,1fr)_21rem] @dlg:gap-14 @dlg:py-20")}>
+        <div className="min-w-0 space-y-12 @dlg:space-y-16">
+          <section id="kammwerk-leistungen" data-tour="services" className="scroll-mt-[calc(var(--bar-h)+4.5rem)]">
+            {stepHead(1, "Leistung", "Mehrfachauswahl möglich")}
+            <div className="mt-8 space-y-10">
+              {GROUPS.map((g) => {
+                const list = services.filter((s) => s.group === g);
+                if (!list.length) return null;
+                const photo = GROUP_PHOTO[g];
+                return (
+                  <div key={g} className="grid gap-4 @dmd:grid-cols-[13rem_minmax(0,1fr)] @dmd:gap-8">
+                    <figure className="relative aspect-[21/9] overflow-hidden bg-[#0d0d0d] @dmd:aspect-[4/5]">
+                      <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 48rem) 13rem, 100vw" className={cx(K.photo, photo.pos)} />
+                      <span className="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent" aria-hidden />
+                      <figcaption className="absolute inset-x-4 bottom-3 text-white">
+                        <span className={cx(K.display, "block text-[1.75rem] leading-none")}>{g}</span>
+                        <span className={cx("mt-2 block text-white/75", K.label)}>{photo.note}</span>
+                      </figcaption>
+                    </figure>
+                    <ul className="border-t border-[#0d0d0d]">
+                      {list.map((s) => {
                         const on = picked.includes(s.id);
-                        const photo = SERVICE_PHOTO[s.id];
                         return (
-                          <li key={s.id}>
-                            <button
-                              type="button"
-                              aria-pressed={on}
-                              onClick={() => toggle(s.id)}
-                              className={cx("group relative flex w-full flex-col overflow-hidden rounded-[var(--bo-r)] border bg-white text-left transition-colors", on ? "border-[#0d0d0d] shadow-[0_0_0_1px_#0d0d0d]" : "border-[#e2e2de] hover:border-[#0d0d0d]")}
-                            >
-                              <span className="relative block aspect-[3/2] w-full overflow-hidden bg-[#f1f1ef]">
-                                <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 48rem) 24rem, 100vw" className={cx("object-cover grayscale transition duration-300 group-hover:grayscale-0", photo.pos)} />
-                                {on && (
-                                  <span className="absolute top-2.5 right-2.5 grid size-6 place-items-center rounded-full bg-[#0d0d0d] text-white" aria-hidden>
-                                    <Check className="size-3.5" strokeWidth={3} />
-                                  </span>
-                                )}
+                          <li key={s.id} className="border-b border-[#d9d9d4]">
+                            <button type="button" aria-pressed={on} onClick={() => toggle(s.id)} className={cx("group flex min-h-16 w-full items-center gap-4 px-3 py-3 text-left transition-colors", on ? "bg-[#0d0d0d] text-white" : "hover:bg-[#f4f4f2]")}>
+                              <span className={cx("grid size-6 shrink-0 place-items-center border", on ? "border-white bg-white text-[#0d0d0d]" : "border-[#0d0d0d]")} aria-hidden>
+                                {on && <Check className="size-4" strokeWidth={3} />}
                               </span>
-                              <span className="flex min-h-12 items-baseline justify-between gap-3 px-4 py-3">
-                                <span className="min-w-0">
-                                  <span className={cx("block leading-tight text-[#0d0d0d]", on && "font-semibold underline decoration-[#0d0d0d] decoration-2 underline-offset-4")}>{s.name}</span>
-                                  <span className="num mt-0.5 block text-[12px] tracking-[0.06em] text-[#6f6f6a]">{dur(s.min)}</span>
-                                </span>
-                                <span className="num shrink-0 text-[15px] font-semibold text-[#0d0d0d]">{eur0(s.price)}</span>
+                              <span className="min-w-0 flex-1">
+                                <span className="block text-[16px] leading-tight font-semibold">{s.name}</span>
+                                <span className={cx("num mt-1 block", K.label, on ? "text-white/70" : K.grey)}>{dur(s.min)}</span>
                               </span>
+                              <span className={cx("hidden h-px flex-1 border-t border-dotted @dsm:block", on ? "border-white/40" : "border-[#b5b5b0]")} aria-hidden />
+                              <span className="num shrink-0 font-d-display text-[1.25rem] leading-none font-black tracking-[-0.02em]">{eur0(s.price)}</span>
                             </button>
                           </li>
                         );
                       })}
-                  </ul>
-                </div>
-              ))}
+                    </ul>
+                  </div>
+                );
+              })}
             </div>
           </section>
 
-          <section className={cx(!total && "pointer-events-none opacity-40")} inert={!total}>
-            {stepHead(2, "Bei wem?")}
-            <div className="mt-4 grid gap-2 @dsm:grid-cols-4">
+          <section className={locked(!total)} inert={!total}>
+            {stepHead(2, "Person", !total ? "Erst Leistung wählen" : undefined)}
+            <div className="mt-6 grid grid-cols-2 gap-2 @dmd:grid-cols-4">
               {[{ id: "egal", name: "Egal", role: "nächster freier Termin", groups: GROUPS } as Staff, ...STAFF].map((s) => {
                 const ok = s.id === "egal" || able.some((a) => a.id === s.id);
+                const on = who === s.id;
                 return (
                   <button
                     key={s.id}
                     type="button"
                     disabled={!ok}
-                    aria-pressed={who === s.id}
+                    aria-pressed={on}
                     onClick={() => {
                       setWho(s.id);
                       setSlot(null);
                     }}
-                    className={cx("min-h-16 rounded-[var(--bo-rc)] border px-3 py-2 text-left transition-colors disabled:opacity-40", who === s.id ? "border-[#0d0d0d] bg-[#0d0d0d] text-white" : "border-[#e2e2de] bg-white hover:border-[#0d0d0d]")}
+                    className={cx("flex min-h-[7.5rem] flex-col justify-between p-3 text-left disabled:opacity-40", pill(on))}
                   >
-                    <span className={cx("block text-[14px] font-semibold", who === s.id ? "text-white" : "text-[#0d0d0d]")}>{s.name.split(" ")[0]}</span>
-                    <span className={cx("block text-[11.5px] leading-tight tracking-[0.04em]", who === s.id ? "text-white/65" : "text-[#6f6f6a]")}>{ok ? s.role : "bietet das nicht an"}</span>
+                    <span className={cx("num font-d-display text-[1.75rem] leading-none font-black tracking-[-0.03em]", on ? "text-white" : "text-[#0d0d0d]")} aria-hidden>
+                      {s.id === "egal" ? "∗" : initials(s.name)}
+                    </span>
+                    <span>
+                      <span className="block text-[15px] leading-tight font-bold">{s.name.split(" ")[0]}</span>
+                      <span className={cx("mt-1 block text-[12px] leading-snug", on ? "text-white/70" : K.grey)}>{ok ? s.role : "bietet das nicht an"}</span>
+                    </span>
                   </button>
                 );
               })}
             </div>
           </section>
 
-          <section data-tour="slots" className={cx(!total && "pointer-events-none opacity-40")} inert={!total}>
-            {stepHead(3, "Wann passt es?")}
-            <div className="mt-4 flex gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none]">
+          <section id="kammwerk-zeit" data-tour="slots" className={locked(!total)} inert={!total}>
+            {stepHead(3, "Zeit", total ? `Dauer ${dur(total)}` : "Erst Leistung wählen")}
+            <div className="no-bar -mx-4 mt-6 flex gap-2 overflow-x-auto px-4 @dsm:mx-0 @dsm:px-0">
               {Array.from({ length: DAYS }, (_, i) => {
                 const d = workday(i);
                 return (
@@ -444,110 +492,167 @@ function Booking({ appts, services, preset, onBook }: { appts: Appt[]; services:
                       setDayIdx(i);
                       setSlot(null);
                     }}
-                    className={cx("min-h-14 w-16 shrink-0 rounded-[var(--bo-rc)] border text-center leading-tight transition-colors", dayIdx === i ? "border-[#0d0d0d] bg-[#0d0d0d] text-white" : "border-[#e2e2de] bg-white hover:border-[#0d0d0d]")}
+                    className={cx("min-h-[4.5rem] w-[4.5rem] shrink-0 text-center", pill(dayIdx === i))}
                   >
-                    <span className="block text-[10.5px] tracking-[0.14em] uppercase opacity-75">{d.toDateString() === new Date().toDateString() ? "Heute" : weekdayShort(d)}</span>
-                    <span className="num block text-[17px] font-semibold">{d.getDate()}.</span>
+                    <span className={cx("block", K.label, "tracking-[0.16em]", dayIdx === i ? "text-white/75" : K.grey)}>{d.toDateString() === new Date().toDateString() ? "Heute" : weekdayShort(d)}</span>
+                    <span className="num mt-1.5 block font-d-display text-[1.5rem] leading-none font-black tracking-[-0.03em]">{d.getDate()}</span>
                   </button>
                 );
               })}
             </div>
             {total > 0 &&
               (slots.length ? (
-                <div className="mt-3 grid grid-cols-4 gap-1.5 @dsm:grid-cols-6 @dmd:grid-cols-8">
-                  {slots.map((s) => (
-                    <button
-                      key={s.start}
-                      type="button"
-                      aria-pressed={slot?.start === s.start}
-                      onClick={() => setSlot(s)}
-                      className={cx("num min-h-11 rounded-[var(--bo-rc)] border text-[14px] font-medium tracking-[0.04em] transition-colors", slot?.start === s.start ? "border-[#0d0d0d] bg-[#0d0d0d] text-white" : "border-[#e2e2de] bg-white hover:border-[#0d0d0d]")}
-                    >
-                      {hm(s.start)}
-                    </button>
-                  ))}
+                <div className="mt-6 space-y-5">
+                  {[
+                    { title: "Vormittag", list: slots.filter((s) => s.start < 12 * 60) },
+                    { title: "Nachmittag", list: slots.filter((s) => s.start >= 12 * 60) },
+                  ]
+                    .filter((p) => p.list.length)
+                    .map((p) => (
+                      <div key={p.title}>
+                        <h3 className={cx(K.label, K.grey)}>{p.title}</h3>
+                        <div className="mt-2.5 grid grid-cols-4 gap-1.5 @dsm:grid-cols-6 @dmd:grid-cols-8">
+                          {p.list.map((s) => (
+                            <button key={s.start} type="button" aria-pressed={slot?.start === s.start} onClick={() => setSlot(s)} className={cx("num min-h-11 text-[14px] font-bold", pill(slot?.start === s.start))}>
+                              {hm(s.start)}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
                 </div>
               ) : (
-                <p className="mt-3 rounded-[var(--bo-r)] border border-dashed border-[#c9c9c4] px-4 py-5 text-[14px] text-[#6f6f6a]">An diesem Tag ist für {dur(total)} nichts mehr frei. Wähl einen anderen Tag oder „Egal“ bei der Person.</p>
+                <p className="mt-6 border border-dashed border-[#8a8a85] px-5 py-6 text-[14px] leading-relaxed text-[#5f5f5a]">An diesem Tag ist für {dur(total)} nichts mehr frei. Wähl einen anderen Tag oder „Egal“ bei der Person.</p>
               ))}
           </section>
 
-          <section className={cx(!slot && "pointer-events-none opacity-40")} inert={!slot}>
-            {stepHead(4, "Deine Daten")}
+          <section id="kammwerk-daten" className={locked(!slot)} inert={!slot}>
+            {stepHead(4, "Kontakt", !slot ? "Erst Zeit wählen" : undefined)}
             <form
               noValidate
-              className="mt-4 grid gap-3 @dsm:grid-cols-2"
+              className="mt-6 grid gap-4 @dsm:grid-cols-2"
               onSubmit={(e) => {
                 e.preventDefault();
                 setTried(true);
-                if (!slot || name.trim().length < 2 || phone.trim().length < 6) return;
+                if (!slot || bad.name || bad.phone || !once()) return;
                 onBook({ staff: slot.staff, day: dayIdx, start: slot.start, min: total, customer: name.trim(), what: chosen.map((s) => s.name).join(" + "), group: chosen[0].group, price });
                 setDone({ day: dayIdx, start: slot.start, staff: slot.staff });
+                toTop();
               }}
             >
-              <Field label="Name">
-                <input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" className={cx(input, "border-[#cfcfca] text-[#0d0d0d] focus:border-[#0d0d0d]")} placeholder="Vor- und Nachname" />
+              <Field label="Name" error={tried && bad.name && "Bitte trag deinen Namen ein."}>
+                <input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" maxLength={60} aria-invalid={tried && bad.name} className={fieldCls} placeholder="Vor- und Nachname" />
               </Field>
-              <Field label="Handynummer">
-                <input value={phone} onChange={(e) => setPhone(e.target.value)} type="tel" autoComplete="tel" className={cx(input, "border-[#cfcfca] text-[#0d0d0d] focus:border-[#0d0d0d]")} placeholder="0151 2345678" />
+              <Field label="Handynummer" error={tried && bad.phone && "Bitte gib deine Handynummer an."}>
+                <input value={phone} onChange={(e) => setPhone(e.target.value)} type="tel" autoComplete="tel" maxLength={24} aria-invalid={tried && bad.phone} className={fieldCls} placeholder="0151 2345678" />
               </Field>
-              <label className="flex min-h-11 items-center gap-2.5 text-[14px] @dsm:col-span-2">
-                <input type="checkbox" checked={remind} onChange={(e) => setRemind(e.target.checked)} className="size-4 accent-[#0d0d0d]" /> Am Vortag per SMS erinnern
+              <label className="flex min-h-11 items-center gap-3 text-[14.5px] @dsm:col-span-2">
+                <input type="checkbox" checked={remind} onChange={(e) => setRemind(e.target.checked)} className="size-5 rounded-none accent-[#0d0d0d]" /> Am Vortag per SMS erinnern
               </label>
-              {tried && (name.trim().length < 2 || phone.trim().length < 6) && (
-                <p role="alert" className="text-[13px] text-bo-bad @dsm:col-span-2">
-                  Bitte trag Name und Handynummer ein – erfundene Angaben genügen.
-                </p>
-              )}
               <div className="@dsm:col-span-2">
-                <button type="submit" className="min-h-12 w-full rounded-full bg-[#0d0d0d] px-7 font-semibold tracking-[0.04em] text-white hover:bg-black @dsm:w-auto">
+                <button type="submit" className={cx(K.btn, "w-full bg-[#0d0d0d] text-white hover:bg-black @dsm:w-auto")}>
                   Termin verbindlich buchen
                 </button>
-                <p className="mt-2 text-[12px] text-[#6f6f6a]">Demo: Es wird nichts gebucht oder gespeichert. Absage bis 24 Stunden vorher kostenlos.</p>
+                <p className={cx("mt-3 text-[12.5px]", K.grey)}>Demo: Es wird nichts gebucht oder gespeichert – erfundene Angaben genügen. Absage bis 24 Stunden vorher kostenlos.</p>
               </div>
             </form>
           </section>
         </div>
 
-        <aside>
-          <div className="sticky top-[calc(var(--bar-h)+1rem)] rounded-[var(--bo-r)] bg-[#0d0d0d] p-5 text-white">
-            <h2 className="text-[11px] font-semibold tracking-[0.2em] text-white/55 uppercase">Dein Termin</h2>
-            {chosen.length === 0 ? (
-              <p className="mt-3 text-[14px] leading-relaxed text-white/65">Wähl eine Leistung – Dauer und Preis rechnen wir für dich zusammen.</p>
-            ) : (
-              <>
-                <ul className="mt-3 space-y-2 text-[14.5px]">
+        <aside className="@max-dlg:hidden">
+          <div className="on-dark sticky top-[calc(var(--bar-h)+4.5rem)] bg-[#0d0d0d] text-white">
+            <div className="px-6 pt-6 pb-5">
+              <h2 className={cx(K.label, "text-white/60")}>Dein Termin</h2>
+              {chosen.length === 0 ? (
+                <p className="mt-4 text-[14.5px] leading-relaxed text-white/75">Wähl eine Leistung – Dauer und Preis rechnen wir für dich zusammen.</p>
+              ) : (
+                <ul className="mt-4 space-y-2.5 text-[14.5px]">
                   {chosen.map((s) => (
                     <li key={s.id} className="flex justify-between gap-3">
-                      <span>{s.name}</span>
-                      <span className="num text-white/65">{eur0(s.price)}</span>
+                      <span className="min-w-0 break-words">{s.name}</span>
+                      <span className="num shrink-0 text-white/70">{eur0(s.price)}</span>
                     </li>
                   ))}
                 </ul>
-                <dl className="num mt-4 space-y-1.5 border-t border-white/20 pt-3 text-[14px]">
-                  <div className="flex justify-between">
-                    <dt className="text-white/55">Dauer</dt>
-                    <dd>{dur(total)}</dd>
+              )}
+            </div>
+            {chosen.length > 0 && (
+              <>
+                <div className="relative border-t border-dashed border-white/35">
+                  <span className="absolute -top-2 -left-2 size-4 rounded-full bg-white" aria-hidden />
+                  <span className="absolute -top-2 -right-2 size-4 rounded-full bg-white" aria-hidden />
+                </div>
+                <dl className="num space-y-2 px-6 pt-5 pb-6 text-[14px]">
+                  {[
+                    ["Dauer", dur(total)],
+                    ["Bei", slot ? staffName(slot.staff) : who === "egal" ? "Egal" : staffName(who)],
+                    ["Wann", slot ? `${fmtDay(workday(dayIdx))}, ${hm(slot.start)}` : "noch offen"],
+                  ].map(([k, v]) => (
+                    <div key={k} className="flex justify-between gap-3">
+                      <dt className={cx("pt-1 text-white/60", K.label)}>{k}</dt>
+                      <dd className="text-right">{v}</dd>
+                    </div>
+                  ))}
+                  <div className="flex items-end justify-between gap-3 border-t border-white/20 pt-4">
+                    <dt className={cx("pb-1 text-white/60", K.label)}>Preis</dt>
+                    <dd className="font-d-display text-[2.25rem] leading-none font-black tracking-[-0.04em] text-white">{eur0(price)}</dd>
                   </div>
-                  <div className="flex justify-between">
-                    <dt className="text-white/55">Bei</dt>
-                    <dd>{slot ? staffName(slot.staff) : who === "egal" ? "Egal" : staffName(who)}</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-white/55">Wann</dt>
-                    <dd>{slot ? `${fmtDay(workday(dayIdx))}, ${hm(slot.start)}` : "noch offen"}</dd>
-                  </div>
-                  <div className="flex justify-between pt-2 text-[17px] font-semibold text-white">
-                    <dt>Preis</dt>
-                    <dd>{eur0(price)}</dd>
-                  </div>
+                  <p className="pt-1 text-[12px] text-white/60">Bezahlt wird im Salon.</p>
                 </dl>
-                <p className="mt-3 text-[12px] text-white/55">Bezahlt wird im Salon.</p>
               </>
             )}
           </div>
         </aside>
       </div>
+
+      <section className="on-dark bg-[#0d0d0d] text-white">
+        <div className={cx(K.wrap, "grid gap-8 py-12 @dmd:grid-cols-2 @dmd:items-center @dlg:gap-16 @dlg:py-20")}>
+          <div className="relative aspect-[4/3] overflow-hidden">
+            <Image src="/images/demo/photos/f-wash.webp" alt="Reihe schwarzer Waschliegen am Waschplatz des Salons" fill sizes="(min-width: 48rem) 36rem, 100vw" className={K.photo} />
+          </div>
+          <div>
+            <p className={cx(K.label, "text-white/60")}>Das Haus</p>
+            <h2 className={cx(K.display, "mt-4 text-[clamp(2rem,6cqi,3.5rem)] leading-[0.9] text-white")}>
+              Handwerk,
+              <br />
+              kein Fließband.
+            </h2>
+            <ol className="mt-8 border-t border-white/25">
+              {[
+                ["Ohne Wartezeit", "Dein Stuhl ist frei, wenn du kommst – die Zeit ist nur für dich geblockt."],
+                ["Feste Preise", "Was auf der Karte steht, steht auf der Rechnung. Extras sagen wir vorher an."],
+                ["Fair absagen", "Bis 24 Stunden vorher kostenlos, mit einem Tipp in deinem Profil."],
+              ].map(([t, x], i) => (
+                <li key={t} className="grid grid-cols-[2.5rem_1fr] gap-x-2 border-b border-white/25 py-4">
+                  <span className={cx("num pt-1 text-white/55", K.label)}>0{i + 1}</span>
+                  <span>
+                    <strong className="block text-[16px] font-bold text-white">{t}</strong>
+                    <span className="mt-1 block text-[14px] leading-snug text-white/70">{x}</span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      {/* Schmale Rahmen: Auswahl als Leiste unten, „Weiter" führt zum nächsten offenen Schritt */}
+      {chosen.length > 0 && (
+        <div className="sticky bottom-0 z-20 border-t border-white/20 bg-[#0d0d0d] px-4 py-2.5 text-white @dlg:hidden">
+          <div className="on-dark flex items-center gap-3">
+            <p className="min-w-0 flex-1 leading-tight">
+              <span className="num block font-d-display text-[1.375rem] leading-none font-black tracking-[-0.03em]">{eur0(price)}</span>
+              <span className="num mt-1 block truncate text-[12px] text-white/70">
+                {chosen.length} {chosen.length === 1 ? "Leistung" : "Leistungen"} · {dur(total)}
+                {slot && ` · ${hm(slot.start)}`}
+              </span>
+            </p>
+            <button type="button" onClick={() => jump(slot ? "kammwerk-daten" : "kammwerk-zeit")} className={cx(K.btn, "min-h-11 bg-white px-5 text-[#0d0d0d]")}>
+              {slot ? "Zu den Daten" : "Zeit wählen"}
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
@@ -568,112 +673,133 @@ function Profile({ appts, onPatch, onRebook }: { appts: Appt[]; onPatch: (id: nu
     { when: "vor 4 Monaten", what: "Balayage", who: "Mira", price: 139, ids: ["f-bal"] },
   ];
   const stamps = 7;
+  const head = (t: string) => <h2 className={cx("border-t-2 border-[#0d0d0d] pt-4 text-[#0d0d0d]", K.label)}>{t}</h2>;
   return (
-    <div className="mx-auto grid max-w-6xl gap-6 px-4 py-8 @dsm:px-6 @dlg:grid-cols-[minmax(0,1fr)_20rem]" data-tour="profil">
-      <div>
-        <p className="text-[10.5px] font-semibold tracking-[0.2em] text-[#6f6f6a] uppercase">Angemeldet als</p>
-        <h1 className="mt-1.5 font-d-display text-[2.4rem] leading-none font-extrabold tracking-[-0.02em] text-[#0d0d0d] [font-stretch:125%]">Hallo Lena.</h1>
-
-        <h2 className="mt-8 border-t border-[#0d0d0d] pt-3 text-[11px] font-semibold tracking-[0.2em] text-[#0d0d0d] uppercase">Nächster Termin</h2>
-        {next ? (
-          <div className="mt-3 rounded-[var(--bo-r)] border border-[#e2e2de] bg-white p-5">
-            <p className="num font-d-display text-[1.4rem] leading-tight font-extrabold text-[#0d0d0d]">
-              {fmtDayLong(workday(next.day))} · {hm(next.start)} Uhr
-            </p>
-            <p className="mt-1">
-              {next.what} bei {STAFF.find((s) => s.id === next.staff)!.name} · <span className="num">{dur(next.min)} · {eur0(next.price)}</span>
-            </p>
-            {moving ? (
-              <div className="mt-4 border-t border-[#e2e2de] pt-4">
-                <p className="text-[11px] font-semibold tracking-[0.2em] text-[#6f6f6a] uppercase">Freie Zeiten bei Mira</p>
-                <div className="mt-2 flex flex-wrap gap-1.5">
-                  {options.map((o) => (
+    <div data-tour="profil">
+      <section className="on-dark bg-[#0d0d0d] text-white">
+        <div className={cx(K.wrap, "pt-10 pb-8 @dlg:pt-16 @dlg:pb-12")}>
+          <p className={cx(K.label, "text-white/60")}>Angemeldet als Lena Hartmann</p>
+          <h1 className={cx(K.display, "mt-4 text-[clamp(2.5rem,13cqi,8rem)] leading-[0.82] whitespace-nowrap text-white")}>Hallo Lena.</h1>
+        </div>
+      </section>
+      <div className={cx(K.wrap, "grid gap-10 py-10 @dlg:grid-cols-[minmax(0,1fr)_21rem] @dlg:gap-14 @dlg:py-16")}>
+        <div className="min-w-0">
+          {head("Nächster Termin")}
+          {next ? (
+            <div className="mt-5 grid gap-5 @dsm:grid-cols-[auto_minmax(0,1fr)] @dsm:gap-8">
+              <p className="num on-dark grid min-w-[7.5rem] place-items-center self-start bg-[#0d0d0d] px-5 py-5 text-center text-white">
+                <span className={cx(K.label, "text-white/65")}>{weekdayShort(workday(next.day))}</span>
+                <span className="mt-2 font-d-display text-[3.25rem] leading-none font-black tracking-[-0.04em]">{workday(next.day).getDate()}</span>
+                <span className="mt-2 text-[15px] font-bold">{hm(next.start)} Uhr</span>
+              </p>
+              <div className="min-w-0">
+                <p className="text-[1.375rem] leading-tight font-bold text-[#0d0d0d]">{next.what}</p>
+                <p className={cx("mt-1.5 text-[14.5px]", K.grey)}>
+                  {fmtDayLong(workday(next.day))} · bei {STAFF.find((s) => s.id === next.staff)!.name} ·{" "}
+                  <span className="num">
+                    {dur(next.min)} · {eur0(next.price)}
+                  </span>
+                </p>
+                {moving ? (
+                  <div className="mt-5 border-t border-[#d9d9d4] pt-4">
+                    <p className={cx(K.label, K.grey)}>Freie Zeiten bei Mira</p>
+                    <div className="mt-3 flex flex-wrap gap-1.5">
+                      {options.map((o) => (
+                        <button
+                          key={`${o.day}-${o.start}`}
+                          type="button"
+                          onClick={() => {
+                            onPatch(900, { day: o.day, start: o.start });
+                            setMoving(false);
+                            toast("Termin verschoben – im Kalender des Salons steht er jetzt auf der neuen Zeit.");
+                          }}
+                          className="num min-h-11 border border-[#cfcfca] px-3.5 text-[14px] font-semibold transition-colors hover:border-[#0d0d0d] hover:bg-[#0d0d0d] hover:text-white"
+                        >
+                          {fmtDay(workday(o.day))}, {hm(o.start)}
+                        </button>
+                      ))}
+                      {options.length === 0 && <p className={cx("text-[14px]", K.grey)}>In den nächsten Tagen ist bei Mira nichts mehr frei.</p>}
+                    </div>
+                    <button type="button" onClick={() => setMoving(false)} className="mt-2 min-h-11 text-[13px] font-semibold underline underline-offset-4">
+                      Doch nicht verschieben
+                    </button>
+                  </div>
+                ) : (
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    <button type="button" onClick={() => setMoving(true)} className={cx(K.btn, "min-h-11 bg-[#0d0d0d] px-6 text-white hover:bg-black")}>
+                      Verschieben
+                    </button>
                     <button
-                      key={`${o.day}-${o.start}`}
                       type="button"
                       onClick={() => {
-                        onPatch(900, { day: o.day, start: o.start });
-                        setMoving(false);
-                        toast("Termin verschoben – im Kalender des Salons steht er jetzt auf der neuen Zeit.");
+                        onPatch(900, null);
+                        toast("Termin abgesagt. Die Zeit ist im Kalender sofort wieder frei.");
                       }}
-                      className="num min-h-11 rounded-[var(--bo-rc)] border border-[#e2e2de] px-3 text-[14px] hover:border-[#0d0d0d]"
+                      className={cx(K.btn, "min-h-11 border border-[#0d0d0d] px-6 text-[#0d0d0d] hover:bg-[#0d0d0d] hover:text-white")}
                     >
-                      {fmtDay(workday(o.day))}, {hm(o.start)}
+                      Absagen
                     </button>
-                  ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : (
+            <p className="mt-5 border border-dashed border-[#8a8a85] px-5 py-7 text-[14.5px] text-[#5f5f5a]">Kein Termin geplant. Buch deinen letzten Besuch einfach nochmal.</p>
+          )}
+
+          <div className="mt-12">{head("Bisherige Besuche")}</div>
+          <ul className="mt-1">
+            {history.map((h, i) => (
+              <li key={h.when} className="grid grid-cols-[2.5rem_minmax(0,1fr)] items-center gap-x-2 gap-y-3 border-b border-[#d9d9d4] py-4 @dsm:grid-cols-[2.5rem_minmax(0,1fr)_auto]">
+                <span className={cx("num", K.label, K.grey)}>0{i + 1}</span>
+                <div className="min-w-0">
+                  <p className="text-[16px] leading-tight font-semibold text-[#0d0d0d]">{h.what}</p>
+                  <p className={cx("num mt-1 text-[13px]", K.grey)}>
+                    {h.when} · bei {h.who} · {eur0(h.price)}
+                  </p>
                 </div>
-              </div>
-            ) : (
-              <div className="mt-4 flex flex-wrap gap-2">
-                <button type="button" onClick={() => setMoving(true)} className="min-h-11 rounded-[var(--bo-rc)] bg-[#0d0d0d] px-4 text-[14px] font-medium text-white">
-                  Verschieben
+                <button type="button" onClick={() => onRebook(h.ids)} className={cx(K.btn, "col-start-2 min-h-11 justify-self-start border border-[#0d0d0d] px-5 text-[11.5px] text-[#0d0d0d] hover:bg-[#0d0d0d] hover:text-white @dsm:col-start-3")}>
+                  Nochmal buchen
                 </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    onPatch(900, null);
-                    toast("Termin abgesagt. Die Zeit ist im Kalender sofort wieder frei.");
-                  }}
-                  className="min-h-11 rounded-[var(--bo-rc)] border border-[#0d0d0d] px-4 text-[14px] font-medium"
-                >
-                  Absagen
-                </button>
-              </div>
-            )}
-          </div>
-        ) : (
-          <p className="mt-3 rounded-[var(--bo-r)] border border-dashed border-[#c9c9c4] px-5 py-6 text-[14px] text-[#6f6f6a]">Kein Termin geplant. Buch deinen letzten Besuch einfach nochmal.</p>
-        )}
-
-        <h2 className="mt-8 border-t border-[#0d0d0d] pt-3 text-[11px] font-semibold tracking-[0.2em] text-[#0d0d0d] uppercase">Bisherige Besuche</h2>
-        <ul className="mt-1 divide-y divide-[#e2e2de] border-b border-[#e2e2de]">
-          {history.map((h) => (
-            <li key={h.when} className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-3">
-              <div>
-                <p className="font-medium text-[#0d0d0d]">{h.what}</p>
-                <p className="num text-[13px] text-[#6f6f6a]">
-                  {h.when} · bei {h.who} · {eur0(h.price)}
-                </p>
-              </div>
-              <button type="button" onClick={() => onRebook(h.ids)} className="min-h-11 rounded-[var(--bo-rc)] border border-[#0d0d0d] px-3 text-[13.5px] font-medium hover:bg-[#0d0d0d] hover:text-white">
-                Nochmal buchen
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <aside className="space-y-4">
-        <div className="rounded-[var(--bo-r)] bg-[#0d0d0d] p-5 text-white">
-          <h2 className="text-[11px] font-semibold tracking-[0.2em] text-white/55 uppercase">Treuekarte</h2>
-          <p className="mt-2 text-[14px] leading-snug">Jeder zehnte Besuch: 20 % auf alles.</p>
-          <ol className="mt-4 grid grid-cols-5 gap-2" aria-label={`${stamps} von 10 Stempeln`}>
-            {Array.from({ length: 10 }, (_, i) => (
-              <li key={i} className={cx("grid aspect-square place-items-center rounded-full border text-[11px]", i < stamps ? "border-white bg-white text-[#0d0d0d]" : "border-dashed border-white/30 text-white/40")}>
-                {i < stamps ? <Scissors className="size-3.5" aria-hidden /> : <span className="num">{i + 1}</span>}
               </li>
             ))}
-          </ol>
-          <p className="num mt-4 text-[13px] text-white/65">Noch {10 - stamps} Besuche bis zum Rabatt.</p>
+          </ul>
         </div>
-        <div className="rounded-[var(--bo-r)] border border-[#e2e2de] bg-white p-5 text-[14px]">
-          <h2 className="text-[11px] font-semibold tracking-[0.2em] text-[#0d0d0d] uppercase">Meine Angaben</h2>
-          <dl className="mt-3 space-y-2">
-            <div className="flex justify-between gap-3">
-              <dt className="text-[#6f6f6a]">Stammfriseurin</dt>
-              <dd>Mira Albers</dd>
-            </div>
-            <div className="flex justify-between gap-3">
-              <dt className="text-[#6f6f6a]">Erinnerung</dt>
-              <dd>SMS am Vortag</dd>
-            </div>
-            <div className="num flex justify-between gap-3">
-              <dt className="text-[#6f6f6a]">Handy</dt>
-              <dd>0151 2345 6701</dd>
-            </div>
-          </dl>
-        </div>
-      </aside>
+
+        <aside className="space-y-6">
+          <div className="on-dark bg-[#0d0d0d] p-6 text-white">
+            <h2 className={cx(K.label, "text-white/60")}>Treuekarte</h2>
+            <p className={cx(K.display, "mt-4 text-[1.75rem] leading-[0.95] text-white")}>
+              Jeder zehnte Besuch:
+              <br />
+              20 % auf alles.
+            </p>
+            <ol className="mt-6 grid grid-cols-5 gap-2" aria-label={`${stamps} von 10 Stempeln`}>
+              {Array.from({ length: 10 }, (_, i) => (
+                <li key={i} className={cx("grid aspect-square place-items-center rounded-full border text-[11px]", i < stamps ? "border-white bg-white text-[#0d0d0d]" : "border-dashed border-white/45 text-white/60")}>
+                  {i < stamps ? <Scissors className="size-4" aria-hidden /> : <span className="num">{i + 1}</span>}
+                </li>
+              ))}
+            </ol>
+            <p className="num mt-5 text-[13px] text-white/70">Noch {10 - stamps} Besuche bis zum Rabatt.</p>
+          </div>
+          <div>
+            {head("Meine Angaben")}
+            <dl className="mt-1 text-[14.5px]">
+              {[
+                ["Stammfriseurin", "Mira Albers"],
+                ["Erinnerung", "SMS am Vortag"],
+                ["Handy", "0151 2345 6701"],
+              ].map(([k, v]) => (
+                <div key={k} className="num flex justify-between gap-4 border-b border-[#d9d9d4] py-3">
+                  <dt className={K.grey}>{k}</dt>
+                  <dd className="font-semibold">{v}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </aside>
+      </div>
     </div>
   );
 }
@@ -773,7 +899,7 @@ function Calendar({ appts, onPatch }: { appts: Appt[]; onPatch: (id: number, c: 
                         key={a.id}
                         type="button"
                         onClick={() => setOpenId(a.id)}
-                        className={cx("absolute inset-x-1 overflow-hidden rounded border-l-[3px] px-2 py-0.5 text-left leading-tight transition-shadow hover:shadow-md", GROUP_STYLE[a.group], a.status === "noshow" && "opacity-55", a.own && "animate-demo-flash ring-1 ring-bo-ink")}
+                        className={cx("absolute inset-x-1 overflow-hidden rounded border-l-[3px] px-2 py-0.5 text-left leading-tight transition-shadow hover:shadow-md", a.status === "noshow" ? "border-l-bo-muted bg-[repeating-linear-gradient(135deg,#eceeef_0_5px,#f6f7f8_5px_10px)]" : GROUP_STYLE[a.group], a.own && "animate-demo-flash ring-1 ring-bo-ink")}
                         style={{ top: (a.start - OPEN) * PX + 1, height: a.min * PX - 2 }}
                       >
                         {a.min < 30 ? (

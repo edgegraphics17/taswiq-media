@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, type ButtonHTMLAttributes, type ReactNode } from "react";
+import { useEffect, useId, useRef, type ButtonHTMLAttributes, type CSSProperties, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { X, type LucideIcon } from "lucide-react";
 import { useDemo } from "@/demos/kit/context";
@@ -20,21 +20,39 @@ export interface NavItem {
   count?: number;
 }
 
+/** Relative Helligkeit einer Hex-Farbe (WCAG) – für die Frage, ob die Markenfarbe auf der Seitenleiste überhaupt zu sehen ist */
+function luminance(hex: string) {
+  const n = parseInt(hex.replace("#", "").padEnd(6, "0").slice(0, 6), 16);
+  const [r, g, b] = [n >> 16, (n >> 8) & 255, n & 255].map((v) => {
+    const c = v / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+const contrast = (a: string, b: string) => {
+  const [x, y] = [luminance(a), luminance(b)].sort((m, n) => n - m);
+  return (x + 0.05) / (y + 0.05);
+};
+
 export function Backoffice({ nav, user, role, title, actions, children }: { nav: NavItem[]; user: string; role: string; title: string; actions?: ReactNode; children: ReactNode }) {
   const { def, tab, setTab } = useDemo();
+  // Marke in der Seitenleiste: die Akzentfarbe, sofern sie sich vom Grund abhebt – sonst die Schriftfarbe der Leiste (Schwarz-Weiß-Marken)
+  const visible = contrast(def.theme.accent, def.theme.bo.side) >= 2.5;
+  const mark = { "--bo-mark": visible ? def.theme.accent : def.theme.bo.sideInk, "--bo-mark-on": visible ? def.theme.on : def.theme.bo.side } as CSSProperties;
   return (
-    <div className="min-h-[var(--app-h)] bg-bo-bg font-plex text-[14px] leading-normal text-bo-body @dlg:grid @dlg:grid-cols-[13.5rem_minmax(0,1fr)]">
-      <aside className="border-bo-side-line bg-bo-side @dlg:sticky @dlg:top-[var(--bar-h)] @dlg:flex @dlg:h-[var(--app-h)] @dlg:flex-col @dlg:border-r">
-        <div className="flex items-center gap-2.5 px-4 pt-4 pb-3">
-          <span className="grid size-8 shrink-0 place-items-center rounded-[var(--bo-rc)] bg-[color-mix(in_srgb,var(--bo-side-ink)_12%,transparent)] text-[13px] font-semibold text-bo-side-ink" aria-hidden>
+    <div className="min-h-[var(--app-h)] bg-bo-bg font-plex text-[14px] leading-normal text-bo-body @dlg:grid @dlg:grid-cols-[14rem_minmax(0,1fr)]">
+      <aside style={mark} className="on-side sticky top-[var(--bar-h)] z-20 border-bo-side-line bg-bo-side @max-dlg:border-b @dlg:flex @dlg:h-[var(--app-h)] @dlg:flex-col @dlg:border-r">
+        <div className="hidden items-center gap-3 px-4 pt-5 pb-4 @dlg:flex">
+          <span className="grid size-9 shrink-0 place-items-center rounded-[min(var(--bo-rc),12px)] bg-[var(--bo-mark)] font-d-display text-[15px] leading-none font-bold text-[var(--bo-mark-on)]" aria-hidden>
             {def.firm.replace(/^(Pizzeria|Autohaus)\s/, "")[0]}
           </span>
           <div className="min-w-0">
-            <p className="truncate text-[13.5px] leading-tight font-semibold text-bo-side-ink">{def.firm}</p>
-            <p className="text-[11.5px] leading-tight text-bo-side-ink/60">Verwaltung</p>
+            <p className="truncate text-[14px] leading-tight font-semibold text-bo-side-ink">{def.firm}</p>
+            <p className="mt-0.5 text-[11px] leading-tight font-medium tracking-[0.08em] text-bo-side-ink/55 uppercase">Verwaltung</p>
           </div>
         </div>
-        <nav aria-label="Bereiche" className="flex gap-1 overflow-x-auto border-b border-bo-side-line px-3 pb-2 [scrollbar-width:none] @dlg:flex-col @dlg:gap-0.5 @dlg:overflow-visible @dlg:border-0 @dlg:px-2 @dlg:pb-0">
+        <p className="hidden px-4 pt-2 pb-1.5 text-[10.5px] font-semibold tracking-[0.14em] text-bo-side-ink/45 uppercase @dlg:block">Bereiche</p>
+        <nav aria-label="Bereiche" className="no-bar flex gap-1 overflow-x-auto px-3 py-1.5 @dlg:flex-col @dlg:gap-0.5 @dlg:overflow-visible @dlg:px-2 @dlg:py-0">
           {nav.map((n) => {
             const active = tab === n.id;
             return (
@@ -44,14 +62,14 @@ export function Backoffice({ nav, user, role, title, actions, children }: { nav:
                 aria-current={active ? "page" : undefined}
                 onClick={() => setTab(n.id)}
                 className={cx(
-                  "relative flex min-h-10 shrink-0 items-center gap-2.5 rounded-[var(--bo-rc)] px-2.5 text-left text-[13.5px] whitespace-nowrap transition-colors @dlg:min-h-9",
+                  "relative flex min-h-11 shrink-0 items-center gap-2.5 rounded-[var(--bo-rc)] px-3 text-left text-[13.5px] whitespace-nowrap transition-colors @dlg:min-h-10",
                   active ? "bg-[color-mix(in_srgb,var(--bo-side-ink)_10%,transparent)] font-medium text-bo-side-ink" : "text-bo-side-ink/70 hover:bg-[color-mix(in_srgb,var(--bo-side-ink)_7%,transparent)] hover:text-bo-side-ink",
                 )}
               >
-                {active && <span className="absolute inset-y-2 left-0 hidden w-[3px] rounded-full bg-d-accent @dlg:block" aria-hidden />}
+                {active && <span className="absolute inset-y-2.5 left-0 hidden w-[3px] rounded-full bg-[var(--bo-mark)] @dlg:block" aria-hidden />}
                 <n.icon className="size-4 shrink-0" strokeWidth={1.75} aria-hidden />
                 <span className="flex-1">{n.label}</span>
-                {n.count ? <span className="num rounded-[var(--bo-rc)] bg-d-accent px-1.5 text-[11px] leading-[18px] font-semibold text-d-on">{n.count}</span> : null}
+                {n.count ? <span className="num min-w-5 rounded-[min(var(--bo-rc),999px)] bg-[var(--bo-mark)] px-1.5 text-center text-[11px] leading-5 font-semibold text-[var(--bo-mark-on)]">{n.count}</span> : null}
               </button>
             );
           })}
@@ -65,11 +83,11 @@ export function Backoffice({ nav, user, role, title, actions, children }: { nav:
         </div>
       </aside>
 
-      <div className="min-w-0 px-4 py-5 @dsm:px-6 @dlg:px-8 @dlg:py-6">
-        <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
-          <div>
-            <p className="text-[12.5px] text-bo-muted">{fmtDayLong(day())}</p>
-            <h1 className="text-[1.35rem] leading-tight font-semibold tracking-[-0.01em] text-bo-ink">{title}</h1>
+      <div className="min-w-0 px-4 py-5 @dsm:px-6 @dlg:px-8 @dlg:py-7">
+        <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3 border-b border-bo-line pb-4">
+          <div className="min-w-0">
+            <p className="text-[11px] font-semibold tracking-[0.12em] text-bo-muted uppercase">{fmtDayLong(day())}</p>
+            <h1 className="bo-title mt-1 font-d-display text-[1.75rem] leading-none font-bold text-bo-ink">{title}</h1>
           </div>
           {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
         </div>
@@ -81,10 +99,10 @@ export function Backoffice({ nav, user, role, title, actions, children }: { nav:
 
 export function Panel({ title, aside, children, className, flush, tour }: { title?: ReactNode; aside?: ReactNode; children: ReactNode; className?: string; flush?: boolean; tour?: string }) {
   return (
-    <section data-tour={tour} className={cx("rounded-[var(--bo-r)] border border-bo-line bg-white", className)}>
+    <section data-tour={tour} className={cx("overflow-hidden rounded-[var(--bo-r)] border border-bo-line bg-white", className)}>
       {(title || aside) && (
-        <header className="flex min-h-11 flex-wrap items-center justify-between gap-x-4 gap-y-1 border-b border-bo-line px-4 py-2">
-          <h2 className="text-[13.5px] font-semibold text-bo-ink">{title}</h2>
+        <header className="flex min-h-12 flex-wrap items-center justify-between gap-x-4 gap-y-1 border-b border-bo-line px-4 py-2">
+          <h2 className="text-[14px] font-semibold tracking-normal text-bo-ink">{title}</h2>
           {aside && <div className="flex items-center gap-2 text-[12.5px] text-bo-muted">{aside}</div>}
         </header>
       )}
@@ -119,10 +137,10 @@ export function Figures({ items, tour }: { items: { label: string; value: ReactN
   return (
     <dl data-tour={tour} className="grid grid-cols-2 overflow-hidden rounded-[var(--bo-r)] border border-bo-line bg-white @dsm:flex">
       {items.map((it, i) => (
-        <div key={it.label} className={cx("flex-1 px-4 py-3", i > 0 && "@dsm:border-l @dsm:border-bo-line", i > 1 && "@max-dsm:border-t @max-dsm:border-bo-line", i % 2 === 1 && "@max-dsm:border-l @max-dsm:border-bo-line")}>
-          <dt className="text-[12px] text-bo-muted">{it.label}</dt>
-          <dd className="num mt-0.5 text-[1.35rem] leading-tight font-semibold tracking-[-0.01em] text-bo-ink">{it.value}</dd>
-          {it.note && <p className="num mt-0.5 text-[12px] text-bo-muted">{it.note}</p>}
+        <div key={it.label} className={cx("min-w-0 flex-1 px-4 py-4", i > 0 && "@dsm:border-l @dsm:border-bo-line", i > 1 && "@max-dsm:border-t @max-dsm:border-bo-line", i % 2 === 1 && "@max-dsm:border-l @max-dsm:border-bo-line")}>
+          <dt className="text-[11px] font-semibold tracking-[0.08em] text-bo-muted uppercase">{it.label}</dt>
+          <dd className="num mt-1.5 text-[1.6rem] leading-none font-semibold tracking-[-0.02em] text-bo-ink">{it.value}</dd>
+          {it.note && <p className="num mt-1.5 text-[12px] text-bo-muted">{it.note}</p>}
         </div>
       ))}
     </dl>
@@ -169,9 +187,9 @@ export function Ranks({ data, format = String }: { data: { label: string; value:
 }
 
 const BTN = {
-  primary: "bg-d-accent text-d-on hover:brightness-95",
-  dark: "bg-bo-ink text-white hover:bg-[#2a2e37]",
-  line: "border border-bo-line bg-white text-bo-ink hover:border-[#b9bfca]",
+  primary: "bg-d-cta text-d-on hover:brightness-95",
+  dark: "bg-bo-ink text-white hover:brightness-125",
+  line: "border border-bo-line bg-white text-bo-ink hover:border-bo-ink",
   quiet: "text-bo-body hover:bg-bo-bg hover:text-bo-ink",
   danger: "border border-bo-line bg-white text-bo-bad hover:border-bo-bad",
 };
@@ -181,7 +199,7 @@ export function Btn({ variant = "line", size = "md", className, ...props }: Butt
       type="button"
       {...props}
       className={cx(
-        "inline-flex items-center justify-center gap-1.5 rounded-[var(--bo-rc)] font-medium whitespace-nowrap transition-[filter,background-color,border-color] disabled:pointer-events-none disabled:opacity-45",
+        "inline-flex items-center justify-center gap-1.5 rounded-[var(--bo-rc)] font-medium whitespace-nowrap transition-[filter,background-color,border-color,transform] active:translate-y-px disabled:pointer-events-none disabled:opacity-45",
         size === "sm" ? "min-h-9 px-2.5 text-[12.5px] @dsm:min-h-8" : "min-h-11 px-3.5 text-[13.5px] @dsm:min-h-9",
         BTN[variant],
         className,
@@ -192,7 +210,7 @@ export function Btn({ variant = "line", size = "md", className, ...props }: Butt
 
 export function Toggle({ checked, onChange, label }: { checked: boolean; onChange: (v: boolean) => void; label: string }) {
   return (
-    <button type="button" role="switch" aria-checked={checked} aria-label={label} onClick={() => onChange(!checked)} className="grid min-h-11 place-items-center px-1 @dsm:min-h-9">
+    <button type="button" role="switch" aria-checked={checked} aria-label={label} onClick={() => onChange(!checked)} className="inline-grid min-h-11 min-w-11 place-items-center px-1 align-middle @dsm:min-h-9">
       <span className={cx("flex h-5 w-9 items-center rounded-full p-0.5 transition-colors", checked ? "bg-bo-ok" : "bg-[#c3c8d2]")}>
         <span className={cx("size-4 rounded-full bg-white shadow-sm transition-transform", checked && "translate-x-4")} />
       </span>
@@ -211,7 +229,7 @@ export function Avatar({ name, size = "md" }: { name: string; size?: "sm" | "md"
 }
 
 /** Tabellenkopf-Zelle und Zeilenstil – die Demos schreiben echte <table>, damit Screenreader und Dichte stimmen */
-export const th = "px-3 py-2 text-left text-[11.5px] font-medium tracking-wide text-bo-muted uppercase whitespace-nowrap first:pl-4 last:pr-4";
+export const th = "bg-bo-bg/50 px-3 py-2.5 text-left text-[11px] font-semibold tracking-[0.08em] text-bo-muted uppercase whitespace-nowrap first:pl-4 last:pr-4";
 export const td = "px-3 py-2.5 align-middle first:pl-4 last:pr-4";
 export const tr = "border-t border-bo-line";
 
@@ -250,11 +268,12 @@ export function Sheet({ open, onClose, title, children, footer, wide, tone = "bo
         className={cx(
           "flex max-h-[calc(var(--app-h)*0.92)] w-full animate-demo-in flex-col overflow-hidden bg-white shadow-[0_24px_60px_-18px_rgb(17_17_19/0.35)] outline-none",
           wide ? "@dsm:max-w-2xl" : "@dsm:max-w-lg",
-          tone === "bo" ? "rounded-t-[var(--bo-r)] font-plex text-[14px] text-bo-body @dsm:rounded-[var(--bo-r)]" : "rounded-t-[var(--bo-r)] @dsm:rounded-[var(--bo-r)]",
+          tone === "bo" ? "rounded-t-[max(var(--bo-r),14px)] font-plex text-[14px] text-bo-body @dsm:rounded-[var(--bo-r)]" : "rounded-t-[max(var(--bo-r),14px)] @dsm:rounded-[var(--bo-r)]",
         )}
       >
-        <header className={cx("flex items-start justify-between gap-4 px-5 pt-4 pb-3", tone === "bo" && "border-b border-bo-line")}>
-          <h2 id={id} className={tone === "bo" ? "text-[15px] font-semibold text-bo-ink" : "text-lg leading-snug font-semibold"}>
+        <span className="mx-auto mt-2 h-1 w-9 shrink-0 rounded-full bg-black/15 @dsm:hidden" aria-hidden />
+        <header className={cx("flex items-start justify-between gap-4 px-5 pt-3 pb-3 @dsm:pt-4", tone === "bo" && "border-b border-bo-line")}>
+          <h2 id={id} className={cx("min-w-0", tone === "bo" ? "text-[15px] font-semibold tracking-normal text-bo-ink" : "text-lg leading-snug font-semibold")}>
             {title}
           </h2>
           <button type="button" onClick={onClose} aria-label="Schließen" className="-mt-1.5 -mr-2 grid size-11 shrink-0 place-items-center rounded-full opacity-60 hover:bg-black/5 hover:opacity-100">
@@ -270,17 +289,29 @@ export function Sheet({ open, onClose, title, children, footer, wide, tone = "bo
 }
 
 /** Beschriftetes Formularfeld (Label immer sichtbar) */
-export function Field({ label, hint, children, className }: { label: string; hint?: string; children: ReactNode; className?: string }) {
+export function Field({ label, hint, error, children, className }: { label: string; hint?: string; error?: string | false; children: ReactNode; className?: string }) {
   return (
     <label className={cx("block", className)}>
-      <span className="mb-1 block text-[12.5px] font-medium opacity-80">{label}</span>
+      <span className="mb-1.5 block text-[12.5px] leading-tight font-semibold opacity-85">{label}</span>
       {children}
-      {hint && <span className="mt-1 block text-[12px] opacity-60">{hint}</span>}
+      {error ? (
+        <span role="alert" className="mt-1.5 block text-[12.5px] leading-snug font-medium text-bo-bad">
+          {error}
+        </span>
+      ) : (
+        hint && <span className="mt-1.5 block text-[12px] leading-snug opacity-80">{hint}</span>
+      )}
     </label>
   );
 }
+
+/** Leerzustand in Listen, Spalten und Tabellen */
+export function Empty({ children, className }: { children: ReactNode; className?: string }) {
+  return <p className={cx("rounded-[var(--bo-rc)] border border-dashed border-bo-line px-4 py-7 text-center text-[13px] leading-relaxed text-bo-muted", className)}>{children}</p>;
+}
 /** Eingabefeld-Stil: 16 px am Handy (kein Zoom unter iOS) */
-export const input = "block min-h-11 w-full rounded-[var(--bo-rc)] border border-[#cfd3db] bg-white px-3 text-[16px] text-[#15171c] placeholder:text-[#8b909c] focus:border-bo-ink focus:outline-none @dsm:text-[14px]";
+export const input =
+  "block min-h-11 w-full rounded-[var(--bo-rc)] border border-[#c4c8d0] bg-white px-3 text-[16px] text-[#15171c] transition-colors placeholder:text-[#7d8290] hover:border-[#8b909c] focus:border-bo-ink focus:outline-none aria-[invalid=true]:border-bo-bad aria-[invalid=true]:bg-[#fdf3f2] @dsm:text-[14.5px]";
 
 /** Fortschritt in Schritten – für Bestell-, Fahrzeug- und Auftragsstatus auf den Kundenseiten */
 export function Track({ steps, current, className }: { steps: string[]; current: number; className?: string }) {
@@ -301,7 +332,7 @@ export function Track({ steps, current, className }: { steps: string[]; current:
                 <span className="size-2 rounded-full bg-d-accent" />
               ) : null}
             </span>
-            <span className={cx("mt-1.5 block px-1 text-[11.5px] leading-tight @dsm:text-[12.5px]", now ? "font-semibold" : done ? "" : "opacity-55")}>{s}</span>
+            <span className={cx("mt-1.5 block px-1 text-[11.5px] leading-tight @dsm:text-[12.5px]", now ? "font-semibold" : done ? "" : "opacity-70")}>{s}</span>
           </li>
         );
       })}

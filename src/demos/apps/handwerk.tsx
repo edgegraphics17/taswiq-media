@@ -2,10 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { ArrowLeft, CalendarDays, Camera, ChartColumn, Check, ChevronRight, Columns3, Droplets, FileText, Flame, MapPin, Minus, Phone, PhoneCall, Plus, ThermometerSun, TriangleAlert, Wind, Wrench } from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarDays, Camera, ChartColumn, Check, ChevronRight, Columns3, Droplets, FileText, Flame, MapPin, Minus, Phone, PhoneCall, Plus, Star, ThermometerSun, TriangleAlert, Wind, Wrench, X } from "lucide-react";
 import { useDemo } from "@/demos/kit/context";
 import { Avatar, Backoffice, Bars, Btn, Field, Figures, input, Panel, Ranks, Tag, td, th, tr, Track } from "@/demos/kit/ui";
-import { clock, cx, eur, eur0, fmtDay, weekdayShort, workday } from "@/demos/kit/util";
+import { clock, cx, eur, eur0, fmtDay, useOnce, weekdayShort, workday } from "@/demos/kit/util";
 
 /**
  * Demo "Wilke Haustechnik": ein Auftrag aus drei Blickwinkeln – Kunde (Anfrage, Angebot, Status),
@@ -114,37 +114,59 @@ export default function HandwerkDemo() {
   );
 }
 
-const H = "font-d-display font-black tracking-tight uppercase [font-stretch:92%]";
+/* ───────────────────────────── Kundenseite ─────────────────────────────
+   Gestaltung „Wilke": kräftig und handfest. Navy (#152b3b) trägt, Gelb (#f4c042) ruft zur Handlung – immer mit Navy-Schrift.
+   Big Shoulders 900 in Versalien für Überschriften, Instrument Sans für Text. Dicke Karten (Radius 16 px, 2 px Rand),
+   Schaltflächen mit 10 px Radius, Vertrauens-Plaketten als Pillen. Abstände im 4/8er-Raster, Sektionen 40/72. */
 
-/* ───────────────────────────── Kundenseite ───────────────────────────── */
+const H = "font-d-display font-black tracking-[0.005em] uppercase";
+const B = {
+  wrap: "mx-auto w-full max-w-[72rem] px-4 @dsm:px-6 @dlg:px-8",
+  label: "text-[12px] leading-none font-bold tracking-[0.16em] uppercase",
+  muted: "text-[#4d606d]",
+  yes: "inline-flex min-h-12 items-center justify-center gap-2 rounded-[10px] bg-d-accent px-6 text-[14px] font-bold tracking-[0.06em] text-d-on uppercase shadow-[0_3px_0_#c9982a] transition-[filter,transform,box-shadow] hover:brightness-105 active:translate-y-[2px] active:shadow-[0_1px_0_#c9982a] disabled:pointer-events-none disabled:opacity-45 disabled:shadow-none",
+  no: "inline-flex min-h-12 items-center justify-center gap-2 rounded-[10px] border-2 border-d-deep bg-white px-5 text-[14px] font-bold tracking-[0.06em] text-d-deep uppercase transition-colors hover:bg-d-deep hover:text-white active:translate-y-px",
+  card: "overflow-hidden rounded-[16px] border-2 border-d-deep bg-white",
+};
 
 function CustomerSite({ orders, onAdd, onPatch }: { orders: Order[]; onAdd: (o: Omit<Order, "id" | "stage" | "value" | "via" | "own">) => string; onPatch: (id: string, c: Partial<Order>) => void }) {
   const { tab, setTab } = useDemo();
   const mine = orders.filter((o) => o.mine || o.own);
   return (
-    <div className="min-h-[calc(100dvh-var(--bar-h))] bg-white font-plex text-[15px] text-d-deep">
-      <header className="bg-d-deep text-white">
-        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-6 px-4 @dsm:px-6">
-          <p className="flex items-center gap-2.5 py-3">
-            <span className="grid size-9 place-items-center rounded-[var(--bo-rc)] bg-d-accent font-d-display text-[19px] font-black text-d-on">W</span>
+    <div className="min-h-[var(--app-h)] bg-white font-plex text-[15px] leading-[1.55] text-d-deep">
+      <header className="on-dark sticky top-[var(--bar-h)] z-20 bg-d-deep text-white">
+        <div className={cx(B.wrap, "flex items-stretch justify-between gap-2")}>
+          <p className="flex min-w-0 items-center gap-2.5 py-2.5">
+            <span className={cx(H, "grid size-10 shrink-0 place-items-center rounded-[10px] bg-d-accent text-[22px] leading-none text-d-on")} aria-hidden>
+              W
+            </span>
             <span className="leading-none">
-              <span className={cx(H, "block text-[1.05rem]")}>Wilke Haustechnik</span>
-              <span className="mt-1 block text-[11px] font-medium tracking-[0.14em] text-d-accent uppercase">Sanitär · Heizung · Klima</span>
+              <span className={cx(H, "block text-[1.25rem] text-white")}>Wilke</span>
+              <span className="mt-1 hidden text-[10.5px] font-bold tracking-[0.16em] text-d-accent uppercase @dsm:block">Sanitär · Heizung · Klima</span>
             </span>
           </p>
-          <nav aria-label="Kundenbereich" className="flex gap-1">
+          <nav aria-label="Kundenbereich" className="flex">
             {[
-              { id: "anfrage", label: "Anfrage stellen" },
-              { id: "status", label: `Meine Aufträge (${mine.length})` },
+              { id: "anfrage", label: "Anfrage stellen", short: "Anfrage" },
+              { id: "status", label: `Meine Aufträge (${mine.length})`, short: `Aufträge (${mine.length})` },
             ].map((n) => (
-              <button key={n.id} type="button" aria-current={tab === n.id ? "page" : undefined} onClick={() => setTab(n.id)} className={cx("min-h-12 border-b-[3px] px-3 text-[13.5px] font-bold tracking-wide uppercase", tab === n.id ? "border-d-accent text-white" : "border-transparent text-white/60 hover:text-d-accent")}>
-                {n.label}
+              <button key={n.id} type="button" aria-current={tab === n.id ? "page" : undefined} onClick={() => setTab(n.id)} className={cx("relative min-h-12 px-2 text-[12.5px] font-bold tracking-[0.04em] whitespace-nowrap uppercase transition-colors @dsm:px-4 @dsm:text-[13px] @dsm:tracking-[0.08em]", tab === n.id ? "text-white" : "text-white/65 hover:text-d-accent")}>
+                <span className="num @dsm:hidden">{n.short}</span>
+                <span className="num hidden @dsm:inline">{n.label}</span>
+                {tab === n.id && <span className="absolute inset-x-3 bottom-0 h-1 rounded-t-full bg-d-accent @dsm:inset-x-4" aria-hidden />}
               </button>
             ))}
           </nav>
         </div>
       </header>
       {tab === "status" ? <MyOrders orders={mine} onPatch={onPatch} /> : <Request onAdd={onAdd} onStatus={() => setTab("status")} />}
+      <footer className="on-dark bg-d-deep text-white/70">
+        <div className={cx(B.wrap, "flex flex-wrap items-center justify-between gap-x-8 gap-y-2 border-t border-white/15 py-5 text-[12px] font-bold tracking-[0.12em] uppercase")}>
+          <span className="text-white">Wilke Haustechnik GmbH</span>
+          <span>Werkstraße 8, Musterstadt</span>
+          <span className="num text-d-accent">Notdienst 01234 110 220</span>
+        </div>
+      </footer>
     </div>
   );
 }
@@ -157,10 +179,15 @@ const TOPICS = [
   { id: "klima", label: "Klima und Lüftung", icon: Wind },
   { id: "gas", label: "Gasgeruch", icon: Flame, urgent: true },
 ];
-const THUMBS = ["/images/sectors/handwerk-0.webp", "/images/sectors/handwerk-5.webp", "/images/sectors/handwerk-0.webp"];
+const THUMBS = ["/images/demo/photos/h-heating.webp", "/images/demo/photos/h-pipe.webp", "/images/sectors/handwerk-0.webp"];
+const TRADES = [
+  { topic: "heizung", img: "/images/demo/photos/h-heating.webp", alt: "Gusseiserner Heizkörper unter einem Fenster", label: "Heizung", note: "Wird nicht warm · Wartung · Tausch" },
+  { topic: "wasser", img: "/images/demo/photos/h-bath.webp", alt: "Modernes Bad mit Glasdusche und Doppelwaschtisch", label: "Sanitär & Bad", note: "Wasserhahn · WC · Abfluss" },
+  { topic: "rohrbruch", img: "/images/demo/photos/h-pipe.webp", alt: "Monteur arbeitet am Siphon unter einem Waschbecken", label: "Rohr & Notfall", note: "Rohrbruch · Wasserschaden" },
+];
 
 function Request({ onAdd, onStatus }: { onAdd: (o: Omit<Order, "id" | "stage" | "value" | "via" | "own">) => string; onStatus: () => void }) {
-  const { go } = useDemo();
+  const { go, toTop } = useDemo();
   const [step, setStep] = useState(0);
   const [topic, setTopic] = useState("");
   const [desc, setDesc] = useState("");
@@ -171,28 +198,37 @@ function Request({ onAdd, onStatus }: { onAdd: (o: Omit<Order, "id" | "stage" | 
   const [when, setWhen] = useState("vormittags");
   const [tried, setTried] = useState(false);
   const [done, setDone] = useState<string | null>(null);
+  const once = useOnce();
   const t = TOPICS.find((x) => x.id === topic);
-  const valid = name.trim().length > 1 && street.trim().length > 3 && phone.trim().length > 5;
+  const bad = { name: name.trim().length < 2, street: street.trim().length < 4, phone: phone.trim().length < 6 };
+  const valid = !bad.name && !bad.street && !bad.phone;
+  const start = () => document.getElementById("anfrage-start")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const field = cx(input, "min-h-12 border-2 border-d-deep/25 text-d-deep hover:border-d-deep/60 focus:border-d-deep");
 
   if (done) {
     return (
-      <div className="mx-auto max-w-xl px-4 py-12 @dsm:px-6">
-        <span className="grid size-12 place-items-center rounded-[var(--bo-rc)] bg-d-accent text-d-on">
-          <Check className="size-6" strokeWidth={3} aria-hidden />
-        </span>
-        <h1 className={cx(H, "mt-5 text-[2.3rem] leading-none text-d-deep")}>Anfrage ist da.</h1>
-        <p className="mt-3 text-[16px] leading-relaxed text-d-deep/80">
-          Vorgang <span className="num font-plex-mono font-semibold text-d-deep">{done}</span>. Wir melden uns heute noch mit einem Angebot oder einem Terminvorschlag.
-        </p>
-        <div className="mt-6 rounded-[var(--bo-r)] border-l-4 border-d-accent bg-d-soft/70 p-5 text-[14px] leading-snug text-d-deep">
-          <strong className="font-semibold">So sieht es das Büro:</strong> Ihre Anfrage steht mit Beschreibung und Fotos in der Auftragsübersicht. Schreiben Sie dort das Angebot – hier unter „Meine Aufträge“ können Sie es danach annehmen.
-          <div className="mt-4 flex flex-wrap gap-2">
-            <button type="button" onClick={() => go("betrieb", "auftraege")} className="min-h-12 rounded-[var(--bo-rc)] bg-d-deep px-5 text-[13.5px] font-bold tracking-wide text-white uppercase hover:bg-d-deep/85">
-              Im Büro ansehen
-            </button>
-            <button type="button" onClick={onStatus} className="min-h-12 rounded-[var(--bo-rc)] border-2 border-d-deep bg-white px-5 text-[13.5px] font-bold tracking-wide text-d-deep uppercase hover:border-d-accent hover:bg-d-accent hover:text-d-on">
-              Meine Aufträge
-            </button>
+      <div className={cx(B.wrap, "py-12 @dlg:py-20")}>
+        <div className="mx-auto max-w-xl">
+          <span className="grid size-14 place-items-center rounded-[14px] bg-d-accent text-d-on shadow-[0_3px_0_#c9982a]" aria-hidden>
+            <Check className="size-7" strokeWidth={3} />
+          </span>
+          <h1 className={cx(H, "mt-6 text-[clamp(2.75rem,11cqi,4.5rem)] leading-[0.88] text-d-deep")}>Anfrage ist da.</h1>
+          <p className={cx("mt-4 text-[16.5px] leading-relaxed", B.muted)}>
+            Vorgang <span className="num font-plex-mono font-semibold text-d-deep">{done}</span>. Wir melden uns heute noch mit einem Angebot oder einem Terminvorschlag.
+          </p>
+          <div className={cx(B.card, "mt-8")}>
+            <p className={cx(H, "bg-d-deep px-5 py-3 text-[1.125rem] leading-none text-d-accent")}>So sieht es das Büro</p>
+            <div className="p-5 text-[14.5px] leading-snug">
+              Ihre Anfrage steht mit Beschreibung und Fotos in der Auftragsübersicht. Schreiben Sie dort das Angebot – hier unter „Meine Aufträge“ können Sie es danach annehmen.
+              <div className="mt-5 flex flex-wrap gap-2.5">
+                <button type="button" onClick={() => go("betrieb", "auftraege")} className={B.yes}>
+                  Im Büro ansehen
+                </button>
+                <button type="button" onClick={onStatus} className={B.no}>
+                  Meine Aufträge
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -201,183 +237,263 @@ function Request({ onAdd, onStatus }: { onAdd: (o: Omit<Order, "id" | "stage" | 
 
   return (
     <>
-      <div className="relative overflow-hidden bg-d-deep">
-        <Image src="/images/demo/photos/h-hero.webp" alt="Haustechniker prüft eine Heizungsanlage im Keller" fill priority sizes="100vw" className="object-cover object-[center_35%] opacity-45" />
-        <div className="relative mx-auto max-w-5xl px-4 py-10 @dsm:px-6 @dsm:py-14">
-          <p className="text-[12px] font-bold tracking-[0.22em] text-d-accent uppercase">Sanitär · Heizung · Klima · Musterstadt</p>
-          <h1 className={cx(H, "mt-3 max-w-xl text-[clamp(2.4rem,9vw,4.2rem)] leading-[0.9] text-d-accent")}>
-            Vom Anruf bis<br />zur Rechnung
-          </h1>
-          <p className="mt-4 max-w-md text-[15px] leading-relaxed text-white/85">Anliegen in drei Schritten schildern, Fotos anhängen, fertig. Sie bekommen heute noch ein Angebot oder einen Termin.</p>
-          <div className="mt-6 flex flex-wrap gap-2.5">
-            <button
-              type="button"
-              onClick={() => document.getElementById("anfrage-start")?.scrollIntoView({ behavior: "smooth", block: "start" })}
-              className="min-h-12 rounded-[var(--bo-rc)] bg-d-accent px-6 text-[14px] font-bold tracking-wide text-d-on uppercase hover:brightness-95"
-            >
-              Anfrage starten
-            </button>
-            <button type="button" onClick={onStatus} className="min-h-12 rounded-[var(--bo-rc)] border-2 border-white/45 px-6 text-[14px] font-bold tracking-wide text-white uppercase hover:border-d-accent hover:bg-d-accent hover:text-d-on">
-              Meine Aufträge
-            </button>
+      <section className="on-dark relative overflow-hidden bg-d-deep text-white">
+        <div className={cx(B.wrap, "grid gap-10 pt-10 pb-12 @dlg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] @dlg:items-center @dlg:gap-14 @dlg:pt-16 @dlg:pb-20")}>
+          <div>
+            <p className={cx(B.label, "text-d-accent")}>Meisterbetrieb in Musterstadt · seit 1994</p>
+            <h1 className={cx(H, "mt-4 text-[clamp(2.1rem,11.2cqi,5.5rem)] leading-[0.86] text-white")}>
+              <span className="block whitespace-nowrap">Heute melden.</span>
+              <span className="block whitespace-nowrap text-d-accent">Morgen läuft&apos;s.</span>
+            </h1>
+            <p className="mt-6 max-w-md text-[16.5px] leading-relaxed text-white/80">Anliegen in drei Schritten schildern, Fotos anhängen, fertig. Sie bekommen heute noch ein Angebot oder einen Termin.</p>
+            <div className="mt-7 flex flex-wrap gap-2.5">
+              <button type="button" onClick={start} className={B.yes}>
+                Anfrage starten <ArrowRight className="size-4" strokeWidth={2.5} aria-hidden />
+              </button>
+              <button type="button" onClick={onStatus} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-[10px] border-2 border-white/45 px-5 text-[14px] font-bold tracking-[0.06em] text-white uppercase transition-colors hover:border-white hover:bg-white hover:text-d-deep active:translate-y-px">
+                Meine Aufträge
+              </button>
+            </div>
+            <ul className="mt-8 flex flex-wrap gap-2" aria-label="Unsere Zusagen">
+              {[
+                [Wrench, "Meisterbetrieb"],
+                [Check, "Festpreis vorab"],
+                [Star, "4,9 bei 380 Kunden"],
+              ].map(([Icon, text]) => {
+                const I2 = Icon as typeof Wrench;
+                return (
+                  <li key={text as string} className="num inline-flex min-h-9 items-center gap-2 rounded-full border border-white/25 px-3.5 text-[12.5px] font-bold tracking-[0.06em] text-white uppercase">
+                    <I2 className="size-4 text-d-accent" strokeWidth={2.4} aria-hidden /> {text as string}
+                  </li>
+                );
+              })}
+            </ul>
           </div>
-          <ul className="mt-7 flex flex-wrap items-center gap-2" aria-label="Unsere Zusagen">
-            <li className="inline-flex min-h-8 items-center gap-1.5 rounded-full bg-d-accent px-3 text-[12px] font-bold tracking-wide text-d-on uppercase">
-              <Wrench className="size-3.5" strokeWidth={2.2} aria-hidden /> Meisterbetrieb
-            </li>
-            <li className="inline-flex min-h-8 items-center gap-1.5 rounded-full bg-d-accent px-3 text-[12px] font-bold tracking-wide text-d-on uppercase">
-              <Check className="size-3.5" strokeWidth={3} aria-hidden /> Festpreis
-            </li>
-            <li className="num inline-flex min-h-8 items-center gap-1.5 rounded-full border border-d-accent bg-d-deep px-3 text-[12px] font-bold tracking-wide text-d-accent uppercase">
-              <Phone className="size-3.5" strokeWidth={2.2} aria-hidden /> 24/7-Notdienst: 01234 110 220
-            </li>
-          </ul>
+          <div className="relative @dlg:pl-6">
+            <span className="absolute -right-3 -bottom-3 left-10 top-8 rounded-[16px] bg-d-accent @dlg:left-16" aria-hidden />
+            <div className="relative aspect-[4/3] overflow-hidden rounded-[16px] border-2 border-white/15 bg-[#0e1f2b]">
+              <Image src="/images/demo/photos/h-hero.webp" alt="Monteur von Wilke Haustechnik zieht eine Verschraubung unter einem Waschbecken nach" fill priority sizes="(min-width: 64rem) 34rem, 100vw" className="object-cover object-[35%_center]" />
+            </div>
+            <p className="absolute bottom-5 -left-1 flex items-center gap-3 rounded-[12px] border-2 border-d-deep bg-white py-2.5 pr-4 pl-2.5 text-d-deep @dlg:left-0">
+              <span className={cx(H, "num grid size-12 place-items-center rounded-[8px] bg-d-deep text-[1.375rem] leading-none text-d-accent")}>2,4</span>
+              <span className="text-[13px] leading-tight font-semibold">
+                Stunden bis
+                <br />
+                zum Angebot
+              </span>
+            </p>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <section aria-label="Unsere Leistungen" className="mx-auto max-w-5xl px-4 pt-8 @dsm:px-6">
-        <ul className="grid gap-3 @dsm:grid-cols-3">
-          {[
-            { img: "/images/demo/photos/h-heating.webp", alt: "Heizungsanlage mit Brennwertkessel und Leitungen", label: "Heizung", note: "Wird nicht warm · Wartung · Tausch" },
-            { img: "/images/demo/photos/h-bath.webp", alt: "Modernes Bad mit bodengleicher Dusche und Waschtisch", label: "Sanitär & Bad", note: "Wasserhahn · WC · Abfluss" },
-            { img: "/images/demo/photos/h-pipe.webp", alt: "Rohrleitungen mit Armaturen an einer Wand", label: "Rohrleitungen", note: "Rohrbruch · Wasserschaden" },
-          ].map((s) => (
-            <li key={s.img} className="overflow-hidden rounded-[var(--bo-r)] bg-white shadow-[var(--shadow-soft)]">
-              <div className="relative aspect-[4/3] w-full">
-                <Image src={s.img} alt={s.alt} fill sizes="(min-width: 40rem) 30vw, 92vw" className="object-cover" />
-              </div>
-              <div className="bg-d-deep px-4 py-3.5 text-white">
-                <p className={cx(H, "text-[1.1rem] leading-none text-d-accent")}>{s.label}</p>
-                <p className="mt-1.5 text-[12.5px] leading-snug text-white/75">{s.note}</p>
-              </div>
+      <p className="num bg-d-accent text-d-on">
+        <span className={cx(B.wrap, "flex flex-wrap items-center justify-between gap-x-6 gap-y-1 py-3 text-[14px] font-bold")}>
+          <span className="inline-flex items-center gap-2 tracking-[0.06em] uppercase">
+            <TriangleAlert className="size-5" strokeWidth={2.2} aria-hidden /> Rohrbruch oder Gasgeruch?
+          </span>
+          <span className={cx(H, "inline-flex items-center gap-2 text-[1.375rem] leading-none")}>
+            <Phone className="size-5" strokeWidth={2.4} aria-hidden /> 24/7-Notdienst 01234 110 220
+          </span>
+        </span>
+      </p>
+
+      <section aria-labelledby="wilke-leistungen" className={cx(B.wrap, "pt-10 @dlg:pt-16")}>
+        <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-2">
+          <h2 id="wilke-leistungen" className={cx(H, "text-[clamp(2rem,6cqi,3rem)] leading-[0.9] text-d-deep")}>
+            Was wir richten
+          </h2>
+          <p className={cx("max-w-sm text-[14.5px]", B.muted)}>Tippen Sie auf einen Bereich – die Anfrage startet gleich mit dem passenden Anliegen.</p>
+        </div>
+        <ul className="mt-6 grid gap-4 @dsm:grid-cols-3">
+          {TRADES.map((s) => (
+            <li key={s.img}>
+              <button
+                type="button"
+                onClick={() => {
+                  setTopic(s.topic);
+                  setStep(1);
+                  start();
+                }}
+                className={cx(B.card, "group flex w-full flex-col text-left transition-transform hover:-translate-y-1")}
+              >
+                <span className="relative block aspect-[4/3] w-full overflow-hidden @max-dsm:aspect-[16/9]">
+                  <Image src={s.img} alt={s.alt} fill sizes="(min-width: 40rem) 22rem, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
+                </span>
+                <span className="flex items-center justify-between gap-3 bg-d-deep px-4 py-4 text-white">
+                  <span>
+                    <span className={cx(H, "block text-[1.5rem] leading-none text-d-accent")}>{s.label}</span>
+                    <span className="mt-2 block text-[13px] leading-snug text-white/75">{s.note}</span>
+                  </span>
+                  <span className="grid size-10 shrink-0 place-items-center rounded-[10px] bg-d-accent text-d-on" aria-hidden>
+                    <ArrowRight className="size-5" strokeWidth={2.5} />
+                  </span>
+                </span>
+              </button>
             </li>
           ))}
         </ul>
       </section>
 
-      <div id="anfrage-start" className="mx-auto max-w-3xl px-4 py-7 @dsm:px-6" data-tour="anfrage">
-        <ol className="flex gap-2 text-[13px]" aria-label="Fortschritt">
-          {["Anliegen", "Beschreibung & Fotos", "Adresse & Termin"].map((s, i) => (
-            <li key={s} aria-current={step === i ? "step" : undefined} className={cx("flex-1 rounded-[var(--bo-rc)] border-t-4 px-2.5 pt-2.5 pb-2.5", i <= step ? "border-d-accent bg-d-deep text-white" : "border-d-deep/15 bg-d-soft/60 text-d-deep/55")}>
-              <span className={cx("num grid size-6 place-items-center rounded-full text-[12px] font-bold", i <= step ? "bg-d-accent text-d-on" : "bg-white text-d-deep/50")}>{i + 1}</span>
-              <span className={cx("mt-2 block leading-tight font-semibold", i > step && "opacity-70")}>{s}</span>
-            </li>
-          ))}
-        </ol>
-
-        {step === 0 && (
-          <div className="mt-6">
-            <h2 className={cx(H, "text-[1.5rem] text-d-deep")}>Worum geht es?</h2>
-            <div className="mt-3 grid gap-2.5 @dsm:grid-cols-2">
-              {TOPICS.map((x) => (
-                <button
-                  key={x.id}
-                  type="button"
-                  aria-pressed={topic === x.id}
-                  onClick={() => {
-                    setTopic(x.id);
-                    setStep(1);
-                  }}
-                  className={cx("flex min-h-16 items-center gap-3 rounded-[var(--bo-rc)] border-2 px-4 text-left transition-colors", topic === x.id ? "border-d-deep bg-d-soft" : "border-d-deep/12 bg-white hover:border-d-accent hover:bg-d-soft/50")}
-                >
-                  <span className={cx("grid size-9 shrink-0 place-items-center rounded-full", x.urgent ? "bg-bo-bad text-white" : "bg-d-deep text-d-accent")}>
-                    <x.icon className="size-5" strokeWidth={1.7} aria-hidden />
+      <div id="anfrage-start" className={cx(B.wrap, "scroll-mt-[calc(var(--bar-h)+4rem)] py-10 @dlg:py-16")}>
+        <div data-tour="anfrage" className={cx(B.card, "mx-auto max-w-3xl")}>
+          <div className="on-dark bg-d-deep px-4 pt-5 pb-4 text-white @dsm:px-7">
+            <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-1">
+              <p className={cx(H, "text-[1.75rem] leading-none text-white")}>Anfrage stellen</p>
+              <p className={cx("num", B.label, "text-d-accent")}>Schritt {step + 1} von 3</p>
+            </div>
+            <ol className="mt-4 grid grid-cols-3 gap-2" aria-label="Fortschritt">
+              {["Anliegen", "Beschreibung", "Adresse"].map((s, i) => (
+                <li key={s} aria-current={step === i ? "step" : undefined} className="min-w-0">
+                  <span className={cx("block h-1.5 rounded-full", i <= step ? "bg-d-accent" : "bg-white/20")} />
+                  <span className={cx("mt-2 block truncate text-[12px] font-bold tracking-[0.06em] uppercase", i <= step ? "text-white" : "text-white/55")}>
+                    <span className="num">{i + 1}</span> · {s}
                   </span>
-                  <span className="flex-1 font-semibold text-d-deep">{x.label}</span>
-                  {x.urgent ? <span className="rounded-[var(--bo-rc)] bg-bo-bad px-2 py-1 text-[11px] font-bold text-white uppercase">Notfall</span> : <ChevronRight className="size-4 text-d-deep/40" aria-hidden />}
-                </button>
+                </li>
               ))}
-            </div>
+            </ol>
           </div>
-        )}
 
-        {step === 1 && (
-          <div className="mt-6">
-            <h2 className={cx(H, "text-[1.5rem] text-d-deep")}>{t?.label}</h2>
-            {t?.urgent && (
-              <p role="alert" className="num mt-3 rounded-[var(--bo-rc)] border-l-4 border-bo-bad bg-[#fbe7e5] px-4 py-3 text-[14px] font-medium text-bo-bad">
-                Bei Gefahr bitte sofort anrufen: 01234 110 220. {t.id === "gas" && "Fenster öffnen, kein Licht schalten, Haus verlassen."}
-              </p>
-            )}
-            <Field label="Was genau ist los?" hint="Seit wann, welche Räume, was haben Sie schon versucht?" className="mt-4">
-              <textarea value={desc} onChange={(e) => setDesc(e.target.value)} rows={4} className={cx(input, "py-2.5")} placeholder="Zum Beispiel: Seit gestern Abend bleiben die Heizkörper im Obergeschoss kalt …" />
-            </Field>
-            <p className="mt-4 mb-1 text-[12.5px] font-medium opacity-80">Fotos helfen uns, das richtige Material mitzubringen</p>
-            <div className="flex flex-wrap gap-2">
-              {Array.from({ length: photos }, (_, i) => (
-                <span key={i} className="relative size-20 overflow-hidden rounded-[var(--bo-rc)] border-2 border-d-deep/12">
-                  <Image src={THUMBS[i % THUMBS.length]} alt={`Foto ${i + 1}`} fill sizes="80px" className="object-cover" />
-                </span>
-              ))}
-              {photos < 3 && (
-                <button type="button" onClick={() => setPhotos((p) => p + 1)} className="grid size-20 place-items-center rounded-[var(--bo-rc)] border-2 border-dashed border-d-deep/30 bg-d-soft/50 text-d-deep transition-colors hover:border-d-accent hover:bg-d-accent/20">
-                  <span className="text-center text-[11.5px] leading-tight font-bold uppercase">
-                    <Camera className="mx-auto mb-1 size-5" strokeWidth={1.6} aria-hidden /> Foto
-                  </span>
-                </button>
-              )}
-            </div>
-            <div className="mt-6 flex justify-between gap-2">
-              <button type="button" onClick={() => setStep(0)} className="min-h-12 rounded-[var(--bo-rc)] border-2 border-d-deep bg-white px-5 text-[13.5px] font-bold tracking-wide text-d-deep uppercase hover:border-d-accent hover:bg-d-accent hover:text-d-on">
-                Zurück
-              </button>
-              <button type="button" onClick={() => setStep(2)} className="min-h-12 rounded-[var(--bo-rc)] bg-d-accent px-7 text-[13.5px] font-bold tracking-wide text-d-on uppercase hover:brightness-95">
-                Weiter
-              </button>
-            </div>
-          </div>
-        )}
-
-        {step === 2 && (
-          <form
-            noValidate
-            className="mt-6"
-            onSubmit={(e) => {
-              e.preventDefault();
-              setTried(true);
-              if (!valid) return;
-              setDone(onAdd({ customer: name.trim(), address: street.trim(), topic: t?.label ?? "Anfrage", desc: desc.trim() || "Keine Beschreibung angegeben.", photos, urgent: t?.urgent, slot: when }));
-            }}
-          >
-            <h2 className={cx(H, "text-[1.5rem] text-d-deep")}>Wo und wann?</h2>
-            <div className="mt-3 grid gap-3 @dsm:grid-cols-2">
-              <Field label="Name">
-                <input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" className={input} placeholder="Vor- und Nachname" />
-              </Field>
-              <Field label="Telefon">
-                <input value={phone} onChange={(e) => setPhone(e.target.value)} type="tel" autoComplete="tel" className={input} placeholder="0151 2345678" />
-              </Field>
-              <Field label="Straße und Hausnummer" className="@dsm:col-span-2">
-                <input value={street} onChange={(e) => setStreet(e.target.value)} autoComplete="street-address" className={input} placeholder="Gartenweg 12, Musterstadt" />
-              </Field>
-            </div>
-            <fieldset className="mt-4">
-              <legend className="mb-1.5 text-[12.5px] font-medium opacity-80">Wann passt es Ihnen am besten?</legend>
-              <div className="flex flex-wrap gap-1.5">
-                {["vormittags", "nachmittags", "ganztags", "so schnell wie möglich"].map((w) => (
-                  <button key={w} type="button" aria-pressed={when === w} onClick={() => setWhen(w)} className={cx("min-h-11 rounded-[var(--bo-rc)] border-2 px-3.5 text-[14px] font-bold tracking-wide uppercase", when === w ? "border-d-accent bg-d-accent text-d-on" : "border-d-deep/15 bg-white text-d-deep hover:border-d-accent hover:bg-d-soft/50")}>
-                    {w}
-                  </button>
-                ))}
+          <div className="px-4 py-6 @dsm:px-7 @dsm:py-8">
+            {step === 0 && (
+              <div>
+                <h2 className={cx(H, "text-[1.75rem] leading-none text-d-deep")}>Worum geht es?</h2>
+                <div className="mt-5 grid gap-2.5 @dsm:grid-cols-2">
+                  {TOPICS.map((x) => (
+                    <button
+                      key={x.id}
+                      type="button"
+                      aria-pressed={topic === x.id}
+                      onClick={() => {
+                        setTopic(x.id);
+                        setStep(1);
+                      }}
+                      className={cx("flex min-h-[4.25rem] items-center gap-3 rounded-[12px] border-2 px-3.5 text-left transition-colors", topic === x.id ? "border-d-deep bg-d-soft" : "border-d-deep/15 bg-white hover:border-d-deep")}
+                    >
+                      <span className={cx("grid size-10 shrink-0 place-items-center rounded-[10px]", x.urgent ? "bg-bo-bad text-white" : "bg-d-deep text-d-accent")}>
+                        <x.icon className="size-5" strokeWidth={1.9} aria-hidden />
+                      </span>
+                      <span className="min-w-0 flex-1 leading-tight font-bold text-d-deep">{x.label}</span>
+                      {x.urgent ? <span className="rounded-full bg-bo-bad px-2.5 py-1 text-[11px] leading-none font-bold tracking-[0.06em] text-white uppercase">Notfall</span> : <ChevronRight className="size-5 shrink-0 text-d-deep/45" aria-hidden />}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </fieldset>
-            {tried && !valid && (
-              <p role="alert" className="mt-3 text-[13px] text-bo-bad">
-                Bitte Name, Telefon und Adresse eintragen – erfundene Angaben genügen.
-              </p>
             )}
-            <div className="mt-6 flex justify-between gap-2">
-              <button type="button" onClick={() => setStep(1)} className="min-h-12 rounded-[var(--bo-rc)] border-2 border-d-deep bg-white px-5 text-[13.5px] font-bold tracking-wide text-d-deep uppercase hover:border-d-accent hover:bg-d-accent hover:text-d-on">
-                Zurück
-              </button>
-              <button type="submit" className="min-h-12 rounded-[var(--bo-rc)] bg-d-accent px-7 text-[13.5px] font-bold tracking-wide text-d-on uppercase hover:brightness-95">
-                Anfrage senden
-              </button>
-            </div>
-            <p className="mt-2 text-right text-[12px] text-d-deep/55">Demo: Es wird nichts gesendet oder gespeichert.</p>
-          </form>
-        )}
+
+            {step === 1 && (
+              <div>
+                <h2 className={cx(H, "text-[1.75rem] leading-none text-d-deep")}>{t?.label ?? "Beschreibung"}</h2>
+                {t?.urgent && (
+                  <p role="alert" className="num mt-4 flex gap-3 rounded-[12px] border-2 border-bo-bad bg-[#fbe7e5] px-4 py-3 text-[14px] leading-snug font-semibold text-bo-bad">
+                    <TriangleAlert className="mt-0.5 size-5 shrink-0" aria-hidden />
+                    <span>
+                      Bei Gefahr bitte sofort anrufen: 01234 110 220. {t.id === "gas" && "Fenster öffnen, kein Licht schalten, Haus verlassen."}
+                    </span>
+                  </p>
+                )}
+                <Field label="Was genau ist los?" hint="Seit wann, welche Räume, was haben Sie schon versucht?" className="mt-5">
+                  <textarea value={desc} onChange={(e) => setDesc(e.target.value)} rows={4} maxLength={600} className={cx(field, "py-3 leading-relaxed")} placeholder="Zum Beispiel: Seit gestern Abend bleiben die Heizkörper im Obergeschoss kalt …" />
+                </Field>
+                <p className="mt-5 mb-2 text-[12.5px] leading-tight font-semibold opacity-85">
+                  Fotos helfen uns, das richtige Material mitzubringen <span className="num font-normal opacity-70">({photos} von 3)</span>
+                </p>
+                <div className="flex flex-wrap gap-2.5">
+                  {Array.from({ length: photos }, (_, i) => (
+                    <span key={i} className="relative size-20 overflow-hidden rounded-[12px] border-2 border-d-deep">
+                      <Image src={THUMBS[i % THUMBS.length]} alt={`Foto ${i + 1}`} fill sizes="80px" className="object-cover" />
+                      <button type="button" onClick={() => setPhotos((p) => Math.max(0, p - 1))} aria-label={`Foto ${i + 1} entfernen`} className="absolute top-0 right-0 grid size-8 place-items-center rounded-bl-[10px] bg-d-deep text-white after:absolute after:-inset-1.5">
+                        <X className="size-4" aria-hidden />
+                      </button>
+                    </span>
+                  ))}
+                  {photos < 3 && (
+                    <button type="button" onClick={() => setPhotos((p) => p + 1)} className="grid size-20 place-items-center rounded-[12px] border-2 border-dashed border-d-deep/45 bg-d-soft/50 text-d-deep transition-colors hover:border-d-deep hover:bg-d-accent/30">
+                      <span className="text-center text-[11.5px] leading-tight font-bold tracking-[0.06em] uppercase">
+                        <Camera className="mx-auto mb-1 size-5" strokeWidth={1.8} aria-hidden /> Foto
+                      </span>
+                    </button>
+                  )}
+                </div>
+                <div className="mt-8 flex justify-between gap-2.5">
+                  <button type="button" onClick={() => setStep(0)} className={B.no}>
+                    Zurück
+                  </button>
+                  <button type="button" onClick={() => setStep(2)} className={B.yes}>
+                    Weiter <ArrowRight className="size-4" strokeWidth={2.5} aria-hidden />
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {step === 2 && (
+              <form
+                noValidate
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setTried(true);
+                  if (!valid || !once()) return;
+                  setDone(onAdd({ customer: name.trim(), address: street.trim(), topic: t?.label ?? "Anfrage", desc: desc.trim() || "Keine Beschreibung angegeben.", photos, urgent: t?.urgent, slot: when }));
+                  toTop();
+                }}
+              >
+                <h2 className={cx(H, "text-[1.75rem] leading-none text-d-deep")}>Wo und wann?</h2>
+                <div className="mt-5 grid gap-4 @dsm:grid-cols-2">
+                  <Field label="Name" error={tried && bad.name && "Bitte tragen Sie Ihren Namen ein."}>
+                    <input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" maxLength={60} aria-invalid={tried && bad.name} className={field} placeholder="Vor- und Nachname" />
+                  </Field>
+                  <Field label="Telefon" error={tried && bad.phone && "Bitte geben Sie eine Telefonnummer an."}>
+                    <input value={phone} onChange={(e) => setPhone(e.target.value)} type="tel" autoComplete="tel" maxLength={24} aria-invalid={tried && bad.phone} className={field} placeholder="0151 2345678" />
+                  </Field>
+                  <Field label="Straße und Hausnummer" className="@dsm:col-span-2" error={tried && bad.street && "Wohin dürfen wir kommen?"}>
+                    <input value={street} onChange={(e) => setStreet(e.target.value)} autoComplete="street-address" maxLength={80} aria-invalid={tried && bad.street} className={field} placeholder="Gartenweg 12, Musterstadt" />
+                  </Field>
+                </div>
+                <fieldset className="mt-5">
+                  <legend className="mb-2 text-[12.5px] leading-tight font-semibold opacity-85">Wann passt es Ihnen am besten?</legend>
+                  <div className="grid grid-cols-2 gap-2 @dsm:flex @dsm:flex-wrap">
+                    {["vormittags", "nachmittags", "ganztags", "so schnell wie möglich"].map((w) => (
+                      <button key={w} type="button" aria-pressed={when === w} onClick={() => setWhen(w)} className={cx("min-h-12 rounded-[10px] border-2 px-3.5 text-[13px] leading-tight font-bold tracking-[0.04em] uppercase transition-colors", when === w ? "border-d-deep bg-d-deep text-white" : "border-d-deep/20 bg-white text-d-deep hover:border-d-deep")}>
+                        {w}
+                      </button>
+                    ))}
+                  </div>
+                </fieldset>
+                <div className="mt-8 flex justify-between gap-2.5">
+                  <button type="button" onClick={() => setStep(1)} className={B.no}>
+                    Zurück
+                  </button>
+                  <button type="submit" className={B.yes}>
+                    Anfrage senden
+                  </button>
+                </div>
+                <p className={cx("mt-3 text-right text-[12px]", B.muted)}>Demo: Es wird nichts gesendet oder gespeichert – erfundene Angaben genügen.</p>
+              </form>
+            )}
+          </div>
+        </div>
       </div>
+
+      <section className="bg-d-soft">
+        <div className={cx(B.wrap, "py-10 @dlg:py-16")}>
+          <h2 className={cx(H, "text-[clamp(2rem,6cqi,3rem)] leading-[0.9] text-d-deep")}>So läuft&apos;s ab</h2>
+          <ol className="mt-6 grid gap-4 @dsm:grid-cols-2 @dlg:grid-cols-4">
+            {[
+              ["Anfrage", "Sie schildern das Problem und hängen Fotos an – in zwei Minuten."],
+              ["Angebot", "Festpreis aufs Handy, meist noch am selben Tag. Annehmen mit einem Tipp."],
+              ["Termin", "Wir teilen einen Monteur ein. Er meldet sich 30 Minuten vor Ankunft."],
+              ["Abnahme", "Arbeitsbericht mit Fotos, Sie unterschreiben auf dem Display."],
+            ].map(([title, text], i) => (
+              <li key={title} className="rounded-[16px] bg-white p-5">
+                <p className={cx(H, "num flex items-center gap-3 text-[1.5rem] leading-none text-d-deep")}>
+                  <span className="grid size-11 place-items-center rounded-[10px] bg-d-accent text-[1.5rem] text-d-on">{i + 1}</span>
+                  {title}
+                </p>
+                <p className={cx("mt-3 text-[14px] leading-snug", B.muted)}>{text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
     </>
   );
 }
@@ -387,10 +503,10 @@ function QuoteTable({ quote, dark }: { quote: Pos[]; dark?: boolean }) {
   return (
     <table className="num w-full text-[13.5px]">
       <thead>
-        <tr className={cx("text-left text-[11.5px] tracking-wide uppercase", dark ? "text-white/60" : "text-bo-muted")}>
-          <th className="py-1.5 font-medium">Leistung</th>
-          <th className="py-1.5 text-right font-medium">Menge</th>
-          <th className="py-1.5 text-right font-medium">Betrag</th>
+        <tr className={cx("text-left text-[11px] font-semibold tracking-[0.08em] uppercase", dark ? "text-white/65" : "text-bo-muted")}>
+          <th className="py-2 font-semibold">Leistung</th>
+          <th className="py-2 text-right font-semibold">Menge</th>
+          <th className="py-2 text-right font-semibold">Betrag</th>
         </tr>
       </thead>
       <tbody>
@@ -398,33 +514,33 @@ function QuoteTable({ quote, dark }: { quote: Pos[]; dark?: boolean }) {
           const c = CATALOG.find((x) => x.id === p.id)!;
           return (
             <tr key={p.id} className={cx("border-t", line)}>
-              <td className="py-2">{c.name}</td>
-              <td className="py-2 text-right whitespace-nowrap">
+              <td className="py-2.5 pr-2">{c.name}</td>
+              <td className="py-2.5 text-right whitespace-nowrap">
                 {p.qty} {c.unit === "pauschal" ? "" : c.unit}
               </td>
-              <td className="py-2 text-right">{eur(c.price * p.qty)}</td>
+              <td className="py-2.5 pl-2 text-right whitespace-nowrap">{eur(c.price * p.qty)}</td>
             </tr>
           );
         })}
       </tbody>
       <tfoot>
         <tr className={cx("border-t", line)}>
-          <td colSpan={2} className="pt-2 text-right opacity-70">
+          <td colSpan={2} className="pt-2.5 text-right opacity-80">
             Netto
           </td>
-          <td className="pt-2 text-right">{eur(net(quote))}</td>
+          <td className="pt-2.5 pl-2 text-right whitespace-nowrap">{eur(net(quote))}</td>
         </tr>
         <tr>
-          <td colSpan={2} className="text-right opacity-70">
+          <td colSpan={2} className="text-right opacity-80">
             19 % MwSt.
           </td>
-          <td className="text-right">{eur(net(quote) * 0.19)}</td>
+          <td className="pl-2 text-right whitespace-nowrap">{eur(net(quote) * 0.19)}</td>
         </tr>
-        <tr className="text-[16px] font-semibold">
-          <td colSpan={2} className="pt-1 text-right">
+        <tr className="text-[17px] font-bold">
+          <td colSpan={2} className="pt-1.5 text-right">
             Festpreis
           </td>
-          <td className="pt-1 text-right">{eur(gross(quote))}</td>
+          <td className="pt-1.5 pl-2 text-right whitespace-nowrap">{eur(gross(quote))}</td>
         </tr>
       </tfoot>
     </table>
@@ -434,87 +550,93 @@ function QuoteTable({ quote, dark }: { quote: Pos[]; dark?: boolean }) {
 function MyOrders({ orders, onPatch }: { orders: Order[]; onPatch: (id: string, c: Partial<Order>) => void }) {
   const { go, toast } = useDemo();
   return (
-    <div className="mx-auto max-w-3xl space-y-5 px-4 py-8 @dsm:px-6" data-tour="status">
-      <h1 className={cx(H, "text-[2rem] leading-none text-d-deep")}>Meine Aufträge</h1>
-      {orders.map((o) => {
-        const idx = STAGES.findIndex((s) => s.id === o.stage);
-        const waiting = o.stage === "angebot" && o.quote;
-        return (
-          <article key={o.id} className="overflow-hidden rounded-[var(--bo-r)] border border-d-deep/12 bg-white shadow-[var(--shadow-soft)]">
-            <header className="flex flex-wrap items-start justify-between gap-3 bg-d-deep px-5 py-4 text-white">
-              <div>
-                <p className="num font-plex-mono text-[12.5px] text-d-accent">{o.id}</p>
-                <h2 className="text-[17px] font-semibold">{o.topic}</h2>
-                <p className="flex items-center gap-1.5 text-[13px] text-white/70">
-                  <MapPin className="size-3.5" aria-hidden /> {o.address}
-                </p>
-              </div>
-              {waiting && <span className="rounded-[var(--bo-rc)] bg-d-accent px-2.5 py-1 text-[12px] font-bold text-d-on uppercase">Angebot liegt vor</span>}
-            </header>
-            <div className="px-5 py-5">
-              <Track steps={["Anfrage", "Angebot", "Termin", "Erledigt", "Rechnung"]} current={idx} />
-            </div>
-            {waiting && (
-              <div className="border-t border-d-deep/12 bg-d-soft/60 px-5 py-4">
-                <QuoteTable quote={o.quote!} />
-                <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-                  <p className="text-[13px] text-d-deep/70">Festpreis, gültig 14 Tage. Mehr wird es nur nach Rücksprache.</p>
-                  <div className="flex flex-wrap gap-2">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        onPatch(o.id, { stage: "geplant", value: gross(o.quote!) });
-                        toast("Angebot angenommen. Im Büro wartet der Auftrag jetzt im Einsatzplan auf einen Monteur.");
-                      }}
-                      className="min-h-12 rounded-[var(--bo-rc)] bg-d-accent px-6 text-[13.5px] font-bold tracking-wide text-d-on uppercase hover:brightness-95"
-                    >
-                      Angebot annehmen
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => toast("Kein Problem – sagen Sie uns kurz Bescheid, dann passen wir das Angebot an.")}
-                      className="min-h-12 rounded-[var(--bo-rc)] border-2 border-d-deep bg-white px-5 text-[13.5px] font-bold tracking-wide text-d-deep uppercase hover:border-d-accent hover:bg-d-accent hover:text-d-on"
-                    >
-                      Angebot ablehnen
-                    </button>
+    <>
+      <section className="on-dark bg-d-deep text-white">
+        <div className={cx(B.wrap, "py-8 @dlg:py-12")}>
+          <p className={cx(B.label, "text-d-accent")}>Kundenbereich</p>
+          <h1 className={cx(H, "mt-3 text-[clamp(2.75rem,11cqi,5rem)] leading-[0.86] text-white")}>Meine Aufträge</h1>
+        </div>
+      </section>
+      <div className={cx(B.wrap, "py-8 @dlg:py-12")}>
+        <div className="mx-auto max-w-3xl space-y-5" data-tour="status">
+          {orders.map((o) => {
+            const idx = STAGES.findIndex((s) => s.id === o.stage);
+            const waiting = o.stage === "angebot" && o.quote;
+            return (
+              <article key={o.id} className={B.card}>
+                <header className="on-dark flex flex-wrap items-start justify-between gap-3 bg-d-deep px-5 py-4 text-white">
+                  <div className="min-w-0">
+                    <p className="num font-plex-mono text-[12.5px] font-medium text-d-accent">{o.id}</p>
+                    <h2 className="mt-1 text-[18px] leading-snug font-bold tracking-normal break-words text-white">{o.topic}</h2>
+                    <p className="mt-1 flex items-start gap-1.5 text-[13px] text-white/75">
+                      <MapPin className="mt-0.5 size-3.5 shrink-0" aria-hidden /> <span className="min-w-0 break-words">{o.address}</span>
+                    </p>
                   </div>
+                  {waiting && <span className="rounded-full bg-d-accent px-3 py-1.5 text-[11.5px] leading-none font-bold tracking-[0.06em] text-d-on uppercase">Angebot liegt vor</span>}
+                </header>
+                <div className="px-3 py-5 @dsm:px-5">
+                  <Track steps={["Anfrage", "Angebot", "Termin", "Erledigt", "Rechnung"]} current={idx} />
                 </div>
-              </div>
-            )}
-            {o.stage === "anfrage" && <p className="border-t border-d-deep/12 px-5 py-3 text-[14px] text-d-deep/70">Wir prüfen Ihre Anfrage und melden uns heute noch.</p>}
-            {o.stage === "geplant" && (
-              <div className="border-t border-d-deep/12 px-5 py-3.5 text-[14px]">
-                {o.tech ? (
-                  <p>
-                    <strong className="font-semibold text-d-deep">
-                      {fmtDay(workday(o.day ?? 0))}, {o.slot} Uhr
-                    </strong>{" "}
-                    · Ihr Monteur: {o.tech}. Er meldet sich 30 Minuten vor Ankunft.
-                  </p>
-                ) : (
-                  <p>
-                    Danke für Ihren Auftrag. Wir teilen gerade einen Monteur ein –{" "}
-                    <button type="button" onClick={() => go("betrieb", "plan")} className="font-semibold text-d-deep underline decoration-d-accent decoration-2 underline-offset-2">
-                      im Einsatzplan des Büros ansehen
-                    </button>
-                    .
+                {waiting && (
+                  <div className="border-t-2 border-d-deep bg-d-soft/60 px-5 py-5">
+                    <QuoteTable quote={o.quote!} />
+                    <p className={cx("mt-4 text-[13px]", B.muted)}>Festpreis, gültig 14 Tage. Mehr wird es nur nach Rücksprache.</p>
+                    <div className="mt-4 flex flex-wrap gap-2.5">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          onPatch(o.id, { stage: "geplant", value: gross(o.quote!) });
+                          toast("Angebot angenommen. Im Büro wartet der Auftrag jetzt im Einsatzplan auf einen Monteur.");
+                        }}
+                        className={cx(B.yes, "flex-1 @dsm:flex-none")}
+                      >
+                        Angebot annehmen
+                      </button>
+                      <button type="button" onClick={() => toast("Kein Problem – sagen Sie uns kurz Bescheid, dann passen wir das Angebot an.")} className={cx(B.no, "flex-1 @dsm:flex-none")}>
+                        Ablehnen
+                      </button>
+                    </div>
+                  </div>
+                )}
+                {o.stage === "anfrage" && <p className={cx("border-t border-d-deep/15 px-5 py-4 text-[14px]", B.muted)}>Wir prüfen Ihre Anfrage und melden uns heute noch.</p>}
+                {o.stage === "geplant" && (
+                  <div className="border-t border-d-deep/15 px-5 py-4 text-[14.5px]">
+                    {o.tech ? (
+                      <p>
+                        <strong className="num font-bold text-d-deep">
+                          {fmtDay(workday(o.day ?? 0))}, {o.slot} Uhr
+                        </strong>{" "}
+                        · Ihr Monteur: {o.tech}. Er meldet sich 30 Minuten vor Ankunft.
+                      </p>
+                    ) : (
+                      <p>
+                        Danke für Ihren Auftrag. Wir teilen gerade einen Monteur ein –{" "}
+                        <button type="button" onClick={() => go("betrieb", "plan")} className="min-h-11 font-bold text-d-deep underline decoration-d-accent decoration-[3px] underline-offset-4">
+                          im Einsatzplan des Büros ansehen
+                        </button>
+                        .
+                      </p>
+                    )}
+                  </div>
+                )}
+                {(o.stage === "erledigt" || o.stage === "rechnung") && (
+                  <p className="flex items-center gap-3 border-t border-d-deep/15 px-5 py-4 text-[14.5px]">
+                    <span className="grid size-9 shrink-0 place-items-center rounded-[10px] bg-d-soft text-d-deep">
+                      <FileText className="size-4" aria-hidden />
+                    </span>
+                    <span>
+                      Arbeitsbericht mit Fotos und Ihrer Unterschrift{o.doneAt ? ` · ${o.doneAt}` : ""}
+                      {o.stage === "rechnung" && " · Rechnung liegt bei"}
+                    </span>
                   </p>
                 )}
-              </div>
-            )}
-            {(o.stage === "erledigt" || o.stage === "rechnung") && (
-              <p className="flex items-center gap-2 border-t border-d-deep/12 px-5 py-3 text-[14px]">
-                <span className="grid size-7 shrink-0 place-items-center rounded-full bg-d-soft text-d-deep">
-                  <FileText className="size-3.5" aria-hidden />
-                </span>
-                Arbeitsbericht mit Fotos und Ihrer Unterschrift{o.doneAt ? ` · ${o.doneAt}` : ""}
-                {o.stage === "rechnung" && " · Rechnung liegt bei"}
-              </p>
-            )}
-          </article>
-        );
-      })}
-    </div>
+              </article>
+            );
+          })}
+          {orders.length === 0 && <p className="rounded-[16px] border-2 border-dashed border-d-deep/30 px-5 py-10 text-center text-[15px]">Noch kein Auftrag. Stellen Sie eine Anfrage – sie erscheint hier mit ihrem Stand.</p>}
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -544,11 +666,11 @@ function Board({ orders, onPatch, onQuote }: { orders: Order[]; onPatch: (id: st
   const { setTab, toast } = useDemo();
   return (
     <div data-tour="kanban" className="overflow-x-auto pb-2">
-      <div className="grid min-w-[1080px] grid-cols-5 gap-3">
+      <div className="grid min-w-[1080px] grid-cols-[repeat(5,minmax(0,1fr))] gap-3">
         {STAGES.map((st) => {
           const list = orders.filter((o) => o.stage === st.id);
           return (
-            <section key={st.id} aria-label={st.title} className="rounded-[var(--bo-r)] border border-bo-line bg-bo-bg p-2">
+            <section key={st.id} aria-label={st.title} className="min-w-0 rounded-[var(--bo-r)] border border-bo-line bg-bo-bg p-2">
               <h2 className="flex items-center justify-between px-2 py-1.5 text-[13px] font-semibold text-bo-ink">
                 {st.title} <span className="num rounded-[var(--bo-rc)] bg-white px-1.5 text-[12px] font-medium text-bo-muted">{list.length}</span>
               </h2>
@@ -639,13 +761,13 @@ function QuoteBuilder({ orders, id, onPick, onPatch }: { orders: Order[]; id: st
   }
   return (
     <div data-tour="angebot" className="grid gap-4 @dlg:grid-cols-[minmax(0,1fr)_22rem]">
-      <div className="space-y-4">
+      <div className="min-w-0 space-y-4">
         <Panel
           title={`Anfrage ${order.id}`}
           aside={
             <label className="flex items-center gap-2">
               <span className="sr-only">Anfrage wählen</span>
-              <select value={order.id} onChange={(e) => onPick(e.target.value)} className="min-h-9 rounded-[var(--bo-rc)] border border-bo-line bg-white px-2 text-[16px] text-bo-ink @dsm:text-[13px]">
+              <select value={order.id} onChange={(e) => onPick(e.target.value)} className="min-h-9 max-w-[11rem] rounded-[var(--bo-rc)] border border-bo-line bg-white px-2 text-[16px] text-bo-ink @dsm:max-w-[16rem] @dsm:text-[13px]">
                 {open.map((o) => (
                   <option key={o.id} value={o.id}>
                     {o.id} · {o.customer}
@@ -701,7 +823,7 @@ function QuoteBuilder({ orders, id, onPick, onPatch }: { orders: Order[]; id: st
           </table>
         </Panel>
       </div>
-      <div>
+      <div className="min-w-0">
         <div className="sticky top-[calc(var(--bar-h)+1rem)] rounded-[var(--bo-r)] border border-bo-line bg-white">
           <div className="border-b border-bo-line px-4 py-3">
             <p className="text-[12px] text-bo-muted">Angebot an</p>
@@ -909,33 +1031,41 @@ const MATERIAL = [
   { id: "ventil", name: "Thermostatventil" },
 ];
 
+/**
+ * Die App des Monteurs. In breiten Rahmen steht sie als Telefon neben einer kurzen Anleitung;
+ * in schmalen Rahmen (echtes Handy oder Handy-Ansicht der Demo-Leiste) füllt sie die Fläche – ohne Telefon im Telefon.
+ */
 function TechApp({ orders, onPatch, onOffice }: { orders: Order[]; onPatch: (id: string, c: Partial<Order>) => void; onOffice: () => void }) {
   const me = TECHS[0];
   const jobs = orders.filter((o) => o.tech === me && o.day === 0 && (o.stage === "geplant" || o.stage === "erledigt")).sort((a, b) => (a.slot ?? "").localeCompare(b.slot ?? ""));
   const [openId, setOpenId] = useState<string | null>(null);
   const open = jobs.find((j) => j.id === openId);
   return (
-    <div className="min-h-[calc(100dvh-var(--bar-h))] bg-bo-bg px-4 py-6 font-plex @dsm:py-9">
-      <div className="mx-auto grid max-w-4xl items-start gap-8 @dmd:grid-cols-[minmax(0,24rem)_1fr]">
-        {/* Telefonrahmen */}
-        <div data-tour="monteur" className="mx-auto w-full max-w-[24rem] overflow-hidden rounded-[var(--bo-r)] border-[10px] border-bo-ink bg-bo-bg shadow-[0_30px_60px_-24px_rgb(0_0_0/0.5)]">
-          <div className="flex items-center justify-between bg-bo-ink px-5 pt-1 pb-2 text-[11px] font-medium text-white/80">
+    <div className="min-h-[var(--app-h)] bg-bo-bg font-plex @dmd:px-6 @dmd:py-10">
+      <div className="mx-auto grid max-w-4xl items-start gap-10 @dmd:grid-cols-[minmax(0,24rem)_1fr]">
+        <div data-tour="monteur" className="w-full min-w-0 bg-bo-bg @dmd:mx-auto @dmd:max-w-[24rem] @dmd:overflow-hidden @dmd:rounded-[2.25rem] @dmd:border-[10px] @dmd:border-bo-ink @dmd:shadow-[0_30px_60px_-24px_rgb(21_43_59/0.6)]">
+          <div className="hidden items-center justify-between bg-bo-ink px-5 pt-1 pb-2 text-[11px] font-semibold text-white/85 @dmd:flex">
             <span className="num">{clock()}</span>
             <span>Wilke · Monteur</span>
           </div>
-          <div className="h-[36rem] overflow-y-auto text-[14.5px] text-bo-ink">{open ? <JobDetail key={open.id} job={open} onBack={() => setOpenId(null)} onPatch={onPatch} /> : <JobList me={me} jobs={jobs} onOpen={setOpenId} />}</div>
+          <div className="no-bar text-[15px] text-bo-ink @dmd:h-[38rem] @dmd:overflow-y-auto">{open ? <JobDetail key={open.id} job={open} onBack={() => setOpenId(null)} onPatch={onPatch} /> : <JobList me={me} jobs={jobs} onOpen={setOpenId} />}</div>
         </div>
-        <div className="hidden text-bo-ink @dmd:block">
-          <h1 className={cx(H, "text-[1.7rem] leading-none text-bo-ink")}>Die App für draußen.</h1>
-          <p className="mt-3 max-w-sm text-[15px] leading-relaxed">Deniz sieht morgens seine Einsätze, hakt vor Ort die Checkliste ab, erfasst das Material und lässt den Kunden auf dem Display unterschreiben.</p>
-          <ul className="mt-5 space-y-2.5 text-[14px]">
+        <div className="hidden pt-4 text-bo-ink @dmd:block">
+          <p className={cx(B.label, B.muted)}>Ansicht 3 von 3</p>
+          <h1 className={cx(H, "mt-3 text-[clamp(2.25rem,5cqi,3.25rem)] leading-[0.9] text-bo-ink")}>
+            Die App
+            <br />
+            für draußen.
+          </h1>
+          <p className={cx("mt-4 max-w-sm text-[15.5px] leading-relaxed", B.muted)}>Deniz sieht morgens seine Einsätze, hakt vor Ort die Checkliste ab, erfasst das Material und lässt den Kunden auf dem Display unterschreiben.</p>
+          <ol className="mt-6 max-w-sm space-y-2">
             {["Öffne einen Einsatz", "Hak die Checkliste ab", "Unterschreib mit Maus oder Finger", "Schließ den Auftrag ab – im Büro steht er sofort auf „Erledigt“"].map((s, i) => (
-              <li key={s} className="flex gap-3">
-                <span className="num grid size-5 shrink-0 place-items-center rounded-[var(--bo-rc)] bg-bo-ink text-[11px] font-semibold text-white">{i + 1}</span> {s}
+              <li key={s} className="flex items-center gap-3 rounded-[12px] bg-white px-3 py-2.5 text-[14.5px] leading-snug font-medium">
+                <span className={cx(H, "num grid size-8 shrink-0 place-items-center rounded-[8px] bg-d-accent text-[1.125rem] leading-none text-d-on")}>{i + 1}</span> {s}
               </li>
             ))}
-          </ul>
-          <button type="button" onClick={onOffice} className="mt-6 min-h-11 rounded-[var(--bo-rc)] border border-bo-ink px-4 text-[14px] font-medium hover:bg-bo-ink hover:text-white">
+          </ol>
+          <button type="button" onClick={onOffice} className={cx(B.no, "mt-6")}>
             Zum Büro wechseln
           </button>
         </div>
@@ -948,35 +1078,42 @@ function JobList({ me, jobs, onOpen }: { me: string; jobs: Order[]; onOpen: (id:
   const left = jobs.filter((j) => j.stage === "geplant").length;
   return (
     <div>
-      <div className="bg-bo-ink px-5 pt-3 pb-5 text-white">
-        <p className="text-[13px] text-white/60">{fmtDay(workday(0))}</p>
-        <h2 className={cx(H, "text-[1.5rem] leading-tight")}>Moin {me.split(" ")[0]}.</h2>
-        <p className="mt-0.5 text-[13.5px] text-white/75">{left ? `${left} ${left === 1 ? "Einsatz" : "Einsätze"} offen` : "Alles erledigt für heute."}</p>
+      <div className="on-dark bg-bo-ink px-5 pt-5 pb-6 text-white">
+        <p className={cx("num", B.label, "text-d-accent")}>{fmtDay(workday(0))}</p>
+        <h2 className={cx(H, "mt-2 text-[2.5rem] leading-[0.9] text-white")}>Moin {me.split(" ")[0]}.</h2>
+        <p className="mt-2 text-[14.5px] text-white/80">{left ? `${left} ${left === 1 ? "Einsatz" : "Einsätze"} offen` : "Alles erledigt für heute."}</p>
+        <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-white/20" role="img" aria-label={`${jobs.length - left} von ${jobs.length} Einsätzen erledigt`}>
+          <div className="h-full rounded-full bg-d-accent transition-[width] duration-500" style={{ width: `${jobs.length ? ((jobs.length - left) / jobs.length) * 100 : 0}%` }} />
+        </div>
       </div>
-      <ul className="space-y-2.5 p-3">
+      <ul className="space-y-3 p-4">
         {jobs.map((j) => {
           const done = j.stage === "erledigt";
           return (
             <li key={j.id}>
-              <button type="button" disabled={done} onClick={() => onOpen(j.id)} className={cx("block w-full rounded-[var(--bo-rc)] border bg-white p-3.5 text-left", done ? "border-bo-line opacity-60" : "border-bo-line hover:border-bo-ink")}>
+              <button type="button" disabled={done} onClick={() => onOpen(j.id)} className={cx("block w-full rounded-[14px] border-2 bg-white p-4 text-left transition-colors", done ? "border-bo-line" : "border-bo-ink/15 hover:border-bo-ink")}>
                 <span className="flex items-center justify-between gap-2">
-                  <span className="num text-[13px] font-semibold text-bo-ink">{j.slot}</span>
+                  <span className={cx("num rounded-full px-2.5 py-1 text-[12.5px] leading-none font-bold", done ? "bg-bo-bg text-bo-muted" : "bg-d-accent text-d-on")}>{j.slot}</span>
                   {done ? (
-                    <span className="inline-flex items-center gap-1 text-[12px] font-semibold text-bo-ok">
-                      <Check className="size-3.5" strokeWidth={3} aria-hidden /> erledigt
+                    <span className="inline-flex items-center gap-1 text-[12.5px] font-bold text-bo-ok">
+                      <Check className="size-4" strokeWidth={3} aria-hidden /> erledigt
                     </span>
                   ) : (
-                    <ChevronRight className="size-4 text-bo-muted" aria-hidden />
+                    <ChevronRight className="size-5 text-bo-ink" aria-hidden />
                   )}
                 </span>
-                <span className="mt-1 block font-semibold text-bo-ink">{j.topic}</span>
-                <span className="mt-0.5 flex items-center gap-1.5 text-[13px] text-bo-muted">
-                  <MapPin className="size-3.5 shrink-0" aria-hidden /> {j.customer} · {j.address}
+                <span className={cx("mt-2.5 block text-[16px] leading-snug font-bold break-words", done ? "text-bo-muted" : "text-bo-ink")}>{j.topic}</span>
+                <span className="mt-1 flex items-start gap-1.5 text-[13px] text-bo-muted">
+                  <MapPin className="mt-0.5 size-3.5 shrink-0" aria-hidden />
+                  <span className="min-w-0 break-words">
+                    {j.customer} · {j.address}
+                  </span>
                 </span>
               </button>
             </li>
           );
         })}
+        {jobs.length === 0 && <li className="rounded-[14px] border-2 border-dashed border-bo-line px-4 py-8 text-center text-[14px] text-bo-muted">Heute sind keine Einsätze geplant.</li>}
       </ul>
     </div>
   );
@@ -989,58 +1126,64 @@ function JobDetail({ job, onBack, onPatch }: { job: Order; onBack: () => void; o
   const [photos, setPhotos] = useState(0);
   const [signed, setSigned] = useState(false);
   const ready = checks.length === CHECKS.length && signed;
+  const head = "mb-2 flex items-baseline justify-between text-[11.5px] font-bold tracking-[0.14em] text-bo-muted uppercase";
+  const box = "overflow-hidden rounded-[14px] border-2 border-bo-ink/12 bg-white";
   return (
     <div>
-      <div className="sticky top-0 z-10 flex items-center gap-2 border-b border-bo-line bg-white px-2 py-1.5">
-        <button type="button" onClick={onBack} aria-label="Zurück zur Liste" className="grid size-11 place-items-center">
+      <div className="on-dark sticky top-[var(--bar-h)] z-10 flex items-center gap-1 bg-bo-ink px-2 py-1.5 text-white @dmd:top-0">
+        <button type="button" onClick={onBack} aria-label="Zurück zur Liste" className="grid size-11 shrink-0 place-items-center rounded-[10px] hover:bg-white/10">
           <ArrowLeft className="size-5" aria-hidden />
         </button>
         <div className="min-w-0">
-          <p className="truncate text-[14px] font-semibold text-bo-ink">{job.topic}</p>
-          <p className="num font-plex-mono text-[11.5px] text-bo-muted">
+          <p className="truncate text-[15px] leading-tight font-bold">{job.topic}</p>
+          <p className="num mt-0.5 font-plex-mono text-[11.5px] text-d-accent">
             {job.id} · {job.slot}
           </p>
         </div>
       </div>
-      <div className="space-y-4 p-3">
-        <section className="overflow-hidden rounded-[var(--bo-r)] border border-bo-line bg-white">
+      <div className="space-y-5 p-4">
+        <section className={box}>
           {/* Lageskizze */}
-          <svg viewBox="0 0 320 96" className="block w-full bg-bo-bg" role="img" aria-label={`Lageskizze: ${job.address}`}>
-            <path d="M0 62h320M96 0v96M228 0v96M0 22h96M228 34h92" stroke="#fff" strokeWidth="9" />
-            <path d="M118 8h88v22h-88zM118 40h40v14h-40zM166 40h40v14h-40zM118 72h88v20h-88zM8 32h76v22H8zM240 44h72v10h-72zM240 72h72v20h-72zM8 72h76v20H8z" fill="#d5d8d0" />
-            <path d="M40 0c8 30 20 40 56 62" stroke="#b9d3e6" strokeWidth="7" fill="none" />
+          <svg viewBox="0 0 320 96" className="block w-full bg-[#dfecf3]" role="img" aria-label={`Lageskizze: ${job.address}`}>
+            <path d="M0 62h320M96 0v96M228 0v96M0 22h96M228 34h92" stroke="#fff" strokeWidth="10" strokeLinecap="square" />
+            <path d="M118 8h88v22h-88zM118 40h40v14h-40zM166 40h40v14h-40zM118 72h88v20h-88zM8 32h76v22H8zM240 44h72v10h-72zM240 72h72v20h-72zM8 72h76v20H8z" fill="#c3d6e1" />
+            <path d="M40 0c8 30 20 40 56 62" stroke="#9cc3dc" strokeWidth="7" fill="none" />
+            <path d="M0 62h186" stroke="#152b3b" strokeWidth="2.5" strokeDasharray="5 5" fill="none" />
             <g transform="translate(186 47)">
-              <path d="M0 14c-7-8-10-12-10-17a10 10 0 0 1 20 0c0 5-3 9-10 17Z" fill="#131416" />
-              <circle cy="-3" r="3.6" fill="#f5c400" />
+              <path d="M0 15c-8-9-11-13-11-18.500a11 11 0 0 1 22 0c0 5.500-3 9.500-11 18.500Z" fill="#152b3b" />
+              <circle cy="-3.500" r="4.200" fill="#f4c042" />
             </g>
           </svg>
-          <div className="p-3.5">
-            <p className="font-semibold text-bo-ink">{job.customer}</p>
-            <p className="text-[13.5px] text-bo-muted">{job.address}, Musterstadt</p>
-            <div className="mt-2.5 grid grid-cols-2 gap-2">
-              <button type="button" onClick={() => toast("Navigation würde jetzt in der Karten-App starten.")} className="min-h-11 rounded-[var(--bo-rc)] border border-bo-line text-[13.5px] font-medium">
-                Route starten
+          <div className="p-4">
+            <p className="text-[16px] font-bold break-words text-bo-ink">{job.customer}</p>
+            <p className="text-[14px] break-words text-bo-muted">{job.address}, Musterstadt</p>
+            <div className="mt-3 grid grid-cols-2 gap-2">
+              <button type="button" onClick={() => toast("Navigation würde jetzt in der Karten-App starten.")} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-[10px] bg-bo-ink text-[14px] font-bold text-white">
+                <MapPin className="size-4" aria-hidden /> Route
               </button>
-              <button type="button" onClick={() => toast("Anruf beim Kunden würde jetzt starten.")} className="min-h-11 rounded-[var(--bo-rc)] border border-bo-line text-[13.5px] font-medium">
-                Kunde anrufen
+              <button type="button" onClick={() => toast("Anruf beim Kunden würde jetzt starten.")} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-[10px] border-2 border-bo-ink text-[14px] font-bold text-bo-ink">
+                <Phone className="size-4" aria-hidden /> Anrufen
               </button>
             </div>
-            {job.desc && <p className="mt-3 border-t border-bo-line pt-2.5 text-[13.5px] leading-relaxed">{job.desc}</p>}
+            {job.desc && <p className="mt-4 border-t border-bo-line pt-3 text-[14px] leading-relaxed break-words">{job.desc}</p>}
           </div>
         </section>
 
         <section>
-          <h3 className="mb-1.5 text-[11.5px] font-semibold tracking-[0.12em] text-bo-muted uppercase">
-            Checkliste <span className="num">{checks.length}/{CHECKS.length}</span>
+          <h3 className={head}>
+            Checkliste{" "}
+            <span className="num">
+              {checks.length}/{CHECKS.length}
+            </span>
           </h3>
-          <ul className="divide-y divide-bo-line rounded-[var(--bo-r)] border border-bo-line bg-white">
+          <ul className={cx(box, "divide-y divide-bo-line")}>
             {CHECKS.map((c, i) => {
               const on = checks.includes(i);
               return (
                 <li key={c}>
-                  <button type="button" role="checkbox" aria-checked={on} onClick={() => setChecks((x) => (on ? x.filter((y) => y !== i) : [...x, i]))} className="flex min-h-12 w-full items-center gap-3 px-3.5 text-left">
-                    <span className={cx("grid size-6 shrink-0 place-items-center rounded-[var(--bo-rc)] border-2", on ? "border-bo-ink bg-bo-ink text-d-accent" : "border-bo-line")}>{on && <Check className="size-4" strokeWidth={3} aria-hidden />}</span>
-                    <span className={on ? "text-bo-muted line-through" : ""}>{c}</span>
+                  <button type="button" role="checkbox" aria-checked={on} onClick={() => setChecks((x) => (on ? x.filter((y) => y !== i) : [...x, i]))} className="flex min-h-14 w-full items-center gap-3 px-4 py-2 text-left">
+                    <span className={cx("grid size-7 shrink-0 place-items-center rounded-[8px] border-2", on ? "border-bo-ink bg-bo-ink text-d-accent" : "border-bo-ink/35")}>{on && <Check className="size-4" strokeWidth={3.5} aria-hidden />}</span>
+                    <span className={cx("leading-snug font-medium", on && "text-bo-muted line-through")}>{c}</span>
                   </button>
                 </li>
               );
@@ -1049,19 +1192,21 @@ function JobDetail({ job, onBack, onPatch }: { job: Order; onBack: () => void; o
         </section>
 
         <section>
-          <h3 className="mb-1.5 text-[11.5px] font-semibold tracking-[0.12em] text-bo-muted uppercase">Material</h3>
-          <ul className="divide-y divide-bo-line rounded-[var(--bo-r)] border border-bo-line bg-white">
+          <h3 className={head}>Material</h3>
+          <ul className={cx(box, "divide-y divide-bo-line")}>
             {MATERIAL.map((m) => {
               const q = mat[m.id] ?? 0;
               return (
-                <li key={m.id} className="flex items-center justify-between gap-3 px-3.5 py-1.5">
-                  <span>{m.name}</span>
-                  <span className="flex items-center gap-1.5">
-                    <button type="button" onClick={() => setMat((s) => ({ ...s, [m.id]: Math.max(0, q - 1) }))} aria-label={`${m.name} weniger`} className="grid size-10 place-items-center rounded-[var(--bo-rc)] border border-bo-line">
+                <li key={m.id} className="flex items-center justify-between gap-3 py-2 pr-2 pl-4">
+                  <span className="font-medium">{m.name}</span>
+                  <span className="flex items-center gap-1">
+                    <button type="button" disabled={q === 0} onClick={() => setMat((s) => ({ ...s, [m.id]: Math.max(0, q - 1) }))} aria-label={`${m.name} weniger`} className="grid size-11 place-items-center rounded-[10px] bg-bo-bg disabled:opacity-40">
                       <Minus className="size-4" aria-hidden />
                     </button>
-                    <span className="num w-6 text-center font-semibold text-bo-ink">{q}</span>
-                    <button type="button" onClick={() => setMat((s) => ({ ...s, [m.id]: q + 1 }))} aria-label={`${m.name} mehr`} className="grid size-10 place-items-center rounded-[var(--bo-rc)] border border-bo-line">
+                    <span className="num w-7 text-center text-[16px] font-bold text-bo-ink" aria-live="polite">
+                      {q}
+                    </span>
+                    <button type="button" onClick={() => setMat((s) => ({ ...s, [m.id]: Math.min(99, q + 1) }))} aria-label={`${m.name} mehr`} className="grid size-11 place-items-center rounded-[10px] bg-bo-bg">
                       <Plus className="size-4" aria-hidden />
                     </button>
                   </span>
@@ -1072,21 +1217,25 @@ function JobDetail({ job, onBack, onPatch }: { job: Order; onBack: () => void; o
         </section>
 
         <section>
-          <h3 className="mb-1.5 text-[11.5px] font-semibold tracking-[0.12em] text-bo-muted uppercase">Fotos</h3>
-          <div className="flex flex-wrap gap-2">
+          <h3 className={head}>
+            Fotos <span className="num">{photos}/4</span>
+          </h3>
+          <div className="flex flex-wrap gap-2.5">
             {Array.from({ length: photos }, (_, i) => (
-              <span key={i} className="relative size-16 overflow-hidden rounded-[var(--bo-rc)] border border-bo-line">
-                <Image src={THUMBS[i % THUMBS.length]} alt={`Foto ${i + 1}`} fill sizes="64px" className="object-cover" />
+              <span key={i} className="relative size-[4.5rem] overflow-hidden rounded-[12px] border-2 border-bo-ink">
+                <Image src={THUMBS[i % THUMBS.length]} alt={`Foto ${i + 1}`} fill sizes="72px" className="object-cover" />
               </span>
             ))}
-            <button type="button" onClick={() => setPhotos((p) => Math.min(4, p + 1))} className="grid size-16 place-items-center rounded-[var(--bo-rc)] border-2 border-dashed border-bo-line bg-white" aria-label="Foto aufnehmen">
-              <Camera className="size-5 text-bo-muted" strokeWidth={1.6} aria-hidden />
-            </button>
+            {photos < 4 && (
+              <button type="button" onClick={() => setPhotos((p) => Math.min(4, p + 1))} className="grid size-[4.5rem] place-items-center rounded-[12px] border-2 border-dashed border-bo-ink/40 bg-white" aria-label="Foto aufnehmen">
+                <Camera className="size-6 text-bo-ink" strokeWidth={1.7} aria-hidden />
+              </button>
+            )}
           </div>
         </section>
 
         <section>
-          <h3 className="mb-1.5 text-[11.5px] font-semibold tracking-[0.12em] text-bo-muted uppercase">Unterschrift des Kunden</h3>
+          <h3 className={head}>Unterschrift des Kunden</h3>
           <SignaturePad onChange={setSigned} />
         </section>
 
@@ -1098,7 +1247,7 @@ function JobDetail({ job, onBack, onPatch }: { job: Order; onBack: () => void; o
             toast(`${job.id} abgeschlossen. Im Büro steht der Auftrag jetzt auf „Erledigt“ – bereit für die Rechnung.`);
             onBack();
           }}
-          className="min-h-14 w-full rounded-[var(--bo-rc)] bg-d-accent font-semibold text-d-on disabled:bg-bo-line disabled:text-bo-muted"
+          className={cx("min-h-14 w-full rounded-[12px] text-[15px] font-bold tracking-[0.04em] uppercase", ready ? "bg-d-accent text-d-on shadow-[0_3px_0_#c9982a]" : "bg-[#d3dde4] text-[#4d606d]")}
         >
           {ready ? "Auftrag abschließen" : !signed && checks.length === CHECKS.length ? "Unterschrift fehlt noch" : "Erst Checkliste und Unterschrift"}
         </button>
@@ -1125,7 +1274,7 @@ function SignaturePad({ onChange }: { onChange: (signed: boolean) => void }) {
     ctx.lineWidth = 2.2;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
-    ctx.strokeStyle = "#131416";
+    ctx.strokeStyle = "#152b3b";
   }, []);
 
   const point = (e: React.PointerEvent<HTMLCanvasElement>) => {
@@ -1133,12 +1282,12 @@ function SignaturePad({ onChange }: { onChange: (signed: boolean) => void }) {
     return [e.clientX - r.left, e.clientY - r.top] as const;
   };
   return (
-    <div className="overflow-hidden rounded-[var(--bo-r)] border border-bo-line bg-white">
+    <div className="overflow-hidden rounded-[14px] border-2 border-bo-ink/12 bg-white">
       <canvas
         ref={ref}
         role="img"
         aria-label={has ? "Unterschrift vorhanden" : "Unterschriftsfeld, noch leer"}
-        className="block h-32 w-full touch-none cursor-crosshair"
+        className="block h-36 w-full touch-none cursor-crosshair bg-[linear-gradient(to_bottom,transparent_calc(100%-2.25rem),#d6e0e7_calc(100%-2.25rem),#d6e0e7_calc(100%-2.25rem+1px),transparent_calc(100%-2.25rem+1px))]"
         onPointerDown={(e) => {
           e.currentTarget.setPointerCapture(e.pointerId);
           drawing.current = true;
@@ -1171,7 +1320,7 @@ function SignaturePad({ onChange }: { onChange: (signed: boolean) => void }) {
             setHas(false);
             onChange(false);
           }}
-          className="min-h-9 px-2 font-medium text-bo-ink underline underline-offset-2"
+          className="min-h-11 px-2 font-semibold text-bo-ink underline underline-offset-4"
         >
           Löschen
         </button>

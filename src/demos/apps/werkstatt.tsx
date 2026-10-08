@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { CalendarDays, CarFront, ChartColumn, Check, ClipboardList, Clock, MapPin, Phone, TriangleAlert, Wrench } from "lucide-react";
+import { ArrowRight, CalendarDays, CarFront, ChartColumn, Check, ClipboardList, Clock, Gauge, MapPin, Phone, ShieldCheck, TriangleAlert, Wrench } from "lucide-react";
 import { useDemo } from "@/demos/kit/context";
 import { Backoffice, Bars, Btn, Field, Figures, input, Panel, Ranks, Tag, td, th, tr } from "@/demos/kit/ui";
-import { clock, cx, dur, eur, eur0, fmtDay, hm, nowMinutes, weekdayShort, workday } from "@/demos/kit/util";
+import { clock, cx, dur, eur, eur0, fmtDay, hm, nowMinutes, useOnce, weekdayShort, workday } from "@/demos/kit/util";
 
 /**
  * Demo "Autohaus Falkner": Werkstatttermin buchen und Fahrzeugstatus verfolgen + Dashboard mit Aufträgen und Werkstattplan.
@@ -101,8 +101,8 @@ const stepTone = (s: number) => (s < 0 ? "neutral" : s === 4 ? "ok" : s > 4 ? "n
 function StatusRail({ steps, current }: { steps: string[]; current: number }) {
   const pct = steps.length > 1 ? (Math.max(current, 0) / (steps.length - 1)) * 100 : 0;
   return (
-    <div className="mt-5">
-      <div className="h-1.5 w-full bg-[#e3e9ec]" role="presentation">
+    <div className="mt-6">
+      <div className="h-2 w-full bg-[#dbe3e7]" role="presentation">
         <div className="h-full bg-d-accent transition-[width] duration-500" style={{ width: `${pct}%` }} />
       </div>
       <ol className="mt-px grid grid-cols-5 gap-px bg-[#d2dce0]">
@@ -110,9 +110,9 @@ function StatusRail({ steps, current }: { steps: string[]; current: number }) {
           const done = i < current;
           const now = i === current;
           return (
-            <li key={s} aria-current={now ? "step" : undefined} className={cx("bg-white px-1 pt-2 pb-1.5 text-center", (done || now) && "bg-d-soft")}>
-              <span className={cx("num mx-auto grid size-6 place-items-center font-plex-mono text-[11px] font-semibold", done ? "bg-d-accent text-white" : now ? "border-2 border-d-accent bg-white text-d-accent" : "border border-[#b9c6cb] bg-white text-[#9aa8ad]")}>{String(i + 1).padStart(2, "0")}</span>
-              <span className={cx("mt-1 block text-[10.5px] leading-tight tracking-[0.04em] uppercase", now ? "font-semibold text-d-deep" : done ? "text-d-deep" : "text-[#9aa8ad]")}>{s}</span>
+            <li key={s} aria-current={now ? "step" : undefined} className={cx("min-w-0 px-1 pt-2.5 pb-2 text-center", now ? "bg-d-deep" : "bg-white")}>
+              <span className={cx("num mx-auto grid size-7 place-items-center font-plex-mono text-[11.5px] font-medium", done ? "bg-d-cta text-white" : now ? "bg-white text-d-deep" : "border border-[#b9c6cb] bg-white text-[#56676c]")}>{String(i + 1).padStart(2, "0")}</span>
+              <span className={cx("mt-1.5 block text-[10px] leading-tight font-medium tracking-[0.02em] break-words uppercase @dsm:text-[11px] @dsm:tracking-[0.06em]", now ? "text-white" : done ? "text-d-deep" : "text-[#56676c]")}>{s}</span>
             </li>
           );
         })}
@@ -134,40 +134,83 @@ export default function WerkstattDemo() {
   return view === "kunde" ? <CustomerSite jobs={jobs} onPatch={patch} onBook={add} /> : <Dashboard jobs={jobs} onPatch={patch} />;
 }
 
-/* ───────────────────────────── Kundenseite ───────────────────────────── */
+/* ───────────────────────────── Kundenseite ─────────────────────────────
+   Gestaltung „Falkner": technisch und kantig (Radius 0). Dunkelgrün (#0e1b1d), Signalrot (#e63e2d) und kühles Hellgrau (#eef2f5).
+   Rajdhani 700 in Versalien für Überschriften, IBM Plex Mono für Kennzeichen, Preise und „// Etiketten", IBM Plex Sans für Text.
+   Rot trägt nur Handlung und Warnung; rote Schrift auf Hell nutzt den tieferen Ton (#c92d1b), auf Dunkel den helleren (#ff6b5a).
+   Abstände im 4/8er-Raster, Sektionen 40/72. */
 
-const H = "font-d-display font-extrabold tracking-tight [font-stretch:88%]";
+const H = "font-d-display font-bold uppercase tracking-[0.005em]";
+const W = {
+  wrap: "mx-auto w-full max-w-[76rem] px-4 @dsm:px-6 @dlg:px-8",
+  mono: "font-plex-mono text-[11px] leading-none font-medium tracking-[0.16em] uppercase",
+  muted: "text-[#56676c]",
+  line: "border-[#d2dce0]",
+  cta: "inline-flex min-h-12 items-center justify-center gap-2 bg-d-cta px-6 font-d-display text-[16px] font-bold tracking-[0.06em] text-white uppercase transition-[filter,transform] hover:brightness-90 active:translate-y-px",
+  ghost: "inline-flex min-h-12 items-center justify-center gap-2 border border-d-deep px-5 font-d-display text-[16px] font-bold tracking-[0.06em] text-d-deep uppercase transition-colors hover:bg-d-deep hover:text-white",
+};
+/** „// Etikett" – die Schrägstriche sind das wiederkehrende Zeichen der Marke */
+const slash = (text: string, dark?: boolean) => (
+  <span className={cx(W.mono, dark ? "text-[#ff6b5a]" : "text-[#c92d1b]")}>
+    <span aria-hidden>{"// "}</span>
+    {text}
+  </span>
+);
 
 function CustomerSite({ jobs, onPatch, onBook }: { jobs: Job[]; onPatch: (no: string, c: Partial<Job>) => void; onBook: (j: Omit<Job, "no" | "step" | "own" | "bay">) => string }) {
   const { tab, setTab } = useDemo();
   return (
-    <div className="min-h-[calc(100dvh-var(--bar-h))] bg-[#eef2f5] font-plex text-[15px] text-[#0e1b1d]">
-      <header className="bg-d-deep text-white">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 px-4 @dsm:px-6">
-          <p className="flex items-center gap-3 py-3">
-            <span className="grid h-8 place-items-center bg-d-accent px-2 font-d-display text-[15px] font-black tracking-wide [font-stretch:80%]">FALKNER</span>
-            <span className="hidden font-plex-mono text-[10.5px] tracking-[0.22em] text-[#8fa3a8] uppercase @dsm:inline">Werkstatt & Service · Musterstadt</span>
+    <div className="min-h-[var(--app-h)] bg-[#eef2f5] font-plex text-[15px] leading-[1.55] text-[#0e1b1d]">
+      <div className="on-dark bg-d-deep text-[#b7c6ca]">
+        <p className={cx(W.wrap, "flex min-h-9 flex-wrap items-center justify-between gap-x-6 text-[12.5px]")}>
+          <span className="inline-flex items-center gap-2">
+            <MapPin className="size-3.5 text-[#ff6b5a]" aria-hidden /> Industriestraße 40, Musterstadt
+          </span>
+          <span className="hidden items-center gap-2 @dmd:inline-flex">
+            <Clock className="size-3.5 text-[#ff6b5a]" aria-hidden /> Annahme Mo – Fr ab 7:30
+          </span>
+          <span className="hidden items-center gap-2 font-plex-mono text-white @dsm:inline-flex">
+            <Phone className="size-3.5 text-[#ff6b5a]" aria-hidden /> 01234 778 900
+          </span>
+        </p>
+      </div>
+      <header className={cx("sticky top-[var(--bar-h)] z-20 border-b bg-white", W.line)}>
+        <div className={cx(W.wrap, "flex items-stretch justify-between gap-4")}>
+          <p className="flex items-center gap-3 py-2.5">
+            <span className="grid h-9 -skew-x-12 place-items-center bg-d-cta px-3" aria-hidden>
+              <span className={cx(H, "skew-x-12 text-[18px] leading-none tracking-[0.04em] text-white")}>Falkner</span>
+            </span>
+            <span className="sr-only">Autohaus Falkner</span>
+            <span className={cx("hidden @dmd:inline", W.mono, W.muted)}>Werkstatt & Service</span>
           </p>
-          <nav aria-label="Kundenbereich" className="flex gap-1">
+          <nav aria-label="Kundenbereich" className="flex">
             {[
-              { id: "termin", label: "Termin buchen" },
-              { id: "fahrzeug", label: "Mein Fahrzeug" },
+              { id: "termin", label: "Termin buchen", short: "Termin" },
+              { id: "fahrzeug", label: "Mein Fahrzeug", short: "Fahrzeug" },
             ].map((n) => (
-              <button key={n.id} type="button" aria-current={tab === n.id ? "page" : undefined} onClick={() => setTab(n.id)} className={cx("min-h-12 border-b-[3px] px-3 text-[13.5px] font-semibold tracking-[0.04em] uppercase", tab === n.id ? "border-d-accent text-white" : "border-transparent text-[#8fa3a8] hover:text-white")}>
-                {n.label}
+              <button key={n.id} type="button" aria-current={tab === n.id ? "page" : undefined} onClick={() => setTab(n.id)} className={cx(H, "relative min-h-12 px-3 text-[15px] tracking-[0.06em] transition-colors @dsm:px-5", tab === n.id ? "text-d-deep" : "text-[#56676c] hover:text-d-deep")}>
+                <span className="@dsm:hidden">{n.short}</span>
+                <span className="hidden @dsm:inline">{n.label}</span>
+                {tab === n.id && <span className="absolute inset-x-0 bottom-0 h-[3px] bg-d-accent" aria-hidden />}
               </button>
             ))}
           </nav>
         </div>
-        <div className="h-1 bg-d-accent" aria-hidden />
       </header>
       {tab === "fahrzeug" ? <MyCar job={jobs.find((j) => j.mine)!} onPatch={onPatch} /> : <BookService jobs={jobs} onBook={onBook} />}
+      <footer className="on-dark bg-d-deep text-[#8fa3a8]">
+        <div className={cx(W.wrap, "flex flex-wrap items-center justify-between gap-x-8 gap-y-2 border-t border-white/10 py-5", W.mono)}>
+          <span className="text-white">Autohaus Falkner</span>
+          <span>Meisterbetrieb der Kfz-Innung</span>
+          <span>Notruf 01234 778 911</span>
+        </div>
+      </footer>
     </div>
   );
 }
 
 function BookService({ jobs, onBook }: { jobs: Job[]; onBook: (j: Omit<Job, "no" | "step" | "own" | "bay">) => string }) {
-  const { go } = useDemo();
+  const { go, setTab, toTop } = useDemo();
   const [plate, setPlate] = useState("");
   const [model, setModel] = useState(MODELS[0]);
   const [picked, setPicked] = useState<string[]>(["insp"]);
@@ -178,6 +221,7 @@ function BookService({ jobs, onBook }: { jobs: Job[]; onBook: (j: Omit<Job, "no"
   const [phone, setPhone] = useState("");
   const [tried, setTried] = useState(false);
   const [done, setDone] = useState<string | null>(null);
+  const once = useOnce();
 
   const chosen = SERVICES.filter((s) => picked.includes(s.id));
   const min = chosen.reduce((n, s) => n + s.min, 0);
@@ -187,86 +231,136 @@ function BookService({ jobs, onBook }: { jobs: Job[]; onBook: (j: Omit<Job, "no"
   // Frei, solange an dem Tag nicht alle drei Bühnen zur selben Zeit belegt sind
   const busy = (t: number) => jobs.filter((j) => j.day === dayIdx && j.bay < 3 && t < j.start + j.min && t + Math.max(min, 30) > j.start).length >= 3;
   const plateShown = plate.trim().toUpperCase() || "MU AB 123";
-  const valid = plate.trim().length >= 4 && name.trim().length > 1 && phone.trim().length > 5 && time !== null && chosen.length > 0;
+  const bad = { plate: plate.trim().length < 4, svc: chosen.length === 0, time: time === null, name: name.trim().length < 2, phone: phone.trim().length < 6 };
+  const valid = !bad.plate && !bad.svc && !bad.time && !bad.name && !bad.phone;
+  const field = cx(input, "border-[#b9c6cb] text-d-deep hover:border-d-deep");
 
   if (done) {
     return (
-      <div className="mx-auto max-w-xl px-4 py-12 @dsm:px-6">
-        <span className="grid size-12 place-items-center bg-d-accent text-white">
-          <Check className="size-6" strokeWidth={2.5} aria-hidden />
-        </span>
-        <p className="mt-5 font-plex-mono text-[11px] tracking-[0.24em] text-d-accent uppercase">Buchung bestätigt · Annahme Musterstadt</p>
-        <h1 className={cx(H, "mt-2 text-[2.1rem] leading-none uppercase text-d-deep")}>Termin bestätigt.</h1>
-        <p className="mt-3 text-[16px] leading-relaxed">
-          Wir erwarten Sie am {fmtDay(workday(dayIdx))} um {hm(time!)} Uhr in der Annahme. Ihre Auftragsnummer: <span className="font-plex-mono font-medium text-d-deep">{done}</span>
-        </p>
-        <p className="mt-4">
-          <Plate value={plateShown} size="lg" />
-        </p>
-        <div className="mt-6 border border-[#d2dce0] bg-d-soft p-4 text-[14px] leading-snug shadow-[inset_4px_0_0_var(--d-accent)]">
-          <strong className="font-semibold">So sieht es die Werkstatt:</strong> Ihr Termin hat sich selbst in den Werkstattplan eingetragen – niemand musste ans Telefon.
-          <div className="mt-3 flex flex-wrap gap-2">
-            <button type="button" onClick={() => go("betrieb", "plan")} className="min-h-11 bg-d-deep px-4 font-medium text-white hover:bg-[#16292c]">
-              Im Werkstattplan ansehen
-            </button>
-            <button type="button" onClick={() => go("kunde", "fahrzeug")} className="min-h-11 border border-[#b9c6cb] bg-white px-4 font-medium hover:border-d-deep">
-              Fahrzeugstatus ansehen
-            </button>
+      <div className={cx(W.wrap, "py-12 @dlg:py-20")}>
+        <div className="mx-auto max-w-xl">
+          {slash("Buchung bestätigt")}
+          <h1 className={cx(H, "mt-3 text-[clamp(2.5rem,10cqi,4.25rem)] leading-[0.9] text-d-deep")}>
+            Termin steht<span className="text-d-accent">.</span>
+          </h1>
+          <div className="mt-8 border-t-4 border-d-accent bg-white">
+            <dl className="grid grid-cols-2 gap-px bg-[#d2dce0]">
+              {[
+                ["Auftrag", done],
+                ["Annahme", `${fmtDay(workday(dayIdx))}, ${hm(time!)} Uhr`],
+                ["Fahrzeug", model],
+                ["Richtpreis", eur(price)],
+              ].map(([k, v]) => (
+                <div key={k} className="bg-white px-4 py-3.5">
+                  <dt className={cx(W.mono, W.muted)}>{k}</dt>
+                  <dd className="num mt-2 font-plex-mono text-[15px] font-medium break-words text-d-deep">{v}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="border-t border-[#d2dce0] px-4 py-4">
+              <Plate value={plateShown} size="lg" />
+            </p>
+          </div>
+          <div className="mt-6 bg-d-deep p-5 text-[14px] leading-snug text-[#c3d0d3]">
+            <strong className="font-semibold text-white">So sieht es die Werkstatt:</strong> Ihr Termin hat sich selbst in den Werkstattplan eingetragen – niemand musste ans Telefon.
+            <div className="on-dark mt-4 flex flex-wrap gap-2">
+              <button type="button" onClick={() => go("betrieb", "plan")} className={W.cta}>
+                Im Werkstattplan ansehen
+              </button>
+              <button type="button" onClick={() => go("kunde", "fahrzeug")} className={cx(W.ghost, "border-white/40 text-white hover:bg-white hover:text-d-deep")}>
+                Fahrzeugstatus
+              </button>
+            </div>
           </div>
         </div>
       </div>
     );
   }
 
-  const head = (n: string, t: string) => (
-    <h2 className={cx(H, "flex items-center gap-3 text-[1.2rem] uppercase text-d-deep")}>
-      <span className="grid size-7 shrink-0 place-items-center bg-d-accent font-plex-mono text-[13px] font-semibold text-white">{n}</span>
-      {t}
-    </h2>
+  const head = (n: string, t: string, err?: string | false) => (
+    <div className={cx("flex flex-wrap items-end justify-between gap-x-4 gap-y-1 border-b-2 border-d-deep pb-2.5")}>
+      <h2 className={cx(H, "flex items-baseline gap-3 text-[1.5rem] leading-none text-d-deep @dsm:text-[1.75rem]")}>
+        <span className="font-plex-mono text-[13px] font-medium tracking-[0.1em] text-[#c92d1b]">{`${n} //`}</span>
+        {t}
+      </h2>
+      {err && (
+        <p role="alert" className="text-[12.5px] font-medium text-bo-bad">
+          {err}
+        </p>
+      )}
+    </div>
   );
-  const option = (on: boolean) => cx("flex min-h-14 w-full items-center gap-3 border px-3 py-2 text-left transition-colors", on ? "border-d-deep bg-d-soft shadow-[inset_4px_0_0_var(--d-accent)]" : "border-[#d2dce0] bg-white hover:border-d-deep");
+  const option = (on: boolean) => cx("flex min-h-16 w-full items-center gap-3 border px-3.5 py-2.5 text-left transition-colors", on ? "border-d-deep bg-white shadow-[inset_4px_0_0_var(--d-accent)]" : "border-[#d2dce0] bg-white hover:border-d-deep");
 
   return (
     <>
-      <div className="relative overflow-hidden bg-d-deep text-white">
-        <Image src="/images/demo/photos/w-hero.webp" alt="Silbernes Fahrzeug in der dunklen Ausstellungshalle des Autohauses" fill priority sizes="100vw" className="object-cover object-[center_60%] opacity-45" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(14,27,29,0.96)_10%,rgba(14,27,29,0.45)_100%)]" aria-hidden />
-        <div className="absolute inset-x-0 top-0 h-1 bg-d-accent" aria-hidden />
-        <div className="relative mx-auto flex min-h-[20rem] max-w-6xl flex-col justify-end gap-3 px-4 pt-14 pb-6 @dsm:px-6 @dlg:min-h-[23rem]">
-          <p className="font-plex-mono text-[11px] tracking-[0.28em] text-d-accent uppercase">Werkstatt & Service · Musterstadt</p>
-          <h1 className={cx(H, "max-w-2xl text-[2.15rem] leading-[0.92] text-white uppercase @dsm:text-[2.8rem] @dlg:text-[3.3rem]")}>Werkstatt-Termin in zwei Minuten.</h1>
-          <p className="flex flex-wrap gap-x-4 gap-y-1 text-[13px] text-[#c3d0d3]">
-            <span className="inline-flex items-center gap-1.5">
-              <MapPin className="size-3.5" aria-hidden /> Industriestraße 40, Musterstadt
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Clock className="size-3.5" aria-hidden /> Annahme Mo – Fr ab 7:30
-            </span>
-            <span className="inline-flex items-center gap-1.5 font-plex-mono">
-              <Phone className="size-3.5" aria-hidden /> 01234 778 900
-            </span>
-          </p>
-          <p>
-            <a href="#buchen" className="inline-flex min-h-12 items-center bg-d-accent px-6 text-[14.5px] font-semibold tracking-[0.06em] text-white uppercase hover:brightness-95">Termin buchen</a>
-          </p>
+      <section className="relative overflow-hidden">
+        <p className={cx(H, "pointer-events-none absolute -top-[0.12em] right-0 left-0 text-center text-[clamp(7rem,27cqi,24rem)] leading-none tracking-[0.02em] whitespace-nowrap text-white select-none")} aria-hidden>
+          Service
+        </p>
+        <div className={cx(W.wrap, "relative grid gap-8 pt-10 pb-8 @dlg:grid-cols-[minmax(0,1fr)_minmax(0,1.08fr)] @dlg:items-center @dlg:gap-10 @dlg:pt-16 @dlg:pb-14")}>
+          <div>
+            {slash("Werkstatt & Service · Musterstadt")}
+            <h1 className={cx(H, "mt-4 text-[clamp(2.6rem,8.6cqi,5rem)] leading-[0.9] text-d-deep")}>
+              Werkstatt-Termin in zwei Minuten<span className="text-d-accent">.</span>
+            </h1>
+            <p className={cx("mt-5 max-w-md border-l-2 border-d-accent pl-4 text-[16px] leading-relaxed", W.muted)}>Leistung wählen, Richtpreis sehen, Zeit sichern. Den Stand Ihres Fahrzeugs verfolgen Sie danach live auf dem Handy.</p>
+            <p className="mt-7 flex flex-wrap gap-2">
+              <a href="#buchen" className={W.cta}>
+                Termin buchen <ArrowRight className="size-4" aria-hidden />
+              </a>
+              <button type="button" onClick={() => setTab("fahrzeug")} className={W.ghost}>
+                Mein Fahrzeug
+              </button>
+            </p>
+          </div>
+          <div className="relative">
+            <div className="relative aspect-[16/10] overflow-hidden bg-d-deep [clip-path:polygon(9%_0,100%_0,100%_100%,0_100%)]">
+              <Image src="/images/demo/photos/w-hero.webp" alt="Silberne Limousine in der dunklen Ausstellungshalle des Autohauses" fill priority sizes="(min-width: 64rem) 38rem, 100vw" className="object-cover object-[center_60%]" />
+            </div>
+            <p className="absolute right-0 bottom-0 flex items-center gap-3 bg-d-cta py-2.5 pr-4 pl-3 text-white">
+              <span className="grid size-9 place-items-center bg-white/15">
+                <Wrench className="size-4" aria-hidden />
+              </span>
+              <span className="leading-tight">
+                <span className={cx("block text-white/85", W.mono, "text-[10px]")}>Nächste freie Bühne</span>
+                <span className="num mt-1.5 block font-plex-mono text-[14px] font-medium">{fmtDay(workday(1))} · 07:30</span>
+              </span>
+            </p>
+          </div>
         </div>
-      </div>
+        <ul className={cx(W.wrap, "relative grid @dmd:grid-cols-3")}>
+          {[
+            { icon: Gauge, t: "Richtpreis vorab", x: "Preis und Dauer stehen dabei, bevor Sie buchen – keine Überraschung an der Kasse.", c: "bg-d-deep text-[#b7c6ca]", h: "text-white", i: "text-[#ff6b5a]" },
+            { icon: ShieldCheck, t: "Freigabe per Handy", x: "Zusatzarbeiten sehen Sie mit Befund und Preis. Ohne Ihr Okay passiert nichts.", c: "bg-d-cta text-white", h: "text-white", i: "text-white" },
+            { icon: CarFront, t: "Mobil bleiben", x: "Lounge, Ersatzwagen oder Hol- und Bringservice buchen Sie gleich mit.", c: "border-y border-r border-[#d2dce0] bg-white text-[#56676c] @max-dmd:border-l", h: "text-d-deep", i: "text-[#c92d1b]" },
+          ].map((f) => (
+            <li key={f.t} className={cx("flex gap-4 px-5 py-6 @dlg:px-7 @dlg:py-8", f.c)}>
+              <f.icon className={cx("mt-0.5 size-7 shrink-0", f.i)} strokeWidth={1.5} aria-hidden />
+              <p className="text-[14px] leading-snug">
+                <strong className={cx(H, "block text-[1.25rem] leading-none", f.h)}>{f.t}</strong>
+                <span className="mt-2 block">{f.x}</span>
+              </p>
+            </li>
+          ))}
+        </ul>
+      </section>
 
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-7 @dsm:px-6 @dlg:grid-cols-[minmax(0,1fr)_21rem]">
-        <div className="space-y-8">
-          <section id="buchen">
-            {head("1", "Ihr Fahrzeug")}
-            <div className="mt-3 grid gap-3 @dsm:grid-cols-[auto_1fr]">
+      <div className={cx(W.wrap, "grid gap-10 py-10 @dlg:grid-cols-[minmax(0,1fr)_22rem] @dlg:gap-12 @dlg:py-16")}>
+        <div className="min-w-0 space-y-10 @dlg:space-y-12">
+          <section id="buchen" className="scroll-mt-[calc(var(--bar-h)+4.5rem)]">
+            {head("01", "Ihr Fahrzeug", tried && bad.plate && "Bitte Kennzeichen eintragen.")}
+            <div className="mt-5 grid gap-4 @dsm:grid-cols-[auto_1fr]">
               <Field label="Kennzeichen">
-                <span className="flex items-stretch overflow-hidden border-2 border-bo-ink bg-white focus-within:ring-2 focus-within:ring-d-accent">
-                  <span className="flex w-6 items-end justify-center bg-[#1d4ed8] pb-1 font-plex-mono text-[10px] font-medium text-white" aria-hidden>
+                <span className={cx("flex items-stretch overflow-hidden border-2 bg-white focus-within:shadow-[0_0_0_2px_var(--d-accent)]", tried && bad.plate ? "border-bo-bad" : "border-d-deep")}>
+                  <span className="flex w-7 items-end justify-center bg-[#1d4ed8] pb-1.5 font-plex-mono text-[10px] font-medium text-white" aria-hidden>
                     D
                   </span>
-                  <input value={plate} onChange={(e) => setPlate(e.target.value.toUpperCase().slice(0, 10))} placeholder="MU AB 123" autoCapitalize="characters" className="min-h-11 w-40 bg-transparent px-2.5 font-plex-mono text-[19px] font-medium tracking-wide text-bo-ink outline-none placeholder:text-[#a7b4b9]" />
+                  <input value={plate} onChange={(e) => setPlate(e.target.value.toUpperCase().slice(0, 10))} placeholder="MU AB 123" autoCapitalize="characters" aria-invalid={tried && bad.plate} className="min-h-12 w-full min-w-0 bg-transparent px-3 font-plex-mono text-[20px] font-medium tracking-[0.06em] text-d-deep outline-none placeholder:text-[#a7b4b9] @dsm:w-44" />
                 </span>
               </Field>
               <Field label="Modell">
-                <select value={model} onChange={(e) => setModel(e.target.value)} className={input}>
+                <select value={model} onChange={(e) => setModel(e.target.value)} className={cx(field, "min-h-[3.25rem]")}>
                   {MODELS.map((m) => (
                     <option key={m}>{m}</option>
                   ))}
@@ -276,18 +370,20 @@ function BookService({ jobs, onBook }: { jobs: Job[]; onBook: (j: Omit<Job, "no"
           </section>
 
           <section data-tour="leistungen">
-            {head("2", "Was soll gemacht werden?")}
-            <ul className="mt-3 grid gap-2 @dsm:grid-cols-2">
+            {head("02", "Leistungen", tried && bad.svc && "Mindestens eine Leistung wählen.")}
+            <ul className="mt-5 grid gap-2 @dmd:grid-cols-2">
               {SERVICES.map((s) => {
                 const on = picked.includes(s.id);
                 return (
                   <li key={s.id}>
                     <button type="button" aria-pressed={on} onClick={() => setPicked((p) => (on ? p.filter((x) => x !== s.id) : [...p, s.id]))} className={option(on)}>
-                      <span className={cx("grid size-5 shrink-0 place-items-center border", on ? "border-d-accent bg-d-accent text-white" : "border-[#8d9ba0] bg-white")}>{on && <Check className="size-3.5" strokeWidth={3} aria-hidden />}</span>
+                      <span className={cx("grid size-6 shrink-0 place-items-center border", on ? "border-d-accent bg-d-accent text-white" : "border-[#8d9ba0] bg-white")} aria-hidden>
+                        {on && <Check className="size-4" strokeWidth={3} />}
+                      </span>
                       <span className="min-w-0 flex-1 leading-tight">
-                        <span className="block font-semibold text-d-deep">{s.name}</span>
-                        <span className="block text-[12.5px] text-[#5f7075]">
-                          {s.note} · {dur(s.min)}
+                        <span className="block text-[15.5px] font-semibold text-d-deep">{s.name}</span>
+                        <span className={cx("mt-1 block text-[12.5px]", W.muted)}>
+                          {s.note} · <span className="num">{dur(s.min)}</span>
                         </span>
                       </span>
                       <span className="num shrink-0 font-plex-mono text-[14px] font-medium text-d-deep">{s.price ? `${s.from ? "ab " : ""}${eur(s.price).replace(",00", "")}` : "kostenlos"}</span>
@@ -299,17 +395,15 @@ function BookService({ jobs, onBook }: { jobs: Job[]; onBook: (j: Omit<Job, "no"
           </section>
 
           <section>
-            {head("3", "Wie bleiben Sie mobil?")}
-            <div className="mt-3 grid gap-px border border-[#d2dce0] bg-[#d2dce0] @dsm:grid-cols-3">
+            {head("03", "Mobilität")}
+            <div className="mt-5 grid gap-px border border-[#d2dce0] bg-[#d2dce0] @dsm:grid-cols-3">
               {MOBILITY.map((m) => {
                 const on = mob === m.id;
                 return (
-                  <button key={m.id} type="button" aria-pressed={on} onClick={() => setMob(m.id)} className={cx("min-h-14 px-3 py-2 text-left transition-colors", on ? "bg-d-deep text-white" : "bg-white hover:bg-[#e4eaed]")}>
-                    <span className="leading-tight">
-                      <span className="block font-semibold">{m.name}</span>
-                      <span className={cx("block text-[12.5px]", on ? "text-[#a9bcc0]" : "text-[#5f7075]")}>{m.note}</span>
-                      <span className={cx("num mt-0.5 block font-plex-mono text-[13px] font-medium", on ? "text-white" : "text-d-deep")}>{m.price ? `+ ${eur0(m.price)}` : "inklusive"}</span>
-                    </span>
+                  <button key={m.id} type="button" aria-pressed={on} onClick={() => setMob(m.id)} className={cx("min-h-[5.5rem] px-4 py-3 text-left transition-colors", on ? "on-dark bg-d-deep text-white shadow-[inset_0_4px_0_var(--d-accent)]" : "bg-white hover:bg-[#f6f8f9]")}>
+                    <span className="block text-[15.5px] leading-tight font-semibold">{m.name}</span>
+                    <span className={cx("mt-1 block text-[12.5px] leading-snug", on ? "text-[#a9bcc0]" : W.muted)}>{m.note}</span>
+                    <span className={cx("num mt-2 block font-plex-mono text-[13px] font-medium", on ? "text-white" : "text-d-deep")}>{m.price ? `+ ${eur0(m.price)}` : "inklusive"}</span>
                   </button>
                 );
               })}
@@ -317,8 +411,8 @@ function BookService({ jobs, onBook }: { jobs: Job[]; onBook: (j: Omit<Job, "no"
           </section>
 
           <section>
-            {head("4", "Wann bringen Sie das Fahrzeug?")}
-            <div className="mt-3 flex gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none]">
+            {head("04", "Annahme", tried && bad.time && "Bitte eine Uhrzeit wählen.")}
+            <div className="no-bar -mx-4 mt-5 flex gap-1.5 overflow-x-auto px-4 @dsm:mx-0 @dsm:px-0">
               {[1, 2, 3, 4, 5].map((i) => {
                 const d = workday(i);
                 return (
@@ -330,10 +424,10 @@ function BookService({ jobs, onBook }: { jobs: Job[]; onBook: (j: Omit<Job, "no"
                       setDayIdx(i);
                       setTime(null);
                     }}
-                    className={cx("min-h-14 w-16 shrink-0 border text-center leading-tight transition-colors", dayIdx === i ? "border-d-deep bg-d-deep text-white shadow-[inset_0_3px_0_var(--d-accent)]" : "border-[#d2dce0] bg-white hover:border-d-deep")}
+                    className={cx("min-h-[4.25rem] w-[4.5rem] shrink-0 border text-center leading-tight transition-colors", dayIdx === i ? "on-dark border-d-deep bg-d-deep text-white shadow-[inset_0_4px_0_var(--d-accent)]" : "border-[#d2dce0] bg-white hover:border-d-deep")}
                   >
-                    <span className="block text-[12px] opacity-75">{weekdayShort(d)}</span>
-                    <span className="num block font-plex-mono text-[17px] font-semibold">{d.getDate()}.</span>
+                    <span className={cx("block", W.mono, "text-[10.5px]", dayIdx === i ? "text-[#a9bcc0]" : W.muted)}>{weekdayShort(d)}</span>
+                    <span className={cx(H, "num mt-1.5 block text-[1.5rem] leading-none")}>{d.getDate()}</span>
                   </button>
                 );
               })}
@@ -342,96 +436,166 @@ function BookService({ jobs, onBook }: { jobs: Job[]; onBook: (j: Omit<Job, "no"
               {times.map((t) => {
                 const full = busy(t);
                 return (
-                  <button key={t} type="button" disabled={full} aria-pressed={time === t} onClick={() => setTime(t)} className={cx("num min-h-11 border font-plex-mono text-[14px] font-medium disabled:text-[#9aa8ad] disabled:line-through", time === t ? "border-d-accent bg-d-accent text-white" : "border-[#d2dce0] bg-white hover:border-d-deep")}>
+                  <button key={t} type="button" disabled={full} aria-pressed={time === t} onClick={() => setTime(t)} className={cx("num min-h-12 border font-plex-mono text-[14.5px] font-medium transition-colors disabled:border-dashed disabled:bg-transparent disabled:text-[#7f9096] disabled:line-through", time === t ? "border-d-cta bg-d-cta text-white" : "border-[#d2dce0] bg-white hover:border-d-deep")}>
                     {hm(t)}
                   </button>
                 );
               })}
             </div>
+            <p className={cx("mt-2 text-[12.5px]", W.muted)}>Durchgestrichene Zeiten: alle drei Bühnen belegt.</p>
           </section>
 
           <section>
-            {head("5", "Ihre Kontaktdaten")}
+            {head("05", "Kontakt")}
             <form
               noValidate
-              className="mt-3 grid gap-3 @dsm:grid-cols-2"
+              className="mt-5 grid gap-4 @dsm:grid-cols-2"
               onSubmit={(e) => {
                 e.preventDefault();
                 setTried(true);
-                if (!valid) return;
+                if (!valid || !once()) return;
                 setDone(onBook({ plate: plateShown, car: model, customer: name.trim(), work: chosen.map((s) => s.name).join(", "), day: dayIdx, start: time!, min: Math.max(min, 30), total: price }));
+                toTop();
               }}
             >
-              <Field label="Name">
-                <input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" className={input} placeholder="Vor- und Nachname" />
+              <Field label="Name" error={tried && bad.name && "Bitte tragen Sie Ihren Namen ein."}>
+                <input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" maxLength={60} aria-invalid={tried && bad.name} className={field} placeholder="Vor- und Nachname" />
               </Field>
-              <Field label="Telefon" hint="Für Rückfragen und die Freigabe von Zusatzarbeiten.">
-                <input value={phone} onChange={(e) => setPhone(e.target.value)} type="tel" autoComplete="tel" className={input} placeholder="0151 2345678" />
+              <Field label="Telefon" hint="Für Rückfragen und die Freigabe von Zusatzarbeiten." error={tried && bad.phone && "Bitte geben Sie eine Telefonnummer an."}>
+                <input value={phone} onChange={(e) => setPhone(e.target.value)} type="tel" autoComplete="tel" maxLength={24} aria-invalid={tried && bad.phone} className={field} placeholder="0151 2345678" />
               </Field>
               {tried && !valid && (
-                <p role="alert" className="text-[13px] text-bo-bad @dsm:col-span-2">
-                  Es fehlt noch etwas: Kennzeichen, mindestens eine Leistung, eine Uhrzeit, Name und Telefon. Erfundene Angaben genügen.
+                <p role="alert" className="border-l-4 border-bo-bad bg-[#fbe7e5] px-4 py-3 text-[13.5px] font-medium text-bo-bad @dsm:col-span-2">
+                  Es fehlt noch etwas – die Stellen sind oben markiert. Erfundene Angaben genügen.
                 </p>
               )}
               <div className="@dsm:col-span-2">
-                <button type="submit" className="min-h-12 w-full bg-d-accent px-6 text-[14.5px] font-semibold tracking-[0.06em] text-white uppercase hover:brightness-95 @dsm:w-auto">
-                  Termin verbindlich buchen
+                <button type="submit" className={cx(W.cta, "w-full @dsm:w-auto")}>
+                  Termin verbindlich buchen <ArrowRight className="size-4" aria-hidden />
                 </button>
-                <p className="mt-2 text-[12px] text-[#5f7075]">Demo: Es wird nichts gebucht oder gespeichert.</p>
+                <p className={cx("mt-3 text-[12.5px]", W.muted)}>Demo: Es wird nichts gebucht oder gespeichert.</p>
               </div>
             </form>
           </section>
         </div>
 
         <aside>
-          <div className="sticky top-[calc(var(--bar-h)+1rem)] border border-[#d2dce0] bg-white">
-            <div className="h-1 bg-d-accent" aria-hidden />
-            <div className="bg-d-deep px-5 py-4 text-white">
-              <p className="font-plex-mono text-[10.5px] tracking-[0.22em] text-[#8fa3a8] uppercase">Ihr Auftrag</p>
-              <p className="mt-2">
+          <div className="border border-[#d2dce0] bg-white @dlg:sticky @dlg:top-[calc(var(--bar-h)+4.5rem)]">
+            <div className="on-dark border-t-4 border-d-accent bg-d-deep px-5 py-5 text-white">
+              <p className={cx(W.mono, "text-[#8fa3a8]")}>Auftragszettel</p>
+              <p className="mt-3">
                 <Plate value={plateShown} />
               </p>
-              <p className="mt-2 text-[14px]">{model}</p>
+              <p className="mt-2 text-[14.5px] font-medium">{model}</p>
             </div>
-            <div className="px-5 py-4">
+            <div className="px-5 py-5">
               {chosen.length === 0 ? (
-                <p className="text-[14px] text-[#5f7075]">Wählen Sie mindestens eine Leistung.</p>
+                <p className={cx("text-[14px]", W.muted)}>Wählen Sie mindestens eine Leistung.</p>
               ) : (
-                <ul className="space-y-2 text-[14px]">
+                <ul className="space-y-2.5 text-[14px]">
                   {chosen.map((s) => (
                     <li key={s.id} className="flex justify-between gap-3">
-                      <span>{s.name}</span>
-                      <span className="num font-plex-mono text-[#5f7075]">{s.price ? eur(s.price) : "0,00 €"}</span>
+                      <span className="min-w-0 break-words">{s.name}</span>
+                      <span className={cx("num shrink-0 font-plex-mono", W.muted)}>{s.price ? eur(s.price) : "0,00 €"}</span>
                     </li>
                   ))}
                   {mobility.price > 0 && (
                     <li className="flex justify-between gap-3">
                       <span>{mobility.name}</span>
-                      <span className="num font-plex-mono text-[#5f7075]">{eur(mobility.price)}</span>
+                      <span className={cx("num shrink-0 font-plex-mono", W.muted)}>{eur(mobility.price)}</span>
                     </li>
                   )}
                 </ul>
               )}
-              <dl className="num mt-4 space-y-1.5 border-t border-[#dde5e8] pt-3 font-plex-mono text-[14px]">
-                <div className="flex justify-between">
-                  <dt className="text-[#5f7075]">Arbeitszeit</dt>
-                  <dd>{min ? `ca. ${dur(min)}` : "–"}</dd>
+              <dl className="num mt-5 space-y-2 border-t border-dashed border-[#b9c6cb] pt-4 text-[14px]">
+                <div className="flex justify-between gap-3">
+                  <dt className={W.muted}>Arbeitszeit</dt>
+                  <dd className="font-plex-mono">{min ? `ca. ${dur(min)}` : "–"}</dd>
                 </div>
-                <div className="flex justify-between">
-                  <dt className="text-[#5f7075]">Annahme</dt>
-                  <dd>{time !== null ? `${fmtDay(workday(dayIdx))}, ${hm(time)}` : "noch offen"}</dd>
+                <div className="flex justify-between gap-3">
+                  <dt className={W.muted}>Annahme</dt>
+                  <dd className="font-plex-mono">{time !== null ? `${fmtDay(workday(dayIdx))}, ${hm(time)}` : "noch offen"}</dd>
                 </div>
-                <div className="flex justify-between border-t border-[#dde5e8] pt-2 text-[17px] font-semibold text-d-deep">
-                  <dt>Richtpreis</dt>
-                  <dd>{eur(price)}</dd>
+                <div className="flex items-end justify-between gap-3 border-t-2 border-d-deep pt-3">
+                  <dt className={cx(H, "text-[1.125rem] leading-none text-d-deep")}>Richtpreis</dt>
+                  <dd className="font-plex-mono text-[1.5rem] leading-none font-medium text-d-deep">{eur(price)}</dd>
                 </div>
               </dl>
-              <p className="mt-3 text-[12px] leading-snug text-[#5f7075]">Inklusive Mehrwertsteuer. Mehr wird es nur, wenn Sie eine Zusatzarbeit ausdrücklich freigeben.</p>
+              <p className={cx("mt-4 text-[12px] leading-snug", W.muted)}>Inklusive Mehrwertsteuer. Mehr wird es nur, wenn Sie eine Zusatzarbeit ausdrücklich freigeben.</p>
             </div>
           </div>
         </aside>
       </div>
+
+      <section className="on-dark relative overflow-hidden bg-d-deep text-white">
+        <Image src="/images/demo/photos/w-mech2.webp" alt="Werkstatthalle des Autohauses mit einem Fahrzeug an der Bühne" fill sizes="100vw" className="object-cover object-[center_70%] opacity-35" />
+        <div className="absolute inset-0 bg-gradient-to-r from-d-deep via-d-deep/85 to-d-deep/40" aria-hidden />
+        <div className={cx(W.wrap, "relative grid gap-8 py-12 @dlg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)] @dlg:items-end @dlg:py-20")}>
+          <div>
+            {slash("Der Betrieb", true)}
+            <h2 className={cx(H, "mt-3 text-[clamp(2.25rem,7cqi,3.75rem)] leading-[0.9] text-white")}>
+              Drei Bühnen,
+              <br />
+              ein Plan<span className="text-d-accent">.</span>
+            </h2>
+          </div>
+          <dl className="grid grid-cols-2 gap-x-6 gap-y-8 @dmd:grid-cols-4">
+            {[
+              ["1998", "", "Meisterbetrieb seit"],
+              ["52", "%", "buchen nach Feierabend"],
+              ["11", "Min.", "bis zur Freigabe"],
+              ["3", "", "Bühnen plus Direktannahme"],
+            ].map(([v, u, l]) => (
+              <div key={l} className="border-l-2 border-d-accent pl-4">
+                <dd className={cx(H, "num text-[3rem] leading-[0.85] text-white")}>
+                  {v}
+                  {u && <span className="ml-1 text-[1.125rem] text-[#ff6b5a]">{u}</span>}
+                </dd>
+                <dt className="mt-3 text-[13px] leading-snug text-[#b7c6ca]">{l}</dt>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
     </>
+  );
+}
+
+/** Messuhr für die Belagstärke: Halbkreis 0–12 mm, roter Bereich unter der Verschleißgrenze, Zeiger auf dem Messwert */
+function PadGauge({ value, limit, max }: { value: number; limit: number; max: number }) {
+  const pt = (v: number, r: number) => {
+    const a = Math.PI * (1 - v / max);
+    return [100 + r * Math.cos(a), 100 - r * Math.sin(a)] as const;
+  };
+  const arc = (from: number, to: number, r: number) => {
+    const [x0, y0] = pt(from, r);
+    const [x1, y1] = pt(to, r);
+    return `M${x0.toFixed(1)} ${y0.toFixed(1)}A${r} ${r} 0 0 1 ${x1.toFixed(1)} ${y1.toFixed(1)}`;
+  };
+  const [nx, ny] = pt(value, 62);
+  return (
+    <svg viewBox="0 0 200 118" role="img" aria-label={`Belagstärke: gemessen ${value} Millimeter, Verschleißgrenze ${limit} Millimeter, Neuzustand ${max} Millimeter`} className="w-full max-w-[17rem]">
+      <path d={arc(0, max, 80)} fill="none" stroke="#dbe3e7" strokeWidth="14" />
+      <path d={arc(0, limit, 80)} fill="none" stroke="var(--d-accent)" strokeWidth="14" />
+      {Array.from({ length: max + 1 }, (_, i) => {
+        const [x0, y0] = pt(i, i % 3 === 0 ? 66 : 70);
+        const [x1, y1] = pt(i, 73);
+        return <path key={i} d={`M${x0.toFixed(1)} ${y0.toFixed(1)}L${x1.toFixed(1)} ${y1.toFixed(1)}`} stroke="#0e1b1d" strokeWidth={i % 3 === 0 ? 1.6 : 0.8} />;
+      })}
+      {[0, 3, 6, 9, 12].map((v) => {
+        const [x, y] = pt(v, 54);
+        return (
+          <text key={v} x={x} y={y + 3} textAnchor="middle" fontSize="8.5" fontFamily="var(--font-plex-mono-face), monospace" fill="#56676c">
+            {v}
+          </text>
+        );
+      })}
+      <path d={`M100 100L${nx.toFixed(1)} ${ny.toFixed(1)}`} stroke="#0e1b1d" strokeWidth="3" strokeLinecap="square" />
+      <rect x="93" y="93" width="14" height="14" fill="#0e1b1d" />
+      <text x="100" y="116" textAnchor="middle" fontSize="8.5" fontFamily="var(--font-plex-mono-face), monospace" letterSpacing="1.5" fill="#56676c">
+        MM BELAG
+      </text>
+    </svg>
   );
 }
 
@@ -451,139 +615,142 @@ function MyCar({ job, onPatch }: { job: Job; onPatch: (no: string, c: Partial<Jo
     onPatch(job.no, { extra: { ...ex, state, at: clock() }, min: job.min + (state === "frei" ? 45 : 0) });
     toast(state === "frei" ? "Freigegeben. Die Werkstatt sieht die Freigabe jetzt im Auftrag – mit Uhrzeit." : "Abgelehnt. Die Werkstatt vermerkt das im Bericht.");
   };
+  const card = "border border-[#d2dce0] bg-white";
   return (
-    <div className="mx-auto grid max-w-6xl gap-6 px-4 py-8 @dsm:px-6 @dlg:grid-cols-[minmax(0,1fr)_21rem]">
-      <div className="space-y-5">
-        <div>
-          <p className="text-[13px] text-[#5f7075]">Guten Tag, Frau Hartmann</p>
-          <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-2">
-            <Plate value={job.plate} size="lg" />
-            <div>
-              <h1 className={cx(H, "text-[1.6rem] leading-none uppercase text-d-deep")}>{job.car}</h1>
-              <p className="num mt-1 font-plex-mono text-[13px] text-[#5f7075]">68.420 km · Auftrag {job.no}</p>
-            </div>
+    <>
+      <section className="on-dark bg-d-deep text-white">
+        <div className={cx(W.wrap, "flex flex-wrap items-end justify-between gap-x-10 gap-y-6 py-8 @dlg:py-12")}>
+          <div className="min-w-0">
+            {slash("Guten Tag, Frau Hartmann", true)}
+            <h1 className={cx(H, "mt-3 text-[clamp(2rem,7cqi,3.5rem)] leading-[0.9] text-white")}>{job.car}</h1>
+            <p className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+              <Plate value={job.plate} size="lg" />
+              <span className="num font-plex-mono text-[13px] text-[#a9bcc0]">68.420 km · Auftrag {job.no}</span>
+            </p>
           </div>
-        </div>
-
-        <section data-tour="status" className="border border-[#d2dce0] bg-white p-5">
-          <h2 className="font-plex-mono text-[11px] font-semibold tracking-[0.22em] text-[#5f7075] uppercase">Stand Ihres Fahrzeugs</h2>
-          <p className={cx(H, "mt-1 text-[1.5rem] uppercase text-d-deep")}>{job.step >= 4 ? "Abholbereit – wir freuen uns auf Sie." : job.step === 3 ? "In der Endkontrolle." : "In Arbeit auf Bühne 2."}</p>
-          <p className="num mt-0.5 font-plex-mono text-[14px] text-[#5f7075]">Voraussichtlich fertig um {hm(job.start + job.min + 20)} Uhr</p>
-          <StatusRail steps={[...STEPS]} current={Math.min(job.step, 4)} />
-          <ol className="mt-5 space-y-1.5 border-t border-[#dde5e8] pt-4 text-[14px]">
-            {log.map((l, i) => (
-              <li key={i} className="flex gap-3">
-                <span className="num w-11 shrink-0 font-plex-mono text-[13px] text-d-accent">{l.t || "jetzt"}</span>
-                <span>{l.text}</span>
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        <section data-tour="freigabe" className={cx("border bg-white", ex.state === "offen" ? "border-d-accent" : "border-[#d2dce0]")}>
-          <div className={cx("flex items-center gap-2 px-5 py-2.5 text-[13px] font-semibold", ex.state === "offen" ? "bg-d-accent text-white" : ex.state === "frei" ? "bg-d-deep text-white" : "bg-[#e4eaed] text-[#5f7075]")}>
-            {ex.state === "offen" ? <TriangleAlert className="size-4" aria-hidden /> : <Check className="size-4" aria-hidden />}
-            {ex.state === "offen" ? "Ihre Freigabe wird benötigt" : ex.state === "frei" ? `Freigegeben um ${ex.at} Uhr` : `Abgelehnt um ${ex.at} Uhr`}
-          </div>
-          <div className="grid gap-5 p-5 @dsm:grid-cols-[minmax(0,1fr)_auto]">
-            <div>
-              <div className="relative mb-4 aspect-[3/2] w-full max-w-sm overflow-hidden border border-[#d2dce0]">
-                <Image src="/images/demo/photos/w-mech1.webp" alt="Mechaniker am offenen Motorraum – der Befund entsteht direkt am Fahrzeug" fill sizes="(min-width: 40rem) 24rem, 100vw" className="object-cover object-[center_55%]" />
-                <span className="absolute bottom-0 left-0 bg-d-deep px-2 py-1 font-plex-mono text-[10px] tracking-[0.18em] text-white uppercase">Befundfoto · Bühne 2</span>
-              </div>
-              <h3 className="text-[17px] font-semibold text-d-deep">{ex.text}</h3>
-              <p className="mt-1 text-[14px] leading-relaxed">Bei der Inspektion gemessen: 2 mm Restbelag vorn. Unter 3 mm verlängert sich der Bremsweg spürbar, die Beläge sollten jetzt getauscht werden.</p>
-              {/* Messwert als Skala: Neuzustand 12 mm, Grenze 3 mm, gemessen 2 mm */}
-              <div className="mt-4 max-w-sm" role="img" aria-label="Belagstärke: gemessen 2 Millimeter, Verschleißgrenze 3 Millimeter, Neuzustand 12 Millimeter">
-                <div className="relative h-3 bg-[linear-gradient(to_right,var(--d-accent)_0_25%,#e3e9ec_25%_100%)]">
-                  <span className="absolute -top-1 h-5 w-1 bg-d-deep" style={{ left: "16.6%" }} />
-                </div>
-                <div className="num mt-1.5 flex justify-between font-plex-mono text-[11.5px] text-[#5f7075]">
-                  <span className="font-semibold text-d-accent">Ist: 2 mm</span>
-                  <span>Grenze 3 mm</span>
-                  <span>Neu: 12 mm</span>
-                </div>
-              </div>
+          <dl className="grid grid-cols-2 gap-px bg-white/15 text-left">
+            <div className="bg-d-deep py-1 pr-6">
+              <dt className={cx(W.mono, "text-[#8fa3a8]")}>Fertig gegen</dt>
+              <dd className={cx(H, "num mt-2 text-[2.25rem] leading-none text-white")}>{hm(job.start + job.min + 20)}</dd>
             </div>
-            <div className="@dsm:text-right">
-              <p className="num font-plex-mono text-[2rem] leading-none font-semibold text-d-deep">{eur(ex.price)}</p>
-              <p className="mt-1 text-[12.5px] text-[#5f7075]">Material und Einbau, inkl. MwSt.</p>
-              <p className="text-[12.5px] text-[#5f7075]">+ 45 Min. Arbeitszeit</p>
-            </div>
-          </div>
-          {ex.state === "offen" && (
-            <div className="flex flex-wrap gap-2 border-t border-[#dde5e8] px-5 py-3">
-              <button type="button" onClick={() => decide("frei")} className="min-h-12 flex-1 bg-d-accent px-5 text-[14.5px] font-semibold tracking-[0.06em] text-white uppercase hover:brightness-95">
-                Freigeben
-              </button>
-              <button type="button" onClick={() => decide("abgelehnt")} className="min-h-12 border border-d-deep px-5 font-semibold text-d-deep hover:bg-[#e4eaed]">
-                Ablehnen
-              </button>
-              <button type="button" onClick={() => toast("Rückruf notiert – die Annahme meldet sich in den nächsten Minuten.")} className="min-h-12 border border-[#b9c6cb] px-4 font-medium hover:border-d-deep">
-                Bitte anrufen
-              </button>
-            </div>
-          )}
-          {ex.state !== "offen" && (
-            <div className="border-t border-[#dde5e8] bg-d-soft px-5 py-3 text-[13.5px] shadow-[inset_4px_0_0_var(--d-accent)]">
-              <strong className="font-semibold">So sieht es die Werkstatt:</strong> Ihre Entscheidung steht jetzt im Auftrag.{" "}
-              <button type="button" onClick={() => go("betrieb", "auftraege")} className="font-semibold text-d-accent underline underline-offset-2">
-                Im Dashboard ansehen
-              </button>
-            </div>
-          )}
-        </section>
-      </div>
-
-      <aside className="space-y-4">
-        <div className="border border-[#d2dce0] bg-white p-5">
-          <h2 className="font-plex-mono text-[11px] font-semibold tracking-[0.22em] text-[#5f7075] uppercase">Kosten</h2>
-          <ul className="num mt-3 space-y-2 font-plex-mono text-[14px]">
-            <li className="flex justify-between">
-              <span>Inspektion</span>
-              <span>289,00 €</span>
-            </li>
-            <li className="flex justify-between">
-              <span>Ölwechsel mit Filter</span>
-              <span>119,00 €</span>
-            </li>
-            <li className={cx("flex justify-between", ex.state !== "frei" && "text-[#9aa8ad]")}>
-              <span>
-                Bremsbeläge vorn{ex.state === "offen" && " (offen)"}
-                {ex.state === "abgelehnt" && " (abgelehnt)"}
-              </span>
-              <span className={ex.state === "abgelehnt" ? "line-through" : ""}>{eur(ex.price)}</span>
-            </li>
-            <li className="flex justify-between border-t border-[#dde5e8] pt-2 text-[16px] font-semibold text-d-deep">
-              <span>Gesamt</span>
-              <span>{eur(total)}</span>
-            </li>
-          </ul>
-          <p className="mt-3 text-[12px] text-[#5f7075]">Zahlung bei Abholung oder vorab online.</p>
-        </div>
-        <div className="border border-[#d2dce0] bg-white p-5 text-[14px]">
-          <h2 className="font-plex-mono text-[11px] font-semibold tracking-[0.22em] text-[#5f7075] uppercase">Fahrzeugakte</h2>
-          <dl className="mt-3 space-y-2">
-            <div className="flex justify-between gap-3">
-              <dt className="text-[#5f7075]">Nächste HU</dt>
-              <dd className="num font-plex-mono">März 2027</dd>
-            </div>
-            <div className="flex justify-between gap-3">
-              <dt className="text-[#5f7075]">Winterräder</dt>
-              <dd>eingelagert · Regal B-14</dd>
-            </div>
-            <div className="flex justify-between gap-3">
-              <dt className="text-[#5f7075]">Letzter Service</dt>
-              <dd className="num font-plex-mono">vor 11 Monaten</dd>
-            </div>
-            <div className="flex justify-between gap-3">
-              <dt className="text-[#5f7075]">Ihr Berater</dt>
-              <dd>Kemal Demir</dd>
+            <div className="bg-d-deep py-1 pl-6">
+              <dt className={cx(W.mono, "text-[#8fa3a8]")}>Stand heute</dt>
+              <dd className={cx(H, "num mt-2 text-[2.25rem] leading-none text-white")}>{eur0(total)}</dd>
             </div>
           </dl>
         </div>
-      </aside>
-    </div>
+      </section>
+
+      <div className={cx(W.wrap, "grid gap-6 py-8 @dlg:grid-cols-[minmax(0,1fr)_22rem] @dlg:gap-8 @dlg:py-12")}>
+        <div className="min-w-0 space-y-6">
+          <section data-tour="status" className={cx(card, "p-5 @dsm:p-6")}>
+            {slash("Stand Ihres Fahrzeugs")}
+            <p className={cx(H, "mt-3 text-[1.75rem] leading-none text-d-deep @dsm:text-[2rem]")}>{job.step >= 4 ? "Abholbereit – wir freuen uns auf Sie." : job.step === 3 ? "In der Endkontrolle." : "In Arbeit auf Bühne 2."}</p>
+            <StatusRail steps={[...STEPS]} current={Math.min(job.step, 4)} />
+            <ol className="mt-6 border-t border-[#d2dce0] text-[14px]">
+              {log.map((l, i) => (
+                <li key={i} className="flex gap-4 border-b border-[#e6ecef] py-2.5">
+                  <span className="num w-12 shrink-0 font-plex-mono text-[13px] font-medium text-[#c92d1b]">{l.t || "jetzt"}</span>
+                  <span className="min-w-0">{l.text}</span>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          <section data-tour="freigabe" className={cx("border bg-white", ex.state === "offen" ? "border-d-accent shadow-[0_0_0_3px_rgb(230_62_45/0.15)]" : "border-[#d2dce0]")}>
+            <div className={cx(H, "flex items-center gap-2.5 px-5 py-3 text-[1.0625rem] leading-none tracking-[0.04em]", ex.state === "offen" ? "bg-d-cta text-white" : ex.state === "frei" ? "bg-d-deep text-white" : "bg-[#dfe6ea] text-[#44555a]")}>
+              {ex.state === "offen" ? <TriangleAlert className="size-5" aria-hidden /> : <Check className="size-5" aria-hidden />}
+              {ex.state === "offen" ? "Ihre Freigabe wird benötigt" : ex.state === "frei" ? `Freigegeben um ${ex.at} Uhr` : `Abgelehnt um ${ex.at} Uhr`}
+            </div>
+            <div className="grid gap-6 p-5 @dmd:grid-cols-[minmax(0,1fr)_17rem] @dsm:p-6">
+              <div className="min-w-0">
+                <h3 className="text-[1.125rem] leading-snug font-semibold text-d-deep">{ex.text}</h3>
+                <p className="mt-2 text-[14.5px] leading-relaxed">Bei der Inspektion gemessen: 2 mm Restbelag vorn. Unter 3 mm verlängert sich der Bremsweg spürbar, die Beläge sollten jetzt getauscht werden.</p>
+                <div className="relative mt-5 aspect-[16/9] overflow-hidden bg-d-deep">
+                  <Image src="/images/demo/photos/w-mech1.webp" alt="Mechaniker am offenen Motorraum – der Befund entsteht direkt am Fahrzeug" fill sizes="(min-width: 48rem) 28rem, 100vw" className="object-cover object-[center_45%]" />
+                  <span className={cx("absolute bottom-0 left-0 bg-d-deep px-2.5 py-2 text-white", W.mono, "text-[10px]")}>Befundfoto · Bühne 2</span>
+                </div>
+              </div>
+              <div className="flex flex-col items-center border-[#d2dce0] @dmd:border-l @dmd:pl-6">
+                <PadGauge value={2} limit={3} max={12} />
+                <p className="num mt-3 flex w-full justify-between gap-2 font-plex-mono text-[11.5px]">
+                  <span className="font-medium text-[#c92d1b]">Ist 2 mm</span>
+                  <span className={W.muted}>Grenze 3 mm</span>
+                  <span className={W.muted}>Neu 12 mm</span>
+                </p>
+                <p className="num mt-5 w-full border-t-2 border-d-deep pt-4 font-plex-mono text-[2rem] leading-none font-medium text-d-deep">{eur(ex.price)}</p>
+                <p className={cx("mt-2 w-full text-[12.5px] leading-snug", W.muted)}>Material und Einbau, inkl. MwSt. · + 45 Min. Arbeitszeit</p>
+              </div>
+            </div>
+            {ex.state === "offen" && (
+              <div className="grid gap-2 border-t border-[#d2dce0] p-4 @dsm:grid-cols-[1fr_auto_auto] @dsm:px-6">
+                <button type="button" onClick={() => decide("frei")} className={W.cta}>
+                  <Check className="size-4" strokeWidth={3} aria-hidden /> Freigeben
+                </button>
+                <button type="button" onClick={() => decide("abgelehnt")} className={W.ghost}>
+                  Ablehnen
+                </button>
+                <button type="button" onClick={() => toast("Rückruf notiert – die Annahme meldet sich in den nächsten Minuten.")} className={cx(W.ghost, "border-[#b9c6cb]")}>
+                  <Phone className="size-4" aria-hidden /> Bitte anrufen
+                </button>
+              </div>
+            )}
+            {ex.state !== "offen" && (
+              <p className="border-t border-[#d2dce0] bg-[#f6f8f9] px-5 py-4 text-[13.5px] shadow-[inset_4px_0_0_var(--d-accent)] @dsm:px-6">
+                <strong className="font-semibold">So sieht es die Werkstatt:</strong> Ihre Entscheidung steht jetzt im Auftrag.{" "}
+                <button type="button" onClick={() => go("betrieb", "auftraege")} className="min-h-11 font-semibold text-[#c92d1b] underline underline-offset-4">
+                  Im Dashboard ansehen
+                </button>
+              </p>
+            )}
+          </section>
+        </div>
+
+        <aside className="space-y-6">
+          <div className={card}>
+            <h2 className={cx("border-b border-[#d2dce0] px-5 py-3.5", W.mono, W.muted)}>Kosten</h2>
+            <ul className="num space-y-2.5 px-5 py-4 font-plex-mono text-[13.5px]">
+              <li className="flex justify-between gap-3">
+                <span>Inspektion</span>
+                <span>289,00 €</span>
+              </li>
+              <li className="flex justify-between gap-3">
+                <span>Ölwechsel mit Filter</span>
+                <span>119,00 €</span>
+              </li>
+              <li className={cx("flex justify-between gap-3", ex.state !== "frei" && "text-[#56676c]")}>
+                <span>
+                  Bremsbeläge vorn{ex.state === "offen" && " (offen)"}
+                  {ex.state === "abgelehnt" && " (abgelehnt)"}
+                </span>
+                <span className={cx("shrink-0", ex.state === "abgelehnt" && "line-through")}>{eur(ex.price)}</span>
+              </li>
+            </ul>
+            <p className="num flex items-end justify-between gap-3 border-t-2 border-d-deep px-5 py-4">
+              <span className={cx(H, "text-[1.125rem] leading-none text-d-deep")}>Gesamt</span>
+              <span className="font-plex-mono text-[1.5rem] leading-none font-medium text-d-deep">{eur(total)}</span>
+            </p>
+            <p className={cx("border-t border-[#d2dce0] px-5 py-3 text-[12px]", W.muted)}>Zahlung bei Abholung oder vorab online.</p>
+          </div>
+          <div className={card}>
+            <h2 className={cx("border-b border-[#d2dce0] px-5 py-3.5", W.mono, W.muted)}>Fahrzeugakte</h2>
+            <dl className="px-5 py-2 text-[14px]">
+              {[
+                ["Nächste HU", "März 2027"],
+                ["Winterräder", "Regal B-14"],
+                ["Letzter Service", "vor 11 Monaten"],
+                ["Ihr Berater", "Kemal Demir"],
+              ].map(([k, v]) => (
+                <div key={k} className="flex justify-between gap-3 border-b border-[#e6ecef] py-2.5 last:border-0">
+                  <dt className={W.muted}>{k}</dt>
+                  <dd className="num text-right font-medium text-d-deep">{v}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </aside>
+      </div>
+    </>
   );
 }
 
