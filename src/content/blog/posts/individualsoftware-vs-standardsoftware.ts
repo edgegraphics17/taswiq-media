@@ -90,7 +90,7 @@ export const post: BlogPost = {
           },
         },
         {
-          p: "Die ersten drei sind echte Projekte: das Bestellsystem der Bäckerei Daron Brot II in Aachen, die Buchung des OMED Friseursalons und die Web-App Antragsbruder. Alle drei kannst du dir im [Portfolio](/portfolio) ansehen. Die anderen drei sind typische Fälle, wie wir sie anbieten.",
+          p: "Die meisten dieser Fälle kannst du selbst ausprobieren: In unseren [Software-Demos](/demo) klickst du dich durch Bestellsystem, Terminbuchung, Handwerker-Software, Makler-Portal und Mandantenportal – jeweils aus Sicht der Kunden und des Betriebs.",
         },
       ],
     },

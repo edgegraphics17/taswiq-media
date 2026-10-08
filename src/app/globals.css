@@ -81,6 +81,40 @@
   }
 }
 
+/* ─── Software-Demos (/demo) ───
+   Jede Musterfirma setzt ihre Markenfarben als CSS-Variablen (--d-*) am App-Container;
+   die Verwaltungsansichten ("bo" = Backoffice) teilen sich eine nüchterne, dichte Oberfläche. */
+@theme inline {
+  --color-d-accent: var(--d-accent);
+  --color-d-on: var(--d-on);
+  --color-d-soft: var(--d-soft);
+  --color-d-deep: var(--d-deep);
+  --font-d-display: var(--d-display), ui-serif, Georgia, serif;
+  --font-plex: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-plex-mono: var(--font-plex-mono-face), ui-monospace, SFMono-Regular, monospace;
+}
+@theme {
+  --color-bo-bg: #f1f2f4;
+  --color-bo-line: #dfe2e7;
+  --color-bo-ink: #15171c;
+  --color-bo-body: #3a3f4a;
+  --color-bo-muted: #666c7a;
+  --color-bo-ok: #17794a;
+  --color-bo-warn: #9a5b00;
+  --color-bo-bad: #b3261e;
+
+  @keyframes demo-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes demo-flash {
+    from { box-shadow: 0 0 0 3px var(--d-accent); }
+    to { box-shadow: 0 0 0 3px transparent; }
+  }
+  --animate-demo-in: demo-in 0.28s var(--ease-soft) both;
+  --animate-demo-flash: demo-flash 1.6s ease-out both;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;

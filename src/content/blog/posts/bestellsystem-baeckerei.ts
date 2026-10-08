@@ -72,10 +72,10 @@ export const post: BlogPost = {
       ],
     },
     {
-      h2: "Wie sieht das in der Praxis aus? Beispiel Daron Brot II in Aachen",
+      h2: "Wie sieht das in der Praxis aus? Probier die Demo aus",
       blocks: [
         {
-          p: "Für die [Bäckerei Daron Brot II in Aachen](/portfolio) haben wir ein eigenes Online-Bestellsystem gebaut. Die Kunden bestellen direkt über die Website der Bäckerei: Speisekarte mit Varianten, Abholung oder Lieferung mit Liefergebühr und Mindestbestellwert, Bestellstatus per Link.",
+          p: "In unserer [Bestellsystem-Demo](/demo/restaurant) kannst du das selbst durchspielen – dort am Beispiel einer Muster-Pizzeria, für eine Bäckerei sieht es genauso aus. Die Kunden bestellen direkt über die eigene Website: Speisekarte mit Varianten, Abholung oder Lieferung mit Liefergebühr und Mindestbestellwert, Bestellstatus live auf dem Handy.",
         },
         {
           p: "Im Betrieb landen die Bestellungen auf einem **iPad-Küchenboard mit Signalton**. Preise, Artikel und Öffnungszeiten ändert das Team selbst im Dashboard, Mitarbeiter haben eigene Zugänge. Die Seite läuft auf **Deutsch, Englisch und Arabisch** – so, wie die Kundschaft im Viertel spricht.",

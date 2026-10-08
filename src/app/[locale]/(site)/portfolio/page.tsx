@@ -88,7 +88,7 @@ export default async function PortfolioPage({ params }: Props) {
               "@type": "CreativeWork",
               name: t(`items.${p.id}.title`),
               description: t(`items.${p.id}.text`),
-              ...(p.media.type === "site" ? { url: p.media.url } : {}),
+              ...(p.media.type === "site" ? { url: p.media.url } : p.media.type === "demo" ? { url: `${site.url}/demo/${p.media.slug}` } : {}),
               ...(img ? { image: `${site.url}${img}` } : {}),
             };
           }),

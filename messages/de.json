@@ -97,7 +97,8 @@
     "whatsappCta": "Direkt schreiben",
     "back": "Zurück",
     "next": "Weiter",
-    "opensYoutube": "(öffnet YouTube)"
+    "opensYoutube": "(öffnet YouTube)",
+    "tryDemo": "Demo ausprobieren"
   },
   "nav": {
     "home": "Home",
@@ -448,9 +449,9 @@
       "text": "Sechs Bausteine, die sich zu einem System verbinden – vom Bestellsystem bis zum Dashboard. Alles aus einer Hand, alles dir.",
       "cta": "Projekt besprechen",
       "ctaSecondary": "Kosten berechnen",
-      "systemsImageAlt": "Website des OMED Friseursalons mit eigener Terminbuchung",
-      "systemsBadge": "Live: Friseursalon · Bäckerei",
-      "customImageAlt": "Web-App Antragsbruder mit Dokumenten-Upload",
+      "systemsImageAlt": "Demo des Buchungssystems: Teamkalender des Muster-Salons Kammwerk",
+      "systemsBadge": "Demo: Salon · Pizzeria",
+      "customImageAlt": "Demo eines Mandantenportals mit Aufgaben, Belegen und Fristen",
       "items": {
         "systems": {
           "title": "Bestell- & Buchungssysteme",
@@ -656,12 +657,12 @@
     "tag": "Portfolio",
     "title": "Projekte zum",
     "titleAccent": "Durchstöbern.",
-    "text": "Live-Software, Websites, Filme und Reels – filtere nach Bereich und öffne jedes Projekt für Details, Video oder Live-Demo.",
-    "metaTitle": "Portfolio – Software, Websites, Filme & Reels",
-    "metaDescription": "Bestellsystem, Buchungssystem, Web-Apps und Websites live ansehen – dazu Hotel-Filme, Food-Reels und Immobilienvideos. Das Portfolio von TasWiq Media.",
+    "text": "Software-Demos zum Ausprobieren, Filme und Reels – filtere nach Bereich und öffne jedes Projekt für Details, Video oder Demo.",
+    "metaTitle": "Portfolio – Software-Demos, Filme & Reels",
+    "metaDescription": "Bestellsystem, Terminbuchung, Mandantenportal und Handwerker-Software als Demo ausprobieren – dazu Hotel-Filme, Food-Reels und Immobilienvideos. Das Portfolio von TasWiq Media.",
     "keywords": [
       "Portfolio Softwareagentur",
-      "Referenzen Web-App",
+      "Software Demo ausprobieren",
       "Bestellsystem Beispiel",
       "Buchungssystem Beispiel",
       "Food Reels Beispiele"
@@ -698,16 +699,16 @@
     "countLive": "{n} Projekte angezeigt",
     "stats": [
       {
-        "value": "5",
-        "label": "Websites & Web-Apps online"
+        "value": "6",
+        "label": "Software-Demos zum Ausprobieren"
       },
       {
         "value": "450+",
         "label": "Media-Projekte"
       },
       {
-        "value": "9",
-        "label": "Sprachen in einem Projekt"
+        "value": "0",
+        "label": "Anmeldungen nötig"
       },
       {
         "value": "7 Tage",
@@ -716,7 +717,7 @@
     ],
     "filters": {
       "alle": "Alle",
-      "web": "Websites & Software",
+      "web": "Software-Demos",
       "ai": "KI-Content",
       "gastro": "Gastro & Food",
       "events": "Events & Artists",
@@ -734,6 +735,9 @@
     "resultLabel": "Ergebnis",
     "servicesLabel": "Leistungen",
     "visitLive": "Live ansehen",
+    "tryDemo": "Demo starten",
+    "fitsLabel": "Passt auch für",
+    "demoNote": "Musterfirma: Namen, Kunden und Zahlen sind frei erfunden. Die Demo läuft im Browser, es wird nichts gespeichert.",
     "tryLive": "Selbst ausprobieren",
     "watchFilm": "Ganzen Film auf YouTube",
     "opensYoutube": "(öffnet YouTube)",
@@ -746,8 +750,8 @@
     "next": "Nächstes Projekt",
     "teaser": {
       "tag": "Arbeiten",
-      "title": "Echte Projekte. Live im Einsatz.",
-      "text": "Bestellsystem, Terminbuchung, Web-App, Websites – und die Filme, mit denen wir groß geworden sind. Klick auf ein Projekt für Details.",
+      "title": "Demos zum Ausprobieren. Filme zum Ansehen.",
+      "text": "Bestellsystem, Terminbuchung, Handwerker-Software, Mandantenportal – jede Demo ist eine Musterfirma, in der du selbst klickst. Dazu die Filme, mit denen wir groß geworden sind.",
       "cta": "Ganzes Portfolio ansehen"
     },
     "funnel": {
@@ -775,67 +779,88 @@
       "dashGrowth": "Growth"
     },
     "items": {
-      "daron": {
+      "demo-restaurant": {
         "tag": "Bestellsystem",
-        "title": "Daron Brot II – Bestellsystem ohne Provision",
-        "text": "Eigenes Online-Bestellsystem für eine Bäckerei in Aachen: Speisekarte mit Varianten, Abholung und Lieferung mit Liefergebühr und Mindestbestellwert, Bestellstatus per Link und ein iPad-Küchenboard mit Signalton – auf Deutsch, Englisch und Arabisch.",
-        "result": "Die Bäckerei nimmt Bestellungen direkt über die eigene Website an – ohne Plattform-Provision, mit eigenen Kundendaten und einem Dashboard für Preise, Artikel und Öffnungszeiten.",
+        "title": "Pizzeria Fiamma – Bestellsystem zum Ausprobieren",
+        "text": "Demo mit Musterfirma: Bestell bei der Pizzeria Fiamma, wähl Größe und Extras, Abholung oder Lieferung – und verfolge deine Bestellung danach im Küchen-Board des Betriebs.",
+        "result": "Bäckereien, Imbisse, Cafés, Lieferdienste, Metzgereien und Catering – überall, wo Kunden vorbestellen und der Betrieb keine Provision an eine Plattform abgeben will.",
         "services": [
-          "Bestellsystem",
+          "Speisekarte mit Extras",
+          "Abholung & Lieferung",
           "Küchen-Board",
-          "Dashboard",
-          "Mitarbeiter-Zugänge",
-          "DE · EN · AR",
-          "SEO & llms.txt"
+          "Bestellstatus live",
+          "Preise selbst pflegen",
+          "Auswertung"
         ]
       },
-      "omed": {
+      "demo-friseur": {
         "tag": "Buchungssystem",
-        "title": "OMED Friseursalon – eigene Terminbuchung",
-        "text": "Website mit mehrstufigem Buchungstool für einen Friseursalon in Aachen-Burtscheid: Leistungen mit Dauer und Preis, Kalender mit freien Zeitfenstern, Bestätigung und Kundenbereich.",
-        "result": "Termine laufen über das eigene System statt über eine Buchungsplattform. Doppelbuchungen sind auf Datenbank-Ebene ausgeschlossen, Kundendaten sind von außen nicht abrufbar.",
+        "title": "Kammwerk – Terminbuchung zum Ausprobieren",
+        "text": "Demo mit Musterfirma: Buch beim Salon Kammwerk einen Termin, verschieb ihn im Kundenprofil und sieh ihn im Teamkalender. Freie Zeiten werden wirklich berechnet.",
+        "result": "Kosmetik- und Nagelstudios, Physio- und Heilpraxen, Tattoo-Studios, Kurse und Fitness, Tierärzte – überall, wo Zeit gebucht wird.",
         "services": [
-          "Buchungssystem",
-          "Website",
-          "Lokales SEO",
-          "Datenbank & Sicherheit"
+          "Buchung in 4 Schritten",
+          "Keine Doppelbuchung",
+          "Kundenprofil",
+          "Teamkalender",
+          "Kundenkartei",
+          "Auslastung"
         ]
       },
-      "antragsbruder": {
-        "tag": "Web-App",
-        "title": "Antragsbruder – digitale Anträge",
-        "text": "Web-App, die Briefe vom Amt verständlich erklärt, Unterlagen ordnet und Anträge vorbereitet – mit Dokumenten-Upload, Kundenkonto und vier kostenlosen Anspruchs-Rechnern.",
-        "result": "Nutzer laden Unterlagen hoch, sehen per Checkliste, was fehlt, und prüfen Ansprüche in wenigen Minuten – in neun Sprachen.",
+      "demo-handwerk": {
+        "tag": "Auftragssoftware",
+        "title": "Wilke Haustechnik – vom Anruf bis zur Rechnung",
+        "text": "Demo mit Musterfirma in drei Ansichten: Stell als Kunde eine Anfrage mit Fotos, schreib im Büro das Angebot, plan den Einsatz – und schließ den Auftrag in der Monteur-App mit Unterschrift ab.",
+        "result": "Elektro, Maler, Schreiner, Dachdecker, Gebäudereinigung, Umzug, Gartenbau und Kundendienst – gleicher Ablauf, anderer Leistungskatalog.",
         "services": [
-          "Web-App",
-          "Upload & Konto",
-          "Anspruchs-Rechner",
-          "Einfache Sprache",
-          "9 Sprachen"
+          "Anfrage mit Fotos",
+          "Angebotsgenerator",
+          "Einsatzplan",
+          "Monteur-App",
+          "Digitale Unterschrift",
+          "KI-Telefonassistent"
         ]
       },
-      "klarvoran": {
-        "tag": "Website",
-        "title": "KlarVoran – Website für Job-Coaching",
-        "text": "Website für einen AZAV-zugelassenen Bildungsträger in Kriftel: Leistungen, AVGS-Coaching, Angebote für Institutionen und ein klarer Weg zum kostenlosen Erstgespräch.",
-        "result": "Klare Struktur für zwei Zielgruppen – Arbeitsuchende und Institutionen – mit lokalem SEO für Frankfurt, Hofheim und den Main-Taunus-Kreis.",
+      "demo-steuerkanzlei": {
+        "tag": "Mandantenportal",
+        "title": "Albrecht & Sommer – Mandantenportal zum Ausprobieren",
+        "text": "Demo mit Musterfirma: Lad als Mandantin Belege hoch, die automatisch ausgelesen werden, gib die Steuererklärung digital frei – und sieh in der Kanzlei-Ansicht Belegstand und Fristen aller Mandate.",
+        "result": "Anwaltskanzleien, Lohnbüros, Versicherungsmakler, Berater und Coaches, Hausverwaltungen – überall, wo Unterlagen, Freigaben und Nachrichten hin- und hergehen.",
         "services": [
-          "Website",
-          "Lokales SEO",
-          "Erstgespräch-Funnel",
-          "WhatsApp-Kontakt"
+          "Aufgaben für Mandanten",
+          "Beleg-Upload mit KI",
+          "Digitale Freigabe",
+          "Sicheres Postfach",
+          "Fristen",
+          "Kanzlei-Übersicht"
         ]
       },
-      "mipp": {
-        "tag": "Website",
-        "title": "MIPP – Website für eine Partei (Demo)",
-        "text": "Demo einer Website für eine politische Partei in Malaysia: klare Botschaften, Präsident, Positionen, Zielgruppen, Presse und ein Mitglieder-Funnel.",
-        "result": "Ein mehrsprachiger Auftritt mit Mitglieder-Funnel als Grundlage für Kampagnen und Mitgliedergewinnung.",
+      "demo-immobilien": {
+        "tag": "Vermarktungs-Portal",
+        "title": "Kranich Immobilien – Exposé und Interessenten-Pipeline",
+        "text": "Demo mit Musterfirma: Durchsuch die Objekte, lies ein Exposé mit Grundriss und Energieausweis, frag eine Besichtigung an – und führ die Anfrage im Dashboard bis zur Zusage.",
+        "result": "Hausverwaltungen, Bauträger, Ferienwohnungen, Gewerbevermietung und Genossenschaften – auch als Mieterportal mit Schadensmeldung.",
         "services": [
-          "Website",
-          "Mehrsprachig",
-          "Mitglieder-Funnel",
-          "Design-System"
+          "Objektsuche",
+          "Exposé als Seite",
+          "Besichtigungsanfrage",
+          "Interessenten-Pipeline",
+          "Objektstatus",
+          "Auswertung"
+        ]
+      },
+      "demo-werkstatt": {
+        "tag": "Werkstatt-Portal",
+        "title": "Autohaus Falkner – Termine und Fahrzeugstatus",
+        "text": "Demo mit Musterfirma: Buch einen Werkstatttermin, verfolge dein Fahrzeug und gib eine Zusatzarbeit per Tipp frei. Im Dashboard stehen Aufträge, Werkstattplan und fällige Hauptuntersuchungen.",
+        "result": "Freie Werkstätten, Reifenhändler, Fahrschulen, Autovermietungen und Zweirad-Werkstätten.",
+        "services": [
+          "Online-Termin",
+          "Fahrzeugstatus",
+          "Digitale Freigabe",
+          "Werkstattplan",
+          "HU-Erinnerung",
+          "Hol- & Bringservice"
         ]
       },
       "taswiq-system": {
@@ -1410,7 +1435,7 @@
           "volle Tische."
         ],
         "text": "Eigenes Bestellsystem, Reservierung und Küchen-Board unter deinem Namen – für Restaurants, Lieferdienste, Bäckereien, Imbisse und Caterer. Deine Gäste bestellen bei dir, nicht bei der Plattform.",
-        "imageAlt": "Bestellsystem der Bäckerei Daron Brot II in Aachen",
+        "imageAlt": "Bestellsystem-Demo: Bestellseite der Muster-Pizzeria Fiamma",
         "cards": {
           "alert": {
             "label": "Neue Bestellung · Abholung",
@@ -2970,7 +2995,7 @@
           "vermietete Tage."
         ],
         "text": "Individuelle Software für Autohäuser, Werkstätten, Fahrschulen und Vermieter. Termine buchen sich online, Fahrzeuge und Fahrlehrer sind sauber geplant, Kunden und Schüler sehen ihren Stand selbst – statt anzurufen.",
-        "imageAlt": "Beispielansicht eines Termin- und Kundensystems für einen Automotive-Betrieb",
+        "imageAlt": "Werkstatt-Demo: Fahrzeugstatus und digitale Freigabe beim Muster-Autohaus Falkner",
         "mockUrl": "dein-betrieb.de/termine",
         "cards": {
           "alert": {
@@ -3623,12 +3648,12 @@
         }
       },
       "spotlight": {
-        "tag": "Live im Einsatz",
-        "title": "Dieselbe Buchungstechnik, schon im Alltag erprobt",
-        "text": "Die Terminbuchung, auf der unsere Automotive-Systeme aufbauen, läuft beim OMED Friseursalon in Aachen: Leistungen mit Dauer, freie Zeitfenster, Bestätigung und Kundenbereich. Doppelbuchungen sind auf Datenbank-Ebene ausgeschlossen – bei Bühnen genauso wie bei Stühlen.",
-        "badge": "Referenz Buchungssystem",
-        "cta": "Projekt im Portfolio ansehen",
-        "imageAlt": "Website des OMED Friseursalons mit eigener Terminbuchung"
+        "tag": "Zum Ausprobieren",
+        "title": "Die Werkstatt-Demo: Termin, Status, Freigabe",
+        "text": "Beim Muster-Autohaus Falkner buchst du einen Werkstatttermin, verfolgst das Fahrzeug und gibst eine Zusatzarbeit per Tipp frei. Im Dashboard siehst du Aufträge, Werkstattplan und fällige Hauptuntersuchungen – so, wie dein Team sie sehen würde.",
+        "badge": "Demo · ohne Anmeldung",
+        "cta": "Demo öffnen",
+        "imageAlt": "Werkstatt-Demo: Fahrzeugstatus und digitale Freigabe beim Muster-Autohaus Falkner"
       },
       "compare": {
         "title": "Branchensoftware, Buchungs-Abo",
@@ -3748,7 +3773,7 @@
           "abrechenbare Stunden."
         ],
         "text": "Individuelle Software für Steuerberater, Anwälte, Lohnbüros, Makler und Berater. Unterlagen kommen vollständig über Checklisten, Rückfragen hängen am Vorgang, Fristen laufen mit – als Ergänzung zu deiner Fachsoftware, nicht als Ersatz.",
-        "imageAlt": "Web-App Antragsbruder: Dokumente hochladen und per Checkliste sehen, was fehlt",
+        "imageAlt": "Mandantenportal-Demo: offene Aufgaben und Fristen bei der Muster-Kanzlei Albrecht & Sommer",
         "cards": {
           "alert": {
             "label": "Belege eingegangen · vollständig",
@@ -4397,12 +4422,12 @@
         }
       },
       "spotlight": {
-        "tag": "Dazu passend",
-        "title": "Website, die Erstgespräche bringt",
-        "text": "Für KlarVoran, ein Job- und Bewerbungscoaching im Rhein-Main-Gebiet, haben wir Website und Erstgespräch-Funnel gebaut: klare Struktur für zwei Zielgruppen und lokales SEO. Dieselbe Grundlage passt für Kanzleien und Berater.",
-        "badge": "Website ab 1.190 €",
-        "cta": "Projekt im Portfolio ansehen",
-        "imageAlt": "Website von KlarVoran, Job- und Bewerbungscoaching"
+        "tag": "Zum Ausprobieren",
+        "title": "Das Mandantenportal als Demo",
+        "text": "Bei der Muster-Kanzlei Albrecht & Sommer lädst du Belege hoch, die automatisch ausgelesen werden, gibst eine Steuererklärung digital frei und schreibst der Kanzlei. In der Kanzlei-Ansicht siehst du Belegstand und Fristen aller Mandate.",
+        "badge": "Demo · ohne Anmeldung",
+        "cta": "Demo öffnen",
+        "imageAlt": "Mandantenportal-Demo: offene Aufgaben und Fristen bei der Muster-Kanzlei Albrecht & Sommer"
       },
       "compare": {
         "title": "Fachsoftware, Anbieter-Portal",
@@ -4488,7 +4513,7 @@
         },
         {
           "q": "Passt das auch für Coaches und Bildungsträger?",
-          "a": "Ja. Für KlarVoran, ein Job- und Bewerbungscoaching in Rhein-Main, haben wir Website und Erstgespräch-Funnel gebaut."
+          "a": "Ja. Website mit Erstgespräch-Funnel, Terminbuchung und ein Portal für Unterlagen folgen demselben Prinzip – ob Kanzlei, Coaching oder Bildungsträger."
         }
       ],
       "contact": {
@@ -4522,7 +4547,7 @@
           "Umsatz pro Stuhl."
         ],
         "text": "Eigenes Buchungssystem für Friseure, Barber, Kosmetik, Physio, Studios und Spas. Kunden buchen rund um die Uhr bei dir, Erinnerungen und Anzahlung senken die Ausfälle – ohne Provision und ohne fremde App zwischen dir und deinen Kunden.",
-        "imageAlt": "Website des OMED Friseursalons mit eigener Terminbuchung",
+        "imageAlt": "Buchungssystem-Demo: Teamkalender des Muster-Salons Kammwerk",
         "cards": {
           "alert": {
             "label": "Neuer Termin · gebucht um 23:14",
@@ -5175,12 +5200,12 @@
         }
       },
       "spotlight": {
-        "tag": "Live im Einsatz",
-        "title": "OMED Friseursalon bucht über das eigene System",
-        "text": "Für den OMED Friseursalon in Aachen-Burtscheid haben wir Website und mehrstufige Terminbuchung gebaut: Leistungen mit Dauer und Preis, freie Zeitfenster, Bestätigung und Kundenbereich. Doppelbuchungen sind auf Datenbank-Ebene ausgeschlossen.",
-        "badge": "Echte Referenz",
-        "cta": "Projekt im Portfolio ansehen",
-        "imageAlt": "Terminbuchung des OMED Friseursalons auf dem Handy"
+        "tag": "Zum Ausprobieren",
+        "title": "Die Buchungs-Demo: Termin buchen, Kalender sehen",
+        "text": "Beim Muster-Salon Kammwerk buchst du einen Termin, verschiebst ihn im Kundenprofil und siehst ihn im Teamkalender. Freie Zeiten werden wirklich berechnet – Doppelbuchungen sind ausgeschlossen.",
+        "badge": "Demo · ohne Anmeldung",
+        "cta": "Demo öffnen",
+        "imageAlt": "Buchungssystem-Demo: Teamkalender des Muster-Salons Kammwerk"
       },
       "compare": {
         "title": "Buchungsplattform, Salon-Abo",
@@ -5300,7 +5325,7 @@
           "saubere Abnahmen."
         ],
         "text": "Individuelle Software für Handwerksbetriebe, Reinigung, Umzug, GaLaBau und Kundendienst. Anfragen kommen mit Fotos, Angebote entstehen aus Bausteinen, das Team sieht seine Einsätze auf dem Handy – und nach der Abnahme steht die Rechnung.",
-        "imageAlt": "Beispielansicht eines Auftragssystems für einen Handwerksbetrieb",
+        "imageAlt": "Handwerker-Software-Demo: Auftragsübersicht des Muster-Betriebs Wilke Haustechnik",
         "mockUrl": "dein-betrieb.de/auftraege",
         "cards": {
           "alert": {
@@ -6061,7 +6086,7 @@
         "title": "Software, die so arbeitet",
         "accent": "wie dein Betrieb.",
         "text": "Aus fünf Tools und drei Excel-Listen wird ein System – gebaut um deinen Ablauf. Mit KI-gestützter Entwicklung in Wochen statt Monaten, zum Festpreis. Der Code gehört dir.",
-        "imageAlt": "Web-App Antragsbruder – individuell entwickelte Software",
+        "imageAlt": "Handwerker-Software-Demo: Auftragsübersicht des Muster-Betriebs Wilke Haustechnik",
         "facts": [
           {
             "value": "ab 10.900 €",
@@ -6076,7 +6101,7 @@
             "label": "Code & Daten gehören dir"
           }
         ],
-        "refNote": "Beispiel: Web-App Antragsbruder"
+        "refNote": "Demo: Wilke Haustechnik – ausprobieren"
       },
       "flow": {
         "title": "Ein Vorgang, ein System.",
@@ -6352,7 +6377,7 @@
         "title": "Dein eigenes Bestellsystem.",
         "accent": "Null Provision.",
         "text": "Gäste bestellen direkt auf deiner Website – mit Abholung, Lieferung, Küchen-Board und Online-Zahlung. Du behältst die Marge und die Kundendaten, statt bei jeder Bestellung mitzuzahlen.",
-        "imageAlt": "Bestellsystem der Bäckerei Daron Brot II mit Speisekarte und Warenkorb",
+        "imageAlt": "Bestellsystem-Demo: Bestellseite der Muster-Pizzeria Fiamma",
         "facts": [
           {
             "value": "ab 2.900 €",
@@ -6367,7 +6392,7 @@
             "label": "Provision je Bestellung"
           }
         ],
-        "refNote": "Live bei Daron Brot II, Aachen"
+        "refNote": "Demo: Pizzeria Fiamma – ausprobieren"
       },
       "flow": {
         "title": "Von der Bestellung bis zur Übergabe.",
@@ -6623,7 +6648,7 @@
         "title": "Termine buchen sich",
         "accent": "jetzt selbst.",
         "text": "Eigene Online-Terminbuchung mit Kalender, Mitarbeiter-Auswahl, Erinnerungen und Anzahlung – für Salons, Praxen, Studios, Werkstätten, Kanzleien und Coaches. Einmal bauen, dir gehört es.",
-        "imageAlt": "Website des OMED Friseursalons mit mehrstufiger Online-Buchung",
+        "imageAlt": "Buchungssystem-Demo: Teamkalender des Muster-Salons Kammwerk",
         "facts": [
           {
             "value": "ab 2.200 €",
@@ -6638,7 +6663,7 @@
             "label": "buchbar, auch nach Feierabend"
           }
         ],
-        "refNote": "Live beim OMED Friseursalon, Aachen"
+        "refNote": "Demo: Salon Kammwerk – ausprobieren"
       },
       "flow": {
         "title": "Vom Klick zum festen Termin.",
@@ -6906,7 +6931,7 @@
         "title": "Dein Service in der Hosentasche",
         "accent": "deiner Kunden.",
         "text": "Kundenportale, interne Tools und Apps – im Browser, auf dem Homescreen oder im App Store. Mit Login, Dokumenten, Status und Push-Nachrichten, damit niemand mehr anrufen muss, um nachzufragen.",
-        "imageAlt": "Web-App Antragsbruder mit Upload und verständlicher Erklärung von Behördenbriefen",
+        "imageAlt": "Mandantenportal-Demo: offene Aufgaben und Fristen bei der Muster-Kanzlei Albrecht & Sommer",
         "facts": [
           {
             "value": "ab 3.900 €",
@@ -6921,7 +6946,7 @@
             "label": "ohne App-Store-Freigabe"
           }
         ],
-        "refNote": "Beispiel: Antragsbruder, live in 9 Sprachen"
+        "refNote": "Demo: Mandantenportal – ausprobieren"
       },
       "flow": {
         "title": "Vom Login bis zum erledigten Vorgang.",
@@ -7793,7 +7818,7 @@
         "title": "Eine Website, die",
         "accent": "Anfragen bringt.",
         "text": "Schnell, mobil und auffindbar – bei Google und in KI-Suchen wie ChatGPT. Mit Anfrage-Funnel, Buchung oder Bestellung. Und so gebaut, dass sie später zum System wachsen kann.",
-        "imageAlt": "Website von KlarVoran, Job- und Bewerbungscoaching in Rhein-Main",
+        "imageAlt": "Website-Demo: Objektsuche der Muster-Firma Kranich Immobilien",
         "facts": [
           {
             "value": "ab 1.190 €",
@@ -7808,7 +7833,7 @@
             "label": "Ladezeit als Ziel"
           }
         ],
-        "refNote": "Live: KlarVoran, Job-Coaching Rhein-Main"
+        "refNote": "Demo: Kranich Immobilien – ausprobieren"
       },
       "flow": {
         "title": "Vom Suchen zur Anfrage.",
@@ -7988,7 +8013,7 @@
           },
           {
             "id": "kanzlei",
-            "text": "Erstgespräch-Buchung mit Vorab-Fragen, wie bei unserem Projekt KlarVoran."
+            "text": "Erstgespräch-Buchung mit Vorab-Fragen."
           },
           {
             "id": "gastro",
@@ -9095,8 +9120,8 @@
       "text": "Deine Gäste bestellen direkt auf deiner Seite – zur Abholung oder Lieferung, ohne Plattform und ohne Provision. Du weißt vor dem Start, was du bekommst und was es kostet.",
       "primary": "Angebot anfragen",
       "secondary": "Kurzfassung zum Weitergeben",
-      "imageAlt": "Bestellsystem der Bäckerei Daron Brot II mit Speisekarte und Warenkorb",
-      "refNote": "Live bei Daron Brot II, Aachen",
+      "imageAlt": "Bestellsystem-Demo: Bestellseite der Muster-Pizzeria Fiamma mit Speisekarte und Warenkorb",
+      "refNote": "Demo: Pizzeria Fiamma",
       "facts": [
         {
           "value": "{price}",
@@ -9212,12 +9237,11 @@
       }
     },
     "reference": {
-      "tag": "Referenz",
-      "title": "Läuft bereits:",
-      "accent": "Daron Brot II in Aachen.",
-      "note": "Das System bei Daron Brot II hat einen größeren Umfang als das Einstiegsangebot – unter anderem Küchen-Board und drei Sprachen. Es zeigt, wohin dein System wachsen kann.",
-      "visit": "Live ansehen",
-      "opensNewTab": "(öffnet in neuem Tab)"
+      "tag": "Demo",
+      "title": "Probier es aus:",
+      "accent": "Pizzeria Fiamma, unsere Musterfirma.",
+      "note": "Die Demo zeigt mehr als das Einstiegsangebot – unter anderem Lieferung und Küchen-Board. So siehst du, wohin dein System wachsen kann.",
+      "visit": "Demo öffnen"
     },
     "timeline": {
       "tag": "Ablauf",
@@ -9302,8 +9326,8 @@
         "Bezahlung im Einstieg bei Abholung oder Übergabe; Online-Zahlung im Bestellsystem Pro ab {pro}",
         "Du musst keine Plattform kündigen"
       ],
-      "referenceTitle": "Referenz",
-      "reference": "Daron Brot II, Aachen – Bestellsystem live im Einsatz (dort mit größerem Umfang).",
+      "referenceTitle": "Demo",
+      "reference": "Zum Ausprobieren: taswiq-media.de/demo/restaurant – Bestellseite und Küchen-Board einer Muster-Pizzeria (mit größerem Umfang).",
       "nextTitle": "Nächster Schritt",
       "next": "30 Minuten Gespräch – wir schauen auf deine Karte und sagen ehrlich, ob das Angebot passt.",
       "more": "Alle Details"

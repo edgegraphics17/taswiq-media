@@ -77,7 +77,7 @@ export const post: BlogPost = {
       h2: "Ein Beispiel aus der Praxis",
       blocks: [
         {
-          p: "Für die Bäckerei Daron Brot II in Aachen entstand ein komplettes Bestellsystem: Speisekarte in drei Sprachen, Abholung und Lieferung, Bestellstatus per Link, Küchen-Board fürs iPad mit Signalton, Dashboard für Preise und Öffnungszeiten, Zugänge für Mitarbeiter. Früher wäre ein solcher Umfang für einen einzelnen Betrieb kaum wirtschaftlich gewesen. Mit KI-gestützter Entwicklung wird er es.",
+          p: "Ein komplettes Bestellsystem für einen einzelnen Betrieb: Speisekarte mit Varianten, Abholung und Lieferung, Bestellstatus live, Küchen-Board fürs Tablet, Dashboard für Preise und Öffnungszeiten, Zugänge für Mitarbeiter – in unserer [Bestellsystem-Demo](/demo/restaurant) kannst du genau diesen Umfang ausprobieren. Früher wäre er für einen einzelnen Betrieb kaum wirtschaftlich gewesen. Mit KI-gestützter Entwicklung wird er es.",
         },
       ],
     },

@@ -1,4 +1,4 @@
-import type { NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import createIntlMiddleware from "next-intl/middleware";
 import { routing } from "@/i18n/routing";
 import { guardAdmin } from "@/lib/admin/middleware";
@@ -7,12 +7,15 @@ import { INTERNAL_COOKIE, INTERNAL_PARAM, internalCookieOptions } from "@/lib/in
 const intl = createIntlMiddleware(routing);
 
 /**
- * Eine Middleware, zwei Aufgaben:
+ * Eine Middleware, drei Aufgaben:
  *  - /admin/*  → Session-Cookie prüfen (Dashboard bleibt deutsch, ohne Sprach-Präfix)
+ *  - /demo/*   → Software-Demos: eigener Bereich ohne Sprach-Präfix (src/app/demo), läuft unverändert durch
  *  - alles andere → next-intl: Sprache erkennen, /en-Präfix & übersetzte Pfade auflösen
  */
 export async function middleware(request: NextRequest) {
-  if (request.nextUrl.pathname.startsWith("/admin")) return guardAdmin(request);
+  const { pathname } = request.nextUrl;
+  if (pathname.startsWith("/admin")) return guardAdmin(request);
+  if (pathname === "/demo" || pathname.startsWith("/demo/")) return NextResponse.next();
   const response = intl(request);
   // Prüf-Browser des Teams: /?intern=1 nimmt das Gerät dauerhaft aus der Besucherstatistik, /?intern=0 zählt es wieder mit.
   const internal = request.nextUrl.searchParams.get(INTERNAL_PARAM);

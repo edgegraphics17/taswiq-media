@@ -48,7 +48,7 @@ export const post: BlogPost = {
           ],
         },
         {
-          p: "Genau so haben wir das Bestellsystem für die [Bäckerei Daron Brot II in Aachen](/portfolio) gebaut: Deutsch, Englisch und Arabisch, Küchen-Board fürs iPad, Bestellstatus per Link und ein Dashboard für Öffnungszeiten, Preise und Artikel.",
+          p: "Genau das zeigt unsere [Bestellsystem-Demo](/demo/restaurant): Bestell bei der Muster-Pizzeria und wechsle danach ins Dashboard – deine Bestellung liegt dort im Küchen-Board, daneben Auswertung, Preise und Artikel zum Selbstpflegen.",
         },
       ],
     },

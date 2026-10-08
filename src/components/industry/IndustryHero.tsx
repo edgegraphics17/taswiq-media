@@ -1,6 +1,7 @@
 import Image from "next/image";
-import { ArrowRight, BellRing, Clapperboard, Globe } from "lucide-react";
+import { ArrowRight, BellRing, Clapperboard, Globe, MousePointerClick } from "lucide-react";
 import { ButtonLink } from "@/components/ui/Button";
+import { DemoLink } from "@/components/ui/DemoLink";
 import { Eyebrow } from "@/components/ui/SectionHeading";
 import { FloatCard } from "@/components/ui/FloatCard";
 import { Icon } from "@/components/ui/Icon";
@@ -9,6 +10,7 @@ import { HeroVideo } from "@/components/home/HeroVideo";
 import { WordRotator } from "@/components/home/WordRotator";
 import type { Module } from "@/components/industry/ModuleExplorer";
 import { TONES } from "@/components/industry/tones";
+import type { DemoSlug } from "@/demos/registry";
 import { cn } from "@/lib/format";
 
 export type IndustryHeroContent = {
@@ -43,11 +45,16 @@ export function IndustryHero({
   audiences,
   media,
   modules,
+  demo,
+  demoLabel,
 }: {
   content: IndustryHeroContent;
   audiences: string[];
   media: { image: string; frame: "browser" | "photo" | "mock"; url?: string; video?: string };
   modules: Module[];
+  /** Software-Demo dieser Branche: zusätzlicher Knopf, der Screenshot führt ebenfalls dorthin */
+  demo?: DemoSlug;
+  demoLabel?: string;
 }) {
   const mock = media.frame === "mock";
   const url = mock ? c.mockUrl : media.url;
@@ -72,6 +79,11 @@ export function IndustryHero({
           <ButtonLink href="#anfrage">
             {c.primary} <ArrowRight className="size-4" aria-hidden />
           </ButtonLink>
+          {demo && demoLabel && (
+            <DemoLink slug={demo}>
+              <MousePointerClick className="size-4 text-brand-600" aria-hidden /> {demoLabel}
+            </DemoLink>
+          )}
           <ButtonLink href="#anwendungsfaelle" variant="soft">
             {c.secondary}
           </ButtonLink>
@@ -106,9 +118,18 @@ export function IndustryHero({
                 {media.frame === "mock" && c.mockNote && <span className="ml-auto hidden shrink-0 rounded-full bg-canvas px-3 py-1 text-xs text-muted sm:block">{c.mockNote}</span>}
               </div>
               {media.frame === "browser" ? (
-                <div className="relative aspect-[4/3] sm:aspect-[16/9]">
-                  <Image src={media.image} alt={c.imageAlt} fill priority sizes="(min-width:1024px) 900px, 100vw" className="object-cover object-top" />
-                </div>
+                demo ? (
+                  <DemoLink slug={demo} variant="bare" className="group/demo relative block aspect-[4/3] sm:aspect-[16/9]" aria-label={demoLabel}>
+                    <Image src={media.image} alt={c.imageAlt} fill priority sizes="(min-width:1024px) 900px, 100vw" className="object-cover object-top" />
+                    <span className="absolute right-4 bottom-4 inline-flex min-h-11 items-center gap-2 rounded-full bg-night px-5 text-sm font-medium text-white shadow-[var(--shadow-float)] transition-transform group-hover/demo:-translate-y-0.5" aria-hidden>
+                      <MousePointerClick className="size-4" /> {demoLabel}
+                    </span>
+                  </DemoLink>
+                ) : (
+                  <div className="relative aspect-[4/3] sm:aspect-[16/9]">
+                    <Image src={media.image} alt={c.imageAlt} fill priority sizes="(min-width:1024px) 900px, 100vw" className="object-cover object-top" />
+                  </div>
+                )
               ) : (
                 <div role="img" aria-label={c.imageAlt} className="grid bg-canvas text-left sm:grid-cols-[200px_1fr]">
                   <ul className="hidden content-start gap-1 border-r border-line bg-white p-4 sm:grid" aria-hidden>

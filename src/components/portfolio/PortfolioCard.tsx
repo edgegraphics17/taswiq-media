@@ -2,15 +2,18 @@
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Globe, GripVertical, MapPin, Maximize2, Play } from "lucide-react";
+import { Globe, GripVertical, MapPin, Maximize2, MousePointerClick, Play } from "lucide-react";
 import type { PortfolioItem } from "@/config/content";
 import { djKits } from "@/config/kits";
+import { site } from "@/config/site";
 import { CaseVideo } from "@/components/portfolio/CaseVideo";
 import { PortfolioMock } from "@/components/portfolio/PortfolioMock";
 import { cn } from "@/lib/format";
 
 /** Host einer URL ohne "www." – für die Adresszeile im Browser-Rahmen */
 export const hostOf = (url: string) => new URL(url).host.replace(/^www\./, "");
+/** Adresszeile einer Software-Demo, z. B. "taswiq-media.de/demo/friseur" */
+export const demoHost = (slug: string) => `${hostOf(site.url)}/demo/${slug}`;
 
 /**
  * Medium eines Projekts:
@@ -20,7 +23,7 @@ export const hostOf = (url: string) => new URL(url).host.replace(/^www\./, "");
  */
 export function PortfolioVisual({ item, alt, sizes }: { item: PortfolioItem; alt: string; sizes?: string }) {
   const m = item.media;
-  if (m.type === "site") {
+  if (m.type === "site" || m.type === "demo") {
     return (
       <div className="absolute inset-0 flex flex-col bg-[linear-gradient(160deg,var(--color-brand-100),var(--color-blush-100))] px-4 pt-12 sm:px-5 sm:pt-13">
         <div className="flex flex-1 flex-col overflow-hidden rounded-t-xl bg-white shadow-[var(--shadow-float)]">
@@ -29,7 +32,7 @@ export function PortfolioVisual({ item, alt, sizes }: { item: PortfolioItem; alt
               <span key={c} className={cn("size-2 rounded-full", c)} aria-hidden />
             ))}
             <span className="ml-2 flex min-w-0 items-center gap-1 truncate rounded-full bg-canvas px-2.5 py-0.5 text-[10px] text-muted">
-              <Globe className="size-2.5 shrink-0" aria-hidden /> {hostOf(m.url)}
+              <Globe className="size-2.5 shrink-0" aria-hidden /> {m.type === "demo" ? demoHost(m.slug) : hostOf(m.url)}
             </span>
           </div>
           <div className="relative flex-1">
@@ -86,7 +89,7 @@ export function PortfolioCard({ item, onOpen }: { item: PortfolioItem; onOpen: (
           </span>
         )}
         <span className="pointer-events-none absolute right-3 bottom-3 grid size-10 place-items-center rounded-full bg-white/90 text-ink opacity-0 shadow-[var(--shadow-soft)] backdrop-blur transition-opacity duration-300 group-focus-within:opacity-100 group-hover:opacity-100 max-md:opacity-100">
-          {isVideo ? <Play className="size-4 translate-x-px fill-current" aria-hidden /> : <Maximize2 className="size-4" aria-hidden />}
+          {isVideo ? <Play className="size-4 translate-x-px fill-current" aria-hidden /> : m.type === "demo" ? <MousePointerClick className="size-4" aria-hidden /> : <Maximize2 className="size-4" aria-hidden />}
         </span>
       </div>
       <div className="flex flex-1 flex-col px-3.5 pt-4 pb-3.5">

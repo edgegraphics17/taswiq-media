@@ -65,7 +65,7 @@ export const post: BlogPost = {
           },
         },
         {
-          p: "Wie ein mehrsprachiges Portal mit Upload und Checkliste aussieht, zeigt unsere Web-App [Antragsbruder](/portfolio): Nutzer laden Unterlagen hoch und sehen, was noch fehlt – in neun Sprachen.",
+          p: "Wie ein Portal mit Upload, Aufgabenliste und Nachrichten aussieht, zeigt unsere [Portal-Demo](/demo/steuerkanzlei) – dort für eine Kanzlei, das Prinzip ist dasselbe. Die Vermarktungsseite dazu findest du in der [Immobilien-Demo](/demo/immobilien).",
         },
       ],
     },

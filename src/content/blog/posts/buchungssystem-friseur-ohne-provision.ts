@@ -41,7 +41,7 @@ export const post: BlogPost = {
           ],
         },
         {
-          p: "Für den [OMED Friseursalon in Aachen-Burtscheid](/portfolio) haben wir genau das gebaut: eigene Website mit mehrstufiger Buchung, Kalender und Zeitfenstern. Zwei Buchungen zur selben Zeit sind auf Datenbank-Ebene ausgeschlossen – nicht nur optisch.",
+          p: "Wie das aussieht, zeigt unsere [Buchungs-Demo mit dem Muster-Salon Kammwerk](/demo/friseur): Leistung wählen, Person und Zeit aussuchen, fertig – und der Termin steht im Teamkalender. Zwei Buchungen zur selben Zeit sind auf Datenbank-Ebene ausgeschlossen – nicht nur optisch.",
         },
       ],
     },

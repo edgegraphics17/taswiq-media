@@ -43,7 +43,7 @@ export const post: BlogPost = {
           ],
         },
         {
-          p: "Ein gutes Vorbild für diese Art von Oberfläche ist [Antragsbruder](/portfolio), eine Web-App, die wir gebaut haben: Nutzer laden Briefe und Unterlagen hoch, bekommen erklärt, was verlangt wird, und sehen per Checkliste, was noch fehlt – in neun Sprachen.",
+          p: "Wie das aussieht, zeigt unsere [Mandantenportal-Demo](/demo/steuerkanzlei): Lad als Mandantin einen Beleg hoch, gib eine Steuererklärung frei – und wechsle danach in die Kanzlei-Ansicht mit Belegstand und Fristen aller Mandate.",
         },
       ],
     },

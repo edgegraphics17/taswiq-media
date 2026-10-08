@@ -62,7 +62,7 @@ export const post: BlogPost = {
           ],
         },
         {
-          p: "Die Web-App [Antragsbruder](/portfolio) ist ein gutes Beispiel: Nutzer laden Unterlagen hoch, nutzen Rechner und verwalten ihr Konto – im Browser, in neun Sprachen, ohne App Store.",
+          p: "Unsere [Software-Demos](/demo) sind gute Beispiele: Bestellen, Termine buchen, Unterlagen hochladen, Aufträge unterschreiben – alles im Browser, auf jedem Gerät, ohne App Store.",
         },
       ],
     },

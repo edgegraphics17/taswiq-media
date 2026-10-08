@@ -1,3 +1,5 @@
+import type { DemoSlug } from "@/demos/registry";
+
 /**
  * Struktur der Startseite & des Portfolios.
  * Hier stehen nur sprachunabhängige Daten (IDs, Icons, Medien, Links, Eigennamen).
@@ -25,11 +27,12 @@ export const compareRows = ["fees", "data", "brand", "features", "exit"] as cons
 /* ─────────────────────────── PORTFOLIO ─────────────────────────── */
 
 export type PortfolioId =
-  | "daron"
-  | "omed"
-  | "antragsbruder"
-  | "klarvoran"
-  | "mipp"
+  | "demo-restaurant"
+  | "demo-friseur"
+  | "demo-immobilien"
+  | "demo-werkstatt"
+  | "demo-steuerkanzlei"
+  | "demo-handwerk"
   | "taswiq-system"
   | "reviews"
   | "lilys"
@@ -59,6 +62,8 @@ export type PortfolioId =
 export type PortfolioCat = "software" | "web" | "ai" | "gastro" | "immobilien" | "events" | "media";
 
 export type PortfolioMedia =
+  /** Software-Demo mit Musterfirma: Screenshot + Link auf /demo/<slug> (src/demos) */
+  | { type: "demo"; image: string; slug: DemoSlug }
   /** Live-Website oder Web-App: Screenshot + Link */
   | { type: "site"; image: string; url: string }
   /** Film oder Reel: stummer Vorschau-Loop + optional voller Film mit Ton */
@@ -86,7 +91,7 @@ export interface ComparePair {
 export interface PortfolioItem {
   id: PortfolioId;
   cats: PortfolioCat[];
-  /** live = echtes Kundenprojekt online · demo = Demo/Pilot · film / reel = Media-Projekt · case = Kampagne/Referenz · internal = eigenes System */
+  /** live = echtes Kundenprojekt online · demo = Software-Demo mit Musterfirma · film / reel = Media-Projekt · case = Kampagne/Referenz · internal = eigenes System */
   kind: "live" | "demo" | "film" | "reel" | "case" | "internal";
   media: PortfolioMedia;
   /** Eigennamen/Orte – werden nicht übersetzt */
@@ -99,13 +104,20 @@ export interface PortfolioItem {
 
 /**
  * Texte: portfolio.items.<id> (title, tag, text, result, services[])
- * "web" = Websites & Software (bei uns immer beides in einem) · "ai" = KI-Content
+ * "web" = Software-Demos (seit 2026-10 statt Kundenprojekten: jede Software zum Ausprobieren) · "ai" = KI-Content
  */
 export const portfolioFilters = ["alle", "web", "ai", "gastro", "events", "media"] as const;
 export type PortfolioFilter = (typeof portfolioFilters)[number];
 
 export const portfolioItems: PortfolioItem[] = [
-  /* Hotel- & Restaurantfilme – ganz oben, damit die Seite mit Bewegtbild startet */
+  /* Software-Demos – ganz oben: Software ist das Hauptgeschäft, und jede Demo lässt sich sofort ausprobieren */
+  { id: "demo-restaurant", cats: ["software", "web", "gastro"], kind: "demo", media: { type: "demo", image: "/images/demo/restaurant.jpg", slug: "restaurant" } },
+  { id: "demo-friseur", cats: ["software", "web"], kind: "demo", media: { type: "demo", image: "/images/demo/friseur.jpg", slug: "friseur" } },
+  { id: "demo-handwerk", cats: ["software", "web"], kind: "demo", media: { type: "demo", image: "/images/demo/handwerk.jpg", slug: "handwerk" } },
+  { id: "demo-steuerkanzlei", cats: ["software", "web"], kind: "demo", media: { type: "demo", image: "/images/demo/steuerkanzlei.jpg", slug: "steuerkanzlei" } },
+  { id: "demo-immobilien", cats: ["software", "web", "immobilien"], kind: "demo", media: { type: "demo", image: "/images/demo/immobilien.jpg", slug: "immobilien" } },
+  { id: "demo-werkstatt", cats: ["software", "web"], kind: "demo", media: { type: "demo", image: "/images/demo/werkstatt.jpg", slug: "werkstatt" } },
+  /* Hotel- & Restaurantfilme */
   {
     id: "cinnamon",
     cats: ["gastro"],
@@ -311,42 +323,6 @@ export const portfolioItems: PortfolioItem[] = [
     kind: "reel",
     media: { type: "video", poster: "/images/portfolio/bread.jpg", preview: "/videos/portfolio/bread-preview.mp4", full: "/videos/portfolio/bread.mp4", orientation: "v" },
   },
-  /* Websites & Software – immer beides in einem */
-  {
-    id: "daron",
-    cats: ["software", "web"],
-    kind: "live",
-    media: { type: "site", image: "/images/portfolio/site-daron.jpg", url: "https://daron-brot-ii.vercel.app" },
-    location: "Aachen",
-  },
-  {
-    id: "omed",
-    cats: ["software", "web"],
-    kind: "live",
-    media: { type: "site", image: "/images/portfolio/site-omed.jpg", url: "https://omed-friseursalon.vercel.app" },
-    location: "Aachen-Burtscheid",
-  },
-  {
-    id: "antragsbruder",
-    cats: ["software", "web"],
-    kind: "live",
-    media: { type: "site", image: "/images/portfolio/site-antragsbruder.jpg", url: "https://www.antragsbruder.de" },
-    location: "Deutschland",
-  },
-  {
-    id: "klarvoran",
-    cats: ["web"],
-    kind: "live",
-    media: { type: "site", image: "/images/portfolio/site-klarvoran.jpg", url: "https://www.klarvoran.de" },
-    location: "Kriftel · Rhein-Main",
-  },
-  {
-    id: "mipp",
-    cats: ["web"],
-    kind: "demo",
-    media: { type: "site", image: "/images/portfolio/site-mipp.jpg", url: "https://mipp-website.vercel.app" },
-    location: "Malaysia",
-  },
   /* Ausgeblendet (hidden): nicht auf /portfolio, nur noch über Landingpages per id erreichbar */
   {
     id: "taswiq-system",
@@ -372,12 +348,12 @@ export const getPortfolioItem = (id: PortfolioId) => portfolioItems.find((p) => 
 /** Alles, was auf /portfolio erscheint – Reihenfolge = Reihenfolge oben */
 export const visiblePortfolioItems = portfolioItems.filter((p) => !p.hidden);
 
-/** Startseite: Software zuerst (Positionierung), danach Media als Beweis */
-export const featuredPortfolioIds: PortfolioId[] = ["daron", "omed", "antragsbruder", "klarvoran", "agile", "mangal"];
+/** Startseite: Software-Demos zuerst (Positionierung), danach Media als Beweis */
+export const featuredPortfolioIds: PortfolioId[] = ["demo-restaurant", "demo-friseur", "demo-handwerk", "demo-steuerkanzlei", "agile", "mangal"];
 
 /** Vorschaubild eines Projekts (für Avatare, Teaser) */
 export function thumbOf(p: PortfolioItem): string | undefined {
-  if (p.media.type === "site") return p.media.image;
+  if (p.media.type === "site" || p.media.type === "demo") return p.media.image;
   if (p.media.type === "video" || p.media.type === "pack" || p.media.type === "compare" || p.media.type === "kits") return p.media.poster;
   return undefined;
 }

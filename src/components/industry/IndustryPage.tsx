@@ -9,6 +9,7 @@ import { Process, type ProcessContent } from "@/components/home/Process";
 import { FaqSection } from "@/components/product/FaqSection";
 import { PricingSection, type Pack } from "@/components/product/PricingSection";
 import { ButtonLink } from "@/components/ui/Button";
+import { DemoLink } from "@/components/ui/DemoLink";
 import { ICONS } from "@/components/ui/Icon";
 import { Reveal } from "@/components/ui/Reveal";
 import { Eyebrow, SectionHeading } from "@/components/ui/SectionHeading";
@@ -53,7 +54,7 @@ export async function IndustryPage({ page, locale }: { page: SeoPage; locale: Lo
 
   return (
     <>
-      <IndustryHero content={merged<IndustryHeroContent>("hero")} audiences={audiences.map((a) => a.label)} media={page.hero} modules={modules} />
+      <IndustryHero content={merged<IndustryHeroContent>("hero")} audiences={audiences.map((a) => a.label)} media={page.hero} modules={modules} demo={page.demo} demoLabel={tc("tryDemo")} />
 
       <section id="fuer-wen" aria-labelledby="fuer-wen-title" className="scroll-mt-24 py-16 sm:py-20">
         <div className="container-x">
@@ -111,9 +112,15 @@ export async function IndustryPage({ page, locale }: { page: SeoPage; locale: Lo
                 <p className="mt-2 text-[15px] leading-relaxed text-night-muted">{t("spotlight.text")}</p>
                 <div className="mt-5 flex flex-wrap items-center gap-3">
                   <span className="num rounded-full bg-white/[0.08] px-4 py-2.5 text-sm font-medium text-white">{t("spotlight.badge")}</span>
-                  <ButtonLink href={page.spotlight.href} variant="ghost-night">
-                    {t("spotlight.cta")} <ArrowRight className="size-4" aria-hidden />
-                  </ButtonLink>
+                  {page.spotlight.demo ? (
+                    <DemoLink slug={page.spotlight.demo} variant="ghost-night">
+                      {t("spotlight.cta")} <ArrowRight className="size-4" aria-hidden />
+                    </DemoLink>
+                  ) : (
+                    <ButtonLink href={page.spotlight.href} variant="ghost-night">
+                      {t("spotlight.cta")} <ArrowRight className="size-4" aria-hidden />
+                    </ButtonLink>
+                  )}
                 </div>
               </div>
             </Reveal>

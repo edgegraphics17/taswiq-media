@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-import { ArrowRight, BadgeCheck, Check, Globe, Mail, MessageCircle, Phone, Send } from "lucide-react";
+import { ArrowRight, BadgeCheck, Check, Globe, Mail, MessageCircle, MousePointerClick, Phone, Send } from "lucide-react";
 import { getSeoPageById, type IndustryPageId, type SeoPage, type ServicePageId } from "@/config/seo-pages";
 import { rentPerMonth, runningCosts, serviceOffers } from "@/config/packages";
 import { site } from "@/config/site";
@@ -9,6 +9,7 @@ import { FaqSection } from "@/components/product/FaqSection";
 import { DirectContact } from "@/components/industry/DirectContact";
 import { TONES, type Tone } from "@/components/industry/tones";
 import { ButtonLink } from "@/components/ui/Button";
+import { DemoLink } from "@/components/ui/DemoLink";
 import { PartnerBadge } from "@/components/ui/PartnerBadge";
 import { Reveal } from "@/components/ui/Reveal";
 import { Eyebrow } from "@/components/ui/SectionHeading";
@@ -31,7 +32,7 @@ type Hero = {
   accent: string;
   text: string;
   imageAlt: string;
-  /** Hinweis auf die echte Referenz im Bild, z. B. "Live bei Daron Brot II" */
+  /** Hinweis-Pille am Bild, z. B. "Demo: Pizzeria Fiamma – ausprobieren" (führt zur Demo, wenn die Seite eine hat) */
   refNote?: string;
   facts: { value: string; label: string }[];
   mockUrl?: string;
@@ -140,14 +141,22 @@ export async function ServicePage({ page, locale }: { page: SeoPage; locale: Loc
                 </div>
               )}
             </div>
-            {hero.refNote && (
-              <p className="absolute bottom-0 left-4 inline-flex animate-float-slow items-center gap-2.5 rounded-full border border-line bg-white py-2 pr-5 pl-2 text-sm font-medium text-ink shadow-[var(--shadow-float)] sm:-left-5">
-                <span className="grid size-8 shrink-0 place-items-center rounded-full bg-mint-500 text-white">
-                  <BadgeCheck className="size-4" aria-hidden />
-                </span>
-                {hero.refNote}
-              </p>
-            )}
+            {hero.refNote &&
+              (page.demo ? (
+                <DemoLink slug={page.demo} variant="bare" className="absolute bottom-0 left-4 inline-flex min-h-11 animate-float-slow items-center gap-2.5 rounded-full border border-line bg-white py-2 pr-5 pl-2 text-sm font-medium text-ink shadow-[var(--shadow-float)] transition-colors hover:border-brand-300 sm:-left-5">
+                  <span className="grid size-8 shrink-0 place-items-center rounded-full bg-brand-500 text-white">
+                    <MousePointerClick className="size-4" aria-hidden />
+                  </span>
+                  {hero.refNote}
+                </DemoLink>
+              ) : (
+                <p className="absolute bottom-0 left-4 inline-flex animate-float-slow items-center gap-2.5 rounded-full border border-line bg-white py-2 pr-5 pl-2 text-sm font-medium text-ink shadow-[var(--shadow-float)] sm:-left-5">
+                  <span className="grid size-8 shrink-0 place-items-center rounded-full bg-mint-500 text-white">
+                    <BadgeCheck className="size-4" aria-hidden />
+                  </span>
+                  {hero.refNote}
+                </p>
+              ))}
           </div>
         </div>
       </section>

@@ -13,8 +13,8 @@ import { InView } from "@/components/ui/InView";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { FloatCard } from "@/components/ui/FloatCard";
 import { cn } from "@/lib/format";
-import omed from "../../../public/images/portfolio/site-omed.jpg";
-import antrag from "../../../public/images/portfolio/site-antragsbruder.jpg";
+import booking from "../../../public/images/demo/friseur.jpg";
+import portal from "../../../public/images/demo/steuerkanzlei.jpg";
 
 type Item = { id: string; icon: string; title: string; text: string; tags: string[]; href: { pathname: "/leistungen/[slug]"; params: { slug: string } } };
 
@@ -56,7 +56,7 @@ export async function Services() {
             </div>
             <div className="relative min-h-56">
               <div className="absolute inset-0 overflow-hidden rounded-[1.5rem] border border-line">
-                <Image src={omed} alt={t("systemsImageAlt")} fill sizes="(min-width:1024px) 420px, 100vw" className="object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+                <Image src={booking} alt={t("systemsImageAlt")} fill sizes="(min-width:1024px) 420px, 100vw" className="object-cover object-top transition-transform duration-700 group-hover:scale-105" />
               </div>
               <FloatCard className="-bottom-4 -left-3 !rounded-full px-4 py-2">
                 <p className="text-xs font-medium">{t("systemsBadge")}</p>
@@ -78,7 +78,7 @@ export async function Services() {
             <p className="mt-2.5 text-[15px] leading-relaxed text-night-muted">{custom.text}</p>
             <Tags tags={custom.tags} dark className="mt-5" />
             <div className="relative mt-6 min-h-52 flex-1 overflow-hidden rounded-[1.5rem]">
-              <Image src={antrag} alt={t("customImageAlt")} fill sizes="(min-width:1024px) 400px, 100vw" className="object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+              <Image src={portal} alt={t("customImageAlt")} fill sizes="(min-width:1024px) 400px, 100vw" className="object-cover object-top transition-transform duration-700 group-hover:scale-105" />
             </div>
           </article>
 

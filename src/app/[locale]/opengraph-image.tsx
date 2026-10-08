@@ -16,11 +16,11 @@ export async function generateImageMetadata({ params }: { params: { locale: Loca
   return [{ id: "default", alt: t("alt"), size, contentType }];
 }
 
-/** Social-Vorschaubild je Sprache: echtes Projekt (Bestellsystem) als Hintergrund, dunkler Verlauf, violette Headline. */
+/** Social-Vorschaubild je Sprache: Bestellsystem-Demo als Hintergrund, dunkler Verlauf, violette Headline. */
 export default async function OpengraphImage({ params }: { params: Promise<{ locale: Locale }> | { locale: Locale } }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "og" });
-  const poster = await readFile(path.join(process.cwd(), "public/images/portfolio/site-daron.jpg"));
+  const poster = await readFile(path.join(process.cwd(), "public/images/demo/restaurant.jpg"));
   const src = `data:image/jpeg;base64,${poster.toString("base64")}`;
   return new ImageResponse(
     (

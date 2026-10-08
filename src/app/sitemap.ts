@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { seoPages } from "@/config/seo-pages";
 import { posts } from "@/content/blog";
+import { site } from "@/config/site";
+import { demos } from "@/demos/registry";
 import { routing, type Locale } from "@/i18n/routing";
 import { absoluteUrl, languageAlternates, type PathHref } from "@/lib/seo";
 
@@ -46,5 +48,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
-  return [...localized, ...blog];
+  // Software-Demos: nur Deutsch, außerhalb der Sprach-Routen
+  const demoPages: MetadataRoute.Sitemap = [
+    { url: `${site.url}/demo`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    ...demos.map((d) => ({ url: `${site.url}/demo/${d.slug}`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 })),
+  ];
+
+  return [...localized, ...demoPages, ...blog];
 }

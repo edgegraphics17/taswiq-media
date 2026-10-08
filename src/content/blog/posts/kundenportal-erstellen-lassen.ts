@@ -104,7 +104,7 @@ export const post: BlogPost = {
           p: "Es gibt fertige Portal-Lösungen im Abo, oft als Teil einer Branchensoftware. Wenn deine Software ein Portal mitbringt, das zu deinem Ablauf passt, ist das der schnellste Weg. Ein eigenes Portal lohnt sich, wenn dein Ablauf anders ist als der Standard, wenn das Portal unter deiner Marke und in den Sprachen deiner Kunden laufen soll oder wenn die Abo-Kosten mit jedem Nutzer steigen. Die Abwägung im Detail steht im Ratgeber [Individualsoftware vs. Standardsoftware](/blog/individualsoftware-vs-standardsoftware).",
         },
         {
-          p: "Ein Beispiel aus einem echten Projekt ist [Antragsbruder](/portfolio): Nutzer laden Briefe und Unterlagen hoch, bekommen erklärt, was verlangt wird, und sehen per Checkliste, was noch fehlt – im Browser, in neun Sprachen, ohne App Store.",
+          p: "Wie sich so ein Portal anfühlt, kannst du in unserer [Mandantenportal-Demo](/demo/steuerkanzlei) ausprobieren: Unterlagen hochladen, per Aufgabenliste sehen, was noch fehlt, Dokumente freigeben und Nachrichten schreiben – im Browser, ohne App Store.",
         },
       ],
     },

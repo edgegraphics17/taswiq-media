@@ -146,7 +146,7 @@ export const starterOffer = {
   price: startTier.price,
   proPrice: serviceOffers.bestellsystem.tiers[1].price,
   extras: { whatsapp: extraPrice("whatsapp"), mehrsprachig: extraPrice("mehrsprachig"), seo: extraPrice("seo") },
-  reference: "daron",
+  reference: "demo-restaurant",
 } as const;
 
 export const allPackages =[...softwarePackages, ...mediaPackages];

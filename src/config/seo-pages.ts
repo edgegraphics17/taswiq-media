@@ -1,6 +1,7 @@
 import type { FunnelIndustry, InterestId } from "@/config/funnel";
 import type { PackageId } from "@/config/packages";
 import type { PortfolioId } from "@/config/content";
+import type { DemoSlug } from "@/demos/registry";
 import type { Locale } from "@/i18n/routing";
 
 /**
@@ -36,10 +37,12 @@ export interface SeoPage {
   portfolio: PortfolioId[];
   /** Passende Ratgeber-Artikel (Blog-Slugs) */
   blog: string[];
-  /** Hero: Screenshot im Browser-Rahmen, Foto/Film oder – ohne passende Referenz – Beispielansicht aus den Modulen ("mock") */
+  /** Software-Demo zum Ausprobieren (/demo/<slug>) – Hero und Hinweis-Pille verlinken dorthin */
+  demo?: DemoSlug;
+  /** Hero: Screenshot im Browser-Rahmen, Foto/Film oder – ohne passendes Bild – Beispielansicht aus den Modulen ("mock") */
   hero: { image: string; frame: "browser" | "photo" | "mock"; url?: string; video?: string };
-  /** Branchenseiten: echte Referenz oder passende Ergänzung unter den Paketen (Texte: seoPages.<id>.spotlight) */
-  spotlight?: { image: string; href: "/portfolio" };
+  /** Branchenseiten: Demo oder passende Ergänzung unter den Paketen (Texte: seoPages.<id>.spotlight) · `demo` verlinkt die Demo statt des Portfolios */
+  spotlight?: { image: string; href: "/portfolio"; demo?: DemoSlug };
   city?: string;
 }
 
@@ -55,9 +58,10 @@ export const seoPages: SeoPage[] = [
     packages: "software",
     highlightPackage: "system",
     featureIcons: ["cart", "chef", "card", "calendar", "chart", "languages"],
-    portfolio: ["daron", "cinnamon", "il-forno", "mangal"],
+    demo: "restaurant",
+    portfolio: ["demo-restaurant", "cinnamon", "il-forno", "mangal"],
     blog: ["tischreservierungssystem", "digitalisierung-handwerk-foerderung", "qr-code-bestellsystem", "bestellsystem-baeckerei", "eigenes-bestellsystem-statt-lieferando", "saas-abo-oder-eigene-software"],
-    hero: { image: "/images/portfolio/site-daron.jpg", frame: "browser", url: "daron-brot-ii.vercel.app" },
+    hero: { image: "/images/demo/restaurant.jpg", frame: "browser", url: "taswiq-media.de/demo/restaurant" },
     spotlight: { image: "/images/cases/il-forno.jpg", href: "/portfolio" },
   },
   {
@@ -70,7 +74,8 @@ export const seoPages: SeoPage[] = [
     packages: "software",
     highlightPackage: "custom",
     featureIcons: ["building", "users", "file", "wrench", "workflow", "chart"],
-    portfolio: ["agile"],
+    demo: "immobilien",
+    portfolio: ["demo-immobilien", "agile"],
     blog: ["mieterportal", "software-fuer-makler-und-hausverwaltungen", "individualsoftware-mittelstand-kosten"],
     hero: { image: "/images/portfolio/agile.jpg", frame: "photo", video: "/videos/portfolio/agile-hero.mp4" },
     spotlight: { image: "/images/portfolio/agile.jpg", href: "/portfolio" },
@@ -85,10 +90,11 @@ export const seoPages: SeoPage[] = [
     packages: "software",
     highlightPackage: "system",
     featureIcons: ["car", "calendar", "smartphone", "users", "card", "chart"],
-    portfolio: ["omed", "taswiq-system", "daron"],
+    demo: "werkstatt",
+    portfolio: ["demo-werkstatt", "demo-friseur", "taswiq-system"],
     blog: ["werkstatt-termin-online-buchen", "digitalisierung-autohaus-fahrschule", "web-app-oder-native-app"],
-    hero: { image: "/images/portfolio/site-omed.jpg", frame: "mock" },
-    spotlight: { image: "/images/portfolio/site-omed.jpg", href: "/portfolio" },
+    hero: { image: "/images/demo/werkstatt.jpg", frame: "browser", url: "taswiq-media.de/demo/werkstatt" },
+    spotlight: { image: "/images/demo/werkstatt.jpg", href: "/portfolio", demo: "werkstatt" },
   },
   {
     id: "kanzlei",
@@ -100,10 +106,11 @@ export const seoPages: SeoPage[] = [
     packages: "software",
     highlightPackage: "custom",
     featureIcons: ["lock", "file", "sparkles", "calendar", "workflow", "shield"],
-    portfolio: ["antragsbruder", "klarvoran", "taswiq-system"],
+    demo: "steuerkanzlei",
+    portfolio: ["demo-steuerkanzlei", "demo-immobilien", "taswiq-system"],
     blog: ["kundenportal-erstellen-lassen", "mandantenportal-steuerberater", "ki-automatisierung-mittelstand"],
-    hero: { image: "/images/portfolio/site-antragsbruder.jpg", frame: "browser", url: "antragsbruder.de" },
-    spotlight: { image: "/images/portfolio/site-klarvoran.jpg", href: "/portfolio" },
+    hero: { image: "/images/demo/steuerkanzlei.jpg", frame: "browser", url: "taswiq-media.de/demo/steuerkanzlei" },
+    spotlight: { image: "/images/demo/steuerkanzlei.jpg", href: "/portfolio", demo: "steuerkanzlei" },
   },
   {
     id: "beauty",
@@ -115,10 +122,11 @@ export const seoPages: SeoPage[] = [
     packages: "software",
     highlightPackage: "system",
     featureIcons: ["calendar", "users", "message", "card", "star", "chart"],
-    portfolio: ["omed", "klarvoran", "daron"],
+    demo: "friseur",
+    portfolio: ["demo-friseur", "demo-restaurant", "demo-werkstatt"],
     blog: ["treatwell-alternative", "buchungssystem-friseur-ohne-provision", "was-kostet-eine-website"],
-    hero: { image: "/images/portfolio/site-omed.jpg", frame: "browser", url: "omed-friseursalon.vercel.app" },
-    spotlight: { image: "/images/portfolio/mobile-omed.jpg", href: "/portfolio" },
+    hero: { image: "/images/demo/friseur.jpg", frame: "browser", url: "taswiq-media.de/demo/friseur" },
+    spotlight: { image: "/images/demo/friseur.jpg", href: "/portfolio", demo: "friseur" },
   },
   {
     id: "handwerk",
@@ -130,9 +138,10 @@ export const seoPages: SeoPage[] = [
     packages: "software",
     highlightPackage: "custom",
     featureIcons: ["file", "calendar", "smartphone", "camera", "card", "chart"],
-    portfolio: ["taswiq-system", "antragsbruder", "omed"],
+    demo: "handwerk",
+    portfolio: ["demo-handwerk", "demo-steuerkanzlei", "taswiq-system"],
     blog: ["digitalisierung-handwerk-foerderung", "handwerkersoftware-kleinbetriebe", "software-fuer-handwerker-und-dienstleister", "unternehmens-dashboard-kennzahlen"],
-    hero: { image: "/images/portfolio/site-antragsbruder.jpg", frame: "mock" },
+    hero: { image: "/images/demo/handwerk.jpg", frame: "browser", url: "taswiq-media.de/demo/handwerk" },
   },
 
   /* ─── Leistungen ─── */
@@ -146,9 +155,10 @@ export const seoPages: SeoPage[] = [
     packages: "software",
     highlightPackage: "custom",
     featureIcons: ["search", "frame", "code", "plug", "shield", "refresh"],
-    portfolio: ["antragsbruder", "daron", "taswiq-system"],
+    demo: "handwerk",
+    portfolio: ["demo-handwerk", "demo-steuerkanzlei", "taswiq-system"],
     blog: ["individualsoftware-vs-standardsoftware", "software-entwickeln-lassen-kosten", "individualsoftware-mittelstand-kosten", "software-mit-ki-entwickeln"],
-    hero: { image: "/images/portfolio/site-antragsbruder.jpg", frame: "browser", url: "antragsbruder.de" },
+    hero: { image: "/images/demo/handwerk.jpg", frame: "browser", url: "taswiq-media.de/demo/handwerk" },
   },
   {
     id: "bestellsystem",
@@ -160,9 +170,10 @@ export const seoPages: SeoPage[] = [
     packages: "software",
     highlightPackage: "system",
     featureIcons: ["cart", "card", "chef", "map", "message", "chart"],
-    portfolio: ["daron", "il-forno", "mangal"],
+    demo: "restaurant",
+    portfolio: ["demo-restaurant", "il-forno", "mangal"],
     blog: ["qr-code-bestellsystem", "bestellsystem-baeckerei", "eigenes-bestellsystem-statt-lieferando", "saas-abo-oder-eigene-software"],
-    hero: { image: "/images/portfolio/site-daron.jpg", frame: "browser", url: "daron-brot-ii.vercel.app" },
+    hero: { image: "/images/demo/restaurant.jpg", frame: "browser", url: "taswiq-media.de/demo/restaurant" },
   },
   {
     id: "buchungssystem",
@@ -174,9 +185,10 @@ export const seoPages: SeoPage[] = [
     packages: "software",
     highlightPackage: "system",
     featureIcons: ["calendar", "shield", "message", "card", "users", "chart"],
-    portfolio: ["omed", "klarvoran", "daron"],
+    demo: "friseur",
+    portfolio: ["demo-friseur", "demo-werkstatt", "demo-restaurant"],
     blog: ["online-buchungssystem-fuer-kurse", "treatwell-alternative", "buchungssystem-physiotherapie", "buchungssystem-friseur-ohne-provision", "digitalisierung-autohaus-fahrschule"],
-    hero: { image: "/images/portfolio/site-omed.jpg", frame: "browser", url: "omed-friseursalon.vercel.app" },
+    hero: { image: "/images/demo/friseur.jpg", frame: "browser", url: "taswiq-media.de/demo/friseur" },
   },
   {
     id: "webapp",
@@ -188,9 +200,10 @@ export const seoPages: SeoPage[] = [
     packages: "software",
     highlightPackage: "custom",
     featureIcons: ["lock", "file", "smartphone", "languages", "plug", "zap"],
-    portfolio: ["antragsbruder", "daron", "omed"],
+    demo: "steuerkanzlei",
+    portfolio: ["demo-steuerkanzlei", "demo-immobilien", "demo-werkstatt"],
     blog: ["kundenportal-erstellen-lassen", "software-entwickeln-lassen-kosten", "web-app-oder-native-app", "mandantenportal-steuerberater"],
-    hero: { image: "/images/portfolio/site-antragsbruder.jpg", frame: "browser", url: "antragsbruder.de" },
+    hero: { image: "/images/demo/steuerkanzlei.jpg", frame: "browser", url: "taswiq-media.de/demo/steuerkanzlei" },
   },
   {
     id: "dashboard",
@@ -202,9 +215,9 @@ export const seoPages: SeoPage[] = [
     packages: "software",
     highlightPackage: "custom",
     featureIcons: ["chart", "plug", "zap", "users", "sparkles", "smartphone"],
-    portfolio: ["taswiq-system", "daron", "antragsbruder"],
+    portfolio: ["taswiq-system", "demo-restaurant", "demo-handwerk"],
     blog: ["unternehmens-dashboard-kennzahlen", "ki-automatisierung-mittelstand"],
-    hero: { image: "/images/portfolio/site-daron.jpg", frame: "mock" },
+    hero: { image: "/images/demo/handwerk.jpg", frame: "mock" },
   },
   {
     id: "ki",
@@ -216,9 +229,9 @@ export const seoPages: SeoPage[] = [
     packages: "software",
     highlightPackage: "system",
     featureIcons: ["message", "file", "phone", "workflow", "star", "chart"],
-    portfolio: ["reviews", "taswiq-system", "antragsbruder"],
+    portfolio: ["reviews", "taswiq-system", "demo-steuerkanzlei"],
     blog: ["ki-telefonassistent-kosten", "ki-automatisierung-mittelstand", "software-mit-ki-entwickeln"],
-    hero: { image: "/images/portfolio/site-antragsbruder.jpg", frame: "mock" },
+    hero: { image: "/images/demo/steuerkanzlei.jpg", frame: "mock" },
   },
   {
     id: "website",
@@ -230,9 +243,10 @@ export const seoPages: SeoPage[] = [
     packages: "software",
     highlightPackage: "website",
     featureIcons: ["monitor", "search", "sparkles", "zap", "languages", "chart"],
-    portfolio: ["klarvoran", "omed", "mipp"],
+    demo: "immobilien",
+    portfolio: ["demo-immobilien", "demo-friseur", "demo-restaurant"],
     blog: ["website-erstellen-lassen-monatliche-kosten", "was-kostet-eine-website", "saas-abo-oder-eigene-software"],
-    hero: { image: "/images/portfolio/site-klarvoran.jpg", frame: "browser", url: "klarvoran.de" },
+    hero: { image: "/images/demo/immobilien.jpg", frame: "browser", url: "taswiq-media.de/demo/immobilien" },
   },
 
   /* ─── Premium-Media ─── */

@@ -10,6 +10,7 @@ import { FaqSection } from "@/components/product/FaqSection";
 import { ProblemSection } from "@/components/product/ProblemSection";
 import { Timeline, type TimelineContent } from "@/components/service/ServiceSections";
 import { ButtonLink } from "@/components/ui/Button";
+import { DemoLink, demoHref } from "@/components/ui/DemoLink";
 import { PartnerBadge } from "@/components/ui/PartnerBadge";
 import { Reveal } from "@/components/ui/Reveal";
 import { Eyebrow, SectionHeading } from "@/components/ui/SectionHeading";
@@ -20,7 +21,7 @@ type Problem = { tag: string; title: string; text: string; points: string[]; sto
 type Scope = { tag: string; title: string; accent: string; text: string; includedTitle: string; included: { title: string; text: string }[]; laterTitle: string; laterText: string; later: { label: string; hint: string; price: string }[] };
 type Way = { title: string; lead: string; unit: string; points: string[]; cta: string; badge?: string };
 type Price = { tag: string; title: string; accent: string; text: string; buy: Way; rent: Way };
-type Reference = { tag: string; title: string; accent: string; note: string; visit: string; opensNewTab: string };
+type Reference = { tag: string; title: string; accent: string; note: string; visit: string };
 type Contact = { title: string; accent: string; text: string; points: string[]; formTitle: string; formText: string; submit: string };
 
 /**
@@ -43,8 +44,10 @@ export async function StarterOfferPage({ locale }: { locale: Locale }) {
   const reference = get<Reference>("reference");
   const contact = get<Contact>("contact");
   const ref = getPortfolioItem(starterOffer.reference);
-  const refSite = ref.media.type === "site" ? ref.media : null;
-  const refHost = refSite?.url.replace(/^https?:\/\//, "");
+  // Referenz des Angebots ist die Bestellsystem-Demo (Musterfirma) – zum direkten Ausprobieren
+  const refDemo = ref.media.type === "demo" ? ref.media : null;
+  const refSite = refDemo ? { image: refDemo.image, url: demoHref(refDemo.slug) } : null;
+  const refHost = refSite && `${site.url.replace(/^https?:\/\//, "")}${refSite.url}`;
   const contacts = [
     { href: site.phoneHref, icon: Phone, label: tc("phone"), value: site.phone },
     { href: site.whatsappHref, icon: MessageCircle, label: tc("whatsapp"), value: tc("whatsappCta") },
@@ -223,10 +226,9 @@ export async function StarterOfferPage({ locale }: { locale: Locale }) {
               <p className="mt-4 text-[15px] leading-relaxed text-body">{tp(`items.${starterOffer.reference}.text`)}</p>
               <p className="mt-3 text-[15px] leading-relaxed text-body">{tp(`items.${starterOffer.reference}.result`)}</p>
               <p className="mt-5 rounded-3xl bg-canvas p-4 text-sm leading-relaxed text-muted">{reference.note}</p>
-              <a href={refSite.url} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-full border border-line bg-white px-6 text-[15px] font-medium text-ink shadow-[var(--shadow-soft)] transition hover:border-brand-200">
+              <DemoLink slug={refDemo!.slug} className="mt-6">
                 {reference.visit} <ArrowUpRight className="size-4" aria-hidden />
-                <span className="sr-only">{reference.opensNewTab}</span>
-              </a>
+              </DemoLink>
             </Reveal>
           </div>
         </section>

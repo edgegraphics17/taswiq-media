@@ -5,11 +5,12 @@ import { createPortal } from "react-dom";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowLeft, ArrowRight, ArrowUpRight, Calculator, Check, MapPin, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Calculator, Check, MapPin, MousePointerClick, X } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import type { PortfolioItem } from "@/config/content";
 import { contactHref } from "@/config/site";
-import { hostOf, PortfolioVisual } from "@/components/portfolio/PortfolioCard";
+import { demoHost, hostOf, PortfolioVisual } from "@/components/portfolio/PortfolioCard";
+import { DemoLink } from "@/components/ui/DemoLink";
 import { CompareViewer, PackViewer } from "@/components/portfolio/PortfolioPack";
 import { KitsViewer } from "@/components/portfolio/KitsViewer";
 import { cn } from "@/lib/format";
@@ -173,7 +174,7 @@ function Media({ item }: { item: PortfolioItem }) {
       </div>
     );
   }
-  if (m.type === "site") {
+  if (m.type === "site" || m.type === "demo") {
     return (
       <div className="relative bg-[linear-gradient(160deg,var(--color-brand-100),var(--color-blush-100))] p-4 pt-16 sm:p-8 sm:pt-16">
         <div className="overflow-hidden rounded-2xl bg-white shadow-[var(--shadow-float)]">
@@ -181,7 +182,7 @@ function Media({ item }: { item: PortfolioItem }) {
             {["bg-blush-500/70", "bg-amber-400/80", "bg-mint-500/70"].map((c) => (
               <span key={c} className={cn("size-2.5 rounded-full", c)} aria-hidden />
             ))}
-            <span className="ml-2 truncate rounded-full bg-canvas px-3 py-0.5 text-xs text-muted">{hostOf(m.url)}</span>
+            <span className="ml-2 truncate rounded-full bg-canvas px-3 py-0.5 text-xs text-muted">{m.type === "demo" ? demoHost(m.slug) : hostOf(m.url)}</span>
           </div>
           <div className="relative aspect-[16/10]">
             <Image src={m.image} alt={t("posterAlt", { title })} fill sizes="(min-width:1024px) 640px, 100vw" className="object-cover object-top" />
@@ -225,7 +226,7 @@ function Details({ item, onClose }: { item: PortfolioItem; onClose: () => void }
       <p className="mt-4 leading-relaxed text-body">{t(`items.${item.id}.text`)}</p>
 
       <div className="mt-5 rounded-3xl bg-canvas p-5">
-        <p className="text-xs font-semibold tracking-wide text-muted uppercase">{t("resultLabel")}</p>
+        <p className="text-xs font-semibold tracking-wide text-muted uppercase">{t(m.type === "demo" ? "fitsLabel" : "resultLabel")}</p>
         <p className="mt-1.5 text-[15px] leading-relaxed text-ink">{t(`items.${item.id}.result`)}</p>
       </div>
 
@@ -238,7 +239,14 @@ function Details({ item, onClose }: { item: PortfolioItem; onClose: () => void }
         ))}
       </ul>
 
+      {m.type === "demo" && <p className="mt-4 text-[13px] leading-relaxed text-muted">{t("demoNote")}</p>}
+
       <div className="mt-auto flex flex-wrap gap-2 pt-8">
+        {m.type === "demo" && (
+          <DemoLink slug={m.slug} variant="primary" className="hover:translate-y-0">
+            <MousePointerClick className="size-4" aria-hidden /> {t("tryDemo")}
+          </DemoLink>
+        )}
         {m.type === "site" && (
           <a href={m.url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center gap-2 rounded-full bg-brand-500 px-6 font-medium text-white shadow-[var(--shadow-brand)] transition hover:bg-brand-600">
             {t("visitLive")} <ArrowUpRight className="size-4" aria-hidden />

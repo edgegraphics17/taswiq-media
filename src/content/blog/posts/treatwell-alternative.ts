@@ -102,7 +102,7 @@ export const post: BlogPost = {
           ],
         },
         {
-          p: "Für den [OMED Friseursalon in Aachen-Burtscheid](/portfolio) haben wir das gebaut: eigene Website mit mehrstufiger Buchung, Kalender und Zeitfenstern – zwei Buchungen zur selben Zeit sind auf Datenbank-Ebene ausgeschlossen. Die Preise aller Stufen stehen im [Preisrechner](/preisrechner), die Hintergründe im Ratgeber [Buchungssystem für Friseure ohne Provision](/blog/buchungssystem-friseur-ohne-provision).",
+          p: "Wie das aussieht, zeigt unsere [Buchungs-Demo](/demo/friseur): mehrstufige Buchung, Teamkalender und Kundenkartei – zwei Buchungen zur selben Zeit sind auf Datenbank-Ebene ausgeschlossen. Die Preise aller Stufen stehen im [Preisrechner](/preisrechner), die Hintergründe im Ratgeber [Buchungssystem für Friseure ohne Provision](/blog/buchungssystem-friseur-ohne-provision).",
         },
       ],
     },

@@ -114,7 +114,7 @@ export const post: BlogPost = {
           ],
         },
         {
-          p: "Ein Beispiel aus einem echten Projekt: Für die [Bäckerei Daron Brot II in Aachen](/portfolio) läuft ein eigenes Bestellsystem mit Speisekarte samt Varianten, Abholung und Lieferung, iPad-Küchenboard mit Signalton und einer Oberfläche auf Deutsch, Englisch und Arabisch. Preise, Artikel und Öffnungszeiten ändert das Team selbst. Umsatzzahlen nennen wir bewusst nicht – die gehören dem Betrieb.",
+          p: "Zum Ausprobieren: In unserer [Bestellsystem-Demo](/demo/restaurant) läuft ein eigenes Bestellsystem mit Speisekarte samt Varianten, Abholung und Lieferung und einem Küchen-Board, in dem jede Bestellung sofort erscheint. Preise, Artikel und „ausverkauft“ ändert das Team selbst.",
         },
       ],
     },

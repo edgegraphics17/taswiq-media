@@ -97,7 +97,8 @@
     "whatsappCta": "Message us directly",
     "back": "Back",
     "next": "Next",
-    "opensYoutube": "(opens YouTube)"
+    "opensYoutube": "(opens YouTube)",
+    "tryDemo": "Try the demo"
   },
   "nav": {
     "home": "Home",
@@ -448,9 +449,9 @@
       "text": "Six building blocks that connect into one system – from ordering to dashboards. One team, and it's all yours.",
       "cta": "Discuss your project",
       "ctaSecondary": "Calculate costs",
-      "systemsImageAlt": "Website of OMED hair salon with its own appointment booking",
-      "systemsBadge": "Live: hair salon · bakery",
-      "customImageAlt": "Antragsbruder web app with document upload",
+      "systemsImageAlt": "Booking system demo: team calendar of the sample salon Kammwerk",
+      "systemsBadge": "Demo: salon · pizzeria",
+      "customImageAlt": "Demo of a client portal with tasks, receipts and deadlines",
       "items": {
         "systems": {
           "title": "Ordering & booking systems",
@@ -656,12 +657,12 @@
     "tag": "Portfolio",
     "title": "Projects to",
     "titleAccent": "browse.",
-    "text": "Live software, websites, films and reels – filter by area and open any project for details, video or a live demo.",
-    "metaTitle": "Portfolio – Software, Websites, Films & Reels",
-    "metaDescription": "See an ordering system, booking system, web apps and websites live – plus hotel films, food reels and property videos. The TasWiq Media portfolio.",
+    "text": "Software demos you can try, films and reels – filter by area and open any project for details, video or the demo.",
+    "metaTitle": "Portfolio – Software Demos, Films & Reels",
+    "metaDescription": "Try an ordering system, appointment booking, client portal and field service software as live demos – plus hotel films, food reels and property videos. The TasWiq Media portfolio.",
     "keywords": [
       "software agency portfolio",
-      "web app case studies",
+      "try a software demo",
       "ordering system example",
       "booking system example",
       "food reels examples"
@@ -698,16 +699,16 @@
     "countLive": "{n} projects shown",
     "stats": [
       {
-        "value": "5",
-        "label": "websites & web apps online"
+        "value": "6",
+        "label": "software demos to try"
       },
       {
         "value": "450+",
         "label": "media projects"
       },
       {
-        "value": "9",
-        "label": "languages in one project"
+        "value": "0",
+        "label": "sign-ups needed"
       },
       {
         "value": "7 days",
@@ -716,7 +717,7 @@
     ],
     "filters": {
       "alle": "All",
-      "web": "Websites & software",
+      "web": "Software demos",
       "ai": "AI content",
       "gastro": "Food & hospitality",
       "events": "Events & artists",
@@ -734,6 +735,9 @@
     "resultLabel": "Result",
     "servicesLabel": "Services",
     "visitLive": "View live",
+    "tryDemo": "Start the demo",
+    "fitsLabel": "Also fits",
+    "demoNote": "Sample company: names, customers and figures are made up. The demo runs in your browser, nothing is stored. The demo interface is in German.",
     "tryLive": "Try it yourself",
     "watchFilm": "Full film on YouTube",
     "opensYoutube": "(opens YouTube)",
@@ -746,8 +750,8 @@
     "next": "Next project",
     "teaser": {
       "tag": "Work",
-      "title": "Real projects. Live in use.",
-      "text": "Ordering system, appointment booking, web app, websites – and the films we grew up with. Click a project for details.",
+      "title": "Demos to try. Films to watch.",
+      "text": "Ordering system, appointment booking, field service software, client portal – each demo is a sample company you click through yourself. Plus the films we grew up with.",
       "cta": "See the full portfolio"
     },
     "funnel": {
@@ -775,67 +779,88 @@
       "dashGrowth": "Growth"
     },
     "items": {
-      "daron": {
+      "demo-restaurant": {
         "tag": "Ordering system",
-        "title": "Daron Brot II – commission-free ordering",
-        "text": "Own online ordering system for a bakery in Aachen: menu with variants, pickup and delivery with fee and minimum order, order status via link and an iPad kitchen board with a chime – in German, English and Arabic.",
-        "result": "The bakery takes orders directly through its own website – no platform commission, its own customer data and a dashboard for prices, items and opening hours.",
+        "title": "Pizzeria Fiamma – an ordering system to try",
+        "text": "Demo with a sample company: order at Pizzeria Fiamma, pick size and extras, pickup or delivery – then follow your order on the restaurant's kitchen board.",
+        "result": "Bakeries, takeaways, cafés, delivery services, butchers and caterers – anywhere customers pre-order and the business does not want to pay platform commission.",
         "services": [
-          "Ordering system",
+          "Menu with extras",
+          "Pickup & delivery",
           "Kitchen board",
-          "Dashboard",
-          "Staff accounts",
-          "DE · EN · AR",
-          "SEO & llms.txt"
+          "Live order status",
+          "Edit prices yourself",
+          "Reporting"
         ]
       },
-      "omed": {
+      "demo-friseur": {
         "tag": "Booking system",
-        "title": "OMED hair salon – own appointment booking",
-        "text": "Website with a multi-step booking tool for a hair salon in Aachen-Burtscheid: services with duration and price, calendar with free slots, confirmation and customer area.",
-        "result": "Appointments run through the salon's own system instead of a booking platform. Double bookings are prevented at database level, and customer data can't be read from outside.",
+        "title": "Kammwerk – appointment booking to try",
+        "text": "Demo with a sample company: book an appointment at the Kammwerk salon, move it in the customer profile and see it in the team calendar. Free slots are actually calculated.",
+        "result": "Beauty and nail studios, physiotherapy and alternative practices, tattoo studios, classes and fitness, vets – anywhere time is booked.",
         "services": [
-          "Booking system",
-          "Website",
-          "Local SEO",
-          "Database & security"
+          "Booking in 4 steps",
+          "No double bookings",
+          "Customer profile",
+          "Team calendar",
+          "Client records",
+          "Utilisation"
         ]
       },
-      "antragsbruder": {
-        "tag": "Web app",
-        "title": "Antragsbruder – digital applications",
-        "text": "Web app that explains official letters in plain language, organises documents and prepares applications – with document upload, user account and four free entitlement calculators.",
-        "result": "Users upload documents, see via checklist what's missing and check entitlements in minutes – in nine languages.",
+      "demo-handwerk": {
+        "tag": "Job management",
+        "title": "Wilke Haustechnik – from call to invoice",
+        "text": "Demo with a sample company in three views: submit a request with photos as the customer, write the quote in the office, schedule the job – and close it in the technician app with a signature.",
+        "result": "Electricians, painters, joiners, roofers, cleaning, removals, landscaping and field service – same workflow, different service catalogue.",
         "services": [
-          "Web app",
-          "Upload & account",
-          "Entitlement calculators",
-          "Plain language",
-          "9 languages"
+          "Request with photos",
+          "Quote builder",
+          "Scheduling",
+          "Technician app",
+          "Digital signature",
+          "AI phone assistant"
         ]
       },
-      "klarvoran": {
-        "tag": "Website",
-        "title": "KlarVoran – website for job coaching",
-        "text": "Website for a certified training provider in Kriftel near Frankfurt: services, voucher-funded coaching, offers for institutions and a clear path to a free first consultation.",
-        "result": "A clear structure for two audiences – job seekers and institutions – with local SEO for Frankfurt, Hofheim and the Main-Taunus district.",
+      "demo-steuerkanzlei": {
+        "tag": "Client portal",
+        "title": "Albrecht & Sommer – a client portal to try",
+        "text": "Demo with a sample company: upload receipts as the client and have them read automatically, approve the tax return digitally – and see receipt status and deadlines for every client in the firm's view.",
+        "result": "Law firms, payroll offices, insurance brokers, consultants and coaches, property managers – anywhere documents, approvals and messages go back and forth.",
         "services": [
-          "Website",
-          "Local SEO",
-          "Consultation funnel",
-          "WhatsApp contact"
+          "Tasks for clients",
+          "Receipt upload with AI",
+          "Digital approval",
+          "Secure inbox",
+          "Deadlines",
+          "Firm overview"
         ]
       },
-      "mipp": {
-        "tag": "Website",
-        "title": "MIPP – website for a political party (demo)",
-        "text": "Demo website for a political party in Malaysia: clear messages, president, positions, audiences, press and a membership funnel.",
-        "result": "A multilingual presence with a membership funnel as the basis for campaigns and member growth.",
+      "demo-immobilien": {
+        "tag": "Marketing portal",
+        "title": "Kranich Immobilien – listings and enquiry pipeline",
+        "text": "Demo with a sample company: search the listings, read a listing with floor plan and energy rating, request a viewing – and move the enquiry through the dashboard to a decision.",
+        "result": "Property managers, developers, holiday lets, commercial lettings and housing co-operatives – also as a tenant portal with damage reports.",
         "services": [
-          "Website",
-          "Multilingual",
-          "Membership funnel",
-          "Design system"
+          "Property search",
+          "Listing as a page",
+          "Viewing request",
+          "Enquiry pipeline",
+          "Property status",
+          "Reporting"
+        ]
+      },
+      "demo-werkstatt": {
+        "tag": "Workshop portal",
+        "title": "Autohaus Falkner – bookings and vehicle status",
+        "text": "Demo with a sample company: book a workshop appointment, track your vehicle and approve extra work with one tap. The dashboard shows jobs, the workshop plan and inspections that are due.",
+        "result": "Independent garages, tyre dealers, driving schools, car rental and bike workshops.",
+        "services": [
+          "Online booking",
+          "Vehicle status",
+          "Digital approval",
+          "Workshop plan",
+          "Inspection reminders",
+          "Pick-up service"
         ]
       },
       "taswiq-system": {
@@ -1409,7 +1434,7 @@
           "full tables."
         ],
         "text": "Your own ordering system, reservations and kitchen board under your name – for restaurants, delivery services, bakeries, takeaways and caterers. Your guests order from you, not from the platform.",
-        "imageAlt": "Ordering system of the bakery Daron Brot II in Aachen",
+        "imageAlt": "Ordering system demo: order page of the sample pizzeria Fiamma",
         "cards": {
           "alert": {
             "label": "New order · pickup",
@@ -2969,7 +2994,7 @@
           "days rented."
         ],
         "text": "Custom software for car dealers, garages, driving schools and rental companies. Appointments book themselves online, vehicles and instructors are properly scheduled, customers and students see their status themselves – instead of calling.",
-        "imageAlt": "Sample view of a booking and customer system for an automotive business",
+        "imageAlt": "Workshop demo: vehicle status and digital approval at the sample dealership Falkner",
         "mockUrl": "your-business.com/appointments",
         "cards": {
           "alert": {
@@ -3622,12 +3647,12 @@
         }
       },
       "spotlight": {
-        "tag": "Live in use",
-        "title": "The same booking technology, already proven day to day",
-        "text": "The booking engine our automotive systems build on runs at the OMED hair salon in Aachen: services with duration, free time slots, confirmation and customer area. Double bookings are ruled out at database level – for ramps just as for chairs.",
-        "badge": "Booking system reference",
-        "cta": "View the project in the portfolio",
-        "imageAlt": "Website of the OMED hair salon with its own appointment booking"
+        "tag": "Try it yourself",
+        "title": "The workshop demo: booking, status, approval",
+        "text": "At the sample dealership Falkner you book a workshop appointment, track the vehicle and approve extra work with one tap. The dashboard shows jobs, the workshop plan and inspections that are due – the way your team would see them.",
+        "badge": "Demo · no sign-up",
+        "cta": "Open the demo",
+        "imageAlt": "Workshop demo: vehicle status and digital approval at the sample dealership Falkner"
       },
       "compare": {
         "title": "Industry software, booking subscription",
@@ -3747,7 +3772,7 @@
           "billable hours."
         ],
         "text": "Custom software for tax advisors, lawyers, payroll offices, brokers and consultants. Documents arrive complete via checklists, queries stay attached to the case, deadlines are tracked – as an addition to your specialist software, not a replacement.",
-        "imageAlt": "Web app Antragsbruder: upload documents and see on a checklist what is missing",
+        "imageAlt": "Client portal demo: open tasks and deadlines at the sample firm Albrecht & Sommer",
         "cards": {
           "alert": {
             "label": "Receipts received · complete",
@@ -4396,12 +4421,12 @@
         }
       },
       "spotlight": {
-        "tag": "Goes well with it",
-        "title": "A website that brings initial calls",
-        "text": "For KlarVoran, a job and application coaching provider in the Rhine-Main area, we built the website and initial-call funnel: a clear structure for two audiences and local SEO. The same foundation works for firms and advisors.",
-        "badge": "Website from €1,190",
-        "cta": "View the project in the portfolio",
-        "imageAlt": "Website of KlarVoran, job and application coaching"
+        "tag": "Try it yourself",
+        "title": "The client portal as a demo",
+        "text": "At the sample firm Albrecht & Sommer you upload receipts that are read automatically, approve a tax return digitally and message the firm. The firm's view shows receipt status and deadlines for every client.",
+        "badge": "Demo · no sign-up",
+        "cta": "Open the demo",
+        "imageAlt": "Client portal demo: open tasks and deadlines at the sample firm Albrecht & Sommer"
       },
       "compare": {
         "title": "Specialist software, vendor portal",
@@ -4487,7 +4512,7 @@
         },
         {
           "q": "Does this also work for coaches and training providers?",
-          "a": "Yes. For KlarVoran, a job and application coaching provider in Rhine-Main, we built the website and initial-call funnel."
+          "a": "Yes. A website with an initial-call funnel, appointment booking and a portal for documents follow the same principle – for firms, coaching and training providers alike."
         }
       ],
       "contact": {
@@ -4521,7 +4546,7 @@
           "revenue per chair."
         ],
         "text": "Your own booking system for hairdressers, barbers, beauty, physio, studios and spas. Clients book with you around the clock, reminders and deposits cut no-shows – without commission and without someone else's app between you and your clients.",
-        "imageAlt": "Website of the OMED hair salon with its own appointment booking",
+        "imageAlt": "Booking system demo: team calendar of the sample salon Kammwerk",
         "cards": {
           "alert": {
             "label": "New appointment · booked at 23:14",
@@ -5174,12 +5199,12 @@
         }
       },
       "spotlight": {
-        "tag": "Live in use",
-        "title": "OMED hair salon books through its own system",
-        "text": "For the OMED hair salon in Aachen-Burtscheid we built the website and multi-step appointment booking: services with duration and price, free time slots, confirmation and customer area. Double bookings are ruled out at database level.",
-        "badge": "Real reference",
-        "cta": "View the project in the portfolio",
-        "imageAlt": "Appointment booking of the OMED hair salon on a phone"
+        "tag": "Try it yourself",
+        "title": "The booking demo: book a slot, see the calendar",
+        "text": "At the sample salon Kammwerk you book an appointment, move it in the customer profile and see it in the team calendar. Free slots are actually calculated – double bookings are ruled out.",
+        "badge": "Demo · no sign-up",
+        "cta": "Open the demo",
+        "imageAlt": "Booking system demo: team calendar of the sample salon Kammwerk"
       },
       "compare": {
         "title": "Booking platform, salon subscription",
@@ -5299,7 +5324,7 @@
           "clean sign-offs."
         ],
         "text": "Custom software for trades, cleaning, removals, landscaping and field service. Enquiries arrive with photos, quotes are built from building blocks, the team sees its jobs on the phone – and after sign-off the invoice is ready.",
-        "imageAlt": "Sample view of a job management system for a trade business",
+        "imageAlt": "Job management demo: job board of the sample business Wilke Haustechnik",
         "mockUrl": "your-business.com/jobs",
         "cards": {
           "alert": {
@@ -6060,7 +6085,7 @@
         "title": "Software that works",
         "accent": "the way your business does.",
         "text": "Five tools and three spreadsheets become one system – built around your process. With AI-assisted development in weeks instead of months, at a fixed price. You own the code.",
-        "imageAlt": "Web app Antragsbruder – custom-built software",
+        "imageAlt": "Job management demo: job board of the sample business Wilke Haustechnik",
         "facts": [
           {
             "value": "from €10,900",
@@ -6075,7 +6100,7 @@
             "label": "you own code & data"
           }
         ],
-        "refNote": "Example: web app Antragsbruder"
+        "refNote": "Demo: Wilke Haustechnik – try it"
       },
       "flow": {
         "title": "One case, one system.",
@@ -6351,7 +6376,7 @@
         "title": "Your own ordering system.",
         "accent": "Zero commission.",
         "text": "Guests order directly on your website – with pickup, delivery, kitchen board and online payment. You keep the margin and the customer data instead of paying a cut on every order.",
-        "imageAlt": "Ordering system of the bakery Daron Brot II with menu and basket",
+        "imageAlt": "Ordering system demo: order page of the sample pizzeria Fiamma",
         "facts": [
           {
             "value": "from €2,900",
@@ -6366,7 +6391,7 @@
             "label": "commission per order"
           }
         ],
-        "refNote": "Live at Daron Brot II, Aachen"
+        "refNote": "Demo: Pizzeria Fiamma – try it"
       },
       "flow": {
         "title": "From order to handover.",
@@ -6622,7 +6647,7 @@
         "title": "Appointments now",
         "accent": "book themselves.",
         "text": "Your own online booking with calendar, choice of staff, reminders and deposits – for salons, practices, studios, garages, firms and coaches. Build once, own it.",
-        "imageAlt": "Website of the OMED hair salon with multi-step online booking",
+        "imageAlt": "Booking system demo: team calendar of the sample salon Kammwerk",
         "facts": [
           {
             "value": "from €2,200",
@@ -6637,7 +6662,7 @@
             "label": "bookable, after hours too"
           }
         ],
-        "refNote": "Live at OMED hair salon, Aachen"
+        "refNote": "Demo: Kammwerk salon – try it"
       },
       "flow": {
         "title": "From click to firm appointment.",
@@ -6905,7 +6930,7 @@
         "title": "Your service in your",
         "accent": "clients' pockets.",
         "text": "Client portals, internal tools and apps – in the browser, on the home screen or in the app store. With login, documents, status and push notifications, so nobody has to call to ask.",
-        "imageAlt": "Web app Antragsbruder with upload and plain-language explanations of official letters",
+        "imageAlt": "Client portal demo: open tasks and deadlines at the sample firm Albrecht & Sommer",
         "facts": [
           {
             "value": "from €3,900",
@@ -6920,7 +6945,7 @@
             "label": "without app store approval"
           }
         ],
-        "refNote": "Example: Antragsbruder, live in 9 languages"
+        "refNote": "Demo: client portal – try it"
       },
       "flow": {
         "title": "From login to a closed case.",
@@ -7792,7 +7817,7 @@
         "title": "A website that",
         "accent": "brings enquiries.",
         "text": "Fast, mobile and findable – on Google and in AI search such as ChatGPT. With enquiry funnel, booking or ordering. And built so it can grow into a system later.",
-        "imageAlt": "Website of KlarVoran, job and application coaching in Rhine-Main",
+        "imageAlt": "Website demo: property search of the sample company Kranich Immobilien",
         "facts": [
           {
             "value": "from €1,190",
@@ -7807,7 +7832,7 @@
             "label": "load time as the target"
           }
         ],
-        "refNote": "Live: KlarVoran, job coaching Rhine-Main"
+        "refNote": "Demo: Kranich Immobilien – try it"
       },
       "flow": {
         "title": "From search to enquiry.",
@@ -7987,7 +8012,7 @@
           },
           {
             "id": "kanzlei",
-            "text": "Initial call booking with pre-questions, as in our KlarVoran project."
+            "text": "Initial call booking with pre-questions."
           },
           {
             "id": "gastro",
@@ -9094,8 +9119,8 @@
       "text": "Your guests order directly on your site – for pickup or delivery, with no platform and no commission. You know what you get and what it costs before we start.",
       "primary": "Request the offer",
       "secondary": "One-page summary to share",
-      "imageAlt": "Ordering system of the bakery Daron Brot II with menu and cart",
-      "refNote": "Live at Daron Brot II, Aachen",
+      "imageAlt": "Ordering system demo: order page of the sample pizzeria Fiamma with menu and cart",
+      "refNote": "Demo: Pizzeria Fiamma",
       "facts": [
         {
           "value": "{price}",
@@ -9211,12 +9236,11 @@
       }
     },
     "reference": {
-      "tag": "Reference",
-      "title": "Already running:",
-      "accent": "Daron Brot II in Aachen.",
-      "note": "The system at Daron Brot II has a larger scope than the starter offer – including a kitchen board and three languages. It shows where your system can grow.",
-      "visit": "See it live",
-      "opensNewTab": "(opens in a new tab)"
+      "tag": "Demo",
+      "title": "Try it yourself:",
+      "accent": "Pizzeria Fiamma, our sample company.",
+      "note": "The demo shows more than the starter offer – including delivery and a kitchen board. It shows where your system can grow.",
+      "visit": "Open the demo"
     },
     "timeline": {
       "tag": "Process",
@@ -9301,8 +9325,8 @@
         "In the starter offer guests pay at pickup or handover; online payment in Ordering System Pro from {pro}",
         "You do not have to leave any platform"
       ],
-      "referenceTitle": "Reference",
-      "reference": "Daron Brot II, Aachen – ordering system live in use (with a larger scope there).",
+      "referenceTitle": "Demo",
+      "reference": "Try it: taswiq-media.de/demo/restaurant – order page and kitchen board of a sample pizzeria (with a larger scope; demo in German).",
       "nextTitle": "Next step",
       "next": "A 30-minute call – we look at your menu and tell you honestly whether the offer fits.",
       "more": "All details"

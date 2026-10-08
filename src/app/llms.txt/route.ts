@@ -65,9 +65,10 @@ Video- und Content-Produktion für Events, Festivals, Artists und Marken – Ref
 
 ${allPackages.map((p) => `- ${tpk(`${p.id}.name`)}: ${p.from ? "ab " : ""}${formatEUR(p.price)} ${tpk(`units.${p.billing}`)} – ${tpk(`${p.id}.audience`)}`).join("\n")}
 
-## Software-Projekte
+## Software-Demos zum Ausprobieren
 
-${cases.map((c) => `- ${tpf(`${c.id}.title`)}${c.location ? ` (${c.location})` : ""}${c.media.type === "site" ? ` – ${c.media.url}` : ""}`).join("\n")}
+Jede Demo ist eine Musterfirma mit Kundenansicht und Dashboard – ohne Anmeldung nutzbar. Übersicht: ${site.url}/demo
+${cases.map((c) => `- ${tpf(`${c.id}.title`)}${c.media.type === "demo" ? ` – ${site.url}/demo/${c.media.slug}` : c.media.type === "site" ? ` – ${c.media.url}` : ""}`).join("\n")}
 
 ## Media-Referenzen
 
