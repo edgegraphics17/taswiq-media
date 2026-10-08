@@ -14,6 +14,8 @@ import { addLeadNote, setCalculatorTest, setLeadTest, deleteTask, insertTask, mo
 import { LEAD_STATUSES, TASK_CATEGORIES, TASK_STATUSES } from "@/types/database";
 import { DEPARTMENT_IDS, departmentFor } from "@/config/team";
 import { STRUCTURE_TAG } from "@/lib/admin/site-structure";
+import { getSiteReport, requestOrigin } from "@/lib/admin/site-report";
+import { taskOf } from "@/lib/admin/site-findings";
 
 /** Jede Mutation prüft die Admin-Berechtigung erneut – Server Actions sind öffentliche Endpunkte. */
 async function requireAdminUser() {
@@ -159,6 +161,37 @@ export async function rescanSite() {
   if (!isDemoMode()) await requireAdminUser();
   revalidateTag(STRUCTURE_TAG);
   revalidatePath("/admin/struktur");
+}
+
+/**
+ * Seitenstruktur: Befund als Aufgabe anlegen – wahlweise direkt an Claude übergeben (`run`).
+ * Vom Browser kommt nur die Kennung des Befunds; Titel, Begründung und Schritte entstehen hier aus dem aktuellen Stand.
+ */
+export async function sendFinding(_: { ok: boolean; message: string } | null, formData: FormData): Promise<{ ok: boolean; message: string }> {
+  if (isDemoMode()) return { ok: false, message: "Demo-Modus: Aufgaben werden nicht gespeichert." };
+  await requireAdminUser();
+  const parsed = z.object({ id: z.string().max(40), locale: z.enum(["de", "en"]), run: z.string().optional(), input: z.string().trim().max(2000).optional() }).safeParse(Object.fromEntries(formData));
+  if (!parsed.success) return { ok: false, message: "Ungültige Angabe." };
+  const { id, locale, run, input } = parsed.data;
+  try {
+    const { report } = await getSiteReport(await requestOrigin(), locale);
+    const finding = report.findings.find((f) => f.id === id);
+    if (!finding) return { ok: false, message: "Der Befund besteht nicht mehr – bitte neu einlesen." };
+    if (finding.task?.exact) return { ok: false, message: "Dazu gibt es schon eine Aufgabe." };
+    const t = taskOf(finding);
+    await insertTask({
+      ...t,
+      source: "karim",
+      executor: "claude",
+      department: departmentFor(t.category),
+      ...(run ? { run_state: "beauftragt" as const, run_input: input || null } : {}),
+    });
+  } catch (e) {
+    console.error("[admin] sendFinding", e);
+    return { ok: false, message: "Die Aufgabe konnte nicht angelegt werden." };
+  }
+  revalidatePath("/admin", "layout");
+  return { ok: true, message: run ? "An Claude übergeben – das Team setzt es um." : "Als Aufgabe angelegt." };
 }
 
 /** Preis-Editor: überschreibt die Werte aus pricing.ts – live nach Cache-Invalidierung. */

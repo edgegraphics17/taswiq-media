@@ -166,3 +166,12 @@ create table if not exists settings (
   key    text primary key,
   value  text not null
 );
+
+-- Seitenstruktur (Dashboard): gespeicherter Stand je Tag und Sprache – Grundlage für „Was hat sich geändert?“.
+create table if not exists site_scans (
+  day         text not null,
+  locale      text not null,
+  created_at  text not null,
+  data        text not null,
+  primary key (day, locale)
+);

@@ -10,6 +10,7 @@
 #   team plan <abteilung> <text>            Planungsrunde protokollieren
 #   team finish <abteilung> <task-id> <fertig|rueckfrage|fehler> <text>
 #   team propose <abteilung> <datei.json>   bis zu 3 Aufgaben vorschlagen / an andere Abteilungen übergeben
+#   team struktur [neu]                     Bericht der Seitenstruktur: Befunde mit Ursache, betroffenen Seiten, Lösungsschritten (neu = frisch einlesen)
 #   team backup [--force|verify]            Datenbank auf diesen Rechner sichern / Wiederherstellung testen (team/bin/backup)
 #
 # Lokal testen: TEAM_LOCAL_URL=http://localhost:8099 TEAM_LOCAL_TOKEN=… team state
@@ -42,10 +43,13 @@ case "$cmd" in
   claim)   call POST /team/claim "$(json agent "$1")"
            # Tägliche Sicherung der Datenbank hängt am Takt der Abteilungen; ein Fehlschlag darf den Durchlauf nicht stören.
            [ -n "${TEAM_LOCAL_URL:-}" ] || bash "$(dirname "$0")/backup" >/dev/null 2>&1 || true ;;
+  struktur) # Der Bericht entsteht auf der Website selbst (sie liest sich ein); der Sprite fragt mit seinem Token an.
+           if [ -n "${TEAM_LOCAL_URL:-}" ]; then curl -sS -H "x-taswiq-token: $TEAM_LOCAL_TOKEN" "${TEAM_SITE_URL:-http://localhost:3000}/api/struktur${1:+?neu=1}"
+           else sprite exec -s taswiq-media --no-stdin -- /home/sprite/taswiq/api.sh --max-time 120 "https://www.taswiq-media.de/api/struktur${1:+?neu=1}"; fi; echo ;;
   backup)  bash "$(dirname "$0")/backup" "$@" ;;
   say)     if [ -n "${3:-}" ]; then call POST /team/events "$(json agent "$1" kind schritt text "$2" task_id "$3")"; else call POST /team/events "$(json agent "$1" kind info text "$2")"; fi ;;
   plan)    call POST /team/events "$(json agent "$1" kind planung text "$2")" ;;
   finish)  call POST /team/finish "$(json agent "$1" task_id "$2" result "$3" note "$4")" ;;
   propose) call POST /team/propose "$(python3 -c 'import json,sys; print(json.dumps({"agent": sys.argv[1], "tasks": json.load(open(sys.argv[2]))}, ensure_ascii=False))' "$1" "$2")" ;;
-  *) sed -n '2,16p' "$0"; exit 1 ;;
+  *) sed -n '2,17p' "$0"; exit 1 ;;
 esac

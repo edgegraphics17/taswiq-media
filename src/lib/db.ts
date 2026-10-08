@@ -9,6 +9,9 @@ import type {
   ServiceRowType,
   ServiceUpsert,
   AnalyticsData,
+  PathStats,
+  SiteScanData,
+  SiteScanRow,
   SiteHit,
   TaskInsert,
   TaskRow,
@@ -207,6 +210,19 @@ export async function insertHit(hit: SiteHit): Promise<void> {
 
 export function getAnalytics(days: number): Promise<AnalyticsData> {
   return call<AnalyticsData>(`/analytics?days=${days}`);
+}
+
+export function getPathStats(days: number): Promise<PathStats> {
+  return call<PathStats>(`/analytics/paths?days=${days}`);
+}
+
+// ─── Seitenstruktur (Verlauf) ───────────────────────────────────────
+export async function saveSiteScan(locale: string, data: SiteScanData): Promise<void> {
+  await call("/site-scans", { method: "PUT", body: { locale, data } });
+}
+
+export function listSiteScans(locale: string, limit = 14): Promise<SiteScanRow[]> {
+  return call<SiteScanRow[]>(`/site-scans?locale=${locale}&limit=${limit}`);
 }
 
 /** Live-Stream (SSE) für das Dashboard – wird vom Route-Handler /admin/api/live durchgereicht. */

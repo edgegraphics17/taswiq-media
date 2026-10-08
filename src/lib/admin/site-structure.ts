@@ -1,5 +1,6 @@
 import "server-only";
 import { unstable_cache } from "next/cache";
+import { keywords, type KeywordArea } from "@/config/keywords";
 import { seoPages } from "@/config/seo-pages";
 import { posts } from "@/content/blog";
 import { routing, type AppPathname, type Locale } from "@/i18n/routing";
@@ -59,13 +60,27 @@ export interface PageNode {
   /** Links im Inhalt (ohne Menü und Footer) */
   links: PageLink[];
   verdict: Verdict;
+  /* ─── SEO-Grunddaten ─── */
+  /** Länge des vollständigen Seitentitels, wie Google ihn sieht (mit Markenzusatz) */
+  titleLen: number;
+  description: string;
+  h1Count: number;
+  /** Wörter im Inhalt (ohne Menü und Footer) */
+  words: number;
+  /** Canonical zeigt auf eine andere Adresse als die Seite selbst */
+  canonicalElsewhere: string | null;
+  /** Strukturierte Daten (JSON-LD) vorhanden */
+  schema: boolean;
+  inSitemap: boolean;
 }
 
-export interface Issue {
-  level: 1 | 2 | 3;
-  kind: "defekt" | "anker" | "sackgasse" | "kein-cta" | "verwaist" | "tief" | "fehler";
-  path: string;
-  text: string;
+export interface KeywordResult {
+  term: string;
+  area: KeywordArea;
+  target: string | null;
+  main: boolean;
+  /** stark = in Titel oder Hauptüberschrift · schwach = nur im Text · fehlt = Zielseite nennt den Begriff nicht · offen = keine Zielseite */
+  status: "stark" | "schwach" | "fehlt" | "offen";
 }
 
 export interface SiteStructure {
@@ -76,7 +91,10 @@ export interface SiteStructure {
   /** Menü- und Footer-Links, wie sie auf jeder Seite stehen */
   nav: PageLink[];
   footer: PageLink[];
-  issues: Issue[];
+  /** Suchbegriffe aus config/keywords.ts gegen die Zielseiten geprüft (nur deutsche Website) */
+  keywords: KeywordResult[];
+  /** sitemap.xml gefunden und gelesen */
+  sitemapRead: boolean;
 }
 
 /* ─── Bekannte Routen ─── */
@@ -132,6 +150,23 @@ const attr = (tag: string, name: string) => {
   return m ? decode(m[1]) : "";
 };
 
+/** Vergleichsform für Suchbegriffe: klein, Umlaute aufgelöst, nur Buchstaben und Ziffern */
+const plain = (s: string) =>
+  s
+    .toLowerCase()
+    .replace(/ä/g, "ae")
+    .replace(/ö/g, "oe")
+    .replace(/ü/g, "ue")
+    .replace(/ß/g, "ss")
+    .replace(/[^a-z0-9]+/g, " ");
+const pathOf = (url: string) => {
+  try {
+    return new URL(url, "http://x").pathname.replace(/\/+$/, "") || "/";
+  } catch {
+    return url;
+  }
+};
+
 interface RawLink {
   href: string;
   text: string;
@@ -161,13 +196,22 @@ interface Fetched {
   noindex: boolean;
   shell: boolean;
   ids: Set<string>;
+  titleLen: number;
+  description: string;
+  h1Count: number;
+  words: number;
+  canonical: string | null;
+  schema: boolean;
+  /** Titel + Überschrift bzw. Inhalt, vereinheitlicht für den Suchbegriff-Abgleich */
+  head: string;
+  body: string;
   content: RawLink[];
   nav: RawLink[];
   footer: RawLink[];
 }
 
 async function fetchPage(origin: string, path: string): Promise<Fetched> {
-  const empty: Fetched = { path, status: 0, title: "", h1: "", noindex: false, shell: false, ids: new Set(), content: [], nav: [], footer: [] };
+  const empty: Fetched = { path, status: 0, title: "", h1: "", noindex: false, shell: false, ids: new Set(), titleLen: 0, description: "", h1Count: 0, words: 0, canonical: null, schema: false, head: "", body: "", content: [], nav: [], footer: [] };
   let res: Response;
   try {
     res = await fetch(origin + path, { cache: "no-store", redirect: "follow", headers: { "user-agent": "TasWiq-Strukturcheck" }, signal: AbortSignal.timeout(process.env.NODE_ENV === "production" ? 15_000 : 60_000) });
@@ -182,11 +226,27 @@ async function fetchPage(origin: string, path: string): Promise<Fetched> {
   const main = start >= 0 && end > start ? body.slice(start, end) : body;
   const before = start >= 0 ? body.slice(0, start) : "";
   const after = start >= 0 && end > start ? body.slice(end) : "";
+  const fullTitle = text(/<title[^>]*>([\s\S]*?)<\/title>/i.exec(html)?.[1] ?? "");
+  const h1 = text(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i.exec(main)?.[1] ?? "");
+  const meta = (name: string) => {
+    const tag = new RegExp(`<meta[^>]+name="${name}"[^>]*>`, "i").exec(html)?.[0] ?? "";
+    return attr(tag, "content");
+  };
+  const canonical = attr(/<link[^>]+rel="canonical"[^>]*>/i.exec(html)?.[0] ?? "", "href");
+  const mainText = text(main);
   return {
     path,
     status: res.status,
-    title: text(/<title[^>]*>([\s\S]*?)<\/title>/i.exec(html)?.[1] ?? "").replace(/\s*[|–-]\s*TasWiq Media\.?$/i, ""),
-    h1: text(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i.exec(main)?.[1] ?? ""),
+    title: fullTitle.replace(/\s*[|–-]\s*TasWiq Media\.?$/i, ""),
+    h1,
+    titleLen: fullTitle.length,
+    description: meta("description"),
+    h1Count: (main.match(/<h1\b/gi) ?? []).length,
+    words: mainText ? mainText.split(" ").length : 0,
+    canonical: canonical ? pathOf(canonical) : null,
+    schema: /application\/ld\+json/i.test(raw),
+    head: plain(`${fullTitle} ${h1}`),
+    body: plain(`${meta("description")} ${mainText}`),
     noindex: /<meta[^>]+name="robots"[^>]+noindex/i.test(html),
     shell: /<header\b/i.test(before),
     ids: new Set(Array.from(body.matchAll(/\sid="([^"]+)"/g), (m) => m[1])),
@@ -249,6 +309,10 @@ async function scan(origin: string, locale: Locale): Promise<SiteStructure> {
       }
     }
   }
+  // Seiten, die beim ersten Versuch nicht geantwortet haben (Kaltstart, Zeitüberschreitung), einzeln noch einmal abrufen –
+  // sonst stünde ein Aussetzer 30 Minuten lang als „defekter Link“ im Dashboard.
+  for (const f of Array.from(fetched.values()).filter((x) => x.status === 0)) fetched.set(f.path, await fetchPage(origin, f.path));
+
   const start = fetched.get(home);
   if (!start || start.status !== 200) throw new Error(`Startseite nicht erreichbar (${origin}${home}, Status ${start?.status ?? 0})`);
 
@@ -259,6 +323,12 @@ async function scan(origin: string, locale: Locale): Promise<SiteStructure> {
     if (l.hash && !target.ids.has(l.hash)) return { ...l, broken: "anker", offer: false };
     return l;
   };
+  // Sitemap: Was melden wir Google – und passt das zu dem, was wirklich da ist?
+  const sitemapXml = await fetch(`${origin}/sitemap.xml`, { cache: "no-store", signal: AbortSignal.timeout(15_000) })
+    .then((r) => (r.ok ? r.text() : ""))
+    .catch(() => "");
+  const sitemap = new Set(Array.from(sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g), (m) => pathOf(decode(m[1]))));
+
   const nav = start.nav.map((r) => check(resolve(r, home)));
   const footer = start.footer.map((r) => check(resolve(r, home)));
   const navTargets = new Set([...nav, ...footer].filter((l) => l.kind === "seite" || l.kind === "anker").map((l) => l.to));
@@ -282,6 +352,13 @@ async function scan(origin: string, locale: Locale): Promise<SiteStructure> {
       inNav: navTargets.has(f.path),
       links: f.content.map((r) => check(resolve(r, f.path))),
       verdict: "schwach",
+      titleLen: f.titleLen,
+      description: f.description,
+      h1Count: f.h1Count,
+      words: f.words,
+      canonicalElsewhere: f.canonical && f.canonical !== f.path ? f.canonical : null,
+      schema: f.schema,
+      inSitemap: sitemap.has(f.path),
     };
   });
   const byPath = new Map(pages.map((p) => [p.path, p]));
@@ -324,10 +401,6 @@ async function scan(origin: string, locale: Locale): Promise<SiteStructure> {
     changed = updates.length > 0;
   }
 
-  const inbound = new Map<string, number>();
-  for (const p of pages) for (const to of new Set(p.links.filter((l) => l.kind === "seite").map((l) => l.to))) inbound.set(to, (inbound.get(to) ?? 0) + 1);
-
-  const issues: Issue[] = [];
   for (const p of pages) {
     const pageLinks = p.links.filter((l) => l.kind === "seite" && !l.broken);
     if (p.status !== 200) p.verdict = "fehler";
@@ -335,27 +408,25 @@ async function scan(origin: string, locale: Locale): Promise<SiteStructure> {
     else if (p.hasForm || p.offerPage || p.links.some((l) => l.offer)) p.verdict = "ok";
     else if (pageLinks.length === 0) p.verdict = "sackgasse";
     else p.verdict = "schwach";
-
-    if (p.verdict === "fehler") issues.push({ level: 1, kind: "fehler", path: p.path, text: p.status ? `Seite antwortet mit Status ${p.status}` : "Seite war beim Einlesen nicht erreichbar" });
-    for (const l of p.links) {
-      if (l.broken === "seite") issues.push({ level: 1, kind: "defekt", path: p.path, text: `Link „${l.text}“ führt ins Leere: ${l.to}` });
-      if (l.broken === "anker") issues.push({ level: 2, kind: "anker", path: p.path, text: `Link „${l.text}“ springt zu #${l.hash}, die Sprungmarke gibt es auf ${l.to} nicht` });
-    }
-    if (p.verdict === "sackgasse") issues.push({ level: 1, kind: "sackgasse", path: p.path, text: "Sackgasse: im Inhalt kein Link weiter und kein Weg zum Angebot" });
-    if (p.verdict === "schwach") issues.push({ level: 2, kind: "kein-cta", path: p.path, text: "Kein Call-to-Action im Inhalt, der zum Angebot führt" });
-    if (p.status === 200 && p.path !== home && !inbound.get(p.path) && !p.inNav) issues.push({ level: 2, kind: "verwaist", path: p.path, text: "Keine andere Seite verlinkt hierher – nur erreichbar, wenn man die Adresse kennt" });
-    else if (p.status === 200 && p.depth === null) issues.push({ level: 2, kind: "verwaist", path: p.path, text: "Von der Startseite aus über keinen Klickweg erreichbar – weder Menü, Footer noch eine erreichbare Seite verlinkt hierher" });
-    if (p.depth !== null && p.depth > 3) issues.push({ level: 3, kind: "tief", path: p.path, text: `${p.depth} Klicks von der Startseite entfernt` });
   }
-  for (const [where, list] of [["Menü", nav], ["Footer", footer]] as const)
-    for (const l of list) {
-      if (l.broken === "seite") issues.push({ level: 1, kind: "defekt", path: home, text: `${where}-Link „${l.text}“ führt ins Leere: ${l.to}` });
-      if (l.broken === "anker") issues.push({ level: 2, kind: "anker", path: home, text: `${where}-Link „${l.text}“ springt zu #${l.hash}, die Sprungmarke fehlt auf ${l.to}` });
-    }
-  issues.sort((a, b) => a.level - b.level || a.path.localeCompare(b.path));
 
-  return { locale, origin, scannedAt: new Date().toISOString(), pages, nav, footer, issues };
+  // Suchbegriffe: Jedes Wort des Begriffs muss in Titel/Überschrift (stark) oder wenigstens im Text (schwach) vorkommen.
+  const has = (hay: string, term: string) =>
+    plain(term)
+      .split(" ")
+      .filter((w) => w.length > 2)
+      .every((w) => hay.includes(w));
+  const keywordResults: KeywordResult[] =
+    locale !== "de"
+      ? []
+      : keywords.map((k) => {
+          const f = k.target ? fetched.get(k.target) : undefined;
+          const status = !k.target ? "offen" : !f || f.status !== 200 ? "fehlt" : has(f.head, k.term) ? "stark" : has(`${f.head} ${f.body}`, k.term) ? "schwach" : "fehlt";
+          return { term: k.term, area: k.area, target: k.target, main: Boolean(k.main), status };
+        });
+
+  return { locale, origin, scannedAt: new Date().toISOString(), pages, nav, footer, keywords: keywordResults, sitemapRead: sitemap.size > 0 };
 }
 
 /** Eingelesene Struktur – 30 Minuten gemerkt, „Neu einlesen“ im Dashboard verwirft den Stand sofort. */
-export const getSiteStructure = unstable_cache(scan, ["seitenstruktur-v1"], { revalidate: 1800, tags: [STRUCTURE_TAG] });
+export const getSiteStructure = unstable_cache(scan, ["seitenstruktur-v2"], { revalidate: 1800, tags: [STRUCTURE_TAG] });

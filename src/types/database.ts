@@ -211,6 +211,17 @@ export type AnalyticsData = {
   tests: { leads: number; calculations: number };
 };
 
+/** Klickwege aus der Besucherstatistik (Backend: /analytics/paths) */
+export type PathStats = {
+  days: number;
+  since: string;
+  pages: { path: string; views: number; visitors: number; entries: number; exits: number; search: number; ai: number }[];
+  transitions: { from: string; to: string; n: number }[];
+};
+/** Gespeicherter Stand der Seitenstruktur (ein Eintrag je Tag) */
+export type SiteScanData = { pages: { p: string; v: string }[]; findings: { id: string; level: number; n: number }[] };
+export type SiteScanRow = { day: string; locale: string; created_at: string; data: SiteScanData };
+
 /* ─── Team (Command Center) ─── */
 export type AgentEventKind = "start" | "schritt" | "fertig" | "rueckfrage" | "fehler" | "vorschlag" | "uebergabe" | "planung" | "info";
 export type AgentEvent = { id: number; created_at: string; agent: DepartmentId; kind: AgentEventKind; task_id: string | null; text: string; task_title: string | null };

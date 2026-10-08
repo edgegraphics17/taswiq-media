@@ -438,6 +438,8 @@ const insertTask = (body) => {
   const cols = Object.keys(v);
   db.prepare(`insert into tasks (id, key, created_at, updated_at, done_at, ${cols.join(",")}) values (?, ?, ?, ?, ?, ${cols.map(() => "?").join(",")})`)
     .run(id, body.key ? String(body.key).slice(0, 80) : null, t, t, v.status === "erledigt" ? t : null, ...cols.map((c) => v[c]));
+  // Direkt beim Anlegen übergeben (Dashboard → Seitenstruktur): Der Taktgeber sortiert nach diesem Zeitpunkt.
+  if (v.run_state === "beauftragt") db.prepare("update tasks set run_requested_at = ? where id = ?").run(t, id);
   return id;
 };
 
@@ -716,6 +718,48 @@ route("GET", "/analytics", ({ query }) => {
     // Als Test markiert und deshalb oben nicht mitgezählt
     tests: { leads: count("leads", 1), calculations: count("calculator_requests", 1) },
   };
+});
+
+/**
+ * Klickwege: Aus der Reihenfolge der Seitenaufrufe je Besucher und Tag entsteht, von welcher Seite er kam und wohin er ging.
+ * `entries` = erste Seite des Besuchs, `exits` = letzte. `search`/`ai` = Besucher, die über Suchmaschine bzw. KI-Assistent kamen.
+ */
+route("GET", "/analytics/paths", ({ query }) => {
+  const days = Math.min(365, Math.max(1, Number(query.get("days")) || 30));
+  const since = new Date(Date.now() - (days - 1) * 86_400_000).toISOString().slice(0, 10);
+  const pv = `with pv as (
+    select path, day, visitor, channel, lag(path) over w as prev, lead(path) over w as next
+    from site_hits where day >= ? and type = 'pageview' and is_test = 0
+    window w as (partition by day, visitor order by id))`;
+  return {
+    days,
+    since,
+    pages: db.prepare(`${pv} select path, count(*) as views, count(distinct day || visitor) as visitors,
+      sum(prev is null) as entries, sum(next is null) as exits,
+      count(distinct case when channel = 'suche' then day || visitor end) as search,
+      count(distinct case when channel = 'ki' then day || visitor end) as ai
+      from pv group by path order by views desc limit 1000`).all(since),
+    transitions: db.prepare(`${pv} select prev as "from", path as "to", count(*) as n from pv
+      where prev is not null and prev != path group by 1, 2 order by n desc limit 3000`).all(since),
+  };
+});
+
+// ─── Seitenstruktur: ein Stand je Tag und Sprache (Verlauf im Dashboard) ───
+route("PUT", "/site-scans", ({ body }) => {
+  need(body && ["de", "en"].includes(body.locale) && body.data && typeof body.data === "object", "scan");
+  const data = JSON.stringify(body.data);
+  need(data.length <= 200_000, "tooLarge");
+  db.prepare("insert into site_scans (day, locale, created_at, data) values (?, ?, ?, ?) on conflict (day, locale) do update set created_at = excluded.created_at, data = excluded.data")
+    .run(now().slice(0, 10), body.locale, now(), data);
+  // Ein Jahr Verlauf genügt.
+  db.prepare("delete from site_scans where day < ?").run(new Date(Date.now() - 365 * 86_400_000).toISOString().slice(0, 10));
+  return { ok: true };
+});
+
+route("GET", "/site-scans", ({ query }) => {
+  const limit = Math.min(60, Math.max(1, Number(query.get("limit")) || 14));
+  return db.prepare("select day, locale, created_at, data from site_scans where locale = ? order by day desc limit ?").all(query.get("locale") === "en" ? "en" : "de", limit)
+    .map((r) => ({ ...r, data: JSON.parse(r.data) }));
 });
 
 // ─── Server ─────────────────────────────────────────────────────────

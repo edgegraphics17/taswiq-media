@@ -51,6 +51,8 @@ Arbeitsgrundlage der Abteilung Wachstum. Ziel: 600 passende Besucher und 12 Anfr
 | KI Telefonassistent Kosten (+ Handwerk, Arztpraxis, Hausverwaltung) | /blog/ki-telefonassistent-kosten |
 | Website erstellen lassen (Kosten) | /leistungen/website-erstellen-lassen |
 
+**Im Dashboard:** Die Zielseiten und Lücken stehen zusätzlich in `src/config/keywords.ts` – daraus prüft die Seitenstruktur (Reiter „Suchbegriffe“), ob ein Begriff in Titel oder Überschrift seiner Zielseite steht. Beide Stellen gemeinsam pflegen.
+
 ## Gefundene Suchanfragen ohne eigene Seite (Lücken → Aufgaben)
 
 Aus den Google-Vorschlägen vom 08.10.2026, sortiert nach Kaufabsicht und danach, ob wir eine Referenz haben:

@@ -6,7 +6,7 @@
 das Backend: `/analytics?days=30`, `/leads`, `/calculator-requests`), Messlücken schließen, Kennzahlen im Dashboard verständlich machen.
 Bei wenigen Daten ehrlich sagen, dass die Zahl noch nichts beweist.
 
-**Planung:** Den Weg zur Anfrage ansehen: Wo steigen die meisten aus (Besucher → Rechner begonnen → Ergebnis → Anfrage)? Welcher Kanal
+**Planung:** `team/bin/team struktur` lesen (Thema „Besucher“: Seiten, auf denen fast alle aussteigen, und Seiten ganz ohne Besuch; `bereiche`: Besucher und Anfragen je Bereich). Dann den Weg zur Anfrage ansehen: Wo steigen die meisten aus (Besucher → Rechner begonnen → Ergebnis → Anfrage)? Welcher Kanal
 bringt Anfragen statt nur Besucher? Passen die Annahmen in `src/config/goal.ts` noch zu den echten Quoten? Die größte Lücke geht als
 Übergabe an die zuständige Abteilung – mit der Zahl dazu.
 

@@ -3,9 +3,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useFormStatus } from "react-dom";
-import { ArrowLeft, ArrowRight, Ban, CircleCheck, CircleMinus, CircleX, ExternalLink, Eye, EyeOff, Link2, List, Map as MapIcon, Maximize, Minus, MousePointerClick, Plus, RefreshCw, Search, TriangleAlert, X, type LucideIcon } from "lucide-react";
+import { ArrowLeft, ArrowRight, Ban, CircleCheck, CircleMinus, CircleX, ExternalLink, Eye, EyeOff, Link2, List, ListChecks, Map as MapIcon, Maximize, Minus, MousePointerClick, Plus, RefreshCw, Search, TriangleAlert, X, type LucideIcon } from "lucide-react";
 import { rescanSite } from "@/app/admin/actions";
-import type { GroupId, Issue, PageLink, PageNode, SiteStructure, Verdict } from "@/lib/admin/site-structure";
+import { KeywordView, TodayView } from "@/components/admin/SiteReportViews";
+import type { SiteReport } from "@/lib/admin/site-findings";
+import type { GroupId, PageLink, PageNode, SiteStructure, Verdict } from "@/lib/admin/site-structure";
 import { cn, formatDateTime, formatNumber } from "@/lib/format";
 
 /**
@@ -34,7 +36,10 @@ const VERDICT: Record<Verdict, { icon: LucideIcon; tone: string; label: string }
 };
 
 type Filter = "alle" | "ok" | "schwach" | "sackgasse" | "links";
-const LINK_ISSUES: Issue["kind"][] = ["defekt", "anker", "verwaist", "fehler"];
+const LINK_ISSUES = ["defekt", "anker", "verwaist", "fehler"];
+type Mode = "heute" | "karte" | "liste" | "suchbegriffe";
+type Note = { id: string; level: number; text: string };
+type Stat = { views: number; visitors: number; entries: number; exits: number; search: number; ai: number };
 
 /* ─── Karten-Layout: feste Maße, damit die Linien die Kacheln exakt treffen ─── */
 const NODE = { w: 178, h: 36, gap: 8 };
@@ -117,13 +122,27 @@ function RescanButton() {
 
 const target = (l: PageLink) => `${l.to}${l.hash ? `#${l.hash}` : ""}`;
 
-export function SiteMap({ data, error, views, locale }: { data: SiteStructure | null; error: string; views: Record<string, number>; locale: string }) {
+export function SiteMap({ data, report, error, locale }: { data: SiteStructure | null; report: SiteReport | null; error: string; locale: string }) {
   const pages = useMemo(() => data?.pages ?? [], [data]);
   const byPath = useMemo(() => new Map(pages.map((p) => [p.path, p])), [pages]);
   const map = useMemo(() => layout(pages), [pages]);
-  const issues = useMemo(() => data?.issues ?? [], [data]);
+  // Befunde je Seite (für Karte, Liste und Detail-Panel)
+  const notes = useMemo(() => {
+    const m = new Map<string, Note[]>();
+    for (const f of report?.findings ?? []) for (const i of f.items) if (i.path) m.set(i.path, [...(m.get(i.path) ?? []), { id: f.id, level: f.level, text: `${f.title.replace(/^\d+ /, "")}${i.note ? `: ${i.note}` : ""}` }]);
+    return m;
+  }, [report]);
+  // Besucher je Seite und echte Klickwege der letzten 30 Tage
+  const { stats, flows } = useMemo(() => {
+    const norm = (x: string) => x.replace(/\/+$/, "") || "/";
+    const stats = new Map<string, Stat>((report?.paths?.pages ?? []).map((x) => [norm(x.path), x]));
+    const flows = new Map<string, Map<string, number>>();
+    for (const t of report?.paths?.transitions ?? []) flows.set(norm(t.from), (flows.get(norm(t.from)) ?? new Map()).set(norm(t.to), t.n));
+    return { stats, flows };
+  }, [report]);
+  const views = (path: string) => stats.get(path)?.views ?? 0;
 
-  const [mode, setMode] = useState<"karte" | "liste">("karte");
+  const [mode, setMode] = useState<Mode>("heute");
   const [filter, setFilter] = useState<Filter>("alle");
   const [query, setQuery] = useState("");
   const [sel, setSel] = useState<string | null>(null);
@@ -146,7 +165,7 @@ export function SiteMap({ data, error, views, locale }: { data: SiteStructure | 
     return { outgoing, incoming };
   }, [pages, byPath]);
 
-  const withLinkIssue = useMemo(() => new Set(issues.filter((i) => LINK_ISSUES.includes(i.kind)).map((i) => i.path)), [issues]);
+  const withLinkIssue = useMemo(() => new Set(Array.from(notes).filter(([, list]) => list.some((n) => LINK_ISSUES.includes(n.id))).map(([path]) => path)), [notes]);
   const matches = useCallback(
     (p: PageNode) => {
       const q = query.trim().toLowerCase();
@@ -175,10 +194,6 @@ export function SiteMap({ data, error, views, locale }: { data: SiteStructure | 
     });
   }, []);
 
-  // Auf dem Handy ist die Liste die bessere erste Ansicht.
-  useEffect(() => {
-    if (window.innerWidth < 768) setMode("liste");
-  }, []);
   useEffect(() => {
     if (mode === "karte") fit();
   }, [mode, fit]);
@@ -211,7 +226,13 @@ export function SiteMap({ data, error, views, locale }: { data: SiteStructure | 
     });
   };
 
-  if (!data) {
+  // Aus „Heute“ oder „Suchbegriffe“ zu einer Seite springen – auf dem Handy ist die Liste die bessere Ansicht.
+  const open = (path: string) => {
+    if (mode !== "karte" && mode !== "liste") setMode(window.innerWidth < 768 ? "liste" : "karte");
+    setTimeout(() => select(path), 60);
+  };
+
+  if (!data || !report) {
     return (
       <div>
         <Header locale={locale} />
@@ -236,7 +257,7 @@ export function SiteMap({ data, error, views, locale }: { data: SiteStructure | 
 
   const rows = pages.filter(matches).sort((a, b) => {
     const val = (p: PageNode): number | string =>
-      sort.key === "label" ? p.label.toLowerCase() : sort.key === "group" ? p.group : sort.key === "in" ? (incoming.get(p.path)?.length ?? 0) : sort.key === "cta" ? p.links.filter((l) => l.offer).length : sort.key === "views" ? (views[p.path] ?? 0) : sort.key === "offer" ? (p.toOffer ?? 99) : (p.depth ?? 99);
+      sort.key === "label" ? p.label.toLowerCase() : sort.key === "group" ? p.group : sort.key === "in" ? (incoming.get(p.path)?.length ?? 0) : sort.key === "cta" ? p.links.filter((l) => l.offer).length : sort.key === "views" ? views(p.path) : sort.key === "search" ? (stats.get(p.path)?.search ?? 0) : sort.key === "notes" ? (notes.get(p.path)?.length ?? 0) : sort.key === "offer" ? (p.toOffer ?? 99) : (p.depth ?? 99);
     const [x, y] = [val(a), val(b)];
     return (x < y ? -1 : x > y ? 1 : 0) * sort.dir || a.label.localeCompare(b.label);
   });
@@ -252,7 +273,28 @@ export function SiteMap({ data, error, views, locale }: { data: SiteStructure | 
     <div>
       <Header locale={locale} scannedAt={data.scannedAt} />
 
-      <div role="group" aria-label="Filter" className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-5">
+      <div role="tablist" aria-label="Ansicht" className="mt-6 flex w-fit max-w-full overflow-x-auto rounded-full border border-line bg-white p-1">
+        {(
+          [
+            ["heute", "Heute", ListChecks],
+            ["karte", "Karte", MapIcon],
+            ["liste", "Seiten", List],
+            ["suchbegriffe", "Suchbegriffe", Search],
+          ] as const
+        ).map(([m, text, Icon]) => (
+          <button key={m} type="button" role="tab" aria-selected={mode === m} onClick={() => setMode(m)} className={cn("flex min-h-10 cursor-pointer items-center gap-2 rounded-full px-4 text-sm font-semibold whitespace-nowrap", mode === m ? "bg-night text-white" : "text-muted hover:text-ink")}>
+            <Icon className="size-4" aria-hidden /> {text}
+            {m === "heute" && report.findings.length > 0 && <span className={cn("num rounded-full px-1.5 text-[11px]", mode === m ? "bg-white/20" : "bg-canvas")}>{report.findings.length}</span>}
+          </button>
+        ))}
+      </div>
+
+      {mode === "heute" && <TodayView report={report} locale={locale} label={(path) => byPath.get(path)?.label ?? path} onSelect={open} onKeywords={() => setMode("suchbegriffe")} />}
+      {mode === "suchbegriffe" && <KeywordView keywords={data.keywords} report={report} label={(path) => byPath.get(path)?.label ?? path} onSelect={open} />}
+
+      {(mode === "karte" || mode === "liste") && (
+        <>
+      <div role="group" aria-label="Filter" className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-5">
         {tiles.map((t) => (
           <button
             key={t.id}
@@ -274,13 +316,6 @@ export function SiteMap({ data, error, views, locale }: { data: SiteStructure | 
           <Search className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-muted" aria-hidden />
           <input type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Seite suchen …" className="min-h-11 w-full rounded-full border border-line bg-white pr-4 pl-10 text-sm text-ink placeholder:text-muted" />
         </label>
-        <div role="group" aria-label="Ansicht" className="flex rounded-full border border-line bg-white p-1">
-          {(["karte", "liste"] as const).map((m) => (
-            <button key={m} type="button" aria-pressed={mode === m} onClick={() => setMode(m)} className={cn("flex min-h-9 cursor-pointer items-center gap-2 rounded-full px-4 text-sm font-semibold", mode === m ? "bg-night text-white" : "text-muted hover:text-ink")}>
-              {m === "karte" ? <MapIcon className="size-4" aria-hidden /> : <List className="size-4" aria-hidden />} {m === "karte" ? "Karte" : "Liste"}
-            </button>
-          ))}
-        </div>
       </div>
 
       <div className={cn("relative mt-4 grid items-start gap-4", mode === "liste" && current && "xl:grid-cols-[minmax(0,1fr)_400px]")}>
@@ -378,7 +413,22 @@ export function SiteMap({ data, error, views, locale }: { data: SiteStructure | 
                     })}
                     {[...out].map((p) => {
                       const r = map.rects.get(p);
-                      return r ? <path key={`o${p}`} d={curve(map.rects.get(current.path)!, r)} fill="none" stroke="#7840fe" strokeWidth={2} markerEnd="url(#pfeil-aus)" /> : null;
+                      const n = flows.get(current.path)?.get(p) ?? 0;
+                      if (!r) return null;
+                      // Linienstärke = wie oft der Weg in 30 Tagen wirklich gegangen wurde
+                      return (
+                        <g key={`o${p}`}>
+                          <path d={curve(map.rects.get(current.path)!, r)} fill="none" stroke="#7840fe" strokeWidth={n ? Math.min(6, 2 + Math.log2(n + 1) * 0.7) : 1.5} strokeOpacity={n ? 1 : 0.55} markerEnd="url(#pfeil-aus)" />
+                          {n > 0 && (
+                            <g transform={`translate(${r.x + r.w - 6}, ${r.y - 2})`}>
+                              <rect x={-30} y={-9} width={30} height={16} rx={8} fill="#7840fe" />
+                              <text x={-15} y={3} textAnchor="middle" fontSize={10} fontWeight={700} fill="#fff">
+                                {n > 999 ? "999+" : n}
+                              </text>
+                            </g>
+                          )}
+                        </g>
+                      );
                     })}
                   </svg>
                 )}
@@ -407,7 +457,7 @@ export function SiteMap({ data, error, views, locale }: { data: SiteStructure | 
                 );
               })}
               <span className="flex items-center gap-1.5">
-                <span className="h-0.5 w-5 bg-brand-500" aria-hidden /> verlinkt auf
+                <span className="h-0.5 w-5 bg-brand-500" aria-hidden /> verlinkt auf (Zahl = Klicks in 30 Tagen)
               </span>
               <span className="flex items-center gap-1.5">
                 <span className="w-5 border-t-2 border-dashed border-muted" aria-hidden /> verlinkt von
@@ -417,7 +467,7 @@ export function SiteMap({ data, error, views, locale }: { data: SiteStructure | 
           </section>
         ) : (
           <section aria-label="Liste der Seiten" className="overflow-x-auto rounded-2xl border border-line bg-white">
-            <table className="w-full min-w-[720px] text-left text-sm">
+            <table className="w-full min-w-[880px] text-left text-sm">
               <thead className="border-b border-line text-xs text-muted">
                 <tr>
                   {th("label", "Seite")}
@@ -428,6 +478,8 @@ export function SiteMap({ data, error, views, locale }: { data: SiteStructure | 
                   {th("in", "Verlinkt von", true)}
                   {th("cta", "CTAs", true)}
                   {th("views", "Aufrufe 30 T.", true)}
+                  {th("search", "über Suche", true)}
+                  {th("notes", "Befunde", true)}
                 </tr>
               </thead>
               <tbody>
@@ -451,7 +503,9 @@ export function SiteMap({ data, error, views, locale }: { data: SiteStructure | 
                       <td className="num px-3 py-2.5 text-right">{p.toOffer ?? "–"}</td>
                       <td className="num px-3 py-2.5 text-right">{incoming.get(p.path)?.length ?? 0}</td>
                       <td className="num px-3 py-2.5 text-right">{p.links.filter((l) => l.offer).length}</td>
-                      <td className="num px-3 py-2.5 text-right">{formatNumber(views[p.path] ?? 0)}</td>
+                      <td className="num px-3 py-2.5 text-right">{formatNumber(views(p.path))}</td>
+                      <td className="num px-3 py-2.5 text-right">{formatNumber(stats.get(p.path)?.search ?? 0)}</td>
+                      <td className={cn("num px-3 py-2.5 text-right", notes.get(p.path)?.some((n) => n.level < 3) && "font-semibold text-amber-600")}>{notes.get(p.path)?.length ?? 0}</td>
                     </tr>
                   );
                 })}
@@ -472,9 +526,11 @@ export function SiteMap({ data, error, views, locale }: { data: SiteStructure | 
             <PagePanel
               page={current}
               data={data}
-              views={views[current.path] ?? 0}
+              stat={stats.get(current.path)}
+              flow={flows.get(current.path)}
+              keywords={data.keywords.filter((k) => k.target === current.path)}
               from={incoming.get(current.path) ?? []}
-              issues={issues.filter((i) => i.path === current.path)}
+              notes={notes.get(current.path) ?? []}
               label={(path) => byPath.get(path)?.label ?? path}
               known={(path) => byPath.has(path)}
               preview={preview}
@@ -485,7 +541,8 @@ export function SiteMap({ data, error, views, locale }: { data: SiteStructure | 
         )}
       </div>
 
-      <Overview issues={issues} label={(path) => byPath.get(path)?.label ?? path} onSelect={select} />
+        </>
+      )}
     </div>
   );
 }
@@ -517,46 +574,6 @@ function Header({ locale, scannedAt }: { locale: string; scannedAt?: string }) {
   );
 }
 
-const LEVELS: { level: Issue["level"]; label: string; tone: string }[] = [
-  { level: 1, label: "Zuerst beheben", tone: "bg-danger" },
-  { level: 2, label: "Verbessern", tone: "bg-amber-500" },
-  { level: 3, label: "Hinweis", tone: "bg-muted" },
-];
-
-function Overview({ issues, label, onSelect }: { issues: Issue[]; label: (path: string) => string; onSelect: (path: string) => void }) {
-  return (
-    <section className="mt-4 rounded-2xl border border-line bg-white p-5">
-      <h2 className="text-sm font-bold text-ink">
-        Auffälligkeiten <span className="num font-normal text-muted">{issues.length}</span>
-      </h2>
-      <p className="mt-1 text-xs text-muted">{issues.length ? "Klick auf einen Eintrag öffnet die Seite mit allen Details." : "Keine – jede Seite ist erreichbar und führt zum Angebot."}</p>
-      <div className="grid gap-x-6 md:grid-cols-3">
-        {LEVELS.map((lv) => {
-          const list = issues.filter((i) => i.level === lv.level);
-          if (!list.length) return null;
-          return (
-            <section key={lv.level} className="mt-5 min-w-0">
-              <h3 className="flex items-center gap-2 text-xs font-semibold text-ink">
-                <span className={cn("size-2 rounded-full", lv.tone)} aria-hidden /> {lv.label} <span className="num font-normal text-muted">{list.length}</span>
-              </h3>
-              <ul className="mt-2 space-y-1">
-                {list.map((i, n) => (
-                  <li key={n}>
-                    <button type="button" onClick={() => onSelect(i.path)} className="w-full cursor-pointer rounded-lg px-2.5 py-2 text-left hover:bg-canvas">
-                      <span className="block truncate text-sm font-semibold text-ink">{label(i.path)}</span>
-                      <span className="block text-xs leading-relaxed break-words text-body">{i.text}</span>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          );
-        })}
-      </div>
-    </section>
-  );
-}
-
 function verdictText(p: PageNode) {
   if (p.verdict === "fehler") return p.status ? `Die Seite antwortet mit Status ${p.status}.` : "Die Seite war beim Einlesen nicht erreichbar.";
   if (p.verdict === "neutral") return "Pflichtseite – braucht keinen Call-to-Action.";
@@ -570,9 +587,11 @@ function verdictText(p: PageNode) {
 function PagePanel({
   page: p,
   data,
-  views,
+  stat,
+  flow,
+  keywords,
   from,
-  issues,
+  notes,
   label,
   known,
   preview,
@@ -581,9 +600,11 @@ function PagePanel({
 }: {
   page: PageNode;
   data: SiteStructure;
-  views: number;
+  stat?: Stat;
+  flow?: Map<string, number>;
+  keywords: SiteStructure["keywords"];
   from: string[];
-  issues: Issue[];
+  notes: Note[];
   label: (path: string) => string;
   known: (path: string) => boolean;
   preview: boolean;
@@ -599,7 +620,22 @@ function PagePanel({
     { label: "Klicks ab Startseite", value: p.depth ?? "–" },
     { label: "Klicks bis zur Anfrage", value: p.toOffer ?? "kein Weg" },
     { label: "Verlinkt von", value: `${from.length} ${from.length === 1 ? "Seite" : "Seiten"}` },
-    { label: "Aufrufe (30 Tage)", value: formatNumber(views) },
+    { label: "Aufrufe (30 Tage)", value: formatNumber(stat?.views ?? 0) },
+    { label: "Einstiege · über Suche", value: `${formatNumber(stat?.entries ?? 0)} · ${formatNumber(stat?.search ?? 0)}` },
+    { label: "Besuche enden hier", value: stat?.views ? `${Math.round((stat.exits / stat.views) * 100)} %` : "–" },
+  ];
+  // Wohin Besucher von hier wirklich gehen – auch über Menü und Footer
+  const went = Array.from(flow ?? []).sort((a, b) => b[1] - a[1]).slice(0, 6);
+  const seo = [
+    { label: "Titel", value: p.title || "fehlt", hint: `${p.titleLen} Zeichen`, bad: !p.titleLen || p.titleLen > 65 },
+    { label: "Beschreibung", value: p.description || "fehlt", hint: `${p.description.length} Zeichen`, bad: !p.description || p.description.length > 165 },
+    { label: "Hauptüberschrift", value: p.h1 || "fehlt", hint: p.h1Count > 1 ? `${p.h1Count}× vorhanden` : "", bad: p.h1Count !== 1 },
+  ];
+  const flags = [
+    { label: `${formatNumber(p.words)} Wörter`, ok: p.words >= 300 },
+    { label: p.noindex ? "für Google gesperrt" : "für Google freigegeben", ok: !p.noindex },
+    { label: p.inSitemap ? "in der Sitemap" : "nicht in der Sitemap", ok: p.inSitemap || p.noindex },
+    { label: p.schema ? "strukturierte Daten" : "keine strukturierten Daten", ok: p.schema },
   ];
   const jump = "w-full cursor-pointer rounded-lg px-2.5 py-1.5 text-left text-sm text-ink hover:bg-canvas flex items-center gap-2";
 
@@ -627,9 +663,9 @@ function PagePanel({
       <p className="mt-4 flex items-start gap-2 rounded-xl bg-canvas px-3 py-2.5 text-sm text-ink">
         <v.icon className={cn("mt-0.5 size-4 shrink-0", v.tone)} aria-hidden /> {verdictText(p)}
       </p>
-      {issues.filter((i) => !["kein-cta", "sackgasse", "fehler"].includes(i.kind)).map((i, n) => (
+      {notes.filter((i) => !["kein-cta", "sackgasse", "fehler"].includes(i.id)).map((i, n) => (
         <p key={n} className="mt-2 flex items-start gap-2 rounded-xl bg-canvas px-3 py-2.5 text-sm text-ink">
-          <TriangleAlert className={cn("mt-0.5 size-4 shrink-0", i.level === 1 ? "text-danger" : "text-amber-600")} aria-hidden /> {i.text}
+          <TriangleAlert className={cn("mt-0.5 size-4 shrink-0", i.level === 1 ? "text-danger" : i.level === 2 ? "text-amber-600" : "text-muted")} aria-hidden /> <span className="min-w-0 break-words">{i.text}</span>
         </p>
       ))}
 
@@ -691,7 +727,7 @@ function PagePanel({
                 {known(to) ? (
                   <button type="button" onClick={() => onSelect(to)} className={jump}>
                     <ArrowRight className="size-3.5 shrink-0 text-brand-600" aria-hidden /> <span className="truncate">{label(to)}</span>
-                    {n > 1 && <span className="num ml-auto shrink-0 text-xs text-muted">{n}×</span>}
+                    <span className="num ml-auto shrink-0 text-xs text-muted">{flow?.get(to) ? `${formatNumber(flow.get(to)!)} Klicks` : n > 1 ? `${n}×` : ""}</span>
                   </button>
                 ) : (
                   <p className={cn(jump, "cursor-default text-danger hover:bg-transparent")}>
@@ -723,6 +759,54 @@ function PagePanel({
           </ul>
         ) : (
           !p.inNav && <p className="mt-2 text-sm text-muted">Keine andere Seite verlinkt im Inhalt hierher.</p>
+        )}
+      </section>
+
+      {went.length > 0 && (
+        <section className="mt-6">
+          <h3 className="text-sm font-bold text-ink">Wohin Besucher von hier gehen</h3>
+          <p className="mt-1 text-xs text-muted">Echte Klickwege der letzten 30 Tage – auch über Menü und Footer.</p>
+          <ul className="mt-1">
+            {went.map(([to, n]) => (
+              <li key={to}>
+                <button type="button" disabled={!known(to)} onClick={() => onSelect(to)} className={jump}>
+                  <ArrowRight className="size-3.5 shrink-0 text-brand-600" aria-hidden /> <span className="truncate">{label(to)}</span>
+                  <span className="num ml-auto shrink-0 text-xs font-semibold text-ink">{formatNumber(n)}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <section className="mt-6">
+        <h3 className="text-sm font-bold text-ink">Für Google</h3>
+        <dl className="mt-2 space-y-2.5">
+          {seo.map((x) => (
+            <div key={x.label}>
+              <dt className="flex items-center justify-between text-xs text-muted">
+                {x.label} <span className={cn("num", x.bad && "font-semibold text-amber-600")}>{x.hint}</span>
+              </dt>
+              <dd className="text-sm leading-snug break-words text-ink">{x.value}</dd>
+            </div>
+          ))}
+        </dl>
+        <ul className="mt-3 flex flex-wrap gap-1.5">
+          {flags.map((x) => (
+            <li key={x.label} className={cn("num rounded-full px-2.5 py-1 text-[11px] font-semibold", x.ok ? "bg-canvas text-body" : "bg-amber-50 text-amber-900")}>
+              {x.label}
+            </li>
+          ))}
+        </ul>
+        {keywords.length > 0 && (
+          <ul className="mt-3 space-y-1">
+            {keywords.map((k) => (
+              <li key={k.term} className="flex items-center justify-between gap-3 text-sm text-ink">
+                <span className="truncate">Suchbegriff „{k.term}“</span>
+                <span className={cn("shrink-0 text-xs font-semibold", k.status === "stark" ? "text-emerald-600" : "text-amber-600")}>{k.status === "stark" ? "im Titel" : k.status === "schwach" ? "nur im Text" : "fehlt"}</span>
+              </li>
+            ))}
+          </ul>
         )}
       </section>
 
