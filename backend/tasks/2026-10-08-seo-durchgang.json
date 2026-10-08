@@ -1,0 +1,38 @@
+[
+ {
+  "key": "search-console-indexierung-beantragen",
+  "title": "Wichtigste Seiten bei Google zur Indexierung anmelden",
+  "why": "Alle 66 Seiten sind technisch bereit (Sitemap, Titel, Beschreibung, Hauptüberschrift, strukturierte Daten). Google kennt sie aber erst, wenn die Search Console eingerichtet und die Sitemap eingereicht ist. Ohne diesen Schritt bleiben die 37 Ratgeber unsichtbar.",
+  "steps": "Search Console öffnen und die Property als Domain anlegen (taswiq-media.de), den angezeigten TXT-Eintrag bei Hostinger im DNS eintragen\nUnter „Sitemaps“ einmal sitemap.xml einreichen\nIm Dashboard unter Seitenstruktur den Reiter „Google“ öffnen und bei Startseite, den sechs Branchen- und sieben Leistungsseiten auf „Prüfen“ klicken, dort „Indexierung beantragen“ wählen (etwa zehn pro Tag)\nDasselbe für Bing Webmaster Tools: Website hinzufügen, Sitemap einreichen – Claude meldet danach alle Adressen mit „npm run indexnow“\nNach einer Woche in der Search Console unter „Seiten“ nachsehen, was indexiert ist",
+  "category": "seo",
+  "priority": 1,
+  "effort": "S",
+  "source": "claude",
+  "executor": "karim",
+  "department": "wachstum"
+ },
+ {
+  "key": "ratgeber-neue-acht-gegenlesen",
+  "title": "Acht neue Ratgeber einmal gegenlesen",
+  "why": "Die Artikel zu Maklersoftware, Autohaus-Software, Fahrschul-App, Vermieter-Software, kostenlosem Buchungssystem und drei KI-Themen sind live. Preise stammen aus der Preisliste. Fremde Produkte sind nur als Beispiele genannt (onOffice, FlowFact, Propstack, mobile.de, AutoScout24), ohne Preise – ein Blick von dir stellt sicher, dass Ton und Aussagen zu deinem Angebot passen.",
+  "steps": "Im Ratgeber die acht neuesten Artikel öffnen und jeweils Kurzfassung, Preistabelle und häufige Fragen lesen\nPrüfen: Stimmen Lieferzeiten und Leistungsumfang mit dem überein, was du zusagen willst?\nÄnderungswünsche als Stichpunkte an Claude geben",
+  "category": "seo",
+  "priority": 2,
+  "effort": "S",
+  "source": "claude",
+  "executor": "karim",
+  "department": "wachstum"
+ },
+ {
+  "key": "seo-ueber-uns-seite",
+  "title": "Seite „Über TasWiq“ mit Person, Werdegang und Arbeitsweise anlegen",
+  "why": "Google und KI-Assistenten bewerten, wer hinter einer Website steht. Bisher gibt es keine Seite über dich – die Ratgeber nennen nur deinen Namen. Eine Seite mit Foto, Werdegang, Referenzen und Arbeitsweise stärkt das Vertrauen von Besuchern und die Chance, in KI-Antworten genannt zu werden.",
+  "steps": "Karim liefert: Foto, drei bis fünf Sätze zum Werdegang, seit wann TasWiq besteht, Zusammenarbeit mit winsym.ai\nClaude baut die Seite /ueber-uns (Deutsch und Englisch) mit strukturierten Daten zur Person und verlinkt sie im Footer und als Autor in jedem Ratgeber\nIm Dashboard unter Seitenstruktur neu einlesen und im Reiter „Google“ prüfen",
+  "category": "geo",
+  "priority": 2,
+  "effort": "M",
+  "source": "claude",
+  "executor": "beide",
+  "department": "wachstum"
+ }
+]
