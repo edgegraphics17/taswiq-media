@@ -28,6 +28,21 @@ als Verlaufseintrag und im Lead-Detail des Dashboards („Jev-Einschätzung“).
 - **Robust:** Antworten werden strikt validiert; bei Fehlern bleibt der Lead beim Standard-Scoring (`src/lib/lead-scoring.ts`).
 - **Erneut ausführen:** `POST /leads/:id/qualify` (zählt zum Tageslimit).
 
+## Sicherung der Datenbank
+Täglich, ohne Zutun: Beim ersten Takt einer Abteilung am Tag (`team claim`) läuft `team/bin/backup`.
+1. `backup.mjs` legt auf dem Sprite einen in sich vollständigen Schnappschuss an (`VACUUM INTO`, der Dienst läuft weiter) und prüft ihn:
+   `/home/sprite/taswiq/backups/taswiq-<datum>.db`, 7 Tage aufbewahrt.
+2. Die Kopie wird auf Karims Rechner geholt (`backups/` im Projekt, nicht im Repo), dort wie bei einer Wiederherstellung geöffnet,
+   geprüft und mit dem Schnappschuss verglichen; 30 Tage aufbewahrt.
+3. Schlägt etwas fehl, steht es als Meldung von „Qualität & Sicherheit“ im Dashboard; der nächste Versuch folgt frühestens nach 6 Stunden.
+
+Von Hand: `team/bin/team backup --force` (jetzt sichern) · `team/bin/team backup verify` (Wiederherstellung der neuesten Sicherung testen).
+Die Sicherungen enthalten Kundendaten und den Passwort-Hash des Dashboards – nicht weitergeben, nicht committen.
+
+**Wiederherstellen** (nur im Ernstfall, vorher `sprite checkpoint create -s taswiq-media`): Service `api` stoppen, in `backend/data` die Dateien
+`taswiq.db`, `taswiq.db-wal` und `taswiq.db-shm` beiseitelegen, die Sicherung als `taswiq.db` (0600) dorthin kopieren, Service starten.
+Nach Änderungen an `backup.mjs`: `sprite file push -s taswiq-media backend/backup.mjs /home/sprite/taswiq/backend/backup.mjs`.
+
 ## Preis-Seed
 `npm run db:seed-sql` erzeugt `seed.sql`. Das Backend lädt sie nur beim ersten Start in eine leere Tabelle `services`; eine leere Tabelle
 ist unkritisch (die Seite rechnet dann mit `src/config/pricing.ts`).

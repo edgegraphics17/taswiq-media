@@ -1,0 +1,78 @@
+#!/bin/bash
+# Tägliche Sicherung der TasWiq-Datenbank an einen zweiten Ort: vom Sprite "taswiq-media" auf diesen Rechner (Ordner backups/, bleibt lokal).
+#
+#   backup            Sicherung holen, falls heute noch keine da ist (höchstens ein Versuch alle 6 Stunden)
+#   backup --force    jetzt sichern, egal wann die letzte war
+#   backup verify     Wiederherstellung testen: neueste Sicherung als Kopie öffnen, prüfen, Inhalt zählen
+#
+# Läuft von selbst: `team claim` ruft es bei jedem Takt einer Abteilung auf. Schlägt es fehl, steht das im Dashboard (/admin/team).
+# Ablauf: backend/backup.mjs erzeugt auf dem Sprite einen geprüften Schnappschuss (7 Tage dort aufbewahrt),
+# der wird hierher kopiert, noch einmal geprüft und 30 Tage aufbewahrt.
+set -uo pipefail
+
+root="$(cd "$(dirname "$0")/../.." && pwd)"
+dir="$root/backups"
+keep=30
+mkdir -p "$dir" && chmod 700 "$dir"
+
+# Öffnet eine Sicherung als Kopie (wie bei einer Wiederherstellung), prüft sie und gibt die Zeilen je Tabelle als JSON aus.
+inspect() {
+  python3 - "$1" <<'PY'
+import json, os, shutil, sqlite3, sys, tempfile
+src = sys.argv[1]
+tmp = tempfile.mkdtemp()
+try:
+    dst = os.path.join(tmp, "restore.db")
+    shutil.copyfile(src, dst)
+    db = sqlite3.connect(dst)
+    check = db.execute("pragma integrity_check").fetchone()[0]
+    if check != "ok":
+        sys.exit(f"beschädigt: {check}")
+    names = [r[0] for r in db.execute("select name from sqlite_master where type='table' and name not like 'sqlite_%' order by name")]
+    print(json.dumps({n: db.execute(f'select count(*) from "{n}"').fetchone()[0] for n in names}, sort_keys=True))
+finally:
+    shutil.rmtree(tmp, ignore_errors=True)
+PY
+}
+
+fail() {
+  echo "Sicherung fehlgeschlagen: $1" >&2
+  "$root/team/bin/team" say qualitaet "Tägliche Sicherung der Datenbank fehlgeschlagen: $1" >/dev/null 2>&1 || true
+  exit 1
+}
+
+if [ "${1:-}" = "verify" ]; then
+  latest="$(ls "$dir"/taswiq-*.db 2>/dev/null | sort | tail -1)"
+  [ -n "$latest" ] || { echo "Keine Sicherung in $dir" >&2; exit 1; }
+  counts="$(inspect "$latest")" || { echo "Wiederherstellung fehlgeschlagen: $latest" >&2; exit 1; }
+  echo "Wiederherstellung ok: $(basename "$latest") · $counts"
+  exit 0
+fi
+
+today="$(date +%F)"
+now="$(date +%s)"
+if [ "${1:-}" != "--force" ]; then
+  [ "$(cat "$dir/.last-ok" 2>/dev/null)" = "$today" ] && exit 0
+  last="$(cat "$dir/.last-attempt" 2>/dev/null || echo 0)"
+  [ $((now - last)) -lt 21600 ] && exit 0
+fi
+echo "$now" > "$dir/.last-attempt"
+
+out="$(sprite exec -s taswiq-media --no-stdin -- node --no-warnings /home/sprite/taswiq/backend/backup.mjs 2>&1 | grep '^{' | tail -1)"
+remote="$(python3 -c 'import json,sys; d=json.loads(sys.argv[1]); print(d["file"] if d.get("ok") else "")' "$out" 2>/dev/null)"
+[ -n "$remote" ] || fail "der Server konnte keinen Schnappschuss anlegen"
+expected="$(python3 -c 'import json,sys; print(json.dumps(json.loads(sys.argv[1])["tables"], sort_keys=True))' "$out")"
+
+name="$(basename "$remote")"
+tmp="$dir/.incoming"
+rm -rf "$tmp" && mkdir -p "$tmp"
+sprite file pull -s taswiq-media "$remote" "$tmp/" >/dev/null 2>&1
+[ -s "$tmp/$name" ] || fail "die Kopie kam nicht auf dem zweiten Rechner an"
+
+counts="$(inspect "$tmp/$name")" || fail "die abgeholte Kopie ist beschädigt"
+[ "$counts" = "$expected" ] || fail "die abgeholte Kopie weicht vom Schnappschuss ab"
+
+chmod 600 "$tmp/$name" && mv -f "$tmp/$name" "$dir/$name" && rm -rf "$tmp"
+ls "$dir"/taswiq-*.db | sort -r | tail -n +$((keep + 1)) | while read -r f; do rm -f "$f"; done
+echo "$today" > "$dir/.last-ok"
+echo "Sicherung ok: $name · $counts"
