@@ -361,6 +361,9 @@ export const demos: DemoDef[] = [
 
 export const getDemo = (slug: string) => demos.find((d) => d.slug === slug);
 
+/** Vorschaubild einer Ansicht: die erste Ansicht ist das Hauptbild der Demo, jede weitere liegt als <slug>-<ansicht>.jpg daneben */
+export const demoViewImage = (d: DemoDef, viewId: string) => (viewId === d.views[0].id ? d.image : `/images/demo/${d.slug}-${viewId}.jpg`);
+
 /** Kostenrahmen aus der Preisliste der Branchenseite: Einstieg, Umfang der Demo und Miete */
 export function demoPricing(d: DemoDef) {
   const items = industryPackages[d.industry].items;
