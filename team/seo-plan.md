@@ -41,14 +41,22 @@ Arbeitsgrundlage der Abteilung Wachstum. Ziel: 600 passende Besucher und 12 Anfr
 | Buchungssystem Friseur, Online-Terminbuchung Friseur | /leistungen/buchungssystem-friseur-beauty |
 | Online-Buchungssystem | /leistungen/online-buchungssystem |
 | Mandantenportal Steuerberater / Kanzlei | /leistungen/software-steuerberater-kanzlei |
-| Software Makler, Software Hausverwaltung, Mieterportal | /leistungen/software-immobilien |
+| Software Makler, Software Hausverwaltung | /leistungen/software-immobilien |
+| Maklersoftware Vergleich | /blog/maklersoftware-vergleich |
+| Software Hausverwaltung für private Vermieter | /blog/software-hausverwaltung-private-vermieter |
 | Autohaus Software, Werkstatt Termin online, Fahrschule Software | /leistungen/software-autohaus-fahrschule |
 | Handwerkersoftware | /leistungen/software-handwerk-dienstleister |
 | Individualsoftware (entwickeln lassen) | /leistungen/individualsoftware-mittelstand |
 | Web-App / Kundenportal entwickeln lassen | /leistungen/web-app-entwicklung |
 | Dashboard erstellen lassen | /leistungen/dashboard-entwicklung |
 | KI-Automatisierung Unternehmen | /leistungen/ki-automatisierung-unternehmen |
-| KI Telefonassistent Kosten (+ Handwerk, Arztpraxis, Hausverwaltung) | /blog/ki-telefonassistent-kosten |
+| KI Telefonassistent Kosten (+ Arztpraxis, Hausverwaltung) | /blog/ki-telefonassistent-kosten |
+| KI Telefonassistent Handwerk | /blog/ki-telefonassistent-handwerk |
+| KI Software entwickeln lassen | /blog/ki-software-entwickeln-lassen |
+| KI-Automatisierung für kleine Unternehmen | /blog/ki-automatisierung-kleine-unternehmen |
+| Online-Buchungssystem kostenlos | /blog/online-buchungssystem-kostenlos |
+| Fahrschul-App Kosten | /blog/fahrschul-app-kosten |
+| Autohaus Software Vergleich | /blog/autohaus-software-vergleich |
 | Website erstellen lassen (Kosten) | /leistungen/website-erstellen-lassen |
 
 **Im Dashboard:** Die Zielseiten und Lücken stehen zusätzlich in `src/config/keywords.ts` – daraus prüft die Seitenstruktur (Reiter „Suchbegriffe“), ob ein Begriff in Titel oder Überschrift seiner Zielseite steht. Beide Stellen gemeinsam pflegen.
@@ -59,15 +67,24 @@ Aus den Google-Vorschlägen vom 08.10.2026, sortiert nach Kaufabsicht und danach
 
 - Gastronomie: ~~`bestellsystem bäckerei`, `vorbestellung bäckerei online`~~ (erledigt 08.10.2026: /blog/bestellsystem-baeckerei) · ~~`qr code bestellsystem` (+ kostenlos)~~ (erledigt 08.10.2026: /blog/qr-code-bestellsystem) ·
   ~~`tischreservierungssystem`~~ (/blog/tischreservierungssystem) · `lieferando alternative` + Stadt
-- Beauty/Gesundheit: ~~`treatwell alternative`~~ (/blog/treatwell-alternative) · ~~`buchungssystem physiotherapie`~~ (/blog/buchungssystem-physiotherapie) · ~~`online buchungssystem für kurse` · `online buchungssystem mit bezahlfunktion`~~ (/blog/online-buchungssystem-fuer-kurse) · `online buchungssystem kostenlos` (Vergleich: was kostenlos wirklich kostet)
-- Handwerk: ~~`handwerkersoftware für kleinbetriebe` (+ vergleich)~~ (/blog/handwerkersoftware-kleinbetriebe) · ~~`digitalisierung handwerk förderung`~~ (/blog/digitalisierung-handwerk-foerderung) · `ki telefonassistent handwerk`
-- Immobilien: `software hausverwaltung für private vermieter` · ~~`mieterportal`~~ (/blog/mieterportal) · `maklersoftware vergleich`
-- Automotive: ~~`werkstatt termin online buchen`~~ (/blog/werkstatt-termin-online-buchen) · `fahrschul app kosten` · `autohaus software vergleich`
-- Software allgemein: ~~`individualsoftware beispiele` · `individualsoftware vs standardsoftware`~~ (/blog/individualsoftware-vs-standardsoftware) · ~~`software entwickeln lassen kosten` · `app entwickeln lassen kosten`~~ (/blog/software-entwickeln-lassen-kosten) · ~~`kundenportal erstellen lassen`~~ (/blog/kundenportal-erstellen-lassen) · `ki software entwickeln lassen`
-- KI: ~~`ki telefonassistent kosten` (+ handwerk, arztpraxis, hausverwaltung)~~ (erledigt 08.10.2026: /blog/ki-telefonassistent-kosten) · `ki automatisierung für kleine unternehmen`
+- Beauty/Gesundheit: ~~`treatwell alternative`~~ (/blog/treatwell-alternative) · ~~`buchungssystem physiotherapie`~~ (/blog/buchungssystem-physiotherapie) · ~~`online buchungssystem für kurse` · `online buchungssystem mit bezahlfunktion`~~ (/blog/online-buchungssystem-fuer-kurse) · ~~`online buchungssystem kostenlos`~~ (/blog/online-buchungssystem-kostenlos)
+- Handwerk: ~~`handwerkersoftware für kleinbetriebe` (+ vergleich)~~ (/blog/handwerkersoftware-kleinbetriebe) · ~~`digitalisierung handwerk förderung`~~ (/blog/digitalisierung-handwerk-foerderung) · ~~`ki telefonassistent handwerk`~~ (/blog/ki-telefonassistent-handwerk)
+- Immobilien: ~~`software hausverwaltung für private vermieter`~~ (/blog/software-hausverwaltung-private-vermieter) · ~~`mieterportal`~~ (/blog/mieterportal) · ~~`maklersoftware vergleich`~~ (/blog/maklersoftware-vergleich)
+- Automotive: ~~`werkstatt termin online buchen`~~ (/blog/werkstatt-termin-online-buchen) · ~~`fahrschul app kosten`~~ (/blog/fahrschul-app-kosten) · ~~`autohaus software vergleich`~~ (/blog/autohaus-software-vergleich)
+- Software allgemein: ~~`individualsoftware beispiele` · `individualsoftware vs standardsoftware`~~ (/blog/individualsoftware-vs-standardsoftware) · ~~`software entwickeln lassen kosten` · `app entwickeln lassen kosten`~~ (/blog/software-entwickeln-lassen-kosten) · ~~`kundenportal erstellen lassen`~~ (/blog/kundenportal-erstellen-lassen) · ~~`ki software entwickeln lassen`~~ (/blog/ki-software-entwickeln-lassen)
+- KI: ~~`ki telefonassistent kosten` (+ handwerk, arztpraxis, hausverwaltung)~~ (erledigt 08.10.2026: /blog/ki-telefonassistent-kosten) · ~~`ki automatisierung für kleine unternehmen`~~ (/blog/ki-automatisierung-kleine-unternehmen)
 - Website: ~~`website erstellen lassen monatliche kosten`~~ (/blog/website-erstellen-lassen-monatliche-kosten)
 
 ## Noch offen (braucht Karim)
 
 - Search Console und Bing Webmaster Tools einrichten, Sitemap einreichen → erst dann sehen wir Positionen und Klicks.
+  Vorbereitet (08.10.2026): Dashboard → Seitenstruktur → Reiter „Google“ zeigt je Seite, ob sie bereit ist, und öffnet die URL-Prüfung.
+  Bestätigung per DNS-Eintrag oder per Code in Vercel (`GOOGLE_SITE_VERIFICATION`, `BING_SITE_VERIFICATION`). Für Bing/ChatGPT-Suche: `npm run indexnow` meldet alle Adressen.
 - Geschäftsanschrift → erst dann lokale Suche („Software Agentur + Stadt“) und Google-Unternehmensprofil.
+
+## Technik-Prüfpunkte nach jedem Deploy (seit 08.10.2026)
+
+- Seiten kommen fertig aus dem Cache: `curl -sI https://www.taswiq-media.de/ | grep -i x-vercel-cache` zeigt `HIT` oder `PRERENDER`, nicht dauerhaft `MISS`
+  mit `cache-control: private`. Ursache war ein Layout ohne `setRequestLocale` – jedes neue Layout unter `[locale]` braucht die Zeile.
+- Keine `Link`-Kopfzeile mit hreflang aus der Middleware (`alternateLinks: false`); hreflang steht im `<head>` und in der Sitemap.
+- Beschreibungen ≤ 155 Zeichen, Titel ≤ 60, genau eine Hauptüberschrift je Seite – auch auf den Demos (Abschnitt unter der App: `src/demos/kit/About.tsx`).

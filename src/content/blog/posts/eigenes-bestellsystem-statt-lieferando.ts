@@ -55,7 +55,7 @@ export const post: BlogPost = {
     {
       h2: "Was kostet ein eigenes Bestellsystem?",
       blocks: [
-        { p: "Die Kosten hängen vom Umfang ab. Diese Richtwerte nutzen wir auch in unserem [Preisrechner](/preisrechner):" },
+        { p: "Die Kosten hängen vom Umfang ab. Diese Richtwerte nutzen wir auch in unserem [Preisrechner](/preisrechner); was die kleinste Stufe genau enthält, steht im [Einstiegsangebot](/einstiegsangebot):" },
         {
           table: {
             head: ["Paket", "Einmalig", "Enthalten"],

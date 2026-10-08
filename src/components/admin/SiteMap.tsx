@@ -3,9 +3,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useFormStatus } from "react-dom";
-import { ArrowLeft, ArrowRight, Ban, CircleCheck, CircleMinus, CircleX, ExternalLink, Eye, EyeOff, Link2, List, ListChecks, Map as MapIcon, Maximize, Minus, MousePointerClick, Plus, RefreshCw, Search, TriangleAlert, X, type LucideIcon } from "lucide-react";
+import { ArrowLeft, ArrowRight, Ban, CircleCheck, CircleMinus, CircleX, ExternalLink, Eye, EyeOff, Globe, Link2, List, ListChecks, Map as MapIcon, Maximize, Minus, MousePointerClick, Plus, RefreshCw, Search, TriangleAlert, X, type LucideIcon } from "lucide-react";
 import { rescanSite } from "@/app/admin/actions";
-import { KeywordView, TodayView } from "@/components/admin/SiteReportViews";
+import { IndexView, KeywordView, TodayView } from "@/components/admin/SiteReportViews";
 import type { SiteReport } from "@/lib/admin/site-findings";
 import type { GroupId, PageLink, PageNode, SiteStructure, Verdict } from "@/lib/admin/site-structure";
 import { cn, formatDateTime, formatNumber } from "@/lib/format";
@@ -37,7 +37,7 @@ const VERDICT: Record<Verdict, { icon: LucideIcon; tone: string; label: string }
 
 type Filter = "alle" | "ok" | "schwach" | "sackgasse" | "links";
 const LINK_ISSUES = ["defekt", "anker", "verwaist", "fehler"];
-type Mode = "heute" | "karte" | "liste" | "suchbegriffe";
+type Mode = "heute" | "karte" | "liste" | "suchbegriffe" | "google";
 type Note = { id: string; level: number; text: string };
 type Stat = { views: number; visitors: number; entries: number; exits: number; search: number; ai: number };
 
@@ -280,6 +280,7 @@ export function SiteMap({ data, report, error, locale }: { data: SiteStructure |
             ["karte", "Karte", MapIcon],
             ["liste", "Seiten", List],
             ["suchbegriffe", "Suchbegriffe", Search],
+            ["google", "Google", Globe],
           ] as const
         ).map(([m, text, Icon]) => (
           <button key={m} type="button" role="tab" aria-selected={mode === m} onClick={() => setMode(m)} className={cn("flex min-h-10 cursor-pointer items-center gap-2 rounded-full px-4 text-sm font-semibold whitespace-nowrap", mode === m ? "bg-night text-white" : "text-muted hover:text-ink")}>
@@ -290,6 +291,7 @@ export function SiteMap({ data, report, error, locale }: { data: SiteStructure |
       </div>
 
       {mode === "heute" && <TodayView report={report} locale={locale} label={(path) => byPath.get(path)?.label ?? path} onSelect={open} onKeywords={() => setMode("suchbegriffe")} />}
+      {mode === "google" && <IndexView site={data} onSelect={open} />}
       {mode === "suchbegriffe" && <KeywordView keywords={data.keywords} report={report} label={(path) => byPath.get(path)?.label ?? path} onSelect={open} />}
 
       {(mode === "karte" || mode === "liste") && (

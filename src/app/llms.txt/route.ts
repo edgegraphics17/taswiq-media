@@ -33,6 +33,7 @@ export async function GET() {
         `- Home: ${absoluteUrl("/", locale)}`,
         `- ${tn("portfolio")}: ${absoluteUrl("/portfolio", locale)}`,
         `- ${tn("calculator")}: ${absoluteUrl("/preisrechner", locale)}`,
+        `- ${locale === "de" ? "Einstiegsangebot Bestellsystem" : "Starter offer: ordering system"}: ${absoluteUrl("/einstiegsangebot", locale)}`,
         ...[...servicePages, ...industryPages, mediaPage].map((p) => `- ${tseo(`${p.id}.navLabel`)}: ${pageUrl(p, locale)}`),
       ].join("\n");
     }),

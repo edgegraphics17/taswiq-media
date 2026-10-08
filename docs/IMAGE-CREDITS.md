@@ -69,3 +69,11 @@ Fotos von [Unsplash](https://unsplash.com/license) (freie Lizenz, kommerziell nu
 | public/images/sectors/kanzlei-3.webp | Dylan Gillis | https://images.unsplash.com/photo-1517048676732-d65bc937f952 |
 | public/images/sectors/kanzlei-4.webp | Amina Atar | https://images.unsplash.com/photo-1681505531034-8d67054e07f6 |
 | public/images/sectors/kanzlei-5.webp | Austin Distel | https://images.unsplash.com/photo-1557804506-669a67965ba0 |
+| public/images/blog/online-buchungssystem-kostenlos.webp | Cherosi | https://images.unsplash.com/photo-1630835474626-b4de96a25186 |
+| public/images/blog/software-hausverwaltung-private-vermieter.webp | ftodne | https://images.unsplash.com/photo-1778604938461-7901f1be8e1c |
+| public/images/blog/maklersoftware-vergleich.webp | Jakub Żerdzicki | https://images.unsplash.com/photo-1741156386380-0236c72eb6f9 |
+| public/images/blog/fahrschul-app-kosten.webp | Tim Foster | https://images.unsplash.com/photo-1532004252750-b411a84c8a41 |
+| public/images/blog/autohaus-software-vergleich.webp | Portafolio fotográfico a | https://images.unsplash.com/photo-1777175013302-eaf4b3ef785a |
+| public/images/blog/ki-telefonassistent-handwerk.webp | Marc Zeman | https://images.unsplash.com/photo-1732660513320-a6b489f3fece |
+| public/images/blog/ki-software-entwickeln-lassen.webp | Austin Distel | https://images.unsplash.com/photo-1557804506-669a67965ba0 |
+| public/images/blog/ki-automatisierung-kleine-unternehmen.webp | Vitaly Gariev | https://images.unsplash.com/photo-1713947503486-0e3916611517 |

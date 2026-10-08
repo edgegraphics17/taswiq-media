@@ -41,7 +41,12 @@ export async function Footer() {
           <PartnerBadge className="mt-5" />
           <p className="mt-3 max-w-xs text-xs leading-relaxed text-muted">{t("partnerNote")}</p>
         </div>
-        <FooterCol title={t("navigation")} links={nav.map((n) => ({ key: n.key, href: n.href, label: tNav(n.key) }))} />
+        <FooterCol
+          title={t("navigation")}
+          links={[...nav.map((n) => ({ key: n.key as string, href: n.href as AppHref, label: tNav(n.key) })), { key: "starterOffer", href: "/einstiegsangebot" as AppHref, label: t("starterOffer") }]}
+          // Die Demos liegen außerhalb der Sprach-Routen (nur Deutsch, kein /en-Präfix)
+          plain={[{ href: "/demo", label: t("demos") }]}
+        />
         <FooterCol
           title={t("services")}
           links={[...servicePages, mediaPage].map((p) => ({
@@ -103,7 +108,7 @@ export async function Footer() {
   );
 }
 
-function FooterCol({ title, links }: { title: string; links: { key: string; href: AppHref; label: string }[] }) {
+function FooterCol({ title, links, plain = [] }: { title: string; links: { key: string; href: AppHref; label: string }[]; plain?: { href: string; label: string }[] }) {
   return (
     <div>
       <p className="text-sm font-semibold text-ink">{title}</p>
@@ -113,6 +118,13 @@ function FooterCol({ title, links }: { title: string; links: { key: string; href
             <Link href={l.href} className="text-body transition-colors hover:text-brand-600">
               {l.label}
             </Link>
+          </li>
+        ))}
+        {plain.map((l) => (
+          <li key={l.href}>
+            <NextLink href={l.href} prefetch={false} className="text-body transition-colors hover:text-brand-600">
+              {l.label}
+            </NextLink>
           </li>
         ))}
       </ul>

@@ -12,7 +12,7 @@ import { formatEUR } from "@/lib/format";
 import { ORG_ID } from "@/lib/seo";
 
 const title = "Software-Demos zum Ausprobieren";
-const description = "Sechs Musterfirmen, sechs Systeme: Bestellsystem, Terminbuchung, Makler-Portal, Werkstatt-Portal, Mandantenportal und Handwerker-Software. Ohne Anmeldung testen – Kundenansicht und Dashboard.";
+const description = "Sechs Software-Demos ohne Anmeldung testen: Bestellsystem, Terminbuchung, Makler-Portal, Werkstatt-Portal, Mandantenportal und Handwerker-Software.";
 
 export const metadata: Metadata = {
   title: { absolute: `${title} | TasWiq Media.` },

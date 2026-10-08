@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { fontVars } from "@/app/fonts";
 import { PageViews } from "@/components/consent/PageViews";
-import { site } from "@/config/site";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { site, siteVerification } from "@/config/site";
 import { demoFontVars } from "@/demos/fonts";
+import { organizationJsonLd } from "@/lib/seo";
 import "../globals.css";
 
 /**
@@ -13,16 +15,18 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: { default: "Software-Demos zum Ausprobieren", template: "%s | TasWiq Media." },
   applicationName: site.name,
-  robots: { index: true, follow: true },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-video-preview": -1 } },
+  verification: siteVerification,
   formatDetection: { telephone: false },
 };
 
-export default function DemoRootLayout({ children }: { children: React.ReactNode }) {
+export default async function DemoRootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="de" className={`${fontVars} ${demoFontVars}`}>
       <body>
         {children}
         <PageViews />
+        <JsonLd data={await organizationJsonLd("de")} />
       </body>
     </html>
   );

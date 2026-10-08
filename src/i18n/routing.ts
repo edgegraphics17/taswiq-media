@@ -15,6 +15,9 @@ export const routing = defineRouting({
   // Google rät davon ab (Crawler ohne Accept-Language), und SEO-Slugs ließen sich nicht übersetzen.
   localeDetection: false,
   localeCookie: false,
+  // hreflang steht je Seite im <head> und in der Sitemap (lib/seo.ts). Die automatische Kopfzeile der Middleware
+  // würde für Ratgeber eine englische Fassung nennen, die es nicht gibt (/en/blog/<slug> leitet nur um).
+  alternateLinks: false,
   pathnames: {
     "/": "/",
     "/preisrechner": { de: "/preisrechner", en: "/pricing-calculator" },

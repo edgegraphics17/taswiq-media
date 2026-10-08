@@ -33,7 +33,7 @@ const APPS: Record<DemoSlug, ComponentType> = {
 
 type Pricing = { start: number; shown: number; rent: number };
 
-export function DemoShell({ def, pricing, industryHref, industryLabel }: { def: DemoDef; pricing: Pricing; industryHref: string; industryLabel: string }) {
+export function DemoShell({ def, pricing, industryHref, industryLabel, children }: { def: DemoDef; pricing: Pricing; industryHref: string; industryLabel: string; children?: React.ReactNode }) {
   const App = APPS[def.slug];
   const [view, setView] = useState(def.views[0].id);
   const [tabs, setTabs] = useState<Record<string, string>>(() => Object.fromEntries(def.views.map((v) => [v.id, v.tab])));
@@ -123,8 +123,12 @@ export function DemoShell({ def, pricing, industryHref, industryLabel }: { def: 
           </div>
         </header>
 
-        <main id="main" style={theme} className="min-h-[calc(100dvh-var(--bar-h))] bg-white">
-          <App key={run} />
+        <main id="main">
+          <div style={theme} className="min-h-[calc(100dvh-var(--bar-h))] bg-white">
+            <App key={run} />
+          </div>
+          {/* Auf dem Server gerenderter Text zur Demo (Hauptüberschrift, Funktionen, Kosten, weiterführende Links) */}
+          {children}
         </main>
       </div>
 

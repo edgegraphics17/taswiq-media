@@ -10,7 +10,7 @@ import { PageViews } from "@/components/consent/PageViews";
 import { fontVars } from "@/app/fonts";
 import { routing, LOCALE_META } from "@/i18n/routing";
 import { languageAlternates, organizationJsonLd } from "@/lib/seo";
-import { site } from "@/config/site";
+import { site, siteVerification } from "@/config/site";
 import "../globals.css";
 
 type Props = { children: React.ReactNode; params: Promise<{ locale: string }> };
@@ -44,6 +44,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: { card: "summary_large_image" },
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-video-preview": -1 } },
+    verification: siteVerification,
     formatDetection: { telephone: false },
     category: t("category"),
   };

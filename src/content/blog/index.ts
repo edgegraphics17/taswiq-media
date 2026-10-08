@@ -1,4 +1,12 @@
 import type { BlogCategory, BlogPost } from "./types";
+import { post as buchungKostenlos } from "./posts/online-buchungssystem-kostenlos";
+import { post as privateVermieter } from "./posts/software-hausverwaltung-private-vermieter";
+import { post as maklersoftware } from "./posts/maklersoftware-vergleich";
+import { post as fahrschulApp } from "./posts/fahrschul-app-kosten";
+import { post as autohausVergleich } from "./posts/autohaus-software-vergleich";
+import { post as kiTelefonHandwerk } from "./posts/ki-telefonassistent-handwerk";
+import { post as kiSoftware } from "./posts/ki-software-entwickeln-lassen";
+import { post as kiKlein } from "./posts/ki-automatisierung-kleine-unternehmen";
 import { post as bestellsystem } from "./posts/eigenes-bestellsystem-statt-lieferando";
 import { post as physio } from "./posts/buchungssystem-physiotherapie";
 import { post as treatwell } from "./posts/treatwell-alternative";
@@ -33,6 +41,14 @@ export type { BlogCategory, BlogPost, BlogBlock } from "./types";
 
 /** Reihenfolge = Reihenfolge im Blog-Index (neueste/wichtigste zuerst) */
 export const posts: BlogPost[] = [
+  buchungKostenlos,
+  privateVermieter,
+  maklersoftware,
+  fahrschulApp,
+  autohausVergleich,
+  kiTelefonHandwerk,
+  kiSoftware,
+  kiKlein,
   kurse,
   tischreservierung,
   mieterportal,

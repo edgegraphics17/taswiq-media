@@ -2,15 +2,15 @@
 
 import { useActionState, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Check, ChevronDown, CircleCheck, CircleDashed, CircleMinus, ListChecks, Send, TriangleAlert } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, CircleCheck, CircleDashed, CircleMinus, ExternalLink, ListChecks, Send, TriangleAlert } from "lucide-react";
 import { sendFinding } from "@/app/admin/actions";
 import { keywordAreas } from "@/config/keywords";
 import type { Finding, SiteReport } from "@/lib/admin/site-findings";
-import type { KeywordResult } from "@/lib/admin/site-structure";
+import type { KeywordResult, PageNode, SiteStructure } from "@/lib/admin/site-structure";
 import { cn, formatDate, formatNumber } from "@/lib/format";
 
 /**
- * Reiter „Heute“ und „Suchbegriffe“ der Seitenstruktur.
+ * Reiter „Heute“, „Suchbegriffe“ und „Google“ der Seitenstruktur.
  * Heute = Arbeitsliste: Befunde nach Dringlichkeit, jeder mit Begründung, betroffenen Seiten, Lösungsvorschlag
  * und der Übergabe an Claude. Darunter die Bereiche im Vergleich.
  */
@@ -333,6 +333,114 @@ export function KeywordView({ keywords, report, label, onSelect }: { keywords: K
           );
         })}
       </div>
+    </div>
+  );
+}
+
+/* ─── Reiter „Google“: Ist jede Seite bereit für die Indexierung? ─── */
+
+const GROUP_ORDER: PageNode["group"][] = ["start", "angebot", "branchen", "leistungen", "demos", "ratgeber", "sonstige"];
+const GROUP_LABEL: Record<PageNode["group"], string> = { start: "Startseite", angebot: "Angebot", branchen: "Branchen", leistungen: "Leistungen", demos: "Demos", ratgeber: "Ratgeber", rechtliches: "Rechtliches", sonstige: "Sonstige" };
+
+/** Was einer Seite für die Indexierung fehlt – leer = bereit */
+function indexGaps(p: PageNode, sitemapRead: boolean): string[] {
+  const gaps: string[] = [];
+  if (sitemapRead && !p.inSitemap) gaps.push("fehlt in der Sitemap");
+  if (p.canonicalElsewhere) gaps.push(`Canonical zeigt auf ${p.canonicalElsewhere}`);
+  if (!p.titleLen) gaps.push("kein Seitentitel");
+  if (!p.description) gaps.push("keine Beschreibung");
+  if (p.h1Count !== 1) gaps.push(p.h1Count ? `${p.h1Count} Hauptüberschriften` : "keine Hauptüberschrift");
+  if (!p.schema) gaps.push("keine strukturierten Daten");
+  if (p.depth === null) gaps.push("von der Website aus nicht erreichbar");
+  return gaps;
+}
+
+export function IndexView({ site, onSelect }: { site: SiteStructure; onSelect: (path: string) => void }) {
+  const [copied, setCopied] = useState("");
+  const host = new URL(site.origin).hostname.replace(/^www\./, "");
+  const pages = site.pages
+    .filter((p) => p.status === 200 && !p.noindex)
+    .sort((a, b) => GROUP_ORDER.indexOf(a.group) - GROUP_ORDER.indexOf(b.group) || (a.depth ?? 9) - (b.depth ?? 9));
+  const blocked = site.pages.filter((p) => p.status === 200 && p.noindex);
+  const rows = pages.map((p) => ({ p, url: site.origin + (p.path === "/" ? "" : p.path), gaps: indexGaps(p, site.sitemapRead) }));
+  const ready = rows.filter((r) => !r.gaps.length).length;
+  const copy = (key: string, text: string) =>
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(key);
+      setTimeout(() => setCopied(""), 1800);
+    });
+  // Öffnet die URL-Prüfung der Search Console für die Domain-Property – dort „Indexierung beantragen“ klicken.
+  const inspect = (url: string) => `https://search.google.com/search-console/inspect?resource_id=${encodeURIComponent(`sc-domain:${host}`)}&id=${encodeURIComponent(url)}`;
+
+  return (
+    <div className="mt-4">
+      <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
+        <section className={cn(panel, "p-4")}>
+          <p className="text-sm text-muted">Bereit für Google</p>
+          <p className="num mt-1 text-3xl font-bold tracking-tight text-ink">
+            {ready} von {rows.length}
+          </p>
+          <p className="mt-1 text-sm leading-relaxed text-body">Erreichbar, nicht gesperrt, in der Sitemap, mit eigenem Titel, Beschreibung, einer Hauptüberschrift und strukturierten Daten.</p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <button type="button" onClick={() => copy("alle", rows.map((r) => r.url).join("\n"))} className="min-h-10 cursor-pointer rounded-full bg-night px-4 text-sm font-semibold text-white">
+              {copied === "alle" ? "Kopiert" : "Alle Adressen kopieren"}
+            </button>
+            <a href={`${site.origin}/sitemap.xml`} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-10 items-center gap-1.5 rounded-full border border-line px-4 text-sm font-semibold text-ink hover:border-brand-200">
+              Sitemap ansehen <ExternalLink className="size-3.5" aria-hidden />
+            </a>
+          </div>
+        </section>
+        <section className={cn(panel, "p-4")}>
+          <h2 className="text-sm font-bold text-ink">So kommen die Seiten in den Index</h2>
+          <ol className="mt-2 list-decimal space-y-1.5 pl-5 text-sm leading-relaxed text-body">
+            <li>
+              In der{" "}
+              <a href="https://search.google.com/search-console" target="_blank" rel="noopener noreferrer" className="font-semibold text-brand-600 hover:text-brand-700">
+                Search Console
+              </a>{" "}
+              die Property als <b className="text-ink">Domain</b> anlegen: <span className="num">{host}</span>. Google zeigt einen TXT-Eintrag, der beim Domain-Anbieter eingetragen wird.
+            </li>
+            <li>
+              Unter „Sitemaps“ einmal <span className="num">sitemap.xml</span> einreichen – damit kennt Google alle {rows.length} Seiten.
+            </li>
+            <li>Für die wichtigsten Seiten unten auf „Prüfen“ klicken und dort „Indexierung beantragen“ wählen. Google erlaubt etwa zehn Anträge am Tag: Startseite, Branchen und Leistungen zuerst.</li>
+            <li>Nach einigen Tagen unter „Seiten“ nachsehen, was indexiert ist. Ratgeber und Demos holt Google über die Sitemap von selbst.</li>
+          </ol>
+        </section>
+      </div>
+
+      <section className={cn(panel, "mt-3 overflow-hidden")}>
+        <ul className="divide-y divide-line">
+          {rows.map(({ p, url, gaps }) => (
+            <li key={p.path} className="flex flex-wrap items-center gap-x-3 gap-y-2 px-4 py-2.5">
+              {gaps.length ? <TriangleAlert className="size-4 shrink-0 text-amber-600" aria-hidden /> : <CircleCheck className="size-4 shrink-0 text-emerald-600" aria-hidden />}
+              <span className="min-w-0 flex-1 basis-64">
+                <button type="button" onClick={() => onSelect(p.path)} className="block max-w-full cursor-pointer truncate text-left text-sm font-semibold text-ink hover:text-brand-600">
+                  {p.label}
+                </button>
+                <span className="block truncate text-xs text-muted">
+                  {GROUP_LABEL[p.group]} · {p.path}
+                  {gaps.length > 0 && <span className="text-amber-700"> · {gaps.join(" · ")}</span>}
+                </span>
+              </span>
+              <span className="flex shrink-0 gap-1.5">
+                <button type="button" onClick={() => copy(p.path, url)} className="min-h-9 cursor-pointer rounded-full border border-line px-3 text-xs font-semibold text-muted hover:text-ink">
+                  {copied === p.path ? "Kopiert" : "Adresse kopieren"}
+                </button>
+                <a href={inspect(url)} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-9 items-center gap-1 rounded-full bg-brand-50 px-3 text-xs font-semibold text-brand-700 hover:bg-brand-100">
+                  Prüfen <ExternalLink className="size-3" aria-hidden />
+                </a>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {blocked.length > 0 && (
+        <p className="mt-3 rounded-xl border border-line bg-white px-4 py-3 text-sm leading-relaxed text-body">
+          <b className="text-ink">Bewusst nicht im Index ({blocked.length}):</b> {blocked.map((p) => p.label).join(", ")}. Diese Seiten sind für Google gesperrt und stehen nicht in der Sitemap.
+        </p>
+      )}
     </div>
   );
 }

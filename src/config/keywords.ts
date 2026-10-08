@@ -51,19 +51,19 @@ export const keywords: KeywordTarget[] = [
   { term: "Treatwell Alternative", area: "beauty", target: `${B}treatwell-alternative` },
   { term: "Buchungssystem Physiotherapie", area: "beauty", target: `${B}buchungssystem-physiotherapie` },
   { term: "Online-Buchungssystem für Kurse", area: "beauty", target: `${B}online-buchungssystem-fuer-kurse` },
-  { term: "Online-Buchungssystem kostenlos", area: "beauty", target: null },
+  { term: "Online-Buchungssystem kostenlos", area: "beauty", target: `${B}online-buchungssystem-kostenlos` },
   // Immobilien
   { term: "Software Makler", area: "immobilien", target: `${L}software-immobilien`, main: true },
   { term: "Software Hausverwaltung", area: "immobilien", target: `${L}software-immobilien` },
   { term: "Mieterportal", area: "immobilien", target: `${B}mieterportal` },
-  { term: "Software Hausverwaltung für private Vermieter", area: "immobilien", target: null },
-  { term: "Maklersoftware Vergleich", area: "immobilien", target: null },
+  { term: "Software Hausverwaltung für private Vermieter", area: "immobilien", target: `${B}software-hausverwaltung-private-vermieter` },
+  { term: "Maklersoftware Vergleich", area: "immobilien", target: `${B}maklersoftware-vergleich` },
   // Autohaus & Werkstatt
   { term: "Autohaus Software", area: "automotive", target: `${L}software-autohaus-fahrschule`, main: true },
   { term: "Fahrschule Software", area: "automotive", target: `${L}software-autohaus-fahrschule` },
   { term: "Werkstatt Termin online buchen", area: "automotive", target: `${B}werkstatt-termin-online-buchen` },
-  { term: "Fahrschul-App Kosten", area: "automotive", target: null },
-  { term: "Autohaus Software Vergleich", area: "automotive", target: null },
+  { term: "Fahrschul-App Kosten", area: "automotive", target: `${B}fahrschul-app-kosten` },
+  { term: "Autohaus Software Vergleich", area: "automotive", target: `${B}autohaus-software-vergleich` },
   // Kanzlei
   { term: "Mandantenportal Steuerberater", area: "kanzlei", target: `${L}software-steuerberater-kanzlei`, main: true },
   { term: "Software Steuerberater", area: "kanzlei", target: `${L}software-steuerberater-kanzlei` },
@@ -71,7 +71,7 @@ export const keywords: KeywordTarget[] = [
   { term: "Handwerkersoftware", area: "handwerk", target: `${L}software-handwerk-dienstleister`, main: true },
   { term: "Handwerkersoftware für Kleinbetriebe", area: "handwerk", target: `${B}handwerkersoftware-kleinbetriebe` },
   { term: "Digitalisierung Handwerk Förderung", area: "handwerk", target: `${B}digitalisierung-handwerk-foerderung` },
-  { term: "KI Telefonassistent Handwerk", area: "handwerk", target: null },
+  { term: "KI Telefonassistent Handwerk", area: "handwerk", target: `${B}ki-telefonassistent-handwerk` },
   // Software allgemein
   { term: "Individualsoftware", area: "software", target: `${L}individualsoftware-mittelstand`, main: true },
   { term: "Individualsoftware vs Standardsoftware", area: "software", target: `${B}individualsoftware-vs-standardsoftware` },
@@ -79,11 +79,11 @@ export const keywords: KeywordTarget[] = [
   { term: "Web-App entwickeln lassen", area: "software", target: `${L}web-app-entwicklung`, main: true },
   { term: "Kundenportal erstellen lassen", area: "software", target: `${B}kundenportal-erstellen-lassen` },
   { term: "Dashboard erstellen lassen", area: "software", target: `${L}dashboard-entwicklung`, main: true },
-  { term: "KI Software entwickeln lassen", area: "software", target: null },
+  { term: "KI Software entwickeln lassen", area: "software", target: `${B}ki-software-entwickeln-lassen` },
   // KI
   { term: "KI-Automatisierung Unternehmen", area: "ki", target: `${L}ki-automatisierung-unternehmen`, main: true },
   { term: "KI Telefonassistent Kosten", area: "ki", target: `${B}ki-telefonassistent-kosten` },
-  { term: "KI-Automatisierung für kleine Unternehmen", area: "ki", target: null },
+  { term: "KI-Automatisierung für kleine Unternehmen", area: "ki", target: `${B}ki-automatisierung-kleine-unternehmen` },
   // Website
   { term: "Website erstellen lassen", area: "website", target: `${L}website-erstellen-lassen`, main: true },
   { term: "Website erstellen lassen monatliche Kosten", area: "website", target: `${B}website-erstellen-lassen-monatliche-kosten` },

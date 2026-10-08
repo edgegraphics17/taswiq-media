@@ -15,7 +15,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Icon } from "@/components/ui/Icon";
 import type { Locale } from "@/i18n/routing";
 import { LOCALE_META } from "@/i18n/routing";
-import { absoluteUrl, breadcrumbJsonLd, faqJsonLd, ORG_ID, seoTitle } from "@/lib/seo";
+import { absoluteUrl, breadcrumbJsonLd, faqJsonLd, ORG_ID, seoTitle, WEBSITE_ID } from "@/lib/seo";
 
 /** Artikel gibt es nur auf Deutsch – /en/blog/<slug> leitet next.config.ts auf die deutsche URL um. */
 export const dynamicParams = false;
@@ -125,6 +125,19 @@ export default async function BlogPostPage({ params }: Props) {
               </ul>
             </section>
 
+            {/* Früher Weg zum Angebot: Wer nur die Kurzfassung liest, sieht trotzdem den nächsten Schritt */}
+            <div className="mt-4 flex flex-col gap-3 rounded-3xl border border-line bg-white px-6 py-4 shadow-[var(--shadow-soft)] sm:flex-row sm:items-center sm:justify-between">
+              <p className="font-medium text-ink">{t("earlyCta.text")}</p>
+              <div className="flex shrink-0 flex-wrap gap-2">
+                <NextLink href="/preisrechner" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-500 px-5 text-sm font-medium text-white transition hover:bg-brand-600">
+                  <Calculator className="size-4" aria-hidden /> {t("earlyCta.calculator")}
+                </NextLink>
+                <a href="#anfrage" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line px-5 text-sm font-medium text-ink transition hover:border-brand-200">
+                  {t("earlyCta.contact")} <ArrowRight className="size-4" aria-hidden />
+                </a>
+              </div>
+            </div>
+
             {/* Passende Software-Demo zum Ausprobieren (Media-Artikel haben keine) */}
             {page.kind !== "media" && <DemoCallout slug={page.demo} className="mt-6" />}
 
@@ -232,7 +245,8 @@ export default async function BlogPostPage({ params }: Props) {
           dateModified: post.updated ?? post.date,
           keywords: post.keywords.join(", "),
           wordCount: minutes * 200,
-          author: { "@type": "Person", name: site.owner, url: site.url },
+          author: { "@type": "Person", name: site.owner, url: site.url, jobTitle: "Inhaber", worksFor: { "@id": ORG_ID } },
+          isPartOf: { "@id": WEBSITE_ID },
           publisher: { "@id": ORG_ID },
           about: tSeo(`${page.id}.keyword`),
         }}

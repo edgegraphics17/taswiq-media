@@ -54,6 +54,15 @@ export const site = {
   },
 } as const;
 
+/**
+ * Bestätigung der Website gegenüber Suchmaschinen per Meta-Tag (Alternative zum DNS-Eintrag):
+ * den Code aus der Search Console bzw. den Bing Webmaster Tools in Vercel als Umgebungsvariable hinterlegen.
+ */
+export const siteVerification = {
+  ...(process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : {}),
+  ...(process.env.BING_SITE_VERIFICATION ? { other: { "msvalidate.01": process.env.BING_SITE_VERIFICATION } } : {}),
+};
+
 /** Sprachbewusstes Link-Ziel: interne Route (+ optional Hash/Params) – next-intl übersetzt den Pfad. */
 export type AppHref = ComponentProps<typeof Link>["href"];
 

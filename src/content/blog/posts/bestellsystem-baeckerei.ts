@@ -88,7 +88,7 @@ export const post: BlogPost = {
     {
       h2: "Was kostet ein Bestellsystem für die Bäckerei?",
       blocks: [
-        { p: "Du kannst das System kaufen oder mieten. Die Zahlen sind dieselben wie in unserem [Preisrechner](/preisrechner):" },
+        { p: "Du kannst das System kaufen oder mieten. Die Zahlen sind dieselben wie in unserem [Preisrechner](/preisrechner); den festen Umfang der kleinsten Stufe beschreibt das [Einstiegsangebot](/einstiegsangebot):" },
         {
           table: {
             head: ["Stufe", "Kaufen (einmalig)", "Mieten (pro Monat)", "Für wen"],
