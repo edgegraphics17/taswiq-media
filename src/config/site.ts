@@ -7,7 +7,7 @@ import type { Link } from "@/i18n/navigation";
  *
  * TODO vor dem Launch:
  *  - `url` auf die finale Domain setzen (bzw. NEXT_PUBLIC_SITE_URL)
- *  - `address` + `geo` ausfüllen → erst dann wird das LocalBusiness-Schema vollständig
+ *  - `geo` ausfüllen → erst dann wird das LocalBusiness-Schema vollständig
  *  - `social`-Profile eintragen (werden als `sameAs` ins JSON-LD übernommen)
  */
 export const site = {
@@ -23,10 +23,10 @@ export const site = {
   calendlyUrl: process.env.NEXT_PUBLIC_CALENDLY_URL ?? "",
 
   address: {
-    street: "", // z. B. "Musterstraße 1"
-    postalCode: "",
-    city: "", // z. B. "Köln"
-    region: "", // z. B. "NRW"
+    street: "Taunusanlage 8",
+    postalCode: "60329",
+    city: "Frankfurt am Main",
+    region: "Hessen",
     country: "DE",
   },
   /** Koordinaten des Standorts – verbessert lokale Rankings (Google Maps Pack) */

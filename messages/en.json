@@ -8845,7 +8845,6 @@
     "bindingNote": "This is a courtesy translation. The German version is legally binding.",
     "impressum": {
       "title": "Legal Notice",
-      "placeholder": "Placeholder – complete with the full address and have it legally reviewed before going live (e.g. via eRecht24).",
       "provider": "Information pursuant to § 5 DDG (German Digital Services Act)",
       "addressPlaceholder": "[Street, postcode, city]",
       "contact": "Contact",

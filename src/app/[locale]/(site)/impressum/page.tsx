@@ -19,7 +19,6 @@ export default async function ImpressumPage({ params }: Props) {
   const tSite = await getTranslations("site");
   return (
     <LegalPage title={t("title")}>
-      <p className="rounded-xl border border-danger/30 bg-danger/5 p-4 text-sm text-danger">{t("placeholder")}</p>
       <h2>{t("provider")}</h2>
       <p>
         {site.legalName}
