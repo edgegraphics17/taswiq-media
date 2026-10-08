@@ -47,9 +47,9 @@ async function appCredentials() {
   const clientSecret =
     process.env.LINKEDIN_CLIENT_SECRET || (await ask("  Client Secret: ", { hidden: true }));
   if (!clientId || !clientSecret) throw new Error("Client ID und Client Secret werden beide benötigt.");
-  const app = { clientId, clientSecret };
-  await saveApp(app);
-  return app;
+  // Die Eingabe ist unsichtbar – ein versehentlich mehrfach eingefügtes Secret wird auf eine Fassung gekürzt.
+  const repeated = clientSecret.match(/^(.+?)\1+$/);
+  return { clientId, clientSecret: repeated ? repeated[1] : clientSecret };
 }
 
 // Eine frühere, noch wartende Anmeldung hält den Port fest – sie wird durch die neue ersetzt.
@@ -121,6 +121,8 @@ try {
     code: await code,
     redirect_uri: REDIRECT_URI,
   });
+  // Erst nach erfolgreicher Anmeldung ablegen, damit ein Fehlversuch die funktionierende App nicht überschreibt.
+  await saveApp(app);
   await saveToken(token);
   const person = await whoami().catch(() => null);
   if (person) await saveToken({ ...token, person });
