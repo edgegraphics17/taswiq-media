@@ -28,6 +28,8 @@ export const env = {
   leadNotifyTo: list(process.env.LEAD_NOTIFY_TO || "info@taswiq-media.de"),
   /** Zusätzlich bei wichtigen Anfragen (Premium oder dringend) – privates Postfach. */
   leadNotifyImportantTo: list(process.env.LEAD_NOTIFY_IMPORTANT_TO || "karim@azzaoui.de"),
+  /** Allowlist fürs Admin-Dashboard (kommagetrennt). Leer = niemand darf rein. */
+  adminEmails: list(process.env.ADMIN_EMAILS ?? "").map((e) => e.toLowerCase()),
 };
 
 /** Backend-API erreichbar konfiguriert (Leads, Preise, Dashboard-Daten). */
