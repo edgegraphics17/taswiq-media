@@ -432,13 +432,7 @@ function Room({ meet, title, copied, onCopy }: { meet: Meet; title: string; copi
   const [open, setOpen] = useState<"reactions" | "background" | null>(null);
   const [seconds, setSeconds] = useState(0);
   const [narrow, setNarrow] = useState(false);
-  const [name] = useState(() => {
-    try {
-      return localStorage.getItem(NAME_KEY) ?? "Du";
-    } catch {
-      return "Du";
-    }
-  });
+  const name = meet.name || "Du";
 
   useEffect(() => {
     const t = setInterval(() => setSeconds((s) => s + 1), 1000);

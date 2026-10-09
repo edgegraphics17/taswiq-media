@@ -62,6 +62,7 @@ export function useMeet(code: string) {
   const [reactions, setReactions] = useState<Reaction[]>([]);
   const [notice, setNotice] = useState<string | null>(null);
   const [busy, setBusy] = useState<"background" | null>(null);
+  const [name, setName] = useState("");
 
   const s = useRef({
     me: null as { id: string; key: string } | null,
@@ -405,6 +406,7 @@ export function useMeet(code: string) {
   const join = async (name: string) => {
     s.name = name.trim().slice(0, 40);
     if (!s.name) return;
+    setName(s.name);
     setNotice(null);
     setPhase("joining");
     s.alive = true;
@@ -457,5 +459,5 @@ export function useMeet(code: string) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { phase, peers, local, reactions, notice, busy, setNotice, startDevices, join, hangUp, backToLobby, toggleMic, toggleCam, toggleScreen, toggleHand, setBackground, react };
+  return { name, phase, peers, local, reactions, notice, busy, setNotice, startDevices, join, hangUp, backToLobby, toggleMic, toggleCam, toggleScreen, toggleHand, setBackground, react };
 }
