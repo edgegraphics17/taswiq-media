@@ -2,6 +2,7 @@ import "server-only";
 import { env, isBackendConfigured } from "@/lib/env";
 import type { Appointment } from "@/lib/appointment";
 import { readBookingSettings, type BookingRow, type BookingSettings } from "@/lib/booking";
+import type { MeetRoom } from "@/lib/meet";
 import type {
   CalculatorRequest,
   CalculatorRequestInsert,
@@ -278,6 +279,37 @@ export async function saveSiteScan(locale: string, data: SiteScanData): Promise<
 
 export function listSiteScans(locale: string, limit = 14): Promise<SiteScanRow[]> {
   return call<SiteScanRow[]>(`/site-scans?locale=${locale}&limit=${limit}`);
+}
+
+// ─── Videocalls (/meet) ─────────────────────────────────────────────
+export function createMeetRoom(title: string, createdBy: string): Promise<MeetRoom> {
+  return call<MeetRoom>("/meet/rooms", { method: "POST", body: { title, created_by: createdBy } });
+}
+
+export function listMeetRooms(): Promise<MeetRoom[]> {
+  return call<MeetRoom[]>("/meet/rooms");
+}
+
+export async function getMeetRoom(code: string): Promise<MeetRoom | null> {
+  try {
+    return await call<MeetRoom>(`/meet/rooms/${encodeURIComponent(code)}`);
+  } catch (e) {
+    if (e instanceof BackendError && e.status === 404) return null;
+    throw e;
+  }
+}
+
+export async function deleteMeetRoom(code: string): Promise<void> {
+  await call(`/meet/rooms/${encodeURIComponent(code)}`, { method: "DELETE" });
+}
+
+/** Signalisierung eines Calls: beitreten, senden, verlassen (POST) bzw. Nachrichten abholen (GET, Long-Poll bis 15 s). */
+export function meetSignal<T>(code: string, action: "join" | "send" | "leave", body: unknown): Promise<T> {
+  return call<T>(`/meet/rooms/${encodeURIComponent(code)}/${action}`, { method: "POST", body });
+}
+
+export function meetPoll<T>(code: string, query: URLSearchParams): Promise<T> {
+  return call<T>(`/meet/rooms/${encodeURIComponent(code)}/poll?${query}`, { timeoutMs: 25_000 });
 }
 
 /** Live-Stream (SSE) für das Dashboard – wird vom Route-Handler /admin/api/live durchgereicht. */

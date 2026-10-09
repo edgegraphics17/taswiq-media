@@ -204,3 +204,35 @@ export async function sendBookingMails(b: { name: string; email: string; phone: 
   ]);
   return { notified, confirmed };
 }
+
+/**
+ * Einladung zu einem Videocall (Dashboard → Meetings): je Adresse eine eigene Mail mit dem Link zum Raum.
+ * Gibt die Adressen zurück, bei denen der Versand nicht geklappt hat.
+ */
+export async function sendMeetingInvites(to: string[], meeting: { title: string; url: string; note: string | null }): Promise<string[]> {
+  if (!isMailConfigured()) return to;
+  const subject = `Einladung zum Videocall: ${meeting.title}`;
+  const results = await Promise.all(
+    to.map((address) =>
+      send({
+        kind: "hinweis",
+        leadId: null,
+        to: [address],
+        subject,
+        template: "taswiq-nachricht-button",
+        variables: {
+          BETREFF: esc(subject),
+          UEBERSCHRIFT: esc(meeting.title),
+          INHALT_HTML: paragraphs(
+            `du bist zu einem Videocall mit TasWiq Media eingeladen.${meeting.note ? `\n\n${meeting.note}` : ""}\n\nDer Call läuft direkt im Browser – ohne Programm und ohne Konto. Einfach auf den Button klicken, Namen eintragen und beitreten.\n\nFalls der Button nicht funktioniert: ${meeting.url}`,
+          ),
+          CTA_LABEL: "Zum Videocall",
+          CTA_URL: meeting.url,
+          GRUSS: "Viele Grüße",
+        },
+        replyTo: env.leadNotifyTo[0] ?? site.email,
+      }),
+    ),
+  );
+  return to.filter((_, i) => !results[i]);
+}

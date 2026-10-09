@@ -44,6 +44,11 @@ const nextConfig: NextConfig = {
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
         ],
       },
+      // Videocalls brauchen Kamera, Mikrofon und Bildschirmfreigabe – nur dort erlaubt (der spätere Eintrag überschreibt den oberen).
+      {
+        source: "/meet/:path*",
+        headers: [{ key: "Permissions-Policy", value: "camera=(self), microphone=(self), display-capture=(self), geolocation=()" }],
+      },
     ];
   },
 };

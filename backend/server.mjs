@@ -837,6 +837,124 @@ route("PUT", "/booking-settings", ({ body }) => {
 });
 
 // ─── Server ─────────────────────────────────────────────────────────
+// ─── Videocalls (/meet) ─────────────────────────────────────────────
+// Räume stehen in der DB (der Link bleibt gültig), Teilnehmer und Signalisierung nur im Speicher.
+// Die Browser holen ihre Nachrichten per Long-Poll über die Website ab; Bild und Ton laufen direkt zwischen den Geräten (WebRTC).
+const MEET_CODE = /^[a-z]{3}-[a-z]{4}-[a-z]{3}$/;
+const MEET_MAX = 12;
+const meetLive = new Map(); // code → Map(peerId → { id, key, name, seen, seq, queue, wake })
+const meetCode = () => {
+  const letters = "abcdefghijkmnopqrstuvwxyz";
+  const part = (n) => Array.from(randomBytes(n), (b) => letters[b % letters.length]).join("");
+  return `${part(3)}-${part(4)}-${part(3)}`;
+};
+const meetRoom = (code) => {
+  const row = MEET_CODE.test(code) ? db.prepare("select * from meet_rooms where code = ?").get(code) : null;
+  if (!row) throw new HttpError(404, "notFound");
+  return { ...row, live: meetLive.get(code)?.size ?? 0 };
+};
+const meetPeer = (code, id, key) => {
+  const peer = meetLive.get(code)?.get(id);
+  if (!peer || typeof key !== "string" || !safeEqual(key, peer.key)) throw new HttpError(410, "gone");
+  return peer;
+};
+const meetPush = (peer, msg) => {
+  peer.queue.push({ seq: ++peer.seq, ...msg });
+  if (peer.queue.length > 400) peer.queue.shift();
+  peer.wake?.();
+};
+const meetDrop = (code, id) => {
+  const peers = meetLive.get(code);
+  if (!peers?.delete(id)) return;
+  for (const p of peers.values()) meetPush(p, { type: "leave", from: id });
+  if (!peers.size) meetLive.delete(code);
+};
+// Wer sich 25 s nicht mehr meldet (Tab zu, Netz weg), fliegt aus dem Raum.
+setInterval(() => {
+  const limit = Date.now() - 25_000;
+  for (const [code, peers] of meetLive) for (const p of [...peers.values()]) if (!p.wake && p.seen < limit) meetDrop(code, p.id);
+}, 5_000).unref();
+
+route("POST", "/meet/rooms", ({ body }) => {
+  const title = String(body?.title ?? "").trim().slice(0, 80) || "Meeting";
+  let code;
+  do code = meetCode();
+  while (db.prepare("select 1 from meet_rooms where code = ?").get(code));
+  db.prepare("insert into meet_rooms (code, title, created_by, created_at) values (?, ?, ?, ?)").run(code, title, String(body?.created_by ?? "").slice(0, 120), now());
+  return meetRoom(code);
+});
+
+route("GET", "/meet/rooms", () =>
+  db.prepare("select * from meet_rooms order by created_at desc limit 30").all().map((r) => ({ ...r, live: meetLive.get(r.code)?.size ?? 0 })),
+);
+
+route("GET", "/meet/rooms/:code", ({ params }) => meetRoom(params.code));
+
+route("DELETE", "/meet/rooms/:code", ({ params }) => {
+  meetRoom(params.code);
+  for (const p of meetLive.get(params.code)?.values() ?? []) meetPush(p, { type: "ended" });
+  meetLive.delete(params.code);
+  db.prepare("delete from meet_rooms where code = ?").run(params.code);
+  return { ok: true };
+});
+
+route("POST", "/meet/rooms/:code/join", ({ params, body }) => {
+  meetRoom(params.code);
+  const name = String(body?.name ?? "").trim().slice(0, 40);
+  need(name, "name");
+  const peers = meetLive.get(params.code) ?? new Map();
+  if (peers.size >= MEET_MAX) throw new HttpError(409, "full");
+  const peer = { id: randomBytes(6).toString("hex"), key: randomBytes(18).toString("hex"), name, seen: Date.now(), seq: 0, queue: [], wake: null };
+  const others = [...peers.values()].map((p) => ({ id: p.id, name: p.name }));
+  for (const p of peers.values()) meetPush(p, { type: "join", from: peer.id, name });
+  peers.set(peer.id, peer);
+  meetLive.set(params.code, peers);
+  return { id: peer.id, key: peer.key, peers: others };
+});
+
+route("POST", "/meet/rooms/:code/send", ({ params, body }) => {
+  const me = meetPeer(params.code, body?.id, body?.key);
+  me.seen = Date.now();
+  const peers = meetLive.get(params.code);
+  for (const m of Array.isArray(body.messages) ? body.messages.slice(0, 60) : []) {
+    // „join“, „leave“ und „ended“ vergibt nur der Server.
+    if (!m || typeof m.type !== "string" || ["join", "leave", "ended"].includes(m.type) || JSON.stringify(m).length > 60_000) continue;
+    const out = { type: m.type.slice(0, 20), from: me.id, data: m.data ?? null };
+    if (typeof m.to === "string") {
+      const target = peers.get(m.to);
+      if (target) meetPush(target, out);
+    } else for (const p of peers.values()) if (p !== me) meetPush(p, out);
+  }
+  return { ok: true };
+});
+
+/** Long-Poll: `after` bestätigt alles bis zu dieser Nummer; ohne neue Nachrichten wartet die Antwort bis zu 15 s. */
+route("GET", "/meet/rooms/:code/poll", async ({ params, query }) => {
+  const me = meetPeer(params.code, query.get("id"), query.get("key"));
+  const after = Number(query.get("after") ?? 0) || 0;
+  me.queue = me.queue.filter((m) => m.seq > after);
+  me.wake?.();
+  if (!me.queue.length) {
+    await new Promise((resolve) => {
+      const done = () => {
+        clearTimeout(timer);
+        if (me.wake === done) me.wake = null;
+        resolve();
+      };
+      const timer = setTimeout(done, 15_000);
+      me.wake = done;
+    });
+  }
+  me.seen = Date.now();
+  return { messages: me.queue };
+});
+
+route("POST", "/meet/rooms/:code/leave", ({ params, body }) => {
+  meetPeer(params.code, body?.id, body?.key);
+  meetDrop(params.code, body.id);
+  return { ok: true };
+});
+
 const send = (res, status, data) => {
   res.writeHead(status, { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" });
   res.end(JSON.stringify(data));

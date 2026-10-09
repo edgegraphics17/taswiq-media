@@ -10,13 +10,16 @@ import { isAdminEmail } from "@/lib/auth";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
 import { getAdminUser } from "@/lib/admin/data";
 import { INTERNAL_COOKIE, internalCookieOptions } from "@/lib/internal";
-import { addLeadNote, setCalculatorTest, setLeadTest, cancelBooking as cancelBookingInBackend, createBooking, saveBookingSettings as saveBookingSettingsInBackend, deleteTask, insertTask, moveTask, setPassword, setTeamSettings, updateLead as updateLeadInBackend, updateTask, upsertServices, verifyPassword } from "@/lib/db";
+import { createMeetRoom, deleteMeetRoom, getMeetRoom, addLeadNote, setCalculatorTest, setLeadTest, cancelBooking as cancelBookingInBackend, createBooking, saveBookingSettings as saveBookingSettingsInBackend, deleteTask, insertTask, moveTask, setPassword, setTeamSettings, updateLead as updateLeadInBackend, updateTask, upsertServices, verifyPassword } from "@/lib/db";
 import { LEAD_STATUSES, TASK_CATEGORIES, TASK_STATUSES } from "@/types/database";
 import { DEPARTMENT_IDS, departmentFor } from "@/config/team";
 import { STRUCTURE_TAG } from "@/lib/admin/site-structure";
 import { getSiteReport, requestOrigin } from "@/lib/admin/site-report";
 import { taskOf } from "@/lib/admin/site-findings";
 import { bookingSettingsSchema } from "@/lib/booking";
+import { sendMeetingInvites } from "@/lib/mail";
+import { MEET_CODE } from "@/lib/meet";
+import { site } from "@/config/site";
 
 /** Jede Mutation prüft die Admin-Berechtigung erneut – Server Actions sind öffentliche Endpunkte. */
 async function requireAdminUser() {
@@ -403,4 +406,42 @@ export async function saveBookingSettings(formData: FormData) {
   }
   revalidatePath("/admin/kalender");
   redirect("/admin/kalender?saved=zeiten");
+}
+
+// ─── Meetings (Videocalls) ──────────────────────────────────────────
+/** Neuen Raum anlegen – der Link ist sofort gültig und bleibt es, bis das Meeting gelöscht wird. */
+export async function createMeeting(formData: FormData) {
+  const user = await requireAdminUser();
+  const title = String(formData.get("title") ?? "").trim().slice(0, 80) || `Meeting am ${new Date().toLocaleDateString("de-DE", { timeZone: "Europe/Berlin", day: "numeric", month: "long" })}`;
+  let code: string;
+  try {
+    code = (await createMeetRoom(title, user.email)).code;
+  } catch (e) {
+    console.error("[admin] Meeting anlegen fehlgeschlagen", e);
+    redirect("/admin/meetings?error=backend");
+  }
+  revalidatePath("/admin/meetings");
+  redirect(`/admin/meetings?neu=${code}`);
+}
+
+export async function deleteMeeting(formData: FormData) {
+  await requireAdminUser();
+  const code = String(formData.get("code") ?? "");
+  if (MEET_CODE.test(code)) await deleteMeetRoom(code).catch((e) => console.error("[admin] Meeting löschen fehlgeschlagen", e));
+  revalidatePath("/admin/meetings");
+  redirect("/admin/meetings?saved=geloescht");
+}
+
+/** Einladungslink per Mail verschicken (bis zu 20 Adressen, durch Komma, Leerzeichen oder Zeilenumbruch getrennt). */
+export async function inviteToMeeting(formData: FormData) {
+  await requireAdminUser();
+  const code = String(formData.get("code") ?? "");
+  const emails = [...new Set(String(formData.get("emails") ?? "").toLowerCase().split(/[\s,;]+/).filter(Boolean))];
+  const valid = z.array(z.string().email()).min(1).max(20).safeParse(emails);
+  const room = MEET_CODE.test(code) ? await getMeetRoom(code).catch(() => null) : null;
+  if (!room) redirect("/admin/meetings?error=backend");
+  if (!valid.success) redirect(`/admin/meetings?neu=${code}&error=adressen`);
+  const note = String(formData.get("note") ?? "").trim().slice(0, 600) || null;
+  const failed = await sendMeetingInvites(valid.data, { title: room.title, url: `${site.url}/meet/${code}`, note });
+  redirect(`/admin/meetings?neu=${code}&${failed.length ? `error=versand&n=${failed.length}` : `saved=eingeladen&n=${valid.data.length}`}`);
 }

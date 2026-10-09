@@ -195,3 +195,11 @@ create table if not exists bookings (
 );
 create index if not exists bookings_start_idx on bookings (start_at);
 create index if not exists bookings_lead_idx  on bookings (lead_id);
+
+-- Videocalls (/meet): ein Raum je Einladungslink. Teilnehmer und Signalisierung leben nur im Speicher (server.mjs).
+create table if not exists meet_rooms (
+  code        text primary key,
+  title       text not null,
+  created_by  text,
+  created_at  text not null
+);
