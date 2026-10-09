@@ -5,9 +5,12 @@ import {
   Building2,
   CalendarCheck,
   Car,
+  GraduationCap,
   Hammer,
   Plug,
   Scale,
+  Sparkles,
+  Sun,
   UtensilsCrossed,
   type LucideIcon,
 } from "lucide-react";
@@ -21,6 +24,9 @@ const ICONS: Record<string, LucideIcon> = {
   werkstatt: Car,
   steuerkanzlei: Scale,
   handwerk: Hammer,
+  kosmetik: Sparkles,
+  sonnenstudio: Sun,
+  fahrschule: GraduationCap,
   anbindungen: Plug,
 };
 

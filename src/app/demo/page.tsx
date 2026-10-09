@@ -16,7 +16,7 @@ import { formatEUR } from "@/lib/format";
 import { ORG_ID } from "@/lib/seo";
 
 const title = "Software-Demos zum Ausprobieren";
-const description = "Sechs Software-Demos ohne Anmeldung testen: Bestellsystem, Terminbuchung, Makler-Portal, Werkstatt-Portal, Mandantenportal und Handwerker-Software.";
+const description = "Neun Software-Demos ohne Anmeldung testen: Bestellsystem, Terminbuchung, Studio- und Kabinenbuchung, Fahrschul-App, Makler- und Werkstatt-Portal, Mandantenportal, Handwerker-Software.";
 
 export const metadata: Metadata = {
   title: { absolute: `${title} | TasWiq Media.` },
@@ -75,7 +75,7 @@ export default async function DemoHubPage() {
             <div>
               <Eyebrow icon={MousePointerClick}>Demos</Eyebrow>
               <h1 className="mt-4 text-[clamp(2.75rem,7.4vw,5.75rem)] leading-[0.97] font-medium text-balance">
-                Sechs Systeme. <span className="text-brand-500">Zum Anfassen.</span>
+                Neun Systeme. <span className="text-brand-500">Zum Anfassen.</span>
               </h1>
               <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-body sm:text-lg">
                 Jede Demo ist eine Musterfirma mit zwei Seiten: was ihre Kunden sehen und womit der Betrieb arbeitet. Bestell, buch, gib frei – und sieh auf der anderen Seite, was ankommt.

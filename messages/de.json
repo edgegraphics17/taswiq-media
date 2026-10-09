@@ -821,6 +821,48 @@
           "KI-Telefonassistent"
         ]
       },
+      "demo-kosmetik": {
+        "tag": "Studio-Buchung",
+        "title": "Studio Malou – Buchung für Kosmetik und Nägel",
+        "text": "Demo mit Musterfirma: Buch beim Studio Malou eine Behandlung mit Anzahlung und sieh den Termin im Kalender nach Kabinen und Nageltisch. Folgetermine erinnert das System selbst.",
+        "result": "Nagel-, Wimpern- und Brauenstudios, Fußpflege, Massage, dauerhafte Haarentfernung – überall, wo Behandlung und Platz zusammen gebucht werden.",
+        "services": [
+          "Behandlungen nach Bereichen",
+          "Plätze statt Personen",
+          "Anzahlung",
+          "Folgetermin-Erinnerung",
+          "Kundenkartei",
+          "Auslastung"
+        ]
+      },
+      "demo-sonnenstudio": {
+        "tag": "Kabinen & Guthaben",
+        "title": "Sonnendeck – Kabinen, Guthaben und Abo",
+        "text": "Demo mit Musterfirma: Reservier beim Sonnenstudio Sonnendeck eine Kabine, zahl mit Guthaben und sieh das Kabinen-Board des Studios – mit Schutzregeln nach Hauttyp und Röhrenstunden.",
+        "result": "Sonnenstudios, EMS- und Fitnessstudios, Waschsalons, Saunen, Padel und Bowling – überall, wo Plätze minuten- oder stundenweise belegt werden.",
+        "services": [
+          "Kabinen in Echtzeit",
+          "Reservierung mit Guthaben",
+          "Schutzregeln",
+          "Guthaben & Flat",
+          "Kabinen-Board",
+          "Röhrenstunden"
+        ]
+      },
+      "demo-fahrschule": {
+        "tag": "Fahrschul-App",
+        "title": "Fahrschule Kompass – Fahrstunden und Ausbildungsstand",
+        "text": "Demo mit Musterfirma: Buch bei der Fahrschule Kompass eine Fahrstunde, sieh deinen Ausbildungsstand und im Büro den Fahrlehrer-Plan mit Prüfungsreife und offenen Posten.",
+        "result": "Fahrschulen, Musik-, Sprach- und Reitschulen, Nachhilfe, Tauch- und Flugschulen – überall, wo Stunden bei einem festen Lehrer gebucht werden.",
+        "services": [
+          "Fahrstunden buchen",
+          "Ausbildungsstand",
+          "Guthaben & Zahlungen",
+          "Fahrlehrer-Plan",
+          "Prüfungsreife",
+          "Offene Posten"
+        ]
+      },
       "demo-steuerkanzlei": {
         "tag": "Mandantenportal",
         "title": "Albrecht & Sommer – Mandantenportal zum Ausprobieren",
@@ -9388,7 +9430,7 @@
     "tag": "Demos",
     "title": "Erst ausprobieren,",
     "accent": "dann entscheiden.",
-    "text": "Sechs Musterfirmen, in denen du selbst klickst: bestellen, buchen, freigeben – und im Dashboard sehen, was beim Betrieb ankommt. Ohne Anmeldung.",
+    "text": "Neun Musterfirmen, in denen du selbst klickst: bestellen, buchen, freigeben – und im Dashboard sehen, was beim Betrieb ankommt. Ohne Anmeldung.",
     "all": "Alle Demos ansehen",
     "calloutTag": "Zum Ausprobieren",
     "calloutTitle": "{kind}-Demo: {firm}",

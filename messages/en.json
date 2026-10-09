@@ -821,6 +821,48 @@
           "AI phone assistant"
         ]
       },
+      "demo-kosmetik": {
+        "tag": "Studio booking",
+        "title": "Studio Malou – booking for beauty and nails",
+        "text": "Demo with a sample business: book a treatment with a deposit at Studio Malou and see it in the calendar by treatment room and nail desk. Follow-up appointments are prompted automatically.",
+        "result": "Nail, lash and brow studios, foot care, massage, permanent hair removal – wherever a treatment and a place are booked together.",
+        "services": [
+          "Treatments by area",
+          "Places, not just people",
+          "Deposit",
+          "Follow-up reminders",
+          "Client records",
+          "Utilisation"
+        ]
+      },
+      "demo-sonnenstudio": {
+        "tag": "Cabins & credit",
+        "title": "Sonnendeck – cabins, credit and membership",
+        "text": "Demo with a sample business: reserve a cabin at the tanning studio Sonnendeck, pay with credit and see the studio's cabin board – with skin-type rules and tube hours.",
+        "result": "Tanning studios, EMS and fitness studios, laundrettes, saunas, padel and bowling – wherever places are used by the minute or hour.",
+        "services": [
+          "Cabins in real time",
+          "Reserve with credit",
+          "Safety rules",
+          "Credit & flat rate",
+          "Cabin board",
+          "Tube hours"
+        ]
+      },
+      "demo-fahrschule": {
+        "tag": "Driving school app",
+        "title": "Fahrschule Kompass – lessons and training progress",
+        "text": "Demo with a sample business: book a driving lesson at Fahrschule Kompass, see your training progress and, in the office, the instructor schedule with test readiness and open balances.",
+        "result": "Driving schools, music, language and riding schools, tutoring, diving and flight schools – wherever lessons are booked with a fixed teacher.",
+        "services": [
+          "Book lessons",
+          "Training progress",
+          "Credit & payments",
+          "Instructor schedule",
+          "Test readiness",
+          "Open balances"
+        ]
+      },
       "demo-steuerkanzlei": {
         "tag": "Client portal",
         "title": "Albrecht & Sommer – a client portal to try",
@@ -9387,7 +9429,7 @@
     "tag": "Demos",
     "title": "Try it first,",
     "accent": "decide later.",
-    "text": "Six sample companies you click through yourself: order, book, approve – and see in the dashboard what reaches the business. No sign-up. Demos are in German.",
+    "text": "Nine sample companies you click through yourself: order, book, approve – and see in the dashboard what reaches the business. No sign-up. Demos are in German.",
     "all": "See all demos",
     "calloutTag": "Try it yourself",
     "calloutTitle": "{kind} demo: {firm}",

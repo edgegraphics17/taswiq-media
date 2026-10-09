@@ -112,4 +112,7 @@ export const demoIntegrations: Record<DemoSlug, { note: string; items: Integrati
   werkstatt: { note: "Börsen, Fahrzeugdaten, Buchhaltung", items: ["mobilede", "autoscout24", "dat", "tecdoc", "datev", "whatsapp"] },
   steuerkanzlei: { note: "Kanzleiprogramm, Buchhaltung, Ablage", items: ["datev", "elster", "lexware", "sevdesk", "microsoft", "dropbox"] },
   handwerk: { note: "Buchhaltung, Telefon, Kalender", items: ["datev", "lexware", "sevdesk", "sipgate", "googlecalendar", "whatsapp"] },
+  kosmetik: { note: "Kalender, Buchen-Button, Zahlung", items: ["googlecalendar", "instagram", "google", "sumup", "klarna", "whatsapp"] },
+  sonnenstudio: { note: "Kasse, Zahlung, Erinnerung", items: ["sumup", "paypal", "applepay", "whatsapp", "google", "lexware"] },
+  fahrschule: { note: "Kalender, Zahlung, Buchhaltung", items: ["googlecalendar", "whatsapp", "paypal", "klarna", "datev", "lexware"] },
 };

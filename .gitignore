@@ -56,3 +56,6 @@ next-env.d.ts
 
 # E-Mail-Vorschau (npm run mail:preview)
 /mail-preview
+
+# Vertriebsunterlagen (PDFs, Provisionsmodell, Vorlagen) – intern, bleiben lokal
+/vertrieb/

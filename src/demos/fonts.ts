@@ -1,4 +1,4 @@
-import { Big_Shoulders, Hanken_Grotesk, IBM_Plex_Mono, IBM_Plex_Sans, Instrument_Sans, Manrope, Rajdhani, Red_Hat_Display, Urbanist } from "next/font/google";
+import { Archivo, Big_Shoulders, Bricolage_Grotesque, Fraunces, Hanken_Grotesk, IBM_Plex_Mono, IBM_Plex_Sans, Instrument_Sans, Manrope, Rajdhani, Red_Hat_Display, Urbanist } from "next/font/google";
 
 /**
  * Schriften der Software-Demos – nur im Demo-Bereich geladen (src/app/demo/layout.tsx), nie vorab:
@@ -15,5 +15,8 @@ const rajdhani = Rajdhani({ subsets: ["latin"], weight: ["500", "600", "700"], v
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: "swap", preload: false });
 const shoulders = Big_Shoulders({ subsets: ["latin"], variable: "--font-shoulders", display: "swap", preload: false });
 const instrument = Instrument_Sans({ subsets: ["latin"], variable: "--font-instrument", display: "swap", preload: false });
+const fraunces = Fraunces({ subsets: ["latin"], style: ["normal", "italic"], variable: "--font-fraunces", display: "swap", preload: false });
+const bricolage = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-bricolage", display: "swap", preload: false });
+const archivo = Archivo({ subsets: ["latin"], variable: "--font-archivo", display: "swap", preload: false });
 
-export const demoFontVars = [plex, plexMono, urbanist, hanken, redhat, rajdhani, manrope, shoulders, instrument].map((f) => f.variable).join(" ");
+export const demoFontVars = [plex, plexMono, urbanist, hanken, redhat, rajdhani, manrope, shoulders, instrument, fraunces, bricolage, archivo].map((f) => f.variable).join(" ");

@@ -33,6 +33,9 @@ export type PortfolioId =
   | "demo-werkstatt"
   | "demo-steuerkanzlei"
   | "demo-handwerk"
+  | "demo-kosmetik"
+  | "demo-sonnenstudio"
+  | "demo-fahrschule"
   | "taswiq-system"
   | "reviews"
   | "lilys"
@@ -117,6 +120,9 @@ export const portfolioItems: PortfolioItem[] = [
   { id: "demo-steuerkanzlei", cats: ["software", "web"], kind: "demo", media: { type: "demo", image: "/images/demo/steuerkanzlei.jpg", slug: "steuerkanzlei" } },
   { id: "demo-immobilien", cats: ["software", "web", "immobilien"], kind: "demo", media: { type: "demo", image: "/images/demo/immobilien.jpg", slug: "immobilien" } },
   { id: "demo-werkstatt", cats: ["software", "web"], kind: "demo", media: { type: "demo", image: "/images/demo/werkstatt.jpg", slug: "werkstatt" } },
+  { id: "demo-kosmetik", cats: ["software", "web"], kind: "demo", media: { type: "demo", image: "/images/demo/kosmetik.jpg", slug: "kosmetik" } },
+  { id: "demo-sonnenstudio", cats: ["software", "web"], kind: "demo", media: { type: "demo", image: "/images/demo/sonnenstudio.jpg", slug: "sonnenstudio" } },
+  { id: "demo-fahrschule", cats: ["software", "web"], kind: "demo", media: { type: "demo", image: "/images/demo/fahrschule.jpg", slug: "fahrschule" } },
   /* Hotel- & Restaurantfilme */
   {
     id: "cinnamon",

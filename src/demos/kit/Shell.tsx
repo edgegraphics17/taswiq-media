@@ -31,6 +31,9 @@ const APPS: Record<DemoSlug, ComponentType> = {
   werkstatt: dynamic(() => import("@/demos/apps/werkstatt"), { ssr: false, loading }),
   steuerkanzlei: dynamic(() => import("@/demos/apps/steuerkanzlei"), { ssr: false, loading }),
   handwerk: dynamic(() => import("@/demos/apps/handwerk"), { ssr: false, loading }),
+  kosmetik: dynamic(() => import("@/demos/apps/kosmetik"), { ssr: false, loading }),
+  sonnenstudio: dynamic(() => import("@/demos/apps/sonnenstudio"), { ssr: false, loading }),
+  fahrschule: dynamic(() => import("@/demos/apps/fahrschule"), { ssr: false, loading }),
 };
 
 type Pricing = { start: number; shown: number; rent: number };
