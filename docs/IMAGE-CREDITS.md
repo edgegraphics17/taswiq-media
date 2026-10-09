@@ -117,3 +117,35 @@ Fotos von [Unsplash](https://unsplash.com/license) (freie Lizenz, kommerziell nu
 | public/images/demo/photos/h-heating.webp | Julian Hochgesang | https://images.unsplash.com/photo-1599028274511-e02a767949a3 |
 | public/images/demo/photos/h-bath.webp | Lotus Design N Print | https://images.unsplash.com/photo-1584622650111-993a426fbf0a |
 | public/images/demo/photos/h-pipe.webp | Timur Shakerzianov | https://images.unsplash.com/photo-1676210134188-4c05dd172f89 |
+| public/images/demo/photos/m-hero.webp | Rosa Rafael | https://images.unsplash.com/photo-1570172619644-dfd03ed5d881 |
+| public/images/demo/photos/m-face.webp | Soheil Kmp | https://images.unsplash.com/photo-1647004692483-c5d942fe1137 |
+| public/images/demo/photos/m-nails.webp | Chelson Tamares | https://images.unsplash.com/photo-1610992015762-45dca7fa3a85 |
+| public/images/demo/photos/m-lash.webp | Bermix Studio | https://images.unsplash.com/photo-1674049406467-824ea37c7184 |
+| public/images/demo/photos/m-wax.webp | Trường thẩm mỹ Ana Anabeautyacademy | https://images.unsplash.com/photo-1559185590-879c66a55254 |
+| public/images/demo/photos/m-studio.webp | Ela De Pure | https://images.unsplash.com/photo-1763873993447-1d0be71a96d9 |
+| public/images/demo/photos/m-team1.webp | Alexander Mass | https://images.unsplash.com/photo-1733685373178-b49c3943ccef |
+| public/images/demo/photos/m-team2.webp | Bermix Studio | https://images.unsplash.com/photo-1673865641073-4479f93a7776 |
+| public/images/demo/photos/m-team3.webp | Ocho Artex Media | https://images.unsplash.com/photo-1594824476967-48c8b964273f |
+| public/images/demo/photos/m-work1.webp | Giorgio Trovato | https://images.unsplash.com/photo-1632345031435-8727f6897d53 |
+| public/images/demo/photos/m-work2.webp | Hayley Kim Studios | https://images.unsplash.com/photo-1589710751893-f9a6770ad71b |
+| public/images/demo/photos/m-work3.webp | karelys Ruiz | https://images.unsplash.com/photo-1552693673-1bf958298935 |
+| public/images/demo/photos/m-work4.webp | engin akyurt | https://images.unsplash.com/photo-1616394584738-fc6e612e71b9 |
+| public/images/demo/photos/s-hero.webp | artem belinsky | https://images.unsplash.com/photo-1693755854711-3e4d507e0d7c |
+| public/images/demo/photos/s-glow.webp | Lawless Capture | https://images.unsplash.com/photo-1601583844062-7487c80b56b7 |
+| public/images/demo/photos/s-skin.webp | Alef Morais | https://images.unsplash.com/photo-1765813102971-47144ca56d03 |
+| public/images/demo/photos/s-lounge.webp | Sherzod Gulomov | https://images.unsplash.com/photo-1693578538512-fc66f318c833 |
+| public/images/demo/photos/s-light.webp | Vincent Battault | https://images.unsplash.com/photo-1522148661075-56b2ad82f11c |
+| public/images/demo/photos/s-spa.webp | Dominik Neuner | https://images.unsplash.com/photo-1761470575018-135c213340eb |
+| public/images/demo/photos/s-sign.webp | Alexander Lunyov | https://images.unsplash.com/photo-1774247993490-7d1469a3de97 |
+| public/images/demo/photos/s-bath.webp | Puscas Adryan | https://images.unsplash.com/photo-1765745518673-b562b7304a53 |
+| public/images/demo/photos/d-hero.webp | Martin Katler | https://images.unsplash.com/photo-1572811298797-9eecadf6cb24 |
+| public/images/demo/photos/d-instructor.webp | Bas Peperzak | https://images.unsplash.com/photo-1630406144797-821be1f35d75 |
+| public/images/demo/photos/d-student.webp | Junior REIS | https://images.unsplash.com/photo-1612709060421-596380268eaf |
+| public/images/demo/photos/d-city.webp | Mira Kireeva | https://images.unsplash.com/photo-1611508106567-6218ae6c5f6a |
+| public/images/demo/photos/d-land.webp | Jerry Kavan | https://images.unsplash.com/photo-1550517636-ad7bac40dc28 |
+| public/images/demo/photos/d-autobahn.webp | Zion C | https://images.unsplash.com/photo-1785733949623-28ff2aee9368 |
+| public/images/demo/photos/d-night.webp | Haberdoedas | https://images.unsplash.com/photo-1732538839093-0361a09da800 |
+| public/images/demo/photos/d-wheel.webp | Andraz Lazic | https://images.unsplash.com/photo-1527593167147-e9c94a5883e6 |
+| public/images/demo/photos/d-team.webp | David Emrich | https://images.unsplash.com/photo-1537211790624-e6f568af4b13 |
+| public/images/demo/photos/d-murat.webp | serjan midili | https://images.unsplash.com/photo-1593153121623-3180d7e37775 |
+| public/images/demo/photos/d-smile.webp | Patrycja Olszak | https://images.unsplash.com/photo-1678899091039-9950e7f248b5 |

@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { BellRing, CalendarDays, ChartColumn, Check, ChevronLeft, ChevronRight, CircleDollarSign, GraduationCap, MapPin, Phone, Users } from "lucide-react";
+import Image from "next/image";
+import { ArrowUpRight, BellRing, CalendarDays, ChartColumn, Check, ChevronLeft, ChevronRight, CircleDollarSign, Compass, GraduationCap, MapPin, Phone, Users, Wallet } from "lucide-react";
 import { useDemo } from "@/demos/kit/context";
 import { DayGrid } from "@/demos/kit/DayGrid";
 import { Avatar, Backoffice, Bars, Btn, Figures, Panel, Ranks, Sheet, Tag, td, th, tr } from "@/demos/kit/ui";
@@ -144,16 +145,25 @@ export default function FahrschuleDemo() {
 }
 
 /* ───────────────────────────── Schüler-App ─────────────────────────────
-   Gestaltung „Kompass": klares Blau auf Weiß, Gelb nur als Signal (wie das Fahrschul-Schild), Archivo.
-   Gedacht fürs Handy: große Tippflächen, eine Aufgabe je Bildschirm. */
+   Gestaltung „Kompass": schwarzer Auftakt mit großem Fahrzeugbild, grüne Schaltflächen, einzelne Wörter in Gelb (Urbanist).
+   Darunter helle Abschnitte mit runden Foto-Karten – die Art der Fahrt wählt man wie ein Angebot, den Termin im dunklen Block. */
 
+const P = "/images/demo/photos/";
+const KIND_PHOTO: Record<string, { src: string; text: string }> = {
+  uebung: { src: "d-city", text: "Stadtverkehr, Vorfahrt, Einparken – die Grundlage für alles Weitere." },
+  ueberland: { src: "d-land", text: "Landstraße, Kurven, Überholen. Pflichtfahrt vor der Prüfung." },
+  autobahn: { src: "d-autobahn", text: "Auffahren, Spurwechsel, Abstand halten bei hohem Tempo." },
+  nacht: { src: "d-night", text: "Fahren bei Dunkelheit und mit Licht – ab 17:30 Uhr." },
+};
 const F = {
-  wrap: "mx-auto w-full max-w-[64rem] px-4 @dsm:px-6 @dlg:px-8",
-  label: "text-[11px] leading-none font-bold tracking-[0.14em] uppercase",
-  display: "font-d-display font-extrabold tracking-[-0.03em]",
-  dim: "text-[#55607a]",
-  card: "rounded-2xl border border-[#d8dfec] bg-white",
-  btn: "inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-6 text-[15px] font-bold transition-[filter,background-color] active:translate-y-px disabled:pointer-events-none disabled:opacity-40",
+  wrap: "mx-auto w-full max-w-[74rem] px-4 @dsm:px-6 @dlg:px-8",
+  dim: "text-[#6b6b6b]",
+  low: "text-[#a8a8a8]",
+  h2: "text-[1.7rem] leading-[1.08] font-medium tracking-[-0.025em] @dsm:text-[2.2rem]",
+  y: "text-[#e3d21a]",
+  yl: "text-[#a89a00]",
+  card: "rounded-[1.5rem] bg-[#f5f5f5]",
+  green: "inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#0b8a4b] px-7 text-[15px] font-semibold text-white transition-[filter] hover:brightness-110 active:translate-y-px disabled:pointer-events-none disabled:opacity-40",
 };
 
 type AppProps = { lessons: Lesson[]; balance: number; onBook: (l: Pick<Lesson, "day" | "start" | "kind">) => void; onCancel: (id: number) => void; onTopUp: (n: number) => void };
@@ -161,33 +171,33 @@ type AppProps = { lessons: Lesson[]; balance: number; onBook: (l: Pick<Lesson, "
 function StudentApp(props: AppProps) {
   const { tab, setTab } = useDemo();
   return (
-    <div className="min-h-[var(--app-h)] bg-[#f1f4fa] font-plex text-[15px] leading-[1.55] text-[#0f1b3d]">
-      <header className="on-dark sticky top-[var(--bar-h)] z-20 bg-[#0f1b3d] text-white">
-        <div className={cx(F.wrap, "flex items-center justify-between gap-4")}>
-          <p className="flex items-center gap-2.5 py-3">
-            <span className={cx(F.display, "grid size-8 place-items-center rounded-lg bg-[#ffd43b] text-[1.1rem] leading-none text-[#0f1b3d]")} aria-hidden>
-              K
-            </span>
-            <span className={cx(F.display, "text-[1.1rem] leading-none")}>
-              <span className="@max-dsm:hidden">Fahrschule </span>Kompass
-            </span>
+    <div className="min-h-[var(--app-h)] bg-white font-plex text-[15px] leading-[1.55] text-[#141414]">
+      <header className="on-dark sticky top-[var(--bar-h)] z-20 bg-[#1b1b1b] text-white">
+        <div className={cx(F.wrap, "flex items-center justify-between gap-3 py-2")}>
+          <p className="flex items-center gap-2.5">
+            <Compass className="size-6 text-white" strokeWidth={2.25} aria-hidden />
+            <span className="text-[17px] font-bold tracking-[0.06em] uppercase">Kompass</span>
           </p>
-          <nav aria-label="Schülerbereich" className="flex gap-1">
+          <nav aria-label="Schülerbereich" className="flex items-center">
             {[
               { id: "stunden", label: "Fahrstunden" },
               { id: "stand", label: "Mein Stand" },
             ].map((n) => (
-              <button key={n.id} type="button" aria-current={tab === n.id ? "page" : undefined} onClick={() => setTab(n.id)} className={cx("min-h-11 rounded-lg px-3 text-[14px] font-semibold whitespace-nowrap transition-colors", tab === n.id ? "bg-white text-[#0f1b3d]" : "text-white/75 hover:bg-white/10 hover:text-white")}>
+              <button key={n.id} type="button" aria-current={tab === n.id ? "page" : undefined} onClick={() => setTab(n.id)} className={cx("relative min-h-11 px-3 text-[14px] font-medium whitespace-nowrap transition-colors @dsm:px-4", tab === n.id ? "text-white" : "text-white/60 hover:text-white")}>
                 {n.label}
+                {tab === n.id && <span className="absolute inset-x-3 bottom-1.5 h-px bg-white @dsm:inset-x-4" aria-hidden />}
               </button>
             ))}
           </nav>
+          <span className="num hidden items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 text-[13px] font-medium @dmd:inline-flex">
+            <Wallet className="size-4" aria-hidden /> {eur0(props.balance)}
+          </span>
         </div>
       </header>
       {tab === "stand" ? <Progress {...props} /> : <Lessons {...props} />}
-      <footer className="border-t border-[#d8dfec]">
-        <div className={cx(F.wrap, "flex flex-wrap items-center justify-between gap-x-8 gap-y-3 py-6 text-[13.5px]", F.dim)}>
-          <span className={cx(F.display, "text-[1rem] text-[#0f1b3d]")}>Fahrschule Kompass</span>
+      <footer className="on-dark bg-[#111111]">
+        <div className={cx(F.wrap, "flex flex-wrap items-center justify-between gap-x-8 gap-y-3 py-6 text-[13.5px]", F.low)}>
+          <span className="text-[15px] font-bold tracking-[0.06em] text-white uppercase">Kompass</span>
           <span className="inline-flex items-center gap-2">
             <MapPin className="size-4" aria-hidden /> Ringstraße 48, Musterstadt
           </span>
@@ -216,33 +226,43 @@ function Lessons({ lessons, balance, onBook, onCancel }: AppProps) {
     return out.filter((s) => s % 30 === 0);
   }, [lessons, dayIdx, kind]);
   const mine = lessons.filter((l) => l.own && l.status === "geplant").sort((a, b) => a.day - b.day || a.start - b.start);
-  const pill = (on: boolean) => cx("border transition-colors", on ? "border-[#1d4ed8] bg-[#1d4ed8] text-white" : "border-[#cdd6e6] bg-white text-[#0f1b3d] hover:border-[#1d4ed8]");
 
   if (done) {
     return (
-      <div className={cx(F.wrap, "py-10 @dlg:py-16")}>
-        <div className="mx-auto max-w-xl">
-          <p className={cx(F.label, "text-[#1d4ed8]")}>Gebucht</p>
-          <h1 className={cx(F.display, "mt-4 text-[clamp(2.25rem,9cqi,4rem)] leading-[0.95]")}>Deine Fahrstunde steht.</h1>
-          <div className={cx(F.card, "mt-7 p-6")}>
-            <p className={cx(F.label, F.dim)}>{fmtDayLong(workday(done.day))}</p>
-            <p className={cx(F.display, "num mt-2 text-[3.25rem] leading-none")}>{hm(done.start)}</p>
-            <p className="num mt-3">
-              {KINDS[done.kind].name} · {KINDS[done.kind].min} Minuten · mit {teacher.name}
-            </p>
-            <p className={cx("num mt-4 border-t border-dashed border-[#cdd6e6] pt-4 text-[14px]", F.dim)}>
-              {eur0(KINDS[done.kind].price)} vom Guthaben abgezogen · Treffpunkt: Fahrschule, Ringstraße 48 · {teacher.car}
-            </p>
-          </div>
-          <div className="mt-5 rounded-2xl bg-[#ffd43b] p-5 text-[14.5px] leading-snug text-[#0f1b3d]">
-            <strong className="font-bold">So sieht es das Büro:</strong> Die Stunde steht im Plan von {teacher.name.split(" ")[0]}, bezahlt ist sie auch schon – niemand muss nachtelefonieren.
-            <div className="mt-4 flex flex-wrap gap-2">
-              <button type="button" onClick={() => go("betrieb", "plan")} className={cx(F.btn, "bg-[#0f1b3d] text-white hover:brightness-125")}>
-                Im Fahrlehrer-Plan ansehen
-              </button>
-              <button type="button" onClick={() => (setDone(null), setSlot(null))} className={cx(F.btn, "border border-[#0f1b3d] hover:bg-[#ffe27a]")}>
-                Weitere Stunde buchen
-              </button>
+      <div className="on-dark bg-[#111111] text-white">
+        <div className={cx(F.wrap, "py-10 @dlg:py-16")}>
+          <div className="mx-auto max-w-xl">
+            <span className="inline-flex items-center gap-2 rounded-full bg-[#0b8a4b] px-3 py-1 text-[12.5px] font-semibold">
+              <Check className="size-3.5" strokeWidth={3} aria-hidden /> Gebucht und bezahlt
+            </span>
+            <h1 className="mt-4 text-[clamp(2.25rem,9cqi,3.75rem)] leading-[1.02] font-medium tracking-[-0.03em] text-white">
+              Deine Fahrstunde <span className={F.y}>steht.</span>
+            </h1>
+            <div className="mt-7 overflow-hidden rounded-[1.5rem] bg-[#1c1c1c]">
+              <div className="relative h-36">
+                <Image src={`${P}${KIND_PHOTO[done.kind].src}.webp`} alt="" fill sizes="36rem" className="object-cover" />
+              </div>
+              <div className="p-6">
+                <p className={cx("text-[13px] font-medium", F.low)}>{fmtDayLong(workday(done.day))}</p>
+                <p className="num text-[3.25rem] leading-none font-semibold tracking-[-0.03em]">{hm(done.start)}</p>
+                <p className="num mt-2">
+                  {KINDS[done.kind].name} · {KINDS[done.kind].min} Minuten · mit {teacher.name}
+                </p>
+                <p className={cx("num mt-4 border-t border-dashed border-white/20 pt-4 text-[14px]", F.low)}>
+                  {eur0(KINDS[done.kind].price)} vom Guthaben abgezogen · Treffpunkt: Ringstraße 48 · {teacher.car}
+                </p>
+              </div>
+            </div>
+            <div className="mt-4 rounded-[1.5rem] bg-white p-5 text-[14.5px] leading-snug text-[#141414]">
+              <strong className="font-semibold">So sieht es das Büro:</strong> Die Stunde steht im Plan von {teacher.name.split(" ")[0]}, bezahlt ist sie auch schon – niemand muss nachtelefonieren.
+              <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
+                <button type="button" onClick={() => go("betrieb", "plan")} className={F.green}>
+                  Im Fahrlehrer-Plan ansehen
+                </button>
+                <button type="button" onClick={() => (setDone(null), setSlot(null))} className="min-h-11 text-[15px] font-semibold underline underline-offset-4 hover:text-[#0b8a4b]">
+                  Weitere Stunde buchen
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -251,231 +271,317 @@ function Lessons({ lessons, balance, onBook, onCancel }: AppProps) {
   }
 
   return (
-    <div className={cx(F.wrap, "grid gap-6 py-7 @dlg:grid-cols-[minmax(0,1fr)_20rem] @dlg:py-12")}>
-      <div className="min-w-0 space-y-6">
-        <div>
-          <p className={cx(F.label, "text-[#1d4ed8]")}>Hallo Lena · Klasse B</p>
-          <h1 className={cx(F.display, "mt-3 text-[clamp(2.25rem,9cqi,4rem)] leading-[0.95]")}>Nächste Fahrstunde buchen</h1>
+    <>
+      <section className="on-dark bg-[#111111] text-white">
+        <div className={cx(F.wrap, "pt-9 text-center @dlg:pt-14")}>
+          <h1 className="mx-auto max-w-3xl text-[clamp(2.2rem,8cqi,4rem)] leading-[1.04] font-medium tracking-[-0.03em] text-white">
+            Buch deine <span className={F.y}>nächste</span> Fahrstunde
+          </h1>
+          <p className={cx("mx-auto mt-4 max-w-xl text-[16px] leading-snug", F.low)}>Hallo Lena. Such dir Art, Tag und Uhrzeit aus – angezeigt wird nur, was bei deinem Fahrlehrer wirklich frei ist.</p>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            <a href="#kompass-buchen" className={F.green}>
+              Fahrstunde buchen
+            </a>
+            <button type="button" onClick={() => setTab("stand")} className="min-h-11 text-[15px] font-semibold underline underline-offset-4 hover:text-[#e3d21a]">
+              Meinen Stand ansehen
+            </button>
+          </div>
         </div>
-        <section className={cx(F.card, "p-5")} data-tour="buchen">
-          <h2 className="text-[16px] font-bold">1 · Was möchtest du fahren?</h2>
-          <div className="mt-3 grid gap-2 @dsm:grid-cols-2">
+        <div className="mt-9 bg-gradient-to-b from-[#111111] from-55% to-white to-55%">
+          <div className={cx(F.wrap, "relative")}>
+            <div className="relative aspect-[16/10] overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-30px_rgb(0_0_0/0.6)] @dmd:aspect-[21/9]">
+              <Image src={`${P}d-hero.webp`} alt="Weißer VW Golf der Fahrschule Kompass auf dem Übungsplatz" fill priority sizes="(min-width: 74rem) 72rem, 100vw" className="object-cover object-[center_62%]" />
+            </div>
+            <div className="absolute bottom-4 left-8 flex items-center gap-3 rounded-2xl bg-white/95 p-2.5 pr-4 text-[#141414] shadow-lg backdrop-blur @dsm:left-12">
+              <span className="relative block size-11 shrink-0 overflow-hidden rounded-xl">
+                <Image src={`${P}d-murat.webp`} alt="" fill sizes="6rem" className="object-cover object-[78%_35%]" />
+              </span>
+              <span className="leading-tight">
+                <span className={cx("block text-[11.5px]", F.dim)}>Dein Fahrlehrer</span>
+                <span className="block text-[14.5px] font-semibold">{teacher.name}</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="kompass-buchen" data-tour="buchen" className="scroll-mt-[calc(var(--bar-h)+3.5rem)]">
+        <div className={cx(F.wrap, "pt-10 pb-8 @dlg:pt-14")}>
+          <div className="grid gap-3 @dmd:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] @dmd:items-end">
+            <h2 className={F.h2}>
+              Was möchtest du <span className={F.yl}>fahren?</span>
+            </h2>
+            <p className={cx("text-[14.5px] @dmd:text-right", F.dim)}>Sonderfahrten zählen automatisch auf deinen Ausbildungsstand.</p>
+          </div>
+          <div className="no-bar -mx-4 mt-6 flex gap-3 overflow-x-auto px-4 pb-2 @dmd:mx-0 @dmd:grid @dmd:grid-cols-4 @dmd:overflow-visible @dmd:px-0">
             {BOOKABLE.map((id) => {
               const x = KINDS[id];
               const on = kind === id;
               const have = id === "uebung" ? null : BASE[id as "ueberland" | "autobahn" | "nacht"];
               return (
-                <button key={id} type="button" aria-pressed={on} onClick={() => (setKind(id), setSlot(null))} className={cx("flex min-h-[4.75rem] items-center gap-3 rounded-xl border px-4 py-3 text-left transition-colors", on ? "border-[#1d4ed8] bg-[#e8eefc]" : "border-[#d8dfec] hover:border-[#1d4ed8]")}>
-                  <span className={cx("grid size-6 shrink-0 place-items-center rounded-full border", on ? "border-[#1d4ed8] bg-[#1d4ed8] text-white" : "border-[#aab4c8]")} aria-hidden>
-                    {on && <Check className="size-3.5" strokeWidth={3} />}
+                <button key={id} type="button" aria-pressed={on} onClick={() => (setKind(id), setSlot(null))} className={cx("flex w-60 shrink-0 flex-col rounded-[1.5rem] p-3 text-left transition-colors @dmd:w-auto", on ? "bg-[#0b8a4b] text-white" : "bg-[#f5f5f5] text-[#141414] hover:bg-[#ececec]")}>
+                  <span className="flex items-center justify-between gap-2 px-1.5 pt-1">
+                    <span className="text-[16px] font-semibold">{x.name}</span>
+                    <span className={cx("grid size-7 shrink-0 place-items-center rounded-full", on ? "bg-white text-[#0b8a4b]" : "bg-[#0b8a4b] text-white")} aria-hidden>
+                      {on ? <Check className="size-4" strokeWidth={3} /> : <ArrowUpRight className="size-4" />}
+                    </span>
                   </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block text-[15.5px] leading-tight font-semibold">{x.name}</span>
-                    <span className={cx("num mt-1 block text-[12.5px]", F.dim)}>{have === null ? x.note : `${have} von ${NEED[id as "ueberland" | "autobahn" | "nacht"]} Stunden gefahren`}</span>
+                  <span className={cx("num mt-2 flex justify-between gap-2 px-1.5 text-[12.5px]", on ? "text-white/85" : F.dim)}>
+                    <span>
+                      Preis: <strong className={cx("font-semibold", on ? "text-white" : "text-[#141414]")}>{eur0(x.price)}</strong>
+                    </span>
+                    <span>
+                      {have === null ? "Dauer:" : "Gefahren:"} <strong className={cx("font-semibold", on ? "text-white" : "text-[#141414]")}>{have === null ? `${x.min} Min.` : `${have} von ${NEED[id as "ueberland" | "autobahn" | "nacht"]}`}</strong>
+                    </span>
                   </span>
-                  <span className="num shrink-0 text-[15px] font-bold">{eur0(x.price)}</span>
+                  <span className={cx("mt-2 block min-h-[3.4em] px-1.5 text-[12.5px] leading-snug", on ? "text-white/85" : F.dim)}>{KIND_PHOTO[id].text}</span>
+                  <span className="relative mt-3 block aspect-[16/10] overflow-hidden rounded-2xl">
+                    <Image src={`${P}${KIND_PHOTO[id].src}.webp`} alt="" fill sizes="(min-width: 48rem) 17rem, 15rem" className="object-cover" />
+                  </span>
                 </button>
               );
             })}
           </div>
-          <h2 className="mt-6 text-[16px] font-bold">2 · Wann?</h2>
-          <div className="no-bar -mx-5 mt-3 flex gap-2 overflow-x-auto px-5">
-            {Array.from({ length: DAYS }, (_, i) => {
-              const d = workday(i);
-              return (
-                <button key={i} type="button" aria-pressed={dayIdx === i} onClick={() => (setDayIdx(i), setSlot(null))} className={cx("min-h-[4.25rem] w-[4.25rem] shrink-0 rounded-xl text-center", pill(dayIdx === i))}>
-                  <span className={cx("block text-[12px] font-semibold", dayIdx === i ? "text-white/80" : F.dim)}>{d.toDateString() === new Date().toDateString() ? "Heute" : weekdayShort(d)}</span>
-                  <span className={cx(F.display, "num mt-0.5 block text-[1.4rem] leading-none")}>{d.getDate()}</span>
-                </button>
-              );
-            })}
-          </div>
-          {slots.length ? (
-            <div className="mt-4 grid grid-cols-4 gap-2 @dsm:grid-cols-6">
-              {slots.map((s) => (
-                <button key={s} type="button" aria-pressed={slot === s} onClick={() => setSlot(s)} className={cx("num min-h-11 rounded-xl text-[14px] font-semibold", pill(slot === s))}>
-                  {hm(s)}
-                </button>
-              ))}
-            </div>
-          ) : (
-            <p className={cx("mt-4 rounded-xl border border-dashed border-[#aab4c8] px-4 py-5 text-[14px]", F.dim)}>
-              An diesem Tag hat {teacher.name.split(" ")[0]} für eine {k.name} nichts mehr frei. Wähl einen anderen Tag.
-            </p>
-          )}
-          <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-[#d8dfec] pt-4">
-            <p className={cx("num text-[13.5px]", F.dim)}>
-              {slot !== null ? (
-                <>
-                  <strong className="font-semibold text-[#0f1b3d]">
-                    {fmtDay(workday(dayIdx))}, {hm(slot)}–{hm(slot + k.min)}
-                  </strong>{" "}
-                  · {eur0(k.price)} vom Guthaben
-                </>
-              ) : (
-                "Wähl eine Uhrzeit."
-              )}
-            </p>
-            {balance < k.price ? (
-              <button type="button" onClick={() => setTab("stand")} className={cx(F.btn, "border border-[#1d4ed8] text-[#1d4ed8] hover:bg-[#e8eefc]")}>
-                Erst Guthaben aufladen
-              </button>
-            ) : (
-              <button
-                type="button"
-                disabled={slot === null}
-                onClick={() => {
-                  if (slot === null || !once()) return;
-                  onBook({ day: dayIdx, start: slot, kind });
-                  setDone({ day: dayIdx, start: slot, kind });
-                  toTop();
-                }}
-                className={cx(F.btn, "bg-[#1d4ed8] text-white hover:brightness-110")}
-              >
-                Fahrstunde buchen
-              </button>
-            )}
-          </div>
-          <p className={cx("mt-3 text-[12px]", F.dim)}>Demo: Es wird nichts gebucht oder abgebucht.</p>
-        </section>
-      </div>
+        </div>
 
-      <aside className="space-y-4">
-        <section className={cx(F.card, "p-5")}>
-          <h2 className={cx(F.label, F.dim)}>Dein Fahrlehrer</h2>
-          <p className="mt-3 flex items-center gap-3">
-            <Avatar name={teacher.name} />
-            <span>
-              <span className="block text-[15.5px] leading-tight font-semibold">{teacher.name}</span>
-              <span className={cx("block text-[13px]", F.dim)}>{teacher.car}</span>
-            </span>
-          </p>
-        </section>
-        <section className={cx(F.card, "p-5")}>
-          <h2 className={cx(F.label, F.dim)}>Geplante Stunden</h2>
-          <ul className="mt-3 space-y-2.5">
-            {mine.map((l) => (
-              <li key={l.id} className="flex items-center gap-3">
-                <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-[#e8eefc] text-center leading-none">
-                  <span>
-                    <span className={cx("block text-[10.5px] font-semibold", F.dim)}>{weekdayShort(workday(l.day))}</span>
-                    <span className={cx(F.display, "num mt-0.5 block text-[1.15rem]")}>{workday(l.day).getDate()}</span>
+        <div className={cx(F.wrap, "pb-10 @dlg:pb-14")}>
+          <div className="on-dark rounded-[2rem] bg-[#111111] p-5 text-white @dsm:p-7 @dlg:p-9">
+            <div className="grid gap-8 @dlg:grid-cols-[minmax(0,1fr)_19rem]">
+              <div className="min-w-0">
+                <h2 className={cx(F.h2, "text-white")}>
+                  Wann passt es <span className={F.y}>dir?</span>
+                </h2>
+                <p className={cx("num mt-1.5 text-[14px]", F.low)}>
+                  {k.name} · {k.min} Minuten · {eur0(k.price)}
+                </p>
+                <div className="no-bar -mx-5 mt-5 flex gap-2 overflow-x-auto px-5 @dsm:mx-0 @dsm:px-0">
+                  {Array.from({ length: DAYS }, (_, i) => {
+                    const d = workday(i);
+                    const on = dayIdx === i;
+                    return (
+                      <button key={i} type="button" aria-pressed={on} onClick={() => (setDayIdx(i), setSlot(null))} className={cx("min-h-[4.5rem] w-[4.5rem] shrink-0 rounded-2xl text-center transition-colors", on ? "bg-[#0b8a4b] text-white" : "bg-white text-[#141414] hover:bg-[#e9f6ee]")}>
+                        <span className={cx("block text-[12px] font-medium", on ? "text-white/85" : F.dim)}>{d.toDateString() === new Date().toDateString() ? "Heute" : weekdayShort(d)}</span>
+                        <span className="num mt-0.5 block text-[1.45rem] leading-none font-semibold">{d.getDate()}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+                {slots.length ? (
+                  <div className="mt-3 grid grid-cols-4 gap-2 @dsm:grid-cols-6">
+                    {slots.map((s) => (
+                      <button key={s} type="button" aria-pressed={slot === s} onClick={() => setSlot(s)} className={cx("num min-h-11 rounded-full text-[14px] font-semibold transition-colors", slot === s ? "bg-[#e3d21a] text-[#141414]" : "bg-[#222222] text-white ring-1 ring-white/15 hover:ring-white/50")}>
+                        {hm(s)}
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  <p className={cx("mt-3 rounded-2xl border border-dashed border-white/25 px-4 py-5 text-[14px]", F.low)}>
+                    An diesem Tag hat {teacher.name.split(" ")[0]} für eine {k.name} nichts mehr frei. Wähl einen anderen Tag.
+                  </p>
+                )}
+                <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-white/15 pt-5">
+                  <p className={cx("num text-[14px]", F.low)}>
+                    {slot !== null ? (
+                      <>
+                        <strong className="font-semibold text-white">
+                          {fmtDay(workday(dayIdx))}, {hm(slot)}–{hm(slot + k.min)}
+                        </strong>{" "}
+                        · {eur0(k.price)} von {eur0(balance)} Guthaben
+                      </>
+                    ) : (
+                      "Wähl eine Uhrzeit."
+                    )}
+                  </p>
+                  {balance < k.price ? (
+                    <button type="button" onClick={() => setTab("stand")} className="inline-flex min-h-12 items-center rounded-full px-6 text-[15px] font-semibold text-white ring-1 ring-white/40 hover:ring-white">
+                      Erst Guthaben aufladen
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      disabled={slot === null}
+                      onClick={() => {
+                        if (slot === null || !once()) return;
+                        onBook({ day: dayIdx, start: slot, kind });
+                        setDone({ day: dayIdx, start: slot, kind });
+                        toTop();
+                      }}
+                      className={F.green}
+                    >
+                      Fahrstunde buchen
+                    </button>
+                  )}
+                </div>
+                <p className={cx("mt-3 text-[12px]", F.low)}>Demo: Es wird nichts gebucht oder abgebucht.</p>
+              </div>
+
+              <aside className="space-y-3">
+                <div className="rounded-[1.5rem] bg-[#1c1c1c] p-4">
+                  <h3 className={cx("text-[12.5px] font-medium", F.low)}>Geplante Stunden</h3>
+                  <ul className="mt-3 space-y-2.5">
+                    {mine.map((l) => (
+                      <li key={l.id} className="flex items-center gap-3">
+                        <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-white text-center leading-none text-[#141414]">
+                          <span>
+                            <span className={cx("block text-[10.5px] font-medium", F.dim)}>{weekdayShort(workday(l.day))}</span>
+                            <span className="num mt-0.5 block text-[1.1rem] font-semibold">{workday(l.day).getDate()}</span>
+                          </span>
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="block truncate text-[14.5px] leading-tight font-semibold">{KINDS[l.kind].name}</span>
+                          <span className={cx("num block text-[12.5px]", F.low)}>
+                            {hm(l.start)}–{hm(l.start + KINDS[l.kind].min)}
+                          </span>
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            onCancel(l.id);
+                            toast("Stunde abgesagt – das Guthaben ist zurück, der Platz geht an die Nachrücker.");
+                          }}
+                          className="min-h-11 text-[13px] font-semibold underline underline-offset-4 hover:text-[#e3d21a]"
+                        >
+                          Absagen
+                        </button>
+                      </li>
+                    ))}
+                    {mine.length === 0 && <li className={cx("text-[14px]", F.low)}>Noch nichts geplant.</li>}
+                  </ul>
+                  <p className={cx("mt-3 border-t border-white/10 pt-3 text-[12.5px]", F.low)}>Absagen bis 48 Stunden vorher kostenlos.</p>
+                </div>
+                <div className="relative aspect-[16/10] overflow-hidden rounded-[1.5rem]">
+                  <Image src={`${P}d-wheel.webp`} alt="Fahrschülerin am Lenkrad" fill sizes="19rem" className="object-cover" />
+                  <span className="absolute inset-x-3 bottom-3 rounded-xl bg-black/60 px-3 py-2 text-[12.5px] leading-snug backdrop-blur">
+                    {teacher.car} · Treffpunkt Ringstraße 48
                   </span>
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block truncate text-[14.5px] leading-tight font-semibold">{KINDS[l.kind].name}</span>
-                  <span className={cx("num block text-[12.5px]", F.dim)}>
-                    {hm(l.start)}–{hm(l.start + KINDS[l.kind].min)}
-                  </span>
-                </span>
-                <button
-                  type="button"
-                  onClick={() => {
-                    onCancel(l.id);
-                    toast("Stunde abgesagt – das Guthaben ist zurück, der Platz geht an die Nachrücker.");
-                  }}
-                  className="min-h-11 rounded-lg px-2.5 text-[13px] font-semibold text-[#1d4ed8] hover:bg-[#e8eefc]"
-                >
-                  Absagen
-                </button>
-              </li>
-            ))}
-            {mine.length === 0 && <li className={cx("text-[14px]", F.dim)}>Noch nichts geplant.</li>}
-          </ul>
-          <p className={cx("mt-3 border-t border-[#d8dfec] pt-3 text-[12.5px]", F.dim)}>Absagen bis 48 Stunden vorher kostenlos.</p>
-        </section>
-      </aside>
-    </div>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
 
-function Meter({ label, have, need, unit = "Stunden" }: { label: string; have: number; need: number; unit?: string }) {
+function Meter({ label, photo, have, need, unit = "Stunden" }: { label: string; photo: string; have: number; need: number; unit?: string }) {
   const done = have >= need;
   return (
-    <div>
-      <div className="flex items-baseline justify-between gap-3 text-[14.5px]">
-        <span className="font-semibold">{label}</span>
-        <span className={cx("num", done ? "font-semibold text-[#17794a]" : F.dim)}>
-          {have} von {need} {unit}
-        </span>
-      </div>
-      <div className="mt-1.5 h-2 rounded-full bg-[#e3e8f2]" role="img" aria-label={`${label}: ${have} von ${need}`}>
-        <div className={cx("h-full rounded-full", done ? "bg-[#17794a]" : "bg-[#1d4ed8]")} style={{ width: `${Math.min(100, (have / need) * 100)}%` }} />
+    <div className={cx(F.card, "flex items-center gap-4 p-3")}>
+      <span className="relative block size-20 shrink-0 overflow-hidden rounded-2xl">
+        <Image src={`${P}${photo}.webp`} alt="" fill sizes="5rem" className="object-cover" />
+      </span>
+      <div className="min-w-0 flex-1 pr-2">
+        <div className="flex items-baseline justify-between gap-3">
+          <span className="text-[15.5px] font-semibold">{label}</span>
+          <span className="num text-[1.25rem] leading-none font-semibold">
+            {have}
+            <span className={cx("text-[0.7em] font-medium", F.dim)}> / {need}</span>
+          </span>
+        </div>
+        <div className="mt-2.5 h-2 rounded-full bg-white" role="img" aria-label={`${label}: ${have} von ${need} ${unit}`}>
+          <div className="h-full rounded-full bg-[#0b8a4b]" style={{ width: `${Math.min(100, (have / need) * 100)}%` }} />
+        </div>
+        <p className={cx("num mt-1.5 text-[12.5px]", done ? "font-semibold text-[#0b8a4b]" : F.dim)}>{done ? "erledigt" : `noch ${need - have} ${unit}`}</p>
       </div>
     </div>
   );
 }
 
 function Progress({ lessons, balance, onTopUp }: AppProps) {
-  const { toast } = useDemo();
+  const { setTab, toast } = useDemo();
   const planned = lessons.filter((l) => l.own && l.kind === "uebung" && l.status === "geplant").length;
   const special = BASE.ueberland + BASE.autobahn + BASE.nacht;
   return (
-    <div className={cx(F.wrap, "grid gap-6 py-7 @dlg:grid-cols-[minmax(0,1fr)_20rem] @dlg:py-12")}>
-      <div className="min-w-0 space-y-6">
-        <div>
-          <p className={cx(F.label, "text-[#1d4ed8]")}>Klasse B · seit 9 Wochen dabei</p>
-          <h1 className={cx(F.display, "mt-3 text-[clamp(2.25rem,9cqi,4rem)] leading-[0.95]")}>Dein Weg zum Führerschein</h1>
-        </div>
-        <section className={cx(F.card, "space-y-5 p-5")} data-tour="stand">
-          <Meter label="Theorie-Unterricht" have={BASE.theory} need={NEED.theory} unit="Lektionen" />
-          <Meter label="Überlandfahrten" have={BASE.ueberland} need={NEED.ueberland} />
-          <Meter label="Autobahnfahrten" have={BASE.autobahn} need={NEED.autobahn} />
-          <Meter label="Nachtfahrten" have={BASE.nacht} need={NEED.nacht} />
-          <div className="flex items-baseline justify-between gap-3 border-t border-[#d8dfec] pt-4 text-[14.5px]">
-            <span className="font-semibold">Übungsfahrten</span>
-            <span className={cx("num", F.dim)}>
-              {BASE.uebung} gefahren{planned ? ` · ${planned} geplant` : ""}
-            </span>
+    <>
+      <section className="on-dark bg-[#111111] text-white">
+        <div className={cx(F.wrap, "grid gap-6 py-9 @dmd:grid-cols-[minmax(0,1fr)_auto] @dmd:items-end @dlg:py-12")}>
+          <div>
+            <p className={cx("text-[14px] font-medium", F.low)}>Klasse B · seit 9 Wochen dabei</p>
+            <h1 className="mt-1 text-[clamp(2.1rem,7.5cqi,3.5rem)] leading-[1.04] font-medium tracking-[-0.03em] text-white">
+              Dein Weg zum <span className={F.y}>Führerschein</span>
+            </h1>
           </div>
-        </section>
-        <section className="on-dark rounded-2xl bg-[#0f1b3d] p-5 text-white">
-          <h2 className={cx(F.label, "text-[#ffd43b]")}>Einschätzung von Murat</h2>
-          <p className={cx(F.display, "mt-3 text-[1.5rem] leading-tight text-white")}>Noch {12 - special} Sonderfahrten und fünf Theorie-Lektionen bis zur Prüfungsanmeldung.</p>
-          <p className="mt-2 text-[14px] text-white/75">Einparken sitzt, Spurwechsel auf der Autobahn üben wir noch. Nächste Theorie: Dienstag und Donnerstag, 18:30 Uhr.</p>
-        </section>
-      </div>
-      <aside className="space-y-4">
-        <section className={cx(F.card, "p-5")}>
-          <h2 className={cx(F.label, F.dim)}>Guthaben</h2>
-          <p className={cx(F.display, "num mt-2 text-[2.75rem] leading-none", balance < 124 && "text-[#b3261e]")}>{eur0(balance)}</p>
-          <p className={cx("num mt-2 text-[13px]", F.dim)}>Reicht für {Math.floor(balance / 124)} Übungsfahrten.</p>
-          <div className="mt-4 grid grid-cols-2 gap-2">
-            {[250, 500].map((n) => (
-              <button
-                key={n}
-                type="button"
-                onClick={() => {
-                  onTopUp(n);
-                  toast(`${eur0(n)} aufgeladen – im Büro ist die Zahlung sofort verbucht.`);
-                }}
-                className="num min-h-11 rounded-xl border border-[#cdd6e6] text-[14.5px] font-bold hover:border-[#1d4ed8]"
-              >
-                + {eur0(n)}
-              </button>
-            ))}
-          </div>
-        </section>
-        <section className={cx(F.card, "p-5")}>
-          <h2 className={cx(F.label, F.dim)}>Zahlungen</h2>
-          <ul className="num mt-3 divide-y divide-[#e3e8f2] text-[14px]">
+          <dl className="grid grid-cols-3 gap-2.5 text-center">
             {[
-              ["Grundbetrag", "bezahlt", 449],
-              ["Lehrmaterial und App", "bezahlt", 89],
-              ["Guthaben aufgeladen", "vor 12 Tagen", 500],
-              ["Vorstellung Theorieprüfung", "offen", 75],
-            ].map(([w, s, p]) => (
-              <li key={w as string} className="flex items-baseline justify-between gap-3 py-2">
-                <span className="min-w-0">
-                  {w} <span className={cx("block text-[12px]", s === "offen" ? "font-semibold text-[#b3261e]" : F.dim)}>{s}</span>
-                </span>
-                <span>{eur0(p as number)}</span>
-              </li>
+              [`${BASE.theory}/${NEED.theory}`, "Theorie"],
+              [`${special}/12`, "Sonderfahrten"],
+              [String(BASE.uebung), "Übungsfahrten"],
+            ].map(([v, l]) => (
+              <div key={l} className="rounded-2xl bg-[#1c1c1c] px-4 py-3">
+                <dd className="num text-[1.5rem] leading-none font-semibold">{v}</dd>
+                <dt className={cx("mt-1 text-[12px]", F.low)}>{l}</dt>
+              </div>
             ))}
-          </ul>
-        </section>
-      </aside>
-    </div>
+          </dl>
+        </div>
+      </section>
+      <div className={cx(F.wrap, "grid gap-6 py-8 @dlg:grid-cols-[minmax(0,1fr)_21rem] @dlg:py-10")}>
+        <div className="min-w-0 space-y-5">
+          <section data-tour="stand" className="grid gap-3 @dmd:grid-cols-2">
+            <Meter label="Theorie-Unterricht" photo="d-team" have={BASE.theory} need={NEED.theory} unit="Lektionen" />
+            <Meter label="Überlandfahrten" photo="d-land" have={BASE.ueberland} need={NEED.ueberland} />
+            <Meter label="Autobahnfahrten" photo="d-autobahn" have={BASE.autobahn} need={NEED.autobahn} />
+            <Meter label="Nachtfahrten" photo="d-night" have={BASE.nacht} need={NEED.nacht} />
+          </section>
+          <section className="on-dark grid overflow-hidden rounded-[2rem] bg-[#111111] text-white @dmd:grid-cols-[14rem_minmax(0,1fr)]">
+            <div className="relative min-h-44">
+              <Image src={`${P}d-instructor.webp`} alt="Fahrlehrer erklärt auf dem Übungsplatz" fill sizes="(min-width: 48rem) 14rem, 100vw" className="object-cover" />
+            </div>
+            <div className="p-6">
+              <h2 className={cx("text-[12.5px] font-semibold", F.y)}>Einschätzung von Murat</h2>
+              <p className="mt-2 text-[1.35rem] leading-tight font-medium tracking-[-0.01em] text-white">Noch {12 - special} Sonderfahrten und fünf Theorie-Lektionen bis zur Prüfungsanmeldung.</p>
+              <p className={cx("mt-2 text-[14px]", F.low)}>
+                Einparken sitzt, Spurwechsel auf der Autobahn üben wir noch. {BASE.uebung} Übungsfahrten gefahren{planned ? `, ${planned} geplant` : ""}. Nächste Theorie: Dienstag und Donnerstag, 18:30 Uhr.
+              </p>
+              <button type="button" onClick={() => setTab("stunden")} className={cx(F.green, "mt-5 min-h-11")}>
+                Nächste Fahrt buchen
+              </button>
+            </div>
+          </section>
+        </div>
+        <aside className="space-y-3">
+          <section className="rounded-[1.5rem] bg-[#0b8a4b] p-5 text-white">
+            <h2 className="text-[13px] font-medium text-white/85">Guthaben</h2>
+            <p className="num mt-1 text-[2.75rem] leading-none font-semibold tracking-[-0.03em]">{eur0(balance)}</p>
+            <p className="num mt-2 text-[13.5px] text-white/85">Reicht für {Math.floor(balance / 124)} Übungsfahrten.</p>
+            <div className="mt-4 grid grid-cols-2 gap-2">
+              {[250, 500].map((n) => (
+                <button
+                  key={n}
+                  type="button"
+                  onClick={() => {
+                    onTopUp(n);
+                    toast(`${eur0(n)} aufgeladen – im Büro ist die Zahlung sofort verbucht.`);
+                  }}
+                  className="num min-h-11 rounded-full bg-white text-[14.5px] font-semibold text-[#0b8a4b] hover:bg-[#e9f6ee]"
+                >
+                  + {eur0(n)}
+                </button>
+              ))}
+            </div>
+          </section>
+          <section className={cx(F.card, "p-5")}>
+            <h2 className="text-[15.5px] font-semibold">Zahlungen</h2>
+            <ul className="num mt-2 divide-y divide-[#e6e6e6] text-[14px]">
+              {[
+                ["Grundbetrag", "bezahlt", 449],
+                ["Lehrmaterial und App", "bezahlt", 89],
+                ["Guthaben aufgeladen", "vor 12 Tagen", 500],
+                ["Vorstellung Theorieprüfung", "offen", 75],
+              ].map(([w, s, p]) => (
+                <li key={w as string} className="flex items-baseline justify-between gap-3 py-2.5">
+                  <span className="min-w-0">
+                    {w} <span className={cx("block text-[12px]", s === "offen" ? "font-semibold text-[#b3261e]" : F.dim)}>{s}</span>
+                  </span>
+                  <span className="font-semibold">{eur0(p as number)}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </aside>
+      </div>
+    </>
   );
 }
 

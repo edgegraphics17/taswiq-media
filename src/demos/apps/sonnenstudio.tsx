@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { BellRing, ChartColumn, Check, Clock, LayoutGrid, MapPin, Minus, Plus, ShieldCheck, Sun, Users, Wallet, Wrench } from "lucide-react";
+import Image from "next/image";
+import { ArrowDown, BellRing, ChartColumn, Check, Clock, LayoutGrid, MapPin, Minus, Plus, ShieldCheck, Sun, Users, Wallet, Wrench } from "lucide-react";
 import { useDemo } from "@/demos/kit/context";
 import { Avatar, Backoffice, Bars, Btn, Empty, Figures, Panel, Ranks, Tag, td, th, Toggle, tr } from "@/demos/kit/ui";
 import { cx, eur, eur0, hm, nowMinutes, useOnce } from "@/demos/kit/util";
@@ -103,21 +104,25 @@ export default function SonnenstudioDemo() {
 }
 
 /* ───────────────────────────── Kundenseite ─────────────────────────────
-   Gestaltung „Sonnendeck": dunkles Braun-Schwarz mit einem einzigen Bernsteinton, Bricolage Grotesque.
-   Die Kabinen stehen als Tafel im Mittelpunkt – wer reinkommt, will wissen, was jetzt frei ist. */
+   Gestaltung „Sonnendeck": warmes Braun-Schwarz mit Gold, dazwischen helle, cremefarbene Abschnitte (Urbanist).
+   Verwandt mit der Beauty-Seite – Fotos, weiche Karten, Pillen –, nur abendlicher. Die Kabinen stehen auf Hell,
+   damit Status und Preis auf einen Blick lesbar sind. */
 
+const P = "/images/demo/photos/";
 const S = {
-  wrap: "mx-auto w-full max-w-[72rem] px-4 @dsm:px-6 @dlg:px-8",
-  label: "text-[11px] leading-none font-semibold tracking-[0.16em] uppercase",
-  display: "font-d-display font-bold tracking-[-0.03em]",
-  dim: "text-[#b9ad9f]",
-  card: "rounded-2xl border border-[#352c25] bg-[#1f1a16]",
-  btn: "inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-6 text-[15px] font-bold transition-[filter] active:translate-y-px disabled:pointer-events-none disabled:opacity-40",
+  wrap: "mx-auto w-full max-w-[74rem] px-4 @dsm:px-6 @dlg:px-8",
+  dim: "text-[#b8a593]",
+  soft: "text-[#7b6a5b]",
+  h2: "text-[1.6rem] leading-[1.08] font-bold tracking-[-0.025em] @dsm:text-[2.1rem]",
+  card: "rounded-[1.25rem] bg-white shadow-[0_12px_32px_-20px_rgb(42_28_18/0.45)] ring-1 ring-[#efe2d2]",
+  dark: "rounded-[1.25rem] bg-[#241a13] ring-1 ring-[#3a2c21]",
+  gold: "inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-gradient-to-b from-[#edc477] to-[#d9a54a] px-7 text-[15px] font-bold text-[#231509] transition-[filter] hover:brightness-105 active:translate-y-px disabled:pointer-events-none disabled:opacity-40",
+  brown: "inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#2a1c12] px-7 text-[15px] font-bold text-[#f3d9a4] transition-[filter] hover:brightness-125 active:translate-y-px disabled:pointer-events-none disabled:opacity-40",
 };
 const Level = ({ n }: { n: number }) => (
   <span className="inline-flex items-center gap-0.5" role="img" aria-label={`Stärke ${n} von 3`}>
     {[1, 2, 3].map((i) => (
-      <Sun key={i} className={cx("size-3.5", i <= n ? "text-[#f5a524]" : "text-[#4a4038]")} aria-hidden />
+      <Sun key={i} className={cx("size-3.5", i <= n ? "text-[#d9a54a]" : "text-[#e3d5c4]")} aria-hidden />
     ))}
   </span>
 );
@@ -127,21 +132,24 @@ type StoreProps = { sessions: Session[]; locked: Record<number, boolean>; now: n
 function Storefront(props: StoreProps) {
   const { tab, setTab } = useDemo();
   return (
-    <div className="on-dark min-h-[var(--app-h)] bg-[#14110f] font-plex text-[15px] leading-[1.55] text-[#f5efe6]">
-      <header className="sticky top-[var(--bar-h)] z-20 border-b border-[#352c25] bg-[#14110f]/95 backdrop-blur">
-        <div className={cx(S.wrap, "flex items-center justify-between gap-4")}>
-          <p className="flex items-center gap-2.5 py-3">
-            <span className="grid size-8 place-items-center rounded-full bg-[#f5a524] text-[#1a1206]" aria-hidden>
-              <Sun className="size-4.5" strokeWidth={2.5} />
+    <div className="min-h-[var(--app-h)] bg-[#f7efe4] font-plex text-[15px] leading-[1.55] text-[#2a1c12]">
+      <header className="on-dark sticky top-[var(--bar-h)] z-20 bg-[#17110d]/95 text-[#f7efe4] backdrop-blur">
+        <div className={cx(S.wrap, "flex items-center justify-between gap-3 py-2.5")}>
+          <p className="flex items-center gap-2.5">
+            <span className="grid size-9 place-items-center rounded-full bg-gradient-to-b from-[#edc477] to-[#d9a54a] text-[#231509]" aria-hidden>
+              <Sun className="size-[18px]" strokeWidth={2.5} />
             </span>
-            <span className={cx(S.display, "text-[1.2rem] leading-none")}>Sonnendeck</span>
+            <span className="leading-tight">
+              <span className="block text-[16px] font-bold tracking-[-0.01em]">Sonnendeck</span>
+              <span className={cx("hidden text-[12px] @dsm:block", S.dim)}>Sonnenstudio · Musterstadt</span>
+            </span>
           </p>
-          <nav aria-label="Kundenbereich" className="flex gap-1">
+          <nav aria-label="Kundenbereich" className="flex items-center gap-1 rounded-full bg-white/10 p-1">
             {[
               { id: "kabinen", label: "Kabinen" },
               { id: "konto", label: "Mein Konto" },
             ].map((n) => (
-              <button key={n.id} type="button" aria-current={tab === n.id ? "page" : undefined} onClick={() => setTab(n.id)} className={cx("min-h-11 rounded-xl px-3.5 text-[14px] font-semibold whitespace-nowrap transition-colors", tab === n.id ? "bg-[#f5a524] text-[#1a1206]" : "text-[#f5efe6] hover:bg-[#2a231d]")}>
+              <button key={n.id} type="button" aria-current={tab === n.id ? "page" : undefined} onClick={() => setTab(n.id)} className={cx("min-h-10 rounded-full px-4 text-[13.5px] font-semibold whitespace-nowrap transition-colors", tab === n.id ? "bg-[#e2b25c] text-[#231509]" : "text-[#f7efe4] hover:bg-white/10")}>
                 {n.label}
               </button>
             ))}
@@ -149,9 +157,9 @@ function Storefront(props: StoreProps) {
         </div>
       </header>
       {tab === "konto" ? <Account {...props} /> : <Cabins {...props} />}
-      <footer className="border-t border-[#352c25]">
+      <footer className="on-dark bg-[#17110d]">
         <div className={cx(S.wrap, "flex flex-wrap items-center justify-between gap-x-8 gap-y-3 py-6 text-[13.5px]", S.dim)}>
-          <span className={cx(S.display, "text-[1.05rem] text-[#f5efe6]")}>Sonnendeck</span>
+          <span className="text-[15px] font-bold text-[#f7efe4]">Sonnendeck</span>
           <span className="inline-flex items-center gap-2">
             <MapPin className="size-4" aria-hidden /> Marktstraße 12, Musterstadt
           </span>
@@ -187,29 +195,33 @@ function Cabins({ sessions, locked, now, balance, onPay, onAdd }: StoreProps) {
   if (done) {
     const c = CABINS.find((x) => x.id === done.cabin)!;
     return (
-      <div className={cx(S.wrap, "py-12 @dlg:py-20")}>
-        <div className="mx-auto max-w-xl">
-          <p className={cx(S.label, "text-[#f5a524]")}>Reserviert</p>
-          <h1 className={cx(S.display, "mt-4 text-[clamp(2.5rem,10cqi,4.5rem)] leading-[0.92] text-[#f5efe6]")}>
-            Kabine {c.id} wartet <span className="text-[#f5a524]">auf dich.</span>
-          </h1>
-          <div className={cx(S.card, "mt-8 p-6")}>
-            <p className={cx(S.label, S.dim)}>Heute · {c.device}</p>
-            <p className={cx(S.display, "num mt-2 text-[3.5rem] leading-none")}>{hm(done.start)}</p>
-            <p className="num mt-3">
-              {done.min} Minuten · {eur(c.perMin * done.min)} vom Guthaben abgebucht
-            </p>
-            <p className={cx("mt-4 border-t border-dashed border-[#4a4038] pt-4 text-[14px]", S.dim)}>Die Kabine bleibt zehn Minuten für dich frei. Am Empfang nennst du nur deinen Namen – die Zeit ist am Gerät schon eingestellt.</p>
-          </div>
-          <div className="mt-5 rounded-2xl bg-[#f5a524] p-5 text-[14.5px] leading-snug text-[#1a1206]">
-            <strong className="font-bold">So sieht es das Studio:</strong> Deine Reservierung steht im Kabinen-Board, der Umsatz ist schon gebucht.
-            <div className="mt-4 flex flex-wrap gap-2">
-              <button type="button" onClick={() => go("betrieb", "live")} className={cx(S.btn, "bg-[#1a1206] text-white hover:brightness-125")}>
-                Im Kabinen-Board ansehen
-              </button>
-              <button type="button" onClick={() => setTab("konto")} className={cx(S.btn, "border border-[#1a1206] hover:bg-[#ffc45c]")}>
-                Zu meinem Konto
-              </button>
+      <div className="on-dark bg-[#17110d] text-[#f7efe4]">
+        <div className={cx(S.wrap, "py-10 @dlg:py-16")}>
+          <div className="mx-auto max-w-xl">
+            <span className="inline-flex items-center gap-2 rounded-full bg-[#e2b25c]/15 px-3 py-1 text-[12.5px] font-semibold text-[#e2b25c]">
+              <Check className="size-3.5" strokeWidth={3} aria-hidden /> Reserviert und bezahlt
+            </span>
+            <h1 className="mt-4 text-[clamp(2.25rem,9cqi,3.75rem)] leading-[1] font-bold tracking-[-0.03em] text-[#f7efe4]">
+              Kabine {c.id} wartet <span className="text-[#e2b25c]">auf dich.</span>
+            </h1>
+            <div className={cx(S.dark, "mt-7 p-6")}>
+              <p className={cx("text-[13px] font-medium", S.dim)}>Heute · {c.device}</p>
+              <p className="num text-[3.25rem] leading-none font-bold tracking-[-0.03em]">{hm(done.start)}</p>
+              <p className="num mt-2">
+                {done.min} Minuten · {eur(c.perMin * done.min)} vom Guthaben abgebucht
+              </p>
+              <p className={cx("mt-4 border-t border-dashed border-[#4a3a2c] pt-4 text-[14px]", S.dim)}>Die Kabine bleibt zehn Minuten für dich frei. Am Empfang nennst du nur deinen Namen – die Zeit ist am Gerät schon eingestellt.</p>
+            </div>
+            <div className="mt-4 rounded-[1.25rem] bg-[#f7efe4] p-5 text-[14.5px] leading-snug text-[#2a1c12]">
+              <strong className="font-bold">So sieht es das Studio:</strong> Deine Reservierung steht im Kabinen-Board, der Umsatz ist schon gebucht.
+              <div className="mt-4 flex flex-wrap gap-2">
+                <button type="button" onClick={() => go("betrieb", "live")} className={S.brown}>
+                  Im Kabinen-Board ansehen
+                </button>
+                <button type="button" onClick={() => setTab("konto")} className="inline-flex min-h-12 items-center rounded-full px-6 text-[15px] font-bold text-[#2a1c12] ring-1 ring-[#d9c4a8] hover:ring-[#2a1c12]">
+                  Zu meinem Konto
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -219,138 +231,216 @@ function Cabins({ sessions, locked, now, balance, onPay, onAdd }: StoreProps) {
 
   return (
     <>
-      <section className={cx(S.wrap, "pt-8 pb-6 @dlg:pt-14")}>
-        <p className={cx(S.label, "text-[#f5a524]")}>Sonnenstudio · Musterstadt</p>
-        <div className="mt-5 grid gap-6 @dmd:grid-cols-[minmax(0,1fr)_auto] @dmd:items-end">
-          <h1 className={cx(S.display, "text-[clamp(2.75rem,11cqi,6rem)] leading-[0.88] text-[#f5efe6]")}>
-            Jetzt sind <span className="num text-[#f5a524]">{freeNow}</span>
-            <br />
-            Kabinen frei.
-          </h1>
-          <p className={cx("max-w-xs text-[16px] leading-snug", S.dim)}>Kabine und Uhrzeit wählen, mit Guthaben zahlen, reingehen. Kein Warten am Empfang.</p>
+      <section className="on-dark bg-[#17110d] text-[#f7efe4]">
+        <div className={cx(S.wrap, "grid gap-7 pt-5 pb-10 @dmd:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] @dmd:items-center @dlg:pt-10 @dlg:pb-14")}>
+          <div>
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 text-[12.5px] font-semibold">
+              <span className="size-2 rounded-full bg-[#7ee2a4]" aria-hidden /> Jetzt <span className="num">{freeNow}</span> von {CABINS.length} Kabinen frei
+            </span>
+            <h1 className="mt-5 text-[clamp(2.2rem,8.4cqi,3.9rem)] leading-[1] font-bold tracking-[-0.035em] text-[#f7efe4]">
+              Gleichmäßig braun.
+              <br />
+              <span className="bg-gradient-to-b from-[#f1cf8a] to-[#d39b3d] bg-clip-text text-transparent">Ohne Warten.</span>
+            </h1>
+            <p className={cx("mt-4 max-w-md text-[16.5px] leading-snug", S.dim)}>Kabine und Uhrzeit wählen, mit Guthaben zahlen, reingehen. Die Minuten passen wir an deinen Hauttyp an.</p>
+            <div className="mt-6 flex flex-wrap gap-2.5">
+              <a href="#deck-kabinen" className={S.gold}>
+                Kabine reservieren <ArrowDown className="size-4" aria-hidden />
+              </a>
+              <button type="button" onClick={() => setTab("konto")} className="inline-flex min-h-12 items-center rounded-full px-6 text-[15px] font-semibold text-[#f7efe4] ring-1 ring-white/25 hover:ring-white/60">
+                Guthaben: <span className="num ml-1.5">{eur(balance)}</span>
+              </button>
+            </div>
+            <ol className="mt-8 grid gap-2.5 @dsm:grid-cols-3">
+              {["Minuten nach deinem Hauttyp", "Guthaben statt Papierkarte", "Sauber, ruhig, ohne Schlange"].map((x, i) => (
+                <li key={x} className={cx(S.dark, "px-4 py-3.5")}>
+                  <span className="num block text-[12px] font-semibold text-[#e2b25c]">0{i + 1}</span>
+                  <span className="mt-1 block text-[14px] leading-snug font-medium">{x}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+          <div className="relative">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] @dmd:aspect-[5/6]">
+              <Image src={`${P}s-hero.webp`} alt="Frau mit gebräunter Haut im warmen Abendlicht" fill priority sizes="(min-width: 48rem) 34rem, 100vw" className="object-cover object-[center_20%]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#17110d]/70 via-transparent to-transparent" aria-hidden />
+            </div>
+            <div className="absolute inset-x-4 bottom-4 flex items-center gap-3 rounded-2xl bg-[#17110d]/75 p-3 backdrop-blur @dsm:right-auto @dsm:w-72">
+              <span className="relative block size-12 shrink-0 overflow-hidden rounded-xl">
+                <Image src={`${P}s-light.webp`} alt="" fill sizes="3rem" className="object-cover" />
+              </span>
+              <span className="min-w-0 leading-tight">
+                <span className="block text-[14px] font-semibold">Intensiv 500 Plus</span>
+                <span className={cx("num block text-[12.5px]", S.dim)}>neue Röhren · 0,95 € / Min.</span>
+              </span>
+            </div>
+          </div>
         </div>
       </section>
 
-      <div className={cx(S.wrap, "grid gap-8 pb-14 @dlg:grid-cols-[minmax(0,1fr)_21rem] @dlg:gap-10")}>
-        <section data-tour="kabinen" aria-label="Kabinen" className="grid content-start gap-3 @dsm:grid-cols-2">
-          {CABINS.map((c) => {
-            const st = stateOf(c.id, sessions, !!locked[c.id], now);
-            const on = cabinId === c.id;
-            const off = st.kind === "gesperrt";
-            return (
-              <button
-                key={c.id}
-                type="button"
-                disabled={off}
-                aria-pressed={on}
-                onClick={() => {
-                  setCabinId(c.id);
-                  setStart(null);
-                }}
-                className={cx("flex flex-col gap-4 rounded-2xl border p-4 text-left transition-colors disabled:opacity-45", on ? "border-[#f5a524] bg-[#2a2017]" : "border-[#352c25] bg-[#1f1a16] hover:border-[#6b5a48]")}
-              >
-                <span className="flex items-start justify-between gap-3">
-                  <span className={cx(S.display, "num text-[2.5rem] leading-none", on && "text-[#f5a524]")}>{c.id}</span>
-                  <span className={cx("inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-semibold", st.kind === "frei" ? "bg-[#1f3a2a] text-[#7ee2a4]" : st.kind === "gesperrt" ? "bg-[#3a2323] text-[#f0a3a3]" : "bg-[#3a2f1c] text-[#f5c46b]")}>
-                    <span className={cx("size-1.5 rounded-full", st.kind === "frei" ? "bg-[#7ee2a4]" : st.kind === "gesperrt" ? "bg-[#f0a3a3]" : "bg-[#f5c46b]")} aria-hidden />
-                    {st.kind === "frei" ? "frei" : st.kind === "belegt" ? `frei in ${st.left + CLEAN} Min.` : st.kind === "reinigung" ? `frei in ${st.left} Min.` : "Wartung"}
-                  </span>
-                </span>
-                <span>
-                  <span className="block text-[16px] leading-tight font-semibold">{c.device}</span>
-                  <span className={cx("mt-1.5 flex items-center justify-between gap-3 text-[13px]", S.dim)}>
-                    <span className="inline-flex items-center gap-2">
-                      {c.kind} {c.kind !== "Ohne UV" && <Level n={c.level} />}
+      <section id="deck-kabinen" className="scroll-mt-[calc(var(--bar-h)+4rem)]">
+        <div className={cx(S.wrap, "grid gap-7 py-9 @dlg:grid-cols-[minmax(0,1fr)_23rem] @dlg:gap-9 @dlg:py-12")}>
+          <div className="min-w-0">
+            <h2 className={cx(S.h2, "text-[#2a1c12]")}>Welche Kabine darf es sein?</h2>
+            <p className={cx("mt-1.5 text-[15px]", S.soft)}>Der Stand ist live. Tipp auf eine Kabine, um Dauer und Startzeit zu wählen.</p>
+            <div data-tour="kabinen" className="mt-5 grid gap-3 @dsm:grid-cols-2">
+              {CABINS.map((c) => {
+                const st = stateOf(c.id, sessions, !!locked[c.id], now);
+                const on = cabinId === c.id;
+                return (
+                  <button
+                    key={c.id}
+                    type="button"
+                    disabled={st.kind === "gesperrt"}
+                    aria-pressed={on}
+                    onClick={() => {
+                      setCabinId(c.id);
+                      setStart(null);
+                    }}
+                    className={cx("flex items-center gap-4 rounded-[1.25rem] p-3 text-left transition-[box-shadow,background-color] disabled:opacity-50", on ? "bg-[#2a1c12] text-[#f7efe4] shadow-[0_16px_34px_-16px_rgb(42_28_18/0.8)]" : cx(S.card, "hover:shadow-[0_18px_36px_-18px_rgb(42_28_18/0.55)]"))}
+                  >
+                    <span className={cx("num grid size-16 shrink-0 place-items-center rounded-2xl text-[1.75rem] font-bold", on ? "bg-gradient-to-b from-[#edc477] to-[#d9a54a] text-[#231509]" : "bg-[#f7efe4] text-[#2a1c12]")}>{c.id}</span>
+                    <span className="min-w-0 flex-1">
+                      <span className="flex items-center justify-between gap-2">
+                        <span className="truncate text-[16px] leading-tight font-semibold">{c.device}</span>
+                        <span className={cx("inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-[11.5px] font-semibold", st.kind === "frei" ? "bg-[#dff3e6] text-[#17663a]" : st.kind === "gesperrt" ? "bg-[#fbe4e1] text-[#a3261c]" : "bg-[#fbeccb] text-[#8a5a00]")}>
+                          <span className={cx("size-1.5 rounded-full", st.kind === "frei" ? "bg-[#1f8a4c]" : st.kind === "gesperrt" ? "bg-[#c0392b]" : "bg-[#c8860a]")} aria-hidden />
+                          {st.kind === "frei" ? "frei" : st.kind === "belegt" ? `in ${st.left + CLEAN} Min.` : st.kind === "reinigung" ? `in ${st.left} Min.` : "Wartung"}
+                        </span>
+                      </span>
+                      <span className={cx("mt-1.5 flex items-center justify-between gap-3 text-[13px]", on ? "text-[#d6c4b0]" : S.soft)}>
+                        <span className="inline-flex items-center gap-2">
+                          {c.kind} {c.kind !== "Ohne UV" && <Level n={c.level} />}
+                        </span>
+                        <span className={cx("num font-semibold", on ? "text-[#e2b25c]" : "text-[#2a1c12]")}>{eur(c.perMin)} / Min.</span>
+                      </span>
                     </span>
-                    <span className="num">{eur(c.perMin)} / Min.</span>
-                  </span>
-                </span>
-              </button>
-            );
-          })}
-        </section>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
-        <aside data-tour="reservieren">
-          <div className={cx(S.card, "sticky top-[calc(var(--bar-h)+4.5rem)] p-5")}>
-            <h2 className={cx(S.label, S.dim)}>Deine Sonnung</h2>
-            {mine ? (
-              <p className="mt-4 flex items-start gap-3 rounded-xl bg-[#2a231d] px-4 py-3 text-[14px] leading-snug">
-                <ShieldCheck className="mt-0.5 size-5 shrink-0 text-[#f5a524]" aria-hidden />
-                <span>
-                  Du hast heute um <span className="num font-semibold">{hm(mine.start)}</span> Uhr reserviert. Danach gilt eine Pause von <strong className="font-semibold">48 Stunden</strong> – so schreibt es der UV-Schutz vor.
-                </span>
-              </p>
-            ) : !cabin ? (
-              <p className={cx("mt-4 text-[14.5px] leading-relaxed", S.dim)}>Wähl eine Kabine. Wir zeigen dir die nächsten freien Zeiten und rechnen den Preis aus.</p>
-            ) : (
-              <>
-                <p className={cx(S.display, "mt-3 text-[1.6rem] leading-tight")}>
-                  Kabine {cabin.id} · {cabin.device}
+          <aside data-tour="reservieren">
+            <div className={cx(S.card, "sticky top-[calc(var(--bar-h)+4.5rem)] p-5")}>
+              <h2 className="text-[17px] font-semibold text-[#2a1c12]">Deine Sonnung</h2>
+              {mine ? (
+                <p className="mt-4 flex items-start gap-3 rounded-2xl bg-[#f7efe4] px-4 py-3 text-[14px] leading-snug">
+                  <ShieldCheck className="mt-0.5 size-5 shrink-0 text-[#b27d22]" aria-hidden />
+                  <span>
+                    Du hast heute um <span className="num font-semibold">{hm(mine.start)}</span> Uhr reserviert. Danach gilt eine Pause von <strong className="font-semibold">48 Stunden</strong> – so schreibt es der UV-Schutz vor.
+                  </span>
                 </p>
-                <div className="mt-5 flex items-center justify-between gap-3">
-                  <span className="text-[14px]">Dauer</span>
-                  <span className="flex items-center gap-2">
-                    <button type="button" aria-label="Eine Minute weniger" disabled={min <= 6} onClick={() => (setMin((m) => m - 1), setStart(null))} className="grid size-11 place-items-center rounded-xl border border-[#4a4038] hover:border-[#f5a524] disabled:opacity-35">
+              ) : !cabin ? (
+                <>
+                  <div className="relative mt-4 aspect-[16/9] overflow-hidden rounded-2xl">
+                    <Image src={`${P}s-lounge.webp`} alt="Ruhebereich des Studios in warmen Brauntönen" fill sizes="22rem" className="object-cover" />
+                  </div>
+                  <p className={cx("mt-4 text-[14.5px] leading-relaxed", S.soft)}>Wähl links eine Kabine. Wir zeigen dir die nächsten freien Zeiten und rechnen den Preis aus.</p>
+                </>
+              ) : (
+                <>
+                  <p className={cx("num mt-1 text-[13.5px]", S.soft)}>
+                    Kabine {cabin.id} · {cabin.device}
+                  </p>
+                  <div className="mt-4 flex items-center justify-between gap-3 rounded-2xl bg-[#f7efe4] p-2">
+                    <button type="button" aria-label="Eine Minute weniger" disabled={min <= 6} onClick={() => (setMin((m) => m - 1), setStart(null))} className="grid size-11 place-items-center rounded-xl bg-white text-[#2a1c12] shadow-sm hover:bg-[#fff7ea] disabled:opacity-35">
                       <Minus className="size-4" aria-hidden />
                     </button>
-                    <span className={cx(S.display, "num w-20 text-center text-[1.75rem] leading-none")}>{min} Min.</span>
-                    <button type="button" aria-label="Eine Minute mehr" disabled={min >= ME.max} onClick={() => (setMin((m) => m + 1), setStart(null))} className="grid size-11 place-items-center rounded-xl border border-[#4a4038] hover:border-[#f5a524] disabled:opacity-35">
+                    <span className="text-center leading-tight">
+                      <span className="num block text-[1.6rem] font-bold tracking-[-0.02em]">{min} Min.</span>
+                      <span className={cx("block text-[11.5px]", S.soft)}>
+                        Hauttyp {ME.skin}: empfohlen {ME.best}, max. {ME.max}
+                      </span>
+                    </span>
+                    <button type="button" aria-label="Eine Minute mehr" disabled={min >= ME.max} onClick={() => (setMin((m) => m + 1), setStart(null))} className="grid size-11 place-items-center rounded-xl bg-white text-[#2a1c12] shadow-sm hover:bg-[#fff7ea] disabled:opacity-35">
                       <Plus className="size-4" aria-hidden />
                     </button>
-                  </span>
-                </div>
-                <p className={cx("mt-2 text-[12.5px]", S.dim)}>
-                  Hauttyp {ME.skin}: empfohlen {ME.best}, höchstens {ME.max} Minuten.
-                </p>
-                <h3 className="mt-5 text-[14px] font-normal text-[#f5efe6]">Start heute</h3>
-                {starts.length ? (
-                  <div className="mt-2 grid grid-cols-4 gap-1.5">
-                    {starts.map((t) => (
-                      <button key={t} type="button" aria-pressed={start === t} onClick={() => setStart(t)} className={cx("num min-h-11 rounded-xl border text-[14px] font-semibold transition-colors", start === t ? "border-[#f5a524] bg-[#f5a524] text-[#1a1206]" : "border-[#4a4038] hover:border-[#f5a524]")}>
-                        {hm(t)}
-                      </button>
-                    ))}
                   </div>
-                ) : (
-                  <p className={cx("mt-2 rounded-xl border border-dashed border-[#4a4038] px-4 py-4 text-[13.5px]", S.dim)}>Heute ist in dieser Kabine nichts mehr frei.</p>
-                )}
-                <dl className="num mt-5 space-y-1.5 border-t border-[#352c25] pt-4 text-[14px]">
-                  <div className="flex justify-between">
-                    <dt className={S.dim}>Preis</dt>
-                    <dd className={cx(S.display, "text-[1.6rem] leading-none text-[#f5a524]")}>{eur(price)}</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className={S.dim}>Dein Guthaben</dt>
-                    <dd>{eur(balance)}</dd>
-                  </div>
-                </dl>
-                {balance < price ? (
-                  <button type="button" onClick={() => setTab("konto")} className={cx(S.btn, "mt-4 w-full border border-[#f5a524] text-[#f5a524] hover:bg-[#2a2017]")}>
-                    <Wallet className="size-4" aria-hidden /> Erst Guthaben aufladen
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    disabled={start === null}
-                    onClick={() => {
-                      if (start === null || !once()) return;
-                      const s = { cabin: cabin.id, start, min, customer: ME.name, pay: "Guthaben" as const, own: true };
-                      onAdd(s);
-                      onPay(price);
-                      setDone({ ...s, id: 0 });
-                      toTop();
-                    }}
-                    className={cx(S.btn, "mt-4 w-full bg-[#f5a524] text-[#1a1206] hover:brightness-105")}
-                  >
-                    Reservieren und zahlen
-                  </button>
-                )}
-                <p className={cx("mt-3 text-[12px]", S.dim)}>Demo: Es wird nichts gebucht oder abgebucht.</p>
-              </>
-            )}
+                  <h3 className="mt-4 text-[13.5px] font-semibold text-[#2a1c12]">Start heute</h3>
+                  {starts.length ? (
+                    <div className="mt-2 grid grid-cols-4 gap-1.5">
+                      {starts.map((t) => (
+                        <button key={t} type="button" aria-pressed={start === t} onClick={() => setStart(t)} className={cx("num min-h-11 rounded-full text-[13.5px] font-semibold transition-colors", start === t ? "bg-[#2a1c12] text-[#f3d9a4]" : "bg-white ring-1 ring-[#e6d6c2] hover:ring-[#2a1c12]")}>
+                          {hm(t)}
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className={cx("mt-2 rounded-2xl border border-dashed border-[#d9c4a8] px-4 py-4 text-[13.5px]", S.soft)}>Heute ist in dieser Kabine nichts mehr frei.</p>
+                  )}
+                  <dl className="num mt-4 space-y-1.5 border-t border-[#efe2d2] pt-4 text-[14px]">
+                    <div className="flex items-baseline justify-between">
+                      <dt className={S.soft}>Preis</dt>
+                      <dd className="text-[1.6rem] leading-none font-bold tracking-[-0.02em]">{eur(price)}</dd>
+                    </div>
+                    <div className="flex justify-between">
+                      <dt className={S.soft}>Dein Guthaben</dt>
+                      <dd>{eur(balance)}</dd>
+                    </div>
+                  </dl>
+                  {balance < price ? (
+                    <button type="button" onClick={() => setTab("konto")} className={cx(S.brown, "mt-4 w-full")}>
+                      <Wallet className="size-4" aria-hidden /> Erst Guthaben aufladen
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      disabled={start === null}
+                      onClick={() => {
+                        if (start === null || !once()) return;
+                        const s = { cabin: cabin.id, start, min, customer: ME.name, pay: "Guthaben" as const, own: true };
+                        onAdd(s);
+                        onPay(price);
+                        setDone({ ...s, id: 0 });
+                        toTop();
+                      }}
+                      className={cx(S.brown, "mt-4 w-full")}
+                    >
+                      {start === null ? "Startzeit wählen" : `Reservieren · ${hm(start)} Uhr`}
+                    </button>
+                  )}
+                  <p className={cx("mt-3 text-center text-[12px]", S.soft)}>Demo: Es wird nichts gebucht oder abgebucht.</p>
+                </>
+              )}
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section className="on-dark bg-[#17110d] text-[#f7efe4]">
+        <div className={cx(S.wrap, "grid gap-7 py-10 @dmd:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] @dmd:items-center @dlg:py-14")}>
+          <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] @dmd:aspect-[4/5]">
+            <Image src={`${P}s-spa.webp`} alt="Warm beleuchteter Raum im Studio" fill sizes="(min-width: 48rem) 28rem, 100vw" className="object-cover" />
           </div>
-        </aside>
-      </div>
+          <div>
+            <h2 className={cx(S.h2, "text-[#f7efe4]")}>
+              Zahl nur, was du <span className="text-[#e2b25c]">sonnst.</span>
+            </h2>
+            <p className={cx("mt-2 max-w-md text-[15px]", S.dim)}>Minutengenau vom Guthaben – oder mit der Flat ohne Rechnen.</p>
+            <div className="mt-5 grid gap-3 @dsm:grid-cols-3">
+              {[
+                ["Einzeln", "ab 0,60 €", "je Minute", ["Alle sechs Kabinen", "Minutengenau"]],
+                ["Guthaben", "bis + 20 %", "Bonus beim Aufladen", ["50 € → 55 €", "100 € → 120 €"]],
+                ["Sonnen-Flat", "39,90 €", "im Monat", ["Classic ohne Minutenpreis", "Monatlich kündbar"]],
+              ].map(([n, v, u, pts], i) => (
+                <div key={n as string} className={cx("flex flex-col rounded-[1.25rem] p-4", i === 2 ? "bg-gradient-to-b from-[#edc477] to-[#d9a54a] text-[#231509]" : S.dark)}>
+                  <span className={cx("text-[12.5px] font-semibold", i === 2 ? "text-[#4a3413]" : "text-[#e2b25c]")}>{n}</span>
+                  <span className="num mt-1 text-[1.6rem] leading-none font-bold tracking-[-0.02em]">{v}</span>
+                  <span className={cx("text-[12.5px]", i === 2 ? "text-[#4a3413]" : S.dim)}>{u}</span>
+                  <ul className="mt-3 space-y-1 text-[13px]">
+                    {(pts as string[]).map((x) => (
+                      <li key={x} className="num flex gap-2">
+                        <Check className="mt-0.5 size-3.5 shrink-0" strokeWidth={3} aria-hidden /> {x}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
@@ -364,102 +454,113 @@ function Account({ sessions, balance, onTopUp, onCancel }: StoreProps) {
     { pay: 100, get: 120 },
   ];
   return (
-    <div className={cx(S.wrap, "grid gap-5 py-8 @dlg:grid-cols-[minmax(0,1fr)_22rem] @dlg:py-14")}>
-      <div className="min-w-0 space-y-5">
-        <div>
-          <p className={cx(S.label, "text-[#f5a524]")}>Hallo Lena</p>
-          <h1 className={cx(S.display, "mt-4 text-[clamp(2.25rem,8cqi,3.75rem)] leading-[0.95] text-[#f5efe6]")}>Mein Konto</h1>
+    <>
+      <section className="on-dark bg-[#17110d] pb-16 text-[#f7efe4]">
+        <div className={cx(S.wrap, "pt-5 @dlg:pt-9")}>
+          <p className={cx("text-[14px] font-medium", S.dim)}>Hallo Lena</p>
+          <h1 className="mt-1 text-[clamp(2rem,7cqi,3.25rem)] leading-[1.02] font-bold tracking-[-0.03em] text-[#f7efe4]">Mein Konto</h1>
         </div>
-        <section className={cx(S.card, "p-5")} data-tour="konto">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <h2 className={cx(S.label, S.dim)}>Guthaben</h2>
-              <p className={cx(S.display, "num mt-2 text-[3.25rem] leading-none text-[#f5a524]")}>{eur(balance)}</p>
+      </section>
+      <div className={cx(S.wrap, "-mt-11 grid gap-5 pb-10 @dlg:grid-cols-[minmax(0,1fr)_22rem]")}>
+        <div className="min-w-0 space-y-4">
+          <section data-tour="konto" className="overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#f1cf8a] to-[#d39b3d] p-5 text-[#231509] shadow-[0_20px_40px_-22px_rgb(42_28_18/0.7)] @dsm:p-6">
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <h2 className="text-[13px] font-semibold text-[#4a3413]">Guthaben</h2>
+                <p className="num mt-1 text-[3rem] leading-none font-bold tracking-[-0.03em]">{eur(balance)}</p>
+              </div>
+              <p className="max-w-[15rem] text-[13.5px] text-[#4a3413]">Reicht für rund {Math.floor(balance / 0.85)} Minuten in einer Intensiv-Kabine.</p>
             </div>
-            <p className={cx("max-w-[16rem] text-[13.5px]", S.dim)}>Reicht für rund {Math.floor(balance / 0.85)} Minuten in einer Intensiv-Kabine.</p>
-          </div>
-          <div className="mt-5 grid grid-cols-3 gap-2">
-            {packs.map((p) => (
-              <button
-                key={p.pay}
-                type="button"
-                onClick={() => {
-                  onTopUp(p.get);
-                  toast(`${eur0(p.get)} Guthaben aufgeladen${p.get > p.pay ? ` – ${eur0(p.get - p.pay)} davon geschenkt` : ""}.`);
-                }}
-                className="rounded-xl border border-[#4a4038] px-3 py-3 text-left transition-colors hover:border-[#f5a524]"
-              >
-                <span className={cx(S.display, "num block text-[1.5rem] leading-none")}>{eur0(p.pay)}</span>
-                <span className={cx("num mt-1.5 block text-[12.5px]", p.get > p.pay ? "text-[#f5a524]" : S.dim)}>{p.get > p.pay ? `+ ${eur0(p.get - p.pay)} geschenkt` : "aufladen"}</span>
-              </button>
-            ))}
-          </div>
-        </section>
-        <section className={cx(S.card, "p-5")}>
-          <h2 className={cx(S.label, S.dim)}>Reservierung</h2>
-          {mine ? (
-            <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-              <p className="num">
-                Heute, {hm(mine.start)} Uhr · Kabine {mine.cabin} · {mine.min} Minuten
-              </p>
-              <button
-                type="button"
-                onClick={() => {
-                  onCancel(mine.id, Math.round(CABINS.find((c) => c.id === mine.cabin)!.perMin * mine.min * 100) / 100);
-                  toast("Reservierung storniert – das Guthaben ist zurück auf deinem Konto.");
-                }}
-                className="min-h-11 rounded-xl border border-[#4a4038] px-4 text-[13.5px] font-semibold hover:border-[#f5efe6]"
-              >
-                Stornieren
-              </button>
+            <div className="mt-5 grid grid-cols-3 gap-2">
+              {packs.map((p) => (
+                <button
+                  key={p.pay}
+                  type="button"
+                  onClick={() => {
+                    onTopUp(p.get);
+                    toast(`${eur0(p.get)} Guthaben aufgeladen${p.get > p.pay ? ` – ${eur0(p.get - p.pay)} davon geschenkt` : ""}.`);
+                  }}
+                  className="rounded-2xl bg-[#231509] px-3 py-3 text-left text-[#f7efe4] transition-[filter] hover:brightness-125"
+                >
+                  <span className="num block text-[1.35rem] leading-none font-bold">{eur0(p.pay)}</span>
+                  <span className={cx("num mt-1.5 block text-[12px]", p.get > p.pay ? "text-[#e2b25c]" : S.dim)}>{p.get > p.pay ? `+ ${eur0(p.get - p.pay)} geschenkt` : "aufladen"}</span>
+                </button>
+              ))}
             </div>
-          ) : (
-            <p className={cx("mt-4 text-[14.5px]", S.dim)}>Keine offene Reservierung.</p>
-          )}
-        </section>
-        <section className={cx(S.card, "p-5")}>
-          <h2 className={cx(S.label, S.dim)}>Letzte Besuche</h2>
-          <ul className="num mt-3 divide-y divide-[#352c25] text-[14.5px]">
-            {[
-              ["vor 3 Tagen", "Kabine 3 · 14 Min.", 11.9],
-              ["vor 8 Tagen", "Kabine 4 · 12 Min.", 11.4],
-              ["vor 13 Tagen", "Kabine 3 · 14 Min.", 11.9],
-              ["vor 19 Tagen", "Kabine 5 · 10 Min.", 8],
-            ].map(([d, w, p]) => (
-              <li key={d as string} className="flex justify-between gap-4 py-2.5">
-                <span className={S.dim}>{d}</span>
-                <span className="min-w-0 flex-1">{w}</span>
-                <span>{eur(p as number)}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+          </section>
+          <section className={cx(S.card, "p-5")}>
+            <h2 className="text-[16px] font-semibold text-[#2a1c12]">Reservierung</h2>
+            {mine ? (
+              <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+                <p className="num">
+                  Heute, {hm(mine.start)} Uhr · Kabine {mine.cabin} · {mine.min} Minuten
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onCancel(mine.id, Math.round(CABINS.find((c) => c.id === mine.cabin)!.perMin * mine.min * 100) / 100);
+                    toast("Reservierung storniert – das Guthaben ist zurück auf deinem Konto.");
+                  }}
+                  className="inline-flex min-h-10 items-center rounded-full bg-[#f7efe4] px-4 text-[13.5px] font-semibold text-[#2a1c12] hover:bg-[#efe2d2]"
+                >
+                  Stornieren
+                </button>
+              </div>
+            ) : (
+              <p className={cx("mt-2 text-[14.5px]", S.soft)}>Keine offene Reservierung.</p>
+            )}
+          </section>
+          <section className={cx(S.card, "p-5")}>
+            <h2 className="text-[16px] font-semibold text-[#2a1c12]">Letzte Besuche</h2>
+            <ul className="num mt-2 divide-y divide-[#f1e6d8] text-[14.5px]">
+              {[
+                ["vor 3 Tagen", "Kabine 3 · 14 Min.", 11.9],
+                ["vor 8 Tagen", "Kabine 4 · 12 Min.", 11.4],
+                ["vor 13 Tagen", "Kabine 3 · 14 Min.", 11.9],
+                ["vor 19 Tagen", "Kabine 5 · 10 Min.", 8],
+              ].map(([d, w, p]) => (
+                <li key={d as string} className="flex justify-between gap-4 py-2.5">
+                  <span className={cx("w-28 shrink-0", S.soft)}>{d}</span>
+                  <span className="min-w-0 flex-1">{w}</span>
+                  <span className="font-semibold">{eur(p as number)}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
+        <aside className="space-y-4">
+          <section className={cx(S.card, "p-5")}>
+            <div className="flex items-center gap-3">
+              <span className="relative block size-12 shrink-0 overflow-hidden rounded-full">
+                <Image src={`${P}s-glow.webp`} alt="" fill sizes="3rem" className="object-cover" />
+              </span>
+              <div>
+                <h2 className={cx("text-[13px] font-medium", S.soft)}>Dein Hautschutz</h2>
+                <p className="text-[1.2rem] leading-tight font-semibold text-[#2a1c12]">Hauttyp {ME.skin}</p>
+              </div>
+            </div>
+            <ul className="mt-4 space-y-2.5 text-[14px]">
+              {[`Empfohlen: ${ME.best} Minuten, höchstens ${ME.max}`, "Pause eingehalten: letzte Sonnung vor 3 Tagen", `${ME.year} von höchstens 50 Sonnungen in diesem Jahr`].map((x) => (
+                <li key={x} className="flex gap-2.5">
+                  <Check className="mt-0.5 size-4 shrink-0 text-[#1f8a4c]" strokeWidth={3} aria-hidden /> {x}
+                </li>
+              ))}
+            </ul>
+            <p className={cx("mt-4 border-t border-[#f1e6d8] pt-3 text-[12.5px]", S.soft)}>Das System sperrt Buchungen, die gegen die Schutzregeln verstoßen würden.</p>
+          </section>
+          <section className="on-dark rounded-[1.25rem] bg-[#17110d] p-5 text-[#f7efe4]">
+            <h2 className="text-[13px] font-semibold text-[#e2b25c]">Sonnen-Flat</h2>
+            <p className="num mt-1 text-[2rem] leading-none font-bold tracking-[-0.02em]">
+              39,90 € <span className={cx("text-[0.95rem] font-medium", S.dim)}>im Monat</span>
+            </p>
+            <p className={cx("mt-2 text-[14px] leading-snug", S.dim)}>Alle Classic-Kabinen ohne Minutenpreis. Monatlich kündbar, direkt hier abschließen.</p>
+            <button type="button" onClick={() => toast("In der echten App schließt der Kunde hier sein Abo ab – der Beitrag wird monatlich eingezogen.")} className={cx(S.gold, "mt-4 min-h-11 w-full")}>
+              Flat ansehen
+            </button>
+          </section>
+        </aside>
       </div>
-      <aside className="space-y-5">
-        <section className={cx(S.card, "p-5")}>
-          <h2 className={cx(S.label, S.dim)}>Dein Hautschutz</h2>
-          <p className={cx(S.display, "mt-3 text-[1.5rem] leading-tight")}>Hauttyp {ME.skin}</p>
-          <ul className="mt-4 space-y-2.5 text-[14px]">
-            {[`Empfohlen: ${ME.best} Minuten, höchstens ${ME.max}`, "Pause eingehalten: letzte Sonnung vor 3 Tagen", `${ME.year} von höchstens 50 Sonnungen in diesem Jahr`].map((x) => (
-              <li key={x} className="flex gap-2.5">
-                <Check className="mt-0.5 size-4 shrink-0 text-[#7ee2a4]" strokeWidth={3} aria-hidden /> {x}
-              </li>
-            ))}
-          </ul>
-          <p className={cx("mt-4 border-t border-[#352c25] pt-3 text-[12.5px]", S.dim)}>Das System sperrt Buchungen, die gegen die Schutzregeln verstoßen würden.</p>
-        </section>
-        <section className="rounded-2xl bg-[#f5a524] p-5 text-[#1a1206]">
-          <h2 className={cx(S.label, "text-[#1a1206]")}>Sonnen-Flat</h2>
-          <p className={cx(S.display, "num mt-3 text-[2.25rem] leading-none")}>
-            39,90 € <span className="text-[1rem] font-semibold">im Monat</span>
-          </p>
-          <p className="mt-2 text-[14px] leading-snug">Alle Classic-Kabinen ohne Minutenpreis. Monatlich kündbar, direkt hier abschließen.</p>
-          <button type="button" onClick={() => toast("In der echten App schließt der Kunde hier sein Abo ab – der Beitrag wird monatlich eingezogen.")} className={cx(S.btn, "mt-4 min-h-11 w-full bg-[#1a1206] text-white hover:brightness-125")}>
-            Flat ansehen
-          </button>
-        </section>
-      </aside>
-    </div>
+    </>
   );
 }
 

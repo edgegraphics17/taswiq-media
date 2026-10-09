@@ -370,14 +370,14 @@ export const demos: DemoDef[] = [
     metaDescription: "Buch beim Muster-Studio Malou eine Behandlung mit Anzahlung und sieh den Termin im Kalender nach Kabinen und Nageltisch. Mit Folgetermin-Erinnerung. Kostenlos testen.",
     image: "/images/demo/kosmetik.jpg",
     pack: "pro",
-    theme: { accent: "#a8475d", on: "#ffffff", soft: "#f4e1e3", deep: "#2c2125", display: "var(--font-fraunces)", ui: "var(--font-instrument)", bo: { bg: "#f8f4f0", line: "#e8ded6", ink: "#2c2125", r: "18px", rc: "10px", side: "#ffffff", sideInk: "#2c2125" } },
+    theme: { accent: "#4a231d", on: "#ffffff", soft: "#fbeee6", deep: "#2b1a17", display: "var(--font-urbanist)", ui: "var(--font-urbanist)", bo: { bg: "#fdf8f5", line: "#f0e2d8", ink: "#2b1a17", r: "20px", rc: "999px", side: "#ffffff", sideInk: "#2b1a17" } },
     views: [
       { id: "kunde", label: "Buchungsseite", tab: "buchen" },
       { id: "betrieb", label: "Dashboard", tab: "kalender" },
     ],
     tour: [
-      { view: "kunde", tab: "buchen", target: "services", title: "Behandlung wählen", text: "Gesicht, Nägel, Wimpern, Haarentfernung – jede Behandlung mit Dauer und Preis. Die Kundin sucht selbst aus." },
-      { view: "kunde", tab: "buchen", target: "slots", title: "Der passende Platz ist frei", text: "Angeboten werden nur Zeiten, in denen Kabine oder Nageltisch wirklich frei sind. Mit der Buchung wird die Anzahlung hinterlegt." },
+      { view: "kunde", tab: "buchen", target: "services", title: "Stöbern wie in einer App", text: "Bereiche, Team und Behandlungen mit Foto, Bewertung und Preis. Die Kundin sucht selbst aus – ohne Anruf." },
+      { view: "kunde", tab: "buchen", target: "beliebt", title: "Eine Behandlung, ein Tipp", text: "Dahinter stehen Details, Ablauf und die freien Zeiten des passenden Platzes. Mit der Buchung wird die Anzahlung hinterlegt." },
       { view: "kunde", tab: "termine", target: "karte", title: "Der Folgetermin kommt von selbst", text: "Auffüllen nach vier Wochen, Lifting nach sechs: Das System erinnert und bietet den nächsten Termin gleich an." },
       { view: "betrieb", tab: "kalender", target: "kalender", title: "Kalender nach Plätzen", text: "Kabine 1, Kabine 2, Nageltisch nebeneinander. Tipp auf einen Termin für Check-in oder „nicht erschienen“ – die Anzahlung bleibt dann im Studio." },
       { view: "betrieb", tab: "kunden", target: "kunden", title: "Wer ist überfällig?", text: "Die Kartei zeigt, bei wem der übliche Abstand überschritten ist. Eine Erinnerung mit Buchungslink genügt." },
@@ -420,7 +420,7 @@ export const demos: DemoDef[] = [
     metaDescription: "Reservier beim Muster-Sonnenstudio Sonnendeck eine Kabine, zahl mit Guthaben und sieh das Kabinen-Board des Studios – mit Hauttyp-Regeln und Röhrenstunden. Kostenlos testen.",
     image: "/images/demo/sonnenstudio.jpg",
     pack: "pro",
-    theme: { accent: "#f5a524", on: "#1a1206", soft: "#fdf0d5", deep: "#14110f", display: "var(--font-bricolage)", ui: "var(--font-instrument)", bo: { bg: "#f6f3ee", line: "#e4ddd2", ink: "#1a1512", r: "12px", rc: "8px", side: "#1a1512", sideInk: "#ffffff" } },
+    theme: { accent: "#e2b25c", on: "#231509", soft: "#f7efe4", deep: "#17110d", display: "var(--font-urbanist)", ui: "var(--font-urbanist)", bo: { bg: "#f7f1e8", line: "#eadfce", ink: "#2a1c12", r: "20px", rc: "999px", side: "#17110d", sideInk: "#f7efe4" } },
     views: [
       { id: "kunde", label: "Kunden-App", tab: "kabinen" },
       { id: "betrieb", label: "Dashboard", tab: "live" },
@@ -470,7 +470,7 @@ export const demos: DemoDef[] = [
     metaDescription: "Buch bei der Muster-Fahrschule Kompass eine Fahrstunde, sieh deinen Ausbildungsstand und den Fahrlehrer-Plan des Büros mit offenen Posten. Kostenlos testen.",
     image: "/images/demo/fahrschule.jpg",
     pack: "app",
-    theme: { accent: "#1d4ed8", on: "#ffffff", soft: "#e8eefc", deep: "#0f1b3d", display: "var(--font-archivo)", ui: "var(--font-instrument)", bo: { bg: "#f1f4fa", line: "#d8dfec", ink: "#0f1b3d", r: "12px", rc: "8px", side: "#0f1b3d", sideInk: "#ffffff" } },
+    theme: { accent: "#0b8a4b", on: "#ffffff", soft: "#e9f6ee", deep: "#111111", display: "var(--font-urbanist)", ui: "var(--font-urbanist)", bo: { bg: "#f5f5f5", line: "#e4e4e4", ink: "#141414", r: "20px", rc: "999px", side: "#111111", sideInk: "#ffffff" } },
     views: [
       { id: "kunde", label: "Schüler-App", tab: "stunden" },
       { id: "betrieb", label: "Büro", tab: "plan" },

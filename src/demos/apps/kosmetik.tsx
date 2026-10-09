@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ArrowDown, BellRing, CalendarDays, ChartColumn, Check, ChevronLeft, ChevronRight, Clock, MapPin, ShieldCheck, Users } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, BellRing, CalendarDays, ChartColumn, Check, ChevronLeft, ChevronRight, Clock, Home, MapPin, MessageCircle, Navigation, Phone, Search, Share2, ShieldCheck, SlidersHorizontal, Star, Users } from "lucide-react";
 import { useDemo } from "@/demos/kit/context";
 import { DayGrid } from "@/demos/kit/DayGrid";
 import { Avatar, Backoffice, Bars, Btn, Field, Figures, input, Panel, Ranks, Sheet, Tag, td, th, tr } from "@/demos/kit/ui";
@@ -187,57 +188,83 @@ export default function KosmetikDemo() {
 }
 
 /* ───────────────────────────── Buchungsseite ─────────────────────────────
-   Gestaltung „Studio Malou": warmes Creme, Beerenton als einzige Farbe, Fraunces für Überschriften.
-   Runde Formen (Bögen, Pillen), viel Luft – ruhig wie das Studio selbst. */
+   Gestaltung „Studio Malou": Buchungs-App in Creme und Pfirsich mit einem tiefen Braun als einziger Farbe (Urbanist).
+   Fotos tragen die Seite: Bereiche als Bildkacheln, Team und Behandlungen als Karten mit Bewertung und Preis.
+   Ablauf wie in einer App: Start → Behandlung ansehen → Termin wählen → bestätigt. */
+
+const P = "/images/demo/photos/";
+const CAT_PHOTO: Record<Cat, string> = { Gesicht: "m-face", Nägel: "m-nails", "Wimpern & Brauen": "m-lash", Haarentfernung: "m-wax" };
+const TREAT_PHOTO: Record<string, string> = { "g-klassik": "m-work4", "g-tief": "m-work3", "g-needle": "m-face", "n-neu": "m-work1", "n-shellac": "m-work1", "w-lift": "m-work2", "w-zupf": "m-work2", "h-lippe": "m-work3" };
+const photoOf = (t: Treat) => `${P}${TREAT_PHOTO[t.id] ?? CAT_PHOTO[t.cat]}.webp`;
+const TEAM: Record<string, { photo: string; role: string; rating: string; votes: number; pos: string }> = {
+  k1: { photo: "m-team1", role: "Inhaberin · Gesicht", rating: "4,9", votes: 84, pos: "object-[center_62%]" },
+  k2: { photo: "m-team2", role: "Wimpern, Brauen, Waxing", rating: "4,8", votes: 61, pos: "object-[center_35%]" },
+  nt: { photo: "m-team3", role: "Nageldesign", rating: "4,9", votes: 42, pos: "object-top" },
+};
+/** Bewertung je Behandlung – feste Werte, damit die Karten wie im Betrieb aussehen */
+const stars = (t: Treat) => (4.6 + ((t.price * 7) % 4) / 10).toFixed(1).replace(".", ",");
+const placeFor = (t: Treat) => PLACES.find((x) => x.cats.includes(t.cat))!;
 
 const M = {
-  wrap: "mx-auto w-full max-w-[72rem] px-4 @dsm:px-6 @dlg:px-8",
-  label: "text-[11px] leading-none font-semibold tracking-[0.16em] uppercase",
-  display: "font-d-display font-medium tracking-[-0.02em]",
-  soft: "text-[#6b5a5d]",
-  btn: "inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-7 text-[15px] font-semibold transition-[filter,background-color] active:translate-y-px",
-  card: "rounded-[1.5rem] border border-[#e8dcd3] bg-white",
+  wrap: "mx-auto w-full max-w-[74rem] px-4 @dsm:px-6 @dlg:px-8",
+  soft: "text-[#8b7a74]",
+  h2: "text-[1.45rem] leading-tight font-semibold tracking-[-0.02em] text-[#2b1a17] @dsm:text-[1.7rem]",
+  card: "rounded-[1.25rem] bg-white shadow-[0_10px_30px_-18px_rgb(74_35_29/0.35)] ring-1 ring-[#f3e6dd]",
+  btn: "inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#4a231d] px-7 text-[15px] font-semibold text-white transition-[filter] hover:brightness-125 active:translate-y-px disabled:pointer-events-none disabled:opacity-40",
+  chip: "inline-flex min-h-9 items-center rounded-full bg-[#f6ebe4] px-4 text-[13px] font-semibold text-[#4a231d] transition-colors hover:bg-[#efdccf]",
 };
+const Stars = ({ value, className }: { value: string; className?: string }) => (
+  <span className={cx("num inline-flex items-center gap-1 text-[13px] font-semibold text-[#2b1a17]", className)}>
+    <Star className="size-3.5 fill-[#f59e0b] text-[#f59e0b]" aria-hidden /> {value}
+  </span>
+);
 
 function Storefront({ appts, onBook, onPatch }: { appts: Appt[]; onBook: (a: Pick<Appt, "place" | "day" | "start" | "treat" | "customer">) => void; onPatch: (id: number, c: Partial<Appt> | null) => void }) {
-  const { tab, setTab } = useDemo();
-  const [preset, setPreset] = useState("");
+  const { tab, setTab, toTop } = useDemo();
+  const [openId, setOpenId] = useState("");
+  const open = (id: string) => {
+    setOpenId(id);
+    setTab("buchen");
+    toTop();
+  };
   return (
-    <div className="min-h-[var(--app-h)] bg-[#f8f3ee] font-plex text-[15px] leading-[1.55] text-[#2c2125]">
-      <header className="sticky top-[var(--bar-h)] z-20 border-b border-[#e8dcd3] bg-[#f8f3ee]/95 backdrop-blur">
-        <div className={cx(M.wrap, "flex items-center justify-between gap-4")}>
-          <p className="flex items-baseline gap-3 py-3">
-            <span className={cx(M.display, "text-[1.35rem] leading-none text-[#2c2125] italic")}>Studio Malou</span>
-            <span className={cx("hidden @dmd:inline", M.label, M.soft)}>Kosmetik & Nägel</span>
-          </p>
-          <nav aria-label="Kundenbereich" className="flex gap-1">
+    <div className="min-h-[var(--app-h)] bg-[#fdf8f5] font-plex text-[15px] leading-[1.55] text-[#2b1a17]">
+      <header className="sticky top-[var(--bar-h)] z-20 bg-[#fbeee6]/95 backdrop-blur">
+        <div className={cx(M.wrap, "flex items-center justify-between gap-3 py-2.5")}>
+          <button type="button" onClick={() => open("")} className="flex items-center gap-2.5 text-left">
+            <span className="grid size-9 place-items-center rounded-full bg-[#4a231d] text-[15px] font-bold text-white" aria-hidden>
+              M
+            </span>
+            <span className="leading-tight">
+              <span className="block text-[16px] font-bold tracking-[-0.01em]">Studio Malou</span>
+              <span className={cx("hidden text-[12px] @dsm:block", M.soft)}>Kosmetik & Nägel · Musterstadt</span>
+            </span>
+          </button>
+          <nav aria-label="Kundenbereich" className="flex items-center gap-1 rounded-full bg-white/70 p-1">
             {[
-              { id: "buchen", label: "Termin buchen", short: "Buchen" },
-              { id: "termine", label: "Meine Termine", short: "Termine" },
+              { id: "buchen", label: "Entdecken", icon: Home },
+              { id: "termine", label: "Meine Termine", icon: CalendarDays },
             ].map((n) => (
-              <button key={n.id} type="button" aria-current={tab === n.id ? "page" : undefined} onClick={() => setTab(n.id)} className={cx("min-h-11 rounded-full px-4 text-[14px] font-semibold transition-colors", tab === n.id ? "bg-[#2c2125] text-white" : "text-[#2c2125] hover:bg-[#efe5dc]")}>
-                <span className="@dsm:hidden">{n.short}</span>
-                <span className="hidden @dsm:inline">{n.label}</span>
+              <button
+                key={n.id}
+                type="button"
+                aria-current={tab === n.id ? "page" : undefined}
+                onClick={() => {
+                  setOpenId("");
+                  setTab(n.id);
+                }}
+                className={cx("inline-flex min-h-10 items-center gap-2 rounded-full px-3.5 text-[13.5px] font-semibold whitespace-nowrap transition-colors", tab === n.id ? "bg-[#4a231d] text-white" : "text-[#4a231d] hover:bg-white")}
+              >
+                <n.icon className="size-4" aria-hidden /> <span className={cx(n.id === "termine" && "@max-dsm:sr-only")}>{n.label}</span>
               </button>
             ))}
           </nav>
         </div>
       </header>
-      {tab === "termine" ? (
-        <Mine
-          appts={appts}
-          onPatch={onPatch}
-          onRebook={(id) => {
-            setPreset(id);
-            setTab("buchen");
-          }}
-        />
-      ) : (
-        <Booking key={preset} appts={appts} preset={preset} onBook={onBook} />
-      )}
-      <footer className="border-t border-[#e8dcd3]">
-        <div className={cx(M.wrap, "flex flex-wrap items-center justify-between gap-x-8 gap-y-3 py-6 text-[13.5px]", M.soft)}>
-          <span className={cx(M.display, "text-[1.1rem] text-[#2c2125] italic")}>Studio Malou</span>
+      {tab === "termine" ? <Mine appts={appts} onPatch={onPatch} onRebook={open} /> : openId ? <Detail key={openId} id={openId} appts={appts} onBook={onBook} onBack={() => open("")} /> : <Start onOpen={open} />}
+      <footer className="mt-6 bg-[#fbeee6]">
+        <div className={cx(M.wrap, "flex flex-wrap items-center justify-between gap-x-8 gap-y-3 py-6 text-[13.5px] text-[#6d5a54]")}>
+          <span className="text-[15px] font-bold text-[#2b1a17]">Studio Malou</span>
           <span className="inline-flex items-center gap-2">
             <MapPin className="size-4" aria-hidden /> Lindenallee 7, Musterstadt
           </span>
@@ -250,10 +277,149 @@ function Storefront({ appts, onBook, onPatch }: { appts: Appt[]; onBook: (a: Pic
   );
 }
 
-function Booking({ appts, preset, onBook }: { appts: Appt[]; preset: string; onBook: (a: Pick<Appt, "place" | "day" | "start" | "treat" | "customer">) => void }) {
-  const { go, toTop } = useDemo();
-  const [cat, setCat] = useState<Cat>(preset ? treat(preset).cat : "Nägel");
-  const [picked, setPicked] = useState(preset);
+function Start({ onOpen }: { onOpen: (id: string) => void }) {
+  const [cat, setCat] = useState<Cat | "">("");
+  const [q, setQ] = useState("");
+  const list = TREATS.filter((t) => (!cat || t.cat === cat) && t.name.toLowerCase().includes(q.trim().toLowerCase()));
+  return (
+    <>
+      <section className="bg-[#fbeee6] pb-8">
+        <div className={cx(M.wrap, "grid gap-6 pt-4 @dmd:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] @dmd:items-stretch @dlg:pt-8")}>
+          <div className="flex flex-col justify-center">
+            <p className={cx("text-[14px] font-medium", M.soft)}>Hallo Lena</p>
+            <h1 className="mt-1 text-[clamp(2rem,7.5cqi,3.5rem)] leading-[1.02] font-bold tracking-[-0.03em] text-[#2b1a17]">Zeit für deinen nächsten Termin.</h1>
+            <p className="mt-3 max-w-md text-[16px] leading-snug text-[#6d5a54]">Gesicht, Nägel, Wimpern. Such dir deine Behandlung aus und buch sie selbst – auch abends um zehn.</p>
+            <label className="mt-6 flex items-center gap-2">
+              <span className="flex min-h-12 flex-1 items-center gap-2.5 rounded-2xl bg-[#f1ddd0] px-4 focus-within:ring-2 focus-within:ring-[#4a231d]">
+                <Search className="size-[18px] text-[#6d5a54]" aria-hidden />
+                <span className="sr-only">Behandlung suchen</span>
+                <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Behandlung suchen …" className="min-h-12 w-full bg-transparent text-[16px] text-[#2b1a17] outline-none placeholder:text-[#8b7a74]" />
+              </span>
+              <a href="#malou-liste" aria-label="Zur Liste der Behandlungen" className="grid size-12 shrink-0 place-items-center rounded-2xl bg-[#4a231d] text-white hover:brightness-125">
+                <SlidersHorizontal className="size-5" aria-hidden />
+              </a>
+            </label>
+          </div>
+          <div className="relative min-h-56 overflow-hidden rounded-[1.75rem] @dmd:min-h-[21rem]">
+            <Image src={`${P}m-hero.webp`} alt="Kosmetikerin trägt im Studio eine Gesichtsmaske mit dem Pinsel auf" fill priority sizes="(min-width: 48rem) 36rem, 100vw" className="object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#2b1a17]/85 via-[#2b1a17]/15 to-transparent" aria-hidden />
+            <div className="absolute inset-x-5 bottom-5 flex flex-wrap items-end justify-between gap-3 text-white">
+              <p>
+                <span className="block text-[13px] font-medium text-white/80">Neu im Studio</span>
+                <span className="block text-[1.3rem] leading-tight font-semibold">Microneedling als Kur</span>
+              </p>
+              <button type="button" onClick={() => onOpen("g-needle")} className="inline-flex min-h-11 items-center gap-2 rounded-full bg-white px-5 text-[14px] font-semibold text-[#4a231d] hover:bg-[#fbeee6]">
+                Ansehen <ArrowRight className="size-4" aria-hidden />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className={cx(M.wrap, "space-y-10 py-8 @dlg:space-y-12 @dlg:py-10")}>
+        <section data-tour="services">
+          <h2 className={M.h2}>Unsere Bereiche</h2>
+          <div className="no-bar -mx-4 mt-4 flex gap-3 overflow-x-auto px-4 pb-2 @dsm:mx-0 @dsm:grid @dsm:grid-cols-4 @dsm:overflow-visible @dsm:px-0">
+            {CATS.map((c) => {
+              const on = cat === c.id;
+              return (
+                <button key={c.id} type="button" aria-pressed={on} onClick={() => setCat(on ? "" : c.id)} className={cx("w-36 shrink-0 rounded-[1.25rem] p-2 text-left transition-[box-shadow,background-color] @dsm:w-auto", on ? "bg-[#4a231d] text-white shadow-[0_14px_30px_-14px_rgb(74_35_29/0.7)]" : cx(M.card, "hover:shadow-[0_16px_34px_-16px_rgb(74_35_29/0.45)]"))}>
+                  <span className="relative block aspect-[4/3] overflow-hidden rounded-2xl bg-[#f6ebe4]">
+                    <Image src={`${P}${CAT_PHOTO[c.id]}.webp`} alt="" fill sizes="(min-width: 40rem) 16rem, 9rem" className="object-cover" />
+                  </span>
+                  <span className="block px-1.5 pt-2.5 pb-1.5">
+                    <span className="block text-[15px] leading-tight font-semibold">{c.id}</span>
+                    <span className={cx("mt-0.5 block text-[12.5px] leading-snug", on ? "text-white/75" : M.soft)}>{c.note}</span>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+
+        <section>
+          <div className="flex items-baseline justify-between gap-4">
+            <h2 className={M.h2}>Dein Team</h2>
+            <span className={cx("text-[13px] font-medium", M.soft)}>3 Plätze · 4,9 von 5</span>
+          </div>
+          <div className="mt-4 grid gap-3 @dsm:grid-cols-3">
+            {PLACES.map((p) => {
+              const t = TEAM[p.id];
+              const from = Math.min(...TREATS.filter((x) => p.cats.includes(x.cat)).map((x) => x.price));
+              return (
+                <article key={p.id} className={cx(M.card, "flex gap-3 p-2 @dsm:block")}>
+                  <div className="relative aspect-square w-24 shrink-0 overflow-hidden rounded-2xl bg-[#f6ebe4] @dsm:aspect-[4/3] @dsm:w-auto">
+                    <Image src={`${P}${t.photo}.webp`} alt={`${p.who}, ${t.role}`} fill sizes="(min-width: 40rem) 22rem, 6rem" className={cx("object-cover", t.pos)} />
+                  </div>
+                  <div className="min-w-0 flex-1 py-1 pr-2 @dsm:px-2 @dsm:pt-3 @dsm:pb-2">
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className="truncate text-[15.5px] font-semibold text-[#2b1a17]">{p.who}</h3>
+                      <Stars value={t.rating} />
+                    </div>
+                    <p className={cx("text-[13px]", M.soft)}>{t.role}</p>
+                    <p className="num mt-2 flex items-center justify-between text-[14px]">
+                      <span>
+                        <strong className="text-[16px] font-semibold">ab {eur0(from)}</strong>
+                      </span>
+                      <span className={cx("text-[12.5px]", M.soft)}>
+                        {p.name} · {t.votes} Stimmen
+                      </span>
+                    </p>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
+        <section id="malou-liste" data-tour="beliebt" className="scroll-mt-[calc(var(--bar-h)+4.5rem)]">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2">
+            <h2 className={M.h2}>
+              {cat || "Beliebte Behandlungen"} <span className={cx("num text-[0.7em] font-medium", M.soft)}>({list.length})</span>
+            </h2>
+            {(cat || q) && (
+              <button type="button" onClick={() => (setCat(""), setQ(""))} className={M.chip}>
+                Alle zeigen
+              </button>
+            )}
+          </div>
+          <ul className="mt-4 grid gap-3 @dmd:grid-cols-2 @dxl:grid-cols-3">
+            {list.map((t) => (
+              <li key={t.id}>
+                <button type="button" onClick={() => onOpen(t.id)} className={cx(M.card, "group flex w-full items-stretch gap-3.5 p-2 text-left transition-shadow hover:shadow-[0_18px_36px_-18px_rgb(74_35_29/0.5)]")}>
+                  <span className="relative block w-28 shrink-0 overflow-hidden rounded-2xl bg-[#f6ebe4] @dsm:w-32">
+                    <Image src={photoOf(t)} alt="" fill sizes="8rem" className="object-cover" />
+                  </span>
+                  <span className="flex min-w-0 flex-1 flex-col py-1.5 pr-2">
+                    <span className="flex items-center justify-between gap-2">
+                      <Stars value={stars(t)} />
+                      <span className={cx("num inline-flex items-center gap-1 text-[12px]", M.soft)}>
+                        <Clock className="size-3.5" aria-hidden /> {dur(t.min)}
+                      </span>
+                    </span>
+                    <span className="mt-1 block text-[16px] leading-tight font-semibold text-[#2b1a17]">{t.name}</span>
+                    <span className={cx("block text-[12.5px]", M.soft)}>bei {placeFor(t).who.split(" ")[0]}</span>
+                    <span className="mt-auto flex items-end justify-between gap-2 pt-2">
+                      <span className="num text-[18px] leading-none font-bold text-[#2b1a17]">{eur0(t.price)}</span>
+                      <span className="inline-flex min-h-8 items-center rounded-full bg-[#f6ebe4] px-3.5 text-[12.5px] font-semibold text-[#4a231d] transition-colors group-hover:bg-[#4a231d] group-hover:text-white">Buchen</span>
+                    </span>
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+          {list.length === 0 && <p className={cx("mt-4 rounded-[1.25rem] border border-dashed border-[#e3cfc2] px-5 py-8 text-center text-[14.5px]", M.soft)}>Dazu haben wir nichts gefunden. Probier einen anderen Begriff.</p>}
+        </section>
+      </div>
+    </>
+  );
+}
+
+function Detail({ id, appts, onBook, onBack }: { id: string; appts: Appt[]; onBook: (a: Pick<Appt, "place" | "day" | "start" | "treat" | "customer">) => void; onBack: () => void }) {
+  const { go, toast, toTop } = useDemo();
+  const t = treat(id);
+  const p = placeFor(t);
+  const [pane, setPane] = useState<"ueber" | "ablauf" | "stimmen">("ueber");
   const [dayIdx, setDayIdx] = useState(() => (nowMinutes() + 90 > CLOSE ? 1 : 0));
   const [slot, setSlot] = useState<number | null>(null);
   const [name, setName] = useState("");
@@ -261,64 +427,60 @@ function Booking({ appts, preset, onBook }: { appts: Appt[]; preset: string; onB
   const [tried, setTried] = useState(false);
   const [done, setDone] = useState<{ day: number; start: number } | null>(null);
   const once = useOnce();
-
-  const t = picked ? treat(picked) : null;
-  const p = t ? PLACES.find((x) => x.cats.includes(t.cat))! : null;
   const slots = useMemo(() => {
-    if (!t || !p) return [];
     const out: number[] = [];
     for (let s = OPEN; s + t.min <= CLOSE; s += 15) if (free(appts, p, dayIdx, s, t.min)) out.push(s);
     return out;
   }, [appts, t, p, dayIdx]);
   const bad = { name: name.trim().length < 2, phone: phone.trim().length < 6 };
-  const pill = (on: boolean) => cx("border transition-colors", on ? "border-[#a8475d] bg-[#a8475d] text-white" : "border-[#dccfc5] bg-white text-[#2c2125] hover:border-[#a8475d]");
-  const fieldCls = cx(input, "rounded-xl border-[#cdbfb5] focus:border-[#a8475d]");
+  const pick = (on: boolean) => cx("transition-colors", on ? "bg-[#4a231d] text-white" : "bg-white text-[#2b1a17] ring-1 ring-[#ecdcd1] hover:ring-[#4a231d]");
+  const fieldCls = cx(input, "rounded-xl border-[#e3cfc2] bg-white focus:border-[#4a231d]");
 
-  if (done && t && p) {
+  if (done) {
     return (
-      <div className={cx(M.wrap, "py-12 @dlg:py-20")}>
+      <div className={cx(M.wrap, "py-10 @dlg:py-16")}>
         <div className="mx-auto max-w-xl">
-          <p className={cx(M.label, "text-[#a8475d]")}>Bestätigung</p>
-          <h1 className={cx(M.display, "mt-4 text-[clamp(2.5rem,10cqi,4.25rem)] leading-[0.95]")}>
-            Wir freuen uns <em className="text-[#a8475d]">auf dich.</em>
-          </h1>
-          <div className={cx(M.card, "mt-8 p-6")}>
-            <p className={cx(M.label, M.soft)}>{fmtDayLong(workday(done.day))}</p>
-            <p className={cx(M.display, "num mt-2 text-[3.25rem] leading-none")}>{hm(done.start)}</p>
-            <p className="mt-3">
-              {t.name} · <span className="num">{dur(t.min)}</span> · {p.name} bei {p.who.split(" ")[0]}
-            </p>
-            <dl className="num mt-5 space-y-1.5 border-t border-dashed border-[#dccfc5] pt-4 text-[14.5px]">
-              <div className="flex justify-between">
-                <dt>Preis der Behandlung</dt>
-                <dd>{eur0(t.price)}</dd>
-              </div>
-              <div className="flex justify-between">
-                <dt>Anzahlung, jetzt hinterlegt</dt>
-                <dd>− {eur0(DEPOSIT)}</dd>
-              </div>
-              <div className="flex justify-between font-semibold">
-                <dt>Im Studio zu zahlen</dt>
-                <dd>{eur0(t.price - DEPOSIT)}</dd>
-              </div>
-            </dl>
+          <div className={cx(M.card, "overflow-hidden")}>
+            <div className="relative h-40">
+              <Image src={photoOf(t)} alt="" fill sizes="36rem" className="object-cover" />
+              <div className="absolute inset-0 bg-[#2b1a17]/55" aria-hidden />
+              <p className="absolute inset-x-6 bottom-5 text-white">
+                <span className="inline-flex items-center gap-2 rounded-full bg-white/20 px-3 py-1 text-[12.5px] font-semibold backdrop-blur">
+                  <Check className="size-3.5" strokeWidth={3} aria-hidden /> Termin bestätigt
+                </span>
+                <span className="mt-2 block text-[1.6rem] leading-tight font-bold">Wir freuen uns auf dich.</span>
+              </p>
+            </div>
+            <div className="p-6">
+              <p className={cx("text-[13px] font-medium", M.soft)}>{fmtDayLong(workday(done.day))}</p>
+              <p className="num text-[3rem] leading-none font-bold tracking-[-0.03em]">{hm(done.start)}</p>
+              <p className="mt-2 text-[15px]">
+                {t.name} · <span className="num">{dur(t.min)}</span> · {p.name} bei {p.who.split(" ")[0]}
+              </p>
+              <dl className="num mt-5 space-y-1.5 border-t border-dashed border-[#e3cfc2] pt-4 text-[14.5px]">
+                <div className="flex justify-between">
+                  <dt>Preis der Behandlung</dt>
+                  <dd>{eur0(t.price)}</dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt>Anzahlung, jetzt hinterlegt</dt>
+                  <dd>− {eur0(DEPOSIT)}</dd>
+                </div>
+                <div className="flex justify-between font-semibold">
+                  <dt>Im Studio zu zahlen</dt>
+                  <dd>{eur0(t.price - DEPOSIT)}</dd>
+                </div>
+              </dl>
+            </div>
           </div>
-          <div className="mt-5 rounded-[1.5rem] bg-[#f4e1e3] p-5 text-[14.5px] leading-snug">
+          <div className="mt-4 rounded-[1.25rem] bg-[#fbeee6] p-5 text-[14.5px] leading-snug">
             <strong className="font-semibold">So sieht es das Studio:</strong> Dein Termin steht jetzt am Platz „{p.name}“ im Kalender – mit dem Vermerk, dass die Anzahlung da ist.
             <div className="mt-4 flex flex-wrap gap-2">
-              <button type="button" onClick={() => go("betrieb", "kalender")} className={cx(M.btn, "bg-[#a8475d] text-white hover:brightness-95")}>
+              <button type="button" onClick={() => go("betrieb", "kalender")} className={M.btn}>
                 Im Kalender ansehen
               </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setDone(null);
-                  setPicked("");
-                  setSlot(null);
-                }}
-                className={cx(M.btn, "border border-[#2c2125] text-[#2c2125] hover:bg-white")}
-              >
-                Weiteren Termin buchen
+              <button type="button" onClick={onBack} className="inline-flex min-h-12 items-center rounded-full bg-white px-6 text-[15px] font-semibold text-[#4a231d] ring-1 ring-[#e3cfc2] hover:ring-[#4a231d]">
+                Weitere Behandlung
               </button>
             </div>
           </div>
@@ -327,97 +489,127 @@ function Booking({ appts, preset, onBook }: { appts: Appt[]; preset: string; onB
     );
   }
 
-  const head = (n: number, title: string, hint?: string) => (
-    <div className="flex items-baseline justify-between gap-4">
-      <h2 className={cx(M.display, "flex items-baseline gap-3 text-[1.85rem] leading-none @dsm:text-[2.25rem]")}>
-        <span className="num text-[0.55em] text-[#a8475d] italic">{n}</span>
-        {title}
-      </h2>
-      {hint && <span className={cx("hidden shrink-0 @dsm:block", M.label, M.soft)}>{hint}</span>}
-    </div>
-  );
-  const locked = (on: boolean) => cx("scroll-mt-[calc(var(--bar-h)+4.5rem)] transition-opacity", on && "pointer-events-none opacity-40");
-
   return (
     <>
-      <section className={cx(M.wrap, "grid gap-8 pt-8 pb-4 @dmd:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] @dmd:items-end @dlg:pt-14")}>
-        <div>
-          <p className={cx(M.label, "text-[#a8475d]")}>Kosmetik & Nägel · Musterstadt</p>
-          <h1 className={cx(M.display, "mt-5 text-[clamp(2.75rem,10cqi,5.5rem)] leading-[0.92]")}>
-            Eine Stunde,
-            <br />
-            die <em className="text-[#a8475d]">dir gehört.</em>
-          </h1>
-          <p className={cx("mt-5 max-w-md text-[17px] leading-snug", M.soft)}>Gesicht, Nägel, Wimpern. Such dir deine Behandlung aus und buch den Termin selbst – auch abends um zehn.</p>
-          <a href="#malou-behandlung" className={cx(M.btn, "mt-7 bg-[#a8475d] text-white hover:brightness-95")}>
-            Termin buchen <ArrowDown className="size-4" aria-hidden />
-          </a>
-        </div>
-        <div className="relative hidden h-72 overflow-hidden rounded-t-full bg-[#f4e1e3] @dmd:block" aria-hidden>
-          <span className="absolute inset-x-8 top-10 bottom-0 rounded-t-full bg-[#e9c7cc]" />
-          <span className="absolute inset-x-20 top-24 bottom-0 rounded-t-full bg-[#a8475d]" />
+      <section className="bg-[#fbeee6]">
+        <div className={cx(M.wrap, "grid gap-5 pt-3 @dmd:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] @dmd:items-end")}>
+          <div className="pb-2 @dmd:pb-10">
+            <button type="button" onClick={onBack} className="-ml-2 inline-flex min-h-11 items-center gap-1 rounded-full px-2 text-[14.5px] font-medium text-[#6d5a54] hover:text-[#2b1a17]">
+              <ChevronLeft className="size-5" aria-hidden /> Zurück
+            </button>
+            <p className="mt-5 flex items-center gap-3">
+              <Stars value={stars(t)} className="text-[14px]" />
+              <span className={cx("text-[13px]", M.soft)}>{t.cat}</span>
+            </p>
+            <h1 className="mt-1.5 text-[clamp(1.9rem,6.5cqi,3rem)] leading-[1.05] font-bold tracking-[-0.03em] text-[#2b1a17]">{t.name}</h1>
+            <p className={cx("mt-1 text-[14.5px]", M.soft)}>
+              bei {p.who} · {p.name}
+            </p>
+            <p className="num mt-4 flex items-baseline gap-1.5">
+              <span className="text-[2rem] leading-none font-bold tracking-[-0.02em]">{eur0(t.price)}</span>
+              <span className={cx("text-[14px]", M.soft)}>/ {dur(t.min)}</span>
+            </p>
+          </div>
+          <div className="relative h-52 overflow-hidden rounded-t-[1.75rem] @dmd:h-72">
+            <Image src={photoOf(t)} alt={`${t.name} im Studio Malou`} fill priority sizes="(min-width: 48rem) 32rem, 100vw" className="object-cover" />
+          </div>
         </div>
       </section>
-      <dl className={cx(M.wrap, "grid grid-cols-3 gap-4 border-y border-[#e8dcd3] py-5")}>
-        {[
-          ["4,9", "von 5 · 187 Stimmen"],
-          ["3", "Plätze, ein Team"],
-          ["24/7", "online buchbar"],
-        ].map(([v, l]) => (
-          <div key={l}>
-            <dd className={cx(M.display, "num text-[1.9rem] leading-none @dsm:text-[2.4rem]")}>{v}</dd>
-            <dt className={cx("mt-2 text-[12.5px] leading-snug", M.soft)}>{l}</dt>
-          </div>
-        ))}
-      </dl>
 
-      <div className={cx(M.wrap, "grid gap-10 py-10 @dlg:grid-cols-[minmax(0,1fr)_20rem] @dlg:gap-14 @dlg:py-16")}>
-        <div className="min-w-0 space-y-12">
-          <section id="malou-behandlung" data-tour="services" className="scroll-mt-[calc(var(--bar-h)+4.5rem)]">
-            {head(1, "Behandlung")}
-            <div className="no-bar -mx-4 mt-6 flex gap-2 overflow-x-auto px-4 @dsm:mx-0 @dsm:flex-wrap @dsm:px-0">
-              {CATS.map((c) => (
-                <button key={c.id} type="button" aria-pressed={cat === c.id} onClick={() => setCat(c.id)} className={cx("min-h-11 shrink-0 rounded-full px-5 text-[14.5px] font-semibold", pill(cat === c.id))}>
-                  {c.id}
+      <div className={cx(M.wrap, "grid gap-8 py-6 @dlg:grid-cols-[minmax(0,1fr)_24rem] @dlg:gap-10 @dlg:py-8")}>
+        <div className="min-w-0 space-y-7">
+          <div className="grid grid-cols-4 gap-2.5">
+            {[
+              { icon: Phone, label: "Anrufen", msg: "Im Betrieb startet hier der Anruf im Studio." },
+              { icon: MessageCircle, label: "Nachricht", msg: "Im Betrieb öffnet sich hier der Chat mit dem Studio." },
+              { icon: Navigation, label: "Route", msg: "Im Betrieb öffnet sich hier die Karten-App mit der Route." },
+              { icon: Share2, label: "Teilen", msg: "Link zur Behandlung kopiert." },
+            ].map((a) => (
+              <button key={a.label} type="button" onClick={() => toast(a.msg)} className={cx(M.card, "flex min-h-[4.75rem] flex-col items-center justify-center gap-1.5 text-[13px] font-medium text-[#2b1a17] hover:bg-[#fdf3ec]")}>
+                <a.icon className="size-5 text-[#4a231d]" aria-hidden /> {a.label}
+              </button>
+            ))}
+          </div>
+
+          <div>
+            <div role="tablist" aria-label="Infos zur Behandlung" className="grid grid-cols-3 rounded-full bg-[#f6ebe4] p-1 text-[13.5px] font-semibold">
+              {(
+                [
+                  ["ueber", "Über"],
+                  ["ablauf", "Ablauf"],
+                  ["stimmen", "Bewertungen"],
+                ] as const
+              ).map(([k, l]) => (
+                <button key={k} type="button" role="tab" aria-selected={pane === k} onClick={() => setPane(k)} className={cx("min-h-10 rounded-full transition-colors", pane === k ? "bg-white text-[#2b1a17] shadow-sm" : "text-[#6d5a54] hover:text-[#2b1a17]")}>
+                  {l}
                 </button>
               ))}
             </div>
-            <p className={cx("mt-3 text-[13.5px]", M.soft)}>{CATS.find((c) => c.id === cat)!.note}</p>
-            <ul className="mt-4 space-y-2">
-              {TREATS.filter((x) => x.cat === cat).map((x) => {
-                const on = picked === x.id;
-                return (
-                  <li key={x.id}>
-                    <button
-                      type="button"
-                      aria-pressed={on}
-                      onClick={() => {
-                        setPicked(on ? "" : x.id);
-                        setSlot(null);
-                      }}
-                      className={cx("flex min-h-[4.5rem] w-full items-center gap-4 rounded-[1.25rem] border px-4 py-3 text-left transition-colors", on ? "border-[#a8475d] bg-[#f4e1e3]" : "border-[#e8dcd3] bg-white hover:border-[#a8475d]")}
-                    >
-                      <span className={cx("grid size-6 shrink-0 place-items-center rounded-full border", on ? "border-[#a8475d] bg-[#a8475d] text-white" : "border-[#bfaea5]")} aria-hidden>
-                        {on && <Check className="size-3.5" strokeWidth={3} />}
+            <div className="mt-4 text-[15px] leading-relaxed text-[#5b4944]">
+              {pane === "ueber" && (
+                <p>
+                  {t.note ? `${t.note}. ` : ""}
+                  {p.who.split(" ")[0]} nimmt sich {dur(t.min)} Zeit nur für dich – am Platz „{p.name}“, ohne dass nebenbei das Telefon klingelt. Alle Produkte sind dermatologisch getestet; Unverträglichkeiten notieren wir in deiner Kartei.
+                </p>
+              )}
+              {pane === "ablauf" && (
+                <ol className="space-y-2.5">
+                  {["Kurzes Gespräch: Wünsche, Hautbild, Verträglichkeit", "Die Behandlung – in Ruhe und ohne Zeitdruck", `Pflege-Tipps für zu Hause${t.refill ? ` und Folgetermin in ${t.refill} Wochen` : ""}`].map((x, i) => (
+                    <li key={x} className="flex gap-3">
+                      <span className="num grid size-6 shrink-0 place-items-center rounded-full bg-[#4a231d] text-[12px] font-bold text-white">{i + 1}</span> {x}
+                    </li>
+                  ))}
+                </ol>
+              )}
+              {pane === "stimmen" && (
+                <ul className="space-y-3">
+                  {[
+                    ["Petra L.", "Sehr sorgfältig, nichts wirkt gehetzt. Online gebucht, hat alles geklappt."],
+                    ["Dilara A.", "Endlich kein Hin und Her per Nachricht mehr. Termin in einer Minute gebucht."],
+                  ].map(([n, x]) => (
+                    <li key={n} className={cx(M.card, "p-4")}>
+                      <span className="flex items-center justify-between">
+                        <strong className="text-[14.5px] font-semibold text-[#2b1a17]">{n}</strong> <Stars value="5,0" />
                       </span>
-                      <span className="min-w-0 flex-1">
-                        <span className="block text-[16px] leading-tight font-semibold">{x.name}</span>
-                        <span className={cx("num mt-1 block text-[13px]", M.soft)}>
-                          {dur(x.min)}
-                          {x.note ? ` · ${x.note}` : ""}
-                        </span>
-                      </span>
-                      <span className={cx(M.display, "num shrink-0 text-[1.35rem] leading-none")}>{eur0(x.price)}</span>
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
-          </section>
+                      <span className="mt-1 block text-[14px]">{x}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
 
-          <section data-tour="slots" className={locked(!t)} inert={!t}>
-            {head(2, "Tag und Uhrzeit", t && p ? `${p.name} · ${dur(t.min)}` : "Erst Behandlung wählen")}
-            <div className="no-bar -mx-4 mt-6 flex gap-2 overflow-x-auto px-4 @dsm:mx-0 @dsm:px-0">
+          <section>
+            <h2 className={M.h2}>Aus dem Studio</h2>
+            <div className="mt-3 grid grid-cols-4 gap-2.5">
+              {["m-work1", "m-work2", "m-work3", "m-studio"].map((s) => (
+                <div key={s} className="relative aspect-square overflow-hidden rounded-2xl bg-[#f6ebe4]">
+                  <Image src={`${P}${s}.webp`} alt="" fill sizes="(min-width: 64rem) 10rem, 25vw" className="object-cover" />
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+
+        <aside>
+          <form
+            noValidate
+            data-tour="slots"
+            className={cx(M.card, "sticky top-[calc(var(--bar-h)+4.5rem)] space-y-5 p-5")}
+            onSubmit={(e) => {
+              e.preventDefault();
+              setTried(true);
+              if (slot === null || bad.name || bad.phone || !once()) return;
+              onBook({ place: p.id, day: dayIdx, start: slot, treat: t.id, customer: name.trim() });
+              setDone({ day: dayIdx, start: slot });
+              toTop();
+            }}
+          >
+            <div>
+              <h2 className="text-[17px] font-semibold text-[#2b1a17]">Termin wählen</h2>
+              <p className={cx("text-[13px]", M.soft)}>Nur Zeiten, in denen „{p.name}“ wirklich frei ist.</p>
+            </div>
+            <div className="no-bar -mx-5 flex gap-2 overflow-x-auto px-5">
               {Array.from({ length: DAYS }, (_, i) => {
                 const d = workday(i);
                 return (
@@ -429,92 +621,44 @@ function Booking({ appts, preset, onBook }: { appts: Appt[]; preset: string; onB
                       setDayIdx(i);
                       setSlot(null);
                     }}
-                    className={cx("min-h-[4.5rem] w-[4.5rem] shrink-0 rounded-2xl text-center", pill(dayIdx === i))}
+                    className={cx("min-h-16 w-14 shrink-0 rounded-2xl text-center", pick(dayIdx === i))}
                   >
-                    <span className={cx("block text-[12px] font-semibold", dayIdx === i ? "text-white/80" : M.soft)}>{d.toDateString() === new Date().toDateString() ? "Heute" : weekdayShort(d)}</span>
-                    <span className={cx(M.display, "num mt-1 block text-[1.5rem] leading-none")}>{d.getDate()}</span>
+                    <span className={cx("block text-[11.5px] font-medium", dayIdx === i ? "text-white/80" : M.soft)}>{d.toDateString() === new Date().toDateString() ? "Heute" : weekdayShort(d)}</span>
+                    <span className="num block text-[1.2rem] leading-tight font-bold">{d.getDate()}</span>
                   </button>
                 );
               })}
             </div>
-            {t &&
-              (slots.length ? (
-                <div className="mt-5 grid grid-cols-4 gap-2 @dsm:grid-cols-6 @dmd:grid-cols-8">
-                  {slots.map((s) => (
-                    <button key={s} type="button" aria-pressed={slot === s} onClick={() => setSlot(s)} className={cx("num min-h-11 rounded-full text-[14px] font-semibold", pill(slot === s))}>
-                      {hm(s)}
-                    </button>
-                  ))}
-                </div>
-              ) : (
-                <p className={cx("mt-5 rounded-2xl border border-dashed border-[#cdbfb5] px-5 py-6 text-[14px]", M.soft)}>An diesem Tag ist der Platz „{p!.name}“ ausgebucht. Wähl einen anderen Tag.</p>
-              ))}
-          </section>
-
-          <section className={locked(slot === null)} inert={slot === null}>
-            {head(3, "Deine Angaben", slot === null ? "Erst Uhrzeit wählen" : undefined)}
-            <form
-              noValidate
-              className="mt-6 grid gap-4 @dsm:grid-cols-2"
-              onSubmit={(e) => {
-                e.preventDefault();
-                setTried(true);
-                if (!t || !p || slot === null || bad.name || bad.phone || !once()) return;
-                onBook({ place: p.id, day: dayIdx, start: slot, treat: t.id, customer: name.trim() });
-                setDone({ day: dayIdx, start: slot });
-                toTop();
-              }}
-            >
+            {slots.length ? (
+              <div className="grid grid-cols-4 gap-2">
+                {slots.map((s) => (
+                  <button key={s} type="button" aria-pressed={slot === s} onClick={() => setSlot(s)} className={cx("num min-h-11 rounded-full text-[13.5px] font-semibold", pick(slot === s))}>
+                    {hm(s)}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <p className={cx("rounded-2xl border border-dashed border-[#e3cfc2] px-4 py-5 text-[13.5px]", M.soft)}>An diesem Tag ist „{p.name}“ ausgebucht. Wähl einen anderen Tag.</p>
+            )}
+            <div className={cx("space-y-3 transition-opacity", slot === null && "pointer-events-none opacity-40")} inert={slot === null}>
               <Field label="Name" error={tried && bad.name && "Bitte trag deinen Namen ein."}>
                 <input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" maxLength={60} aria-invalid={tried && bad.name} className={fieldCls} placeholder="Vor- und Nachname" />
               </Field>
               <Field label="Handynummer" error={tried && bad.phone && "Bitte gib deine Handynummer an."}>
                 <input value={phone} onChange={(e) => setPhone(e.target.value)} type="tel" autoComplete="tel" maxLength={24} aria-invalid={tried && bad.phone} className={fieldCls} placeholder="0151 2345678" />
               </Field>
-              <p className="flex items-start gap-3 rounded-2xl bg-[#f4e1e3] px-4 py-3 text-[14px] leading-snug @dsm:col-span-2">
-                <ShieldCheck className="mt-0.5 size-5 shrink-0 text-[#a8475d]" aria-hidden />
+              <p className="flex items-start gap-2.5 rounded-2xl bg-[#fbeee6] px-3.5 py-3 text-[13px] leading-snug text-[#5b4944]">
+                <ShieldCheck className="mt-0.5 size-[18px] shrink-0 text-[#4a231d]" aria-hidden />
                 <span>
-                  <strong className="font-semibold">Anzahlung {eur0(DEPOSIT)}.</strong> Sie wird mit der Behandlung verrechnet. Absagen bis 24 Stunden vorher sind kostenlos – danach behalten wir die Anzahlung ein.
+                  <strong className="font-semibold text-[#2b1a17]">Anzahlung {eur0(DEPOSIT)}.</strong> Wird verrechnet. Absagen bis 24 Stunden vorher sind kostenlos.
                 </span>
               </p>
-              <div className="@dsm:col-span-2">
-                <button type="submit" className={cx(M.btn, "w-full bg-[#a8475d] text-white hover:brightness-95 @dsm:w-auto")}>
-                  Termin buchen und {eur0(DEPOSIT)} anzahlen
-                </button>
-                <p className={cx("mt-3 text-[12.5px]", M.soft)}>Demo: Es wird nichts gebucht, gespeichert oder abgebucht – erfundene Angaben genügen.</p>
-              </div>
-            </form>
-          </section>
-        </div>
-
-        <aside className="@max-dlg:hidden">
-          <div className={cx(M.card, "sticky top-[calc(var(--bar-h)+4.5rem)] p-6")}>
-            <h2 className={cx(M.label, M.soft)}>Dein Termin</h2>
-            {t && p ? (
-              <>
-                <p className={cx(M.display, "mt-4 text-[1.5rem] leading-tight")}>{t.name}</p>
-                <dl className="num mt-4 space-y-2 border-t border-[#e8dcd3] pt-4 text-[14px]">
-                  {[
-                    ["Dauer", dur(t.min)],
-                    ["Platz", `${p.name} · ${p.who.split(" ")[0]}`],
-                    ["Wann", slot !== null ? `${fmtDay(workday(dayIdx))}, ${hm(slot)}` : "noch offen"],
-                    ["Anzahlung", eur0(DEPOSIT)],
-                  ].map(([k, v]) => (
-                    <div key={k} className="flex justify-between gap-3">
-                      <dt className={M.soft}>{k}</dt>
-                      <dd className="text-right">{v}</dd>
-                    </div>
-                  ))}
-                  <div className="flex items-end justify-between gap-3 border-t border-[#e8dcd3] pt-4">
-                    <dt className={M.soft}>Preis</dt>
-                    <dd className={cx(M.display, "text-[2rem] leading-none")}>{eur0(t.price)}</dd>
-                  </div>
-                </dl>
-              </>
-            ) : (
-              <p className={cx("mt-4 text-[14.5px] leading-relaxed", M.soft)}>Wähl eine Behandlung – wir zeigen dir nur Zeiten, in denen der passende Platz wirklich frei ist.</p>
-            )}
-          </div>
+            </div>
+            <button type="submit" disabled={slot === null} className={cx(M.btn, "w-full")}>
+              {slot === null ? "Uhrzeit wählen" : `Termin buchen · ${fmtDay(workday(dayIdx))}, ${hm(slot)}`}
+            </button>
+            <p className={cx("text-center text-[12px]", M.soft)}>Demo: Es wird nichts gebucht oder abgebucht.</p>
+          </form>
         </aside>
       </div>
     </>
@@ -526,72 +670,80 @@ function Mine({ appts, onPatch, onRebook }: { appts: Appt[]; onPatch: (id: numbe
   const mine = appts.filter((a) => a.own).sort((a, b) => a.day - b.day || a.start - b.start);
   const stamps = 7;
   return (
-    <div className={cx(M.wrap, "grid gap-6 py-8 @dlg:grid-cols-[minmax(0,1fr)_22rem] @dlg:py-14")}>
-      <div className="min-w-0">
-        <p className={cx(M.label, "text-[#a8475d]")}>Hallo Lena</p>
-        <h1 className={cx(M.display, "mt-4 text-[clamp(2.25rem,8cqi,3.5rem)] leading-[0.95]")}>Deine Termine</h1>
-        <ul className="mt-6 space-y-3">
+    <>
+      <section className="bg-[#fbeee6] pb-7">
+        <div className={cx(M.wrap, "pt-4 @dlg:pt-8")}>
+          <p className={cx("text-[14px] font-medium", M.soft)}>Hallo Lena</p>
+          <h1 className="mt-1 text-[clamp(1.9rem,6.5cqi,3rem)] leading-[1.05] font-bold tracking-[-0.03em] text-[#2b1a17]">Deine Termine</h1>
+        </div>
+      </section>
+      <div className={cx(M.wrap, "grid gap-6 py-6 @dlg:grid-cols-[minmax(0,1fr)_22rem] @dlg:py-8")}>
+        <div className="min-w-0 space-y-3">
           {mine.map((a) => {
             const t = treat(a.treat);
             return (
-              <li key={a.id} className={cx(M.card, "flex flex-wrap items-center gap-x-5 gap-y-3 p-5")}>
-                <div className="grid size-16 shrink-0 place-items-center rounded-2xl bg-[#f4e1e3] text-center">
-                  <span>
-                    <span className={cx("block text-[11.5px] font-semibold", M.soft)}>{weekdayShort(workday(a.day))}</span>
-                    <span className={cx(M.display, "num block text-[1.5rem] leading-none")}>{workday(a.day).getDate()}</span>
-                  </span>
+              <article key={a.id} className={cx(M.card, "flex items-stretch gap-3.5 p-2")}>
+                <div className="relative w-24 shrink-0 overflow-hidden rounded-2xl bg-[#f6ebe4] @dsm:w-32">
+                  <Image src={photoOf(t)} alt="" fill sizes="8rem" className="object-cover" />
                 </div>
-                <div className="min-w-0 flex-1">
-                  <p className="text-[16px] leading-tight font-semibold">{t.name}</p>
-                  <p className={cx("num mt-1 text-[13.5px]", M.soft)}>
-                    {hm(a.start)} Uhr · {dur(t.min)} · {place(a.place).name}
-                  </p>
+                <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-4 gap-y-2 py-2 pr-2">
+                  <div className="min-w-0 flex-1">
+                    <p className={cx("num text-[12.5px] font-medium", M.soft)}>
+                      {fmtDay(workday(a.day))} · {hm(a.start)} Uhr
+                    </p>
+                    <h2 className="text-[16px] leading-tight font-semibold text-[#2b1a17]">{t.name}</h2>
+                    <p className={cx("num text-[13px]", M.soft)}>
+                      {dur(t.min)} · {place(a.place).name} bei {place(a.place).who.split(" ")[0]}
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onPatch(a.id, null);
+                      toast("Termin abgesagt – der Platz ist sofort wieder buchbar, die Anzahlung geht zurück.");
+                    }}
+                    className={M.chip}
+                  >
+                    Absagen
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    onPatch(a.id, null);
-                    toast("Termin abgesagt – der Platz ist sofort wieder buchbar, die Anzahlung geht zurück.");
-                  }}
-                  className="min-h-11 rounded-full border border-[#cdbfb5] px-4 text-[13.5px] font-semibold hover:border-[#2c2125]"
-                >
-                  Absagen
-                </button>
-              </li>
+              </article>
             );
           })}
-          {mine.length === 0 && <li className={cx("rounded-[1.5rem] border border-dashed border-[#cdbfb5] px-5 py-8 text-center text-[14.5px]", M.soft)}>Kein Termin geplant. Zeit für den nächsten?</li>}
-        </ul>
-        <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 rounded-[1.5rem] bg-[#2c2125] p-5 text-white" data-tour="karte">
-          <BellRing className="size-6 shrink-0 text-[#f0b9c2]" aria-hidden />
-          <div className="min-w-0 flex-1">
-            <p className="text-[16px] leading-tight font-semibold">Auffüllen in etwa vier Wochen fällig</p>
-            <p className="mt-1 text-[13.5px] text-white/75">Wir erinnern dich rechtzeitig – oder du sicherst dir den Termin gleich.</p>
+          {mine.length === 0 && <p className={cx("rounded-[1.25rem] border border-dashed border-[#e3cfc2] px-5 py-8 text-center text-[14.5px]", M.soft)}>Kein Termin geplant. Zeit für den nächsten?</p>}
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-3 rounded-[1.25rem] bg-[#4a231d] p-5 text-white" data-tour="karte">
+            <span className="grid size-11 shrink-0 place-items-center rounded-full bg-white/15">
+              <BellRing className="size-5" aria-hidden />
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="text-[16px] leading-tight font-semibold">Auffüllen in etwa vier Wochen fällig</p>
+              <p className="mt-1 text-[13.5px] text-white/75">Wir erinnern dich rechtzeitig – oder du sicherst dir den Termin gleich.</p>
+            </div>
+            <button type="button" onClick={() => onRebook("n-auf")} className="inline-flex min-h-11 items-center rounded-full bg-white px-5 text-[14px] font-semibold text-[#4a231d] hover:bg-[#fbeee6]">
+              Folgetermin buchen
+            </button>
           </div>
-          <button type="button" onClick={() => onRebook("n-auf")} className={cx(M.btn, "min-h-11 bg-white px-5 text-[14px] text-[#2c2125] hover:brightness-95")}>
-            Folgetermin buchen
-          </button>
         </div>
+        <aside className="space-y-3">
+          <div className={cx(M.card, "p-5")}>
+            <h2 className={cx("text-[13px] font-medium", M.soft)}>Treuekarte</h2>
+            <p className="mt-1 text-[1.2rem] leading-tight font-semibold text-[#2b1a17]">Noch drei Besuche bis zur Gratis-Maniküre</p>
+            <ol className="mt-4 grid grid-cols-5 gap-2" aria-label={`${stamps} von 10 Stempeln`}>
+              {Array.from({ length: 10 }, (_, i) => (
+                <li key={i} className={cx("grid aspect-square place-items-center rounded-full", i < stamps ? "bg-[#4a231d] text-white" : "border border-dashed border-[#d9c2b4]")}>
+                  {i < stamps && <Check className="size-4" strokeWidth={3} aria-hidden />}
+                </li>
+              ))}
+            </ol>
+          </div>
+          <div className={cx(M.card, "p-5")}>
+            <h2 className={cx("text-[13px] font-medium", M.soft)}>Gutschein-Guthaben</h2>
+            <p className="num mt-1 text-[2.25rem] leading-none font-bold tracking-[-0.02em] text-[#2b1a17]">25 €</p>
+            <p className={cx("mt-2 text-[13.5px]", M.soft)}>Wird beim nächsten Besuch automatisch angerechnet.</p>
+          </div>
+        </aside>
       </div>
-      <aside className="space-y-4">
-        <div className={cx(M.card, "p-5")}>
-          <h2 className={cx(M.label, M.soft)}>Treuekarte</h2>
-          <p className={cx(M.display, "mt-3 text-[1.5rem] leading-tight")}>Noch drei Besuche bis zur Gratis-Maniküre</p>
-          <ol className="mt-4 grid grid-cols-5 gap-2" aria-label={`${stamps} von 10 Stempeln`}>
-            {Array.from({ length: 10 }, (_, i) => (
-              <li key={i} className={cx("grid aspect-square place-items-center rounded-full border", i < stamps ? "border-[#a8475d] bg-[#a8475d] text-white" : "border-dashed border-[#cdbfb5]")}>
-                {i < stamps && <Check className="size-4" strokeWidth={3} aria-hidden />}
-              </li>
-            ))}
-          </ol>
-        </div>
-        <div className={cx(M.card, "p-5")}>
-          <h2 className={cx(M.label, M.soft)}>Gutschein-Guthaben</h2>
-          <p className={cx(M.display, "num mt-3 text-[2.25rem] leading-none")}>25 €</p>
-          <p className={cx("mt-2 text-[13.5px]", M.soft)}>Wird beim nächsten Besuch automatisch angerechnet.</p>
-        </div>
-      </aside>
-    </div>
+    </>
   );
 }
 
