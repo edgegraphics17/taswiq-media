@@ -262,7 +262,7 @@ function Cabins({ sessions, locked, now, balance, onPay, onAdd }: StoreProps) {
           </div>
           <div className="relative">
             <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] @dmd:aspect-[5/6]">
-              <Image src={`${P}s-hero.webp`} alt="Frau mit gebräunter Haut im warmen Abendlicht" fill priority sizes="(min-width: 48rem) 34rem, 100vw" className="object-cover object-[center_20%]" />
+              <Image src={`${P}s-model.webp`} alt="Frau mit gleichmäßig gebräunter Haut blickt über die Schulter" fill priority sizes="(min-width: 48rem) 34rem, 100vw" className="object-cover object-[center_15%]" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#17110d]/70 via-transparent to-transparent" aria-hidden />
             </div>
             <div className="absolute inset-x-4 bottom-4 flex items-center gap-3 rounded-2xl bg-[#17110d]/75 p-3 backdrop-blur @dsm:right-auto @dsm:w-72">

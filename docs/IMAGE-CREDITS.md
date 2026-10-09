@@ -130,7 +130,7 @@ Fotos von [Unsplash](https://unsplash.com/license) (freie Lizenz, kommerziell nu
 | public/images/demo/photos/m-work2.webp | Hayley Kim Studios | https://images.unsplash.com/photo-1589710751893-f9a6770ad71b |
 | public/images/demo/photos/m-work3.webp | karelys Ruiz | https://images.unsplash.com/photo-1552693673-1bf958298935 |
 | public/images/demo/photos/m-work4.webp | engin akyurt | https://images.unsplash.com/photo-1616394584738-fc6e612e71b9 |
-| public/images/demo/photos/s-hero.webp | artem belinsky | https://images.unsplash.com/photo-1693755854711-3e4d507e0d7c |
+| public/images/demo/photos/s-model.webp | Rafaella Mendes Diniz | https://images.unsplash.com/photo-1524502397800-2eeaad7c3fe5 |
 | public/images/demo/photos/s-glow.webp | Lawless Capture | https://images.unsplash.com/photo-1601583844062-7487c80b56b7 |
 | public/images/demo/photos/s-skin.webp | Alef Morais | https://images.unsplash.com/photo-1765813102971-47144ca56d03 |
 | public/images/demo/photos/s-lounge.webp | Sherzod Gulomov | https://images.unsplash.com/photo-1693578538512-fc66f318c833 |
