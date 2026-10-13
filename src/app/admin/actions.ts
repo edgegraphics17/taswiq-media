@@ -10,7 +10,7 @@ import { isAdminEmail } from "@/lib/auth";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
 import { getAdminUser } from "@/lib/admin/data";
 import { INTERNAL_COOKIE, internalCookieOptions } from "@/lib/internal";
-import { createMeetRoom, deleteMeetRoom, getMeetRoom, addLeadNote, setCalculatorTest, setLeadTest, cancelBooking as cancelBookingInBackend, createBooking, saveBookingSettings as saveBookingSettingsInBackend, deleteTask, insertTask, moveTask, setPassword, setTeamSettings, updateLead as updateLeadInBackend, updateTask, upsertServices, verifyPassword } from "@/lib/db";
+import { createMeetRoom, deleteMeetRoom, getMeetRoom, deleteMeetLine, deleteMeetTranscript, renameMeetTranscript, updateMeetLine, addLeadNote, setCalculatorTest, setLeadTest, cancelBooking as cancelBookingInBackend, createBooking, saveBookingSettings as saveBookingSettingsInBackend, deleteTask, insertTask, moveTask, setPassword, setTeamSettings, updateLead as updateLeadInBackend, updateTask, upsertServices, verifyPassword } from "@/lib/db";
 import { LEAD_STATUSES, TASK_CATEGORIES, TASK_STATUSES } from "@/types/database";
 import { DEPARTMENT_IDS, departmentFor } from "@/config/team";
 import { STRUCTURE_TAG } from "@/lib/admin/site-structure";
@@ -430,6 +430,42 @@ export async function deleteMeeting(formData: FormData) {
   if (MEET_CODE.test(code)) await deleteMeetRoom(code).catch((e) => console.error("[admin] Meeting löschen fehlgeschlagen", e));
   revalidatePath("/admin/meetings");
   redirect("/admin/meetings?saved=geloescht");
+}
+
+// Mitschriften: Titel, einzelne Zeilen (Sprecher und Text) ändern oder löschen.
+const transcriptPath = (id: number) => `/admin/meetings/mitschrift/${id}`;
+
+export async function renameTranscript(formData: FormData) {
+  await requireAdminUser();
+  const id = Number(formData.get("id"));
+  const title = String(formData.get("title") ?? "").trim().slice(0, 80);
+  if (id && title) await renameMeetTranscript(id, title).catch((e) => console.error("[admin] Mitschrift umbenennen fehlgeschlagen", e));
+  revalidatePath(transcriptPath(id));
+  revalidatePath("/admin/meetings");
+}
+
+export async function deleteTranscript(formData: FormData) {
+  await requireAdminUser();
+  const id = Number(formData.get("id"));
+  if (id) await deleteMeetTranscript(id).catch((e) => console.error("[admin] Mitschrift löschen fehlgeschlagen", e));
+  revalidatePath("/admin/meetings");
+  redirect("/admin/meetings?saved=mitschrift");
+}
+
+export async function saveTranscriptLine(formData: FormData) {
+  await requireAdminUser();
+  const line = Number(formData.get("line"));
+  const speaker = String(formData.get("speaker") ?? "").trim().slice(0, 40);
+  const text = String(formData.get("text") ?? "").trim().slice(0, 4000);
+  if (line && speaker && text) await updateMeetLine(line, speaker, text).catch((e) => console.error("[admin] Zeile speichern fehlgeschlagen", e));
+  revalidatePath(transcriptPath(Number(formData.get("id"))));
+}
+
+export async function deleteTranscriptLine(formData: FormData) {
+  await requireAdminUser();
+  const line = Number(formData.get("line"));
+  if (line) await deleteMeetLine(line).catch((e) => console.error("[admin] Zeile löschen fehlgeschlagen", e));
+  revalidatePath(transcriptPath(Number(formData.get("id"))));
 }
 
 /** Einladungslink per Mail verschicken (bis zu 20 Adressen, durch Komma, Leerzeichen oder Zeilenumbruch getrennt). */

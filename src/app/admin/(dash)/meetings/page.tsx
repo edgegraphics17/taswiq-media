@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
-import { Mail, Plus, Trash2, Video } from "lucide-react";
+import { ChevronRight, Mail, MessageSquareText, Plus, Trash2, Video } from "lucide-react";
 import { createMeeting, deleteMeeting, inviteToMeeting } from "@/app/admin/actions";
 import { CopyLink } from "@/components/admin/CopyLink";
 import { site } from "@/config/site";
-import { listMeetRooms } from "@/lib/db";
+import { listMeetRooms, listMeetTranscripts } from "@/lib/db";
 import { isBackendConfigured } from "@/lib/env";
-import { MEET_CODE, type MeetRoom } from "@/lib/meet";
+import { MEET_CODE, transcriptDate, type MeetRoom } from "@/lib/meet";
 
 export const metadata: Metadata = { title: "Meetings" };
 
 const field = "mt-1.5 w-full rounded-lg border border-line bg-white px-3 text-sm text-ink";
 const SAVED = (flag: string, n: string) =>
-  ({ eingeladen: `Einladung verschickt${Number(n) > 1 ? ` an ${n} Adressen` : ""}.`, geloescht: "Meeting gelöscht – der Link funktioniert nicht mehr." })[flag];
+  ({ eingeladen: `Einladung verschickt${Number(n) > 1 ? ` an ${n} Adressen` : ""}.`, geloescht: "Meeting gelöscht – der Link funktioniert nicht mehr.", mitschrift: "Mitschrift gelöscht." })[flag];
 const ERRORS = (flag: string, n: string) =>
   ({
     backend: "Das hat gerade nicht geklappt – das Backend war nicht erreichbar. Bitte noch einmal versuchen.",
@@ -27,6 +27,7 @@ const when = (iso: string) => new Date(iso).toLocaleString("de-DE", { timeZone: 
 export default async function MeetingsPage({ searchParams }: { searchParams: Promise<{ neu?: string; saved?: string; error?: string; n?: string }> }) {
   const flags = await searchParams;
   const rooms: MeetRoom[] | null = isBackendConfigured() ? await listMeetRooms().catch(() => null) : null;
+  const transcripts = rooms ? await listMeetTranscripts().catch(() => []) : [];
   const fresh = flags.neu && MEET_CODE.test(flags.neu) ? rooms?.find((r) => r.code === flags.neu) : undefined;
   const link = (code: string) => `${site.url}/meet/${code}`;
   const saved = flags.saved && SAVED(flags.saved, flags.n ?? "");
@@ -121,6 +122,31 @@ export default async function MeetingsPage({ searchParams }: { searchParams: Pro
           </ul>
         </section>
       )}
+
+      <section aria-labelledby="transcripts-title" className="mt-10">
+        <h2 id="transcripts-title" className="text-lg font-bold text-ink">Mitschriften</h2>
+        <p className="mt-1 max-w-2xl text-sm text-muted">Jeder Call wird automatisch mitgeschrieben und hier als Chat abgelegt – zum Nachlesen, Korrigieren und Herunterladen als PDF oder Markdown.</p>
+        {transcripts.length > 0 ? (
+          <ul className="mt-4 divide-y divide-line overflow-hidden rounded-3xl bg-surface shadow-soft">
+            {transcripts.map((t) => (
+              <li key={t.id}>
+                <a href={`/admin/meetings/mitschrift/${t.id}`} className="flex min-h-16 items-center gap-3 px-5 py-4 transition-colors hover:bg-brand-50/50">
+                  <span className="grid size-10 shrink-0 place-items-center rounded-2xl bg-brand-50 text-brand-600">
+                    <MessageSquareText className="size-4.5" aria-hidden />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate font-semibold text-ink">{t.title}</span>
+                    <span className="mt-0.5 block text-xs text-muted">{transcriptDate(t.started_at)} Uhr · {t.lines ?? 0} Beiträge</span>
+                  </span>
+                  <ChevronRight className="size-4 shrink-0 text-muted" aria-hidden />
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="mt-4 rounded-3xl border border-dashed border-line p-6 text-sm text-muted">Noch keine Mitschrift. Nach dem nächsten Call erscheint sie hier.</p>
+        )}
+      </section>
     </div>
   );
 }

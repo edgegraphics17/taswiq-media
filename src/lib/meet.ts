@@ -9,6 +9,23 @@ export interface MeetRoom {
   live: number;
 }
 
+/** Mitschrift einer Sitzung; `lines` ist in der Liste die Anzahl der Zeilen. */
+export interface MeetTranscript {
+  id: number;
+  code: string;
+  title: string;
+  started_at: string;
+  updated_at: string;
+  lines?: number;
+}
+
+export interface MeetLine {
+  id: number;
+  speaker: string;
+  text: string;
+  at: string;
+}
+
 export const MEET_CODE = /^[a-z]{3}-[a-z]{4}-[a-z]{3}$/;
 export const meetPath = (code: string) => `/meet/${code}`;
 
@@ -28,3 +45,13 @@ export const BACKGROUNDS: { id: BackgroundId; label: string; colors?: [string, s
 ];
 
 export const backgroundCss = (c: [string, string, string]) => `radial-gradient(circle at 78% 18%, ${c[2]}aa 0%, transparent 42%), linear-gradient(135deg, ${c[0]} 0%, ${c[1]} 100%)`;
+
+const stamp = (iso: string, opts: Intl.DateTimeFormatOptions) => new Date(iso).toLocaleString("de-DE", { timeZone: "Europe/Berlin", ...opts });
+export const transcriptDate = (iso: string) => stamp(iso, { day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" });
+export const transcriptTime = (iso: string) => stamp(iso, { hour: "2-digit", minute: "2-digit" });
+
+/** Mitschrift als Markdown – dieselbe Reihenfolge wie im Dashboard. */
+export function transcriptMarkdown(t: MeetTranscript & { lines: MeetLine[] }): string {
+  const speakers = [...new Set(t.lines.map((l) => l.speaker))];
+  return [`# ${t.title}`, "", `Mitschrift vom ${transcriptDate(t.started_at)} Uhr  `, `Teilnehmer: ${speakers.join(", ") || "–"}`, "", ...t.lines.flatMap((l) => [`**${l.speaker}** (${transcriptTime(l.at)}): ${l.text}`, ""])].join("\n");
+}

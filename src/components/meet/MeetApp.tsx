@@ -2,10 +2,11 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
-import { Check, Hand, Link2, Loader2, Mic, MicOff, MonitorUp, PhoneOff, Smile, Sparkles, Users, Video, VideoOff, X, type LucideIcon } from "lucide-react";
+import { Check, Hand, Link2, Loader2, MessageSquareText, Mic, MicOff, MonitorUp, PhoneOff, PictureInPicture2, Smile, Sparkles, Users, Video, VideoOff, X, type LucideIcon } from "lucide-react";
 import { LogoMark } from "@/components/ui/Logo";
 import { cn } from "@/lib/format";
 import { BACKGROUNDS, REACTIONS, backgroundCss, type BackgroundId } from "@/lib/meet";
+import { useCaptions } from "./captions";
 import { SELF, useMeet, type PeerState, type Reaction } from "./useMeet";
 
 const NAME_KEY = "taswiq-meet-name";
@@ -149,6 +150,8 @@ function Tile({
   reactions,
   compact = false,
   contain = false,
+  screen = false,
+  pip = false,
   audio,
 }: {
   name: string;
@@ -159,11 +162,15 @@ function Tile({
   reactions: Reaction[];
   compact?: boolean;
   contain?: boolean;
+  /** Kachel zeigt einen geteilten Bildschirm statt einer Person */
+  screen?: boolean;
+  /** Dieses Bild wandert ins Bild-in-Bild-Fenster, wenn man den Browser verlässt */
+  pip?: boolean;
   audio: MediaStreamTrack | null | undefined;
 }) {
   const video = useRef<HTMLVideoElement>(null);
   const speaking = useSpeaking(audio, state.mic);
-  const showVideo = (state.cam || state.screen) && !!stream;
+  const showVideo = (screen || state.cam) && !!stream;
 
   useEffect(() => {
     const el = video.current;
@@ -190,8 +197,9 @@ function Tile({
         ref={video}
         autoPlay
         playsInline
-        muted={self}
-        className={cn("size-full bg-black", contain ? "object-contain" : "object-cover", self && !state.screen && "-scale-x-100", !showVideo && "invisible")}
+        muted={self || screen}
+        data-pip={pip || undefined}
+        className={cn("size-full bg-black", contain ? "object-contain" : "object-cover", self && !screen && "-scale-x-100", !showVideo && "invisible")}
       />
       {!showVideo && (
         <div className="absolute inset-0 grid place-items-center bg-[radial-gradient(circle_at_50%_40%,rgb(120_64_254/0.28),transparent_65%)]">
@@ -212,7 +220,7 @@ function Tile({
         </div>
       )}
       <AnimatePresence>
-        {state.hand && (
+        {state.hand && !screen && (
           <motion.span
             initial={{ scale: 0, rotate: -30 }}
             animate={{ scale: 1, rotate: 0 }}
@@ -225,14 +233,20 @@ function Tile({
         )}
       </AnimatePresence>
       <div className="absolute bottom-2.5 left-2.5 flex max-w-[calc(100%-1.25rem)] items-center gap-1.5 rounded-full bg-black/55 py-1 pr-3 pl-1.5 text-xs font-medium backdrop-blur-md sm:text-sm">
-        <span className={cn("grid size-6 place-items-center rounded-full", state.mic ? (speaking ? "bg-mint-500" : "bg-white/15") : "bg-[#e5484d]")}>
-          {state.mic ? <Mic className="size-3.5" aria-hidden /> : <MicOff className="size-3.5" aria-hidden />}
-        </span>
+        {screen ? (
+          <span className="grid size-6 place-items-center rounded-full bg-brand-500">
+            <MonitorUp className="size-3.5" aria-hidden />
+          </span>
+        ) : (
+          <span className={cn("grid size-6 place-items-center rounded-full", state.mic ? (speaking ? "bg-mint-500" : "bg-white/15") : "bg-[#e5484d]")}>
+            {state.mic ? <Mic className="size-3.5" aria-hidden /> : <MicOff className="size-3.5" aria-hidden />}
+          </span>
+        )}
         <span className="truncate">
-          {name}
-          {self && " (Du)"}
+          {screen ? (self ? "Dein Bildschirm" : `Bildschirm von ${name}`) : name}
+          {self && !screen && " (Du)"}
         </span>
-        <span className="sr-only">{state.mic ? "Mikrofon an" : "stumm"}</span>
+        {!screen && <span className="sr-only">{state.mic ? "Mikrofon an" : "stumm"}</span>}
       </div>
       <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-10 flex justify-center">
         <AnimatePresence>
@@ -396,6 +410,9 @@ function Lobby({ meet, title, copied, onCopy }: { meet: Meet; title: string; cop
           <p className="text-sm font-medium text-brand-300">Du bist eingeladen</p>
           <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-balance text-white sm:text-4xl">{title}</h1>
           <p className="mt-3 text-sm text-night-muted">Prüf kurz Bild und Ton – dann geht es los. Niemand sieht oder hört dich, bevor du beitrittst.</p>
+          <p className="mt-3 flex items-start gap-2 text-xs text-night-muted">
+            <MessageSquareText className="mt-0.5 size-3.5 shrink-0" aria-hidden /> Das Gespräch wird automatisch mitgeschrieben. Die Mitschrift erhält der Gastgeber.
+          </p>
           <label htmlFor="meet-name" className="mt-7 block text-sm font-semibold">
             Dein Name
           </label>
@@ -433,6 +450,43 @@ function Room({ meet, title, copied, onCopy }: { meet: Meet; title: string; copi
   const [seconds, setSeconds] = useState(0);
   const [narrow, setNarrow] = useState(false);
   const name = meet.name || "Du";
+  const [pipReady, setPipReady] = useState(false);
+  useCaptions(meet);
+
+  /**
+   * Bild-in-Bild: das Bild des Gegenübers (oder der geteilte Bildschirm) als kleines Fenster über anderen Apps.
+   * Von selbst beim Verlassen des Browsers, soweit das Gerät es erlaubt – sonst über den Knopf oben.
+   */
+  const togglePip = async (auto = false) => {
+    const el = document.querySelector<HTMLVideoElement & { webkitSetPresentationMode?: (mode: string) => void; webkitPresentationMode?: string }>("video[data-pip]");
+    try {
+      if (document.pictureInPictureElement) return auto ? undefined : await document.exitPictureInPicture();
+      if (!el) return;
+      if (el.requestPictureInPicture) await el.requestPictureInPicture();
+      else el.webkitSetPresentationMode?.(el.webkitPresentationMode === "picture-in-picture" && !auto ? "inline" : "picture-in-picture");
+    } catch {
+      if (!auto) meet.setNotice("Bild-in-Bild lässt dieser Browser gerade nicht zu.");
+    }
+  };
+
+  useEffect(() => {
+    setPipReady(!!document.pictureInPictureEnabled || "webkitSetPresentationMode" in HTMLVideoElement.prototype);
+    const leave = () => document.hidden && void togglePip(true);
+    document.addEventListener("visibilitychange", leave);
+    // Chrome und Edge wechseln darüber von selbst ins kleine Fenster, sobald der Tab oder die App verlassen wird.
+    const session = navigator.mediaSession as (MediaSession & { setActionHandler: (action: string, handler: (() => void) | null) => void }) | undefined;
+    try {
+      session?.setActionHandler("enterpictureinpicture", () => void togglePip(true));
+    } catch {}
+    return () => {
+      document.removeEventListener("visibilitychange", leave);
+      try {
+        session?.setActionHandler("enterpictureinpicture", null);
+      } catch {}
+      if (document.pictureInPictureElement) void document.exitPictureInPicture().catch(() => {});
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const t = setInterval(() => setSeconds((s) => s + 1), 1000);
@@ -459,15 +513,18 @@ function Room({ meet, title, copied, onCopy }: { meet: Meet; title: string; copi
 
   const tiles = useMemo(
     () => [
-      { id: SELF, name, stream: local.stream, state: local as PeerState, self: true, connected: true, audio: local.audio },
-      ...peers.map((p) => ({ id: p.id, name: p.name, stream: p.stream as MediaStream | null, state: p.state, self: false, connected: p.connected, audio: p.stream.getAudioTracks()[0] })),
+      { id: SELF, name, stream: local.stream, screenStream: local.screenStream, state: local as PeerState, self: true, connected: true, audio: local.audio },
+      ...peers.map((p) => ({ id: p.id, name: p.name, stream: p.stream as MediaStream | null, screenStream: p.screenStream, state: p.state, self: false, connected: p.connected, audio: p.stream.getAudioTracks()[0] })),
     ],
     [local, peers, name],
   );
-  // Wer seinen Bildschirm teilt, bekommt die große Fläche – die anderen rücken in die Leiste.
-  const spotlight = tiles.find((t) => t.state.screen && !t.self) ?? tiles.find((t) => t.state.screen);
-  const rest = spotlight ? tiles.filter((t) => t !== spotlight) : tiles;
+  // Ein geteilter Bildschirm bekommt die große Fläche – alle Personen (auch wer teilt) bleiben mit Kamera in der Leiste.
+  const sharing = tiles.find((t) => t.state.screen && t.screenStream && !t.self) ?? tiles.find((t) => t.state.screen && t.screenStream);
+  const rest = tiles;
   const n = tiles.length;
+  // Ins kleine Fenster kommt der Bildschirm eines anderen, sonst die erste andere Person.
+  const pipId = sharing && !sharing.self ? `${sharing.id}:screen` : tiles.find((t) => !t.self)?.id;
+  const transcribing = !!local.stt || peers.some((p) => p.state.stt);
   const cols = narrow ? (n <= 3 ? 1 : 2) : n === 1 ? 1 : n <= 4 ? 2 : n <= 9 ? 3 : 4;
   const clock = `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`;
   const mine = (id: string) => reactions.filter((r) => r.from === id);
@@ -478,26 +535,44 @@ function Room({ meet, title, copied, onCopy }: { meet: Meet; title: string; copi
         <LogoMark className="h-6 shrink-0" />
         <h1 className="min-w-0 truncate text-sm font-semibold text-white sm:text-base">{title}</h1>
         <span className="num hidden rounded-full bg-white/10 px-2.5 py-1 text-xs text-night-muted tabular-nums sm:block">{clock}</span>
+        {transcribing && (
+          <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1.5 text-xs font-medium text-night-muted" title="Das Gespräch wird mitgeschrieben">
+            <span className="size-1.5 animate-pulse rounded-full bg-mint-400" aria-hidden />
+            <MessageSquareText className="size-3.5 sm:hidden" aria-hidden />
+            <span className="max-sm:sr-only">Mitschrift läuft</span>
+          </span>
+        )}
         <span className="ml-auto flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold tabular-nums" aria-label={`${n} Personen im Meeting`}>
           <Users className="size-3.5" aria-hidden /> {n}
         </span>
-        <CopyButton copied={copied} onCopy={onCopy} className="min-h-9 px-3 text-xs sm:text-sm" />
+        {pipReady && pipId && (
+          <button
+            type="button"
+            onClick={() => void togglePip()}
+            aria-label="Bild-in-Bild: Call als kleines Fenster anzeigen"
+            title="Bild-in-Bild"
+            className="grid size-9 shrink-0 cursor-pointer place-items-center rounded-full bg-white/10 outline-none transition-colors hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-white"
+          >
+            <PictureInPicture2 className="size-4" aria-hidden />
+          </button>
+        )}
+        <CopyButton copied={copied} onCopy={onCopy} className="min-h-9 shrink-0 px-3 text-xs max-sm:px-2.5 max-sm:[&>span]:sr-only sm:text-sm" />
       </header>
 
       <div className="relative min-h-0 flex-1 px-3 sm:px-5">
         <div className="pointer-events-none absolute inset-x-0 top-2 z-20 flex justify-center px-4">
           <AnimatePresence>{notice && <div className="pointer-events-auto max-w-lg"><Notice text={notice} onClose={() => meet.setNotice(null)} /></div>}</AnimatePresence>
         </div>
-        {spotlight ? (
+        {sharing ? (
           <div className="flex size-full min-h-0 gap-3 max-md:flex-col">
             <div className="min-h-0 min-w-0 flex-1">
-              <Tile key={spotlight.id} {...spotlight} contain reactions={mine(spotlight.id)} />
+              <Tile key={`${sharing.id}:screen`} {...sharing} stream={sharing.screenStream} screen contain pip={pipId === `${sharing.id}:screen`} audio={null} reactions={[]} />
             </div>
             <div className="flex shrink-0 gap-3 overflow-auto max-md:h-24 md:w-52 md:flex-col">
               <AnimatePresence>
                 {rest.map((t) => (
                   <div key={t.id} className="aspect-video shrink-0 max-md:h-full md:w-full">
-                    <Tile {...t} compact reactions={mine(t.id)} />
+                    <Tile {...t} compact pip={pipId === t.id} reactions={mine(t.id)} />
                   </div>
                 ))}
               </AnimatePresence>
@@ -507,7 +582,7 @@ function Room({ meet, title, copied, onCopy }: { meet: Meet; title: string; copi
           <div className="mx-auto grid size-full min-h-0 gap-3" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`, gridAutoRows: "minmax(0, 1fr)", maxWidth: n === 1 ? "min(100%, 150dvh)" : undefined }}>
             <AnimatePresence>
               {tiles.map((t) => (
-                <Tile key={t.id} {...t} reactions={mine(t.id)} />
+                <Tile key={t.id} {...t} pip={pipId === t.id} reactions={mine(t.id)} />
               ))}
             </AnimatePresence>
           </div>

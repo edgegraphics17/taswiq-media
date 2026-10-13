@@ -875,6 +875,74 @@ setInterval(() => {
   for (const [code, peers] of meetLive) for (const p of [...peers.values()]) if (!p.wake && p.seen < limit) meetDrop(code, p.id);
 }, 5_000).unref();
 
+/**
+ * Mitschrift: jeder Browser schickt, was er verstanden hat („caption“), der Server legt es als Chat-Zeile ab.
+ * Eine Mitschrift je Sitzung – sie hängt an der Teilnehmerliste und endet, wenn der Raum leer ist.
+ * Spricht jemand am Stück weiter, wächst seine letzte Zeile, statt dass viele kurze entstehen.
+ */
+const meetCaption = (code, peers, me, data) => {
+  const text = String(data?.text ?? "").replace(/\s+/g, " ").trim().slice(0, 1000);
+  if (!text) return;
+  const speaker = (typeof data?.for === "string" && peers.get(data.for)?.name) || me.name;
+  const t = now();
+  if (!peers.transcript) {
+    const title = db.prepare("select title from meet_rooms where code = ?").get(code)?.title ?? "Meeting";
+    peers.transcript = Number(db.prepare("insert into meet_transcripts (code, title, started_at, updated_at) values (?, ?, ?, ?)").run(code, title, t, t).lastInsertRowid);
+    peers.lines = 0;
+  }
+  const last = db.prepare("select * from meet_lines where transcript_id = ? order by id desc limit 1").get(peers.transcript);
+  if (last && last.speaker === speaker && last.text.length < 500 && Date.parse(t) - Date.parse(last.at) < 20_000) {
+    db.prepare("update meet_lines set text = ?, at = ? where id = ?").run(`${last.text} ${text}`, t, last.id);
+  } else {
+    if (++peers.lines > 4000) return;
+    db.prepare("insert into meet_lines (transcript_id, speaker, text, at) values (?, ?, ?, ?)").run(peers.transcript, speaker, text, t);
+  }
+  db.prepare("update meet_transcripts set updated_at = ? where id = ?").run(t, peers.transcript);
+};
+const meetTranscript = (id) => {
+  const row = db.prepare("select * from meet_transcripts where id = ?").get(Number(id) || 0);
+  if (!row) throw new HttpError(404, "notFound");
+  return row;
+};
+
+route("GET", "/meet/transcripts", () =>
+  db.prepare("select t.*, (select count(*) from meet_lines l where l.transcript_id = t.id) as lines from meet_transcripts t order by t.started_at desc limit 100").all(),
+);
+
+route("GET", "/meet/transcripts/:id", ({ params }) => {
+  const row = meetTranscript(params.id);
+  return { ...row, lines: db.prepare("select id, speaker, text, at from meet_lines where transcript_id = ? order by id").all(row.id) };
+});
+
+route("PATCH", "/meet/transcripts/:id", ({ params, body }) => {
+  const row = meetTranscript(params.id);
+  const title = String(body?.title ?? "").trim().slice(0, 80);
+  need(title, "title");
+  db.prepare("update meet_transcripts set title = ? where id = ?").run(title, row.id);
+  return { ok: true };
+});
+
+route("DELETE", "/meet/transcripts/:id", ({ params }) => {
+  const row = meetTranscript(params.id);
+  db.prepare("delete from meet_lines where transcript_id = ?").run(row.id);
+  db.prepare("delete from meet_transcripts where id = ?").run(row.id);
+  for (const peers of meetLive.values()) if (peers.transcript === row.id) peers.transcript = null;
+  return { ok: true };
+});
+
+route("PATCH", "/meet/lines/:id", ({ params, body }) => {
+  const speaker = String(body?.speaker ?? "").trim().slice(0, 40);
+  const text = String(body?.text ?? "").trim().slice(0, 4000);
+  need(speaker && text, "text");
+  if (!db.prepare("update meet_lines set speaker = ?, text = ? where id = ?").run(speaker, text, Number(params.id) || 0).changes) throw new HttpError(404, "notFound");
+  return { ok: true };
+});
+
+route("DELETE", "/meet/lines/:id", ({ params }) => {
+  db.prepare("delete from meet_lines where id = ?").run(Number(params.id) || 0);
+  return { ok: true };
+});
+
 route("POST", "/meet/rooms", ({ body }) => {
   const title = String(body?.title ?? "").trim().slice(0, 80) || "Meeting";
   let code;
@@ -919,6 +987,10 @@ route("POST", "/meet/rooms/:code/send", ({ params, body }) => {
   for (const m of Array.isArray(body.messages) ? body.messages.slice(0, 60) : []) {
     // „join“, „leave“ und „ended“ vergibt nur der Server.
     if (!m || typeof m.type !== "string" || ["join", "leave", "ended"].includes(m.type) || JSON.stringify(m).length > 60_000) continue;
+    if (m.type === "caption") {
+      meetCaption(params.code, peers, me, m.data);
+      continue;
+    }
     const out = { type: m.type.slice(0, 20), from: me.id, data: m.data ?? null };
     if (typeof m.to === "string") {
       const target = peers.get(m.to);

@@ -2,7 +2,7 @@ import "server-only";
 import { env, isBackendConfigured } from "@/lib/env";
 import type { Appointment } from "@/lib/appointment";
 import { readBookingSettings, type BookingRow, type BookingSettings } from "@/lib/booking";
-import type { MeetRoom } from "@/lib/meet";
+import type { MeetLine, MeetRoom, MeetTranscript } from "@/lib/meet";
 import type {
   CalculatorRequest,
   CalculatorRequestInsert,
@@ -301,6 +301,36 @@ export async function getMeetRoom(code: string): Promise<MeetRoom | null> {
 
 export async function deleteMeetRoom(code: string): Promise<void> {
   await call(`/meet/rooms/${encodeURIComponent(code)}`, { method: "DELETE" });
+}
+
+// Mitschriften der Calls
+export function listMeetTranscripts(): Promise<MeetTranscript[]> {
+  return call<MeetTranscript[]>("/meet/transcripts");
+}
+
+export async function getMeetTranscript(id: number): Promise<(MeetTranscript & { lines: MeetLine[] }) | null> {
+  try {
+    return await call(`/meet/transcripts/${id}`);
+  } catch (e) {
+    if (e instanceof BackendError && e.status === 404) return null;
+    throw e;
+  }
+}
+
+export async function renameMeetTranscript(id: number, title: string): Promise<void> {
+  await call(`/meet/transcripts/${id}`, { method: "PATCH", body: { title } });
+}
+
+export async function deleteMeetTranscript(id: number): Promise<void> {
+  await call(`/meet/transcripts/${id}`, { method: "DELETE" });
+}
+
+export async function updateMeetLine(id: number, speaker: string, text: string): Promise<void> {
+  await call(`/meet/lines/${id}`, { method: "PATCH", body: { speaker, text } });
+}
+
+export async function deleteMeetLine(id: number): Promise<void> {
+  await call(`/meet/lines/${id}`, { method: "DELETE" });
 }
 
 /** Signalisierung eines Calls: beitreten, senden, verlassen (POST) bzw. Nachrichten abholen (GET, Long-Poll bis 15 s). */

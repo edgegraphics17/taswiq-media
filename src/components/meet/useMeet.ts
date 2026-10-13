@@ -8,8 +8,9 @@ import { createBackground, type BackgroundEffect } from "./background";
  * Der Call im Browser: eigene Geräte (Mikrofon, Kamera, Bildschirm, Hintergrund), eine WebRTC-Verbindung je
  * Teilnehmer (Mesh – gedacht für Team-Runden bis etwa acht Personen) und die Signalisierung über /api/meet.
  *
- * Jede Verbindung hat von Anfang an genau eine Ton- und eine Bildspur. Stummschalten, Kamera aus, Bildschirm teilen
+ * Jede Verbindung hat von Anfang an drei Spuren: Ton, Kamera und Bildschirm. Stummschalten, Kamera aus, Bildschirm teilen
  * und Hintergründe tauschen nur den Inhalt der Spur (replaceTrack) – es muss nie neu verhandelt werden.
+ * Weil der Bildschirm eine eigene Spur hat, bleibt die Kamera beim Teilen sichtbar.
  * Wer neu dazukommt, ruft die anderen an; so gibt es keine gleichzeitigen Angebote.
  */
 
@@ -18,12 +19,16 @@ export interface PeerState {
   cam: boolean;
   screen: boolean;
   hand: boolean;
+  /** Mitschrift: 1 = schreibt die eigene Stimme mit, 2 = kann zusätzlich andere mitschreiben (siehe captions.ts) */
+  stt?: number;
 }
 
 export interface RemotePeer {
   id: string;
   name: string;
   stream: MediaStream;
+  /** Geteilter Bildschirm – eigene Spur neben der Kamera */
+  screenStream: MediaStream | null;
   state: PeerState;
   connected: boolean;
 }
@@ -37,6 +42,7 @@ export interface Reaction {
 export interface LocalState extends PeerState {
   background: BackgroundId;
   stream: MediaStream | null;
+  screenStream: MediaStream | null;
   audio: MediaStreamTrack | null;
 }
 
@@ -58,7 +64,8 @@ export const SELF = "self";
 export function useMeet(code: string) {
   const [phase, setPhase] = useState<Phase>("lobby");
   const [peers, setPeers] = useState<RemotePeer[]>([]);
-  const [local, setLocal] = useState<LocalState>({ ...OFF, background: "none", stream: null, audio: null });
+  const [local, setLocal] = useState<LocalState>({ ...OFF, background: "none", stream: null, screenStream: null, audio: null });
+  const [meId, setMeId] = useState<string | null>(null);
   const [reactions, setReactions] = useState<Reaction[]>([]);
   const [notice, setNotice] = useState<string | null>(null);
   const [busy, setBusy] = useState<"background" | null>(null);
@@ -81,13 +88,14 @@ export function useMeet(code: string) {
     fx: null as BackgroundEffect | null,
     background: "none" as BackgroundId,
     hand: false,
+    stt: 0,
     starting: false,
     reactionKey: 0,
   }).current;
 
   const api = `/api/meet/${code}`;
-  const outVideo = () => s.screen ?? s.fx?.track ?? s.cam;
-  const flags = (): PeerState => ({ mic: !!s.mic?.enabled, cam: !!s.cam, screen: !!s.screen, hand: s.hand });
+  const outVideo = () => s.fx?.track ?? s.cam;
+  const flags = (): PeerState => ({ mic: !!s.mic?.enabled, cam: !!s.cam, screen: !!s.screen, hand: s.hand, stt: s.stt });
 
   // ─── Signalisierung ───────────────────────────────────────────────
   const flush = useCallback(async () => {
@@ -115,17 +123,30 @@ export function useMeet(code: string) {
 
   const refresh = useCallback(() => {
     const video = outVideo();
-    setLocal({ ...flags(), background: s.background, stream: video ? new MediaStream([video]) : null, audio: s.mic });
+    setLocal((old) => ({
+      ...flags(),
+      background: s.background,
+      stream: video ? new MediaStream([video]) : null,
+      screenStream: s.screen ? (old.screenStream?.getVideoTracks()[0] === s.screen ? old.screenStream : new MediaStream([s.screen])) : null,
+      audio: s.mic,
+    }));
     if (s.me) send("state", flags());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [send, s]);
 
   // ─── Eigene Spuren ────────────────────────────────────────────────
+  /** Bildspuren einer Verbindung in fester Reihenfolge: erst die Kamera, dann der Bildschirm. */
+  const videoLines = (pc: RTCPeerConnection) => pc.getTransceivers().filter((t) => t.receiver.track.kind === "video");
   const sender = (pc: RTCPeerConnection, kind: "audio" | "video") => pc.getTransceivers().find((t) => t.receiver.track.kind === kind)?.sender;
 
   const syncVideo = useCallback(async () => {
     const video = outVideo() ?? null;
-    await Promise.all([...s.pcs.values()].map((pc) => sender(pc, "video")?.replaceTrack(video).catch(() => {})));
+    await Promise.all(
+      [...s.pcs.values()].flatMap((pc) => {
+        const [cam, screen] = videoLines(pc);
+        return [cam?.sender.replaceTrack(video).catch(() => {}), screen?.sender.replaceTrack(s.screen).catch(() => {})];
+      }),
+    );
     refresh();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh, s]);
@@ -241,6 +262,16 @@ export function useMeet(code: string) {
     [refresh, syncEffect, syncVideo, s],
   );
 
+  /** Mitschrift: was dieser Browser kann (für die anderen sichtbar) und eine verstandene Zeile abschicken. */
+  const setStt = useCallback(
+    (level: number) => {
+      s.stt = level;
+      refresh();
+    },
+    [refresh, s],
+  );
+  const caption = useCallback((text: string, forPeer?: string) => send("caption", { text, for: forPeer }), [send]);
+
   const toggleHand = useCallback(() => {
     s.hand = !s.hand;
     refresh();
@@ -266,7 +297,7 @@ export function useMeet(code: string) {
   // ─── Verbindungen ─────────────────────────────────────────────────
   const patchPeer = (id: string, patch: Partial<RemotePeer>) => setPeers((list) => list.map((p) => (p.id === id ? { ...p, ...patch } : p)));
   const addPeer = (id: string, name: string) =>
-    setPeers((list) => (list.some((p) => p.id === id) ? list : [...list, { id, name, stream: new MediaStream(), state: OFF, connected: false }]));
+    setPeers((list) => (list.some((p) => p.id === id) ? list : [...list, { id, name, stream: new MediaStream(), screenStream: null, state: OFF, connected: false }]));
   const dropPeer = (id: string) => {
     s.pcs.get(id)?.close();
     s.pcs.delete(id);
@@ -287,6 +318,7 @@ export function useMeet(code: string) {
       setPeers((list) =>
         list.map((p) => {
           if (p.id !== id) return p;
+          if (e.track.kind === "video" && videoLines(pc).indexOf(e.transceiver) > 0) return { ...p, screenStream: new MediaStream([e.track]) };
           // Neues Stream-Objekt, damit die Kachel neu zeichnet und die Tonanalyse die Spur sieht.
           return { ...p, stream: new MediaStream([...p.stream.getTracks().filter((t) => t !== e.track), e.track]) };
         }),
@@ -303,6 +335,7 @@ export function useMeet(code: string) {
     const pc = connect(id, true);
     await pc.addTransceiver("audio", { direction: "sendrecv" }).sender.replaceTrack(s.mic);
     await pc.addTransceiver("video", { direction: "sendrecv" }).sender.replaceTrack(outVideo() ?? null);
+    await pc.addTransceiver("video", { direction: "sendrecv" }).sender.replaceTrack(s.screen);
     await offer(id, pc);
   };
 
@@ -323,9 +356,10 @@ export function useMeet(code: string) {
         addPeer(m.from, "Gast");
         const answering = pc ?? connect(m.from, false);
         await answering.setRemoteDescription(m.data as RTCSessionDescriptionInit);
+        const lines = videoLines(answering);
         for (const t of answering.getTransceivers()) {
           t.direction = "sendrecv";
-          await t.sender.replaceTrack(t.receiver.track.kind === "audio" ? s.mic : (outVideo() ?? null));
+          await t.sender.replaceTrack(t.receiver.track.kind === "audio" ? s.mic : lines.indexOf(t) > 0 ? s.screen : (outVideo() ?? null));
         }
         await answering.setLocalDescription(await answering.createAnswer());
         send("answer", answering.localDescription, m.from);
@@ -370,6 +404,7 @@ export function useMeet(code: string) {
       return false;
     }
     s.me = { id: data.id, key: data.key };
+    setMeId(data.id);
     s.ice = data.iceServers ?? [];
     s.lastSeq = 0;
     for (const p of data.peers ?? []) addPeer(p.id, p.name);
@@ -434,7 +469,7 @@ export function useMeet(code: string) {
     for (const t of [s.mic, s.cam, s.screen]) t?.stop();
     s.mic = s.cam = s.screen = null;
     s.hand = false;
-    setLocal({ ...OFF, background: s.background, stream: null, audio: null });
+    setLocal({ ...OFF, background: s.background, stream: null, screenStream: null, audio: null });
     setPhase(next);
   }
 
@@ -459,5 +494,5 @@ export function useMeet(code: string) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { name, phase, peers, local, reactions, notice, busy, setNotice, startDevices, join, hangUp, backToLobby, toggleMic, toggleCam, toggleScreen, toggleHand, setBackground, react };
+  return { meId, setStt, caption, name, phase, peers, local, reactions, notice, busy, setNotice, startDevices, join, hangUp, backToLobby, toggleMic, toggleCam, toggleScreen, toggleHand, setBackground, react };
 }

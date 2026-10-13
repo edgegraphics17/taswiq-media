@@ -203,3 +203,21 @@ create table if not exists meet_rooms (
   created_by  text,
   created_at  text not null
 );
+
+-- Mitschriften der Videocalls: eine je Sitzung (vom ersten Beitritt bis der Raum wieder leer ist), Zeilen wie ein Chat.
+-- Bleiben erhalten, auch wenn das Meeting gelöscht wird.
+create table if not exists meet_transcripts (
+  id          integer primary key autoincrement,
+  code        text not null,
+  title       text not null,
+  started_at  text not null,
+  updated_at  text not null
+);
+create table if not exists meet_lines (
+  id             integer primary key autoincrement,
+  transcript_id  integer not null references meet_transcripts(id) on delete cascade,
+  speaker        text not null,
+  text           text not null,
+  at             text not null
+);
+create index if not exists meet_lines_transcript_idx on meet_lines (transcript_id, id);
