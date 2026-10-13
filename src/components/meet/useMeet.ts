@@ -89,6 +89,8 @@ export function useMeet(code: string) {
     background: "none" as BackgroundId,
     hand: false,
     stt: 0,
+    // Teilnehmer, deren Browser die eigene Bildschirm-Spur kennt (neue Version). Allen anderen geht der Bildschirm wie früher über die Kamera-Spur.
+    modern: new Set<string>(),
     starting: false,
     reactionKey: 0,
   }).current;
@@ -142,9 +144,10 @@ export function useMeet(code: string) {
   const syncVideo = useCallback(async () => {
     const video = outVideo() ?? null;
     await Promise.all(
-      [...s.pcs.values()].flatMap((pc) => {
+      [...s.pcs].flatMap(([id, pc]) => {
         const [cam, screen] = videoLines(pc);
-        return [cam?.sender.replaceTrack(video).catch(() => {}), screen?.sender.replaceTrack(s.screen).catch(() => {})];
+        const split = !!screen && s.modern.has(id);
+        return [cam?.sender.replaceTrack(split ? video : (s.screen ?? video)).catch(() => {}), screen?.sender.replaceTrack(split ? s.screen : null).catch(() => {})];
       }),
     );
     refresh();
@@ -302,6 +305,7 @@ export function useMeet(code: string) {
     s.pcs.get(id)?.close();
     s.pcs.delete(id);
     s.pendingIce.delete(id);
+    s.modern.delete(id);
     setPeers((list) => list.filter((p) => p.id !== id));
   };
 
@@ -334,8 +338,9 @@ export function useMeet(code: string) {
   const call = async (id: string) => {
     const pc = connect(id, true);
     await pc.addTransceiver("audio", { direction: "sendrecv" }).sender.replaceTrack(s.mic);
-    await pc.addTransceiver("video", { direction: "sendrecv" }).sender.replaceTrack(outVideo() ?? null);
-    await pc.addTransceiver("video", { direction: "sendrecv" }).sender.replaceTrack(s.screen);
+    const split = s.modern.has(id);
+    await pc.addTransceiver("video", { direction: "sendrecv" }).sender.replaceTrack((split ? null : s.screen) ?? outVideo() ?? null);
+    await pc.addTransceiver("video", { direction: "sendrecv" }).sender.replaceTrack(split ? s.screen : null);
     await offer(id, pc);
   };
 
@@ -359,7 +364,8 @@ export function useMeet(code: string) {
         const lines = videoLines(answering);
         for (const t of answering.getTransceivers()) {
           t.direction = "sendrecv";
-          await t.sender.replaceTrack(t.receiver.track.kind === "audio" ? s.mic : lines.indexOf(t) > 0 ? s.screen : (outVideo() ?? null));
+          const split = lines.length > 1 && s.modern.has(m.from);
+          await t.sender.replaceTrack(t.receiver.track.kind === "audio" ? s.mic : lines.indexOf(t) > 0 ? (split ? s.screen : null) : ((split ? null : s.screen) ?? outVideo() ?? null));
         }
         await answering.setLocalDescription(await answering.createAnswer());
         send("answer", answering.localDescription, m.from);
@@ -379,6 +385,10 @@ export function useMeet(code: string) {
         break;
       case "state":
         patchPeer(m.from, { state: { ...OFF, ...(m.data as Partial<PeerState>) } });
+        if (typeof (m.data as Partial<PeerState>)?.stt === "number" && !s.modern.has(m.from)) {
+          s.modern.add(m.from);
+          if (s.screen) void syncVideo();
+        }
         break;
       case "reaction":
         showReaction(m.from, String((m.data as { emoji?: string })?.emoji ?? "").slice(0, 8));
@@ -390,6 +400,7 @@ export function useMeet(code: string) {
     for (const pc of s.pcs.values()) pc.close();
     s.pcs.clear();
     s.pendingIce.clear();
+    s.modern.clear();
     s.outbox.length = 0;
     setPeers([]);
   };

@@ -519,7 +519,9 @@ function Room({ meet, title, copied, onCopy }: { meet: Meet; title: string; copi
     [local, peers, name],
   );
   // Ein geteilter Bildschirm bekommt die große Fläche – alle Personen (auch wer teilt) bleiben mit Kamera in der Leiste.
-  const sharing = tiles.find((t) => t.state.screen && t.screenStream && !t.self) ?? tiles.find((t) => t.state.screen && t.screenStream);
+  // Ältere Version auf der Gegenseite: der Bildschirm kommt dort über die Kamera-Spur.
+  const legacy = (t: (typeof tiles)[number]) => !t.self && typeof t.state.stt !== "number";
+  const sharing = tiles.find((t) => t.state.screen && !t.self && (t.screenStream || legacy(t))) ?? tiles.find((t) => t.state.screen && t.screenStream);
   const rest = tiles;
   const n = tiles.length;
   // Ins kleine Fenster kommt der Bildschirm eines anderen, sonst die erste andere Person.
@@ -566,7 +568,7 @@ function Room({ meet, title, copied, onCopy }: { meet: Meet; title: string; copi
         {sharing ? (
           <div className="flex size-full min-h-0 gap-3 max-md:flex-col">
             <div className="min-h-0 min-w-0 flex-1">
-              <Tile key={`${sharing.id}:screen`} {...sharing} stream={sharing.screenStream} screen contain pip={pipId === `${sharing.id}:screen`} audio={null} reactions={[]} />
+              <Tile key={`${sharing.id}:screen`} {...sharing} stream={legacy(sharing) ? sharing.stream : sharing.screenStream} screen contain pip={pipId === `${sharing.id}:screen`} audio={null} reactions={[]} />
             </div>
             <div className="flex shrink-0 gap-3 overflow-auto max-md:h-24 md:w-52 md:flex-col">
               <AnimatePresence>
