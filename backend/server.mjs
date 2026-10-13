@@ -883,7 +883,14 @@ setInterval(() => {
 const meetCaption = (code, peers, me, data) => {
   const text = String(data?.text ?? "").replace(/\s+/g, " ").trim().slice(0, 1000);
   if (!text) return;
-  const speaker = (typeof data?.for === "string" && peers.get(data.for)?.name) || me.name;
+  // Höchstens 60 Zeilen je Minute und Teilnehmer.
+  const minute = Math.floor(Date.now() / 60_000);
+  if (me.capMinute !== minute) [me.capMinute, me.capCount] = [minute, 0];
+  if (++me.capCount > 60) return;
+  // Für andere mitschreiben darf nur, wer das laut eigenem Status kann – und nur für Teilnehmer, die es nicht selbst tun.
+  const other = typeof data?.for === "string" ? peers.get(data.for) : null;
+  if (data?.for != null && (!other || other === me || other.stt || me.stt !== 2)) return;
+  const speaker = other?.name ?? me.name;
   const t = now();
   if (!peers.transcript) {
     const title = db.prepare("select title from meet_rooms where code = ?").get(code)?.title ?? "Meeting";
@@ -987,6 +994,7 @@ route("POST", "/meet/rooms/:code/send", ({ params, body }) => {
   for (const m of Array.isArray(body.messages) ? body.messages.slice(0, 60) : []) {
     // „join“, „leave“ und „ended“ vergibt nur der Server.
     if (!m || typeof m.type !== "string" || ["join", "leave", "ended"].includes(m.type) || JSON.stringify(m).length > 60_000) continue;
+    if (m.type === "state") me.stt = Number(m.data?.stt) || 0;
     if (m.type === "caption") {
       meetCaption(params.code, peers, me, m.data);
       continue;
