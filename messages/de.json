@@ -32,6 +32,12 @@
     "legalNotice": {
       "title": "Impressum"
     },
+    "agb": {
+      "title": "AGB"
+    },
+    "widerruf": {
+      "title": "Widerrufsbelehrung"
+    },
     "privacy": {
       "title": "Datenschutz"
     },
@@ -1285,6 +1291,8 @@
     "contact": "Kontakt",
     "legalNotice": "Impressum",
     "privacy": "Datenschutz",
+    "agb": "AGB",
+    "widerruf": "Widerruf",
     "partnerNote": "Agentur & Entwicklung in Deutschland · KI-Technologie von winsym.ai aus Kuala Lumpur.",
     "cookieSettings": "Cookie-Einstellungen",
     "starterOffer": "Einstiegsangebot",
@@ -8962,6 +8970,7 @@
   "legal": {
     "tag": "Rechtliches",
     "bindingNote": "",
+    "draftNote": "Entwurf – vor dem Livegang rechtlich prüfen lassen. Bis dahin für Suchmaschinen gesperrt.",
     "impressum": {
       "title": "Impressum",
       "provider": "Angaben gemäß § 5 DDG",
@@ -8970,8 +8979,18 @@
       "phone": "Telefon",
       "email": "E-Mail",
       "vat": "Umsatzsteuer",
+      "tax": "Steuernummer und Umsatzsteuer",
+      "taxNumberLabel": "Steuernummer",
       "responsible": "Verantwortlich für den Inhalt",
       "responsibleText": "{owner}, Anschrift wie oben."
+    },
+    "agb": {
+      "title": "Allgemeine Geschäftsbedingungen",
+      "intro": "Für Projekte, die wir ab dem 16.10.2026 anbieten. Die Vertragspartner, Leistungen, Preise und die Mietmodelle stehen in den Paketen unter /leistungen und im Preisrechner."
+    },
+    "widerruf": {
+      "title": "Widerrufsbelehrung",
+      "intro": "Für Verbraucher im Sinne des § 13 BGB. Für Unternehmer (§ 14 BGB) besteht kein gesetzliches Widerrufsrecht."
     },
     "privacy": {
       "title": "Datenschutzerklärung",

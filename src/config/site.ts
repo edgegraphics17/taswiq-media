@@ -31,6 +31,12 @@ export const site = {
     country: "DE",
   },
   /**
+   * Steuernummer nach § 139b AO – Pflichtangabe nach § 5 Abs. 1 Nr. 6 DDG, weil als
+   * Kleinunternehmer nach § 19 UStG keine USt-IdNr. existiert. Erfüllt die Angabe zusammen
+   * mit dem Hinweis aus messages → site.vatNote.
+   */
+  taxNumber: "64102890378",
+  /**
    * Koordinaten des Standorts – verbessert lokale Rankings (Google Maps Pack).
    * Taunusanlage 8, 60329 Frankfurt am Main; Gebäudekoordinate (OSM/Nominatim, geprüft 2026-10-16).
    */

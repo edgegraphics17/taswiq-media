@@ -97,6 +97,12 @@ export async function Footer() {
           <Link href="/datenschutz" className="rounded-full bg-white px-3 py-1.5 hover:text-brand-600">
             {t("privacy")}
           </Link>
+          <Link href="/agb" className="rounded-full bg-white px-3 py-1.5 hover:text-brand-600">
+            {t("agb")}
+          </Link>
+          <Link href="/widerruf" className="rounded-full bg-white px-3 py-1.5 hover:text-brand-600">
+            {t("widerruf")}
+          </Link>
           <ConsentLink className="rounded-full bg-white px-3 py-1.5 hover:text-brand-600">{t("cookieSettings")}</ConsentLink>
           {/* Dashboard liegt außerhalb der Sprach-Routen → next/link statt next-intl-Link (kein /en-Präfix) */}
           <NextLink href="/admin" prefetch={false} rel="nofollow" className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 hover:text-brand-600">

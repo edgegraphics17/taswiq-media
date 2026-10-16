@@ -32,6 +32,12 @@
     "legalNotice": {
       "title": "Legal notice"
     },
+    "agb": {
+      "title": "Terms"
+    },
+    "widerruf": {
+      "title": "Right of withdrawal"
+    },
     "privacy": {
       "title": "Privacy policy"
     },
@@ -1285,6 +1291,8 @@
     "contact": "Contact",
     "legalNotice": "Legal notice",
     "privacy": "Privacy",
+    "agb": "Terms",
+    "widerruf": "Withdrawal",
     "partnerNote": "Agency & development in Germany · AI technology by winsym.ai, Kuala Lumpur.",
     "cookieSettings": "Cookie settings",
     "starterOffer": "Starter offer",
@@ -8962,6 +8970,7 @@
   "legal": {
     "tag": "Legal",
     "bindingNote": "This is a courtesy translation. The German version is legally binding.",
+    "draftNote": "Draft – to be reviewed by a lawyer before going live. Blocked for search engines until then.",
     "impressum": {
       "title": "Legal Notice",
       "provider": "Information pursuant to § 5 DDG (German Digital Services Act)",
@@ -8970,8 +8979,18 @@
       "phone": "Phone",
       "email": "Email",
       "vat": "VAT",
+      "tax": "Tax number and VAT",
+      "taxNumberLabel": "Tax number",
       "responsible": "Responsible for content",
       "responsibleText": "{owner}, address as above."
+    },
+    "agb": {
+      "title": "Terms and Conditions",
+      "intro": "For projects we offer from 16 October 2026. Contractual partners, services, prices and rental models are described in the packages under /en/services and in the pricing calculator. Only the German version is legally binding."
+    },
+    "widerruf": {
+      "title": "Right of withdrawal",
+      "intro": "For consumers within the meaning of § 13 BGB. Business customers (§ 14 BGB) have no statutory right of withdrawal. Only the German version is legally binding."
     },
     "privacy": {
       "title": "Privacy Policy",

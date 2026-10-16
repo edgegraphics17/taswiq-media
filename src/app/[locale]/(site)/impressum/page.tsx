@@ -39,8 +39,12 @@ export default async function ImpressumPage({ params }: Props) {
         <br />
         {t("email")}: <a href={`mailto:${site.email}`}>{site.email}</a>
       </p>
-      <h2>{t("vat")}</h2>
-      <p>{tSite("vatNote")}</p>
+      <h2>{t("tax")}</h2>
+      <p>
+        {t("taxNumberLabel")}: <span className="num">{site.taxNumber}</span>
+        <br />
+        {tSite("vatNote")}
+      </p>
       <h2>{t("responsible")}</h2>
       <p>{t("responsibleText", { owner: site.owner })}</p>
     </LegalPage>

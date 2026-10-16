@@ -30,6 +30,8 @@ export const routing = defineRouting({
     "/leistungen/[slug]": { de: "/leistungen/[slug]", en: "/services/[slug]" },
     "/impressum": { de: "/impressum", en: "/legal-notice" },
     "/datenschutz": { de: "/datenschutz", en: "/privacy" },
+    "/agb": { de: "/agb", en: "/terms" },
+    "/widerruf": { de: "/widerruf", en: "/withdrawal" },
   },
 });
 
