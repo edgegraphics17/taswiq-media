@@ -7,6 +7,7 @@ import { MotionProvider } from "@/components/providers/MotionProvider";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CookieBanner } from "@/components/consent/CookieBanner";
 import { PageViews } from "@/components/consent/PageViews";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { fontVars } from "@/app/fonts";
 import { routing, LOCALE_META } from "@/i18n/routing";
 import { languageAlternates, organizationJsonLd } from "@/lib/seo";
@@ -68,6 +69,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           <MotionProvider>{children}</MotionProvider>
           <CookieBanner />
           <PageViews />
+          <GoogleAnalytics />
         </NextIntlClientProvider>
         <JsonLd data={await organizationJsonLd(locale)} />
         <SpeedInsights />

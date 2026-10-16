@@ -9006,8 +9006,8 @@
       "rightsText": "Access, rectification, erasure, restriction, data portability and objection – a quick email to us is all it takes.",
       "hostingTitle": "Hosting",
       "hostingText": "The website is served by Vercel Inc. When you open a page, Vercel processes technically necessary connection data (IP address, time, requested page) to deliver and secure the site (Art. 6(1)(f) GDPR). We measure loading times with Vercel Speed Insights – without cookies and without recognising you.",
-      "analyticsTitle": "Reach measurement",
-      "analyticsText": "We count page views with our own measurement on our server – without cookies and without services such as Google Analytics. We store the requested page, source (e.g. search engine or campaign), device type and language. We do not store your IP address; visits are told apart by a short value that changes daily and cannot be traced back to you (Art. 6(1)(f) GDPR). If your browser sends “Do Not Track”, we do not count.",
+      "analyticsTitle": "Reach measurement and Google Analytics",
+      "analyticsText": "We count page views with our own measurement on our server – without cookies. We store the requested page, source (e.g. search engine or campaign), device type and language. We do not store your IP address; visits are told apart by a short value that changes daily and cannot be traced back to you (Art. 6(1)(f) GDPR). If your browser sends “Do Not Track”, we do not count.\n\nOnly if you consent to statistics in the cookie banner do we additionally load Google Analytics 4 by Google Ireland Limited (Gordon House, Barrow Street, Dublin 4, Ireland). Usage data such as pages viewed, time on page, approximate city-level location and device and browser details are transmitted to Google and partly transferred to the USA, based on the EU Standard Contractual Clauses. Google Analytics 4 does not store full IP addresses and only sets cookies after your consent. The legal basis is your consent (Art. 6(1)(a) GDPR, § 25(1) TDDDG), which you can withdraw at any time via the cookie settings. Measurement data is deleted after 14 months.",
       "cookiesTitle": "Cookies & local storage",
       "cookiesText": "We do not set advertising or tracking cookies. Your browser only stores your choice from the cookie dialog (technically necessary, Sec. 25(2) TDDDG). Only if you allow “Statistics” do we remember a random session identifier plus source and campaign in session storage for the duration of your visit (Art. 6(1)(a) GDPR, Sec. 25(1) TDDDG). You can change your choice at any time:"
     }
@@ -9201,7 +9201,7 @@
   },
   "consent": {
     "title": "A quick word on cookies & data",
-    "text": "We don't use advertising cookies. With your consent we remember for this visit which page and campaign brought you here – that helps us improve the website.",
+    "text": "We don't use advertising cookies. With your consent we measure how the site is used – our own cookie-free counting plus Google Analytics. You can change your choice at any time.",
     "acceptAll": "Accept all",
     "onlyNecessary": "Necessary only",
     "settings": "Settings",
@@ -9211,7 +9211,7 @@
     "necessaryText": "Only stores your choice from this dialog. Without it we would have to ask you on every visit.",
     "alwaysOn": "Always on",
     "statisticsTitle": "Statistics",
-    "statisticsText": "Links your page views during this visit and remembers source and campaign (UTM) in your browser's session storage. Not shared with third parties, no profile across days.",
+    "statisticsText": "Counts your page views for this visit (our own cookie-free measurement) and additionally sends them to Google Analytics 4 (Google Ireland Ltd., transferred to the USA). This shows us which pages and campaigns work. No advertising tracking, no selling of data.",
     "dialogLabel": "Cookie settings"
   },
   "starterOffer": {

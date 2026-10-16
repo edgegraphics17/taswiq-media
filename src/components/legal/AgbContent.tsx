@@ -106,9 +106,9 @@ export function AgbContent() {
       <h2>§ 7 Nutzungsrechte und Quellcode</h2>
       <p>
         Nach vollständiger Bezahlung des einmaligen Projektpreises erhält der Kunde ein unbefristetes, zeitlich und
-        räumlich unbeschränktes Nutzungsrecht an der individualisierten Lösung im vereinbarten Umfang. Bei
-        Mietvarianten (siehe § 8) geht das Nutzungsrecht in diesem Umfang nach vollständiger Bezahlung der
-        Raten über [[ vollständiger Kaufpreis bzw. vereinbarter Restbetrag ]] über.
+        räumlich unbeschränktes Nutzungsrecht an der individualisierten Lösung im vereinbarten Umfang.
+        Bei Mietvarianten (siehe § 8) erhält der Kunde zunächst ein Nutzungsrecht für die Dauer des Mietverhältnisses;
+        das unbeschränkte Nutzungsrecht geht erst mit dem Kauf über. Kauf und Mietdauer regelt § 8.
       </p>
       <p>
         Auf Wunsch übergeben wir den Quellcode der individualisierten Bestandteile und eine Einweisung in die
@@ -140,8 +140,10 @@ export function AgbContent() {
         verhindert dadurch die Leistungserbringung dauerhaft, bleibt die Miete für die Mindestlaufzeit geschuldet.
       </p>
       <p>
-        Eine Anrechnung gezahlter Mieten auf einen späteren Kauf erfolgt
-        [[ nur, wenn dies im Angebot ausdrücklich vereinbart ist ]].
+        Kauft der Kunde die gemietete Lösung, werden die bis dahin gezahlten Mieten auf den Kaufpreis angerechnet,
+        höchstens jedoch 50 % des Kaufpreises. Angerechnet werden nur Mieten für die Lösung selbst, nicht Entgelte
+        für Betrieb, Support oder Weiterentwicklung. Die Anrechnung setzt voraus, dass der Kauf nach Ablauf der
+        Testzeit erklärt wird.
       </p>
 
       <h2>§ 9 Hosting, Verfügbarkeit und Sicherungen</h2>

@@ -49,9 +49,9 @@ const nextConfig: NextConfig = {
       "font-src 'self' data:",
       "style-src 'self' 'unsafe-inline'",
       // Next.js liefert sein Inline-Bootstrap selbst; /meet braucht WebAssembly + blob-Worker (MediaPipe)
-      "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://va.vercel-scripts.com",
+      "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://va.vercel-scripts.com https://www.googletagmanager.com",
       "worker-src 'self' blob:",
-      "connect-src 'self' blob: https://vitals.vercel-insights.com https://*.vercel-insights.com",
+      "connect-src 'self' blob: https://vitals.vercel-insights.com https://*.vercel-insights.com https://www.googletagmanager.com https://*.google-analytics.com",
       "media-src 'self' blob:",
       "frame-src 'self' https://calendly.com",
       "form-action 'self' https://calendly.com",
