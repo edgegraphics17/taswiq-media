@@ -5,17 +5,18 @@ import type { Link } from "@/i18n/navigation";
  * Zentrale Stammdaten der Agentur (sprachunabhängig).
  * Übersetzbare Texte (Claims, USt-Hinweis, Navigation) liegen in messages/{de,en}.json.
  *
- * TODO vor dem Launch:
- *  - `url` auf die finale Domain setzen (bzw. NEXT_PUBLIC_SITE_URL)
- *  - `geo` ausfüllen → erst dann wird das LocalBusiness-Schema vollständig
- *  - `social`-Profile eintragen (werden als `sameAs` ins JSON-LD übernommen)
+ * `geo` und `social` sind gesetzt: die Koordinaten des Standorts fließen ins
+ * LocalBusiness-Schema, die Profile als `sameAs`. Der Domain-Fallback zeigt
+ * bewusst auf die kanonische www-Fassung – NEXT_PUBLIC_SITE_URL bleibt optional
+ * (z. B. für Vorschau-Adressen), damit Canonical/JSON-LD nie auf die Non-www-
+ * Fassung kippen, die auf www weiterleitet.
  */
 export const site = {
   name: "TasWiq Media.",
   shortName: "TasWiq",
   legalName: "TasWiq Media. – Karim Azzaoui",
   owner: "Karim Azzaoui",
-  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://taswiq-media.de").replace(/\/$/, ""),
+  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.taswiq-media.de").replace(/\/$/, ""),
   email: "karim@azzaoui.de",
   phone: "+49 162 2035499",
   phoneHref: "tel:+491622035499",
@@ -29,15 +30,24 @@ export const site = {
     region: "Hessen",
     country: "DE",
   },
-  /** Koordinaten des Standorts – verbessert lokale Rankings (Google Maps Pack) */
-  geo: null as null | { lat: number; lng: number },
+  /**
+   * Koordinaten des Standorts – verbessert lokale Rankings (Google Maps Pack).
+   * Taunusanlage 8, 60329 Frankfurt am Main; Gebäudekoordinate (OSM/Nominatim, geprüft 2026-10-16).
+   */
+  geo: { lat: 50.11182, lng: 8.66926 },
   priceRange: "€€",
 
+  /**
+   * Profile für `sameAs` im JSON-LD (Entitätssignale für Google/KI-Suche).
+   * Nur belegte, wirklich eigene Profile eintragen – der LinkedIn-Auftritt des
+   * Inhabers (Unternehmen: Taswiq Media.) ist eingetragen; das Filmmaterial liegt
+   * auf einem Partner-Kanal (siehe Report F-19) und gehört nicht als sameAs hierher.
+   */
   social: {
     instagram: "",
     tiktok: "",
     youtube: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/karim-azzaoui-b1a8971b1",
   },
 
   /** Showreel der Media-Sektion (MP4 in /public/videos, ~17 s, stumm). Leer = nur Standbild. */

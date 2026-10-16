@@ -19,12 +19,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { hrefFor: () => "/portfolio", changeFrequency: "monthly", priority: 0.9 },
     { hrefFor: () => "/preisrechner", changeFrequency: "monthly", priority: 0.9 },
     { hrefFor: () => "/einstiegsangebot", changeFrequency: "monthly", priority: 0.9 },
+    // Trust-Seiten gehören in die Sitemap: Impressum & Datenschutz sind seit der Audit-Runde indexierbar
+    // (Google bewertet eine auffindbare Anbieterkennzeichnung als Vertrauenssignal – Dashboard/404 bleiben noindex).
+    { hrefFor: () => "/impressum", changeFrequency: "yearly", priority: 0.3 },
+    { hrefFor: () => "/datenschutz", changeFrequency: "yearly", priority: 0.3 },
     ...seoPages.map((p) => ({
       hrefFor: (l: Locale) => ({ pathname: "/leistungen/[slug]" as const, params: { slug: p.slugs[l] } }),
       changeFrequency: "monthly" as const,
       priority: p.kind === "media" ? 0.6 : 0.85,
     })),
-    // Impressum und Datenschutz stehen bewusst nicht hier: Sie sind noindex – eine Sitemap soll nur Seiten nennen, die ranken sollen.
   ];
 
   const localized = entries.flatMap((e) =>

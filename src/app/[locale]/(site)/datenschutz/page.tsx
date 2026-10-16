@@ -11,7 +11,7 @@ type Props = { params: Promise<{ locale: Locale }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "metadata" });
-  return pageMetadata({ locale, href: "/datenschutz", title: t("privacy.title"), noindex: true });
+  return pageMetadata({ locale, href: "/datenschutz", title: t("privacy.title") });
 }
 
 /** Gliederung der tatsächlichen Datenflüsse dieser Website – Text vor Livegang juristisch prüfen lassen. */
