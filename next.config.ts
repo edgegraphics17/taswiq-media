@@ -34,6 +34,28 @@ const nextConfig: NextConfig = {
     ];
   },
   async headers() {
+    /**
+     * Content-Security-Policy zunächst nur als REPORT-ONLY: sie blockiert nichts, protokolliert
+     * aber Verstöße in der Browser-Konsole. So lässt sich prüfen, ob Videocalls (/meet: MediaPipe
+     * mit wasm, Kamera-, Mikro- und Bildschirmfreigabe über blob-Worker) und der Calendly-Rahmen
+     * vollständig abgedeckt sind – erst danach auf "Content-Security-Policy" scharf stellen.
+     */
+    const cspReportOnly = [
+      "default-src 'self'",
+      "base-uri 'self'",
+      "object-src 'none'",
+      "frame-ancestors 'self'",
+      "img-src 'self' data: blob: https:",
+      "font-src 'self' data:",
+      "style-src 'self' 'unsafe-inline'",
+      // Next.js liefert sein Inline-Bootstrap selbst; /meet braucht WebAssembly + blob-Worker (MediaPipe)
+      "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://va.vercel-scripts.com",
+      "worker-src 'self' blob:",
+      "connect-src 'self' blob: https://vitals.vercel-insights.com https://*.vercel-insights.com",
+      "media-src 'self' blob:",
+      "frame-src 'self' https://calendly.com",
+      "form-action 'self' https://calendly.com",
+    ].join("; ");
     return [
       {
         source: "/(.*)",
@@ -42,6 +64,7 @@ const nextConfig: NextConfig = {
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+          { key: "Content-Security-Policy-Report-Only", value: cspReportOnly },
         ],
       },
       // Videocalls brauchen Kamera, Mikrofon und Bildschirmfreigabe – nur dort erlaubt (der spätere Eintrag überschreibt den oberen).

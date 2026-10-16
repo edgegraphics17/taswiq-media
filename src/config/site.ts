@@ -46,7 +46,7 @@ export const site = {
   social: {
     instagram: "",
     tiktok: "",
-    youtube: "",
+    youtube: "https://www.youtube.com/@taswiqmedia",
     linkedin: "https://www.linkedin.com/in/karim-azzaoui-b1a8971b1",
   },
 
