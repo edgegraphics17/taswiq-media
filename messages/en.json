@@ -9002,6 +9002,8 @@
       "calendlyText": "We only load the booking calendar after you click. Data is then transferred to Calendly LLC (USA) (Art. 6(1)(a) GDPR, EU-US Data Privacy Framework).",
       "videosTitle": "Videos",
       "videosText": "Preview clips are hosted on our own server. Links to YouTube only open in a new tab when you click them.",
+      "googleAdsTitle": "Google Ads tool (TasWiq Media)",
+      "googleAdsText": "To manage our clients' advertising accounts we use our own internal tool called “TasWiq Media”, which accesses Google Ads accounts through the Google Ads API. One of our staff signs in with their Google account and grants the “Manage your Google Ads” permission. The tool uses it to read and change campaigns, ads, keywords, budgets and performance data of the accounts we are engaged for, and to retrieve search volumes and bid estimates from Keyword Planner. No other Google data (e.g. Gmail, contacts, Drive) is accessed. We use the data solely to plan, analyse and optimise the campaigns we are engaged for (Art. 6(1)(b) and (f) GDPR). We do not sell it, share it with third parties or use it for advertising. Access keys are stored encrypted on our own devices; reports are deleted when the engagement ends. You can revoke the permission at any time at myaccount.google.com/permissions. TasWiq Media's use of information received from Google APIs adheres to the Google API Services User Data Policy, including the Limited Use requirements.",
       "rightsTitle": "Your rights",
       "rightsText": "Access, rectification, erasure, restriction, data portability and objection – a quick email to us is all it takes.",
       "hostingTitle": "Hosting",

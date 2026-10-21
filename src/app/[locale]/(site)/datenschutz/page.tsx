@@ -41,6 +41,8 @@ export default async function DatenschutzPage({ params }: Props) {
       <p>{t("calendlyText")}</p>
       <h2>{t("videosTitle")}</h2>
       <p>{t("videosText")}</p>
+      <h2 id="google-ads">{t("googleAdsTitle")}</h2>
+      <p>{t("googleAdsText")}</p>
       <h2>{t("rightsTitle")}</h2>
       <p>{t("rightsText")}</p>
     </LegalPage>
