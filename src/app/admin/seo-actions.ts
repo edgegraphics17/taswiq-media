@@ -1,9 +1,10 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { getAdminUser } from "@/lib/admin/data";
 import { crawl, googleSources, matchSite, normalizeDomain, pageSpeed } from "@/lib/admin/seo";
+import { checkMetaToken } from "@/lib/admin/ads";
 import { deleteSeoDomain, saveSeoDomain, saveSeoGoogle } from "@/lib/db";
 
 async function guard() {
@@ -71,4 +72,21 @@ export async function runPageSpeed(f: FormData) {
     },
   });
   revalidatePath(`/admin/seo/${domain}`);
+}
+
+// ─── Ads ────────────────────────────────────────────────────────────
+export async function saveMetaToken(f: FormData) {
+  await guard();
+  const token = field(f, "metaToken", 600);
+  const ok = token.length > 50 && (await checkMetaToken(token).then(() => true, () => false));
+  if (!ok) redirect("/admin/ads?meta=" + encodeURIComponent("Token ungültig oder ohne Berechtigung."));
+  await saveSeoGoogle({ metaToken: token });
+  revalidateTag("ads");
+  redirect("/admin/ads?meta=ok");
+}
+
+export async function refreshAds() {
+  await guard();
+  revalidateTag("ads");
+  revalidatePath("/admin/ads");
 }

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BarChart3, Calculator, CalendarDays, ChevronDown, Inbox, Network, PanelLeftClose, PanelLeftOpen, Search, Tags, UserRound, Video, type LucideIcon } from "lucide-react";
+import { BarChart3, Calculator, Megaphone, CalendarDays, ChevronDown, Inbox, Network, PanelLeftClose, PanelLeftOpen, Search, Tags, UserRound, Video, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/format";
 
 interface Item {
@@ -38,6 +38,7 @@ export function AdminNav({ newLeads, upcoming = 0 }: { newLeads: number; upcomin
       items: [
         { href: "/admin/analytics", label: "Analytics", icon: BarChart3 },
         { href: "/admin/seo", label: "SEO", icon: Search },
+        { href: "/admin/ads", label: "Ads", icon: Megaphone },
         { href: "/admin/struktur", label: "Seitenstruktur", icon: Network },
         { href: "/admin/rechner", label: "Kalkulationen", icon: Calculator },
       ],
