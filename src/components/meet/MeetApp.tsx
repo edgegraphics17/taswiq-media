@@ -468,7 +468,9 @@ const linkify = (text: string) =>
 function ChatPanel({ meet }: { meet: Meet }) {
   const [text, setText] = useState("");
   const end = useRef<HTMLDivElement>(null);
-  useEffect(() => end.current?.scrollIntoView({ block: "end" }), [meet.chat.length]);
+  useEffect(() => {
+    end.current?.scrollIntoView({ block: "end" });
+  }, [meet.chat.length]);
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     meet.sendChat(text);
@@ -506,7 +508,7 @@ function ChatPanel({ meet }: { meet: Meet }) {
 }
 
 function PeoplePanel({ meet, name }: { meet: Meet; name: string }) {
-  const people = [{ id: SELF, name: `${name} (Du)`, host: meet.host, state: meet.local as PeerState }, ...meet.peers];
+  const people = [{ id: SELF, name, host: meet.host, state: meet.local as PeerState }, ...meet.peers];
   const small = "grid size-9 shrink-0 cursor-pointer place-items-center rounded-full bg-white/10 outline-none hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-white";
   return (
     <div className="min-h-0 flex-1 overflow-y-auto px-3 py-3">
@@ -528,7 +530,10 @@ function PeoplePanel({ meet, name }: { meet: Meet; name: string }) {
           <li key={p.id} className="flex items-center gap-2.5 rounded-2xl px-2 py-2 hover:bg-white/5">
             <span className="grid size-9 shrink-0 place-items-center rounded-full bg-brand-500 text-xs font-bold">{initials(p.name)}</span>
             <span className="min-w-0 flex-1">
-              <span className="block truncate text-sm font-medium">{p.name}</span>
+              <span className="block truncate text-sm font-medium">
+                {p.name}
+                {p.id === SELF && " (Du)"}
+              </span>
               {p.host && (
                 <span className="flex items-center gap-1 text-[11px] text-amber-200">
                   <Crown className="size-3" aria-hidden /> Gastgeber
@@ -825,7 +830,7 @@ function Room({ meet, title, copied, onCopy }: { meet: Meet; title: string; copi
               className="absolute inset-y-0 right-3 z-30 flex w-[min(22rem,calc(100%-1.5rem))] flex-col overflow-hidden rounded-3xl border border-white/10 bg-[#17171c]/95 shadow-float backdrop-blur-xl sm:right-5"
             >
               <div className="flex items-center justify-between border-b border-white/10 py-2 pr-2 pl-4">
-                <h2 className="text-sm font-bold">{panel === "chat" ? "Chat" : panel === "people" ? `Teilnehmer (${n})` : "Geräte"}</h2>
+                <h2 className="text-sm font-bold text-white">{panel === "chat" ? "Chat" : panel === "people" ? `Teilnehmer (${n})` : "Geräte"}</h2>
                 <button type="button" onClick={() => setPanel(null)} aria-label="Schließen" className="grid size-9 cursor-pointer place-items-center rounded-full hover:bg-white/10">
                   <X className="size-4" aria-hidden />
                 </button>
@@ -876,7 +881,7 @@ function Room({ meet, title, copied, onCopy }: { meet: Meet; title: string; copi
         )}
       </div>
 
-      <footer className="flex justify-center px-3 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+      <footer className="relative z-40 flex justify-center px-3 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
         <motion.div
           initial={{ y: 60, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
