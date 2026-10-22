@@ -189,8 +189,8 @@ export function useMeet(code: string) {
   /** Vorschau in der Lobby: Kamera und Mikrofon zusammen anfragen (eine Rückfrage), sonst einzeln. */
   const startDevices = useCallback(async () => {
     if (s.mic || s.cam || s.starting) return;
-    s.starting = true;
     if (!navigator.mediaDevices?.getUserMedia) return setNotice("Dieser Browser unterstützt keine Videocalls. Bitte Chrome, Edge, Safari oder Firefox verwenden.");
+    s.starting = true;
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: AUDIO, video: VIDEO });
       s.mic = stream.getAudioTracks()[0] ?? null;
@@ -244,14 +244,28 @@ export function useMeet(code: string) {
     if (s.screen) return stopScreen();
     if (!navigator.mediaDevices?.getDisplayMedia) return setNotice("Bildschirm teilen geht auf diesem Gerät nicht – am Computer klappt es in Chrome, Edge, Safari und Firefox.");
     try {
-      const track = (await navigator.mediaDevices.getDisplayMedia({ video: { frameRate: { ideal: 15 } }, audio: false })).getVideoTracks()[0];
+      // Höchstens Full HD: Retina-Auflösung frisst die Bandbreite, das Bild steht dann bei den anderen. Der eigene Tab ist ausgeblendet (sonst Spiegel-Effekt).
+      const track = (
+        await navigator.mediaDevices.getDisplayMedia({
+          video: { frameRate: { ideal: 15 }, width: { max: 1920 }, height: { max: 1080 } },
+          audio: false,
+          selfBrowserSurface: "exclude",
+          surfaceSwitching: "include",
+        } as DisplayMediaStreamOptions)
+      ).getVideoTracks()[0];
       track.contentHint = "detail";
       // „Freigabe beenden“ in der Leiste des Browsers
       track.addEventListener("ended", () => void stopScreen());
       s.screen = track;
       await syncVideo();
     } catch (e) {
-      if (!(e instanceof DOMException && e.name === "NotAllowedError")) setNotice("Der Bildschirm konnte nicht geteilt werden.");
+      // Abbrechen im Auswahlfenster ist kein Fehler. „by system“ = macOS hat dem Browser die Bildschirmaufnahme nicht erlaubt.
+      if (e instanceof DOMException && e.name === "NotAllowedError" && !/system/i.test(e.message)) return;
+      setNotice(
+        e instanceof DOMException && e.name === "NotAllowedError"
+          ? "Dein Computer erlaubt dem Browser die Bildschirmaufnahme nicht. Mac: Systemeinstellungen → Datenschutz & Sicherheit → Bildschirm- & Systemaudioaufnahme → Browser einschalten, Browser neu starten."
+          : "Der Bildschirm konnte nicht geteilt werden.",
+      );
     }
   }, [stopScreen, syncVideo, s]);
 
