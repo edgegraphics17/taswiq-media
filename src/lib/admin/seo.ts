@@ -127,10 +127,21 @@ export const ga4Report = unstable_cache(
 );
 
 // ─── PageSpeed Insights (kostenlos, ohne Schlüssel) ─────────────────
+// Eigenes Kontingent über das Google-Projekt des OAuth-Clients (Projektnummer = Präfix der Client-ID); ohne Verbindung keyless.
+async function psiAuth(): Promise<Record<string, string>> {
+  try {
+    const g = await getGoogle();
+    return { authorization: `Bearer ${await accessToken()}`, "x-goog-user-project": g.clientId!.split("-")[0] };
+  } catch {
+    return {};
+  }
+}
+
 export async function pageSpeed(url: string, strategy: "mobile" | "desktop"): Promise<PsiResult> {
   const res = await fetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&strategy=${strategy}&category=performance`, {
     cache: "no-store",
     signal: AbortSignal.timeout(55_000),
+    headers: await psiAuth(),
   });
   type M = { percentile?: number };
   const d = (await res.json()) as {
