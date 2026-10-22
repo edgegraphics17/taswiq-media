@@ -68,7 +68,7 @@ export default async function SeoDomainPage({ params, searchParams }: { params: 
   if (!d) notFound();
   const google = await getGoogle();
   const [sources, gsc, ga] = await Promise.all([
-    google.refreshToken ? googleSources().catch(() => null) : null,
+    google.refreshToken ? googleSources().catch((e: Error) => e) : null,
     d.data.gscSite ? gscReport(d.data.gscSite, days, true).catch((e: Error) => e) : null,
     d.data.ga4 ? ga4Report(d.data.ga4, days).catch((e: Error) => e) : null,
   ]);
@@ -88,7 +88,8 @@ export default async function SeoDomainPage({ params, searchParams }: { params: 
         </nav>
       </div>
 
-      {sources && (
+      {sources instanceof Error && <p className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-900">Google-Konten konnten nicht geladen werden: {sources.message}</p>}
+      {sources && !(sources instanceof Error) && (
         <form action={setSources} className="mt-4 grid gap-2 rounded-2xl border border-line bg-white p-4 sm:grid-cols-[1fr_1fr_auto]">
           <input type="hidden" name="domain" value={domain} />
           <label className="text-xs text-muted">Search Console
