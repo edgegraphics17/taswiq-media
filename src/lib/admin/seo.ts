@@ -22,7 +22,7 @@ export const getGoogle = () => getSeoGoogle<Google>();
 /** Domain aus beliebiger Eingabe („https://www.x.de/seite“ → „x.de“). */
 export function normalizeDomain(input: string) {
   const host = input.trim().toLowerCase().replace(/^[a-z]+:\/\//, "").split(/[/?#]/)[0].replace(/^www\./, "");
-  return /^[a-z0-9.-]{3,100}$/.test(host) && host.includes(".") ? host : null;
+  return /^[a-z0-9.-]{3,100}$/.test(host) && host.includes(".") && !/^[\d.]+$/.test(host) && !host.endsWith(".localhost") ? host : null;
 }
 
 // ─── Google-Zugriff ─────────────────────────────────────────────────
