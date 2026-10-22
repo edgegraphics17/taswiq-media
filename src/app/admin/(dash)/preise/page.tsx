@@ -38,20 +38,20 @@ export default async function PricesPage({ searchParams }: { searchParams: Promi
                 const o = data.optionen[g]?.find((x) => x.id === base.id);
                 const key = `${g}:${base.id}`;
                 return (
-                  <div key={key} className="grid items-center gap-3 px-4 py-3 sm:grid-cols-[1fr_110px_110px_70px]">
-                    <label className="grid gap-1 text-xs text-muted">
+                  <div key={key} className="grid items-center gap-3 px-4 py-3 grid-cols-2 sm:grid-cols-[minmax(0,1fr)_130px_130px_auto] sm:items-end">
+                    <label className="col-span-2 grid gap-1 text-xs text-muted sm:col-span-1">
                       Bezeichnung
-                      <input name={`label:${key}`} defaultValue={o?.label ?? base.label} className="h-10 rounded-lg border border-line px-3 text-sm text-ink" />
+                      <input name={`label:${key}`} defaultValue={o?.label ?? base.label} className="h-10 w-full min-w-0 rounded-lg border border-line px-3 text-sm text-ink" />
                     </label>
                     <label className="grid gap-1 text-xs text-muted">
                       Einmalig €
-                      <input name={`preis:${key}`} type="number" min={0} defaultValue={o?.preis ?? base.preis ?? ""} className="num h-10 rounded-lg border border-line px-3 text-sm text-ink" />
+                      <input name={`preis:${key}`} type="number" min={0} defaultValue={o?.preis ?? base.preis ?? ""} className="num h-10 w-full min-w-0 rounded-lg border border-line px-3 text-sm text-ink" />
                     </label>
                     <label className="grid gap-1 text-xs text-muted">
                       Monatlich €
-                      <input name={`mtl:${key}`} type="number" min={0} defaultValue={o?.mtl ?? base.mtl ?? ""} className="num h-10 rounded-lg border border-line px-3 text-sm text-ink" />
+                      <input name={`mtl:${key}`} type="number" min={0} defaultValue={o?.mtl ?? base.mtl ?? ""} className="num h-10 w-full min-w-0 rounded-lg border border-line px-3 text-sm text-ink" />
                     </label>
-                    <label className="flex items-center gap-2 text-xs font-semibold text-muted sm:mt-4">
+                    <label className="col-span-2 flex h-10 cursor-pointer items-center gap-2 rounded-lg border border-line px-3 text-xs font-semibold text-ink has-[:checked]:border-emerald-300 has-[:checked]:bg-emerald-50 sm:col-span-1">
                       <input name={`active:${key}`} type="checkbox" defaultChecked={Boolean(o)} className="size-4 accent-[var(--color-brand-500)]" /> Aktiv
                     </label>
                   </div>
