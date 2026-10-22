@@ -21,6 +21,8 @@ export interface PeerState {
   hand: boolean;
   /** Mitschrift: 1 = schreibt die eigene Stimme mit, 2 = kann zusätzlich andere mitschreiben (siehe captions.ts) */
   stt?: number;
+  /** Nimmt den Call gerade auf – alle sehen den Hinweis */
+  rec?: boolean;
 }
 
 export interface RemotePeer {
@@ -31,7 +33,18 @@ export interface RemotePeer {
   screenStream: MediaStream | null;
   state: PeerState;
   connected: boolean;
+  host: boolean;
 }
+
+export interface ChatMessage {
+  key: number;
+  name: string;
+  text: string;
+  at: number;
+  self: boolean;
+}
+
+export type DeviceKind = "audioinput" | "videoinput" | "audiooutput";
 
 export interface Reaction {
   key: number;
@@ -46,7 +59,7 @@ export interface LocalState extends PeerState {
   audio: MediaStreamTrack | null;
 }
 
-export type Phase = "lobby" | "joining" | "room" | "left" | "ended";
+export type Phase = "lobby" | "joining" | "waiting" | "room" | "left" | "ended" | "kicked" | "denied";
 
 interface Signal {
   seq: number;
@@ -70,6 +83,11 @@ export function useMeet(code: string) {
   const [notice, setNotice] = useState<string | null>(null);
   const [busy, setBusy] = useState<"background" | null>(null);
   const [name, setName] = useState("");
+  const [host, setHost] = useState(false);
+  const [chat, setChat] = useState<ChatMessage[]>([]);
+  const [knocks, setKnocks] = useState<{ id: string; name: string }[]>([]);
+  const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
+  const [chosen, setChosen] = useState<Record<DeviceKind, string>>({ audioinput: "", videoinput: "", audiooutput: "" });
 
   const s = useRef({
     me: null as { id: string; key: string } | null,
@@ -85,6 +103,11 @@ export function useMeet(code: string) {
     mic: null as MediaStreamTrack | null,
     cam: null as MediaStreamTrack | null,
     screen: null as MediaStreamTrack | null,
+    // Ton des geteilten Tabs (Video, Präsentation) – eigene Spur neben dem Mikrofon
+    screenAudio: null as MediaStreamTrack | null,
+    micId: "",
+    camId: "",
+    rec: null as { recorder: MediaRecorder; stop: () => void } | null,
     fx: null as BackgroundEffect | null,
     background: "none" as BackgroundId,
     hand: false,
@@ -97,7 +120,9 @@ export function useMeet(code: string) {
 
   const api = `/api/meet/${code}`;
   const outVideo = () => s.fx?.track ?? s.cam;
-  const flags = (): PeerState => ({ mic: !!s.mic?.enabled, cam: !!s.cam, screen: !!s.screen, hand: s.hand, stt: s.stt });
+  const flags = (): PeerState => ({ mic: !!s.mic?.enabled, cam: !!s.cam, screen: !!s.screen, hand: s.hand, stt: s.stt, rec: !!s.rec });
+  const audioC = (): MediaTrackConstraints => (s.micId ? { ...AUDIO, deviceId: { exact: s.micId } } : AUDIO);
+  const videoC = (): MediaTrackConstraints => (s.camId ? { ...VIDEO, deviceId: { exact: s.camId } } : VIDEO);
 
   // ─── Signalisierung ───────────────────────────────────────────────
   const flush = useCallback(async () => {
@@ -139,7 +164,21 @@ export function useMeet(code: string) {
   // ─── Eigene Spuren ────────────────────────────────────────────────
   /** Bildspuren einer Verbindung in fester Reihenfolge: erst die Kamera, dann der Bildschirm. */
   const videoLines = (pc: RTCPeerConnection) => pc.getTransceivers().filter((t) => t.receiver.track.kind === "video");
-  const sender = (pc: RTCPeerConnection, kind: "audio" | "video") => pc.getTransceivers().find((t) => t.receiver.track.kind === kind)?.sender;
+  /** Tonspuren: erst das Mikrofon, dann der Ton des geteilten Bildschirms. */
+  const audioLines = (pc: RTCPeerConnection) => pc.getTransceivers().filter((t) => t.receiver.track.kind === "audio");
+
+  /** Mesh: jeder schickt sein Bild an jeden. Ab vier Personen wird das eigene Kamerabild kleiner, damit die Leitung reicht. */
+  const tune = () => {
+    const n = s.pcs.size;
+    for (const pc of s.pcs.values()) {
+      const cam = videoLines(pc)[0]?.sender;
+      const params = cam?.getParameters();
+      if (!cam || !params?.encodings?.length) continue;
+      params.encodings[0].maxBitrate = n <= 2 ? 1_500_000 : n <= 5 ? 600_000 : 300_000;
+      params.encodings[0].scaleResolutionDownBy = n <= 2 ? 1 : n <= 5 ? 1.5 : 2.5;
+      void cam.setParameters(params).catch(() => {});
+    }
+  };
 
   const syncVideo = useCallback(async () => {
     const video = outVideo() ?? null;
@@ -147,7 +186,11 @@ export function useMeet(code: string) {
       [...s.pcs].flatMap(([id, pc]) => {
         const [cam, screen] = videoLines(pc);
         const split = !!screen && s.modern.has(id);
-        return [cam?.sender.replaceTrack(split ? video : (s.screen ?? video)).catch(() => {}), screen?.sender.replaceTrack(split ? s.screen : null).catch(() => {})];
+        return [
+          cam?.sender.replaceTrack(split ? video : (s.screen ?? video)).catch(() => {}),
+          screen?.sender.replaceTrack(split ? s.screen : null).catch(() => {}),
+          audioLines(pc)[1]?.sender.replaceTrack(s.screenAudio).catch(() => {}),
+        ];
       }),
     );
     refresh();
@@ -155,7 +198,7 @@ export function useMeet(code: string) {
   }, [refresh, s]);
 
   const syncAudio = useCallback(async () => {
-    await Promise.all([...s.pcs.values()].map((pc) => sender(pc, "audio")?.replaceTrack(s.mic).catch(() => {})));
+    await Promise.all([...s.pcs.values()].map((pc) => audioLines(pc)[0]?.sender.replaceTrack(s.mic).catch(() => {})));
     refresh();
   }, [refresh, s]);
 
@@ -192,31 +235,33 @@ export function useMeet(code: string) {
     if (!navigator.mediaDevices?.getUserMedia) return setNotice("Dieser Browser unterstützt keine Videocalls. Bitte Chrome, Edge, Safari oder Firefox verwenden.");
     s.starting = true;
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: AUDIO, video: VIDEO });
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: audioC(), video: videoC() });
       s.mic = stream.getAudioTracks()[0] ?? null;
       s.cam = stream.getVideoTracks()[0] ?? null;
     } catch (first) {
-      const audio = await navigator.mediaDevices.getUserMedia({ audio: AUDIO }).catch(() => null);
-      const video = audio ? null : await navigator.mediaDevices.getUserMedia({ video: VIDEO }).catch(() => null);
+      const audio = await navigator.mediaDevices.getUserMedia({ audio: audioC() }).catch(() => null);
+      const video = audio ? null : await navigator.mediaDevices.getUserMedia({ video: videoC() }).catch(() => null);
       s.mic = audio?.getAudioTracks()[0] ?? null;
       s.cam = video?.getVideoTracks()[0] ?? null;
       setNotice(s.mic ? "Ohne Kamera: " + explain(first, "die Kamera") : explain(first, "Kamera und Mikrofon") + " Du kannst trotzdem beitreten und zuhören.");
     }
     s.starting = false;
     refresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- audioC/videoC lesen nur die Ref
   }, [refresh, s]);
 
   const toggleMic = useCallback(async () => {
     if (s.mic) s.mic.enabled = !s.mic.enabled;
     else {
       try {
-        s.mic = (await navigator.mediaDevices.getUserMedia({ audio: AUDIO })).getAudioTracks()[0];
+        s.mic = (await navigator.mediaDevices.getUserMedia({ audio: audioC() })).getAudioTracks()[0];
       } catch (e) {
         return setNotice(explain(e, "das Mikrofon"));
       }
       return syncAudio();
     }
     refresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- audioC/videoC lesen nur die Ref
   }, [refresh, syncAudio, s]);
 
   const toggleCam = useCallback(async () => {
@@ -225,18 +270,20 @@ export function useMeet(code: string) {
       s.cam = null;
     } else {
       try {
-        s.cam = (await navigator.mediaDevices.getUserMedia({ video: VIDEO })).getVideoTracks()[0];
+        s.cam = (await navigator.mediaDevices.getUserMedia({ video: videoC() })).getVideoTracks()[0];
       } catch (e) {
         return setNotice(explain(e, "die Kamera"));
       }
     }
     await syncEffect();
     await syncVideo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- audioC/videoC lesen nur die Ref
   }, [syncEffect, syncVideo, s]);
 
   const stopScreen = useCallback(async () => {
     s.screen?.stop();
-    s.screen = null;
+    s.screenAudio?.stop();
+    s.screen = s.screenAudio = null;
     await syncVideo();
   }, [syncVideo, s]);
 
@@ -245,14 +292,16 @@ export function useMeet(code: string) {
     if (!navigator.mediaDevices?.getDisplayMedia) return setNotice("Bildschirm teilen geht auf diesem Gerät nicht – am Computer klappt es in Chrome, Edge, Safari und Firefox.");
     try {
       // Höchstens Full HD: Retina-Auflösung frisst die Bandbreite, das Bild steht dann bei den anderen. Der eigene Tab ist ausgeblendet (sonst Spiegel-Effekt).
-      const track = (
-        await navigator.mediaDevices.getDisplayMedia({
-          video: { frameRate: { ideal: 15 }, width: { max: 1920 }, height: { max: 1080 } },
-          audio: false,
-          selfBrowserSurface: "exclude",
-          surfaceSwitching: "include",
-        } as DisplayMediaStreamOptions)
-      ).getVideoTracks()[0];
+      // Ton nur, wenn im Auswahlfenster „Audio teilen“ an ist (geht bei Tabs, unter Windows auch beim ganzen Bildschirm).
+      const stream = await navigator.mediaDevices.getDisplayMedia({
+        video: { frameRate: { ideal: 15 }, width: { max: 1920 }, height: { max: 1080 } },
+        audio: true,
+        selfBrowserSurface: "exclude",
+        surfaceSwitching: "include",
+        systemAudio: "include",
+      } as DisplayMediaStreamOptions);
+      const track = stream.getVideoTracks()[0];
+      s.screenAudio = stream.getAudioTracks()[0] ?? null;
       track.contentHint = "detail";
       // „Freigabe beenden“ in der Leiste des Browsers
       track.addEventListener("ended", () => void stopScreen());
@@ -289,6 +338,106 @@ export function useMeet(code: string) {
   );
   const caption = useCallback((text: string, forPeer?: string) => send("caption", { text, for: forPeer }), [send]);
 
+  /** Geräte auflisten (Namen gibt es erst nach der Freigabe von Kamera/Mikrofon). */
+  const listDevices = useCallback(async () => {
+    const all = (await navigator.mediaDevices?.enumerateDevices?.().catch(() => [])) ?? [];
+    setDevices(all.filter((d) => d.deviceId && d.deviceId !== "default" && d.deviceId !== "communications"));
+    setChosen((c) => ({ ...c, audioinput: s.mic?.getSettings().deviceId ?? c.audioinput, videoinput: s.cam?.getSettings().deviceId ?? c.videoinput }));
+  }, [s]);
+
+  const chooseDevice = useCallback(
+    async (kind: DeviceKind, id: string) => {
+      setChosen((c) => ({ ...c, [kind]: id }));
+      if (kind === "audiooutput") return;
+      try {
+        if (kind === "audioinput") {
+          s.micId = id;
+          if (!s.mic) return;
+          const next = (await navigator.mediaDevices.getUserMedia({ audio: audioC() })).getAudioTracks()[0];
+          next.enabled = s.mic.enabled;
+          s.mic.stop();
+          s.mic = next;
+          await syncAudio();
+        } else {
+          s.camId = id;
+          if (!s.cam) return;
+          const next = (await navigator.mediaDevices.getUserMedia({ video: videoC() })).getVideoTracks()[0];
+          s.cam.stop();
+          s.cam = next;
+          await syncEffect();
+          await syncVideo();
+        }
+      } catch (e) {
+        setNotice(explain(e, kind === "audioinput" ? "das Mikrofon" : "die Kamera"));
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [syncAudio, syncEffect, syncVideo, s],
+  );
+
+  const sendChat = useCallback(
+    (text: string) => {
+      const clean = text.trim().slice(0, 2000);
+      if (!clean) return;
+      setChat((list) => [...list, { key: ++s.reactionKey, name: s.name, text: clean, at: Date.now(), self: true }]);
+      send("chat", { text: clean, name: s.name });
+    },
+    [send, s],
+  );
+
+  // Gastgeber-Rechte – der Server prüft, ob der Absender wirklich Gastgeber ist.
+  const admit = useCallback(
+    (id: string, ok: boolean) => {
+      setKnocks((list) => list.filter((k) => k.id !== id));
+      send("admit", { id, ok });
+    },
+    [send],
+  );
+  const mutePeer = useCallback((id: string) => send("mute", { id }), [send]);
+  const kick = useCallback((id: string) => send("kick", { id }), [send]);
+  const endForAll = useCallback(() => send("end", null), [send]);
+
+  /**
+   * Aufnahme im eigenen Browser: der Tab mit dem Call wird aufgezeichnet (Bild + Ton der anderen), dazu das eigene Mikrofon.
+   * Am Ende lädt der Browser die Datei herunter – nichts liegt auf einem Server. Alle sehen „Aufnahme läuft“.
+   */
+  const toggleRecording = useCallback(async () => {
+    if (s.rec) return s.rec.stop();
+    if (!navigator.mediaDevices?.getDisplayMedia || typeof MediaRecorder === "undefined") return setNotice("Aufnehmen geht in diesem Browser nicht – am Computer in Chrome oder Edge.");
+    let capture: MediaStream;
+    try {
+      capture = await navigator.mediaDevices.getDisplayMedia({ video: { frameRate: { ideal: 24 } }, audio: true, preferCurrentTab: true, selfBrowserSurface: "include" } as DisplayMediaStreamOptions);
+    } catch {
+      return;
+    }
+    const ctx = new AudioContext();
+    const mix = ctx.createMediaStreamDestination();
+    for (const t of [...capture.getAudioTracks(), ...(s.mic ? [s.mic] : [])]) ctx.createMediaStreamSource(new MediaStream([t])).connect(mix);
+    const type = ["video/webm;codecs=vp9,opus", "video/webm", "video/mp4"].find((t) => MediaRecorder.isTypeSupported(t)) ?? "";
+    const recorder = new MediaRecorder(new MediaStream([...capture.getVideoTracks(), ...mix.stream.getAudioTracks()]), type ? { mimeType: type } : undefined);
+    const parts: Blob[] = [];
+    recorder.ondataavailable = (e) => e.data.size && parts.push(e.data);
+    recorder.onstop = () => {
+      const blob = new Blob(parts, { type: recorder.mimeType });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `meeting-${new Date().toISOString().slice(0, 16).replace(/[T:]/g, "-")}.${recorder.mimeType.includes("mp4") ? "mp4" : "webm"}`;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 60_000);
+    };
+    const stop = () => {
+      if (recorder.state !== "inactive") recorder.stop();
+      for (const t of capture.getTracks()) t.stop();
+      void ctx.close();
+      s.rec = null;
+      refresh();
+    };
+    capture.getVideoTracks()[0]?.addEventListener("ended", stop);
+    recorder.start(1000);
+    s.rec = { recorder, stop };
+    refresh();
+  }, [refresh, s]);
+
   const toggleHand = useCallback(() => {
     s.hand = !s.hand;
     refresh();
@@ -313,14 +462,16 @@ export function useMeet(code: string) {
 
   // ─── Verbindungen ─────────────────────────────────────────────────
   const patchPeer = (id: string, patch: Partial<RemotePeer>) => setPeers((list) => list.map((p) => (p.id === id ? { ...p, ...patch } : p)));
-  const addPeer = (id: string, name: string) =>
-    setPeers((list) => (list.some((p) => p.id === id) ? list : [...list, { id, name, stream: new MediaStream(), screenStream: null, state: OFF, connected: false }]));
+  const addPeer = (id: string, name: string, host = false) =>
+    setPeers((list) => (list.some((p) => p.id === id) ? list : [...list, { id, name, stream: new MediaStream(), screenStream: null, state: OFF, connected: false, host }]));
   const dropPeer = (id: string) => {
     s.pcs.get(id)?.close();
     s.pcs.delete(id);
     s.pendingIce.delete(id);
     s.modern.delete(id);
     setPeers((list) => list.filter((p) => p.id !== id));
+    setKnocks((list) => list.filter((k) => k.id !== id));
+    tune();
   };
 
   const offer = async (id: string, pc: RTCPeerConnection, iceRestart = false) => {
@@ -336,7 +487,9 @@ export function useMeet(code: string) {
       setPeers((list) =>
         list.map((p) => {
           if (p.id !== id) return p;
-          if (e.track.kind === "video" && videoLines(pc).indexOf(e.transceiver) > 0) return { ...p, screenStream: new MediaStream([e.track]) };
+          // Bildschirm (zweite Bildspur) und sein Ton (zweite Tonspur) landen zusammen im Bildschirm-Stream.
+          if ((e.track.kind === "video" ? videoLines(pc) : audioLines(pc)).indexOf(e.transceiver) > 0)
+            return { ...p, screenStream: new MediaStream([...(p.screenStream?.getTracks().filter((t) => t.kind !== e.track.kind) ?? []), e.track]) };
           // Neues Stream-Objekt, damit die Kachel neu zeichnet und die Tonanalyse die Spur sieht.
           return { ...p, stream: new MediaStream([...p.stream.getTracks().filter((t) => t !== e.track), e.track]) };
         }),
@@ -355,6 +508,7 @@ export function useMeet(code: string) {
     const split = s.modern.has(id);
     await pc.addTransceiver("video", { direction: "sendrecv" }).sender.replaceTrack((split ? null : s.screen) ?? outVideo() ?? null);
     await pc.addTransceiver("video", { direction: "sendrecv" }).sender.replaceTrack(split ? s.screen : null);
+    await pc.addTransceiver("audio", { direction: "sendrecv" }).sender.replaceTrack(s.screenAudio);
     await offer(id, pc);
   };
 
@@ -362,7 +516,7 @@ export function useMeet(code: string) {
     const pc = s.pcs.get(m.from);
     switch (m.type) {
       case "join":
-        addPeer(m.from, m.name ?? "Gast");
+        addPeer(m.from, m.name ?? "Gast", !!(m.data as { host?: boolean } | null)?.host);
         send("state", flags(), m.from);
         break;
       case "leave":
@@ -371,6 +525,33 @@ export function useMeet(code: string) {
       case "ended":
         hangUp("ended");
         break;
+      case "kicked":
+      case "denied":
+        hangUp(m.type);
+        break;
+      case "knock":
+        setKnocks((list) => (list.some((k) => k.id === m.from) ? list : [...list, { id: m.from, name: m.name ?? "Gast" }]));
+        break;
+      case "knocked":
+        setKnocks((list) => list.filter((k) => k.id !== m.from));
+        break;
+      case "admitted":
+        await meetPeers((m.data as { peers?: { id: string; name: string; host?: boolean }[] })?.peers ?? []);
+        setPhase("room");
+        break;
+      case "mute":
+        if (s.mic?.enabled) {
+          s.mic.enabled = false;
+          refresh();
+          setNotice("Der Gastgeber hat dich stummgeschaltet. Mit M oder dem Mikrofon-Knopf schaltest du dich wieder ein.");
+        }
+        break;
+      case "chat": {
+        const d = m.data as { text?: unknown; name?: unknown } | null;
+        const text = String(d?.text ?? "").slice(0, 2000);
+        if (text) setChat((list) => [...list.slice(-199), { key: ++s.reactionKey, name: String(d?.name ?? "Gast").slice(0, 40), text, at: Date.now(), self: false }]);
+        break;
+      }
       case "offer": {
         addPeer(m.from, "Gast");
         const answering = pc ?? connect(m.from, false);
@@ -379,10 +560,21 @@ export function useMeet(code: string) {
         for (const t of answering.getTransceivers()) {
           t.direction = "sendrecv";
           const split = lines.length > 1 && s.modern.has(m.from);
-          await t.sender.replaceTrack(t.receiver.track.kind === "audio" ? s.mic : lines.indexOf(t) > 0 ? (split ? s.screen : null) : ((split ? null : s.screen) ?? outVideo() ?? null));
+          await t.sender.replaceTrack(
+            t.receiver.track.kind === "audio"
+              ? audioLines(answering).indexOf(t) > 0
+                ? s.screenAudio
+                : s.mic
+              : lines.indexOf(t) > 0
+                ? split
+                  ? s.screen
+                  : null
+                : ((split ? null : s.screen) ?? outVideo() ?? null),
+          );
         }
         await answering.setLocalDescription(await answering.createAnswer());
         send("answer", answering.localDescription, m.from);
+        tune();
         for (const c of s.pendingIce.get(m.from) ?? []) await answering.addIceCandidate(c).catch(() => {});
         s.pendingIce.delete(m.from);
         break;
@@ -390,6 +582,7 @@ export function useMeet(code: string) {
       case "answer":
         if (!pc) break;
         await pc.setRemoteDescription(m.data as RTCSessionDescriptionInit);
+        tune();
         for (const c of s.pendingIce.get(m.from) ?? []) await pc.addIceCandidate(c).catch(() => {});
         s.pendingIce.delete(m.from);
         break;
@@ -417,11 +610,28 @@ export function useMeet(code: string) {
     s.modern.clear();
     s.outbox.length = 0;
     setPeers([]);
+    setKnocks([]);
   };
 
-  const enter = async (): Promise<boolean> => {
+  /** Mit allen schon Anwesenden verbinden (nach dem Beitritt oder dem Einlass aus dem Warteraum). */
+  const meetPeers = async (list: { id: string; name: string; host?: boolean }[]) => {
+    for (const p of list) addPeer(p.id, p.name, !!p.host);
+    for (const p of list) await call(p.id).catch((e) => console.error("[meet] Anruf fehlgeschlagen", e));
+    send("state", flags());
+  };
+
+  /** Beitreten: „room“ = drin, „waiting“ = im Warteraum, bis der Gastgeber einlässt. */
+  const enter = async (): Promise<"room" | "waiting" | false> => {
     const res = await fetch(`${api}/join`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ name: s.name }) });
-    const data = (await res.json().catch(() => ({}))) as { id?: string; key?: string; peers?: { id: string; name: string }[]; iceServers?: RTCIceServer[]; error?: string };
+    const data = (await res.json().catch(() => ({}))) as {
+      id?: string;
+      key?: string;
+      host?: boolean;
+      waiting?: boolean;
+      peers?: { id: string; name: string; host?: boolean }[];
+      iceServers?: RTCIceServer[];
+      error?: string;
+    };
     if (!res.ok || !data.id || !data.key) {
       setNotice(
         data.error === "full" ? "Das Meeting ist voll (12 Personen)." : data.error === "notFound" ? "Dieses Meeting wurde beendet." : "Beitreten hat nicht geklappt. Bitte versuch es noch einmal.",
@@ -432,10 +642,10 @@ export function useMeet(code: string) {
     setMeId(data.id);
     s.ice = data.iceServers ?? [];
     s.lastSeq = 0;
-    for (const p of data.peers ?? []) addPeer(p.id, p.name);
-    for (const p of data.peers ?? []) await call(p.id).catch((e) => console.error("[meet] Anruf fehlgeschlagen", e));
-    send("state", flags());
-    return true;
+    setHost(!!data.host);
+    if (data.waiting) return "waiting";
+    await meetPeers(data.peers ?? []);
+    return "room";
   };
 
   const poll = async () => {
@@ -447,7 +657,9 @@ export function useMeet(code: string) {
           // Backend neu gestartet oder wir waren zu lange weg → einmal sauber neu beitreten.
           closeAll();
           s.me = null;
-          if (res.status === 404 || !(await enter())) return hangUp("ended");
+          const again = res.status === 404 ? false : await enter();
+          if (!again) return hangUp("ended");
+          setPhase(again);
           continue;
         }
         if (!res.ok) throw new Error(String(res.status));
@@ -470,12 +682,13 @@ export function useMeet(code: string) {
     setNotice(null);
     setPhase("joining");
     s.alive = true;
-    const ok = await enter().catch(() => (setNotice("Keine Verbindung. Bitte prüf dein Internet und versuch es noch einmal."), false));
+    const ok = await enter().catch(() => (setNotice("Keine Verbindung. Bitte prüf dein Internet und versuch es noch einmal."), false as const));
     if (!ok) {
       s.alive = false;
       return setPhase("lobby");
     }
-    setPhase("room");
+    setChat([]);
+    setPhase(ok);
     void poll();
   };
 
@@ -484,15 +697,16 @@ export function useMeet(code: string) {
     s.me = null;
   };
 
-  function hangUp(next: "left" | "ended" = "left") {
+  function hangUp(next: "left" | "ended" | "kicked" | "denied" = "left") {
+    s.rec?.stop();
     s.alive = false;
     s.abort?.abort();
     goodbye();
     closeAll();
     s.fx?.stop();
     s.fx = null;
-    for (const t of [s.mic, s.cam, s.screen]) t?.stop();
-    s.mic = s.cam = s.screen = null;
+    for (const t of [s.mic, s.cam, s.screen, s.screenAudio]) t?.stop();
+    s.mic = s.cam = s.screen = s.screenAudio = null;
     s.hand = false;
     setLocal({ ...OFF, background: s.background, stream: null, screenStream: null, audio: null });
     setPhase(next);
@@ -519,5 +733,40 @@ export function useMeet(code: string) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { meId, setStt, caption, name, phase, peers, local, reactions, notice, busy, setNotice, startDevices, join, hangUp, backToLobby, toggleMic, toggleCam, toggleScreen, toggleHand, setBackground, react };
+  return {
+    meId,
+    setStt,
+    caption,
+    name,
+    phase,
+    peers,
+    local,
+    reactions,
+    notice,
+    busy,
+    setNotice,
+    startDevices,
+    join,
+    hangUp,
+    backToLobby,
+    toggleMic,
+    toggleCam,
+    toggleScreen,
+    toggleHand,
+    setBackground,
+    react,
+    host,
+    chat,
+    sendChat,
+    knocks,
+    admit,
+    mutePeer,
+    kick,
+    endForAll,
+    toggleRecording,
+    devices,
+    chosen,
+    listDevices,
+    chooseDevice,
+  };
 }

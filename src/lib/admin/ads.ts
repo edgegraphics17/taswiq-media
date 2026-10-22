@@ -80,7 +80,7 @@ async function googleAccounts(k: NonNullable<AdsKeys["ads"]>, days: number): Pro
       return {
         platform: "google" as const,
         id: cid,
-        name: info[0]?.customer?.descriptiveName || cid,
+        name: info[0]?.customer?.descriptiveName || "Google-Ads-Konto ohne Namen",
         currency: info[0]?.customer?.currencyCode ?? "EUR",
         total: total.map((r) => gMetrics(r.metrics)).reduce(add, zero()),
         prev: before.map((r) => gMetrics(r.metrics)).reduce(add, zero()),

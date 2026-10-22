@@ -894,10 +894,21 @@ const meetPush = (peer, msg) => {
   if (peer.queue.length > 400) peer.queue.shift();
   peer.wake?.();
 };
+const meetHosted = (peers) => [...peers.values()].some((p) => p.host && !p.waiting);
+const meetOthers = (peers, me) => [...peers.values()].filter((p) => p !== me && !p.waiting).map((p) => ({ id: p.id, name: p.name, host: p.host }));
+/** Wartenden einlassen: bekommt die Teilnehmerliste, die anderen ein „join“. */
+const meetAdmit = (peers, peer) => {
+  peer.waiting = false;
+  meetPush(peer, { type: "admitted", from: peer.id, data: { peers: meetOthers(peers, peer) } });
+  for (const p of peers.values()) if (p !== peer && !p.waiting) meetPush(p, { type: "join", from: peer.id, name: peer.name, data: { host: peer.host } });
+};
 const meetDrop = (code, id) => {
   const peers = meetLive.get(code);
-  if (!peers?.delete(id)) return;
+  const gone = peers?.get(id);
+  if (!gone || !peers.delete(id)) return;
   for (const p of peers.values()) meetPush(p, { type: "leave", from: id });
+  // Geht der letzte Gastgeber, kommen alle Wartenden direkt rein – sonst warten sie ewig.
+  if (gone.host && !meetHosted(peers)) for (const p of peers.values()) if (p.waiting) meetAdmit(peers, p);
   if (!peers.size) meetLive.delete(code);
 };
 // Wer sich 25 s nicht mehr meldet (Tab zu, Netz weg), fliegt aus dem Raum.
@@ -1010,21 +1021,52 @@ route("POST", "/meet/rooms/:code/join", ({ params, body }) => {
   need(name, "name");
   const peers = meetLive.get(params.code) ?? new Map();
   if (peers.size >= MEET_MAX) throw new HttpError(409, "full");
-  const peer = { id: randomBytes(6).toString("hex"), key: randomBytes(18).toString("hex"), name, seen: Date.now(), seq: 0, queue: [], wake: null };
-  const others = [...peers.values()].map((p) => ({ id: p.id, name: p.name }));
-  for (const p of peers.values()) meetPush(p, { type: "join", from: peer.id, name });
+  // host = im Dashboard angemeldet (setzt nur die Website). Ist ein Gastgeber im Call, warten Gäste, bis er sie einlässt.
+  const host = body?.host === true;
+  const peer = { id: randomBytes(6).toString("hex"), key: randomBytes(18).toString("hex"), name, host, waiting: !host && meetHosted(peers), seen: Date.now(), seq: 0, queue: [], wake: null };
   peers.set(peer.id, peer);
   meetLive.set(params.code, peers);
-  return { id: peer.id, key: peer.key, peers: others };
+  if (peer.waiting) {
+    for (const p of peers.values()) if (p.host && !p.waiting) meetPush(p, { type: "knock", from: peer.id, name });
+    return { id: peer.id, key: peer.key, host, waiting: true, peers: [] };
+  }
+  for (const p of peers.values()) if (p !== peer && !p.waiting) meetPush(p, { type: "join", from: peer.id, name, data: { host } });
+  if (host) for (const p of peers.values()) if (p.waiting) meetPush(peer, { type: "knock", from: p.id, name: p.name });
+  return { id: peer.id, key: peer.key, host, waiting: false, peers: meetOthers(peers, peer) };
 });
 
 route("POST", "/meet/rooms/:code/send", ({ params, body }) => {
   const me = meetPeer(params.code, body?.id, body?.key);
   me.seen = Date.now();
   const peers = meetLive.get(params.code);
+  if (me.waiting) return { ok: true };
   for (const m of Array.isArray(body.messages) ? body.messages.slice(0, 60) : []) {
-    // „join“, „leave“ und „ended“ vergibt nur der Server.
-    if (!m || typeof m.type !== "string" || ["join", "leave", "ended"].includes(m.type) || JSON.stringify(m).length > 60_000) continue;
+    // „join“, „leave“, „ended“, „knock“, „admitted“, „denied“ und „kicked“ vergibt nur der Server.
+    if (!m || typeof m.type !== "string" || ["join", "leave", "ended", "knock", "admitted", "denied", "kicked"].includes(m.type) || JSON.stringify(m).length > 60_000) continue;
+    // Gastgeber-Rechte: einlassen, stummschalten, entfernen, für alle beenden
+    if (["admit", "mute", "kick", "end"].includes(m.type)) {
+      if (!me.host) continue;
+      const target = peers.get(String(m.data?.id ?? m.to ?? ""));
+      if (m.type === "end") {
+        for (const p of peers.values()) meetPush(p, { type: "ended", from: me.id });
+        meetLive.delete(params.code);
+        return { ok: true };
+      }
+      if (!target || target === me) continue;
+      if (m.type === "admit" && target.waiting) {
+        if (m.data?.ok) meetAdmit(peers, target);
+        else {
+          meetPush(target, { type: "denied", from: me.id });
+          peers.delete(target.id);
+        }
+        for (const p of peers.values()) if (p.host && p !== me && !p.waiting) meetPush(p, { type: "knocked", from: target.id });
+      } else if (m.type === "mute" && !target.waiting) meetPush(target, { type: "mute", from: me.id });
+      else if (m.type === "kick") {
+        meetPush(target, { type: "kicked", from: me.id });
+        meetDrop(params.code, target.id);
+      }
+      continue;
+    }
     if (m.type === "state") me.stt = Number(m.data?.stt) || 0;
     if (m.type === "caption") {
       meetCaption(params.code, peers, me, m.data);
@@ -1034,7 +1076,7 @@ route("POST", "/meet/rooms/:code/send", ({ params, body }) => {
     if (typeof m.to === "string") {
       const target = peers.get(m.to);
       if (target) meetPush(target, out);
-    } else for (const p of peers.values()) if (p !== me) meetPush(p, out);
+    } else for (const p of peers.values()) if (p !== me && !p.waiting) meetPush(p, out);
   }
   return { ok: true };
 });

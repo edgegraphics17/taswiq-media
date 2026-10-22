@@ -478,6 +478,18 @@ export async function inviteToMeeting(formData: FormData) {
   if (!room) redirect("/admin/meetings?error=backend");
   if (!valid.success) redirect(`/admin/meetings?neu=${code}&error=adressen`);
   const note = String(formData.get("note") ?? "").trim().slice(0, 600) || null;
-  const failed = await sendMeetingInvites(valid.data, { title: room.title, url: `${site.url}/meet/${code}`, note });
+  // Optionaler Termin (Eingabe in deutscher Zeit) → Datum in der Mail und Kalendereintrag als Anhang
+  const start = berlinTime(String(formData.get("start") ?? ""));
+  const whenDe = start?.toLocaleString("de-DE", { timeZone: "Europe/Berlin", weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" }).concat(" Uhr");
+  const failed = await sendMeetingInvites(valid.data, { title: room.title, url: `${site.url}/meet/${code}`, note, start: start ?? undefined, whenDe, code });
   redirect(`/admin/meetings?neu=${code}&${failed.length ? `error=versand&n=${failed.length}` : `saved=eingeladen&n=${valid.data.length}`}`);
+}
+
+/** „2026-10-23T14:00“ aus einem datetime-local-Feld als deutsche Ortszeit lesen (Sommer- und Winterzeit). */
+function berlinTime(value: string): Date | null {
+  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(value)) return null;
+  const asUtc = new Date(`${value}:00Z`);
+  const berlin = new Date(asUtc.toLocaleString("en-US", { timeZone: "Europe/Berlin" }));
+  const utc = new Date(asUtc.toLocaleString("en-US", { timeZone: "UTC" }));
+  return new Date(asUtc.getTime() - (berlin.getTime() - utc.getTime()));
 }

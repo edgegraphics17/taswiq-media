@@ -2,12 +2,37 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
-import { Check, Hand, Link2, Loader2, MessageSquareText, Mic, MicOff, MonitorUp, PhoneOff, PictureInPicture2, Smile, Sparkles, Users, Video, VideoOff, X, type LucideIcon } from "lucide-react";
+import {
+  Check,
+  Circle,
+  Crown,
+  Ellipsis,
+  Hand,
+  Link2,
+  Loader2,
+  MessageSquare,
+  MessageSquareText,
+  Mic,
+  MicOff,
+  MonitorUp,
+  PhoneOff,
+  PictureInPicture2,
+  Send,
+  Settings2,
+  Smile,
+  Sparkles,
+  UserMinus,
+  Users,
+  Video,
+  VideoOff,
+  X,
+  type LucideIcon,
+} from "lucide-react";
 import { LogoMark } from "@/components/ui/Logo";
 import { cn } from "@/lib/format";
 import { BACKGROUNDS, REACTIONS, backgroundCss, type BackgroundId } from "@/lib/meet";
 import { useCaptions } from "./captions";
-import { SELF, useMeet, type PeerState, type Reaction } from "./useMeet";
+import { SELF, useMeet, type DeviceKind, type PeerState, type Reaction } from "./useMeet";
 
 const NAME_KEY = "taswiq-meet-name";
 const spring = { type: "spring", stiffness: 420, damping: 32 } as const;
@@ -48,8 +73,10 @@ export function MeetApp({ code, title }: { code: string; title: string }) {
         <AnimatePresence mode="wait">
           {phase === "room" ? (
             <Room key="room" meet={meet} title={title} copied={copied} onCopy={copyLink} />
-          ) : phase === "left" || phase === "ended" ? (
-            <Goodbye key="bye" ended={phase === "ended"} onBack={meet.backToLobby} />
+          ) : phase === "waiting" ? (
+            <Waiting key="waiting" title={title} onCancel={() => meet.hangUp()} />
+          ) : phase === "left" || phase === "ended" || phase === "kicked" || phase === "denied" ? (
+            <Goodbye key="bye" reason={phase} onBack={meet.backToLobby} />
           ) : (
             <Lobby key="lobby" meet={meet} title={title} copied={copied} onCopy={copyLink} />
           )}
@@ -153,6 +180,8 @@ function Tile({
   screen = false,
   pip = false,
   audio,
+  muted,
+  sinkId,
 }: {
   name: string;
   stream: MediaStream | null;
@@ -167,6 +196,10 @@ function Tile({
   /** Dieses Bild wandert ins Bild-in-Bild-Fenster, wenn man den Browser verlässt */
   pip?: boolean;
   audio: MediaStreamTrack | null | undefined;
+  /** Standard: eigene Kachel und Bildschirm stumm; ein Bildschirm mit Ton (geteilter Tab) wird abgespielt */
+  muted?: boolean;
+  /** Gewählter Lautsprecher */
+  sinkId?: string;
 }) {
   const video = useRef<HTMLVideoElement>(null);
   const speaking = useSpeaking(audio, state.mic);
@@ -178,6 +211,11 @@ function Tile({
     el.srcObject = stream;
     void el.play().catch(() => {});
   }, [stream]);
+
+  useEffect(() => {
+    const el = video.current as (HTMLVideoElement & { setSinkId?: (id: string) => Promise<void> }) | null;
+    if (sinkId && el?.setSinkId) void el.setSinkId(sinkId).catch(() => {});
+  }, [sinkId, stream]);
 
   return (
     <motion.div
@@ -197,7 +235,7 @@ function Tile({
         ref={video}
         autoPlay
         playsInline
-        muted={self || screen}
+        muted={muted ?? (self || screen)}
         data-pip={pip || undefined}
         className={cn("size-full bg-black", contain ? "object-contain" : "object-cover", self && !screen && "-scale-x-100", !showVideo && "invisible")}
       />
@@ -265,6 +303,18 @@ function Tile({
         </AnimatePresence>
       </div>
     </motion.div>
+  );
+}
+
+function MenuItem({ icon: Icon, label, onClick, danger, className }: { icon: LucideIcon; label: string; onClick: () => void; danger?: boolean; className?: string }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={cn("flex min-h-11 w-full cursor-pointer items-center gap-3 rounded-2xl px-3 text-left text-sm font-medium outline-none hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white", danger && "text-red-300", className)}
+    >
+      <Icon className="size-4.5 shrink-0" aria-hidden /> {label}
+    </button>
   );
 }
 
@@ -359,11 +409,178 @@ const CopyButton = ({ copied, onCopy, className }: { copied: boolean; onCopy: ()
   </button>
 );
 
+const DEVICE_LABELS: { kind: DeviceKind; label: string; fallback: string }[] = [
+  { kind: "audioinput", label: "Mikrofon", fallback: "Mikrofon" },
+  { kind: "audiooutput", label: "Lautsprecher", fallback: "Lautsprecher" },
+  { kind: "videoinput", label: "Kamera", fallback: "Kamera" },
+];
+
+/** Mikrofon, Lautsprecher und Kamera wählen (Headset, externe Kamera …). */
+function DeviceSettings({ meet }: { meet: Meet }) {
+  const { devices, chosen, listDevices, chooseDevice } = meet;
+  useEffect(() => {
+    void listDevices();
+    navigator.mediaDevices?.addEventListener?.("devicechange", listDevices);
+    return () => navigator.mediaDevices?.removeEventListener?.("devicechange", listDevices);
+  }, [listDevices]);
+  return (
+    <div className="grid w-[min(20rem,calc(100vw-3.5rem))] gap-3">
+      {DEVICE_LABELS.map(({ kind, label, fallback }) => {
+        const list = devices.filter((d) => d.kind === kind);
+        // Lautsprecher wählen kann nicht jeder Browser (Safari, Firefox auf dem Handy) – dann gilt der Systemlautsprecher.
+        if (kind === "audiooutput" && (!list.length || !("setSinkId" in HTMLMediaElement.prototype))) return null;
+        return (
+          <label key={kind} className="block text-sm font-semibold">
+            {label}
+            <select
+              value={chosen[kind]}
+              onChange={(e) => void chooseDevice(kind, e.target.value)}
+              disabled={!list.length}
+              className="mt-1.5 h-11 w-full cursor-pointer rounded-xl border border-white/10 bg-white/5 px-3 text-sm font-normal text-white outline-none focus:border-brand-400 [&>option]:bg-[#17171c]"
+            >
+              {!chosen[kind] && <option value="">Standard</option>}
+              {list.map((d, i) => (
+                <option key={d.deviceId} value={d.deviceId}>
+                  {d.label || `${fallback} ${i + 1}`}
+                </option>
+              ))}
+              {!list.length && <option value="">Nichts gefunden</option>}
+            </select>
+          </label>
+        );
+      })}
+    </div>
+  );
+}
+
+/** Links in Chat-Nachrichten anklickbar machen. */
+const linkify = (text: string) =>
+  text.split(/(https?:\/\/[^\s]+)/g).map((part, i) =>
+    i % 2 ? (
+      <a key={i} href={part} target="_blank" rel="noopener noreferrer nofollow" className="break-all text-brand-300 underline underline-offset-2 hover:text-brand-200">
+        {part}
+      </a>
+    ) : (
+      part
+    ),
+  );
+
+function ChatPanel({ meet }: { meet: Meet }) {
+  const [text, setText] = useState("");
+  const end = useRef<HTMLDivElement>(null);
+  useEffect(() => end.current?.scrollIntoView({ block: "end" }), [meet.chat.length]);
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    meet.sendChat(text);
+    setText("");
+  };
+  return (
+    <>
+      <div className="min-h-0 flex-1 space-y-3 overflow-y-auto px-4 py-3" aria-live="polite">
+        {meet.chat.length === 0 && <p className="pt-6 text-center text-sm text-night-muted">Noch keine Nachrichten. Nachrichten sehen alle, die gerade im Call sind.</p>}
+        {meet.chat.map((m) => (
+          <div key={m.key} className={cn("max-w-[85%]", m.self && "ml-auto text-right")}>
+            <p className="text-[11px] text-night-muted">
+              {m.self ? "Du" : m.name} · {new Date(m.at).toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" })}
+            </p>
+            <p className={cn("mt-0.5 inline-block rounded-2xl px-3 py-2 text-left text-sm break-words whitespace-pre-wrap", m.self ? "bg-brand-500" : "bg-white/10")}>{linkify(m.text)}</p>
+          </div>
+        ))}
+        <div ref={end} />
+      </div>
+      <form onSubmit={submit} className="flex gap-2 border-t border-white/10 p-3">
+        <input
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          maxLength={2000}
+          placeholder="Nachricht an alle"
+          aria-label="Nachricht an alle"
+          className="h-11 min-w-0 flex-1 rounded-full border border-white/10 bg-white/5 px-4 text-sm text-white outline-none placeholder:text-white/30 focus:border-brand-400"
+        />
+        <button type="submit" disabled={!text.trim()} aria-label="Senden" className="grid size-11 shrink-0 cursor-pointer place-items-center rounded-full bg-brand-500 outline-none hover:bg-brand-400 focus-visible:ring-2 focus-visible:ring-white disabled:opacity-40">
+          <Send className="size-4" aria-hidden />
+        </button>
+      </form>
+    </>
+  );
+}
+
+function PeoplePanel({ meet, name }: { meet: Meet; name: string }) {
+  const people = [{ id: SELF, name: `${name} (Du)`, host: meet.host, state: meet.local as PeerState }, ...meet.peers];
+  const small = "grid size-9 shrink-0 cursor-pointer place-items-center rounded-full bg-white/10 outline-none hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-white";
+  return (
+    <div className="min-h-0 flex-1 overflow-y-auto px-3 py-3">
+      {meet.host && meet.knocks.length > 0 && (
+        <div className="mb-3 rounded-2xl bg-amber-400/15 p-3">
+          <p className="px-1 text-xs font-semibold text-amber-100">Möchten rein</p>
+          {meet.knocks.map((k) => (
+            <KnockRow key={k.id} name={k.name} onAnswer={(ok) => meet.admit(k.id, ok)} />
+          ))}
+        </div>
+      )}
+      {meet.host && meet.peers.length > 0 && (
+        <button type="button" onClick={() => meet.peers.forEach((p) => p.state.mic && meet.mutePeer(p.id))} className="mb-2 flex min-h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-white/10 text-sm font-semibold hover:bg-white/20">
+          <MicOff className="size-4" aria-hidden /> Alle stummschalten
+        </button>
+      )}
+      <ul className="space-y-1">
+        {people.map((p) => (
+          <li key={p.id} className="flex items-center gap-2.5 rounded-2xl px-2 py-2 hover:bg-white/5">
+            <span className="grid size-9 shrink-0 place-items-center rounded-full bg-brand-500 text-xs font-bold">{initials(p.name)}</span>
+            <span className="min-w-0 flex-1">
+              <span className="block truncate text-sm font-medium">{p.name}</span>
+              {p.host && (
+                <span className="flex items-center gap-1 text-[11px] text-amber-200">
+                  <Crown className="size-3" aria-hidden /> Gastgeber
+                </span>
+              )}
+            </span>
+            {p.state.hand && <Hand className="size-4 text-amber-300" aria-label="meldet sich" />}
+            {p.state.mic ? <Mic className="size-4 text-night-muted" aria-label="Mikrofon an" /> : <MicOff className="size-4 text-[#e5484d]" aria-label="stumm" />}
+            {meet.host && p.id !== SELF && (
+              <>
+                {p.state.mic && (
+                  <button type="button" onClick={() => meet.mutePeer(p.id)} aria-label={`${p.name} stummschalten`} title="Stummschalten" className={small}>
+                    <MicOff className="size-4" aria-hidden />
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={() => confirm(`${p.name} aus dem Meeting entfernen?`) && meet.kick(p.id)}
+                  aria-label={`${p.name} entfernen`}
+                  title="Aus dem Meeting entfernen"
+                  className={cn(small, "hover:bg-[#e5484d]")}
+                >
+                  <UserMinus className="size-4" aria-hidden />
+                </button>
+              </>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function KnockRow({ name, onAnswer }: { name: string; onAnswer: (ok: boolean) => void }) {
+  return (
+    <div className="flex items-center gap-2 px-1 pt-2">
+      <span className="min-w-0 flex-1 truncate text-sm font-medium">{name}</span>
+      <button type="button" onClick={() => onAnswer(false)} className="min-h-9 cursor-pointer rounded-full bg-white/10 px-3 text-xs font-semibold hover:bg-white/20">
+        Ablehnen
+      </button>
+      <button type="button" onClick={() => onAnswer(true)} className="min-h-9 cursor-pointer rounded-full bg-brand-500 px-3 text-xs font-bold hover:bg-brand-400">
+        Einlassen
+      </button>
+    </div>
+  );
+}
+
 // ─── Vorschau ───────────────────────────────────────────────────────
 function Lobby({ meet, title, copied, onCopy }: { meet: Meet; title: string; copied: boolean; onCopy: () => void }) {
   const { local, phase, notice } = meet;
   const [name, setName] = useState("");
-  const [picker, setPicker] = useState(false);
+  const [picker, setPicker] = useState<"background" | "devices" | null>(null);
   const joining = phase === "joining";
 
   useEffect(() => {
@@ -398,9 +615,13 @@ function Lobby({ meet, title, copied, onCopy }: { meet: Meet; title: string; cop
             <div className="relative flex items-center gap-2 rounded-full border border-white/10 bg-[#17171c]/90 p-1.5 shadow-float backdrop-blur-xl">
               <RoundButton icon={local.mic ? Mic : MicOff} label={local.mic ? "Mikrofon ausschalten" : "Mikrofon einschalten"} tone={local.mic ? "idle" : "off"} onClick={meet.toggleMic} />
               <RoundButton icon={local.cam ? Video : VideoOff} label={local.cam ? "Kamera ausschalten" : "Kamera einschalten"} tone={local.cam ? "idle" : "off"} onClick={meet.toggleCam} />
-              <RoundButton icon={Sparkles} label="Hintergrund wählen" tone={local.background !== "none" ? "on" : "idle"} pressed={picker} onClick={() => setPicker((v) => !v)} />
-              <Popover open={picker} onClose={() => setPicker(false)} label="Hintergrund">
+              <RoundButton icon={Sparkles} label="Hintergrund wählen" tone={local.background !== "none" ? "on" : "idle"} pressed={picker === "background"} onClick={() => setPicker((v) => (v === "background" ? null : "background"))} />
+              <RoundButton icon={Settings2} label="Mikrofon, Lautsprecher und Kamera wählen" pressed={picker === "devices"} onClick={() => setPicker((v) => (v === "devices" ? null : "devices"))} />
+              <Popover open={picker === "background"} onClose={() => setPicker(null)} label="Hintergrund">
                 <BackgroundPicker value={local.background} onPick={meet.setBackground} loading={meet.busy === "background"} />
+              </Popover>
+              <Popover open={picker === "devices"} onClose={() => setPicker(null)} label="Geräte">
+                <DeviceSettings meet={meet} />
               </Popover>
             </div>
           </div>
@@ -446,7 +667,19 @@ function Lobby({ meet, title, copied, onCopy }: { meet: Meet; title: string; cop
 // ─── Call ───────────────────────────────────────────────────────────
 function Room({ meet, title, copied, onCopy }: { meet: Meet; title: string; copied: boolean; onCopy: () => void }) {
   const { peers, local, reactions, notice } = meet;
-  const [open, setOpen] = useState<"reactions" | "background" | null>(null);
+  const [open, setOpen] = useState<"reactions" | "background" | "more" | null>(null);
+  const [panel, setPanel] = useState<"chat" | "people" | "devices" | null>(null);
+  const [seen, setSeen] = useState(0);
+  const unread = panel === "chat" ? 0 : meet.chat.filter((m) => !m.self).length - seen;
+  const togglePanel = (p: "chat" | "people" | "devices") => {
+    setOpen(null);
+    setPanel((v) => (v === p ? null : p));
+  };
+  useEffect(() => {
+    if (panel === "chat") setSeen(meet.chat.filter((m) => !m.self).length);
+  }, [panel, meet.chat]);
+  const sink = meet.chosen.audiooutput || undefined;
+  const recording = !!local.rec || peers.some((p) => p.state.rec);
   const [seconds, setSeconds] = useState(0);
   const [narrow, setNarrow] = useState(false);
   const name = meet.name || "Du";
@@ -537,6 +770,12 @@ function Room({ meet, title, copied, onCopy }: { meet: Meet; title: string; copi
         <LogoMark className="h-6 shrink-0" />
         <h1 className="min-w-0 truncate text-sm font-semibold text-white sm:text-base">{title}</h1>
         <span className="num hidden rounded-full bg-white/10 px-2.5 py-1 text-xs text-night-muted tabular-nums sm:block">{clock}</span>
+        {recording && (
+          <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-[#e5484d]/20 px-2.5 py-1.5 text-xs font-semibold text-red-100" title="Der Call wird aufgenommen">
+            <Circle className="size-2.5 animate-pulse fill-[#e5484d] text-[#e5484d]" aria-hidden />
+            <span className="max-sm:sr-only">Aufnahme läuft</span>
+          </span>
+        )}
         {transcribing && (
           <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1.5 text-xs font-medium text-night-muted" title="Das Gespräch wird mitgeschrieben">
             <span className="size-1.5 animate-pulse rounded-full bg-mint-400" aria-hidden />
@@ -565,16 +804,57 @@ function Room({ meet, title, copied, onCopy }: { meet: Meet; title: string; copi
         <div className="pointer-events-none absolute inset-x-0 top-2 z-20 flex justify-center px-4">
           <AnimatePresence>{notice && <div className="pointer-events-auto max-w-lg"><Notice text={notice} onClose={() => meet.setNotice(null)} /></div>}</AnimatePresence>
         </div>
+        {meet.host && meet.knocks.length > 0 && panel !== "people" && (
+          <div className="absolute inset-x-0 top-2 z-30 flex justify-center px-4">
+            <div role="alert" className="w-full max-w-sm rounded-2xl border border-white/10 bg-[#17171c]/95 p-3 shadow-float backdrop-blur-xl">
+              <p className="px-1 text-xs font-semibold text-amber-200">{meet.knocks.length === 1 ? "Jemand möchte rein" : `${meet.knocks.length} Personen möchten rein`}</p>
+              {meet.knocks.slice(0, 3).map((k) => (
+                <KnockRow key={k.id} name={k.name} onAnswer={(ok) => meet.admit(k.id, ok)} />
+              ))}
+            </div>
+          </div>
+        )}
+        <AnimatePresence>
+          {panel && (
+            <motion.aside
+              aria-label={panel === "chat" ? "Chat" : panel === "people" ? "Teilnehmer" : "Geräte"}
+              initial={{ opacity: 0, x: 24 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 24 }}
+              transition={spring}
+              className="absolute inset-y-0 right-3 z-30 flex w-[min(22rem,calc(100%-1.5rem))] flex-col overflow-hidden rounded-3xl border border-white/10 bg-[#17171c]/95 shadow-float backdrop-blur-xl sm:right-5"
+            >
+              <div className="flex items-center justify-between border-b border-white/10 py-2 pr-2 pl-4">
+                <h2 className="text-sm font-bold">{panel === "chat" ? "Chat" : panel === "people" ? `Teilnehmer (${n})` : "Geräte"}</h2>
+                <button type="button" onClick={() => setPanel(null)} aria-label="Schließen" className="grid size-9 cursor-pointer place-items-center rounded-full hover:bg-white/10">
+                  <X className="size-4" aria-hidden />
+                </button>
+              </div>
+              {panel === "chat" ? <ChatPanel meet={meet} /> : panel === "people" ? <PeoplePanel meet={meet} name={name} /> : <div className="p-4"><DeviceSettings meet={meet} /></div>}
+            </motion.aside>
+          )}
+        </AnimatePresence>
         {sharing ? (
           <div className="flex size-full min-h-0 gap-3 max-md:flex-col">
             <div className="min-h-0 min-w-0 flex-1">
-              <Tile key={`${sharing.id}:screen`} {...sharing} stream={legacy(sharing) ? sharing.stream : sharing.screenStream} screen contain pip={pipId === `${sharing.id}:screen`} audio={null} reactions={[]} />
+              <Tile
+                key={`${sharing.id}:screen`}
+                {...sharing}
+                stream={legacy(sharing) ? sharing.stream : sharing.screenStream}
+                screen
+                contain
+                pip={pipId === `${sharing.id}:screen`}
+                audio={null}
+                reactions={[]}
+                muted={sharing.self || legacy(sharing)}
+                sinkId={sink}
+              />
             </div>
             <div className="flex shrink-0 gap-3 overflow-auto max-md:h-24 md:w-52 md:flex-col">
               <AnimatePresence>
                 {rest.map((t) => (
                   <div key={t.id} className="aspect-video shrink-0 max-md:h-full md:w-full">
-                    <Tile {...t} compact pip={pipId === t.id} reactions={mine(t.id)} />
+                    <Tile {...t} compact pip={pipId === t.id} reactions={mine(t.id)} sinkId={sink} />
                   </div>
                 ))}
               </AnimatePresence>
@@ -584,7 +864,7 @@ function Room({ meet, title, copied, onCopy }: { meet: Meet; title: string; copi
           <div className="mx-auto grid size-full min-h-0 gap-3" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`, gridAutoRows: "minmax(0, 1fr)", maxWidth: n === 1 ? "min(100%, 150dvh)" : undefined }}>
             <AnimatePresence>
               {tiles.map((t) => (
-                <Tile key={t.id} {...t} pip={pipId === t.id} reactions={mine(t.id)} />
+                <Tile key={t.id} {...t} pip={pipId === t.id} reactions={mine(t.id)} sinkId={sink} />
               ))}
             </AnimatePresence>
           </div>
@@ -606,11 +886,19 @@ function Room({ meet, title, copied, onCopy }: { meet: Meet; title: string; copi
           <RoundButton icon={local.mic ? Mic : MicOff} label={local.mic ? "Stummschalten (M)" : "Mikrofon einschalten (M)"} tone={local.mic ? "idle" : "off"} onClick={meet.toggleMic} />
           <RoundButton icon={local.cam ? Video : VideoOff} label={local.cam ? "Kamera ausschalten (V)" : "Kamera einschalten (V)"} tone={local.cam ? "idle" : "off"} onClick={meet.toggleCam} />
           <RoundButton icon={MonitorUp} label={local.screen ? "Bildschirmfreigabe beenden" : "Bildschirm teilen"} tone={local.screen ? "on" : "idle"} pressed={local.screen} onClick={meet.toggleScreen} className="max-sm:hidden" />
-          <span className="mx-0.5 h-6 w-px bg-white/10" aria-hidden />
-          <RoundButton icon={Smile} label="Reaktion senden" pressed={open === "reactions"} onClick={() => setOpen(open === "reactions" ? null : "reactions")} />
-          <RoundButton icon={Hand} label={local.hand ? "Hand senken" : "Hand heben"} tone={local.hand ? "on" : "idle"} pressed={local.hand} onClick={meet.toggleHand} />
-          <RoundButton icon={Sparkles} label="Hintergrund wählen" tone={local.background !== "none" ? "on" : "idle"} pressed={open === "background"} onClick={() => setOpen(open === "background" ? null : "background")} />
-          <span className="mx-0.5 h-6 w-px bg-white/10" aria-hidden />
+          <span className="mx-0.5 h-6 w-px bg-white/10 max-sm:hidden" aria-hidden />
+          <RoundButton icon={Smile} label="Reaktion senden" pressed={open === "reactions"} onClick={() => setOpen(open === "reactions" ? null : "reactions")} className="max-sm:hidden" />
+          <RoundButton icon={Hand} label={local.hand ? "Hand senken" : "Hand heben"} tone={local.hand ? "on" : "idle"} pressed={local.hand} onClick={meet.toggleHand} className="max-sm:hidden" />
+          <span className="relative">
+            <RoundButton icon={MessageSquare} label={unread > 0 ? `Chat (${unread} neu)` : "Chat"} tone={panel === "chat" ? "on" : "idle"} pressed={panel === "chat"} onClick={() => togglePanel("chat")} />
+            {unread > 0 && <span className="pointer-events-none absolute -top-0.5 -right-0.5 grid min-w-5 place-items-center rounded-full bg-[#e5484d] px-1 text-[11px] font-bold">{unread}</span>}
+          </span>
+          <span className="relative">
+            <RoundButton icon={Users} label="Teilnehmer" tone={panel === "people" ? "on" : "idle"} pressed={panel === "people"} onClick={() => togglePanel("people")} />
+            {meet.host && meet.knocks.length > 0 && <span className="pointer-events-none absolute -top-0.5 -right-0.5 grid min-w-5 place-items-center rounded-full bg-amber-400 px-1 text-[11px] font-bold text-black">{meet.knocks.length}</span>}
+          </span>
+          <RoundButton icon={Ellipsis} label="Weitere Optionen" pressed={open === "more"} onClick={() => setOpen(open === "more" ? null : "more")} />
+          <span className="mx-0.5 h-6 w-px bg-white/10 max-sm:hidden" aria-hidden />
           <motion.button
             type="button"
             onClick={() => meet.hangUp()}
@@ -642,6 +930,26 @@ function Room({ meet, title, copied, onCopy }: { meet: Meet; title: string; copi
               ))}
             </div>
           </Popover>
+          <Popover open={open === "more"} onClose={() => setOpen(null)} label="Weitere Optionen">
+            <div className="grid w-[min(17rem,calc(100vw-3.5rem))] gap-1">
+              <div className="flex justify-between pb-1 sm:hidden">
+                {REACTIONS.slice(0, 6).map((emoji) => (
+                  <button key={emoji} type="button" onClick={() => meet.react(emoji)} aria-label={`Reaktion ${emoji}`} className="grid size-10 cursor-pointer place-items-center rounded-full text-2xl hover:bg-white/10">
+                    {emoji}
+                  </button>
+                ))}
+              </div>
+              <MenuItem icon={Hand} label={local.hand ? "Hand senken" : "Hand heben"} onClick={() => (meet.toggleHand(), setOpen(null))} className="sm:hidden" />
+              <MenuItem icon={Sparkles} label="Hintergrund" onClick={() => setOpen("background")} />
+              <MenuItem icon={Settings2} label="Mikrofon, Lautsprecher, Kamera" onClick={() => togglePanel("devices")} />
+              {meet.host && (
+                <MenuItem icon={Circle} label={local.rec ? "Aufnahme beenden und speichern" : "Aufnahme starten"} onClick={() => (void meet.toggleRecording(), setOpen(null))} className="max-sm:hidden" />
+              )}
+              {meet.host && (
+                <MenuItem icon={PhoneOff} label="Meeting für alle beenden" danger onClick={() => confirm("Meeting für alle beenden? Alle werden aus dem Call genommen.") && meet.endForAll()} />
+              )}
+            </div>
+          </Popover>
           <Popover open={open === "background"} onClose={() => setOpen(null)} label="Hintergrund">
             <BackgroundPicker value={local.background} onPick={meet.setBackground} loading={meet.busy === "background"} />
           </Popover>
@@ -651,15 +959,41 @@ function Room({ meet, title, copied, onCopy }: { meet: Meet; title: string; copi
   );
 }
 
-function Goodbye({ ended, onBack }: { ended: boolean; onBack: () => void }) {
+function Waiting({ title, onCancel }: { title: string; onCancel: () => void }) {
+  return (
+    <motion.main initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={spring} className="grid flex-1 place-items-center px-6 text-center">
+      <div className="max-w-md" role="status">
+        <span className="mx-auto grid size-16 place-items-center rounded-3xl bg-white/10">
+          <Loader2 className="size-7 animate-spin" aria-hidden />
+        </span>
+        <p className="mt-6 text-sm font-medium text-brand-300">{title}</p>
+        <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-white">Gleich geht es los</h1>
+        <p className="mt-3 text-sm text-night-muted">Der Gastgeber weiß Bescheid und lässt dich gleich rein. Bitte lass dieses Fenster offen.</p>
+        <button type="button" onClick={onCancel} className="mt-8 inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-full bg-white/10 px-6 text-sm font-bold outline-none hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-white">
+          Abbrechen
+        </button>
+      </div>
+    </motion.main>
+  );
+}
+
+const BYE = {
+  left: ["Du hast das Meeting verlassen", "Kamera und Mikrofon sind aus. Über den Link kommst du jederzeit zurück."],
+  ended: ["Das Meeting wurde beendet", "Der Gastgeber hat den Call für alle beendet. Kamera und Mikrofon sind aus."],
+  kicked: ["Du wurdest aus dem Meeting entfernt", "Kamera und Mikrofon sind aus."],
+  denied: ["Der Gastgeber hat dich nicht eingelassen", "Kamera und Mikrofon sind aus."],
+} as const;
+
+function Goodbye({ reason, onBack }: { reason: keyof typeof BYE; onBack: () => void }) {
+  const ended = reason !== "left";
   return (
     <motion.main initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={spring} className="grid flex-1 place-items-center px-6 text-center">
       <div className="max-w-md">
         <motion.span initial={{ scale: 0, rotate: -40 }} animate={{ scale: 1, rotate: 0 }} transition={{ ...spring, delay: 0.1 }} className="mx-auto grid size-16 place-items-center rounded-3xl bg-white/10">
           <PhoneOff className="size-7" aria-hidden />
         </motion.span>
-        <h1 className="mt-6 text-3xl font-extrabold tracking-tight text-white">{ended ? "Das Meeting wurde beendet" : "Du hast das Meeting verlassen"}</h1>
-        <p className="mt-3 text-sm text-night-muted">{ended ? "Der Raum wurde geschlossen. Kamera und Mikrofon sind aus." : "Kamera und Mikrofon sind aus. Über den Link kommst du jederzeit zurück."}</p>
+        <h1 className="mt-6 text-3xl font-extrabold tracking-tight text-white">{BYE[reason][0]}</h1>
+        <p className="mt-3 text-sm text-night-muted">{BYE[reason][1]}</p>
         {!ended && (
           <button type="button" onClick={onBack} className="mt-8 inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-full bg-brand-500 px-6 text-sm font-bold shadow-brand outline-none transition-colors hover:bg-brand-400 focus-visible:ring-2 focus-visible:ring-white">
             <Video className="size-4" aria-hidden /> Wieder beitreten

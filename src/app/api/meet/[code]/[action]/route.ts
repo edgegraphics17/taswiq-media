@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { getAdminUser } from "@/lib/admin/data";
 import { BackendError, isBackendConfigured, meetPoll, meetSignal } from "@/lib/db";
 import { MEET_CODE } from "@/lib/meet";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
@@ -41,7 +42,9 @@ export async function POST(request: NextRequest, { params }: Ctx) {
   }
   if (action === "join" && !rateLimit(`meet:${clientIp(request.headers)}`, 30, 60_000)) return NextResponse.json({ error: "rateLimited" }, { status: 429 });
   // „leave“ kommt beim Schließen des Tabs per sendBeacon – der Inhalt ist trotzdem JSON.
-  const body = await request.json().catch(() => null);
+  const body = (await request.json().catch(() => null)) as Record<string, unknown> | null;
+  // Gastgeber ist, wer im Dashboard angemeldet ist – der Browser kann das nicht selbst behaupten.
+  if (action === "join" && body) body.host = !!(await getAdminUser());
   try {
     const data = await meetSignal<Record<string, unknown>>(code, action, body);
     return NextResponse.json(action === "join" ? { ...data, iceServers: iceServers() } : data);

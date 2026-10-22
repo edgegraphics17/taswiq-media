@@ -73,6 +73,8 @@ export default async function MeetingsPage({ searchParams }: { searchParams: Pro
               <input type="hidden" name="code" value={fresh.code} />
               <label htmlFor="invite-emails" className="block text-sm font-medium">Per E-Mail einladen</label>
               <textarea id="invite-emails" name="emails" required rows={2} placeholder="anna@firma.de, ben@firma.de" className="mt-1.5 w-full rounded-lg border border-night-line bg-white/5 px-3 py-2.5 text-sm text-white placeholder:text-white/30" />
+              <label htmlFor="invite-start" className="mt-3 block text-sm font-medium">Termin <span className="font-normal text-night-muted">(optional, kommt als Kalendereintrag mit)</span></label>
+              <input id="invite-start" name="start" type="datetime-local" className="mt-1.5 h-11 w-full rounded-lg border border-night-line bg-white/5 px-3 text-sm text-white [color-scheme:dark]" />
               <label htmlFor="invite-note" className="mt-3 block text-sm font-medium">Nachricht <span className="font-normal text-night-muted">(optional)</span></label>
               <input id="invite-note" name="note" maxLength={600} placeholder="z. B. Wir starten um 14 Uhr." className="mt-1.5 h-11 w-full rounded-lg border border-night-line bg-white/5 px-3 text-sm text-white placeholder:text-white/30" />
               <button type="submit" className="mt-4 inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-full bg-white px-5 text-sm font-bold text-ink transition-colors hover:bg-brand-100">

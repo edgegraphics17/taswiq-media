@@ -47,6 +47,8 @@ interface Mail {
   template: string;
   variables: Record<string, string>;
   replyTo: string;
+  /** Anhänge, Inhalt Base64 (z. B. Kalendereintrag .ics) */
+  attachments?: { filename: string; content: string; content_type?: string }[];
 }
 
 const post = (mail: Mail, content: Record<string, unknown>) =>
@@ -59,6 +61,7 @@ const post = (mail: Mail, content: Record<string, unknown>) =>
       subject: mail.subject,
       reply_to: mail.replyTo,
       tags: [{ name: "kind", value: mail.kind }, ...(mail.leadId ? [{ name: "lead_id", value: mail.leadId }] : [])],
+      ...(mail.attachments?.length ? { attachments: mail.attachments } : {}),
       ...content,
     }),
     signal: AbortSignal.timeout(4_000),
@@ -209,9 +212,38 @@ export async function sendBookingMails(b: { name: string; email: string; phone: 
  * Einladung zu einem Videocall (Dashboard → Meetings): je Adresse eine eigene Mail mit dem Link zum Raum.
  * Gibt die Adressen zurück, bei denen der Versand nicht geklappt hat.
  */
-export async function sendMeetingInvites(to: string[], meeting: { title: string; url: string; note: string | null }): Promise<string[]> {
+/** Kalendereintrag für die Einladung – Outlook, Apple und Google übernehmen ihn mit einem Klick. */
+export function meetingIcs(m: { title: string; url: string; start: Date; minutes: number; uid: string }) {
+  const stamp = (d: Date) => d.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+  const text = (v: string) => v.replace(/[\\;,]/g, (c) => `\\${c}`).replace(/\n/g, "\\n");
+  return [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//TasWiq Media//Meet//DE",
+    "METHOD:PUBLISH",
+    "BEGIN:VEVENT",
+    `UID:${m.uid}@taswiq-media.de`,
+    `DTSTAMP:${stamp(new Date())}`,
+    `DTSTART:${stamp(m.start)}`,
+    `DTEND:${stamp(new Date(m.start.getTime() + m.minutes * 60_000))}`,
+    `SUMMARY:${text(m.title)}`,
+    `DESCRIPTION:${text(`Videocall im Browser: ${m.url}`)}`,
+    `LOCATION:${text(m.url)}`,
+    `URL:${m.url}`,
+    "BEGIN:VALARM",
+    "TRIGGER:-PT10M",
+    "ACTION:DISPLAY",
+    `DESCRIPTION:${text(m.title)}`,
+    "END:VALARM",
+    "END:VEVENT",
+    "END:VCALENDAR",
+  ].join("\r\n");
+}
+
+export async function sendMeetingInvites(to: string[], meeting: { title: string; url: string; note: string | null; start?: Date; whenDe?: string; code?: string }): Promise<string[]> {
   if (!isMailConfigured()) return to;
-  const subject = `Einladung zum Videocall: ${meeting.title}`;
+  const subject = `Einladung zum Videocall: ${meeting.title}${meeting.whenDe ? ` – ${meeting.whenDe}` : ""}`;
+  const ics = meeting.start ? Buffer.from(meetingIcs({ title: meeting.title, url: meeting.url, start: meeting.start, minutes: 60, uid: `${meeting.code}-${meeting.start.getTime()}` })).toString("base64") : null;
   const results = await Promise.all(
     to.map((address) =>
       send({
@@ -224,13 +256,14 @@ export async function sendMeetingInvites(to: string[], meeting: { title: string;
           BETREFF: esc(subject),
           UEBERSCHRIFT: esc(meeting.title),
           INHALT_HTML: paragraphs(
-            `du bist zu einem Videocall mit TasWiq Media eingeladen.${meeting.note ? `\n\n${meeting.note}` : ""}\n\nDer Call läuft direkt im Browser – ohne Programm und ohne Konto. Einfach auf den Button klicken, Namen eintragen und beitreten.\n\nFalls der Button nicht funktioniert: ${meeting.url}`,
+            `du bist zu einem Videocall mit TasWiq Media eingeladen${meeting.whenDe ? `: ${meeting.whenDe}. Den Termin kannst du über den Anhang direkt in deinen Kalender übernehmen.` : "."}${meeting.note ? `\n\n${meeting.note}` : ""}\n\nDer Call läuft direkt im Browser – ohne Programm und ohne Konto. Einfach auf den Button klicken, Namen eintragen und beitreten.\n\nFalls der Button nicht funktioniert: ${meeting.url}`,
           ),
           CTA_LABEL: "Zum Videocall",
           CTA_URL: meeting.url,
           GRUSS: "Viele Grüße",
         },
         replyTo: env.leadNotifyTo[0] ?? site.email,
+        ...(ics ? { attachments: [{ filename: "termin.ics", content: ics, content_type: "text/calendar" }] } : {}),
       }),
     ),
   );
