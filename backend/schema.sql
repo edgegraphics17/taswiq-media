@@ -221,3 +221,10 @@ create table if not exists meet_lines (
   at             text not null
 );
 create index if not exists meet_lines_transcript_idx on meet_lines (transcript_id, id);
+
+-- SEO-Modul (Dashboard): betreute Domains mit gespeicherten Prüfungen (Seiten-Check, PageSpeed) und Zuordnung zu Search Console / GA4.
+create table if not exists seo_domains (
+  domain      text primary key,
+  created_at  text not null,
+  data        text not null default '{}'
+);

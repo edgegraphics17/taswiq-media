@@ -348,3 +348,24 @@ export function openEventStream(signal: AbortSignal): Promise<Response> {
 }
 
 export { isBackendConfigured };
+
+// ─── SEO-Modul ──────────────────────────────────────────────────────
+export function listSeoDomains<T>(): Promise<{ domain: string; created_at: string; data: T }[]> {
+  return call("/seo/domains");
+}
+
+export async function saveSeoDomain(domain: string, data: Record<string, unknown>): Promise<void> {
+  await call(`/seo/domains/${domain}`, { method: "PUT", body: data });
+}
+
+export async function deleteSeoDomain(domain: string): Promise<void> {
+  await call(`/seo/domains/${domain}`, { method: "DELETE" });
+}
+
+export function getSeoGoogle<T>(): Promise<T> {
+  return call<T>("/seo/google");
+}
+
+export async function saveSeoGoogle(data: Record<string, unknown>): Promise<void> {
+  await call("/seo/google", { method: "PUT", body: data });
+}

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BarChart3, Calculator, CalendarDays, CircleCheckBig, Inbox, ListChecks, Network, Tags, UsersRound, Video, type LucideIcon } from "lucide-react";
+import { BarChart3, Search, Calculator, CalendarDays, CircleCheckBig, Inbox, ListChecks, Network, Tags, UsersRound, Video, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/format";
 
 interface Item {
@@ -26,6 +26,7 @@ export function AdminNav({ newLeads, openTasks, waiting, upcoming = 0 }: { newLe
         { href: "/admin/kalender", label: "Kalender", icon: CalendarDays, badge: upcoming },
         { href: "/admin/analytics", label: "Analytics", icon: BarChart3 },
         { href: "/admin/struktur", label: "Seitenstruktur", icon: Network },
+        { href: "/admin/seo", label: "SEO", icon: Search },
         { href: "/admin/rechner", label: "Kalkulationen", icon: Calculator },
         { href: "/admin/preise", label: "Preise", icon: Tags },
       ],

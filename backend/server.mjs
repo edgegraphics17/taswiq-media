@@ -522,7 +522,7 @@ route("DELETE", "/tasks/:id", ({ params }) => {
 // Abteilungen sind Claude-Sitzungen auf Karims Rechner. Sie holen Arbeit ausschließlich über diese Endpunkte ab –
 // Hauptschalter, Tageslimit und „immer nur eine Abteilung gleichzeitig“ werden deshalb hier durchgesetzt, nicht im Prompt.
 const SETTING_DEFAULTS = { team_active: "0", autonomy: "freigabe", max_tasks_per_day: "3" };
-const settings = () => ({ ...SETTING_DEFAULTS, ...Object.fromEntries(db.prepare("select key, value from settings where key != 'booking'").all().map((r) => [r.key, r.value])) });
+const settings = () => ({ ...SETTING_DEFAULTS, ...Object.fromEntries(db.prepare("select key, value from settings where key not in ('booking', 'seo_google')").all().map((r) => [r.key, r.value])) });
 const logEvent = (agent, kind, text, taskId = null) => {
   db.prepare("insert into agent_events (agent, kind, task_id, text, created_at) values (?, ?, ?, ?, ?)").run(agent, kind, taskId, String(text).trim().slice(0, 1000), now());
   broadcast("team", agent);
@@ -760,6 +760,37 @@ route("GET", "/site-scans", ({ query }) => {
   const limit = Math.min(60, Math.max(1, Number(query.get("limit")) || 14));
   return db.prepare("select day, locale, created_at, data from site_scans where locale = ? order by day desc limit ?").all(query.get("locale") === "en" ? "en" : "de", limit)
     .map((r) => ({ ...r, data: JSON.parse(r.data) }));
+});
+
+// ─── SEO-Modul: Domains + gespeicherte Prüfungen; Google-Zugang (OAuth-Client + Refresh-Token) in settings.seo_google ───
+const seoDomain = (v) => {
+  need(typeof v === "string" && /^[a-z0-9.-]{3,100}$/.test(v) && v.includes("."), "domain");
+  return v;
+};
+const seoRows = () => db.prepare("select domain, created_at, data from seo_domains order by domain").all().map((r) => ({ ...r, data: JSON.parse(r.data) }));
+route("GET", "/seo/domains", seoRows);
+/** Legt an oder ergänzt: die mitgegebenen Felder werden in `data` übernommen, der Rest bleibt. */
+route("PUT", "/seo/domains/:domain", ({ params, body }) => {
+  const domain = seoDomain(params.domain);
+  need(body && typeof body === "object" && !Array.isArray(body), "data");
+  const old = db.prepare("select data from seo_domains where domain = ?").get(domain);
+  const data = JSON.stringify({ ...(old ? JSON.parse(old.data) : {}), ...body });
+  need(data.length <= 400_000, "tooLarge");
+  db.prepare("insert into seo_domains (domain, created_at, data) values (?, ?, ?) on conflict (domain) do update set data = excluded.data").run(domain, now(), data);
+  return { ok: true };
+});
+route("DELETE", "/seo/domains/:domain", ({ params }) => {
+  db.prepare("delete from seo_domains where domain = ?").run(seoDomain(params.domain));
+  return { ok: true };
+});
+const seoGoogle = () => JSON.parse(db.prepare("select value from settings where key = 'seo_google'").get()?.value ?? "{}");
+route("GET", "/seo/google", seoGoogle);
+route("PUT", "/seo/google", ({ body }) => {
+  need(body && typeof body === "object" && !Array.isArray(body), "google");
+  const value = JSON.stringify({ ...seoGoogle(), ...body });
+  need(value.length <= 10_000, "tooLarge");
+  db.prepare("insert into settings (key, value) values ('seo_google', ?) on conflict (key) do update set value = excluded.value").run(value);
+  return { ok: true };
 });
 
 // ─── Kalender: Gesprächstermine und gesperrte Zeiten ────────────────
